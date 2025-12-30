@@ -1,0 +1,114 @@
+/* =========================
+   SIDEBAR CARD
+========================= */
+
+.sidebar {
+  width: 250px;
+  height: 100%;
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+
+  color: #e5e7eb;
+
+  background: linear-gradient(180deg, #1e3a8a, #1e40af);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.35);
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.sidebar-header {
+  padding: 20px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.sidebar-title {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.change-school {
+  width: 100%;
+  background: none;
+  border: none;
+
+  color: #bfdbfe;
+  font-size: 12px;
+
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.change-school:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* =========================
+   NAV
+========================= */
+
+.sidebar-nav {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+}
+
+/* =========================
+   ITEMS
+========================= */
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 10px 14px;
+  border-radius: 12px;
+
+  color: #e5e7eb;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.sidebar-item.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ICONOS */
+.sidebar-icon {
+  display: flex;
+  align-items: center;
+  color: inherit;
+}
+
+/* =========================
+   SCROLLBAR (SUAVE)
+========================= */
+
+.sidebar-nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}

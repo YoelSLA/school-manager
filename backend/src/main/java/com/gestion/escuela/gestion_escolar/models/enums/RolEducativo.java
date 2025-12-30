@@ -1,0 +1,15 @@
+package com.gestion.escuela.gestion_escolar.models.enums;
+
+public enum RolEducativo {
+  DIRECCION,
+  VICEDIRECCION,
+  SECRETARIA,
+  ORIENTACION_EDUCACIONAL,
+  ORIENTACION_SOCIAL,
+  PRECEPTORIA,
+  DOCENTE,
+  CAMBIO_DE_FUNCION,
+  AUXILIAR,
+  SIN_CARGO,
+  ENCARGO_DE_MEDIO_DE_APOYO_TECNICO_PROFESIONAL
+}
