@@ -1,0 +1,139 @@
+/* ===== CARD ===== */
+.escuela-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 22px;
+  min-height: 210px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.08);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.escuela-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 16px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== HEADER ===== */
+.escuela-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.escuela-card-header h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.25;
+}
+
+/* ===== BADGE ===== */
+.badge {
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* ===== BODY ===== */
+.escuela-card-body {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  font-size: 13px;
+  color: #475569;
+}
+
+.escuela-card-body p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.escuela-card-body strong {
+  color: #0f172a;
+  font-weight: 500;
+}
+
+/* ===== FOOTER ===== */
+.escuela-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 18px;
+}
+
+/* ===== BOTÓN ENTRAR ===== */
+.btn-entrar {
+  background: #16a34a;
+  color: #ffffff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 999px;
+
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.1s ease;
+}
+
+.btn-entrar:hover {
+  background: #15803d;
+}
+
+.btn-entrar:active {
+  transform: scale(0.96);
+}
+
+/* ===== ICON ACTIONS ===== */
+.icon-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-icon {
+  background: #f1f5f9;
+  border: none;
+  border-radius: 8px;
+  padding: 6px;
+  font-size: 14px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-icon:hover {
+  background: #e2e8f0;
+}
+
+.btn-icon:active {
+  transform: scale(0.95);
+}
+
+/* ===== DELETE (DANGER) ===== */
+.btn-icon.danger:hover {
+  background: #fee2e2;
+}

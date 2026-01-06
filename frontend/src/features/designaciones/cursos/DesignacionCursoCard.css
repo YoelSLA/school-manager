@@ -1,0 +1,132 @@
+.designacion-card {
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* HEADER */
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* SECCIONES */
+
+.card-section {
+  display: flex;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 2px solid #e5e7eb;
+}
+
+/* PERSONA */
+
+.persona-section {
+  min-height: 56px;
+  align-items: center;
+}
+
+.docente-nombre {
+  font-weight: 600;
+}
+
+.docente-cuil {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.vacante {
+  font-size: 14px;
+  color: #b91c1c;
+}
+
+/* HORARIOS */
+
+.horarios-section {
+  min-height: 96px;
+}
+
+.horarios-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.horarios-table th {
+  text-align: left;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.horarios-table td {
+  padding: 4px 0;
+}
+
+/* FOOTER */
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 2px solid #e5e7eb;
+}
+
+.cupof {
+  font-weight: 700;
+}
+
+.situacion {
+  margin-left: auto;
+  background: #dcfce7;
+  color: #166534;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ICONOS */
+
+.icon {
+  font-size: 16px;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ver-detalle-btn {
+  background: transparent;
+  border: 1px solid #cbd5f5;
+  color: #2563eb;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.ver-detalle-btn:hover {
+  background: #eef2ff;
+}
+
+.clickable {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}

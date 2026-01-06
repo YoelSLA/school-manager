@@ -1,0 +1,86 @@
+.modal-overlay-top {
+  z-index: 1100;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.modal-content-small {
+  max-width: 520px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field label {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.field input,
+.field select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 0.85rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* ===== AUTOCOMPLETE ===== */
+
+.options {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.option {
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.option:hover {
+  background: #f4f5ff;
+}
+
+/* ===== ACTIONS ===== */
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.btn-primary {
+  background: #3f3cff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background: none;
+  border: none;
+  font-size: 0.8rem;
+  color: #555;
+  cursor: pointer;
+}

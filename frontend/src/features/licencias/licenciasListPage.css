@@ -1,0 +1,17 @@
+/* =========================
+   LICENCIAS LISTADO PAGE
+========================= */
+
+.licencias-page {
+  padding: 20px;
+  min-height: 100%;
+  background: #f1f5f9; /* un poquito más oscuro */
+}
+
+
+.licencias-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 12px;
+
+}

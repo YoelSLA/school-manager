@@ -1,0 +1,109 @@
+.hub {
+  padding: 16px;
+}
+
+.hub-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.hub-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 32px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hub-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12);
+}
+
+.hub-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #e0e7ff;
+  color: #1e40af;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.hub-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.hub-card p {
+  font-size: 14px;
+  color: #64748b;
+}
+
+@media (max-width: 900px) {
+  .hub-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   DEFAULT (lo que ya tenías)
+========================= */
+
+.hub.default .hub-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+/* =========================
+   DECISION HUB (cards grandes)
+========================= */
+
+.hub.decision .hub-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  max-width: 900px;
+  margin: 48px auto;
+}
+
+.hub.decision .hub-card {
+  padding: 48px;
+  min-height: 160px;
+
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.hub.decision .hub-icon {
+  width: 64px;
+  height: 64px;
+  font-size: 28px;
+}
+
+.hub.decision h3 {
+  font-size: 22px;
+}
+
+.hub.decision p {
+  font-size: 15px;
+  max-width: 520px;
+}
+
+/* Texto separado del icono */
+.hub-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}

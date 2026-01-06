@@ -1,0 +1,64 @@
+/* =========================
+   PAGE: LISTAR DESIGNACIONES POR CURSO
+========================= */
+
+.designaciones-cursos-page {
+  padding: 24px 32px;
+  min-height: 100%;
+}
+
+/* HEADER */
+
+.designaciones-cursos-page .page-header {
+  margin-bottom: 24px;
+}
+
+.designaciones-cursos-page .page-header h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.designaciones-cursos-page .page-header p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* GRID DE CARDS */
+
+.designaciones-cursos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+/* EMPTY STATE (por si no hay datos) */
+
+.designaciones-cursos-empty {
+  margin-top: 32px;
+  padding: 32px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.designaciones-cursos-empty p {
+  margin: 0;
+  font-size: 15px;
+  color: #475569;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .designaciones-cursos-page {
+    padding: 16px;
+  }
+
+  .designaciones-cursos-grid {
+    grid-template-columns: 1fr;
+  }
+}

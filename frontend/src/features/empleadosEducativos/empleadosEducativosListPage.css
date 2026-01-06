@@ -1,0 +1,151 @@
+/* =====================
+   PAGE
+===================== */
+
+.equipo-page {
+  width: 100%;
+}
+
+/* =====================
+   HEADER
+===================== */
+
+.equipo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.equipo-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.equipo-header-left h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* =====================
+   BUSCADOR
+===================== */
+
+.equipo-search {
+  height: 36px;
+  min-width: 240px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
+}
+
+.equipo-search:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* =====================
+   FILTRO
+===================== */
+
+.equipo-filter {
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
+  background: #ffffff;
+}
+
+/* =====================
+   ACTIONS
+===================== */
+
+.equipo-header-right {
+  display: flex;
+  align-items: center;
+}
+
+.btn-refresh {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  min-width: 150px;
+  height: 40px;
+
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 0 16px;
+
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-refresh:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-refresh:active {
+  transform: scale(0.97);
+}
+
+.btn-refresh:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =====================
+   GRID
+===================== */
+
+.equipo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+/* =====================
+   STATES
+===================== */
+
+.equipo-loading,
+.equipo-empty {
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin-top: 40px;
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+
+@media (max-width: 768px) {
+  .equipo-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .equipo-header-left {
+    flex-wrap: wrap;
+  }
+
+  .equipo-header-right {
+    justify-content: flex-end;
+  }
+
+  .btn-refresh {
+    width: 100%;
+  }
+}
