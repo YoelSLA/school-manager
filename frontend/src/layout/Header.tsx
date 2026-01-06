@@ -1,16 +1,32 @@
-import { Link, useLocation } from "react-router-dom";
-import { routeTitles } from "../router/routerTitles";
+import { routeTitles } from "@/router/routerTitles";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./header.css";
 
 const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const crumbs = routeTitles[location.pathname];
+
+  // 👉 destino del botón volver (crumb anterior)
+  const backTarget =
+    crumbs && crumbs.length > 1 ? crumbs[crumbs.length - 2].to : null;
 
   return (
     <header className="header">
       <div className="header-left">
         {crumbs ? (
           <nav className="breadcrumb">
+            {/* BOTÓN VOLVER */}
+            {backTarget && (
+              <button
+                className="breadcrumb-back"
+                onClick={() => navigate(backTarget)}
+                aria-label="Volver"
+              >
+                ←
+              </button>
+            )}
+
             {crumbs.map((crumb, index) => {
               const isLast = index === crumbs.length - 1;
 
@@ -21,14 +37,10 @@ const Header = () => {
                       {crumb.label}
                     </Link>
                   ) : (
-                    <span className="breadcrumb-current">
-                      {crumb.label}
-                    </span>
+                    <span className="breadcrumb-current">{crumb.label}</span>
                   )}
 
-                  {!isLast && (
-                    <span className="breadcrumb-separator">/</span>
-                  )}
+                  {!isLast && <span className="breadcrumb-separator">/</span>}
                 </span>
               );
             })}

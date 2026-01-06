@@ -5,12 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(
-		name = "materias",
-		uniqueConstraints = {
-				@UniqueConstraint(columnNames = {"escuela_id", "nombre"})
-		}
-)
+@Table(name = "materias", uniqueConstraints = {@UniqueConstraint(columnNames = {"escuela_id", "nombre"})})
 @Getter
 @Setter
 public class Materia {
@@ -32,21 +27,13 @@ public class Materia {
 	@JoinColumn(name = "escuela_id")
 	private Escuela escuela;
 
-	protected Materia() {
-		// JPA
+	public Materia() {
 	}
 
-	public Materia(
-			String nombre,
-			String abreviatura,
-			Integer cantidadModulos,
-			Escuela escuela
-	) {
+	public Materia(String nombre, String abreviatura, Integer cantidadModulos, Escuela escuela) {
 		this.nombre = nombre;
 		this.abreviatura = abreviatura;
 		this.cantidadModulos = cantidadModulos;
 		this.escuela = escuela;
 	}
-
-	// getters
 }

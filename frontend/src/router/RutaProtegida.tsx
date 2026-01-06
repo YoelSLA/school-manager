@@ -6,9 +6,9 @@ type Props = {
 };
 
 export default function RutaProtegida({ children }: Props) {
-  const { escuela } = useEscuela();
+  const { escuelaActiva } = useEscuela(); // ✅ nombre correcto
 
-  if (!escuela) {
+  if (!escuelaActiva) {
     return <Navigate to="/seleccionar-escuela" replace />;
   }
 

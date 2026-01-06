@@ -1,31 +1,36 @@
-import { createContext, useContext, useState } from "react";
+import { Escuela } from "@/utils/types";
+import { createContext, ReactNode, useContext, useState } from "react";
 
-interface Escuela {
-  id: string;
-  nombre: string;
-}
+type EscuelaContextType = {
+  escuelaActiva: Escuela | null;
+  setEscuelaActiva: (escuela: Escuela) => void;
+  limpiarEscuela: () => void;
+};
 
-interface EscuelaContextType {
-  escuela: Escuela | null;
-  setEscuela: (escuela: Escuela) => void;
-  clearEscuela: () => void;
-}
+const EscuelaContext = createContext<EscuelaContextType | undefined>(undefined);
 
-const EscuelaContext = createContext<EscuelaContextType | null>(null);
+export function EscuelaProvider({ children }: { children: ReactNode }) {
+  const [escuelaActiva, setEscuelaActivaState] = useState<Escuela | null>(
+    () => {
+      const guardada = localStorage.getItem("escuelaActiva");
+      return guardada ? JSON.parse(guardada) : null;
+    }
+  );
 
-export function EscuelaProvider({ children }: { children: React.ReactNode }) {
-  const [escuela, setEscuelaState] = useState<Escuela | null>(null);
-
-  const setEscuela = (escuela: Escuela) => {
-    setEscuelaState(escuela);
+  const setEscuelaActiva = (escuela: Escuela) => {
+    setEscuelaActivaState(escuela);
+    localStorage.setItem("escuelaActiva", JSON.stringify(escuela));
   };
 
-  const clearEscuela = () => {
-    setEscuelaState(null);
+  const limpiarEscuela = () => {
+    setEscuelaActivaState(null);
+    localStorage.removeItem("escuelaActiva");
   };
 
   return (
-    <EscuelaContext.Provider value={{ escuela, setEscuela, clearEscuela }}>
+    <EscuelaContext.Provider
+      value={{ escuelaActiva, setEscuelaActiva, limpiarEscuela }}
+    >
       {children}
     </EscuelaContext.Provider>
   );

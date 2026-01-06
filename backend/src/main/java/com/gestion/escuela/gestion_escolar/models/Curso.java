@@ -2,19 +2,10 @@ package com.gestion.escuela.gestion_escolar.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 
 @Entity
-@Table(
-		name = "curso",
-		uniqueConstraints = {
-				@UniqueConstraint(
-						columnNames = {"escuela_id", "anio", "grado"}
-				)
-		}
-)
+@Table(name = "cursos", uniqueConstraints = {@UniqueConstraint(columnNames = {"escuela_id", "anio", "grado"})})
 @Getter
-@Setter
 public class Curso {
 
 	@Id
@@ -30,5 +21,18 @@ public class Curso {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "escuela_id", nullable = false)
 	private Escuela escuela;
+
+	public Curso() {
+	}
+
+	public Curso(Integer anio, Integer grado, Escuela escuela) {
+		this.anio = anio;
+		this.grado = grado;
+		this.escuela = escuela;
+	}
+
+	public String anioDivision() {
+		return anio + "° " + grado;
+	}
 }
 

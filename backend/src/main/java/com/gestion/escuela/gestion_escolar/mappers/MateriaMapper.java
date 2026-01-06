@@ -1,16 +1,29 @@
 package com.gestion.escuela.gestion_escolar.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.response.MateriaResponseDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.MateriaCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.MateriaResponseDTO;
+import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.Materia;
 
-public final class MateriaMapper {
+public class MateriaMapper {
 
-	public static MateriaResponseDTO toResponse(Materia materia) {
-		MateriaResponseDTO dto = new MateriaResponseDTO();
-		dto.setId(materia.getId());
-		dto.setNombre(materia.getNombre());
-		dto.setAbreviatura(materia.getAbreviatura());
-		dto.setCantidadModulos(materia.getCantidadModulos());
-		return dto;
+	public static Materia toEntity(MateriaCreateDTO d, Escuela e) {
+		return new Materia(
+				d.nombre(),
+				d.abreviatura(),
+				d.cantidadModulos(),
+				e
+		);
 	}
+
+	public static MateriaResponseDTO toResponse(Materia m) {
+		return new MateriaResponseDTO(
+				m.getId(),
+				m.getNombre(),
+				m.getAbreviatura(),
+				m.getCantidadModulos()
+		);
+	}
+
+
 }
