@@ -1,25 +1,19 @@
-package com.gestion.escuela.gestion_escolar.controllers.dtos.licencias;
+package com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones;
 
 import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.EmpleadoEducativoMinimoDTO;
+import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista;
 
 import java.time.LocalDate;
 
-public record LicenciaResponseDTO(
+public record AsignacionDetalleDetalleDTO(
 		Long id,
-		Long designacionId,
 		EmpleadoEducativoMinimoDTO empleado,
-		LocalDate fechaDesde,
-		LocalDate fechaHasta,
-		boolean activa,
-		boolean cubierta,
-		Integer cupof,
+		LocalDate fechaTomaPosesion,
+		LocalDate fechaCese,
 		SituacionDeRevista situacionDeRevista,
-		String codigo,
-		String articulo,
-		String descripcion
+		LocalDate fechaBaja,
+		CausaBaja causaBaja,
+		boolean estaDisponible
 ) {
 }
-
-
-

@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class EscuelaResponseDTO {
+public class EscuelaResumenDTO {
 
 	private Long id;
 	private String nombre;
