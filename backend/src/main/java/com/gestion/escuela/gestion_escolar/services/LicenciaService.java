@@ -1,14 +1,17 @@
 package com.gestion.escuela.gestion_escolar.services;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaResponseDTO;
-import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
+import com.gestion.escuela.gestion_escolar.models.Escuela;
+import com.gestion.escuela.gestion_escolar.models.Licencia;
+import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 
 import java.util.List;
 
 public interface LicenciaService {
 
-	List<LicenciaResponseDTO> listarPorDesignacion(Designacion designacion);
+	Licencia obtenerPorId(Long id);
 
-	List<LicenciaResponseDTO> listarTodas();
+	List<Licencia> buscarPorEscuela(Escuela escuela);
+
+	List<Asignacion> obtenerAsignacionesAfectadas(Long licenciaId);
 }
 

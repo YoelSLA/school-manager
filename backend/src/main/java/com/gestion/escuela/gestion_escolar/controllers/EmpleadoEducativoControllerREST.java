@@ -1,10 +1,18 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaDetalleDTO;
+import com.gestion.escuela.gestion_escolar.mappers.AsignacionMapper;
+import com.gestion.escuela.gestion_escolar.mappers.LicenciaMapper;
+import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.services.EmpleadoEducativoService;
-import com.gestion.escuela.gestion_escolar.services.EscuelaService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/empleadosEducativos")
@@ -12,7 +20,35 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmpleadoEducativoControllerREST {
 
 	private final EmpleadoEducativoService empleadoEducativoService;
-	private final EscuelaService escuelaService;
+
+	@PostMapping("/{empleadoId}/licencias")
+	@ResponseStatus(HttpStatus.CREATED)
+	public LicenciaDetalleDTO crearLicencia(
+			@PathVariable Long empleadoId,
+			@Valid @RequestBody LicenciaCreateDTO request
+	) {
+		Licencia licencia = empleadoEducativoService.crearLicencia(
+				empleadoId,
+				request.tipoLicencia(),
+				request.fechaDesde(),
+				request.fechaHasta(),
+				request.descripcion()
+		);
+
+		return LicenciaMapper.toDetalle(licencia);
+	}
+
+	@GetMapping("/{empleadoId}/asignaciones-activas")
+	public List<AsignacionDetalleDTO> obtenerAsignacionesActivas(
+			@PathVariable Long empleadoId
+	) {
+		return empleadoEducativoService
+				.obtenerAsignacionesActivas(empleadoId)
+				.stream()
+				.map(AsignacionMapper::toDetalle)
+				.toList();
+	}
+
 }
 //	@GetMapping
 //	public List<EmpleadoEducativoDetalleDTO> getAllEmpleadosEducativos() {

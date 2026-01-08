@@ -1,0 +1,19 @@
+.designacion-card__actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-ver-detalle {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.btn-ver-detalle:hover {
+  text-decoration: underline;
+}

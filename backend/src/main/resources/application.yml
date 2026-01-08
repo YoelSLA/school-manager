@@ -1,3 +1,8 @@
 spring:
-  profiles:
-    active: dev
+  jackson:
+    time-zone: America/Argentina/Buenos_Aires
+
+server:
+  port: 8080
+  error:
+    include-message: always

@@ -1,0 +1,31 @@
+.designacion-header {
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.header-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.header-main h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.header-extra {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.header-extra strong {
+  color: #111827;
+}

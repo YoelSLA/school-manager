@@ -1,28 +1,43 @@
 package com.gestion.escuela.gestion_escolar.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaResponseDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaResumenDTO;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
-import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
-import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
+import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
+
+import java.time.LocalDate;
 
 public class LicenciaMapper {
 
-	public static LicenciaResponseDTO toResponse(Licencia licencia) {
+	public static LicenciaResumenDTO toResumen(Licencia l) {
+		TipoLicencia tipo = l.getTipoLicencia();
 
-		Asignacion asignacionTitular = licencia.getAsignacion();
-		Designacion designacion = asignacionTitular.getDesignacion();
-
-		return new LicenciaResponseDTO(licencia.getId(),
-				designacion.getId(),
-				EmpleadoEducativoMapper.toMinimo(asignacionTitular.getEmpleadoEducativo()),
-				licencia.getFechaDesde(),
-				licencia.getFechaHasta(),
-				licencia.estaActivaHoy(),
-				designacion.tieneSuplentePara(licencia),
-				designacion.getCupof(),
-				asignacionTitular.getSituacionDeRevista(),
-				licencia.getTipoLicencia().getCodigo(),
-				licencia.getTipoLicencia().getArticulo(),
-				licencia.getTipoLicencia().getDescripcion());
+		return new LicenciaResumenDTO(
+				l.getId(),
+				EmpleadoEducativoMapper.toMinimo(l.getEmpleado()),
+				tipo.getCodigo(),
+				tipo.getArticulo(),
+				tipo.getDescripcion(),
+				l.getFechaDesde(),
+				l.getFechaHasta(),
+				l.aplicaEn(LocalDate.now())
+		);
 	}
+
+	public static LicenciaDetalleDTO toDetalle(Licencia l) {
+		TipoLicencia tipo = l.getTipoLicencia();
+
+		return new LicenciaDetalleDTO(
+				l.getId(),
+				EmpleadoEducativoMapper.toMinimo(l.getEmpleado()),
+				tipo.getCodigo(),
+				tipo.getArticulo(),
+				tipo.getDescripcion(),
+				l.getDescripcion(),
+				l.getFechaDesde(),
+				l.getFechaHasta(),
+				l.aplicaEn(LocalDate.now())
+		);
+	}
+
 }

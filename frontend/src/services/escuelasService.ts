@@ -1,4 +1,4 @@
-import type { Escuela } from "@/utils/types";
+import type { Escuela } from "@/utils/types/escuela";
 import { http } from "./axios";
 
 export type CrearEscuelaDTO = Omit<Escuela, "id">;

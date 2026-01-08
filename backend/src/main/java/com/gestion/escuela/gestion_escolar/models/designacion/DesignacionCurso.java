@@ -36,6 +36,7 @@ public class DesignacionCurso extends Designacion {
 		this.orientacion = orientacion;
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	public RolEducativo getRolEducativo() {
 		return RolEducativo.DOCENTE;
 	}

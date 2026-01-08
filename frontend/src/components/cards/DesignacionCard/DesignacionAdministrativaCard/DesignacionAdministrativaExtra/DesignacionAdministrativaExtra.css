@@ -1,0 +1,20 @@
+/* =========================
+   ADMINISTRATIVA EXTRA
+========================= */
+
+.designacion-extra {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.designacion-extra .label {
+  font-size: 12px;
+  color: #6b7280; /* gris suave */
+}
+
+.designacion-extra .value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}

@@ -1,8 +1,9 @@
 import { EmpleadoEducativoForm } from "@/utils/schemas";
 import {
-  EmpleadoEducativoResponseDTO,
-  EmpleadoSimpleResponseDTO,
-} from "@/utils/types";
+  EmpleadoEducativoDetalleDTO,
+  EmpleadoEducativoMinimoDTO,
+} from "@/utils/types/empleadoEducativo";
+import { LicenciaCreateDTO } from "@/utils/types/licencia";
 import { http } from "./axios";
 
 /* =====================
@@ -15,13 +16,20 @@ export const crearEmpleadoEducativo = async (
   await http.post(`/escuelas/${escuelaId}/empleados`, payload);
 };
 
+export const crearLicencia = async (
+  empleadoId: number,
+  payload: LicenciaCreateDTO
+): Promise<void> => {
+  await http.post(`/empleadosEducativos/${empleadoId}/licencias`, payload);
+};
+
 /* =====================
    LISTAR (completo)
 ===================== */
 export const getEmpleadosPorEscuela = async (
   escuelaId: number
-): Promise<EmpleadoEducativoResponseDTO[]> => {
-  const { data } = await http.get<EmpleadoEducativoResponseDTO[]>(
+): Promise<EmpleadoEducativoDetalleDTO[]> => {
+  const { data } = await http.get<EmpleadoEducativoDetalleDTO[]>(
     `/escuelas/${escuelaId}/empleados`
   );
   return data;
@@ -33,8 +41,8 @@ export const getEmpleadosPorEscuela = async (
 export const buscarEmpleadosPorEscuela = async (
   escuelaId: number,
   search: string
-): Promise<EmpleadoSimpleResponseDTO[]> => {
-  const { data } = await http.get<EmpleadoSimpleResponseDTO[]>(
+): Promise<EmpleadoEducativoMinimoDTO[]> => {
+  const { data } = await http.get<EmpleadoEducativoDetalleDTO[]>(
     `/escuelas/${escuelaId}/empleados`,
     {
       params: { search },

@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/gestion_escolar
+    url: jdbc:postgresql://localhost:5432/gestion_escolar_dev
     username: postgres
     password: admin
 
@@ -12,15 +12,6 @@ spring:
       hibernate:
         format_sql: true
 
-  jackson:
-    time-zone: America/Argentina/Buenos_Aires
-
 logging:
   level:
     org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-
-server:
-  port: 8080
-  error:
-    include-message: always

@@ -2,7 +2,6 @@ package com.gestion.escuela.gestion_escolar.controllers;
 
 import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.CursoCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.CursoResponseDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionAdministrativaDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.administrativas.DesignacionAdministrativaCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.administrativas.DesignacionAdministrativaResumenDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.cursos.DesignacionCursoCreateDTO;
@@ -12,8 +11,8 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.
 import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.EmpleadoEducativoMinimoDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.EmpleadoEducativoResumenDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.escuelas.EscuelaCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.escuelas.EscuelaResponseDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaResponseDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.escuelas.EscuelaResumenDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaResumenDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.MateriaCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.MateriaResponseDTO;
 import com.gestion.escuela.gestion_escolar.mappers.*;
@@ -47,13 +46,14 @@ public class EscuelaControllerREST {
 	private final EmpleadoEducativoService empleadoEducativoService;
 	private final MateriaService materiaService;
 	private final CursoService cursoService;
+	private final LicenciaService licenciaService;
 
 	// ---------------------------------------- //
 	// POST                                     //
 	// ---------------------------------------- //
 
 	@PostMapping
-	public ResponseEntity<EscuelaResponseDTO> crear(@Valid @RequestBody EscuelaCreateDTO dto) {
+	public ResponseEntity<EscuelaResumenDTO> crear(@Valid @RequestBody EscuelaCreateDTO dto) {
 		Escuela escuelaCreada = escuelaService.crear(EscuelaMapper.toEntity(dto));
 		return ResponseEntity.status(HttpStatus.CREATED).body(EscuelaMapper.toResponse(escuelaCreada));
 	}
@@ -132,7 +132,7 @@ public class EscuelaControllerREST {
 	// ---------------------------------------- //
 
 	@GetMapping
-	public List<EscuelaResponseDTO> listar() {
+	public List<EscuelaResumenDTO> listar() {
 		return escuelaService.listarTodas()
 				.stream()
 				.map(EscuelaMapper::toResponse)
@@ -161,20 +161,6 @@ public class EscuelaControllerREST {
 				.toList();
 	}
 
-	@GetMapping("/{escuelaId}/designaciones/administrativas/{designacionId}")
-	public DesignacionAdministrativaDetalleDTO obtenerCompleta(
-			@PathVariable Long escuelaId,
-			@PathVariable Long designacionId
-	) {
-
-		DesignacionAdministrativa designacionObtenida = designacionService.obtenerAdministrativaPorEscuela(
-				escuelaId,
-				designacionId
-		);
-
-		return DesignacionAdministrativaMapper.toDetalle(designacionObtenida);
-	}
-
 	@GetMapping("/{escuelaId}/designaciones/cursos")
 	public List<DesignacionCursoResumenDTO> listarDesignacionesCursos(
 			@PathVariable Long escuelaId
@@ -190,6 +176,9 @@ public class EscuelaControllerREST {
 			@PathVariable Long escuelaId,
 			@RequestParam String search
 	) {
+		System.out.println("SEARCH");
+		System.out.println(search);
+
 		return empleadoEducativoService.buscarPorEscuela(escuelaId, search)
 				.stream()
 				.map(EmpleadoEducativoMapper::toMinimo)
@@ -200,19 +189,25 @@ public class EscuelaControllerREST {
 	public ResponseEntity<List<EmpleadoEducativoResumenDTO>> listarEmpleados(
 			@PathVariable Long escuelaId
 	) {
-		List<EmpleadoEducativo> empleados = escuelaService.listarEmpleadosEducativos(escuelaId);
 
-		System.out.println("HOLA ANTES DEL RESPONSE");
+		List<EmpleadoEducativo> empleados = escuelaService.listarEmpleadosEducativos(escuelaId);
 
 		List<EmpleadoEducativoResumenDTO> response =
 				empleados.stream()
 						.map(EmpleadoEducativoMapper::toResumen)
 						.toList();
 
-		System.out.println("HOLA DESPUES DEL RESPONSE");
-		System.out.println(response);
-
 		return ResponseEntity.ok(response);
+	}
+
+	@GetMapping("/{escuelaId}/empleados/{empleadoId}")
+	public EmpleadoEducativoDetalleDTO obtenerDetalleEmpleado(
+			@PathVariable Long escuelaId,
+			@PathVariable Long empleadoId
+	) {
+		EmpleadoEducativo empleado = empleadoEducativoService.obtenerPorEscuela(escuelaId, empleadoId);
+
+		return EmpleadoEducativoMapper.toDetalle(empleado);
 	}
 
 	@GetMapping("/{escuelaId}/materias")
@@ -228,12 +223,14 @@ public class EscuelaControllerREST {
 	}
 
 	@GetMapping("/{escuelaId}/licencias")
-	public List<LicenciaResponseDTO> listarLicencias(
+	public List<LicenciaResumenDTO> listarLicencias(
 			@PathVariable Long escuelaId
 	) {
-		return escuelaService.obtenerLicencias(escuelaId)
+		Escuela escuela = escuelaService.obtenerPorId(escuelaId);
+
+		return licenciaService.buscarPorEscuela(escuela)
 				.stream()
-				.map(LicenciaMapper::toResponse)
+				.map(LicenciaMapper::toResumen)
 				.toList();
 	}
 

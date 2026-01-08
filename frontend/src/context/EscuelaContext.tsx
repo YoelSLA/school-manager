@@ -1,4 +1,4 @@
-import { Escuela } from "@/utils/types";
+import { Escuela } from "@/utils/types/escuela";
 import { createContext, ReactNode, useContext, useState } from "react";
 
 type EscuelaContextType = {

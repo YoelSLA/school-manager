@@ -1,8 +1,9 @@
 package com.gestion.escuela.gestion_escolar.services.impl;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaResponseDTO;
-import com.gestion.escuela.gestion_escolar.mappers.LicenciaMapper;
-import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
+import com.gestion.escuela.gestion_escolar.models.Escuela;
+import com.gestion.escuela.gestion_escolar.models.Licencia;
+import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
+import com.gestion.escuela.gestion_escolar.models.exceptions.LicenciaNoEncontradaException;
 import com.gestion.escuela.gestion_escolar.persistence.LicenciaRepository;
 import com.gestion.escuela.gestion_escolar.services.LicenciaService;
 import lombok.RequiredArgsConstructor;
@@ -18,25 +19,26 @@ public class LicenciaServiceImpl implements LicenciaService {
 
 	private final LicenciaRepository licenciaRepository;
 
+	public Licencia obtenerPorId(Long id) {
+		return licenciaRepository.findById(id).orElseThrow(() -> new LicenciaNoEncontradaException(id));
+	}
+
 	@Override
-	public List<LicenciaResponseDTO> listarPorDesignacion(Designacion designacion) {
+	public List<Asignacion> obtenerAsignacionesAfectadas(Long licenciaId) {
 
-		if (designacion == null) {
-			throw new IllegalArgumentException("La designación es obligatoria");
-		}
+		Licencia licencia = obtenerPorId(licenciaId);
 
-		return designacion.getAsignaciones().stream()
-				.flatMap(a -> a.getLicencias().stream())
-				.map(LicenciaMapper::toResponse)
+		return licencia.getEmpleado()
+				.getAsignaciones()
+				.stream()
+				.filter(a -> a.afectadaPor(licencia))
 				.toList();
 	}
 
 	@Override
-	public List<LicenciaResponseDTO> listarTodas() {
-
-		return licenciaRepository.findAll().stream()
-				.map(LicenciaMapper::toResponse)
-				.toList();
+	public List<Licencia> buscarPorEscuela(Escuela escuela) {
+		return licenciaRepository.findByEscuela(escuela);
 	}
+
 }
 

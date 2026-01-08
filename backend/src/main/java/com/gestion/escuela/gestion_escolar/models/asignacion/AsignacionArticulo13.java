@@ -25,9 +25,5 @@ public class AsignacionArticulo13 extends Asignacion {
 		return SituacionDeRevista.PROVISIONAL;
 	}
 
-	@Override
-	public boolean ejerceCargoEn(LocalDate fecha) {
-		return false;
-	}
 }
 

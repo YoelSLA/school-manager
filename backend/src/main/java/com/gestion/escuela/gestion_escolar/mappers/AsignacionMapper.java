@@ -1,7 +1,8 @@
 package com.gestion.escuela.gestion_escolar.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionDetalleResponseDTO;
-import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionAfectadaPorLicenciaDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionDetalleDTO;
+import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 
 import java.time.LocalDate;
@@ -9,23 +10,30 @@ import java.time.LocalDate;
 public class AsignacionMapper {
 
 	// Entidad -> ResponseDTO
-	public static AsignacionDetalleResponseDTO toResponse(Asignacion a) {
-
-		EmpleadoEducativo e = a.getEmpleadoEducativo();
-		LocalDate hoy = LocalDate.now();
-		boolean vigente = a.estaVigenteEn(hoy);
-		boolean enLicencia = a.estaEnLicenciaEn(hoy);
-		boolean cubierta = enLicencia && a.getDesignacion().asignacionQueEjerceEn(hoy).isPresent();
-
-		return new AsignacionDetalleResponseDTO(
+	public static AsignacionDetalleDTO toDetalle(Asignacion a) {
+		return new AsignacionDetalleDTO(
 				a.getId(),
+				EmpleadoEducativoMapper.toMinimo(a.getEmpleadoEducativo()),
 				a.getFechaTomaPosesion(),
 				a.getFechaCese(),
 				a.getSituacionDeRevista(),
-				EmpleadoEducativoMapper.toMinimo(e),
-				vigente,
-				enLicencia,
-				cubierta);
+				a.getFechaBaja(),
+				a.getCausaBaja(),
+				a.estaDisponibleEn(LocalDate.now())
+		);
+	}
+
+	public static AsignacionAfectadaPorLicenciaDTO toAfectadaPorLicencia(Asignacion a, Licencia l) {
+
+		return new AsignacionAfectadaPorLicenciaDTO(
+				a.getId(),
+				DesignacionMapper.toMinima(a.getDesignacion()),
+				a.getSituacionDeRevista(),
+				a.getFechaTomaPosesion(),
+				a.getFechaCese(),
+				a.getFechaBaja(),
+				a.getCausaBaja(),
+				a.afectadaPor(l));
 	}
 }
 

@@ -1,7 +1,7 @@
 package com.gestion.escuela.gestion_escolar.models;
 
-import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
+import com.gestion.escuela.gestion_escolar.models.exceptions.EmpleadoEducativoObligatorioException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.FechasLicenciaObligatoriasException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasLicenciaInvalidoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.TipoLicenciaObligatorioException;
@@ -20,6 +20,14 @@ public class Licencia {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "empleado_id")
+	private EmpleadoEducativo empleado;
+
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "escuela_id")
+	private Escuela escuela;
+
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private TipoLicencia tipoLicencia;
@@ -30,56 +38,57 @@ public class Licencia {
 	@Column(nullable = false)
 	private LocalDate fechaHasta;
 
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "asignacion_id")
-	private Asignacion asignacion;
-
 	@Column(length = 500)
 	private String descripcion;
 
 	protected Licencia() {
-		// JPA
 	}
 
-	public Licencia(Asignacion asignacion, TipoLicencia tipoLicencia, LocalDate fechaDesde, LocalDate fechaHasta, String descripcion) {
+	public Licencia(
+			Escuela escuela,
+			EmpleadoEducativo empleado,
+			TipoLicencia tipoLicencia,
+			LocalDate fechaDesde,
+			LocalDate fechaHasta,
+			String descripcion
+	) {
+		validarEmpleado(empleado);
 		validarTipoLicencia(tipoLicencia);
 		validarRangoDeFechas(fechaDesde, fechaHasta);
-		this.asignacion = asignacion;
+
+		this.escuela = escuela;
+		this.empleado = empleado;
 		this.tipoLicencia = tipoLicencia;
 		this.fechaDesde = fechaDesde;
 		this.fechaHasta = fechaHasta;
 		this.descripcion = descripcion;
 	}
 
-	void asociarAsignacion(Asignacion asignacion) {
-		this.asignacion = asignacion;
-	}
+	/* ==========================
+	   COMPORTAMIENTO
+	   ========================== */
 
-    /* ==========================
-       COMPORTAMIENTO
-       ========================== */
-
-	public boolean estaActivaHoy() {
-		LocalDate hoy = LocalDate.now();
-		return !hoy.isBefore(fechaDesde) && !hoy.isAfter(fechaHasta);
+	public boolean aplicaEn(LocalDate fecha) {
+		return !fecha.isBefore(fechaDesde) && !fecha.isAfter(fechaHasta);
 	}
 
 	public long dias() {
 		return ChronoUnit.DAYS.between(fechaDesde, fechaHasta) + 1;
 	}
 
-	public boolean estaVigenteEnFecha(LocalDate fecha) {
-		return !fecha.isBefore(fechaDesde) && !fecha.isAfter(fechaHasta);
-	}
-
 	public boolean seSuperponeCon(LocalDate desde, LocalDate hasta) {
 		return !this.fechaDesde.isAfter(hasta) && !desde.isAfter(this.fechaHasta);
 	}
 
+	/* ==========================
+	   VALIDACIONES
+	   ========================== */
 
-    /* ==========================
-       VALIDACIONES
-       ========================== */
+	private void validarEmpleado(EmpleadoEducativo empleado) {
+		if (empleado == null) {
+			throw new EmpleadoEducativoObligatorioException();
+		}
+	}
 
 	private void validarTipoLicencia(TipoLicencia tipoLicencia) {
 		if (tipoLicencia == null) {
@@ -91,9 +100,9 @@ public class Licencia {
 		if (desde == null || hasta == null) {
 			throw new FechasLicenciaObligatoriasException();
 		}
-
 		if (desde.isAfter(hasta)) {
 			throw new RangoFechasLicenciaInvalidoException();
 		}
 	}
 }
+

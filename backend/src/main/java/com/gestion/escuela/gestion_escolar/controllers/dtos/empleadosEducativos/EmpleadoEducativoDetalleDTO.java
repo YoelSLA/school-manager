@@ -1,30 +1,24 @@
 package com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaResumenDTO;
 
 import java.time.LocalDate;
+import java.util.List;
 
-@Getter
-@AllArgsConstructor
-// 👉 ver entidad (pantalla detalle)
-public class EmpleadoEducativoDetalleDTO {
+public record EmpleadoEducativoDetalleDTO(
+		Long id,
+		String cuil,
+		String nombre,
+		String apellido,
+		String domicilio,
+		String telefono,
+		String email,
+		LocalDate fechaDeNacimiento,
+		LocalDate fechaDeIngreso,
+		boolean activo,
+		List<AsignacionDetalleDTO> asignaciones,
+		List<LicenciaResumenDTO> licencias
+) {
 
-	private Long id;
-	private String cuil;
-	private String nombre;
-	private String apellido;
-
-	private String domicilio;
-	private String telefono;
-	private String email;
-
-	private LocalDate fechaDeNacimiento;
-	private LocalDate fechaDeIngreso;
-
-	private boolean activo;
-
-	// cosas solo de lectura
-	// private List<AsignacionDetalleDTO> asignaciones;
-	// private List<LicenciaDetalleDTO> licencias;
 }

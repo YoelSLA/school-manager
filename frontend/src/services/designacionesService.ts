@@ -1,9 +1,12 @@
+import { AsignacionCreateDTO } from "@/utils/types/asignacion";
 import {
-  DesignacionAdministrativaCompletaDTO,
   DesignacionAdministrativaCreateDTO,
-  DesignacionAdministrativaResponseDTO,
+  DesignacionAdministrativaResumenDTO,
+  DesignacionCursoCreateDTO,
+  DesignacionCursoDetalleDTO,
   DesignacionCursoResumenDTO,
-} from "@/utils/types";
+  DesignacionDetalleDTO,
+} from "@/utils/types/designacion";
 import { http } from "./axios";
 
 export async function crearDesignacionAdministrativa(
@@ -13,40 +16,38 @@ export async function crearDesignacionAdministrativa(
   await http.post(`/escuelas/${escuelaId}/designaciones/administrativas`, data);
 }
 
+export async function crearDesignacionCurso(
+  escuelaId: number,
+  data: DesignacionCursoCreateDTO
+): Promise<void> {
+  await http.post(`/escuelas/${escuelaId}/designaciones/administrativas`, data);
+}
+
+export const crearAsignacion = async (
+  designacionId: number,
+  payload: AsignacionCreateDTO
+): Promise<void> => {
+  await http.post(`/designaciones/${designacionId}/asignaciones`, payload);
+};
+
 export async function listarDesignacionesAdministrativas(
   escuelaId: number
-): Promise<DesignacionAdministrativaResponseDTO[]> {
-  const { data } = await http.get<DesignacionAdministrativaResponseDTO[]>(
+): Promise<DesignacionAdministrativaResumenDTO[]> {
+  const { data } = await http.get<DesignacionAdministrativaResumenDTO[]>(
     `/escuelas/${escuelaId}/designaciones/administrativas`
   );
 
   return data;
 }
 
-export async function obtenerDesignacionAdministrativaCompleta(
-  escuelaId: number,
+export const obtenerDesignacionDetalle = async (
   designacionId: number
-): Promise<DesignacionAdministrativaCompletaDTO> {
-  const { data } = await http.get<DesignacionAdministrativaCompletaDTO>(
-    `/escuelas/${escuelaId}/designaciones/administrativas/${designacionId}`
+): Promise<DesignacionDetalleDTO> => {
+  const { data } = await http.get<DesignacionCursoDetalleDTO>(
+    `/designaciones/${designacionId}`
   );
 
   return data;
-}
-
-export type CrearAsignacionPayload = {
-  empleadoId: number;
-  situacionDeRevista: string;
-  tipoAsignacion: string;
-  fechaTomaPosesion: string;
-  fechaCese: string;
-};
-
-export const crearAsignacion = async (
-  designacionId: number,
-  payload: CrearAsignacionPayload
-): Promise<void> => {
-  await http.post(`/designaciones/${designacionId}/asignaciones`, payload);
 };
 
 export const obtenerCursosPorEscuela = async (

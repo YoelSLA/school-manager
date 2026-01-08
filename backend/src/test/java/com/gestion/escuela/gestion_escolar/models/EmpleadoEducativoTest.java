@@ -1,113 +1,167 @@
 package com.gestion.escuela.gestion_escolar.models;
 
+import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
+import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 import com.gestion.escuela.gestion_escolar.models.exceptions.EscuelaObligatoriaException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.FechaIngresoInvalidaException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.LicenciaSuperpuestaException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.mock;
 
 class EmpleadoEducativoTest {
 
 	private Escuela escuela;
+	private EmpleadoEducativo empleado;
 
 	@BeforeEach
 	void setUp() {
-		escuela = new Escuela("Escuela N°65", "Bernal", "Av. Siempre Viva 123", "1145-6789");
-	}
+		escuela = mock(Escuela.class);
 
-	@Test
-	void crearEmpleadoConDatosValidos() {
-		LocalDate nacimiento = LocalDate.of(1990, 5, 10);
-		LocalDate ingreso = LocalDate.of(2020, 3, 1);
-
-		EmpleadoEducativo empleado = new EmpleadoEducativo(
+		empleado = new EmpleadoEducativo(
 				escuela,
 				"20-12345678-9",
-				"Pérez",
 				"Juan",
-				"Calle Falsa 123",
-				"11-1234-5678",
-				nacimiento,
-				ingreso,
-				"juan.perez@mail.com"
-		);
-
-		assertNotNull(empleado);
-		assertEquals(escuela, empleado.getEscuela());
-		assertEquals("Pérez", empleado.getApellido());
-		assertEquals("Juan", empleado.getNombre());
-		assertEquals(nacimiento, empleado.getFechaDeNacimiento());
-		assertEquals(ingreso, empleado.getFechaDeIngreso());
-		assertTrue(empleado.getAsignaciones().isEmpty());
-	}
-
-	@Test
-	void noSePuedeCrearEmpleadoSinEscuela() {
-		LocalDate nacimiento = LocalDate.of(1990, 5, 10);
-		LocalDate ingreso = LocalDate.of(2020, 3, 1);
-
-		assertThrows(
-				EscuelaObligatoriaException.class,
-				() -> new EmpleadoEducativo(
-						null,
-						"20-12345678-9",
-						"Pérez",
-						"Juan",
-						"Calle Falsa 123",
-						"11-1234-5678",
-						nacimiento,
-						ingreso,
-						"juan.perez@mail.com"
-				)
-		);
-	}
-
-	@Test
-	void noSePuedeCrearEmpleadoConFechaIngresoAnteriorANacimiento() {
-		LocalDate nacimiento = LocalDate.of(2000, 1, 1);
-		LocalDate ingreso = LocalDate.of(1999, 12, 31);
-
-		assertThrows(
-				FechaIngresoInvalidaException.class,
-				() -> new EmpleadoEducativo(
-						escuela,
-						"20-12345678-9",
-						"Pérez",
-						"Juan",
-						"Calle Falsa 123",
-						"11-1234-5678",
-						nacimiento,
-						ingreso,
-						"juan.perez@mail.com"
-				)
-		);
-	}
-
-
-	@Test
-	void empleadoRecienCreadoNoTieneAsignaciones() {
-		EmpleadoEducativo empleado = empleadoValido();
-
-		assertTrue(empleado.getAsignaciones().isEmpty());
-	}
-
-
-	private EmpleadoEducativo empleadoValido() {
-		return new EmpleadoEducativo(
-				escuela,
-				"20-12345678-9",
 				"Pérez",
-				"Juan",
 				"Calle Falsa 123",
-				"11-1234-5678",
-				LocalDate.of(1990, 5, 10),
-				LocalDate.of(2020, 3, 1),
+				"123456",
+				LocalDate.of(1990, 1, 1),
+				LocalDate.of(2010, 1, 1),
 				"juan@mail.com"
 		);
 	}
 
+	/* =========================
+	   CREACIÓN
+	   ========================= */
 
+	@Test
+	void creaEmpleadoValido() {
+		assertThat(empleado).isNotNull();
+		assertThat(empleado.getEscuela()).isSameAs(escuela);
+	}
+
+	@Test
+	void fallaSiEscuelaEsNull() {
+		assertThatThrownBy(() ->
+				new EmpleadoEducativo(
+						null,
+						"20",
+						"Juan",
+						"Pérez",
+						null,
+						null,
+						LocalDate.of(1990, 1, 1),
+						LocalDate.of(2010, 1, 1),
+						"a@a.com"
+				)
+		).isInstanceOf(EscuelaObligatoriaException.class);
+	}
+
+	@Test
+	void fallaSiFechaIngresoEsAnteriorANacimiento() {
+		assertThatThrownBy(() ->
+				new EmpleadoEducativo(
+						escuela,
+						"20",
+						"Juan",
+						"Pérez",
+						null,
+						null,
+						LocalDate.of(2010, 1, 1),
+						LocalDate.of(2000, 1, 1),
+						"a@a.com"
+				)
+		).isInstanceOf(FechaIngresoInvalidaException.class);
+	}
+
+	/* =========================
+	   LICENCIAS
+	   ========================= */
+
+	@Test
+	void creaLicenciaValida() {
+		Licencia licencia = empleado.crearLicencia(
+				TipoLicencia.L_A1,
+				LocalDate.of(2026, 1, 10),
+				LocalDate.of(2026, 1, 20),
+				"Médica"
+		);
+
+		assertThat(licencia).isNotNull();
+		assertThat(empleado.getLicencias()).contains(licencia);
+	}
+
+	@Test
+	void noPermiteLicenciaSuperpuesta() {
+		empleado.crearLicencia(
+				TipoLicencia.L_A1,
+				LocalDate.of(2026, 1, 10),
+				LocalDate.of(2026, 1, 20),
+				null
+		);
+
+		assertThatThrownBy(() ->
+				empleado.crearLicencia(
+						TipoLicencia.L_A2,
+						LocalDate.of(2026, 1, 15),
+						LocalDate.of(2026, 1, 25),
+						null
+				)
+		).isInstanceOf(LicenciaSuperpuestaException.class);
+	}
+
+	@Test
+	void estaEnLicenciaEnFechaDentroDelRango() {
+		empleado.crearLicencia(
+				TipoLicencia.L_A1,
+				LocalDate.of(2026, 1, 10),
+				LocalDate.of(2026, 1, 20),
+				null
+		);
+
+		assertThat(empleado.estaEnLicenciaEn(LocalDate.of(2026, 1, 15))).isTrue();
+	}
+
+	@Test
+	void noEstaEnLicenciaFueraDelRango() {
+		empleado.crearLicencia(
+				TipoLicencia.L_A1,
+				LocalDate.of(2026, 1, 10),
+				LocalDate.of(2026, 1, 20),
+				null
+		);
+
+		assertThat(empleado.estaEnLicenciaEn(LocalDate.of(2026, 1, 25))).isFalse();
+	}
+
+	@Test
+	void fechaNullNoEstaEnLicencia() {
+		assertThat(empleado.estaEnLicenciaEn(null)).isFalse();
+	}
+
+	/* =========================
+   ASIGNACIONES
+   ========================= */
+
+	@Test
+	void agregaAsignacionAlEmpleado() {
+		Asignacion asignacion = mock(Asignacion.class);
+
+		empleado.agregarAsignacion(asignacion);
+
+		assertThat(empleado.getAsignaciones()).contains(asignacion);
+	}
+
+	@Test
+	void noPermiteAgregarAsignacionNull() {
+		assertThatThrownBy(() ->
+				empleado.agregarAsignacion(null)
+		).isInstanceOf(IllegalArgumentException.class);
+	}
 }

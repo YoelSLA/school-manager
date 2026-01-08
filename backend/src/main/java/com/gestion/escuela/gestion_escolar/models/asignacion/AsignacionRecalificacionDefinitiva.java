@@ -18,11 +18,7 @@ public class AsignacionRecalificacionDefinitiva extends Asignacion {
 	public AsignacionRecalificacionDefinitiva(Designacion designacion, EmpleadoEducativo empleado, LocalDate fechaTomaPosesion, LocalDate fechaCese, SituacionDeRevista situacion) {
 		super(designacion, empleado, fechaTomaPosesion, fechaCese, situacion);
 	}
-	
-	@Override
-	public boolean ejerceCargoEn(LocalDate fecha) {
-		return false;
-	}
+
 
 	@Override
 	public SituacionDeRevista getSituacionDeRevista() {

@@ -1,8 +1,8 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaResponseDTO;
-import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
-import com.gestion.escuela.gestion_escolar.services.DesignacionService;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionAfectadaPorLicenciaDTO;
+import com.gestion.escuela.gestion_escolar.mappers.AsignacionMapper;
+import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.services.LicenciaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,18 +18,16 @@ import java.util.List;
 public class LicenciaControllerREST {
 
 	private final LicenciaService licenciaService;
-	private final DesignacionService designacionService;
 
-	@GetMapping
-	public List<LicenciaResponseDTO> listarTodas() {
-		return licenciaService.listarTodas();
-	}
+	@GetMapping("/{licenciaId}/asignaciones-afectadas")
+	public List<AsignacionAfectadaPorLicenciaDTO> asignacionesAfectadas(
+			@PathVariable Long licenciaId
+	) {
+		Licencia l = licenciaService.obtenerPorId(licenciaId);
 
-	@GetMapping("/designacion/{designacionId}")
-	public List<LicenciaResponseDTO> listarPorDesignacion(@PathVariable Long designacionId) {
-
-		Designacion designacion = designacionService.obtenerPorId(designacionId);
-		return licenciaService.listarPorDesignacion(designacion);
+		return licenciaService.obtenerAsignacionesAfectadas(licenciaId)
+				.stream()
+				.map(a -> AsignacionMapper.toAfectadaPorLicencia(a, l)).toList();
 	}
 
 }

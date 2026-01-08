@@ -22,6 +22,8 @@ public record DesignacionAdministrativaCreateDTO(
 ) {
 	public DesignacionAdministrativaCreateDTO {
 		franjasHorarias = List.copyOf(franjasHorarias);
+		System.out.println("FRANJAS HORARIAS DENTRO DEL CONS");
+		System.out.println(franjasHorarias);
 	}
 }
 

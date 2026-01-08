@@ -23,11 +23,6 @@ public class AsignacionCambioDeFuncion extends Asignacion {
 		super(designacion, empleadoEducativo, fechaTomaPosesion, fechaCese, SituacionDeRevista.TITULAR);
 
 	}
-	
-	@Override
-	public boolean ejerceCargoEn(LocalDate fecha) {
-		return false;
-	}
 
 }
 

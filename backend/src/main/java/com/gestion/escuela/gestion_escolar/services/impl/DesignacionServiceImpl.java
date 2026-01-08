@@ -5,11 +5,10 @@ import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
-import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 import com.gestion.escuela.gestion_escolar.persistence.DesignacionRepository;
+import com.gestion.escuela.gestion_escolar.persistence.EmpleadoEducativoRepository;
 import com.gestion.escuela.gestion_escolar.persistence.LicenciaRepository;
 import com.gestion.escuela.gestion_escolar.services.DesignacionService;
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,8 @@ public class DesignacionServiceImpl implements DesignacionService {
 
 	private final DesignacionRepository designacionRepository;
 	private final LicenciaRepository licenciaRepository;
-	private final EntityManager entityManager;
+	private final EmpleadoEducativoRepository empleadoEducativoRepository;
+
 
 	@Override
 	public DesignacionAdministrativa crearAdministrativa(DesignacionAdministrativa designacionAdministrativa) {
@@ -37,29 +37,17 @@ public class DesignacionServiceImpl implements DesignacionService {
 	}
 
 	@Override
-	public Licencia crearLicencia(
-			Designacion designacion,
-			LocalDate fechaDesde,
-			LocalDate fechaHasta,
-			TipoLicencia tipoLicencia,
-			String descripcion
-	) {
+	public void cubrirDesignacion(Long designacionId, Long empleadoId, LocalDate fechaDesde, LocalDate fechaHasta) {
+		Designacion designacion = obtenerPorId(designacionId);
+		EmpleadoEducativo empleadoEducativo = empleadoEducativoRepository.findById(empleadoId).orElseThrow(null);
 
-		Licencia licencia = designacion.crearLicencia(fechaDesde, fechaHasta, tipoLicencia, descripcion);
+		designacion.cubrirConSuplente(
+				empleadoEducativo,
+				fechaDesde,
+				fechaHasta
+		);
 
-		entityManager.flush();
-		entityManager.refresh(licencia);
-		
-		return licencia;
-	}
-
-	@Override
-	public void cubrirLicencia(
-			Designacion designacion,
-			Licencia licencia,
-			EmpleadoEducativo empleadoSuplente
-	) {
-		designacion.cubrirConSuplente(empleadoSuplente, licencia);
+		designacionRepository.save(designacion);
 	}
 
 	@Override
@@ -103,7 +91,6 @@ public class DesignacionServiceImpl implements DesignacionService {
 
 		return administrativa;
 	}
-
 
 }
 

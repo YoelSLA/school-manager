@@ -1,2 +1,8 @@
-package com.gestion.escuela.gestion_escolar.models.exceptions;public class LicenciaSuperpuestaException {
+package com.gestion.escuela.gestion_escolar.models.exceptions;
+
+public class LicenciaSuperpuestaException extends RuntimeException {
+
+	public LicenciaSuperpuestaException() {
+		super("El empleado ya posee una licencia que se superpone con el período indicado");
+	}
 }

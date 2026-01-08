@@ -1,4 +1,5 @@
-import type { CrearLicenciaDTO, LicenciaResponseDTO } from "@/utils/types";
+import { AsignacionDetalleDTO } from "@/utils/types/asignacion";
+import { LicenciaResponseDTO } from "@/utils/types/licencia";
 import { http } from "./axios";
 
 export const getLicenciasPorEscuela = async (
@@ -10,13 +11,18 @@ export const getLicenciasPorEscuela = async (
   return data;
 };
 
-export const solicitarLicencia = async (
-  designacionId: number,
-  data: CrearLicenciaDTO
-): Promise<Licencia> => {
-  const { data: licencia } = await http.post<Licencia>(
-    `/designaciones/${designacionId}/licencias`,
-    data
+export const getLicenciasPorDesignacion = async (
+  designacionId: number
+): Promise<LicenciaResponseDTO[]> => {
+  const { data } = await http.get(`/designaciones/${designacionId}/licencias`);
+  return data;
+};
+
+export const getAsignacionesActivasPorEmpleado = async (
+  empleadoId: number
+): Promise<AsignacionDetalleDTO[]> => {
+  const { data } = await http.get(
+    `/empleadosEducativos/${empleadoId}/asignaciones-activas`
   );
-  return licencia;
+  return data;
 };

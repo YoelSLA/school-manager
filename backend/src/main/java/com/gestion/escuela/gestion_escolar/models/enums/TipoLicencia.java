@@ -41,17 +41,17 @@ public enum TipoLicencia {
 	L_114O3("Artículo 114", "11403", "Licencia por causa particulares, no podra fraccionarse para su uso, para persona titular y provisional."),
 	L_114O4("Artículo 114", "11404", "Licencia por causa particulares, por motivos de inde particular, para personal titular y provisional, gozara de un día de licencia por mes calendario hasta un máximo de 6 por año sin goce de haberes."),
 	L_114O5("Artículo 114", "11405", "Licencia por causa particulares, los periodos establecidos en O1 no seran acumulativos."),
-	L_115A1("Artículo 114", "115A1", "Licencia por estudio o perfeccionamiento docente, cuando el agente realiza estudios especiales o investigaciones."),
-	L_115A2("Artículo 114", "115A2", "Licencia por estudio o perfeccionamiento docente, por interes particular cuando el agente concurra a congresos, cursos o jordanas de perfeccionamiento docente hasta 6 dias habiles por año."),
-	L_115B1("Artículo 114", "115B1", "Licencia por representación gremial, sera concecida de acuerdo a las leyes vigentes."),
-	L_115B2("Artículo 114", "115B2", "Licencia por representación gremial, a los docentes delegados en las escuelas, se le otorga un día de licencia por mes."),
-	L_115B3("Artículo 114", "115B3", "Licencia por representación gremial, cuando las organizaciones gremiales convocan asambleas y/o congresos de carácter ordinaro o extraordinario."),
-	L_115B4("Artículo 114", "115B4", "Licencia por representación gremial, se deberan presentar antes la dirección general de escuelas la nomina completa de los miembros para los actos eleccionarios."),
-	L_115C("Artículo 114", "115C", "Licencia por actividad de interes publico del Estado."),
-	L_115D1("Artículo 114", "115D1", "Licencia por desempeño de cargos de mayor jerarquia."),
-	L_115E1("Artículo 114", "115E1", "Licencia por desempeño de cargos electivos, con excepcion del cargo del consejero escolar."),
-	L_115E2("Artículo 114", "115E2", "Licencia por desempeño de cargos electivos o de representación politica, sin goce de haberes a quienes resulten electos para ocupar cargos de conducción en los partidos politicos"),
-	L_115E3("Artículo 114", "115E3", "Licencia por desempeño de cargos electivos o de representación politica, se considera licencia sin goce de haberes por el termino desempeño que dependa de un funcionario politico.");
+	L_115A1("Artículo 115", "115A1", "Licencia por estudio o perfeccionamiento docente, cuando el agente realiza estudios especiales o investigaciones."),
+	L_115A2("Artículo 115", "115A2", "Licencia por estudio o perfeccionamiento docente, por interes particular cuando el agente concurra a congresos, cursos o jordanas de perfeccionamiento docente hasta 6 dias habiles por año."),
+	L_115B1("Artículo 115", "115B1", "Licencia por representación gremial, sera concecida de acuerdo a las leyes vigentes."),
+	L_115B2("Artículo 115", "115B2", "Licencia por representación gremial, a los docentes delegados en las escuelas, se le otorga un día de licencia por mes."),
+	L_115B3("Artículo 115", "115B3", "Licencia por representación gremial, cuando las organizaciones gremiales convocan asambleas y/o congresos de carácter ordinaro o extraordinario."),
+	L_115B4("Artículo 115", "115B4", "Licencia por representación gremial, se deberan presentar antes la dirección general de escuelas la nomina completa de los miembros para los actos eleccionarios."),
+	L_115C("Artículo 1145", "115C", "Licencia por actividad de interes publico del Estado."),
+	L_115D1("Artículo 115", "115D1", "Licencia por desempeño de cargos de mayor jerarquia."),
+	L_115E1("Artículo 115", "115E1", "Licencia por desempeño de cargos electivos, con excepcion del cargo del consejero escolar."),
+	L_115E2("Artículo 115", "115E2", "Licencia por desempeño de cargos electivos o de representación politica, sin goce de haberes a quienes resulten electos para ocupar cargos de conducción en los partidos politicos"),
+	L_115E3("Artículo 115", "115E3", "Licencia por desempeño de cargos electivos o de representación politica, se considera licencia sin goce de haberes por el termino desempeño que dependa de un funcionario politico.");
 
 	private final String articulo;
 	private final String codigo;

@@ -1,34 +1,29 @@
 package com.gestion.escuela.gestion_escolar.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionDetalleResponseDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionAdministrativaDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.administrativas.DesignacionAdministrativaCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.administrativas.DesignacionAdministrativaEditDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.administrativas.DesignacionAdministrativaResumenDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.administrativas.DesignacionAdministrativaUpdateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.horarios.FranjaHorariaResponseDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.horarios.FranjaHorariaMinimoDTO;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
+import com.gestion.escuela.gestion_escolar.models.FranjaHoraria;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class DesignacionAdministrativaMapper {
 
 	public static DesignacionAdministrativaResumenDTO toResumen(DesignacionAdministrativa d) {
+		LocalDate hoy = LocalDate.now();
 		return new DesignacionAdministrativaResumenDTO(
 				d.getId(),
 				d.getCupof(),
-				obtenerFranjas(d),
-				d.getRolEducativo()
-		);
-	}
-
-	public static DesignacionAdministrativaDetalleDTO toDetalle(DesignacionAdministrativa d) {
-		return new DesignacionAdministrativaDetalleDTO(
-				d.getId(),
-				d.getCupof(),
+				d.tieneAsignacionActivaEn(hoy),
+				d.estaCubiertaEn(hoy),
+				d.tieneAsignacionActivaEn(hoy) && !d.estaCubiertaEn(hoy),
 				d.getRolEducativo(),
-				obtenerAsignaciones(d),
 				obtenerFranjas(d)
 		);
 	}
@@ -40,27 +35,31 @@ public class DesignacionAdministrativaMapper {
 		);
 	}
 
-	public static DesignacionAdministrativa toEntity(DesignacionAdministrativaCreateDTO d, Escuela e) {
-		return new DesignacionAdministrativa(
-				e,
-				d.cupof(),
-				d.rolEducativo()
-		);
+	public static DesignacionAdministrativa toEntity(DesignacionAdministrativaCreateDTO dto, Escuela e) {
+
+		DesignacionAdministrativa d = new DesignacionAdministrativa(e, dto.cupof(), dto.rolEducativo());
+
+		dto.franjasHorarias().forEach(f -> {
+			FranjaHoraria franja = FranjaHorariaMapper.toEntity(f);
+			d.agregarFranjaHoraria(franja);
+		});
+
+		return d;
 	}
 
 	public static DesignacionAdministrativa toUpdatedEntity(DesignacionAdministrativa d, DesignacionAdministrativaUpdateDTO dto) {
 		throw new UnsupportedOperationException("toUpdatedEntity aún no implementado");
 	}
 
-	private static List<FranjaHorariaResponseDTO> obtenerFranjas(DesignacionAdministrativa d) {
+	private static List<FranjaHorariaMinimoDTO> obtenerFranjas(DesignacionAdministrativa d) {
 		return d.getFranjasHorarias().stream()
-				.map(FranjaHorariaMapper::toResponse)
+				.map(FranjaHorariaMapper::toMinimo)
 				.toList();
 	}
 
-	private static List<AsignacionDetalleResponseDTO> obtenerAsignaciones(DesignacionAdministrativa d) {
+	private static List<AsignacionDetalleDTO> obtenerAsignaciones(DesignacionAdministrativa d) {
 		return d.getAsignaciones().stream()
-				.map(AsignacionMapper::toResponse)
+				.map(AsignacionMapper::toDetalle)
 				.toList();
 	}
 

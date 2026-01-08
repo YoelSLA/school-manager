@@ -87,9 +87,9 @@ export const routeTitles: Record<string, { label: string; to?: string }[]> = {
 
   "/licencias": [{ label: "Licencias" }],
 
-  "/licencias/solicitar": [
+  "/licencias/crear": [
     { label: "Licencias", to: "/licencias" },
-    { label: "Solicitar licencia" },
+    { label: "Crear Licencia" },
   ],
 
   "/licencias/listar": [

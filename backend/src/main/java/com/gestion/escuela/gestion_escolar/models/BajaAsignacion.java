@@ -23,4 +23,8 @@ public class BajaAsignacion {
 		this.fechaBaja = Objects.requireNonNull(fechaBaja);
 		this.motivo = Objects.requireNonNull(motivo);
 	}
+
+	public boolean estaVacia() {
+		return fechaBaja == null && motivo == null;
+	}
 }

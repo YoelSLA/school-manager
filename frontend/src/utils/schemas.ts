@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { RolEducativo } from "./types";
+import { RolEducativo, SituacionDeRevista } from "./types";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const cuilRegex = /^\d{2}-\d{8}-\d{1}$/;
@@ -39,10 +39,10 @@ export const empleadoEducativoSchema = z.object({
 export const franjaHorariaSchema = z
   .object({
     dia: z.string().min(1, "El día es obligatorio"),
-    desde: z.string().min(1, "Hora desde obligatoria"),
-    hasta: z.string().min(1, "Hora hasta obligatoria"),
+    horaDesde: z.string().min(1, "Hora desde obligatoria"),
+    horaHasta: z.string().min(1, "Hora hasta obligatoria"),
   })
-  .refine((data) => data.desde < data.hasta, {
+  .refine((data) => data.horaDesde < data.horaHasta, {
     message: "La hora desde debe ser menor a la hora hasta",
     path: ["horaHasta"],
   });
@@ -79,6 +79,31 @@ export const designacionAdministrativaSchema = z.object({
     .min(1, "Debe informar al menos una franja horaria"),
 });
 
+export const crearLicenciaSchema = z
+  .object({
+    tipoLicencia: z.string().min(1, "Seleccioná un tipo de licencia"),
+    fechaDesde: z.string().min(1, "La fecha desde es obligatoria"),
+    fechaHasta: z.string().min(1, "La fecha hasta es obligatoria"),
+    descripcion: z.string().optional(),
+  })
+  .refine((data) => data.fechaHasta >= data.fechaDesde, {
+    message: "La fecha hasta no puede ser anterior a la fecha desde",
+    path: ["fechaHasta"],
+  });
+
+export const asignacionSchema = z.object({
+  empleadoId: z.number(),
+  tipoAsignacion: z.string(),
+  situacionDeRevista: z.enum(
+    Object.values(SituacionDeRevista) as [
+      SituacionDeRevista,
+      ...SituacionDeRevista[],
+    ]
+  ),
+  fechaTomaPosesion: z.string(),
+  fechaCese: z.string(),
+});
+
 /* =========================
    TYPES
 ========================= */
@@ -88,3 +113,7 @@ export type EmpleadoEducativoForm = z.infer<typeof empleadoEducativoSchema>;
 export type DesignacionAdministrativaForm = z.infer<
   typeof designacionAdministrativaSchema
 >;
+
+export type CrearLicenciaForm = z.infer<typeof crearLicenciaSchema>;
+
+export type AsignacionCreateDTO = z.infer<typeof asignacionSchema>;

@@ -3,11 +3,9 @@ package com.gestion.escuela.gestion_escolar.models.designacion;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.FranjaHoraria;
-import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionNormal;
 import com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista;
-import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Predicate;
 
 @Entity
 @Table(
@@ -28,14 +25,13 @@ import java.util.function.Predicate;
 )
 @Inheritance(strategy = InheritanceType.JOINED)
 @Getter
-@Setter
 public abstract class Designacion {
-
 
 	@OneToMany(
 			mappedBy = "designacion",
 			cascade = CascadeType.ALL,
-			orphanRemoval = true)
+			orphanRemoval = true
+	)
 	private final Set<Asignacion> asignaciones;
 
 	@OneToMany(
@@ -47,6 +43,7 @@ public abstract class Designacion {
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "escuela_id", nullable = false)
+	@Setter
 	private Escuela escuela;
 
 	@Id
@@ -56,8 +53,10 @@ public abstract class Designacion {
 	@Column(nullable = false)
 	private Integer cupof;
 
+	/* ===============================
+	   Constructores
+	   =============================== */
 
-	// 🔹 Constructor JPA
 	protected Designacion() {
 		this.franjasHorarias = new HashSet<>();
 		this.asignaciones = new HashSet<>();
@@ -65,255 +64,97 @@ public abstract class Designacion {
 
 	protected Designacion(Escuela escuela, Integer cupof) {
 		if (escuela == null) {
-			throw new IllegalArgumentException(
-					"La designación debe pertenecer a una escuela"
-			);
+			throw new IllegalArgumentException("La designación debe pertenecer a una escuela");
 		}
-		this.cupof = cupof;
+		if (cupof == null) {
+			throw new IllegalArgumentException("El cupof es obligatorio");
+		}
 		this.escuela = escuela;
-		this.franjasHorarias = new HashSet<>();
+		this.cupof = cupof;
 		this.asignaciones = new HashSet<>();
+		this.franjasHorarias = new HashSet<>();
 	}
 
-	public void asignarAEscuela(Escuela escuela) {
-		if (escuela == null) {
-			throw new IllegalArgumentException("La escuela es obligatoria");
+	/* ===============================
+	   Comportamiento de dominio
+	   =============================== */
+
+	public void cubrirConSuplente(
+			EmpleadoEducativo empleadoEducativo,
+			LocalDate fechaDesde,
+			LocalDate fechaHasta
+	) {
+		Asignacion a = new AsignacionNormal(
+				this,
+				empleadoEducativo,
+				fechaDesde,
+				fechaHasta,
+				SituacionDeRevista.SUPLENTE
+		);
+
+		this.asignaciones.add(a);
+	}
+
+	public void agregarAsignacion(Asignacion asignacion) {
+		if (asignacion == null) {
+			throw new IllegalArgumentException("La asignación es obligatoria");
 		}
-		this.escuela = escuela;
+		asignacion.setDesignacion(this);
+		asignaciones.add(asignacion);
 	}
 
 	public void agregarFranjaHoraria(FranjaHoraria franja) {
 		if (franja == null) {
 			throw new IllegalArgumentException("La franja es obligatoria");
 		}
-
 		franja.setDesignacion(this);
-		this.franjasHorarias.add(franja);
+		franjasHorarias.add(franja);
 	}
 
-	public Licencia crearLicencia(
-			LocalDate fechaDesde,
-			LocalDate fechaHasta,
-			TipoLicencia tipoLicencia,
-			String descripcion
-	) {
-		if (tipoLicencia == null) {
-			throw new IllegalArgumentException("El tipo de licencia es obligatorio");
+	public boolean estaCubiertaEn(LocalDate fecha) {
+		if (fecha == null) {
+			return false;
 		}
 
-		Asignacion asignacionQueEjerce =
-				asignacionQueEjerceEn(LocalDate.now())
-						.orElseThrow(() ->
-								new IllegalStateException(
-										"No hay asignación que ejerzca el cargo"
-								)
-						);
-
-		return asignacionQueEjerce.solicitarLicencia(
-				fechaDesde,
-				fechaHasta,
-				tipoLicencia,
-				descripcion
-		);
+		return asignacionQueEjerceEn(fecha).isPresent();
 	}
-
-	public void cubrirConSuplente(
-			EmpleadoEducativo empleadoSuplente,
-			Licencia licencia
-	) {
-		if (empleadoSuplente == null) {
-			throw new IllegalArgumentException("El empleado suplente es obligatorio");
-		}
-
-		if (licencia == null) {
-			throw new IllegalArgumentException("La licencia a cubrir es obligatoria");
-		}
-
-		Asignacion asignacionConLicencia = licencia.getAsignacion();
-
-		// 1️⃣ La licencia debe pertenecer a esta designación
-		if (!this.asignaciones.contains(asignacionConLicencia)) {
-			throw new IllegalStateException(
-					"La licencia no pertenece a esta designación"
-			);
-		}
-
-		LocalDate desde = licencia.getFechaDesde();
-		LocalDate hasta = licencia.getFechaHasta();
-
-		// 2️⃣ El cargo no debe estar cubierto cuando empieza la licencia
-		if (asignacionQueEjerceEn(desde).isPresent()) {
-			throw new IllegalStateException(
-					"El cargo ya está cubierto en el período de la licencia"
-			);
-		}
-
-		// 3️⃣ La asignación debe estar vigente y en licencia en ese período
-		if (!asignacionConLicencia.estaVigenteEn(desde)
-				|| !asignacionConLicencia.estaEnLicenciaEn(desde)) {
-			throw new IllegalStateException(
-					"La licencia no es válida para ser cubierta"
-			);
-		}
-
-		// 4️⃣ Crear la asignación SUPLENTE con fechas EXACTAS
-		Asignacion suplente = new AsignacionNormal(
-				this,
-				empleadoSuplente,
-				desde,
-				hasta,
-				SituacionDeRevista.SUPLENTE
-		);
-
-		this.asignaciones.add(suplente);
-	}
-
-	public boolean tieneSuplentePara(Licencia licencia) {
-		return estaCubierta(licencia);
-	}
-
-
-	private boolean estaCubierta(Licencia licencia) {
-
-		if (licencia == null) {
-			throw new IllegalArgumentException("La licencia es obligatoria");
-		}
-
-		return asignaciones.stream()
-				.anyMatch(asignacion ->
-						asignacion.getSituacionDeRevista() == SituacionDeRevista.SUPLENTE
-								&& asignacion.getFechaTomaPosesion().equals(licencia.getFechaDesde())
-								&& asignacion.getFechaCese().equals(licencia.getFechaHasta())
-				);
-	}
-
-
-//	public void darBajaAsignacion(Asignacion asignacion, CausaBaja causaBaja) {
-//		if (asignacion == null) {
-//			throw new IllegalArgumentException("La asignación es obligatoria");
-//		}
-//
-//		if (!asignaciones.contains(asignacion)) {
-//			throw new IllegalArgumentException("La asignación no pertenece a esta designación");
-//		}
-//
-//		asignacion.darBajaDefinitiva(causaBaja);
-//
-//		resolverCoberturaTrasBaja(asignacion);
-//	}
 
 	public Optional<Asignacion> asignacionQueEjerceEn(LocalDate fecha) {
-		return asignaciones.stream().filter(a -> a.ejerceCargoEn(fecha)).findFirst();
-	}
-
-	public List<Asignacion> titulares() {
-		return asignacionesPorSituacion(SituacionDeRevista.TITULAR);
-	}
-
-	public List<Asignacion> provisionales() {
-		return asignacionesPorSituacion(SituacionDeRevista.PROVISIONAL);
-	}
-
-	public List<Asignacion> suplentes() {
-		return asignacionesPorSituacion(SituacionDeRevista.SUPLENTE);
-	}
-
-//	public Optional<Asignacion> titularVigenteEn(LocalDate fecha) {
-//		return asignacionPorSituacionYFecha(SituacionDeRevista.TITULAR, fecha, a -> a.estaVigenteEn(fecha));
-//	}
-//
-//	public Optional<Asignacion> titularQueEjerceEn(LocalDate fecha) {
-//		return asignacionPorSituacionYFecha(SituacionDeRevista.TITULAR, fecha, a -> a.estaEjerciendoEn(fecha));
-//	}
-//
-//	public Optional<Asignacion> provisionalVigenteEn(LocalDate fecha) {
-//		return asignacionPorSituacionYFecha(SituacionDeRevista.PROVISIONAL, fecha, a -> a.estaVigenteEn(fecha));
-//	}
-//
-//	public Optional<Asignacion> provisionalQueEjerceEn(LocalDate fecha) {
-//		return asignacionPorSituacionYFecha(SituacionDeRevista.PROVISIONAL, fecha, a -> a.estaEjerciendoEn(fecha));
-//	}
-//
-//	public Optional<Asignacion> suplenteVigenteEn(LocalDate fecha) {
-//		return asignacionPorSituacionYFecha(SituacionDeRevista.SUPLENTE, fecha, a -> a.estaVigenteEn(fecha));
-//	}
-//
-//	public Optional<Asignacion> suplenteQueEjerceEn(LocalDate fecha) {
-//		return asignacionPorSituacionYFecha(SituacionDeRevista.SUPLENTE, fecha, a -> a.estaEjerciendoEn(fecha));
-//	}
-
-	// PRIVATE
-
-	private LocalDate calcularFechaCeseProvisional(LocalDate fechaToma) {
-
-		LocalDate primeroDeMarzo = LocalDate.of(fechaToma.getYear(), 3, 1);
-
-		if (fechaToma.isBefore(primeroDeMarzo)) {
-			return primeroDeMarzo;
+		if (fecha == null) {
+			return Optional.empty();
 		}
 
-		return LocalDate.of(fechaToma.getYear() + 1, 3, 1);
-	}
-
-	private List<Asignacion> asignacionesPorSituacion(SituacionDeRevista situacion) {
-		return asignaciones.stream()
-				.filter(a -> a.getSituacionDeRevista() == situacion)
+		List<Asignacion> candidatas = asignaciones.stream()
+				.filter(a -> a.estaDisponibleEn(fecha))
+				.filter(a -> !a.getEmpleadoEducativo().estaEnLicenciaEn(fecha))
 				.toList();
+
+		if (candidatas.isEmpty()) {
+			return Optional.empty();
+		}
+
+		if (candidatas.size() > 1) {
+			throw new IllegalStateException(
+					"Más de una asignación ejerciendo el cargo para la misma fecha"
+			);
+		}
+
+		return Optional.of(candidatas.get(0));
 	}
 
-	private Optional<Asignacion> asignacionPorSituacionYFecha(SituacionDeRevista situacion, LocalDate fecha,
-															  Predicate<Asignacion> criterio
-	) {
-		return asignaciones.stream().filter(a -> a.getSituacionDeRevista() == situacion).filter(criterio).findFirst();
+	/**
+	 * Hay al menos una asignación disponible,
+	 * independientemente de licencias.
+	 */
+	public boolean tieneAsignacionActivaEn(LocalDate fecha) {
+		if (fecha == null) {
+			return false;
+		}
+
+		return asignaciones.stream()
+				.anyMatch(a -> a.estaDisponibleEn(fecha));
 	}
 
-//	private void convertirSuplenteEnProvisional(Asignacion suplente) {
-//
-//		// 1️⃣ Dar de baja la suplencia
-//		suplente.darBajaDefinitiva(CausaBaja.REORGANIZACION_DEL_CARGO);
-//
-//		// 2️⃣ Crear asignación provisional
-//		Asignacion provisional = new Asignacion(
-//				suplente.getEmpleadoEducativo(),
-//				LocalDate.now(),
-//				calcularFechaCeseProvisional(LocalDate.now()),
-//				SituacionDeRevista.PROVISIONAL
-//		);
-//
-//		// 3️⃣ Asociarla a la designación
-//		agregarAsignacion(provisional);
-//	}
-//
-//	private void dejarDesignacionPendiente() {
-//		// no hay asignación activa
-//		// el cargo queda sin cubrir
-//		// no se crea nada automáticamente
-//	}
-//
-//	private void resolverCoberturaTrasBaja(Asignacion asignacion) {
-//
-//		// 2️⃣ Si se dio de baja un TITULAR
-//		if (asignacion.getSituacionDeRevista() == SituacionDeRevista.TITULAR) {
-//			Optional<Asignacion> suplente = suplenteVigenteEn(LocalDate.now());
-//
-//			if (suplente.isPresent()) {
-//				convertirSuplenteEnProvisional(suplente.get());
-//			} else {
-//				dejarDesignacionPendiente();
-//			}
-//		}
-//
-//		// 1️⃣ Si se dio de baja un PROVISIONAL → queda pendiente
-//		if (asignacion.getSituacionDeRevista() == SituacionDeRevista.PROVISIONAL) {
-//			// caso que hablaste antes
-//			dejarDesignacionPendiente();
-//		}
-//
-//
-//	}
-//
-//
-//	public boolean estaPendienteEn(LocalDate fecha) {
-//		return asignacionQueEjerceEn(fecha).isEmpty();
-//	}
+
 }
+

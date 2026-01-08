@@ -1,8 +1,12 @@
 package com.gestion.escuela.gestion_escolar.mappers;
 
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.*;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaResumenDTO;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
+
+import java.util.List;
 
 public class EmpleadoEducativoMapper {
 
@@ -22,11 +26,20 @@ public class EmpleadoEducativoMapper {
 				e.getNombre(),
 				e.getApellido(),
 				e.getFechaDeIngreso(),
-				e.estaActivo()
+				e.isActivo()
 		);
 	}
 
 	public static EmpleadoEducativoDetalleDTO toDetalle(EmpleadoEducativo e) {
+
+		List<AsignacionDetalleDTO> asignaciones = e.getAsignaciones().stream()
+				.map(AsignacionMapper::toDetalle)
+				.toList();
+
+		List<LicenciaResumenDTO> licencias = e.getLicencias().stream()
+				.map(LicenciaMapper::toResumen)
+				.toList();
+
 		return new EmpleadoEducativoDetalleDTO(
 				e.getId(),
 				e.getCuil(),
@@ -37,7 +50,9 @@ public class EmpleadoEducativoMapper {
 				e.getEmail(),
 				e.getFechaDeNacimiento(),
 				e.getFechaDeIngreso(),
-				e.estaActivo()
+				e.isActivo(),
+				asignaciones,
+				licencias
 		);
 	}
 
@@ -57,14 +72,14 @@ public class EmpleadoEducativoMapper {
 	public static EmpleadoEducativo toEntity(EmpleadoEducativoCreateDTO d, Escuela e) {
 		return new EmpleadoEducativo(
 				e,
-				d.getCuil(),
-				d.getNombre(),
-				d.getApellido(),
-				d.getDomicilio(),
-				d.getTelefono(),
-				d.getFechaDeNacimiento(),
-				d.getFechaDeIngreso(),
-				d.getEmail()
+				d.cuil(),
+				d.nombre(),
+				d.apellido(),
+				d.domicilio(),
+				d.telefono(),
+				d.fechaDeNacimiento(),
+				d.fechaDeIngreso(),
+				d.email()
 		);
 	}
 

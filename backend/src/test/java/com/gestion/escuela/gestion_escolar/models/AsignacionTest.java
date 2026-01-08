@@ -1,198 +1,209 @@
 package com.gestion.escuela.gestion_escolar.models;
 
-public class AsignacionTest {
+import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
+import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
+import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
+import com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista;
+import com.gestion.escuela.gestion_escolar.models.exceptions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-//	Escuela escuela;
-//
-//	@BeforeEach
-//	void setUp() {
-//		escuela = new Escuela("Escuela N°65", "Bernal", "Av. Siempre Viva 123", "1145-6789");
-//	}
-//
-//	@Test
-//	void sePuedeCrearAsignacionActivaTitularValida() {
-//
-//		EmpleadoEducativo empleado = empleadoValido(escuela);
-//
-//		Asignacion asignacion = new Asignacion(
-//				empleado,
-//				LocalDate.of(2024, 3, 1),
-//				LocalDate.of(2030, 12, 31),
-//				SituacionDeRevista.TITULAR
-//		);
-//
-//		assertNotNull(asignacion);
-//		assertEquals(empleado, asignacion.getEmpleadoEducativo());
-//		assertEquals(SituacionDeRevista.TITULAR, asignacion.getSituacionDeRevista());
-//		assertEquals(EstadoAsignacion.ACTIVA, asignacion.getEstadoAsignacion());
-//		assertTrue(asignacion.getLicencias().isEmpty());
-//	}
-//
-//	@Test
-//	void noSePuedeCrearAsignacionSinEmpleado() {
-//		assertThrows(
-//				EmpleadoEducativoObligatorioException.class,
-//				() -> new Asignacion(
-//						null,
-//						LocalDate.of(2024, 3, 1),
-//						LocalDate.of(2030, 12, 31),
-//						SituacionDeRevista.TITULAR
-//				)
-//		);
-//	}
-//
-//	@Test
-//	void noSePuedeCrearAsignacionSinSituacionDeRevista() {
-//
-//		assertThrows(
-//				SituacionDeRevistaObligatoriaException.class,
-//				() -> new Asignacion(
-//						empleadoValido(escuela),
-//						LocalDate.of(2024, 3, 1),
-//						LocalDate.of(2030, 12, 31),
-//						null
-//				)
-//		);
-//	}
-//
-//	@Test
-//	void noSePuedeCrearAsignacionSinFechas() {
-//
-//		assertThrows(
-//				FechasAsignacionObligatoriasException.class,
-//				() -> new Asignacion(
-//						empleadoValido(escuela),
-//						null,
-//						null,
-//						SituacionDeRevista.TITULAR
-//				)
-//		);
-//	}
-//
-//	@Test
-//	void laFechaDeCeseNoPuedeSerAnteriorALaFechaDeTomaDePosesion() {
-//
-//		assertThrows(
-//				PeriodoAsignacionInvalidoException.class,
-//				() -> new Asignacion(
-//						empleadoValido(escuela),
-//						LocalDate.of(2024, 3, 10),
-//						LocalDate.of(2024, 3, 1),
-//						SituacionDeRevista.TITULAR
-//				)
-//		);
-//	}
-//
-//	@Test
-//	void asignacionActivaNoTieneLicenciasYEjerceElCargo() {
-//
-//		Asignacion asignacion = new Asignacion(
-//				empleadoValido(escuela),
-//				LocalDate.of(2024, 3, 1),
-//				LocalDate.of(2030, 12, 31),
-//				SituacionDeRevista.TITULAR
-//		);
-//
-//		assertEquals(EstadoAsignacion.ACTIVA, asignacion.getEstadoAsignacion());
-//		assertTrue(asignacion.getLicencias().isEmpty());
-//		assertTrue(asignacion.estaEjerciendo());
-//	}
-//
-//	@Test
-//	void asignacionActivaNoPuedeRegistrarLicencia() {
-//
-//		Asignacion asignacion = new Asignacion(
-//				empleadoValido(escuela),
-//				LocalDate.of(2024, 3, 1),
-//				LocalDate.of(2030, 12, 31),
-//				SituacionDeRevista.TITULAR
-//		);
-//
-//		assertThrows(
-//				AsignacionActivaConLicenciaException.class,
-//				() -> asignacion.registrarLicencia(
-//						TipoLicencia.ENFERMEDAD,
-//						LocalDate.of(2026, 1, 1),
-//						LocalDate.of(2026, 1, 5)
-//				)
-//		);
-//	}
-//
-//	@Test
-//	void asignacionEnLicenciaNoEjerceYTieneLicencias() {
-//
-//		Asignacion asignacion = new Asignacion(
-//				empleadoValido(escuela),
-//				LocalDate.of(2024, 3, 1),
-//				LocalDate.of(2030, 12, 31),
-//				SituacionDeRevista.TITULAR
-//		);
-//		asignacion.pasarALicencia();
-//
-//		asignacion.registrarLicencia(
-//				TipoLicencia.ENFERMEDAD,
-//				LocalDate.of(2026, 1, 1),
-//				LocalDate.of(2026, 1, 10)
-//		);
-//
-//		assertEquals(EstadoAsignacion.LICENCIA, asignacion.getEstadoAsignacion());
-//		assertFalse(asignacion.estaEjerciendo());
-//		assertFalse(asignacion.getLicencias().isEmpty());
-//	}
-//
-//	@Test
-//	void cambioDeFuncionSoloPuedeSerTitular() {
-//
-//		Asignacion asignacion = new Asignacion(
-//				empleadoValido(escuela),
-//				LocalDate.of(2022, 3, 1),
-//				LocalDate.of(2030, 12, 31),
-//				SituacionDeRevista.TITULAR
-//		);
-//
-//		asignacion.pasarACambioDeFuncion();
-//
-//		assertEquals(EstadoAsignacion.CAMBIO_DE_FUNCION, asignacion.getEstadoAsignacion());
-//		assertFalse(asignacion.estaEjerciendo());
-//	}
-//
-//	@Test
-//	void cambioDeFuncionNoPuedeSerSuplente() {
-//
-//		Asignacion asignacion = new Asignacion(empleadoValido(escuela), LocalDate.of(2024, 3, 1), LocalDate.of(2030, 12, 31), SituacionDeRevista.SUPLENTE);
-//
-//		assertThrows(
-//				CambioDeFuncionSoloTitularException.class,
-//				asignacion::pasarACambioDeFuncion
-//		);
-//	}
-//
-//	@Test
-//	void cambioDeFuncionNoPuedeSerProvisional() {
-//
-//		Asignacion asignacion = new Asignacion(empleadoValido(escuela), LocalDate.of(2024, 3, 1), LocalDate.of(2030, 12, 31), SituacionDeRevista.PROVISIONAL);
-//
-//		assertThrows(
-//				CambioDeFuncionSoloTitularException.class,
-//				asignacion::pasarACambioDeFuncion
-//		);
-//
-//	}
-//
-//
-//	private EmpleadoEducativo empleadoValido(Escuela escuela) {
-//		return new EmpleadoEducativo(
-//				escuela,
-//				"20-12345678-9",
-//				"Pérez",
-//				"Juan",
-//				"Calle Falsa 123",
-//				"11-1234-5678",
-//				LocalDate.of(1990, 5, 10),
-//				LocalDate.of(2020, 3, 1),
-//				"juan@mail.com"
-//		);
-//
-//	}
+import java.time.LocalDate;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.mock;
+
+@ExtendWith(MockitoExtension.class)
+class AsignacionTest {
+
+	private final LocalDate fechaToma = LocalDate.of(2026, 1, 1);
+	private final LocalDate fechaCese = LocalDate.of(2026, 1, 31);
+	private Designacion designacion;
+	private EmpleadoEducativo empleado;
+
+	@BeforeEach
+	void setUp() {
+		designacion = mock(Designacion.class);
+		empleado = mock(EmpleadoEducativo.class);
+	}
+
+	/* =========================
+	   CREACIÓN
+	   ========================= */
+
+	@Test
+	void creaAsignacionValida() {
+		Asignacion asignacion = crearAsignacion();
+
+		assertThat(asignacion).isNotNull();
+		assertThat(asignacion.getDesignacion()).isSameAs(designacion);
+		assertThat(asignacion.getEmpleadoEducativo()).isSameAs(empleado);
+		assertThat(asignacion.getSituacionDeRevista()).isEqualTo(SituacionDeRevista.TITULAR);
+	}
+
+	@Test
+	void fallaSiDesignacionEsNull() {
+		assertThatThrownBy(() ->
+				new Asignacion(
+						null,
+						empleado,
+						fechaToma,
+						fechaCese,
+						SituacionDeRevista.TITULAR
+				) {
+				}
+		).isInstanceOf(DesignacionObligatoriaException.class);
+	}
+
+	@Test
+	void fallaSiEmpleadoEsNull() {
+		assertThatThrownBy(() ->
+				new Asignacion(
+						designacion,
+						null,
+						fechaToma,
+						fechaCese,
+						SituacionDeRevista.TITULAR
+				) {
+				}
+		).isInstanceOf(EmpleadoEducativoObligatorioException.class);
+	}
+
+	@Test
+	void fallaSiSituacionEsNull() {
+		assertThatThrownBy(() ->
+				new Asignacion(
+						designacion,
+						empleado,
+						fechaToma,
+						fechaCese,
+						null
+				) {
+				}
+		).isInstanceOf(SituacionDeRevistaObligatoriaException.class);
+	}
+
+	@Test
+	void fallaSiFechasSonNull() {
+		assertThatThrownBy(() ->
+				new Asignacion(
+						designacion,
+						empleado,
+						null,
+						fechaCese,
+						SituacionDeRevista.TITULAR
+				) {
+				}
+		).isInstanceOf(FechasAsignacionObligatoriasException.class);
+	}
+
+	@Test
+	void fallaSiPeriodoEsInvalido() {
+		assertThatThrownBy(() ->
+				new Asignacion(
+						designacion,
+						empleado,
+						fechaCese,
+						fechaToma,
+						SituacionDeRevista.TITULAR
+				) {
+				}
+		).isInstanceOf(PeriodoAsignacionInvalidoException.class);
+	}
+
+	/* =========================
+	   DISPONIBILIDAD
+	   ========================= */
+
+	@Test
+	void estaDisponibleEnFechaIntermedia() {
+		Asignacion asignacion = crearAsignacion();
+
+		assertThat(asignacion.estaDisponibleEn(LocalDate.of(2026, 1, 15)))
+				.isTrue();
+	}
+
+	@Test
+	void noEstaDisponibleAntesDeLaToma() {
+		Asignacion asignacion = crearAsignacion();
+
+		assertThat(asignacion.estaDisponibleEn(LocalDate.of(2025, 12, 31)))
+				.isFalse();
+	}
+
+	@Test
+	void noEstaDisponibleDespuesDelCese() {
+		Asignacion asignacion = crearAsignacion();
+
+		assertThat(asignacion.estaDisponibleEn(LocalDate.of(2026, 2, 1)))
+				.isFalse();
+	}
+
+	@Test
+	void noEstaDisponibleSiFechaEsNull() {
+		Asignacion asignacion = crearAsignacion();
+
+		assertThat(asignacion.estaDisponibleEn(null))
+				.isFalse();
+	}
+
+	@Test
+	void noEstaDisponibleSiFueDadaDeBaja() {
+		Asignacion asignacion = crearAsignacion();
+
+		asignacion.registrarBaja(CausaBaja.RENUNCIA);
+
+		assertThat(asignacion.estaDisponibleEn(LocalDate.of(2026, 1, 15)))
+				.isFalse();
+	}
+
+	/* =========================
+	   BAJA
+	   ========================= */
+
+	@Test
+	void registraBajaCorrectamente() {
+		Asignacion asignacion = crearAsignacion();
+
+		asignacion.registrarBaja(CausaBaja.RENUNCIA);
+
+		assertThat(asignacion.getBajaAsignacion()).isNotNull();
+	}
+
+	@Test
+	void noPermiteRegistrarBajaDosVeces() {
+		Asignacion asignacion = crearAsignacion();
+		asignacion.registrarBaja(CausaBaja.RENUNCIA);
+
+		assertThatThrownBy(() ->
+				asignacion.registrarBaja(CausaBaja.JUBILACION)
+		).isInstanceOf(IllegalStateException.class);
+	}
+
+	@Test
+	void noPermiteRegistrarBajaSinCausa() {
+		Asignacion asignacion = crearAsignacion();
+
+		assertThatThrownBy(() ->
+				asignacion.registrarBaja(null)
+		).isInstanceOf(IllegalArgumentException.class);
+	}
+
+	/* =========================
+	   Helper
+	   ========================= */
+
+	private Asignacion crearAsignacion() {
+		return new Asignacion(
+				designacion,
+				empleado,
+				fechaToma,
+				fechaCese,
+				SituacionDeRevista.TITULAR
+		) {
+		};
+	}
 }

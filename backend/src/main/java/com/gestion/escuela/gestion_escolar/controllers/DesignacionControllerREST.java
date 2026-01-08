@@ -1,16 +1,13 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
 import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionDetalleResponseDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.CubrirDesignacionDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaResponseDTO;
 import com.gestion.escuela.gestion_escolar.factory.AsignacionFactory;
 import com.gestion.escuela.gestion_escolar.mappers.AsignacionMapper;
 import com.gestion.escuela.gestion_escolar.mappers.DesignacionMapper;
-import com.gestion.escuela.gestion_escolar.mappers.LicenciaMapper;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
-import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.services.AsignacionService;
@@ -20,7 +17,6 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -39,26 +35,26 @@ public class DesignacionControllerREST {
 
 	@PostMapping("/{designacionId}/asignaciones")
 	@ResponseStatus(HttpStatus.CREATED)
-	public AsignacionDetalleResponseDTO crear(
+	public AsignacionDetalleDTO crear(
 			@PathVariable Long designacionId,
 			@Valid @RequestBody AsignacionCreateDTO dto
 	) {
 		try {
-			EmpleadoEducativo empleado = empleadoEducativoService.obtenerPorId(dto.getEmpleadoId());
+			EmpleadoEducativo empleado = empleadoEducativoService.obtenerPorId(dto.empleadoId());
 			Designacion designacion = designacionService.obtenerPorId(designacionId);
 
 			Asignacion asignacion = AsignacionFactory.crear(
-					dto.getTipoAsignacion(),
+					dto.tipoAsignacion(),
 					empleado,
 					designacion,
-					dto.getFechaTomaPosesion(),
-					dto.getFechaCese(),
-					dto.getSituacionDeRevista()
+					dto.fechaTomaPosesion(),
+					dto.fechaCese(),
+					dto.situacionDeRevista()
 			);
 
 			Asignacion creada = asignacionService.crear(asignacion);
 
-			return AsignacionMapper.toResponse(creada);
+			return AsignacionMapper.toDetalle(creada);
 
 		} catch (
 				EntityNotFoundException ex) {
@@ -73,38 +69,18 @@ public class DesignacionControllerREST {
 		}
 	}
 
-	@PostMapping("/{designacionId}/licencias")
+	@PostMapping("/{designacionId}/coberturas")
 	@ResponseStatus(HttpStatus.CREATED)
-	public LicenciaResponseDTO crearLicencia(
+	public void cubrirDesignacion(
 			@PathVariable Long designacionId,
-			@Valid @RequestBody LicenciaCreateDTO dto
+			@RequestBody @Valid CubrirDesignacionDTO dto
 	) {
-		Designacion designacion = designacionService.obtenerPorId(designacionId);
-
-		Licencia licencia = designacionService.crearLicencia(
-				designacion,
+		designacionService.cubrirDesignacion(
+				designacionId,
+				dto.empleadoSuplenteId(),
 				dto.fechaDesde(),
-				dto.fechaHasta(),
-				dto.tipoLicencia(),
-				dto.descripcion()
+				dto.fechaHasta()
 		);
-
-		return LicenciaMapper.toResponse(licencia);
-	}
-
-	@PostMapping("/{designacionId}/licencias/{licenciaId}/cubrir")
-	public ResponseEntity<Void> cubrirLicencia(
-			@PathVariable Long designacionId,
-			@PathVariable Long licenciaId,
-			@RequestParam Long empleadoSuplenteId
-	) {
-		Designacion designacion = designacionService.obtenerPorId(designacionId);
-		Licencia licencia = designacionService.obtenerLicenciaPorId(licenciaId);
-		EmpleadoEducativo suplente = empleadoEducativoService.obtenerPorId(empleadoSuplenteId);
-
-		designacionService.cubrirLicencia(designacion, licencia, suplente);
-
-		return ResponseEntity.noContent().build();
 	}
 
 	// ---------------------------------------- //

@@ -2,6 +2,8 @@ package com.gestion.escuela.gestion_escolar.controllers.exceptions;
 
 import com.gestion.escuela.gestion_escolar.models.exceptions.EscuelaDuplicadaException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.EscuelaNoEncontradaException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.LicenciaNoEncontradaException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.LicenciaSuperpuestaException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -71,6 +73,18 @@ public class GlobalExceptionHandler {
 						"exceptions", errors
 				)
 		);
+	}
+
+	@ExceptionHandler(LicenciaSuperpuestaException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorResponse licenciaSuperpuesta(LicenciaSuperpuestaException ex) {
+		return new ErrorResponse(ex.getMessage());
+	}
+
+	@ExceptionHandler(LicenciaNoEncontradaException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public Map<String, String> handleLicenciaNoEncontrada(LicenciaNoEncontradaException ex) {
+		return Map.of("error", ex.getMessage());
 	}
 
 }

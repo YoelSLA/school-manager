@@ -6,7 +6,7 @@ import com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista;
 
 import java.time.LocalDate;
 
-public record AsignacionDetalleDetalleDTO(
+public record AsignacionDetalleDTO(
 		Long id,
 		EmpleadoEducativoMinimoDTO empleado,
 		LocalDate fechaTomaPosesion,
