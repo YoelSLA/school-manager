@@ -1,0 +1,80 @@
+/* =====================
+   PAGE
+===================== */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  gap: 8px;
+}
+
+/* =====================
+   HEADER
+===================== */
+
+.header {
+  flex-shrink: 0;
+}
+
+/* =====================
+   BODY — 3 COLUMNAS
+===================== */
+
+.body {
+  display: grid;
+  grid-template-columns: 0.3fr 0.5fr 1fr;
+  gap: 12px;
+
+  flex: 1;
+  min-height: 0;
+}
+
+/* =====================
+   HORARIOS (SCROLL REAL)
+===================== */
+
+.horarios {
+  background: #ffffff;
+  border-radius: 16px;
+
+  /* único scroll */
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* =====================
+   CARGO ACTIVO
+===================== */
+
+.cargoActivo {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  /* no scrollea */
+  flex-shrink: 0;
+}
+
+/* =====================
+   HISTORIAL DE CARGOS
+===================== */
+
+.historial {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  /* scroll propio */
+  overflow-y: auto;
+  min-height: 0;
+}

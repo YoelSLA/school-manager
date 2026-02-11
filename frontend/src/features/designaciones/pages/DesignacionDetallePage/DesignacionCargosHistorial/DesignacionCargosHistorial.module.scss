@@ -1,0 +1,30 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100%; // 👈 CLAVE
+  min-height: 0; // 👈 CLAVE para flex
+}
+
+/* HEADER STICKY */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #ffffff; // 👈 obligatorio
+  padding-bottom: 10px;
+
+}
+
+/* CONTENIDO SCROLLEABLE */
+.content {
+  flex: 1;
+  min-height: 0; // 👈 evita overflow raro
+  overflow-y: auto;
+}
+
+/* Estados */
+.loading,
+.empty {
+  font-size: 13px;
+  color: #6b7280;
+}

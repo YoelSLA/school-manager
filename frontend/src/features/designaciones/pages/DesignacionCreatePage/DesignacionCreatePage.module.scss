@@ -1,0 +1,33 @@
+.designacion-create {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	min-height: 0;
+	width: 100%;
+	gap: 8px;
+
+	/* ======================
+	   Tabs (Curso / Administrativa)
+	====================== */
+	&__tabs {
+		width: 100%;
+		max-width: var(--container-md);
+		margin: 0 auto;
+
+		display: flex;
+		justify-content: center;
+
+	}
+
+	/* ======================
+	   Form container (frame estable)
+	====================== */
+	&__form {
+		width: 100%;
+		max-width: var(--container-md);
+		margin: 0 auto;
+
+		display: flex;
+		flex-direction: column;
+	}
+}

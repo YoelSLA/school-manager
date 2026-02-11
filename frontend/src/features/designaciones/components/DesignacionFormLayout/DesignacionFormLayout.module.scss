@@ -1,0 +1,86 @@
+/* =====================
+   ROOT DEL LAYOUT
+===================== */
+
+.designacion-form {
+  height: 370px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+
+  background-color: #fff;
+  padding: 8px;
+  border-radius: 20px;
+}
+
+/* =====================
+   GRID GENERAL
+===================== */
+
+.designacion-form__grid {
+  flex: 1;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  /* contenido | footer */
+  min-height: 0;
+  gap: 8px;
+}
+
+/* =====================
+   CONTENIDO (2 COLUMNAS)
+===================== */
+
+.designacion-form__content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.5fr);
+  gap: 12px;
+  min-height: 0;
+}
+
+/* =====================
+   COLUMNAS
+===================== */
+
+.designacion-form__left,
+.designacion-form__right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* 🔥 CLAVE: limitar altura de la columna derecha */
+.designacion-form__right {
+  flex: 1;
+  /* debug */
+}
+
+.designacion-form__left {
+  padding: 8px;
+  border-radius: 20px;
+  height: 100%;
+  min-height: 0;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+/* =====================
+   FOOTER
+===================== */
+
+.designacion-form__footer {
+  flex-shrink: 0;
+  padding-top: 16px;
+
+  display: flex;
+  justify-content: flex-end;
+
+  padding: 8px;
+  border-radius: 20px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}

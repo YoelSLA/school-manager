@@ -1,0 +1,62 @@
+[
+	{
+		"turno": "MANIANA",
+		"anio": 1,
+		"grado": 1
+	},
+	{
+		"turno": "MANIANA",
+		"anio": 2,
+		"grado": 1
+	},
+	{
+		"turno": "MANIANA",
+		"anio": 3,
+		"grado": 1
+	},
+	{
+		"turno": "MANIANA",
+		"anio": 4,
+		"grado": 1
+	},
+	{
+		"turno": "MANIANA",
+		"anio": 5,
+		"grado": 1
+	},
+	{
+		"turno": "MANIANA",
+		"anio": 6,
+		"grado": 1
+	},
+	{
+		"turno": "TARDE",
+		"anio": 1,
+		"grado": 2
+	},
+	{
+		"turno": "TARDE",
+		"anio": 2,
+		"grado": 2
+	},
+	{
+		"turno": "TARDE",
+		"anio": 3,
+		"grado": 2
+	},
+	{
+		"turno": "TARDE",
+		"anio": 4,
+		"grado": 2
+	},
+	{
+		"turno": "TARDE",
+		"anio": 5,
+		"grado": 2
+	},
+	{
+		"turno": "TARDE",
+		"anio": 6,
+		"grado": 2
+	}
+]

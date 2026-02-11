@@ -1,0 +1,63 @@
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  padding: 10px 12px;
+  border-bottom: 1px solid #e5e7eb;
+
+  &:hover {
+    background-color: #f9fafb;
+  }
+}
+
+/* =====================
+   LÍNEA PRINCIPAL
+===================== */
+
+.main {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.periodo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  font-size: 13px;
+  color: #374151;
+}
+
+.arrow {
+  color: #9ca3af;
+}
+
+/* =====================
+   LÍNEA BAJA
+===================== */
+
+.baja {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  padding-left: 4px;
+
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.bajaLabel {
+  color: #9ca3af;
+}
+
+.bajaMotivo {
+  font-style: italic;
+}
+
+.dot {
+  margin: 0 4px;
+}

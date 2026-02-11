@@ -1,0 +1,21 @@
+.sidebar-page {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-height: 0;
+	gap: 8px;
+	padding-top: 0;
+	background-color: var(--bg-page);
+}
+
+.sidebar-page__sidebar {
+	flex-shrink: 0;
+	overflow-x: auto;
+}
+
+/* CONTENT */
+.sidebar-page__content {
+	flex: 1;
+	min-height: 0;
+	overflow-y: auto;
+}

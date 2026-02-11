@@ -1,0 +1,123 @@
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+
+	border: none;
+	border-radius: 20px;
+	background: transparent;
+
+	font-weight: 500;
+	cursor: pointer;
+	user-select: none;
+
+	transition:
+		background-color 0.15s ease,
+		color 0.15s ease,
+		box-shadow 0.15s ease,
+		transform 0.1s ease;
+
+	&:active:not(:disabled) {
+		transform: translateY(1px);
+	}
+
+	&:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+		box-shadow: none;
+	}
+
+	/* ======================
+     SIZES
+  ====================== */
+	&.btnSm {
+		padding: 8px 12px;
+		font-size: 0.85rem;
+	}
+
+	&.btnMd {
+		padding: 10px 16px;
+		font-size: 0.9rem;
+	}
+
+	/* ======================
+     VARIANTS
+  ====================== */
+
+	/* 🔵 PRIMARY – Crear */
+	&Primary {
+		background: #2563eb; // blue-600
+		color: #ffffff;
+		font-weight: 600;
+
+		&:hover:not(:disabled) {
+			background: #1d4ed8; // blue-700
+			box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+		}
+
+		&:active:not(:disabled) {
+			background: #1e40af; // blue-800
+		}
+	}
+
+	/* ⚪ SECONDARY */
+	&Secondary {
+		background: #ffffff;
+		color: #374151;
+		border: 1px solid #d1d5db;
+
+		&:hover:not(:disabled) {
+			background: #f9fafb;
+		}
+	}
+
+	/* 🟣 FILTER */
+	&Filter {
+		padding: 8px 18px;
+		border-radius: 999px;
+
+		background: #ffffff;
+		border: 1px solid #d1d5db;
+
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: #374151;
+
+		&:hover:not(:disabled):not(.isActive) {
+			background: #f1f5f9;
+		}
+	}
+
+	/* 🟢 SUCCESS */
+	&Success {
+		background: #16a34a;
+		color: #ffffff;
+
+		&:hover:not(:disabled) {
+			background: #15803d;
+			box-shadow: 0 4px 10px rgba(22, 163, 74, 0.3);
+		}
+	}
+
+	/* 🔴 DANGER */
+	&Danger {
+		background: #dc2626;
+		color: #ffffff;
+
+		&:hover:not(:disabled) {
+			background: #b91c1c;
+			box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
+		}
+	}
+}
+
+/* ======================
+   ACTIVE (exportado)
+====================== */
+.isActive {
+	background: #2563eb;
+	border-color: #2563eb;
+	color: #ffffff;
+	box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}

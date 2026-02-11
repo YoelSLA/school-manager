@@ -1,0 +1,560 @@
+[
+	{
+		"cupof": 2467830,
+		"rolEducativo": "DIRECCION",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "09:30",
+				"horaHasta": "17:30"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "07:30",
+				"horaHasta": "15:30"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "09:30",
+				"horaHasta": "17:30"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "07:30",
+				"horaHasta": "15:30"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "09:30",
+				"horaHasta": "17:30"
+			}
+		]
+	},
+	{
+		"cupof": 2467831,
+		"rolEducativo": "VICEDIRECCION",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "07:30",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "14:00",
+				"horaHasta": "18:30"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "07:30",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:30"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:30"
+			}
+		]
+	},
+	{
+		"cupof": 2467832,
+		"rolEducativo": "SECRETARIA",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:30"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "14:00",
+				"horaHasta": "18:30"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "14:00",
+				"horaHasta": "18:30"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:30"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "07:30",
+				"horaHasta": "12:00"
+			}
+		]
+	},
+	{
+		"cupof": 2467833,
+		"rolEducativo": "PRECEPTORIA",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "07:30",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "07:30",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "07:30",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "07:30",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "07:30",
+				"horaHasta": "12:00"
+			}
+		]
+	},
+	{
+		"cupof": 2467834,
+		"rolEducativo": "PRECEPTORIA",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "07:30",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "07:30",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "07:30",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "07:30",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "07:30",
+				"horaHasta": "12:00"
+			}
+		]
+	},
+	{
+		"cupof": 2467835,
+		"rolEducativo": "PRECEPTORIA",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "08:30",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "08:30",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "08:30",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "08:30",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "08:30",
+				"horaHasta": "13:00"
+			}
+		]
+	},
+	{
+		"cupof": 2467836,
+		"rolEducativo": "PRECEPTORIA",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:30"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:30"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:30"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:30"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:30"
+			}
+		]
+	},
+	{
+		"cupof": 2467837,
+		"rolEducativo": "PRECEPTORIA",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:30"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:30"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:30"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:30"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:30"
+			}
+		]
+	},
+	{
+		"cupof": 2587669,
+		"rolEducativo": "PRECEPTORIA",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "14:00",
+				"horaHasta": "18:30"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "14:00",
+				"horaHasta": "18:30"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "14:00",
+				"horaHasta": "18:30"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "14:00",
+				"horaHasta": "18:30"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "14:00",
+				"horaHasta": "18:30"
+			}
+		]
+	},
+	{
+		"cupof": 2535277,
+		"rolEducativo": "ORIENTACION_EDUCIONAL",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "08:00",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "08:00",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "08:00",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:00"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:00"
+			}
+		]
+	},
+	{
+		"cupof": 2535277,
+		"rolEducativo": "ORIENTACION_SOCIAL",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:00"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "08:00",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:00"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:00"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "08:00",
+				"horaHasta": "12:00"
+			}
+		]
+	},
+	{
+		"cupof": 2467838,
+		"rolEducativo": "BIBLIOTECARIO",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:30"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "07:30",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:30"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "07:30",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "13:00",
+				"horaHasta": "17:30"
+			}
+		]
+	},
+	{
+		"cupof": 2330000,
+		"rolEducativo": "AUXILIAR",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			}
+		]
+	},
+	{
+		"cupof": 2330001,
+		"rolEducativo": "AUXILIAR",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			}
+		]
+	},
+	{
+		"cupof": 2330002,
+		"rolEducativo": "AUXILIAR",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			}
+		]
+	},
+	{
+		"cupof": 2330003,
+		"rolEducativo": "AUXILIAR",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "07:00",
+				"horaHasta": "13:00"
+			}
+		]
+	},
+	{
+		"cupof": 2330004,
+		"rolEducativo": "AUXILIAR",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "12:30",
+				"horaHasta": "18:30"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "12:30",
+				"horaHasta": "18:30"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "12:30",
+				"horaHasta": "18:30"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "12:30",
+				"horaHasta": "18:30"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "12:30",
+				"horaHasta": "18:30"
+			}
+		]
+	},
+	{
+		"cupof": 2330005,
+		"rolEducativo": "AUXILIAR",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "12:30",
+				"horaHasta": "18:30"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "12:30",
+				"horaHasta": "18:30"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "12:30",
+				"horaHasta": "18:30"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "12:30",
+				"horaHasta": "18:30"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "12:30",
+				"horaHasta": "18:30"
+			}
+		]
+	}
+]

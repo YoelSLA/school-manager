@@ -1,0 +1,36 @@
+/* =========================
+   FORM
+========================= */
+
+.form {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* =========================
+   MAIN GRID
+========================= */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+
+  /* Ingreso ocupa toda la fila */
+  &> :nth-child(3) {
+    grid-column: 1 / -1;
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

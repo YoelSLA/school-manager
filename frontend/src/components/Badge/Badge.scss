@@ -1,0 +1,57 @@
+.badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+
+	padding: 4px 10px;
+	border-radius: 999px;
+
+	font-size: 12px;
+	font-weight: 600;
+	white-space: nowrap;
+
+	&__icon {
+		flex-shrink: 0;
+	}
+
+	&__label {
+		line-height: 1;
+	}
+
+	/* VARIANTS */
+	&--activa {
+		background: var(--estado-activa);
+		color: var(--estado-activa-text);
+	}
+
+	&--licencia {
+		background: var(--estado-licencia);
+		color: var(--estado-licencia-text);
+	}
+
+	&--cubierta {
+		background: var(--estado-cubierta);
+		color: var(--estado-cubierta-text);
+	}
+
+	&--descubierta,
+	&--vacante {
+		background: var(--estado-descubierta);
+		color: var(--estado-descubierta-text);
+	}
+
+	&--finalizada {
+		background: var(--estado-finalizada);
+		color: var(--estado-finalizada-text);
+	}
+
+	&--baja {
+		background: var(--estado-baja);
+		color: var(--estado-baja-text);
+	}
+
+	&--inactiva {
+		background: var(--estado-inactiva);
+		color: var(--estado-inactiva-text);
+	}
+}

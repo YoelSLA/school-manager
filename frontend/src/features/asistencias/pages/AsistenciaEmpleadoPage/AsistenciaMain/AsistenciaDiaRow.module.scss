@@ -1,0 +1,130 @@
+.dia-row {
+  /* ===== RESET BOTÓN (SEGURO) ===== */
+  appearance: none;
+  border: none;
+  background-color: #ffffff;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+  /* ===== LAYOUT ===== */
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  width: calc(100% - 24px);
+  padding: 10px 14px;
+  margin: 6px 12px;
+
+  border-radius: 999px;
+
+  /* ===== TIPOGRAFÍA ===== */
+  font-size: 13px;
+  color: #1f2937;
+
+  /* ===== SOMBRA ===== */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  /* ===== INTERACCIÓN ===== */
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  /* =========================
+     ELEMENTOS
+  ========================= */
+
+  &__fecha {
+    min-width: 110px;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+
+  &__estado {
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+    transform: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+
+  /* ===== BADGES ===== */
+
+  &__origen-manual {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #fff7ed;
+    color: #9a3412;
+  }
+
+  &__origen-licencia {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #eef2ff;
+    color: #4338ca;
+  }
+
+  /* =========================
+     SELECCIÓN
+  ========================= */
+
+  &--selected {
+    box-shadow: 0 0 0 2px #2563eb;
+  }
+
+  &--selected::before {
+    background-color: #eff6ff;
+  }
+
+  /* =========================
+     VARIANTES DE ESTADO
+  ========================= */
+
+  &--presente {
+    border-left: 4px solid #22c55e;
+
+    .dia-row__estado {
+      background: #dcfce7;
+      color: #15803d;
+    }
+  }
+
+  &--ausente {
+    border-left: 4px solid #ef4444;
+
+    .dia-row__estado {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+  }
+
+  /* =========================
+     REFUERZO POR ORIGEN
+  ========================= */
+
+  &--manual {
+    border-left-color: #f59e0b;
+  }
+
+  &--licencia {
+    border-left-style: dashed;
+  }
+
+  /* selected + ausente */
+  &--selected.dia-row--ausente {
+    background: #eff6ff;
+  }
+
+}

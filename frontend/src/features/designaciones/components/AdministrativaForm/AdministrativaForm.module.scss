@@ -1,0 +1,15 @@
+.left {
+	background-color: #fff;
+	border-radius: 16px;
+	padding: 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+
+	&__group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+}

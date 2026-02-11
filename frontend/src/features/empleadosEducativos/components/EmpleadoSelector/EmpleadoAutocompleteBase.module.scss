@@ -1,0 +1,113 @@
+@use "@/styles/form-control.base.scss" as *;
+
+.empleado-autocomplete {
+	position: relative;
+	width: 100%;
+
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+
+	font-family: inherit;
+
+	/* ===============================
+	   LABEL
+	================================ */
+
+	&__label {
+		@include form-label;
+	}
+
+	/* ===============================
+	   INPUT
+	================================ */
+
+	&__input {
+		@include form-control;
+	}
+
+	/* ===============================
+	   LOADING
+	================================ */
+
+	&__loading {
+		font-size: 12px;
+		color: #6b7280;
+		margin-top: 2px;
+	}
+
+	/* ===============================
+	   DROPDOWN LIST
+	================================ */
+
+	&__list {
+		position: absolute;
+		top: calc(100% + 4px);
+		left: 0;
+		right: 0;
+		z-index: 1000;
+
+		margin: 0;
+		padding: 4px 0;
+		list-style: none;
+
+		background: #ffffff;
+		border: 1px solid #e5e7eb;
+		border-radius: 10px;
+
+		box-shadow:
+			0 10px 15px -3px rgba(0, 0, 0, 0.1),
+			0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+		max-height: 220px;
+		overflow-y: auto;
+	}
+
+	/* ===============================
+	   LIST ITEM
+	================================ */
+
+	&__item {
+		margin: 0;
+	}
+
+	/* ===============================
+	   ITEM BUTTON
+	================================ */
+
+	&__button {
+		width: 100%;
+		padding: 8px 12px;
+
+		display: flex;
+		align-items: center;
+
+		background: none;
+		border: none;
+		cursor: pointer;
+
+		font-size: 13px;
+		color: #111827;
+		text-align: left;
+
+		&:hover {
+			background: #f3f4f6;
+		}
+
+		&:active {
+			background: #e5e7eb;
+		}
+	}
+
+	/* ===============================
+	   ERROR MESSAGE
+	================================ */
+
+	&__error {
+		@include form-error-message;
+	}
+
+	&__error-icon {
+		@include form-error-icon;
+	}
+}

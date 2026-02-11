@@ -1,0 +1,185 @@
+.box {
+	background: #ffffff;
+	padding: 16px;
+	border-radius: 10px;
+
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	border: 1px solid #e5e7eb;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+/* =====================
+   HEADER (IDENTIDAD)
+===================== */
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 12px;
+}
+
+.titleBlock {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.titleRow {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+.articulo {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+
+	font-size: 15px;
+	font-weight: 600;
+	color: #111827;
+
+	svg {
+		color: #4f46e5;
+		flex-shrink: 0;
+	}
+}
+
+.codigo {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+
+	font-size: 12px;
+	color: #6b7280;
+
+	svg {
+		color: #2563eb;
+		flex-shrink: 0;
+	}
+}
+
+/* =====================
+   DESCRIPCIÓN NORMATIVA
+===================== */
+
+.descripcionWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.descripcionCodigo {
+	font-size: 13px;
+	color: #374151;
+	line-height: 1.45;
+
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.expanded {
+	-webkit-line-clamp: unset;
+}
+
+.toggleDescripcion {
+	align-self: flex-start;
+	padding: 0;
+
+	background: none;
+	border: none;
+
+	font-size: 12px;
+	font-weight: 500;
+	color: #2563eb;
+	cursor: pointer;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+/* =====================
+   DIVIDER
+===================== */
+
+.divider {
+	height: 1px;
+	background: #dbeafe;
+}
+
+/* =====================
+   SUMMARY (PERÍODO / DURACIÓN)
+===================== */
+
+.summary {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+
+	padding: 14px 16px;
+	background: rgba(255, 255, 255, 0.6);
+	border-radius: 8px;
+}
+
+.item {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+
+	svg {
+		color: #2563eb;
+		margin-top: 3px;
+		flex-shrink: 0;
+	}
+
+	>div {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+}
+
+.label {
+	font-size: 11px;
+	color: #6b7280;
+}
+
+.value {
+	font-size: 13px;
+	font-weight: 500;
+	color: #111827;
+	line-height: 1.4;
+}
+
+/* =====================
+   DESCRIPCIÓN ADMINISTRATIVA
+===================== */
+
+.detalle {
+	h4 {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+
+		font-size: 13px;
+		margin-bottom: 4px;
+		color: #1f2937;
+
+		svg {
+			color: #6366f1;
+		}
+	}
+
+	p {
+		font-size: 13px;
+		color: #374151;
+		line-height: 1.45;
+	}
+}

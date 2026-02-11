@@ -1,0 +1,79 @@
+:root {
+	/* Backgrounds */
+	--bg-page: #d3deee;
+	--bg-header: #f1f5f9;
+	--bg-sidebar: #eef2f7;
+	--bg-card: #ffffff;
+
+	/* Borders */
+	--border: #e3e7ef;
+
+	/* Text */
+	--text-main: #111827;
+	--text-muted: #6b7280;
+
+	/* Brand / States */
+	--primary: #2563eb;
+	--success: #22c55e;
+	--warning: #f59e0b;
+	--danger: #ef4444;
+
+	/* Radius */
+	--radius: 12px;
+	--radius-sm: 8px;
+
+	/* Shadows */
+	--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+	--shadow-md: 0 6px 16px rgba(0, 0, 0, 0.12);
+
+	/* =====================
+	   ESTADOS GENERALES
+	===================== */
+
+	/* Activo / vigente */
+	--estado-activa: #dcfce7; /* verde claro */
+	--estado-activa-text: #166534; /* verde oscuro */
+
+	/* Licencia */
+	--estado-licencia: #fef3c7; /* amarillo */
+	--estado-licencia-text: #92400e;
+
+	/* Cubierta */
+	--estado-cubierta: #dcfce7; /* verde */
+	--estado-cubierta-text: #166534;
+
+	/* Descubierta */
+	--estado-descubierta: #fee2e2; /* rojo */
+	--estado-descubierta-text: #991b1b;
+
+	/* Vacante */
+	--estado-vacante: #fee2e2; /* rojo */
+	--estado-vacante-text: #991b1b;
+
+	/* Finalizada */
+	--estado-finalizada: #e5e7eb; /* gris claro */
+	--estado-finalizada-text: #374151;
+
+	/* Baja */
+	--estado-baja: #fecaca; /* rojo más fuerte */
+	--estado-baja-text: #7f1d1d;
+
+	/* Inactiva */
+	--estado-inactiva: #f3f4f6; /* gris neutro */
+	--estado-inactiva-text: #6b7280;
+
+	/* =====================
+	   SPACING
+	===================== */
+
+	--space-lg: 24px;
+	--space-md: 20px;
+	--space-sm: 16px;
+
+	/* =====================
+	   CONTAINERS
+	===================== */
+
+	--container-md: 1200px;
+	--container-lg: 1600px;
+}

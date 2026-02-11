@@ -1,0 +1,78 @@
+.escuela-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  /* ===== GRID GENERAL ===== */
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  /* ===== SECTION ===== */
+  &__section {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  &__section-title {
+    margin: 0 0 16px 0;
+
+    font-size: 15px;
+    font-weight: 600;
+    color: #0f172a;
+  }
+
+  /* ===== FIELDS GRID ===== */
+  &__fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,
+        minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  /* ===== ERROR GLOBAL ===== */
+  &__error {
+    color: #dc2626;
+    font-size: 13px;
+    margin-top: -8px;
+  }
+
+  /* ===== ACTIONS (solo si se usa fuera de modal) ===== */
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__submit {
+    background: #16a34a;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 999px;
+
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+
+    transition: background 0.2s ease,
+      transform 0.1s ease;
+
+    &:hover {
+      background: #15803d;
+    }
+
+    &:active {
+      transform: scale(0.96);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}

@@ -1,0 +1,58 @@
+┌────────────────────────────────-┐
+│ #CUPOF                 [ESTADO] |
+|---------------------------------│
+| SITUACION · Nombre Apellido     |
+|---------------------------------│
+| Fecha desde → Fecha hasta       |
+| (si activa) Faltan X días       |
+|---------------------------------│
+│ [Cobertura]            [Acción] |
+└────────────────────────────────-┘
+
+┌────────────────────────────────----------------------------------------------------------------------------
+│ CUIL   Apellido, Nombre  situacionDeRevista  fechaTomaPosesion - fechaCese  vigente   enLicencia cubierta |
+┌────────────────────────────────----------------------------------------------------------------------------
+
+
+┌──────────────────────────────────────────────┐
+│ Modal: Detalle de Designación                │
+│                                              │
+│ ┌─────────────── HEADER ──────────────────┐ │
+│ │ Datos generales de la designación        │ │
+│ └─────────────────────────────────────────┘ │
+│                                              │
+│ ┌────────────── LISTADO DE CARGOS ─────────┐ │
+│ │ Cargo 1                                  │ │
+│ │ Cargo 2                                  │ │
+│ │ Cargo 3                                  │ │
+│ └─────────────────────────────────────────┘ │
+│                                              │
+│ [Cerrar]                                    │
+└──────────────────────────────────────────────┘
+
+
+/* Desktop grande */
+@media (min-width: 1600px) {
+  // 1920+
+}
+
+/* Desktop medio */
+@media (max-width: 1599px) {
+  // 1536
+}
+
+/* Desktop chico / laptop */
+@media (max-width: 1366px) {
+  // 1366
+}
+
+/* Tablet / transición */
+@media (max-width: 1024px) {
+  // iPad / tablets
+}
+
+/* Mobile */
+@media (max-width: 720px) {
+  // phones
+}
+

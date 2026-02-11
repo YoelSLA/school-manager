@@ -1,0 +1,33 @@
+/* =========================
+   LICENCIA · ACTIONS
+========================= */
+
+.licencia-card__actions {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.licencia-card__actions .btn-ver-detalle {
+	background: #2563eb;
+	color: #ffffff;
+
+	border: none;
+	border-radius: 10px;
+	padding: 6px 14px;
+
+	font-size: 0.8rem;
+	font-weight: 500;
+	cursor: pointer;
+
+	transition:
+		background 0.15s ease,
+		transform 0.1s ease;
+}
+
+.licencia-card__actions .btn-ver-detalle:hover {
+	background: #1d4ed8;
+}
+
+.licencia-card__actions .btn-ver-detalle:active {
+	transform: scale(0.96);
+}

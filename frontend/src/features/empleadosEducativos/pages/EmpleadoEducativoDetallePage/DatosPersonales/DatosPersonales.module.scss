@@ -1,0 +1,22 @@
+.datos {
+	padding: 12px 16px;
+	border-radius: 12px;
+	background: #fff7cc;
+	height: 100%;
+
+	&__titulo {
+		font-size: 0.75rem;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: #475569;
+		opacity: 0.85;
+		margin-bottom: 8px;
+	}
+
+	&__grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 10px;
+	}
+}

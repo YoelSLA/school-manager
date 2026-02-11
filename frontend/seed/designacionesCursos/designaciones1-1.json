@@ -1,0 +1,186 @@
+[
+	{
+		"cupof": 2467774,
+		"materiaId": 1,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "09:45",
+				"horaHasta": "10:45"
+			},
+			{
+				"dia": "LUNES",
+				"horaDesde": "11:00",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "09:45",
+				"horaHasta": "10:45"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "11:00",
+				"horaHasta": "12:00"
+			}
+		]
+	},
+	{
+		"cupof": 2467775,
+		"materiaId": 2,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "12:00",
+				"horaHasta": "13:00"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "09:45",
+				"horaHasta": "10:45"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "11:00",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "12:00",
+				"horaHasta": "13:00"
+			}
+		]
+	},
+	{
+		"cupof": 2467776,
+		"materiaId": 3,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": [
+			{
+				"dia": "LUNES",
+				"horaDesde": "07:30",
+				"horaHasta": "08:30"
+			},
+			{
+				"dia": "LUNES",
+				"horaDesde": "08:45",
+				"horaHasta": "09:45"
+			}
+		]
+	},
+	{
+		"cupof": 2467777,
+		"materiaId": 4,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": [
+			{
+				"dia": "MARTES",
+				"horaDesde": "09:45",
+				"horaHasta": "10:45"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "11:00",
+				"horaHasta": "12:00"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "09:45",
+				"horaHasta": "10:45"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "11:00",
+				"horaHasta": "12:00"
+			}
+		]
+	},
+	{
+		"cupof": 2467778,
+		"materiaId": 5,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": [
+			{
+				"dia": "MARTES",
+				"horaDesde": "07:30",
+				"horaHasta": "08:30"
+			},
+			{
+				"dia": "MARTES",
+				"horaDesde": "08:45",
+				"horaHasta": "09:45"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "07:30",
+				"horaHasta": "08:30"
+			},
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "08:45",
+				"horaHasta": "09:45"
+			}
+		]
+	},
+	{
+		"cupof": 2467779,
+		"materiaId": 6,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": [
+			{
+				"dia": "MIERCOLES",
+				"horaDesde": "11:50",
+				"horaHasta": "12:50"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "11:50",
+				"horaHasta": "12:50"
+			}
+		]
+	},
+	{
+		"cupof": 2467780,
+		"materiaId": 7,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": [
+			{
+				"dia": "VIERNES",
+				"horaDesde": "07:30",
+				"horaHasta": "08:30"
+			},
+			{
+				"dia": "VIERNES",
+				"horaDesde": "08:45",
+				"horaHasta": "09:45"
+			}
+		]
+	},
+	{
+		"cupof": 2467781,
+		"materiaId": 8,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": [
+			{
+				"dia": "JUEVES",
+				"horaDesde": "07:30",
+				"horaHasta": "08:30"
+			},
+			{
+				"dia": "JUEVES",
+				"horaDesde": "08:45",
+				"horaHasta": "09:45"
+			}
+		]
+	}
+]

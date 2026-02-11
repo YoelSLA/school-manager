@@ -1,0 +1,24 @@
+.stack {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	min-height: 0;
+	gap: 8px;
+	justify-content: space-between;
+	padding: 8px;
+	background-color: #fff;
+	border: 1px solid #e5e7eb;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+	border-radius: 20px;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.actions {
+	display: flex;
+	justify-content: flex-end;
+}

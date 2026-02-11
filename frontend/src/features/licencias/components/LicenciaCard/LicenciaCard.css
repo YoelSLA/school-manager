@@ -1,0 +1,24 @@
+/* =========================
+   LICENCIA CARD
+========================= */
+
+.licencia-card {
+	background: #f9fafb;
+	border-radius: 14px;
+	padding: 14px;
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+	min-height: 260px;
+	max-width: 340px;
+	display: flex;
+	flex-direction: column;
+}
+
+/* =========================
+   DIVIDER
+========================= */
+
+.dividerCardLicencia {
+	height: 1px;
+	background: #e5e7eb;
+	margin: 10px 0;
+}

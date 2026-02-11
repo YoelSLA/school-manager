@@ -1,0 +1,25 @@
+.app-layout {
+
+	height: 100vh;
+	overflow: visible;
+	// background-color: aqua;
+
+	&__viewport {
+		margin-top: var(--header-total-height);
+		height: calc(100vh - var(--header-total-height));
+		display: flex;
+		flex-direction: column;
+		// background-color: aqua;
+		padding: 8px;
+		overflow: hidden;
+		// background-color: blueviolet;
+	}
+
+	&__content {
+		flex: 1;
+		min-height: 0;
+		// background-color: black;
+		overflow: hidden;
+		// background-color: chartreuse;
+	}
+}

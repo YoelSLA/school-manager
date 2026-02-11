@@ -1,0 +1,61 @@
+.horario-dia {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  border: 1px solid #e5e7eb;
+
+  &__header {
+    display: flex;
+    align-items: center;
+  }
+
+  &__nombre {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #6b7280;
+    text-transform: uppercase;
+  }
+
+  &__rangos {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__arrow {
+    color: #6b7280;
+    flex-shrink: 0;
+  }
+
+  &__rango {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 8px;
+    border-radius: 20px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #111827;
+
+    svg {
+      color: #2563eb;
+    }
+  }
+
+  &__hora {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+  }
+
+  &__separador {
+    color: #6b7280;
+    font-weight: 400;
+  }
+}

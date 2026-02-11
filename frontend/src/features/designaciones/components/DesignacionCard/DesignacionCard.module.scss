@@ -1,0 +1,14 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.centerRow {
+  display: flex;
+  justify-content: center;
+}
+
+.actions {
+  margin-top: auto;
+}

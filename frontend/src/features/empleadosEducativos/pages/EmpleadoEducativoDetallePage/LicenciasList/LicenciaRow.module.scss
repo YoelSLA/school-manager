@@ -1,0 +1,52 @@
+/* ===============================
+   LICENCIA ROW
+================================ */
+
+.licencia-row {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-template-areas:
+		"header header"
+		"footer footer";
+
+	row-gap: 6px;
+
+	padding: 10px 12px;
+	border-radius: 12px;
+	border: 1px solid #e5e7eb;
+	background: #ffffff;
+}
+
+/* ===============================
+   HEADER
+================================ */
+
+.licencia-row__header {
+	grid-area: header;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+}
+
+.licencia-row__tipo {
+	font-size: 13px;
+	font-weight: 600;
+	color: #7c3aed;
+}
+
+/* ===============================
+   FOOTER
+================================ */
+
+.licencia-row__footer {
+	grid-area: footer;
+
+	display: flex;
+	align-items: center;
+	gap: 6px;
+
+	font-size: 12px;
+	color: #374151;
+}

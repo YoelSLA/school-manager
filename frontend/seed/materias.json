@@ -1,0 +1,133 @@
+[
+	{
+		"nombre": "Matemática",
+		"abreviatura": "MTM",
+		"cantidadModulos": 4
+	},
+	{
+		"nombre": "Practicas del Lenguaje",
+		"abreviatura": "PLG",
+		"cantidadModulos": 4
+	},
+
+	{
+		"nombre": "Inglés",
+		"abreviatura": "IGS",
+		"cantidadModulos": 2
+	},
+	{
+		"nombre": "Ciencias Sociales",
+		"abreviatura": "CSC",
+		"cantidadModulos": 4
+	},
+	{
+		"nombre": "Ciencias Naturales",
+		"abreviatura": "CNT",
+		"cantidadModulos": 4
+	},
+	{
+		"nombre": "Educación Física",
+		"abreviatura": "EFI",
+		"cantidadModulos": 2
+	},
+	{
+		"nombre": "Educación Artística",
+		"abreviatura": "APV",
+		"cantidadModulos": 2
+	},
+	{
+		"nombre": "Construcción de la Ciudadanía",
+		"abreviatura": "CDD",
+		"cantidadModulos": 2
+	},
+	{
+		"nombre": "Historia",
+		"abreviatura": "HTR",
+		"cantidadModulos": 2
+	},
+	{
+		"nombre": "Geografía",
+		"abreviatura": "GGF",
+		"cantidadModulos": 2
+	},
+	{
+		"nombre": "Biología",
+		"abreviatura": "BLG",
+		"cantidadModulos": 2
+	},
+	{
+		"nombre": "Fisico Química",
+		"abreviatura": "FQA",
+		"cantidadModulos": 2
+	},
+	{
+		"nombre": "Matemática Ciclo Superior",
+		"abreviatura": "MCS",
+		"cantidadModulos": 3
+	},
+	{
+		"nombre": "Literatura",
+		"abreviatura": "LIT",
+		"cantidadModulos": 3
+	},
+	{
+		"nombre": "Nuevas Tecnologías de la Información y Conectividad",
+		"abreviatura": "NTIC",
+		"cantidadModulos": 2
+	},
+	{
+		"nombre": "Introducción a la Física",
+		"abreviatura": "IFIS",
+		"cantidadModulos": 2
+	},
+	{
+		"nombre": "Salud y Adolescencia",
+		"abreviatura": "SYA",
+		"cantidadModulos": 3
+	},
+	{
+		"nombre": "Producción y Analisis de la Imagen",
+		"abreviatura": "PAIS",
+		"cantidadModulos": 4
+	},
+	{
+		"nombre": "Introducción a la Química",
+		"abreviatura": "IQUI",
+		"cantidadModulos": 2
+	},
+	{
+		"nombre": "Política y Ciudadanía",
+		"abreviatura": "LIT",
+		"cantidadModulos": 2
+	},
+	{
+		"nombre": "Teatro",
+		"abreviatura": "TTO",
+		"cantidadModulos": 2
+	},
+	{
+		"nombre": "Imagen y Nuevos Medios",
+		"abreviatura": "INM",
+		"cantidadModulos": 3
+	},
+	{
+		"nombre": "Imagen y Procedimientos Constructivos",
+		"abreviatura": "IPC",
+		"cantidadModulos": 3
+	},
+	{
+		"nombre": "Filosofía",
+		"abreviatura": "FIA",
+		"cantidadModulos": 2
+	},
+	{
+		"nombre": "Trabajo y Ciudadanía",
+		"abreviatura": "TYC",
+		"cantidadModulos": 2
+	},
+	{
+		"nombre": "Proyecto de Producción de Artes Visuales",
+		"abreviatura": "PRO",
+		"cantidadModulos": 6
+	}
+]

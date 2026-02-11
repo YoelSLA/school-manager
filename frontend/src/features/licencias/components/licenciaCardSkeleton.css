@@ -1,0 +1,68 @@
+.skeleton {
+	border-left-color: #e5e7eb;
+}
+
+.sk-row {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.sk-top {
+	justify-content: space-between;
+}
+
+.sk-footer {
+	justify-content: space-between;
+}
+
+.sk-line,
+.sk-pill,
+.sk-button {
+	background: linear-gradient(90deg, #e5e7eb 25%, #f1f5f9 37%, #e5e7eb 63%);
+	background-size: 400% 100%;
+	animation: shimmer 1.4s ease infinite;
+}
+
+.sk-line {
+	height: 14px;
+	border-radius: 4px;
+}
+
+.sk-long {
+	width: 60%;
+}
+
+.sk-medium {
+	width: 40%;
+}
+
+.sk-small {
+	width: 24%;
+}
+
+.sk-pill {
+	height: 18px;
+	border-radius: 999px;
+}
+
+.sk-button {
+	width: 72px;
+	height: 28px;
+	border-radius: 8px;
+}
+
+.sk-divider {
+	height: 1px;
+	background: #e5e7eb;
+	margin: 6px 0;
+}
+
+@keyframes shimmer {
+	0% {
+		background-position: 100% 0;
+	}
+	100% {
+		background-position: 0 0;
+	}
+}

@@ -1,0 +1,39 @@
+.licencia-designacion-card {
+	background: #ffffff;
+	border-radius: 12px;
+	padding: 12px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.licencia-designacion-card.seleccionable {
+	cursor: pointer;
+}
+
+.licencia-designacion-card.no-seleccionable {
+	opacity: 0.6;
+}
+
+.licencia-designacion-content {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.licencia-designacion-content input[type="checkbox"] {
+	transform: scale(1.1);
+}
+
+.licencia-designacion-info {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.licencia-designacion-info strong {
+	font-size: 0.85rem;
+}
+
+.licencia-designacion-info .estado {
+	font-size: 0.7rem;
+	font-weight: 600;
+}

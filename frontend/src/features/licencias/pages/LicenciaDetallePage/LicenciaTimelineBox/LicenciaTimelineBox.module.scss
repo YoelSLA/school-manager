@@ -1,0 +1,26 @@
+.box {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	min-height: 0;
+	border-radius: 12px;
+}
+
+.title {
+	font-size: 14px;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	color: #92400e;
+	margin-bottom: 8px;
+	text-align: center;
+}
+
+.body {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: stretch;
+	flex: 1;
+	min-height: 0;
+	gap: 12px;
+}

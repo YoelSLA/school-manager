@@ -1,0 +1,401 @@
+[
+	{
+		"cupof": 2467774,
+		"materiaId": 1,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467775,
+		"materiaId": 1,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467776,
+		"materiaId": 1,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467777,
+		"materiaId": 1,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467778,
+		"materiaId": 1,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467779,
+		"materiaId": 1,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467780,
+		"materiaId": 1,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467781,
+		"materiaId": 1,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467782,
+		"materiaId": 1,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467783,
+		"materiaId": 1,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467784,
+		"materiaId": 1,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467785,
+		"materiaId": 1,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467785,
+		"materiaId": 1,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467786,
+		"materiaId": 2,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467787,
+		"materiaId": 2,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467788,
+		"materiaId": 3,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467789,
+		"materiaId": 3,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467790,
+		"materiaId": 4,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467791,
+		"materiaId": 4,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467792,
+		"materiaId": 5,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467793,
+		"materiaId": 5,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467794,
+		"materiaId": 6,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467795,
+		"materiaId": 6,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467796,
+		"materiaId": 7,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467797,
+		"materiaId": 7,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467798,
+		"materiaId": 8,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467799,
+		"materiaId": 8,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467800,
+		"materiaId": 9,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467801,
+		"materiaId": 9,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467802,
+		"materiaId": 10,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467803,
+		"materiaId": 10,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467804,
+		"materiaId": 11,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467805,
+		"materiaId": 11,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467806,
+		"materiaId": 12,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467807,
+		"materiaId": 12,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467808,
+		"materiaId": 13,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467809,
+		"materiaId": 13,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467810,
+		"materiaId": 14,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467811,
+		"materiaId": 14,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467812,
+		"materiaId": 15,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467813,
+		"materiaId": 15,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467814,
+		"materiaId": 16,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467815,
+		"materiaId": 16,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467816,
+		"materiaId": 17,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467817,
+		"materiaId": 17,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467818,
+		"materiaId": 18,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467819,
+		"materiaId": 18,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467820,
+		"materiaId": 19,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467821,
+		"materiaId": 19,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467822,
+		"materiaId": 20,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467823,
+		"materiaId": 20,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467824,
+		"materiaId": 21,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467825,
+		"materiaId": 21,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467826,
+		"materiaId": 22,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467827,
+		"materiaId": 22,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467828,
+		"materiaId": 23,
+		"cursoId": 1,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	},
+	{
+		"cupof": 2467829,
+		"materiaId": 23,
+		"cursoId": 7,
+		"orientacion": "GENERAL",
+		"franjasHorarias": []
+	}
+]

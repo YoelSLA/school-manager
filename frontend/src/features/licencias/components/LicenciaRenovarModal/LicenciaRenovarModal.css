@@ -1,0 +1,120 @@
+/* ===============================
+   LICENCIA RENOVAR MODAL
+================================ */
+
+.licencia-renovar-modal {
+	display: flex;
+	flex-direction: column;
+}
+
+/* ===============================
+   HEADER
+================================ */
+
+.licencia-renovar-modal__header {
+	padding: 16px 20px;
+	border-bottom: 1px solid #e5e7eb;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.licencia-renovar-modal__title {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 700;
+	color: #111827;
+}
+
+.licencia-renovar-modal__close {
+	border: none;
+	background: transparent;
+
+	font-size: 18px;
+	line-height: 1;
+	cursor: pointer;
+
+	color: #6b7280;
+}
+
+.licencia-renovar-modal__close:hover {
+	color: #111827;
+}
+
+/* ===============================
+   BODY
+================================ */
+
+.licencia-renovar-modal__body {
+	padding: 16px 20px;
+
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+/* ===============================
+   FORM
+================================ */
+
+.licencia-renovar-modal .form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.licencia-renovar-modal .form-group label {
+	font-size: 13px;
+	font-weight: 600;
+	color: #374151;
+}
+
+.licencia-renovar-modal .form-group input,
+.licencia-renovar-modal .form-group select,
+.licencia-renovar-modal .form-group textarea {
+	padding: 8px 10px;
+	border-radius: 8px;
+	border: 1px solid #d1d5db;
+
+	font-size: 14px;
+}
+
+.licencia-renovar-modal .form-group input:focus,
+.licencia-renovar-modal .form-group select:focus,
+.licencia-renovar-modal .form-group textarea:focus {
+	outline: none;
+	border-color: #2563eb;
+}
+
+/* ===============================
+   ERROR
+================================ */
+
+.licencia-renovar-modal .form-error {
+	font-size: 12px;
+	color: #dc2626;
+}
+
+/* ===============================
+   FOOTER
+================================ */
+
+.licencia-renovar-modal__footer {
+	padding: 14px 20px;
+	border-top: 1px solid #e5e7eb;
+
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 480px) {
+	.licencia-renovar-modal__body {
+		gap: 12px;
+	}
+}

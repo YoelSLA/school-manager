@@ -1,0 +1,20 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+/* CUPOF */
+.cupof {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+
+	font-size: 1.1rem;
+	font-weight: 600;
+	color: #111827;
+
+	svg {
+		color: #6b7280;
+	}
+}

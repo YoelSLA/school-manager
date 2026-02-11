@@ -1,0 +1,50 @@
+.licencia-form {
+	display: flex;
+	flex-direction: column;
+
+	background-color: #fff;
+	padding: 8px;
+	border-radius: 20px;
+
+	&__grid {
+		display: grid;
+		gap: 8px;
+	}
+
+	&__content {
+		flex: 1;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 12px;
+	}
+
+	&__left,
+	&__right {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		padding: 8px;
+		border-radius: 20px;
+		height: 100%;
+		background-color: #ffffff;
+		border: 1px solid #e5e7eb;
+		box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+	}
+
+	&__footer {
+		flex-shrink: 0;
+		display: flex;
+		justify-content: flex-end;
+
+		padding: 8px;
+		border-radius: 20px;
+		background-color: #ffffff;
+		border: 1px solid #e5e7eb;
+		box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+	}
+
+
+
+
+
+}

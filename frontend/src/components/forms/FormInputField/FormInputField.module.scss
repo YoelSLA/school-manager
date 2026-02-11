@@ -1,0 +1,55 @@
+@use "@/styles/form-control.base.scss" as *;
+
+.form-field {
+	@include form-field;
+
+	/* =====================
+     LABEL
+  ===================== */
+
+	&__label {
+		@include form-label;
+	}
+
+	/* =====================
+     INPUT / SELECT / TEXTAREA
+  ===================== */
+
+	&__input {
+		@include form-control;
+		padding-right: 36px; // espacio para icono de error
+	}
+
+	/* =====================
+     ERROR STATE
+  ===================== */
+
+	&--error {
+		.form-field__input {
+			@include form-control-error;
+		}
+	}
+
+	/* =====================
+     ERROR TOOLTIP
+  ===================== */
+
+	&__error-tooltip {
+		@include form-error-tooltip;
+	}
+
+	/* Mostrar tooltip solo en hover o focus */
+	&--error:hover &__error-tooltip,
+	&--error:focus-within &__error-tooltip {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	/* =====================
+     ERROR ICON
+  ===================== */
+
+	&__error-icon {
+		@include form-error-icon;
+	}
+}

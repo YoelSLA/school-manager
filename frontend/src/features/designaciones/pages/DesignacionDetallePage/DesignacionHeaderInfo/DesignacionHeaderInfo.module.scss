@@ -1,0 +1,87 @@
+.designacion-header-info {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 8px;
+	border-radius: 16px;
+	background: #ffffff;
+
+	/* =====================
+	   TOP LAYOUT
+	===================== */
+
+	&__top {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		align-items: center;
+		gap: 16px;
+	}
+
+	&__top--simple {
+		grid-template-columns: auto auto;
+		justify-content: space-between;
+	}
+
+	&__left {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		min-width: 0; // evita overflow
+	}
+
+	&__center {
+		display: flex;
+		justify-content: center;
+		gap: 16px;
+		flex-wrap: wrap;
+	}
+
+	/* =====================
+	   TEXT
+	===================== */
+
+	&__rol {
+		font-size: 1.1rem;
+		font-weight: 600;
+		color: #111827;
+		margin: 0;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	&__cupof {
+		font-size: 1.1rem;
+		font-weight: 600;
+		color: #6b7280;
+		white-space: nowrap;
+	}
+}
+
+/* =====================
+   CURSO BADGE
+===================== */
+
+.curso-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+
+	padding: 8px 12px;
+	border-radius: 999px;
+
+	background: #f0f9ff;
+	color: #0c4a6e;
+
+	font-size: 0.8rem;
+	font-weight: 600;
+	white-space: nowrap;
+
+	svg {
+		color: #0284c7;
+	}
+
+	&__value {
+		line-height: 1;
+	}
+}

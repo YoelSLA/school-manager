@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active: dev
+
+  jackson:
+    time-zone: America/Argentina/Buenos_Aires
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+server:
+  port: 8080
+  error:
+    include-message: always

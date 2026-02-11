@@ -1,0 +1,39 @@
+.page {
+  display: flex;
+  border-radius: 20px;
+  flex: 1;
+}
+
+.top {
+  display: flex;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+  min-height: 0;
+
+  color: white;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  color: white;
+  border-radius: 12px;
+  padding: 5px;
+}

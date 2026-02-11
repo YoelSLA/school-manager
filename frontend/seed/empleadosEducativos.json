@@ -1,0 +1,192 @@
+[
+	{
+		"cuil": "20-42341174-9",
+		"nombre": "Armando",
+		"apellido": "Paredes",
+		"domicilio": "Brown 5066",
+		"telefono": "1153419894",
+		"fechaDeNacimiento": "2000-02-01",
+		"fechaDeIngreso": "2026-01-08",
+		"email": "armando.paredes@gmail.com"
+	},
+	{
+		"cuil": "27-31894562-3",
+		"nombre": "Mariana",
+		"apellido": "Gómez",
+		"domicilio": "Av. Rivadavia 1234",
+		"telefono": "1162457789",
+		"fechaDeNacimiento": "1995-07-18",
+		"fechaDeIngreso": "2024-03-11",
+		"email": "mariana.gomez@gmail.com"
+	},
+	{
+		"cuil": "20-28976415-6",
+		"nombre": "Lucas",
+		"apellido": "Fernández",
+		"domicilio": "San Martín 845",
+		"telefono": "1139984421",
+		"fechaDeNacimiento": "1988-11-02",
+		"fechaDeIngreso": "2022-08-15",
+		"email": "lucas.fernandez@hotmail.com"
+	},
+	{
+		"cuil": "23-35211478-1",
+		"nombre": "Sofía",
+		"apellido": "Pérez",
+		"domicilio": "Mitre 2760",
+		"telefono": "1170235591",
+		"fechaDeNacimiento": "1999-04-26",
+		"fechaDeIngreso": "2025-02-03",
+		"email": "sofia.perez@gmail.com"
+	},
+	{
+		"cuil": "20-40122389-4",
+		"nombre": "Diego",
+		"apellido": "Ramírez",
+		"domicilio": "Belgrano 1590",
+		"telefono": "1145567823",
+		"fechaDeNacimiento": "1992-09-10",
+		"fechaDeIngreso": "2023-06-01",
+		"email": "diego.ramirez@yahoo.com"
+	},
+	{
+		"cuil": "27-33788945-8",
+		"nombre": "Valentina",
+		"apellido": "López",
+		"domicilio": "Las Heras 980",
+		"telefono": "1156672344",
+		"fechaDeNacimiento": "2001-12-14",
+		"fechaDeIngreso": "2026-01-05",
+		"email": "valentina.lopez@gmail.com"
+	},
+	{
+		"cuil": "20-36451298-7",
+		"nombre": "Federico",
+		"apellido": "Suárez",
+		"domicilio": "Sarmiento 321",
+		"telefono": "1167823456",
+		"fechaDeNacimiento": "1990-05-06",
+		"fechaDeIngreso": "2021-09-20",
+		"email": "federico.suarez@gmail.com"
+	},
+	{
+		"cuil": "27-29548761-0",
+		"nombre": "Carolina",
+		"apellido": "Méndez",
+		"domicilio": "Urquiza 1880",
+		"telefono": "1134567788",
+		"fechaDeNacimiento": "1987-01-29",
+		"fechaDeIngreso": "2020-02-10",
+		"email": "caro.mendez@gmail.com"
+	},
+	{
+		"cuil": "20-41233498-2",
+		"nombre": "Matías",
+		"apellido": "Rossi",
+		"domicilio": "Corrientes 4021",
+		"telefono": "1176543321",
+		"fechaDeNacimiento": "1996-06-22",
+		"fechaDeIngreso": "2024-11-01",
+		"email": "matias.rossi@gmail.com"
+	},
+	{
+		"cuil": "27-34122567-5",
+		"nombre": "Julieta",
+		"apellido": "Castro",
+		"domicilio": "Maipú 744",
+		"telefono": "1156789901",
+		"fechaDeNacimiento": "1998-03-17",
+		"fechaDeIngreso": "2023-04-12",
+		"email": "julieta.castro@gmail.com"
+	},
+	{
+		"cuil": "20-37899124-9",
+		"nombre": "Nicolás",
+		"apellido": "Vega",
+		"domicilio": "España 1090",
+		"telefono": "1143219987",
+		"fechaDeNacimiento": "1993-08-05",
+		"fechaDeIngreso": "2022-01-03",
+		"email": "nicolas.vega@gmail.com"
+	},
+	{
+		"cuil": "27-30678455-4",
+		"nombre": "Florencia",
+		"apellido": "Herrera",
+		"domicilio": "Alvear 256",
+		"telefono": "1165432190",
+		"fechaDeNacimiento": "1991-10-12",
+		"fechaDeIngreso": "2021-05-17",
+		"email": "florencia.herrera@gmail.com"
+	},
+	{
+		"cuil": "20-39877654-1",
+		"nombre": "Sebastián",
+		"apellido": "Navarro",
+		"domicilio": "Perón 3321",
+		"telefono": "1132124456",
+		"fechaDeNacimiento": "1989-02-27",
+		"fechaDeIngreso": "2019-07-01",
+		"email": "sebastian.navarro@gmail.com"
+	},
+	{
+		"cuil": "27-32987654-6",
+		"nombre": "Paula",
+		"apellido": "Ríos",
+		"domicilio": "Lavalle 1789",
+		"telefono": "1178901234",
+		"fechaDeNacimiento": "1997-09-09",
+		"fechaDeIngreso": "2024-02-19",
+		"email": "paula.rios@gmail.com"
+	},
+	{
+		"cuil": "20-35566789-3",
+		"nombre": "Andrés",
+		"apellido": "Silva",
+		"domicilio": "Independencia 2200",
+		"telefono": "1154326789",
+		"fechaDeNacimiento": "1985-12-03",
+		"fechaDeIngreso": "2018-03-26",
+		"email": "andres.silva@gmail.com"
+	},
+	{
+		"cuil": "27-34455678-2",
+		"nombre": "Camila",
+		"apellido": "Ortega",
+		"domicilio": "French 610",
+		"telefono": "1167890043",
+		"fechaDeNacimiento": "2000-07-21",
+		"fechaDeIngreso": "2025-09-02",
+		"email": "camila.ortega@gmail.com"
+	},
+	{
+		"cuil": "20-38765432-8",
+		"nombre": "Javier",
+		"apellido": "Acosta",
+		"domicilio": "Alem 998",
+		"telefono": "1145678901",
+		"fechaDeNacimiento": "1994-04-30",
+		"fechaDeIngreso": "2023-10-16",
+		"email": "javier.acosta@gmail.com"
+	},
+	{
+		"cuil": "27-31122334-7",
+		"nombre": "Natalia",
+		"apellido": "Benítez",
+		"domicilio": "Salta 1450",
+		"telefono": "1176549870",
+		"fechaDeNacimiento": "1986-06-14",
+		"fechaDeIngreso": "2017-08-07",
+		"email": "natalia.benitez@gmail.com"
+	},
+	{
+		"cuil": "20-36677889-5",
+		"nombre": "Pablo",
+		"apellido": "Ibarra",
+		"domicilio": "Tucumán 3210",
+		"telefono": "1132109876",
+		"fechaDeNacimiento": "1991-01-19",
+		"fechaDeIngreso": "2020-11-23",
+		"email": "pablo.ibarra@gmail.com"
+	}
+]

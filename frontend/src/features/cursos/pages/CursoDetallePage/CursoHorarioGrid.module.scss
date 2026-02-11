@@ -1,0 +1,105 @@
+.grid {
+  display: grid;
+  grid-template-columns:
+    70px
+    /* Módulo */
+    130px
+    /* Horario */
+    repeat(5, 1fr);
+  /* Días */
+
+  border: 2px solid #0f172a;
+  font-size: 0.75rem;
+  background: #ffffff;
+
+  /* =========================
+	   HEADER
+	========================= */
+
+  .header {
+    background: #67e8f9;
+    font-weight: 700;
+    text-align: center;
+    padding: 6px 4px;
+
+    border: 1px solid #0f172a;
+    text-transform: uppercase;
+  }
+
+  /* =========================
+	   FILA (MÓDULO)
+	========================= */
+
+  .row {
+    display: contents; // clave para que el grid siga funcionando
+  }
+
+  .modulo,
+  .hora {
+    background: #e0f7fa;
+    font-weight: 700;
+    text-align: center;
+    padding: 6px 4px;
+
+    border: 1px solid #0f172a;
+  }
+
+  .hora {
+    font-weight: 600;
+  }
+
+  /* =========================
+	   CELDA DE CLASE
+	========================= */
+
+  .celda {
+    min-height: 95px;
+    padding: 6px;
+
+    border: 1px solid #0f172a;
+    background: #ffffff;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    /* Código (ej: 2467776) */
+    .codigo {
+      font-weight: 700;
+      text-align: center;
+    }
+
+    /* Estado: SUPLENTE / PROVISIONAL */
+    .estado {
+      align-self: center;
+      font-size: 0.65rem;
+      font-weight: 600;
+
+      padding: 2px 6px;
+      border-radius: 999px;
+
+      background: #e0f2fe;
+      color: #1e40af;
+    }
+
+    /* Materia */
+    .materia {
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* Docente */
+    .docente {
+      margin-top: auto;
+
+      font-size: 0.65rem;
+      font-weight: 600;
+
+      padding: 2px 4px;
+      border-radius: 4px;
+
+      background: #fde68a;
+      text-align: center;
+    }
+  }
+}

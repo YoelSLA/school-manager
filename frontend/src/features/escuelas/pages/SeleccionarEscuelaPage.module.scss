@@ -1,0 +1,19 @@
+.seleccionar-escuela {
+	min-height: 100vh;
+	padding: 32px 40px;
+	background: linear-gradient(180deg,
+			#eff6ff 0%,
+			#dbeafe 25%,
+			#93c5fd 45%,
+			#1e40af 85%,
+			#1e3a8a 100%);
+
+	&__grid-wrapper {
+		max-width: 1400px;
+		margin: 0 auto;
+	}
+
+	@media (max-width: 768px) {
+		padding: 24px 20px;
+	}
+}

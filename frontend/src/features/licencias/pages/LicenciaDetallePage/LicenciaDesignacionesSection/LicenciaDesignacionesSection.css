@@ -1,0 +1,10 @@
+.licencia-designaciones {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.licencia-designaciones h3 {
+	font-size: 0.95rem;
+	font-weight: 600;
+}

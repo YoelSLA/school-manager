@@ -1,0 +1,13 @@
+.empleado-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.empleado-section__title {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}

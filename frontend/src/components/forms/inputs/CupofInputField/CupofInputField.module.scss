@@ -1,0 +1,38 @@
+.identificacion {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+
+  /* ===== TITLE ===== */
+  &__title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--text-main);
+  }
+
+  /* ===== FIELD ===== */
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-muted);
+
+    input {
+      height: 36px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+    }
+  }
+
+  /* ===== ERROR ===== */
+  &__error {
+    color: var(--danger);
+    font-size: 12px;
+    margin-top: 4px;
+  }
+}

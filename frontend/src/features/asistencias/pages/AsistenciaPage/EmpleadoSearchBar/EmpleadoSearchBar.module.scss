@@ -1,0 +1,41 @@
+.search {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 20px;
+  background-color: #f8fafc;
+}
+
+/* Label */
+.search__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+}
+
+/* Input */
+.search__input {
+  height: 40px;
+  padding: 0 12px;
+
+  font-size: 14px;
+  color: #111827;
+
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+
+  transition: border-color 0.15s ease,
+    box-shadow 0.15s ease;
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+  }
+}

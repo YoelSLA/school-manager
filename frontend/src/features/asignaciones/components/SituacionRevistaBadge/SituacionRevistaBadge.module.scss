@@ -1,0 +1,34 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 4px 10px;
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ICON */
+.icon {
+  flex-shrink: 0;
+}
+
+/* VARIANTES POR JERARQUÍA */
+
+.sr-badge--titular {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.sr-badge--provisional {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.sr-badge--suplente {
+  background: #f3f4f6;
+  color: #374151;
+}

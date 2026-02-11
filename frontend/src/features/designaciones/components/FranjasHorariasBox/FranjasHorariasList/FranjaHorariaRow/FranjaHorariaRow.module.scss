@@ -1,0 +1,100 @@
+.row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr auto;
+  gap: 10px;
+  align-items: center;
+
+  padding: 8px;
+  border-radius: 14px;
+
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-left: 4px solid #3b82f6;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: background 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  }
+}
+
+.field {
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 12px;
+  background-color: #ffffff;
+  color: #111827;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+  }
+}
+
+.timeField {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+
+  svg {
+    color: #6b7280;
+  }
+
+  input {
+    border: none;
+    background: transparent;
+    font-size: 12px;
+    color: #111827;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &:focus-within {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+
+    svg {
+      color: #3b82f6;
+    }
+  }
+}
+
+.remove {
+  height: 36px;
+  width: 36px;
+  padding: 0;
+  border-radius: 10px;
+
+  display: grid;
+  place-items: center;
+
+  background-color: #ef4444;
+  color: #ffffff;
+  border: none;
+
+  transition: background-color 0.15s ease, transform 0.15s ease;
+
+  svg {
+    transition: transform 0.15s ease;
+  }
+
+  &:hover {
+    background-color: #dc2626;
+    transform: scale(1.05);
+  }
+}

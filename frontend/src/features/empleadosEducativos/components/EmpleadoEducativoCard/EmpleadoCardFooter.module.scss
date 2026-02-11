@@ -1,0 +1,36 @@
+.footer {
+	margin-top: auto;
+	display: flex;
+	justify-content: flex-end;
+	padding: 8px;
+}
+
+.link {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+
+	font-size: 0.8rem;
+	font-weight: 500;
+	color: #6b7280;
+	cursor: pointer;
+	user-select: none;
+
+	background: none;
+	border: none;
+	padding: 0;
+
+	transition: color 0.15s ease;
+
+	&:hover {
+		color: #111827;
+
+		.icon {
+			transform: translateX(2px);
+		}
+	}
+}
+
+.icon {
+	transition: transform 0.15s ease;
+}

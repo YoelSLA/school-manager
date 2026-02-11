@@ -1,0 +1,77 @@
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+
+  /* 👇 NUEVO: base del borde */
+  border-left: 3px solid transparent;
+
+}
+
+/* =====================
+   VARIANTS
+===================== */
+
+.card--muted {
+  background: #f9fafb;
+}
+
+.card--elevated {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06),
+    0 4px 8px rgba(0, 0, 0, 0.04);
+}
+
+.card--large {
+  border-radius: 18px;
+}
+
+.card--with-padding {
+  padding: 16px;
+}
+
+.card--clickable {
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* =====================
+   STATUS (BORDE IZQ)
+===================== */
+
+.card--success {
+  border-left-color: #16a34a;
+}
+
+.card--warning {
+  border-left-color: #f59e0b;
+}
+
+.card--danger {
+  border-left-color: #dc2626;
+}
+
+.card--info {
+  border-left-color: #2563eb;
+}
+
+/* =====================
+   DIVIDER
+===================== */
+
+.divider {
+  height: 1px;
+  background-color: black;
+  background: #e5e7eb;
+  margin: 6px 0;
+}

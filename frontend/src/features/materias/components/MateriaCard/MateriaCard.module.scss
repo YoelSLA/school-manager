@@ -1,0 +1,63 @@
+.card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  border: 1px solid #e5e7eb;
+
+  transition:
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+
+  &:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+}
+
+/* ===============================
+   HEADER
+================================ */
+
+.card__header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.card__abreviatura {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #2563eb;
+  background: #dbeafe;
+  width: fit-content;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+/* ===============================
+   BODY
+================================ */
+
+.card__body {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card__modulos {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #6b7280;
+}

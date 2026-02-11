@@ -1,0 +1,35 @@
+.roles {
+	padding: 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+
+	&__title {
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: #374151;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+	&__list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+	}
+
+	&__chip {
+		background: #e0f2fe;
+		color: #0369a1;
+		padding: 4px 10px;
+		border-radius: 999px;
+		font-size: 0.75rem;
+		font-weight: 500;
+	}
+
+	&__empty {
+		font-size: 0.75rem;
+		color: #9ca3af;
+		font-style: italic;
+	}
+}

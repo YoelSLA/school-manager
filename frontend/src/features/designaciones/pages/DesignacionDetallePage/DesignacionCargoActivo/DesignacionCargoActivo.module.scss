@@ -1,0 +1,120 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%; // 👈 importante
+}
+
+.emptyWrapper {
+  flex: 1; // ocupa el espacio libre
+  display: flex;
+  align-items: center; // centro vertical
+  justify-content: center; // centro horizontal
+}
+
+.loading,
+.empty {
+  font-size: 13px;
+  color: #6b7280;
+  text-align: center;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  text-align: center;
+}
+
+/* =====================
+   CARD
+===================== */
+
+.card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.subtle {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* =====================
+   PERÍODO
+===================== */
+
+.period {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.periodItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.periodLabel {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.periodValue {
+  font-size: 13px;
+  font-weight: 500;
+  color: #111827;
+}
+
+/* =====================
+   ESTADO
+===================== */
+
+.kv {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 6px;
+
+  font-size: 13px;
+  color: #374151;
+}
+
+.label {
+  color: #6b7280;
+}
+
+.value {
+  font-weight: 500;
+}

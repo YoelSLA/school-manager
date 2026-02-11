@@ -1,0 +1,130 @@
+/* =====================
+   FIELD WRAPPER
+===================== */
+
+@mixin form-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* =====================
+   LABEL
+===================== */
+
+@mixin form-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* =====================
+   CONTROL
+===================== */
+
+@mixin form-control {
+  width: 100%;
+  padding: 10px 12px;
+
+  font-size: 14px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
+
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #111827;
+
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  }
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+}
+
+/* =====================
+   CONTROL ERROR STATE
+===================== */
+
+@mixin form-control-error {
+  border-color: #dc2626;
+  background-color: #fef2f2;
+
+  &:focus {
+    border-color: #dc2626;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+  }
+}
+
+/* =====================
+   ERROR TOOLTIP
+===================== */
+
+@mixin form-error-tooltip {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+
+  padding: 6px 8px;
+  border-radius: 6px;
+
+  font-size: 12px;
+  line-height: 1.35;
+  color: #ffffff;
+  background-color: #b91c1c;
+
+  white-space: nowrap;
+  z-index: 20;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+/* =====================
+   ERROR ICON (OPTIONAL)
+===================== */
+
+@mixin form-error-icon {
+  position: absolute;
+  right: 10px;
+  top: 34px;
+
+  font-size: 14px;
+  color: #dc2626;
+  pointer-events: none;
+}
+
+/* =====================
+   ERROR MESSAGE (LEGACY)
+   ⚠️ Solo si necesitás texto fijo
+===================== */
+
+@mixin form-error-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+
+  margin-top: 2px;
+
+  font-size: 12px;
+  line-height: 1.35;
+  color: #b91c1c;
+}

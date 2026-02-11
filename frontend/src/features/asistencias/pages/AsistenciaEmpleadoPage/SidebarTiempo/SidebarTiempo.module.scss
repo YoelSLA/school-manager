@@ -1,0 +1,171 @@
+/* ===============================
+   SIDEBAR TIEMPO – DISEÑO FINAL
+================================ */
+
+.sidebar-tiempo {
+  background-color: #f1f5f9;
+  /* fondo gris claro */
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  height: 100%;
+  min-height: 0;
+
+  border-radius: 20px;
+}
+
+/* ===============================
+   SELECTOR DE AÑO
+================================ */
+
+.sidebar-tiempo__year {
+  background-color: #ffffff;
+  border-radius: 999px;
+  /* pill */
+  padding: 8px 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.sidebar-tiempo__year-arrow {
+  border: none;
+  background-color: #eef2ff;
+  color: #1e3a8a;
+
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    background-color: #c7d2fe;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #93c5fd;
+  }
+}
+
+.sidebar-tiempo__year-value {
+  font-weight: 600;
+  font-size: 15px;
+  color: #1e3a8a;
+}
+
+/* ===============================
+   LISTA DE MESES
+================================ */
+
+.sidebar-tiempo__months {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  flex: 1;
+  min-height: 0;
+
+  overflow-y: auto;
+
+  padding-right: 6px;
+  padding-bottom: 12px;
+  /* aire al final */
+}
+
+/* ===============================
+   MES (PILL)
+================================ */
+
+.sidebar-tiempo__month {
+  border: none;
+  background-color: #e0e7ff;
+  /* azul suave */
+  color: #1e3a8a;
+
+  padding: 10px 14px;
+  border-radius: 999px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+
+  &:hover {
+    background-color: #c7d2fe;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #bfdbfe;
+  }
+}
+
+/* ===== MES ACTIVO ===== */
+
+.sidebar-tiempo__month--active {
+  background-color: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* ===== INDICADOR DE MES ACTUAL ===== */
+
+.sidebar-tiempo__current-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #2563eb;
+  opacity: 0.6;
+}
+
+/* ===============================
+   SCROLLBAR DISCRETO
+================================ */
+
+.sidebar-tiempo__months::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-tiempo__months::-webkit-scrollbar-thumb {
+  background-color: #c7d2fe;
+  border-radius: 999px;
+}
+
+.sidebar-tiempo__months::-webkit-scrollbar-track {
+  background-color: transparent;
+}

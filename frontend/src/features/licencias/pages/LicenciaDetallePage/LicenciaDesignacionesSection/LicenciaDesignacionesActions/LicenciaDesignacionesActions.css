@@ -1,0 +1,44 @@
+.licencia-designaciones-actions {
+	margin-top: 10px;
+	padding-top: 10px;
+	border-top: 1px solid #e5e7eb;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.licencia-designaciones-actions span {
+	font-size: 0.8rem;
+	color: #475569;
+}
+
+.licencia-designaciones-actions .actions {
+	display: flex;
+	gap: 8px;
+}
+
+.btn-secondary {
+	background: #e5e7eb;
+	border: none;
+	border-radius: 8px;
+	padding: 6px 12px;
+	font-size: 0.75rem;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.btn-primary {
+	background: #2563eb;
+	color: #ffffff;
+	border: none;
+	border-radius: 8px;
+	padding: 6px 14px;
+	font-size: 0.75rem;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.btn-primary:hover {
+	background: #1d4ed8;
+}

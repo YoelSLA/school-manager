@@ -1,0 +1,41 @@
+@use "@/styles/breakpoints" as *;
+
+.list-layout {
+	height: 100%;
+	min-height: 0;
+	background-color: var(--bg-card);
+	border-radius: 16px;
+	display: flex;
+	overflow: hidden;
+	border: 2px solid var(--border);
+
+	&__scroll {
+		flex: 1;
+		min-height: 0;
+		overflow-y: auto;
+		padding: 16px;
+	}
+
+	&__grid {
+		display: grid;
+		gap: 12px;
+
+		/* Default: seguro */
+		grid-template-columns: repeat(2, 1fr);
+
+		/* 🟦 Desktop chico (1366) → 3 cards */
+		@include desktop-width-small {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		/* 🟩 Desktop medio */
+		@include desktop-width-medium {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		/* 🟪 Desktop grande */
+		@include desktop-width-large {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+}

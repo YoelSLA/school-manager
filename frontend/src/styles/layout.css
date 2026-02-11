@@ -1,0 +1,5 @@
+:root {
+	--header-offset: 60px;
+	--header-top-gap: 16px;
+	--header-total-height: calc(var(--header-offset) + var(--header-top-gap));
+}

@@ -1,0 +1,23 @@
+.horarios {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+
+	padding: 4px 10px;
+	border-radius: 999px;
+
+	font-size: 13px;
+	font-weight: 500;
+
+	color: #6b7280;
+	background: #f9fafb;
+
+	&__icon {
+		font-size: 14px;
+		line-height: 1;
+	}
+
+	&__text {
+		white-space: nowrap;
+	}
+}
