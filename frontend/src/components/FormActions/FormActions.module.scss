@@ -1,0 +1,27 @@
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.left {
+  justify-content: flex-start;
+}
+
+.center {
+  justify-content: center;
+}
+
+.right {
+  justify-content: flex-end;
+}
+
+@media (max-width: 720px) {
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions :global(button) {
+    width: 100%;
+  }
+}

@@ -1,5 +1,5 @@
 import type { z } from "zod";
-import type { crearEmpleadoEducativoSchema } from "./crearEmpleadoEducativo.schema";
+import type { crearEmpleadoEducativoSchema } from "./schemas/crearEmpleadoEducativo.schema";
 
 export type EmpleadoEducativoFormInput = z.input<
 	typeof crearEmpleadoEducativoSchema

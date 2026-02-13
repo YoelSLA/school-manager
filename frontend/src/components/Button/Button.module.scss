@@ -4,6 +4,8 @@
 	justify-content: center;
 	gap: 8px;
 
+	position: relative;
+
 	border: none;
 	border-radius: 20px;
 	background: transparent;
@@ -29,8 +31,9 @@
 	}
 
 	/* ======================
-     SIZES
-  ====================== */
+	   SIZES
+	====================== */
+
 	&.btnSm {
 		padding: 8px 12px;
 		font-size: 0.85rem;
@@ -42,22 +45,22 @@
 	}
 
 	/* ======================
-     VARIANTS
-  ====================== */
+	   VARIANTS
+	====================== */
 
-	/* 🔵 PRIMARY – Crear */
+	/* 🔵 PRIMARY */
 	&Primary {
-		background: #2563eb; // blue-600
+		background: #2563eb;
 		color: #ffffff;
 		font-weight: 600;
 
 		&:hover:not(:disabled) {
-			background: #1d4ed8; // blue-700
+			background: #1d4ed8;
 			box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
 		}
 
 		&:active:not(:disabled) {
-			background: #1e40af; // blue-800
+			background: #1e40af;
 		}
 	}
 
@@ -110,14 +113,57 @@
 			box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
 		}
 	}
+
+	/* ======================
+	   LOADING
+	====================== */
+
+	&.isLoading {
+		pointer-events: none;
+	}
+
+	&.isLoading .content {
+		opacity: 0; // texto invisible pero ocupa espacio
+	}
+
+	.content {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		transition: opacity 0.15s ease;
+	}
+
+	.spinner {
+		width: 16px;
+		height: 16px;
+
+		border: 2px solid rgba(255, 255, 255, 0.4);
+		border-top: 2px solid currentColor;
+		border-radius: 50%;
+
+		animation: spin 0.8s linear infinite;
+
+		position: absolute;
+	}
 }
 
 /* ======================
-   ACTIVE (exportado)
+   ACTIVE
 ====================== */
+
 .isActive {
 	background: #2563eb;
 	border-color: #2563eb;
 	color: #ffffff;
 	box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+/* ======================
+   SPIN ANIMATION
+====================== */
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
 }

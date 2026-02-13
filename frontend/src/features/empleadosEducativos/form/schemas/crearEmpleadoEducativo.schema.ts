@@ -38,5 +38,9 @@ export const crearEmpleadoEducativoSchema = z.object({
 
 	fechaDeNacimiento: z.string().min(1, "La fecha de nacimiento es obligatoria"),
 
-	fechaDeIngreso: z.string().min(1, "La fecha de ingreso es obligatoria"),
+	fechaDeIngreso: z
+		.string()
+		.optional()
+		.or(z.literal(""))
+		.transform((val) => (val === "" ? undefined : val)),
 });

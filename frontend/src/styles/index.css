@@ -41,11 +41,6 @@ body {
 	-webkit-font-smoothing: antialiased;
 }
 
-/* Mantiene layout estable cuando aparece scrollbar */
-html {
-	scrollbar-gutter: stable;
-}
-
 /* =========================
    MEDIA ELEMENTS
 ========================= */
