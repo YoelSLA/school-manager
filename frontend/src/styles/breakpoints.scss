@@ -1,80 +1,82 @@
-$bp-desktop-lg: 1920px;
-$bp-desktop-md: 1536px;
+/* =====================================================
+   BREAKPOINTS – SISTEMA OFICIAL (Electron Desktop)
+===================================================== */
+
+/* =========================
+   ANCHO (viewport real)
+========================= */
+
 $bp-desktop-sm: 1366px;
+$bp-desktop-md: 1536px;
+$bp-desktop-lg: 1920px;
 
-/* =========================
-   ALTURA (layout interno)
-========================= */
-
-/* Desktop chico: 600–720 */
-$desktop-height-small-min: 600px;
-$desktop-height-small-max: 720px;
-
-/* Desktop medio: 800–900 */
-$desktop-height-medium-min: 721px;
-$desktop-height-medium-max: 900px;
-
-/* Desktop grande: 900+ */
-$desktop-height-large-min: 901px;
-
-
-/* =========================
-   ANCHO (grid contenedor)
-========================= */
-
-/* Desktop chico: 1280–1366 */
+/* Rangos reales medidos */
 $desktop-width-small-min: 1280px;
 $desktop-width-small-max: 1366px;
 
-/* Desktop medio: 1440–1680 */
-$desktop-width-medium-min: 1440px;
+$desktop-width-medium-min: 1367px;
 $desktop-width-medium-max: 1680px;
 
-/* Desktop grande: 1920+ */
-$desktop-width-large-min: 1920px;
+$desktop-width-large-min: 1681px;
 
 
 /* =========================
-   MIXINS POR ALTURA
+   ALTURA (viewport real)
+   Basado en window.innerHeight
 ========================= */
 
+/* 1366 laptops (≈697px reales) */
+$desktop-height-small-max: 720px;
+
+/* 1536 (≈794px reales) */
+$desktop-height-medium-min: 721px;
+$desktop-height-medium-max: 900px;
+
+/* 1920 (≈1009px reales) */
+$desktop-height-large-min: 901px;
+
+
+/* =====================================================
+   MIXINS POR ALTURA
+===================================================== */
+
 @mixin desktop-height-small {
-  @media (max-height: $desktop-height-small-max) {
+  @media (max-height: #{$desktop-height-small-max}) {
     @content;
   }
 }
 
 @mixin desktop-height-medium {
-  @media (min-height: $desktop-height-medium-min) and (max-height: $desktop-height-medium-max) {
+  @media (min-height: #{$desktop-height-medium-min}) and (max-height: #{$desktop-height-medium-max}) {
     @content;
   }
 }
 
 @mixin desktop-height-large {
-  @media (min-height: $desktop-height-large-min) {
+  @media (min-height: #{$desktop-height-large-min}) {
     @content;
   }
 }
 
 
-/* =========================
+/* =====================================================
    MIXINS POR ANCHO
-========================= */
+===================================================== */
 
 @mixin desktop-width-small {
-  @media (min-width: $desktop-width-small-min) and (max-width: $desktop-width-small-max) {
+  @media (min-width: #{$desktop-width-small-min}) and (max-width: #{$desktop-width-small-max}) {
     @content;
   }
 }
 
 @mixin desktop-width-medium {
-  @media (min-width: $desktop-width-medium-min) and (max-width: $desktop-width-medium-max) {
+  @media (min-width: #{$desktop-width-medium-min}) and (max-width: #{$desktop-width-medium-max}) {
     @content;
   }
 }
 
 @mixin desktop-width-large {
-  @media (min-width: $desktop-width-large-min) {
+  @media (min-width: #{$desktop-width-large-min}) {
     @content;
   }
 }

@@ -1,25 +1,33 @@
+@use "@/styles/breakpoints" as *;
+
 .app-layout {
 
 	height: 100vh;
 	overflow: visible;
-	// background-color: aqua;
+	// background-color: blueviolet;
 
 	&__viewport {
 		margin-top: var(--header-total-height);
 		height: calc(100vh - var(--header-total-height));
 		display: flex;
 		flex-direction: column;
-		// background-color: aqua;
+
+		/* BASE (media) */
 		padding: 8px;
-		overflow: hidden;
-		// background-color: blueviolet;
+
+		@include desktop-height-small {
+			padding: 8px; // compacto para 680
+		}
+
+		@include desktop-height-large {
+			padding: 16px; // más aire en 980+
+		}
 	}
 
 	&__content {
 		flex: 1;
 		min-height: 0;
-		// background-color: black;
-		overflow: hidden;
+		overflow-y: auto;
 		// background-color: chartreuse;
 	}
 }

@@ -1,18 +1,25 @@
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
 
-import type { EmpleadoEducativoFormOutput } from "@/empleadosEducativos/types/empleadosEducativos.types";
-import AccionesSection from "./AccionesSection";
-import ContactoSection from "./ContactoSection";
-import DatosPersonalesSection from "./DatosPersonalesSection";
+import ContactoSection from "./ContactoSection/ContactoSection";
+import DatosPersonalesSection from "./DatosPersonalesSection/DatosPersonalesSection";
+import IngresoSection from "./IngresoSection/IngresoSection";
+
+import FormActions from "@/components/FormActions"; // 👈 nuevo
+
 import styles from "./EmpleadoEducativoForm.module.scss";
-import IngresoSection from "./IngresoSection";
+import type { EmpleadoEducativoFormOutput } from "../../form/empleadoEducativo.form.types";
 
 type Props = {
 	register: UseFormRegister<EmpleadoEducativoFormOutput>;
 	errors: FieldErrors<EmpleadoEducativoFormOutput>;
 	isSubmitting: boolean;
+
+	agregarFecha: boolean;
+	onToggleAgregarFecha: () => void;
+
 	usarHoy: boolean;
-	onToggleFecha: () => void;
+	onToggleUsarHoy: () => void;
+
 	onSubmit: () => void;
 };
 
@@ -20,8 +27,10 @@ export default function EmpleadoEducativoForm({
 	register,
 	errors,
 	isSubmitting,
+	agregarFecha,
+	onToggleAgregarFecha,
 	usarHoy,
-	onToggleFecha,
+	onToggleUsarHoy,
 	onSubmit,
 }: Props) {
 	return (
@@ -34,12 +43,19 @@ export default function EmpleadoEducativoForm({
 				<IngresoSection
 					register={register}
 					errors={errors}
+					agregarFecha={agregarFecha}
+					onToggleAgregarFecha={onToggleAgregarFecha}
 					usarHoy={usarHoy}
-					onToggleUsarHoy={onToggleFecha}
+					onToggleUsarHoy={onToggleUsarHoy}
 				/>
 			</div>
 
-			<AccionesSection isSubmitting={isSubmitting} />
+			{/* 🔥 Nuevo botón genérico */}
+			<FormActions
+				isSubmitting={isSubmitting}
+				label="Guardar"
+				align="right"
+			/>
 		</form>
 	);
 }

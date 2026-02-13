@@ -1,17 +1,66 @@
+@use "@/styles/breakpoints" as *;
+
 /* =========================
-   FORM
+   FORM WRAPPER
 ========================= */
 
 .form {
   max-width: 1000px;
-  margin: 0 auto;
+  margin: 32px auto;
+
+  padding: 28px 32px;
+
   display: flex;
   flex-direction: column;
   gap: 24px;
+
+  border-radius: 24px;
+
+  background: #dde4ef;
+
+  backdrop-filter: blur(6px);
+
+  border: 1px solid rgba(15, 23, 42, 0.06);
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.08),
+    0 8px 20px rgba(0, 0, 0, 0.04);
+
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow:
+      0 16px 40px rgba(0, 0, 0, 0.08),
+      0 6px 14px rgba(0, 0, 0, 0.04);
+  }
+
+  /* =========================
+     SMALL (600–720)
+  ========================= */
+  @include desktop-height-small {
+    padding: 8px 16px;
+    gap: 8px;
+  }
+
+  /* =========================
+     MEDIUM (721–900)
+  ========================= */
+  @include desktop-height-medium {
+    padding: 16px 32px;
+    gap: 8px;
+  }
+
+  /* =========================
+     LARGE (901+)
+  ========================= */
+  @include desktop-height-large {
+    padding: 32px 64px;
+    gap: 8px;
+  }
 }
 
 /* =========================
-   MAIN GRID
+   GRID
 ========================= */
 
 .grid {
@@ -19,18 +68,19 @@
   grid-template-columns: 1fr 1fr;
   gap: 24px;
 
-  /* Ingreso ocupa toda la fila */
+  @include desktop-height-small {
+    gap: 16px;
+  }
+
+  @include desktop-height-medium {
+    gap: 28px;
+  }
+
+  @include desktop-height-large {
+    gap: 32px;
+  }
+
   &> :nth-child(3) {
     grid-column: 1 / -1;
-  }
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media (max-width: 720px) {
-  .grid {
-    grid-template-columns: 1fr;
   }
 }

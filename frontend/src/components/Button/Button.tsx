@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import styles from "./Button.module.scss";
 
 export type ButtonVariant =
@@ -6,10 +7,11 @@ export type ButtonVariant =
 	| "filter"
 	| "success"
 	| "danger";
+
 export type ButtonSize = "sm" | "md";
 
 type Props = {
-	children: React.ReactNode;
+	children: ReactNode;
 	onClick?: () => void;
 	variant?: ButtonVariant;
 	size?: ButtonSize;
@@ -17,6 +19,7 @@ type Props = {
 	className?: string;
 	type?: "button" | "submit" | "reset";
 	active?: boolean;
+	loading?: boolean;
 };
 
 export default function Button({
@@ -28,6 +31,7 @@ export default function Button({
 	className = "",
 	type = "button",
 	active = false,
+	loading = false,
 }: Props) {
 	const classes = [
 		styles.btn,
@@ -35,6 +39,7 @@ export default function Button({
 		size === "sm" && styles.btnSm,
 		size === "md" && styles.btnMd,
 		active && styles.isActive,
+		loading && styles.isLoading,
 		className,
 	]
 		.filter(Boolean)
@@ -45,9 +50,15 @@ export default function Button({
 			type={type}
 			className={classes}
 			onClick={onClick}
-			disabled={disabled}
+			disabled={disabled || loading}
 		>
-			{children}
+			{/* Spinner */}
+			{loading && <span className={styles.spinner} />}
+
+			{/* Contenido (no salta layout) */}
+			<span className={styles.content}>
+				{children}
+			</span>
 		</button>
 	);
 }

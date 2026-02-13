@@ -1,4 +1,4 @@
-import type { EmpleadoEducativoFormInput } from "./empleadoEducativo.form.types";
+import type { EmpleadoEducativoFormInput } from "../empleadoEducativo.form.types";
 
 export const EMPLEADO_EDUCATIVO_DEFAULTS: EmpleadoEducativoFormInput = {
 	cuil: "",
@@ -8,5 +8,5 @@ export const EMPLEADO_EDUCATIVO_DEFAULTS: EmpleadoEducativoFormInput = {
 	telefono: "",
 	email: "",
 	fechaDeNacimiento: "",
-	fechaDeIngreso: "",
+	fechaDeIngreso: undefined,
 };
