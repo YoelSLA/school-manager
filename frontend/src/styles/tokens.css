@@ -1,78 +1,155 @@
 :root {
-	/* Backgrounds */
-	--bg-page: #aebed8;
-	--bg-header: #f1f5f9;
-	--bg-sidebar: #eef2f7;
-	--bg-card: #ffffff;
 
-	/* Borders */
-	--border: #e3e7ef;
+	/* ======================================================
+	   🎓 BRAND / PRIMARY SCALE
+	====================================================== */
 
-	/* Text */
-	--text-main: #111827;
-	--text-muted: #6b7280;
+	--primary-50: #EFF6FF;
+	--primary-100: #DBEAFE;
+	--primary-200: #BFDBFE;
+	--primary-300: #93C5FD;
+	--primary-400: #60A5FA;
+	--primary-500: #3B82F6;
+	--primary-600: #2563EB; /* principal */
+	--primary-700: #1D4ED8;
+	--primary-800: #1E40AF;
+	--primary-900: #1E3A8A;
 
-	/* Brand / States */
-	--primary: #2563eb;
-	--success: #22c55e;
-	--warning: #f59e0b;
-	--danger: #ef4444;
+	--primary: var(--primary-600);
 
-	/* Radius */
+	/* ======================================================
+	   🧱 SURFACE SCALE (estructura real del producto)
+	====================================================== */
+
+	--surface-0: #FFFFFF;   /* cards */
+	--surface-1: #F8FAFC;   /* form */
+	--surface-2: #F1F5F9;   /* page */
+	--surface-3: #E2E8F0;   /* containers más marcados */
+
+	--surface-border: #E2E8F0;
+	--surface-border-strong: #CBD5E1;
+
+	/* ======================================================
+	   🏫 BACKGROUNDS (mapeo claro)
+	====================================================== */
+
+	--bg-page: var(--surface-2);
+	--bg-header: #FFFFFF;
+	--bg-sidebar: var(--surface-1);
+	--bg-form: var(--surface-1);
+	--bg-card: var(--surface-0);
+	--bg-card-hover: var(--surface-2);
+
+	/* ======================================================
+	   📝 TEXT
+	====================================================== */
+
+	--text-main: #1E293B;
+	--text-muted: #64748B;
+	--text-light: #94A3B8;
+	--text-inverse: #FFFFFF;
+
+	/* ======================================================
+	   🔲 BORDERS
+	====================================================== */
+
+	--border: var(--surface-border);
+	--border-strong: var(--surface-border-strong);
+
+	/* ======================================================
+	   🎨 STATES
+	====================================================== */
+
+	--success: #16A34A;
+	--success-hover: #15803D;
+
+	--warning: #F59E0B;
+	--danger: #DC2626;
+	--danger-hover: #B91C1C;
+
+	/* ======================================================
+	   🔵 BUTTON SYSTEM
+	====================================================== */
+
+	--btn-primary-bg: var(--primary-600);
+	--btn-primary-hover: var(--primary-700);
+	--btn-primary-active: var(--primary-800);
+	--btn-primary-text: #FFFFFF;
+
+	--btn-secondary-bg: #FFFFFF;
+	--btn-secondary-border: var(--border);
+	--btn-secondary-text: var(--text-main);
+
+	/* ======================================================
+	   📊 MENU
+	====================================================== */
+
+	--menu-bg: var(--primary-900);
+	--menu-active-bg: var(--primary-800);
+	--menu-text: #FFFFFF;
+	--menu-text-muted: #CBD5E1;
+
+	/* ======================================================
+	   📦 RADIUS
+	====================================================== */
+
 	--radius: 12px;
 	--radius-sm: 8px;
+	--radius-lg: 20px;
 
-	/* Shadows */
-	--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-	--shadow-md: 0 6px 16px rgba(0, 0, 0, 0.12);
+	/* ======================================================
+	   🌫 SHADOWS
+	====================================================== */
 
-	/* =====================
-	   ESTADOS GENERALES
-	===================== */
+	--shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.04);
+	--shadow-md: 0 8px 20px rgba(0, 0, 0, 0.06);
+	--shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.08);
 
-	/* Activo / vigente */
-	--estado-activa: #dcfce7; /* verde claro */
-	--estado-activa-text: #166534; /* verde oscuro */
+	/* ======================================================
+	   🎯 FOCUS
+	====================================================== */
 
-	/* Licencia */
-	--estado-licencia: #fef3c7; /* amarillo */
-	--estado-licencia-text: #92400e;
+	--focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.35);
 
-	/* Cubierta */
-	--estado-cubierta: #dcfce7; /* verde */
+	/* ======================================================
+	   🏷 ESTADOS DE NEGOCIO
+	====================================================== */
+
+	--estado-activa: #DCFCE7;
+	--estado-activa-text: #166534;
+
+	--estado-licencia: #FEF3C7;
+	--estado-licencia-text: #92400E;
+
+	--estado-cubierta: #DCFCE7;
 	--estado-cubierta-text: #166534;
 
-	/* Descubierta */
-	--estado-descubierta: #fee2e2; /* rojo */
-	--estado-descubierta-text: #991b1b;
+	--estado-descubierta: #FEE2E2;
+	--estado-descubierta-text: #991B1B;
 
-	/* Vacante */
-	--estado-vacante: #fee2e2; /* rojo */
-	--estado-vacante-text: #991b1b;
+	--estado-vacante: #FEE2E2;
+	--estado-vacante-text: #991B1B;
 
-	/* Finalizada */
-	--estado-finalizada: #e5e7eb; /* gris claro */
+	--estado-finalizada: #E5E7EB;
 	--estado-finalizada-text: #374151;
 
-	/* Baja */
-	--estado-baja: #fecaca; /* rojo más fuerte */
-	--estado-baja-text: #7f1d1d;
+	--estado-baja: #FECACA;
+	--estado-baja-text: #7F1D1D;
 
-	/* Inactiva */
-	--estado-inactiva: #f3f4f6; /* gris neutro */
-	--estado-inactiva-text: #6b7280;
+	--estado-inactiva: #F3F4F6;
+	--estado-inactiva-text: #6B7280;
 
-	/* =====================
-	   SPACING
-	===================== */
+	/* ======================================================
+	   📏 SPACING
+	====================================================== */
 
 	--space-lg: 24px;
 	--space-md: 20px;
 	--space-sm: 16px;
 
-	/* =====================
-	   CONTAINERS
-	===================== */
+	/* ======================================================
+	   📦 CONTAINERS
+	====================================================== */
 
 	--container-md: 1200px;
 	--container-lg: 1600px;

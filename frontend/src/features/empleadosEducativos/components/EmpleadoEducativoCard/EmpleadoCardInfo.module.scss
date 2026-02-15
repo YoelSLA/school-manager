@@ -5,6 +5,9 @@
 	gap: 10px;
 
 	padding: 12px 16px;
+	border-radius: 12px;
+
+	background: #f9fafb; // leve fondo para diferenciar
 
 	&__text {
 		display: flex;
@@ -18,12 +21,24 @@
 		gap: 6px;
 
 		font-size: 0.75rem;
+		font-weight: 500;
 		color: #6b7280;
+		letter-spacing: 0.3px;
 	}
 
 	&__value {
 		font-size: 0.875rem;
 		font-weight: 500;
 		color: #111827;
+		transition: color 0.2s ease;
+	}
+
+	&__value--empty {
+		color: #6b7280;
+		background: #f3f4f6;
+		padding: 4px 8px;
+		border-radius: 999px;
+		font-size: 0.75rem;
+		font-weight: 500;
 	}
 }

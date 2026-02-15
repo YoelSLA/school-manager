@@ -6,7 +6,7 @@
 
 .form {
   max-width: 1000px;
-  margin: 32px auto;
+  margin: 0 auto;
 
   padding: 28px 32px;
 
@@ -14,24 +14,17 @@
   flex-direction: column;
   gap: 24px;
 
-  border-radius: 24px;
+  border-radius: var(--radius-lg);
 
-  background: #dde4ef;
+  background: var(--bg-form);
 
-  backdrop-filter: blur(6px);
-
-  border: 1px solid rgba(15, 23, 42, 0.06);
-
-  box-shadow:
-    0 25px 70px rgba(0, 0, 0, 0.08),
-    0 8px 20px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
 
   transition: box-shadow 0.2s ease;
 
   &:hover {
-    box-shadow:
-      0 16px 40px rgba(0, 0, 0, 0.08),
-      0 6px 14px rgba(0, 0, 0, 0.04);
+    box-shadow: var(--shadow-md);
   }
 
   /* =========================

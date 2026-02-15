@@ -18,6 +18,18 @@ public interface EmpleadoEducativoRepository extends JpaRepository<EmpleadoEduca
 
 	boolean existsByCuilAndEscuelaId(String cuil, Long escuelaId);
 
+	boolean existsByCuilAndEscuelaIdAndIdNot(
+			String cuil,
+			Long escuelaId,
+			Long id
+	);
+
+	boolean existsByEmailAndEscuelaIdAndIdNot(
+			String email,
+			Long escuelaId,
+			Long id
+	);
+
 	List<EmpleadoEducativo> findByEscuelaId(Long escuelaId);
 
 	@Query("""

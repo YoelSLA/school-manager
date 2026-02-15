@@ -52,3 +52,14 @@ export type EmpleadoEducativoLicenciaItemDTO = {
 };
 
 export type EmpleadoEducativoFiltro = "TODOS" | "ACTIVOS" | "INACTIVOS";
+
+export type EmpleadoFormValues = {
+	cuil: string; // read-only en UI pero viaja en el objeto
+	nombre: string;
+	apellido: string;
+	fechaNacimiento: string; // ISO yyyy-MM-dd
+	telefono?: string;
+	email: string;
+	domicilio?: string;
+	fechaIngreso?: string; // ISO yyyy-MM-dd
+};

@@ -15,8 +15,13 @@ public record EmpleadoEducativoCreateDTO(
 		@NotBlank(message = "apellido es obligatorio")
 		String apellido,
 
+		@Size(max = 150, message = "El domicilio no puede superar los 150 caracteres")
 		String domicilio,
 
+		@Pattern(
+				regexp = "^(\\+54(9)?\\d{10})?$",
+				message = "El teléfono debe estar en formato +549XXXXXXXXXX o +54XXXXXXXXXX"
+		)
 		String telefono,
 
 		@NotBlank(message = "El email es obligatorio")
@@ -27,8 +32,7 @@ public record EmpleadoEducativoCreateDTO(
 		@Past(message = "fechaDeNacimiento debe ser en el pasado")
 		LocalDate fechaDeNacimiento,
 
-		@NotNull(message = "fechaDeIngreso es obligatoria")
-		@PastOrPresent(message = "fechaDeIngreso debe ser en el pasado o presente")
+		@PastOrPresent(message = "La fecha de ingreso no puede ser futura")
 		LocalDate fechaDeIngreso
 
 ) {

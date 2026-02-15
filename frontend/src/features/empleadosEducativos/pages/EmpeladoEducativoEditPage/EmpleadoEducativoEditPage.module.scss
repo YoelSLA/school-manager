@@ -1,0 +1,19 @@
+.page {
+  display: flex;
+  flex-direction: column;
+}
+
+.page form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px; // 🔥 separación real entre form y botones
+}
+
+/* ================= ACTIONS ================= */
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 8px; // micro aire extra opcional
+}

@@ -4,7 +4,7 @@
 
 	height: 100vh;
 	overflow: visible;
-	// background-color: blueviolet;
+	background: var(--bg-page);
 
 	&__viewport {
 		margin-top: var(--header-total-height);
