@@ -2,17 +2,14 @@ import type { AxiosError } from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
-
-import EmpleadoEducativoForm from "../../components/EmpleadoEducativoForm/EmpleadoEducativoForm";
-import type { EmpleadoEducativoFormOutput } from "../../form/empleadoEducativo.form.types";
-import { useEmpleadoEducativoForm } from "../../form/hooks/useEmpleadoEducativoForm";
 import { useCrearEmpleadoEducativo } from "../../hooks/useCrearEmpleadoEducativo";
-
 import styles from "./EmpleadoEducativoCreatePage.module.scss";
+import type { EmpleadoEducativoCreateOutput } from "../../form/empleadoEducativo.form.types";
+import { useEmpleadoEducativoCreateForm } from "../../form/hooks/useEmpleadoEducativoCreateForm";
+import EmpleadoEducativoCreateForm from "../../components/EmpleadoEducativoCreateForm";
 
 export default function EquipoEducativoCreatePage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
@@ -38,7 +35,7 @@ export default function EquipoEducativoCreatePage() {
 			reset,
 			formState: { errors, isSubmitting },
 		},
-	} = useEmpleadoEducativoForm();
+	} = useEmpleadoEducativoCreateForm();
 
 	/* =====================
 		 TOGGLE AGREGAR FECHA
@@ -71,7 +68,7 @@ export default function EquipoEducativoCreatePage() {
 	/* =====================
 		 SUBMIT
 	===================== */
-	const onSubmit = async (data: EmpleadoEducativoFormOutput) => {
+	const onSubmit = async (data: EmpleadoEducativoCreateOutput) => {
 		if (!escuelaActiva) {
 			toast.error("No hay escuela seleccionada");
 			return;
@@ -125,7 +122,7 @@ export default function EquipoEducativoCreatePage() {
 	return (
 		<PageLayout>
 			<div className={styles.page}>
-				<EmpleadoEducativoForm
+				<EmpleadoEducativoCreateForm
 					register={register}
 					errors={errors}
 					isSubmitting={isSubmitting}

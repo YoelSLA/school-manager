@@ -1,12 +1,10 @@
 package com.gestion.escuela.gestion_escolar.controllers.escuelasContexto;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.EmpleadoEducativoCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.EmpleadoEducativoDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.EmpleadoEducativoMinimoDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.EmpleadoEducativoResumenDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.*;
 import com.gestion.escuela.gestion_escolar.mappers.EmpleadoEducativoMapper;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
+import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.services.EmpleadoEducativoService;
 import com.gestion.escuela.gestion_escolar.services.EscuelaService;
 import jakarta.validation.Valid;
@@ -40,6 +38,33 @@ public class EscuelaEmpleadoEducativoControllerREST {
 				);
 		return EmpleadoEducativoMapper.toDetalle(empleado, Set.of());
 	}
+
+	@PutMapping("/{empleadoId}")
+	public EmpleadoEducativoDetalleDTO actualizar(
+			@PathVariable Long escuelaId,
+			@PathVariable Long empleadoId,
+			@Valid @RequestBody EmpleadoEducativoUpdateDTO dto
+	) {
+
+		System.out.println("EscuelaId: " + escuelaId);
+		System.out.println("EmpleadoId: " + empleadoId);
+
+		// Validar escuela
+		escuelaService.obtenerPorId(escuelaId);
+
+		// 1️⃣ Obtener entidad actual
+		EmpleadoEducativo empleadoActual = empleadoEducativoService.obtenerPorEscuela(escuelaId, empleadoId);
+		Set<RolEducativo> rolesEducativos = empleadoEducativoService.obtenerRolesEducativos(empleadoId);
+
+		// 2️⃣ Mapear a nueva entidad actualizada
+		EmpleadoEducativoMapper.actualizarEntidad(empleadoActual, dto);
+
+		// 3️⃣ Delegar al service
+		EmpleadoEducativo guardado = empleadoEducativoService.actualizar(empleadoActual);
+
+		return EmpleadoEducativoMapper.toDetalle(guardado, rolesEducativos);
+	}
+
 
 	@PostMapping("/batch")
 	@ResponseStatus(HttpStatus.CREATED)

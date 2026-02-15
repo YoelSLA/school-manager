@@ -4,9 +4,7 @@ import { crearFranjaHorariaSchema } from "@/utils/schemas/crearfranjaHoraria.sch
 export const designacionBaseSchema = z.object({
 	cupof: z.preprocess(
 		(val) => {
-			console.log("🧪 cupof raw value:", val, "type:", typeof val);
 			const coerced = Number(val);
-			console.log("🧪 after Number():", coerced, "isNaN:", Number.isNaN(coerced));
 			return coerced;
 		},
 		z
@@ -16,8 +14,7 @@ export const designacionBaseSchema = z.object({
 			})
 			.int("El CUPOF debe ser un entero")
 			.positive("El CUPOF debe ser mayor a 0"),
-),
-
+	),
 
 	franjasHorarias: z
 		.array(crearFranjaHorariaSchema)

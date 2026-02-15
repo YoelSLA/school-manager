@@ -40,21 +40,9 @@ export default function CursoForm({ onSubmit, isSubmitting }: Props) {
 			register,
 			handleSubmit,
 			formState: { errors },
-			watch,
 		},
 		franjas: { fields, append, remove },
 	} = useDesignacionCursoForm({ materias, cursos, orientaciones: ORIENTACIONES.map((o) => o.value) });
-
-	const cupofValue = watch("cupof");
-	const materiaIdValue = watch("materiaId");
-	const cursoIdValue = watch("cursoId");
-
-	console.log("🧪 DEBUG CursoForm ----------------");
-	console.log("cupof:", cupofValue, typeof cupofValue, Number.isNaN(cupofValue));
-	console.log("materiaId:", materiaIdValue, typeof materiaIdValue, Number.isNaN(materiaIdValue));
-	console.log("cursoId:", cursoIdValue, typeof cursoIdValue, Number.isNaN(cursoIdValue));
-	console.log("-----------------------------------");
-
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>

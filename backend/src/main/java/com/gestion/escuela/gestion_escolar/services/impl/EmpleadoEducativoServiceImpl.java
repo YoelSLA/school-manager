@@ -183,6 +183,40 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 		return fechasEnQueTrabaja;
 	}
 
+	@Override
+	public EmpleadoEducativo actualizar(EmpleadoEducativo empleado) {
+
+		Long escuelaId = empleado.getEscuela().getId();
+		Long empleadoId = empleado.getId();
+		Escuela escuela = empleado.getEscuela();
+
+		if (empleadoEducativoRepository.existsByCuilAndEscuelaIdAndIdNot(
+				empleado.getCuil(),
+				escuelaId,
+				empleadoId
+		)) {
+			throw new EmpleadoEducativoDuplicadoException(
+					"CUIL",
+					empleado.getCuil(),
+					escuela.getNombre()
+			);
+		}
+
+		if (empleadoEducativoRepository.existsByEmailAndEscuelaIdAndIdNot(
+				empleado.getEmail(),
+				escuelaId,
+				empleadoId
+		)) {
+			throw new EmpleadoEducativoDuplicadoException(
+					"email",
+					empleado.getEmail(),
+					escuela.getNombre()
+			);
+		}
+
+		return empleado;
+	}
+
 
 }
 

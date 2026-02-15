@@ -1,17 +1,31 @@
 import type { LicenciaCreateDTO } from "@/features/licencias/types/licencia.types";
 import { http } from "@/services/axios";
-import type { EmpleadoEducativoFormOutput } from "../form/empleadoEducativo.form.types";
 import type {
 	EmpleadoEducativoDetalleDTO,
 	EmpleadoEducativoFiltro,
 	EmpleadoEducativoMinimoDTO,
 } from "../types/empleadosEducativos.types";
+import type {
+	EmpleadoEducativoCreateDTO,
+	EmpleadoEducativoUpdateDTO,
+} from "../form/empleadoEducativo.form.types";
 
 export const crearEmpleadoEducativo = async (
 	escuelaId: number,
-	payload: EmpleadoEducativoFormOutput,
+	payload: EmpleadoEducativoCreateDTO,
 ): Promise<void> => {
 	await http.post(`/escuelas/${escuelaId}/empleadosEducativos`, payload);
+};
+
+export const editarEmpleadoEducativo = async (
+	escuelaId: number,
+	empleadoId: number,
+	payload: EmpleadoEducativoUpdateDTO,
+): Promise<void> => {
+	await http.put(
+		`/escuelas/${escuelaId}/empleadosEducativos/${empleadoId}`,
+		payload,
+	);
 };
 
 export const crearLicencia = async (

@@ -7,11 +7,12 @@ import IngresoSection from "./IngresoSection/IngresoSection";
 import FormActions from "@/components/FormActions"; // 👈 nuevo
 
 import styles from "./EmpleadoEducativoForm.module.scss";
-import type { EmpleadoEducativoFormOutput } from "../../form/empleadoEducativo.form.types";
+import type { EmpleadoEducativoCreateOutput } from "../../form/empleadoEducativo.form.types";
+
 
 type Props = {
-	register: UseFormRegister<EmpleadoEducativoFormOutput>;
-	errors: FieldErrors<EmpleadoEducativoFormOutput>;
+	register: UseFormRegister<EmpleadoEducativoCreateOutput>;
+	errors: FieldErrors<EmpleadoEducativoCreateOutput>;
 	isSubmitting: boolean;
 
 	agregarFecha: boolean;
@@ -23,7 +24,7 @@ type Props = {
 	onSubmit: () => void;
 };
 
-export default function EmpleadoEducativoForm({
+export default function EmpleadoEducativoCreateForm({
 	register,
 	errors,
 	isSubmitting,

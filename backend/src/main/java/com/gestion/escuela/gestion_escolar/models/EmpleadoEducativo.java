@@ -70,7 +70,6 @@ public class EmpleadoEducativo {
 	@Column(nullable = false)
 	private LocalDate fechaDeNacimiento;
 
-	@Column(nullable = false)
 	private LocalDate fechaDeIngreso;
 
 	protected EmpleadoEducativo() {
@@ -152,6 +151,109 @@ public class EmpleadoEducativo {
 				.collect(Collectors.toUnmodifiableSet());
 	}
 
+	public void validarPuedeTomarPosesionEn(LocalDate fecha) {
+		if (fecha == null) {
+			throw new CampoObligatorioException("fecha de toma de posesión");
+		}
+
+		if (!this.activo) {
+			throw new EmpleadoInactivoException(id);
+		}
+
+		if (tieneLicenciaEn(fecha)) {
+			throw new EmpleadoEnLicenciaException(id, fecha);
+		}
+	}
+
+	public void actualizar(
+			String cuil,
+			String nombre,
+			String apellido,
+			String domicilio,
+			String telefono,
+			LocalDate fechaDeNacimiento,
+			LocalDate fechaDeIngreso,
+			String email
+	) {
+		this.cuil = cuil;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.domicilio = domicilio;
+		this.telefono = telefono;
+		this.fechaDeNacimiento = fechaDeNacimiento;
+		this.fechaDeIngreso = fechaDeIngreso;
+		this.email = email;
+	}
+
+	public Set<DiaDeSemana> diasLaborablesEn(LocalDate fecha) {
+		return asignaciones.stream()
+				.filter(a -> a.estaActiva(fecha))
+				.map(Asignacion::getDesignacion)
+				.flatMap(d -> d.getFranjasHorarias().stream())
+				.map(FranjaHoraria::getDia)
+				.collect(Collectors.toSet());
+	}
+
+	public Set<DiaDeSemana> diasQueTrabajaEnEscuela(Long escuelaId) {
+
+		if (!this.escuela.getId().equals(escuelaId)) {
+			throw new IllegalStateException(
+					"El empleado no pertenece a la escuela indicada"
+			);
+		}
+
+		return asignaciones.stream()
+				.flatMap(a -> a.getDesignacion().getFranjasHorarias().stream())
+				.map(FranjaHoraria::getDia)
+				.collect(Collectors.toSet());
+	}
+
+	public List<LocalDate> calcularDiasLaborables(Licencia licencia) {
+
+		Periodo periodo = licencia.getPeriodo();
+		List<LocalDate> fechas = new ArrayList<>();
+
+		for (LocalDate fecha = periodo.getFechaDesde();
+			 !fecha.isAfter(periodo.getFechaHasta());
+			 fecha = fecha.plusDays(1)) {
+
+			DayOfWeek dayOfWeek = fecha.getDayOfWeek();
+
+			if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
+				continue; // no es día laboral en el dominio
+			}
+
+			Set<DiaDeSemana> diasTrabaja = diasLaborablesEn(fecha);
+
+			DiaDeSemana dia = DiaDeSemana.from(fecha);
+
+			if (diasTrabaja.contains(dia)) {
+				fechas.add(fecha);
+			}
+		}
+
+		return fechas;
+	}
+
+	private boolean tieneLicenciaEn(LocalDate fecha) {
+		return licencias.stream().anyMatch(l -> l.estaVigenteEn(fecha));
+	}
+
+	private void validarBajaDefinitiva(CausaBaja causaBaja, LocalDate fechaBaja) {
+		if (causaBaja == null)
+			throw new CampoObligatorioException("causa de baja");
+		if (fechaBaja == null)
+			throw new CampoObligatorioException("fecha de baja");
+	}
+
+	private boolean tieneLicenciaSuperpuesta(Periodo periodo) {
+		if (periodo == null) {
+			return false;
+		}
+
+		return licencias.stream().anyMatch(l -> l.seSuperponeCon(periodo));
+	}
+
 	private void validarCamposObligatorios(Escuela escuela,
 										   String cuil,
 										   String nombre,
@@ -172,14 +274,19 @@ public class EmpleadoEducativo {
 			throw new CampoObligatorioException("email");
 		if (fechaDeNacimiento == null)
 			throw new CampoObligatorioException("fecha de nacimiento");
-		if (fechaDeIngreso == null)
-			throw new CampoObligatorioException("fecha de ingreso");
 	}
 
-	private void validarFechas(LocalDate fechaDeNacimiento, LocalDate fechaDeIngreso) {
-		if (fechaDeIngreso.isBefore(fechaDeNacimiento))
-			throw new RangoFechasInvalidoException("La fecha de ingreso no puede ser anterior a la fecha de nacimiento");
+	private void validarFechas(LocalDate nacimiento, LocalDate ingreso) {
 
+		if (ingreso == null) {
+			return; // no hay nada que validar
+		}
+
+		if (ingreso.isBefore(nacimiento)) {
+			throw new RangoFechasInvalidoException(
+					"La fecha de ingreso no puede ser anterior a la fecha de nacimiento"
+			);
+		}
 	}
 
 	private void validarCreacionLicencia(TipoLicencia tipo, Periodo periodo) {
@@ -209,89 +316,6 @@ public class EmpleadoEducativo {
 				.filter(a -> a.estaActiva(fecha))        // existe en el sistema
 				.filter(a -> a.estaVigenteEn(fecha))   // aplica a la fecha
 				.toList();
-	}
-
-	private void validarBajaDefinitiva(CausaBaja causaBaja, LocalDate fechaBaja) {
-		if (causaBaja == null)
-			throw new CampoObligatorioException("causa de baja");
-		if (fechaBaja == null)
-			throw new CampoObligatorioException("fecha de baja");
-	}
-
-	private boolean tieneLicenciaSuperpuesta(Periodo periodo) {
-		if (periodo == null) {
-			return false;
-		}
-
-		return licencias.stream().anyMatch(l -> l.seSuperponeCon(periodo));
-	}
-
-	public void validarPuedeTomarPosesionEn(LocalDate fecha) {
-		if (fecha == null) {
-			throw new CampoObligatorioException("fecha de toma de posesión");
-		}
-
-		if (!this.activo) {
-			throw new EmpleadoInactivoException(id);
-		}
-
-		if (tieneLicenciaEn(fecha)) {
-			throw new EmpleadoEnLicenciaException(id, fecha);
-		}
-	}
-
-	private boolean tieneLicenciaEn(LocalDate fecha) {
-		return licencias.stream().anyMatch(l -> l.estaVigenteEn(fecha));
-	}
-
-	public Set<DiaDeSemana> diasLaborablesEn(LocalDate fecha) {
-		return asignaciones.stream()
-				.filter(a -> a.estaActiva(fecha))
-				.map(Asignacion::getDesignacion)
-				.flatMap(d -> d.getFranjasHorarias().stream())
-				.map(FranjaHoraria::getDia)
-				.collect(Collectors.toSet());
-	}
-
-	public Set<DiaDeSemana> diasQueTrabajaEnEscuela(Long escuelaId) {
-
-		if (!this.escuela.getId().equals(escuelaId)) {
-			throw new IllegalStateException(
-					"El empleado no pertenece a la escuela indicada"
-			);
-		}
-
-		return asignaciones.stream()
-				.flatMap(a -> a.getDesignacion().getFranjasHorarias().stream())
-				.map(FranjaHoraria::getDia)
-				.collect(Collectors.toSet());
-	}
-	
-	public List<LocalDate> calcularDiasLaborables(Licencia licencia) {
-
-		Periodo periodo = licencia.getPeriodo();
-		List<LocalDate> fechas = new ArrayList<>();
-
-		for (LocalDate fecha = periodo.getFechaDesde();
-			 !fecha.isAfter(periodo.getFechaHasta());
-			 fecha = fecha.plusDays(1)) {
-
-			DayOfWeek dayOfWeek = fecha.getDayOfWeek();
-
-			if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
-				continue; // no es día laboral en el dominio
-			}
-
-			Set<DiaDeSemana> diasTrabaja = diasLaborablesEn(fecha);
-
-			DiaDeSemana dia = DiaDeSemana.from(fecha);
-
-			if (diasTrabaja.contains(dia)) {
-				fechas.add(fecha);
-			}
-		}
-
-		return fechas;
 	}
 
 
