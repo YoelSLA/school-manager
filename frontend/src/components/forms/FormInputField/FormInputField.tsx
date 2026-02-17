@@ -1,3 +1,4 @@
+import { Lock } from "lucide-react";
 import type {
 	FieldValues,
 	Path,
@@ -27,14 +28,20 @@ export default function FormInputField<T extends FieldValues>({
 	inputProps,
 }: Props<T>) {
 	const fieldId = String(name);
+	const isReadOnly = inputProps?.readOnly;
 
 	return (
 		<div
-			className={`${styles["form-field"]} ${error ? styles["form-field--error"] : ""
-				}`}
+			className={`${styles["form-field"]} 
+        ${error ? styles["form-field--error"] : ""}
+        ${isReadOnly ? styles["form-field--readonly"] : ""}
+      `}
 		>
 			<label htmlFor={fieldId} className={styles["form-field__label"]}>
 				{label}
+				{isReadOnly && (
+					<Lock size={14} className={styles["form-field__lock"]} />
+				)}
 			</label>
 
 			<input

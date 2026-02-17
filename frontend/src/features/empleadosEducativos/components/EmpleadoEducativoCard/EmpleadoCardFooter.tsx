@@ -1,7 +1,8 @@
 import { ArrowRight } from "lucide-react";
-import type { EmpleadoEducativoDetalleDTO } from "@/empleadosEducativos/types/empleadosEducativos.types";
+
 
 import styles from "./EmpleadoCardFooter.module.scss";
+import type { EmpleadoEducativoDetalleDTO } from "../../types/empleadosEducativos.types";
 
 type Props = {
 	empleado: EmpleadoEducativoDetalleDTO;

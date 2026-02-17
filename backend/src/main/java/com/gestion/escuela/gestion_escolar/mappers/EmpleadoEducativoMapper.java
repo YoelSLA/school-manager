@@ -67,19 +67,6 @@ public class EmpleadoEducativoMapper {
 		);
 	}
 
-	public static EmpleadoEducativoEditDTO toEdit(EmpleadoEducativo e) {
-		return new EmpleadoEducativoEditDTO(
-				e.getId(),
-				e.getNombre(),
-				e.getApellido(),
-				e.getDomicilio(),
-				e.getTelefono(),
-				e.getEmail(),
-				e.getFechaDeNacimiento(),
-				e.getFechaDeIngreso()
-		);
-	}
-
 	public static EmpleadoEducativo toEntity(EmpleadoEducativoCreateDTO d, Escuela e) {
 		return new EmpleadoEducativo(
 				e,
@@ -94,22 +81,22 @@ public class EmpleadoEducativoMapper {
 		);
 	}
 
-	public static EmpleadoEducativo toUpdatedEntity(
-			EmpleadoEducativo e,
-			EmpleadoEducativoUpdateDTO d
+	public static void actualizarEntidad(
+			EmpleadoEducativo empleado,
+			EmpleadoEducativoUpdateDTO dto
 	) {
-		return new EmpleadoEducativo(
-				e.getEscuela(),
-				e.getCuil(),
-				d.getNombre() != null ? d.getNombre() : e.getNombre(),
-				d.getApellido() != null ? d.getApellido() : e.getApellido(),
-				d.getDomicilio() != null ? d.getDomicilio() : e.getDomicilio(),
-				d.getTelefono() != null ? d.getTelefono() : e.getTelefono(),
-				d.getFechaDeNacimiento() != null ? d.getFechaDeNacimiento() : e.getFechaDeNacimiento(),
-				d.getFechaDeIngreso() != null ? d.getFechaDeIngreso() : e.getFechaDeIngreso(),
-				d.getEmail() != null ? d.getEmail() : e.getEmail()
+		empleado.actualizar(
+				dto.cuil(),
+				dto.nombre(),
+				dto.apellido(),
+				dto.domicilio(),
+				dto.telefono(),
+				dto.fechaDeNacimiento(),
+				dto.fechaDeIngreso(),
+				dto.email()
 		);
 	}
+
 
 	private static EmpleadoEducativoLicenciaItemDTO toLicenciaItem(Licencia l) {
 		TipoLicencia tipo = l.getTipoLicencia();

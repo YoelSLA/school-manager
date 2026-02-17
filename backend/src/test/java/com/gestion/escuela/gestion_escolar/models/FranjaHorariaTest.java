@@ -23,7 +23,7 @@ class FranjaHorariaTest {
 
 		// Assert
 		assertEquals(dia, franja.getDia());
-		assertEquals(desde, franja.getHoraDesde());
+		assertEquals(LocalTime.of(9, 0), franja.getHoraDesde());
 		assertEquals(hasta, franja.getHoraHasta());
 	}
 

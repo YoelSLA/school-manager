@@ -1,42 +1,43 @@
 package com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos;
 
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 import java.time.LocalDate;
 
-@Getter
-@AllArgsConstructor
-// 👉 actualizar empleado
-public class EmpleadoEducativoUpdateDTO {
+public record EmpleadoEducativoUpdateDTO(
 
-	@NotBlank(message = "El nombre es obligatorio")
-	private String nombre;
+		@NotBlank(message = "El CUIL es obligatorio")
+		@Pattern(
+				regexp = "\\d{2}-\\d{8}-\\d",
+				message = "El CUIL debe tener el formato XX-XXXXXXXX-X"
+		)
+		String cuil,
 
-	@NotBlank(message = "El apellido es obligatorio")
-	private String apellido;
+		@NotBlank(message = "El nombre es obligatorio")
+		String nombre,
 
-	@NotBlank(message = "El CUIL es obligatorio")
-	@Pattern(
-			regexp = "\\d{2}-\\d{8}-\\d",
-			message = "El CUIL debe tener el formato XX-XXXXXXXX-X"
-	)
-	private String cuil;
+		@NotBlank(message = "El apellido es obligatorio")
+		String apellido,
 
-	@NotBlank(message = "El domicilio es obligatorio")
-	private String domicilio;
+		@Size(max = 150, message = "El domicilio no puede superar los 150 caracteres")
+		String domicilio,
 
-	@NotNull(message = "La fecha de nacimiento es obligatoria")
-	@Past(message = "La fecha de nacimiento debe ser pasada")
-	private LocalDate fechaDeNacimiento;
+		@Pattern(
+				regexp = "^(\\+54(9)?\\d{10})?$",
+				message = "El teléfono debe estar en formato +549XXXXXXXXXX o +54XXXXXXXXXX"
+		)
+		String telefono,
 
-	@NotNull(message = "La fecha de ingreso es obligatoria")
-	@PastOrPresent(message = "La fecha de ingreso no puede ser futura")
-	private LocalDate fechaDeIngreso;
+		@NotBlank(message = "El email es obligatorio")
+		@Email(message = "El email no tiene un formato válido")
+		String email,
 
-	private String telefono;
+		@NotNull(message = "La fecha de nacimiento es obligatoria")
+		@Past(message = "La fecha de nacimiento debe ser pasada")
+		LocalDate fechaDeNacimiento,
 
-	private String email;
+		@PastOrPresent(message = "La fecha de ingreso no puede ser futura")
+		LocalDate fechaDeIngreso
 
+) {
 }

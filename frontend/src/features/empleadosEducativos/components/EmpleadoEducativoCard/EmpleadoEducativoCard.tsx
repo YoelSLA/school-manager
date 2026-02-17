@@ -1,9 +1,9 @@
 import { Card, CardDivider } from "@/components/Card";
-import type { EmpleadoEducativoDetalleDTO } from "@/empleadosEducativos/types/empleadosEducativos.types";
 import EmpleadoCardFooter from "./EmpleadoCardFooter";
 import EmpleadoCardHeader from "./EmpleadoCardHeader";
 import EmpleadoCardInfo from "./EmpleadoCardInfo";
 import EmpleadoCardRoles from "./EmpleadoCardRoles";
+import type { EmpleadoEducativoDetalleDTO } from "../../types/empleadosEducativos.types";
 
 type Props = {
 	empleado: EmpleadoEducativoDetalleDTO;

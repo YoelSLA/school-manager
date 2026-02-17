@@ -6,6 +6,7 @@ import com.gestion.escuela.gestion_escolar.models.Periodo;
 import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -45,4 +46,7 @@ public interface EmpleadoEducativoService {
 			Long empleadoId,
 			Periodo periodo
 	);
+
+	@Transactional
+	EmpleadoEducativo actualizar(EmpleadoEducativo empleado);
 }

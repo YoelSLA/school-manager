@@ -5,14 +5,14 @@ import type {
 } from "react-hook-form";
 
 import FormInputField from "@/components/forms/FormInputField/FormInputField";
-import type { EmpleadoEducativoFormOutput } from "@/features/empleadosEducativos/form/empleadoEducativo.form.types";
 import FormSection from "@/components/FormSection";
 import { formSectionStyles } from "@/components/FormSection/FormSection";
 import styles from "./IngresoSection.module.scss";
+import type { EmpleadoEducativoCreateOutput } from "@/features/empleadosEducativos/form/empleadoEducativo.form.types";
 
 type Props = {
-	register: UseFormRegister<EmpleadoEducativoFormOutput>;
-	errors: FieldErrors<EmpleadoEducativoFormOutput>;
+	register: UseFormRegister<EmpleadoEducativoCreateOutput>;
+	errors: FieldErrors<EmpleadoEducativoCreateOutput>;
 	agregarFecha: boolean;
 	onToggleAgregarFecha: () => void;
 	usarHoy: boolean;

@@ -1,8 +1,7 @@
 import { matchPath } from "react-router-dom";
-
-import { routeTitles } from "@/router/routerTitles";
 import type { TipoLicencia } from "@/features/licencias/utils/tipoLicencia";
 import type { DesignacionFiltro } from "@/features/designaciones/types/designacion.types";
+import { routeTitles } from "@/router/titles";
 
 export function diasRestantes(fechaHasta: string): number {
 	const [year, month, day] = fechaHasta.split("-").map(Number);

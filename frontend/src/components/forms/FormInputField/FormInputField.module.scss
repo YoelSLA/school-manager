@@ -52,4 +52,23 @@
 	&__error-icon {
 		@include form-error-icon;
 	}
+
+	/* =====================
+   READONLY STATE
+===================== */
+
+	&--readonly {
+		.form-field__input {
+			background-color: #f3f4f6;
+			cursor: not-allowed;
+			color: #6b7280;
+		}
+	}
+
+	&__lock {
+		margin-left: 6px;
+		color: #9ca3af;
+	}
+
+
 }

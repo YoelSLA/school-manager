@@ -1,18 +1,17 @@
-// hooks/useEmpleadoEducativoForm.ts
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { crearEmpleadoEducativoSchema } from "../schemas/crearEmpleadoEducativo.schema";
 import type {
-	EmpleadoEducativoFormInput,
-	EmpleadoEducativoFormOutput,
+	EmpleadoEducativoCreateInput,
+	EmpleadoEducativoCreateOutput,
 } from "../empleadoEducativo.form.types";
-import { EMPLEADO_EDUCATIVO_DEFAULTS } from "../defaults/empleadosEducativos.defaults";
+import { EMPLEADO_EDUCATIVO_DEFAULTS } from "../defaults/empleadoEducativosCreate.default";
 
-export function useEmpleadoEducativoForm() {
+export function useEmpleadoEducativoCreateForm() {
 	const form = useForm<
-		EmpleadoEducativoFormInput,
+		EmpleadoEducativoCreateInput,
 		unknown,
-		EmpleadoEducativoFormOutput
+		EmpleadoEducativoCreateOutput
 	>({
 		resolver: zodResolver(crearEmpleadoEducativoSchema),
 		defaultValues: EMPLEADO_EDUCATIVO_DEFAULTS,
