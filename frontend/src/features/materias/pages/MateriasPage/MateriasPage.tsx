@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "@/components/Button";
-import SidebarPageLayout from "@/layout/SidebarPageLayout";
-import SidebarSectionLayout from "@/layout/SidebarSectionLayout";
+import SidebarPageLayout from "@/layout/SidebarPageLayout/SidebarPageLayout";
+import SidebarSectionLayout from "@/layout/SidebarSectionLayout/SidebarSectionLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
 import CrearMateriaModal from "../../components/CrearMateriaModal";

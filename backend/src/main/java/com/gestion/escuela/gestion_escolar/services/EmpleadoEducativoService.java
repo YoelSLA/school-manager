@@ -6,6 +6,8 @@ import com.gestion.escuela.gestion_escolar.models.Periodo;
 import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -34,8 +36,12 @@ public interface EmpleadoEducativoService {
 	);
 
 	EmpleadoEducativo obtenerPorEscuela(Long escuelaId, Long empleadoId);
-
-	List<EmpleadoEducativo> listarPorEscuela(Long escuelaId, Boolean estado);
+	
+	Page<EmpleadoEducativo> listarPorEscuela(
+			Long escuelaId,
+			Boolean estado,
+			Pageable pageable
+	);
 
 	List<EmpleadoEducativo> buscarPorEscuela(Long escuelaId, String search);
 

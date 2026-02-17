@@ -1,3 +1,5 @@
+@use "@/styles/breakpoints" as *;
+
 .btn {
 	display: inline-flex;
 	align-items: center;
@@ -31,7 +33,7 @@
 	}
 
 	/* ======================
-	   SIZES
+	   SIZES (BASE = MEDIUM)
 	====================== */
 
 	&.btnSm {
@@ -48,7 +50,6 @@
 	   VARIANTS
 	====================== */
 
-	/* 🔵 PRIMARY */
 	&Primary {
 		background: #2563eb;
 		color: #ffffff;
@@ -64,7 +65,6 @@
 		}
 	}
 
-	/* ⚪ SECONDARY */
 	&Secondary {
 		background: #ffffff;
 		color: #374151;
@@ -75,7 +75,6 @@
 		}
 	}
 
-	/* 🟣 FILTER */
 	&Filter {
 		padding: 8px 18px;
 		border-radius: 999px;
@@ -92,7 +91,6 @@
 		}
 	}
 
-	/* 🟢 SUCCESS */
 	&Success {
 		background: #16a34a;
 		color: #ffffff;
@@ -103,7 +101,6 @@
 		}
 	}
 
-	/* 🔴 DANGER */
 	&Danger {
 		background: #dc2626;
 		color: #ffffff;
@@ -123,7 +120,7 @@
 	}
 
 	&.isLoading .content {
-		opacity: 0; // texto invisible pero ocupa espacio
+		opacity: 0;
 	}
 
 	.content {
@@ -142,8 +139,59 @@
 		border-radius: 50%;
 
 		animation: spin 0.8s linear infinite;
-
 		position: absolute;
+	}
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT SMALL
+====================================================== */
+
+@include desktop-height-small {
+	.btn {
+		gap: 6px;
+		border-radius: 12px;
+
+		&.btnSm {
+			padding: 6px 10px;
+			font-size: 0.8rem;
+		}
+
+		&.btnMd {
+			padding: 8px 14px;
+			font-size: 0.85rem;
+		}
+
+		.spinner {
+			width: 14px;
+			height: 14px;
+		}
+	}
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT LARGE
+====================================================== */
+
+@include desktop-height-large {
+	.btn {
+		gap: 10px;
+		border-radius: 24px;
+
+		&.btnSm {
+			padding: 10px 14px;
+			font-size: 0.9rem;
+		}
+
+		&.btnMd {
+			padding: 12px 20px;
+			font-size: 1rem;
+		}
+
+		.spinner {
+			width: 18px;
+			height: 18px;
+		}
 	}
 }
 
@@ -159,7 +207,7 @@
 }
 
 /* ======================
-   SPIN ANIMATION
+   SPIN
 ====================== */
 
 @keyframes spin {

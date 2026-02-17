@@ -1,22 +1,21 @@
 
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import { useEmpleadoEducativo } from "../../hooks/useEmpleadoEducativo";
+import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
 import AccionesEmpleado from "./AccionesEmpleado/AccionesEmpleado";
 import AsignacionesList from "./AsignacionesList";
 import DatosPersonales from "./DatosPersonales/DatosPersonales";
-import styles from "./EmpleadoEducativoDetallePage.module.scss";
 import HeaderEmpleado from "./HeaderEmpleado/HeaderEmpleado";
 import LicenciasList from "./LicenciasList";
-import { useNavigate, useParams } from "react-router-dom";
-import { empleadosEducativosPaths } from "@/router/paths";
+import styles from "./EmpleadoEducativoDetallePage.module.scss";
 
 export default function EmpleadoEducativoDetallePage() {
 	const { empleadoId } = useParams();
-	console.log("PARAM empleadoId:", empleadoId);
-	const navigate = useNavigate();
+	const _location = useLocation();
+	const _navigate = useNavigate();
 
-	const empleadoIdNumber = Number(empleadoId);
-	console.log("ID NUM:", empleadoIdNumber);
+	const empleadoNav = useEmpleadoNavigation();
 
 	const {
 		data: empleado,
@@ -24,9 +23,6 @@ export default function EmpleadoEducativoDetallePage() {
 		isError,
 	} = useEmpleadoEducativo(Number(empleadoId));
 
-	console.log("DATA:", empleado);
-	console.log("LOADING:", isLoading);
-	console.log("ERROR:", isError);
 
 	if (isLoading) return <div>Cargando empleado...</div>;
 	if (isError || !empleado) return <div>Error al cargar el empleado</div>;
@@ -36,18 +32,14 @@ export default function EmpleadoEducativoDetallePage() {
 			<div className={styles.page}>
 				<HeaderEmpleado
 					empleado={empleado}
-					onEditar={() =>
-						navigate(empleadosEducativosPaths.edit(empleado.id))
-					}
+					onEditar={() => empleadoNav.editar(empleado)}
 				/>
 
 				<div className={styles.main}>
-					{/* Columna izquierda: contexto */}
 					<div className={styles.left}>
 						<DatosPersonales empleado={empleado} />
 					</div>
 
-					{/* Columna derecha: detalles colapsables */}
 					<div className={styles.right}>
 						<div className={styles.panel}>
 							<AsignacionesList asignaciones={empleado.asignaciones} />

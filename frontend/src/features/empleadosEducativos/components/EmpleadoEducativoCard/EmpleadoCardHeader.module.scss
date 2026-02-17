@@ -1,3 +1,5 @@
+@use "@/styles/breakpoints" as *;
+
 .card-header {
 	padding: 8px;
 	display: flex;
@@ -62,5 +64,33 @@
 	&__estado {
 		display: flex;
 		align-items: center;
+	}
+}
+
+@include desktop-height-small {
+	.card-header {
+		padding: 6px;
+		gap: 4px;
+
+		&__apellido {
+			font-size: 0.9rem;
+			/* antes 1rem */
+		}
+
+		&__nombre-text {
+			font-size: 0.75rem;
+		}
+
+		&__cuil {
+			font-size: 0.65rem;
+		}
+
+		&__nombre-row {
+			gap: 6px;
+		}
+
+		&__nombre-col {
+			gap: 1px;
+		}
 	}
 }

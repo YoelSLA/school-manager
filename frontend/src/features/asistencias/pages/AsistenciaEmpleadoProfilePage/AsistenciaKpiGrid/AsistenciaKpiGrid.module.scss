@@ -1,0 +1,35 @@
+@use "@/styles/breakpoints" as *;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.card {
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 20px;
+
+  box-shadow: var(--shadow-sm);
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card {
+  padding: 20px;
+
+  @include desktop-height-small {
+    padding: 14px;
+  }
+}
+
+.card h3 {
+  font-size: 24px;
+
+  @include desktop-height-small {
+    font-size: 18px;
+  }
+}

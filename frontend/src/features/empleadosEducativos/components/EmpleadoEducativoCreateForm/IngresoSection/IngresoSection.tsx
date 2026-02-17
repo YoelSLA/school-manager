@@ -1,16 +1,22 @@
 import { Calendar, CheckCircle } from "lucide-react";
-import type {
-	FieldErrors,
-	UseFormRegister,
+import {
+	Controller,
+	type Control,
+	type FieldErrors,
+	type UseFormRegister,
 } from "react-hook-form";
+import { useId } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-import FormInputField from "@/components/forms/FormInputField/FormInputField";
 import FormSection from "@/components/FormSection";
 import { formSectionStyles } from "@/components/FormSection/FormSection";
 import styles from "./IngresoSection.module.scss";
+
 import type { EmpleadoEducativoCreateOutput } from "@/features/empleadosEducativos/form/empleadoEducativo.form.types";
 
 type Props = {
+	control: Control<EmpleadoEducativoCreateOutput>;
 	register: UseFormRegister<EmpleadoEducativoCreateOutput>;
 	errors: FieldErrors<EmpleadoEducativoCreateOutput>;
 	agregarFecha: boolean;
@@ -20,6 +26,7 @@ type Props = {
 };
 
 export default function IngresoSection({
+	control,
 	register,
 	errors,
 	agregarFecha,
@@ -27,10 +34,11 @@ export default function IngresoSection({
 	usarHoy,
 	onToggleUsarHoy,
 }: Props) {
+	const dateInputId = useId();
+
 	return (
 		<FormSection title="FECHA DE INGRESO">
-
-			{/* Check principal */}
+			{/* Checkbox principal */}
 			<label className={formSectionStyles.section__checkbox}>
 				<input
 					type="checkbox"
@@ -40,33 +48,59 @@ export default function IngresoSection({
 				<span>Agregar fecha de ingreso</span>
 			</label>
 
-			{/* Bloque siempre renderizado (no salta layout) */}
+			{/* Bloque siempre renderizado */}
 			<div
 				className={`${styles.fechaRow} ${agregarFecha ? styles.visible : styles.hidden
 					}`}
 			>
+				{/* DatePicker controlado */}
 				<div className={styles.inputWrapper}>
-					<FormInputField
-						label={
-							<span className={styles.fechaLabel}>
-								<Calendar size={14} />
-								Fecha
-							</span>
-						}
+					<Controller
+						control={control}
 						name="fechaDeIngreso"
-						type="date"
-						register={register}
-						error={errors.fechaDeIngreso?.message}
+						render={({ field }) => (
+							<div className={styles.datePickerWrapper}>
+								<label
+									htmlFor={dateInputId}
+									className={styles.fechaLabel}
+								>
+									<Calendar size={14} />
+									Fecha
+								</label>
+
+								<DatePicker
+									id={dateInputId}
+									selected={field.value ? new Date(field.value) : null}
+									onChange={(date: Date | null) =>
+										field.onChange(date)
+									}
+									dateFormat="dd/MM/yyyy"
+									placeholderText="Seleccionar fecha"
+									className={`${styles.dateInput} ${errors.fechaDeIngreso ? styles.error : ""
+										}`}
+									popperPlacement="bottom-start"
+									disabled={!agregarFecha}
+								/>
+							</div>
+						)}
 					/>
+
+					{errors.fechaDeIngreso && (
+						<span className={styles.errorText}>
+							{errors.fechaDeIngreso.message}
+						</span>
+					)}
 				</div>
 
+				{/* Checkbox usar hoy */}
 				<label className={formSectionStyles.section__checkbox}>
 					<input
 						type="checkbox"
 						checked={usarHoy}
 						onChange={onToggleUsarHoy}
+						disabled={!agregarFecha}
 					/>
-					<span>
+					<span className={styles.usarHoy}>
 						<CheckCircle size={14} />
 						Usar fecha actual
 					</span>

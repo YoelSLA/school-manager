@@ -1,5 +1,5 @@
 import ListState from "@/components/ListState";
-import ScrollableGridListLayout from "@/layout/ScrollableGridListLayout";
+import ScrollableGridListLayout from "@/layout/ScrollableGridListLayout/ScrollableGridListLayout";
 import MateriaCard from "../../components/MateriaCard";
 import type { MateriaResponseDTO } from "../../types/materias.types";
 

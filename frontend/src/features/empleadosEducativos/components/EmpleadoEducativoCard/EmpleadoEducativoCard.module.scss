@@ -1,5 +1,41 @@
+@use "@/styles/breakpoints" as *;
+
 .card {
 	display: flex;
 	flex-direction: column;
-	height: 100%;
+	height: auto;
+	transition: all 0.2s ease;
+
+	/* ======================================================
+	   BASE (medium)
+	====================================================== */
+
+	max-height: 300px;
+	padding: 12px;
+	gap: 12px;
+	overflow: hidden;
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT SMALL
+====================================================== */
+
+@include desktop-height-small {
+	.card {
+		max-height: 230px;
+		padding: 8px;
+		gap: 8px;
+	}
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT LARGE
+====================================================== */
+
+@include desktop-height-large {
+	.card {
+		max-height: 340px;
+		padding: 20px;
+		gap: 16px;
+	}
 }

@@ -35,3 +35,24 @@ export type NormativaDTO = {
 	articulo: string;
 	descripcion: string;
 };
+
+export type PageResponse<T> = {
+	content: T[];
+	page: number;
+	size: number;
+	totalElements: number;
+	totalPages: number;
+	first: boolean;
+	last: boolean;
+	hasNext: boolean;
+	hasPrevious: boolean;
+	sort: string;
+};
+
+export type SortDirection = "asc" | "desc";
+
+export type SortState = {
+	nombre?: SortDirection;
+	apellido?: SortDirection;
+	fechaDeIngreso?: SortDirection;
+};

@@ -1,3 +1,5 @@
+@use "@/styles/breakpoints" as *;
+
 .roles {
 	padding: 8px;
 	display: flex;
@@ -31,5 +33,29 @@
 		font-size: 0.75rem;
 		color: #9ca3af;
 		font-style: italic;
+	}
+}
+
+@include desktop-height-small {
+	.roles {
+		padding: 6px;
+		gap: 4px;
+	}
+
+	.roles__title {
+		font-size: 0.65rem;
+	}
+
+	.roles__list {
+		gap: 4px;
+	}
+
+	.roles__chip {
+		font-size: 0.65rem;
+		padding: 2px 8px;
+	}
+
+	.roles__empty {
+		font-size: 0.65rem;
 	}
 }

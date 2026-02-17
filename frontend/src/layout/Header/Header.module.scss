@@ -1,3 +1,5 @@
+@use "@/styles/breakpoints" as *;
+
 .app-header {
 	position: fixed;
 	top: 16px;
@@ -139,5 +141,161 @@
 		font-weight: 600;
 
 		box-shadow: var(--shadow-sm);
+	}
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT SMALL (override separado)
+====================================================== */
+
+@include desktop-height-small {
+	.app-header {
+		top: 8px;
+		padding: 0 16px;
+	}
+
+	.app-header__left {
+		gap: 6px;
+	}
+
+	.app-header__logo {
+		font-size: 12px;
+		padding: 4px 10px;
+	}
+
+	.app-header__school-button {
+		height: 30px;
+		padding: 0 10px;
+		font-size: 12px;
+		gap: 4px;
+	}
+
+	.app-header__nav {
+		padding: 4px;
+		gap: 4px;
+	}
+
+	.app-header__link {
+		padding: 6px 10px;
+		font-size: 12px;
+	}
+
+	.app-header__actions {
+		gap: 6px;
+	}
+
+	.app-header__icon-btn {
+		width: 30px;
+		height: 30px;
+	}
+
+	.app-header__avatar {
+		width: 30px;
+		height: 30px;
+		font-size: 11px;
+	}
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT MEDIUM
+====================================================== */
+
+@include desktop-height-medium {
+	.app-header {
+		top: 14px;
+		padding: 0 22px;
+	}
+
+	.app-header__left {
+		gap: 10px;
+	}
+
+	.app-header__logo {
+		font-size: 14px;
+		padding: 6px 14px;
+	}
+
+	.app-header__school-button {
+		height: 34px;
+		padding: 0 14px;
+		font-size: 13px;
+		gap: 6px;
+	}
+
+	.app-header__nav {
+		padding: 6px;
+		gap: 6px;
+	}
+
+	.app-header__link {
+		padding: 8px 14px;
+		font-size: 13px;
+	}
+
+	.app-header__actions {
+		gap: 8px;
+	}
+
+	.app-header__icon-btn {
+		width: 34px;
+		height: 34px;
+	}
+
+	.app-header__avatar {
+		width: 34px;
+		height: 34px;
+		font-size: 13px;
+	}
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT LARGE
+====================================================== */
+
+@include desktop-height-large {
+	.app-header {
+		top: 20px;
+		padding: 0 28px;
+	}
+
+	.app-header__left {
+		gap: 14px;
+	}
+
+	.app-header__logo {
+		font-size: 16px;
+		padding: 8px 18px;
+	}
+
+	.app-header__school-button {
+		height: 40px;
+		padding: 0 18px;
+		font-size: 14px;
+		gap: 8px;
+	}
+
+	.app-header__nav {
+		padding: 8px;
+		gap: 8px;
+	}
+
+	.app-header__link {
+		padding: 10px 18px;
+		font-size: 14px;
+	}
+
+	.app-header__actions {
+		gap: 10px;
+	}
+
+	.app-header__icon-btn {
+		width: 40px;
+		height: 40px;
+	}
+
+	.app-header__avatar {
+		width: 40px;
+		height: 40px;
+		font-size: 14px;
 	}
 }

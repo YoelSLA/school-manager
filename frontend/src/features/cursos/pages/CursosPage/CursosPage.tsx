@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FilteredSidebar from "@/components/FilteredSidebar/FilteredSidebar";
 
-import SidebarPageLayout from "@/layout/SidebarPageLayout";
+import SidebarPageLayout from "@/layout/SidebarPageLayout/SidebarPageLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
 import { useCursos } from "../../hooks/useCursos";
