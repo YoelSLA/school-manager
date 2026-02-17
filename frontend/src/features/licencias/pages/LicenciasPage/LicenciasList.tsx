@@ -1,5 +1,5 @@
 import ListState from "@/components/ListState";
-import ScrollableGridListLayout from "@/layout/ScrollableGridListLayout";
+import ScrollableGridListLayout from "@/layout/ScrollableGridListLayout/ScrollableGridListLayout";
 import LicenciaCard from "../../components/LicenciaCard";
 import type { LicenciaResumenDTO } from "../../types/licencia.types";
 

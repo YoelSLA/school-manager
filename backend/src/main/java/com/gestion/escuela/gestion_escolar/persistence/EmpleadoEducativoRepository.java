@@ -2,6 +2,8 @@ package com.gestion.escuela.gestion_escolar.persistence;
 
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -72,6 +74,17 @@ public interface EmpleadoEducativoRepository extends JpaRepository<EmpleadoEduca
 	);
 
 	List<EmpleadoEducativo> findByEscuelaIdAndActivo(Long escuelaId, boolean estado);
+
+	Page<EmpleadoEducativo> findByEscuelaId(
+			Long escuelaId,
+			Pageable pageable
+	);
+
+	Page<EmpleadoEducativo> findByEscuelaIdAndActivo(
+			Long escuelaId,
+			Boolean activo,
+			Pageable pageable
+	);
 
 
 }

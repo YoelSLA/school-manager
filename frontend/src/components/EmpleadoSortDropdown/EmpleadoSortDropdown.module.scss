@@ -1,0 +1,145 @@
+@use "@/styles/breakpoints" as *;
+
+/* ======================================================
+   BASE (medium)
+====================================================== */
+
+.sort {
+  position: relative;
+  z-index: 30;
+
+  /* ================= TRIGGER ================= */
+
+  &__trigger {
+    height: 36px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &:hover {
+      border-color: var(--primary-400);
+      background: var(--primary-50);
+    }
+
+    &--active {
+      background: var(--primary-50);
+      border-color: var(--primary-400);
+      color: var(--primary);
+    }
+  }
+
+  /* ================= MENU ================= */
+
+  &__menu {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    min-width: 280px;
+    padding: 16px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 50;
+    border: 1px solid var(--border);
+  }
+
+  /* ================= FOOTER ================= */
+
+  &__footer {
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__clear {
+    background: none;
+    border: none;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--primary);
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: background 0.2s;
+
+    &:hover {
+      background: var(--primary-50);
+    }
+  }
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT SMALL
+====================================================== */
+
+@include desktop-height-small {
+  .sort {
+
+    &__trigger {
+      height: 32px;
+      padding: 0 12px;
+      font-size: 12px;
+      gap: 6px;
+    }
+
+    &__menu {
+      min-width: 240px;
+      padding: 12px;
+      gap: 12px;
+      border-radius: 12px;
+    }
+
+    &__footer {
+      padding-top: 8px;
+    }
+
+    &__clear {
+      font-size: 12px;
+    }
+  }
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT LARGE
+====================================================== */
+
+@include desktop-height-large {
+  .sort {
+
+    &__trigger {
+      height: 40px;
+      padding: 0 20px;
+      font-size: 14px;
+      gap: 10px;
+    }
+
+    &__menu {
+      min-width: 320px;
+      padding: 20px;
+      gap: 20px;
+      border-radius: 20px;
+    }
+
+    &__footer {
+      padding-top: 16px;
+    }
+
+    &__clear {
+      font-size: 14px;
+      padding: 6px 12px;
+    }
+  }
+}

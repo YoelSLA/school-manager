@@ -1,8 +1,143 @@
+@use "@/styles/breakpoints" as *;
+
+/* =====================================================
+   PAGE
+===================================================== */
+
 .page {
 	display: flex;
-	flex-direction: column; // 🔥 CLAVE
-	max-width: 1200px;
-	margin: 0 auto;
+	flex-direction: column;
 	width: 100%;
 	min-height: 0;
+
+	/* ================= TOP HEADER ================= */
+
+	.topHeader {
+		width: 100%;
+		padding: 18px 0;
+		background: #ffffff;
+
+		display: flex;
+
+		.topHeaderContent {
+			width: 100%;
+			max-width: 1100px;
+			padding: 0 20px;
+
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+
+			.title {
+				margin: 0;
+				font-size: 1.55rem;
+				font-weight: 600;
+				color: #0f172a;
+			}
+
+			.subtitle {
+				margin: 0;
+				font-size: 0.9rem;
+				color: #475569;
+			}
+		}
+	}
+
+	/* ================= FORM CONTAINER ================= */
+
+	.container {
+		width: 100%;
+		max-width: 1100px;
+		margin: 20px auto 32px;
+		padding: 0 20px;
+
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+/* =====================================================
+   🔴 HEIGHT SMALL → 1366 x 680
+===================================================== */
+
+@include desktop-height-small {
+	.page {
+		.topHeader {
+			padding: 4px 0;
+
+			.topHeaderContent {
+				.title {
+					font-size: 1.2rem;
+				}
+
+				.subtitle {
+					font-size: 0.8rem;
+				}
+			}
+		}
+
+		.container {
+			margin-top: 14px;
+		}
+	}
+}
+
+/* =====================================================
+   🟡 HEIGHT MEDIUM → 1536 x 780
+===================================================== */
+
+@include desktop-height-medium {
+	.page {
+		.topHeader {
+			padding: 8px 0;
+		}
+
+		.container {
+			margin-top: 18px;
+		}
+	}
+}
+
+/* =====================================================
+   🟢 HEIGHT LARGE → 1920 x 980
+===================================================== */
+
+@include desktop-height-large {
+	.page {
+		.topHeader {
+			padding: 12px 0;
+
+			.topHeaderContent {
+				.title {
+					font-size: 1.75rem;
+				}
+
+				.subtitle {
+					font-size: 1rem;
+				}
+			}
+		}
+
+		.container {
+			margin-top: 26px;
+		}
+	}
+}
+
+/* =====================================================
+   📐 WIDTH LARGE (1920+)
+===================================================== */
+
+@include desktop-width-large {
+	.page {
+		.topHeader {
+			.topHeaderContent {
+				max-width: 1200px;
+			}
+		}
+
+		.container {
+			max-width: 1200px;
+		}
+	}
 }

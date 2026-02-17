@@ -11,10 +11,11 @@ import { useAppSelector } from "@/store/hooks";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import type { EmpleadoEducativoEditOutput } from "../../form/empleadoEducativo.form.types";
 import Button from "@/components/Button";
+import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
 
 export default function EmpleadoEducativoEditPage() {
   const { empleadoId } = useParams();
-  const navigate = useNavigate();
+  const _navigate = useNavigate();
   const escuelaActiva = useAppSelector(selectEscuelaActiva);
   const eId = Number(empleadoId);
 
@@ -36,6 +37,8 @@ export default function EmpleadoEducativoEditPage() {
   ========================= */
 
   const editarMutation = useEditarEmpleadoEducativo();
+
+  const empleadoNav = useEmpleadoNavigation();
 
   /* =========================
      MAP DATA → FORM
@@ -71,13 +74,18 @@ export default function EmpleadoEducativoEditPage() {
       },
       {
         onSuccess: () => {
-          navigate(-1); // 🔥 vuelve al detalle
+          if (empleado) {
+            empleadoNav.verDetalle(empleado);
+          }
         },
       }
     );
   };
+
   const handleCancel = () => {
-    navigate(-1);
+    if (empleado) {
+      empleadoNav.verDetalle(empleado);
+    }
   };
 
   /* =========================

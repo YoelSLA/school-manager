@@ -1,13 +1,20 @@
+@use "@/styles/breakpoints" as *;
+
+/* =====================
+   BASE (MEDIUM)
+===================== */
+
 .breadcrumbs {
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
-	gap: 2px;
-	height: 30px;
+	gap: 4px;
+	height: 32px;
+
 	font-size: 12px;
 	font-weight: 400;
 	color: #4b5563;
-	// background-color: aqua;
+	background-color: chocolate;
 }
 
 .item {
@@ -18,9 +25,11 @@
 .link {
 	color: var(--text-muted);
 	text-decoration: none;
+	transition: color 0.15s ease;
 
 	&:hover {
 		text-decoration: underline;
+		color: var(--text-main);
 	}
 }
 
@@ -32,7 +41,47 @@
 .separator {
 	width: 14px;
 	height: 14px;
-	margin: 0 4px;
+	margin: 0 6px;
 	color: #9ca3af;
 	flex-shrink: 0;
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT SMALL
+====================================================== */
+
+@include desktop-height-small {
+
+	.breadcrumbs {
+		height: 26px;
+		font-size: 11px;
+		gap: 2px;
+	}
+
+	.separator {
+		width: 12px;
+		height: 12px;
+		margin: 0 4px;
+	}
+
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT LARGE
+====================================================== */
+
+@include desktop-height-large {
+
+	.breadcrumbs {
+		height: 36px;
+		font-size: 13px;
+		gap: 6px;
+	}
+
+	.separator {
+		width: 16px;
+		height: 16px;
+		margin: 0 8px;
+	}
+
 }

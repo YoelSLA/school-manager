@@ -1,19 +1,28 @@
+@use "@/styles/breakpoints" as *;
+
+/* =====================
+   BASE
+===================== */
+
 .card {
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 20px;
 
   display: flex;
   flex-direction: column;
 
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  border-left: 3px solid transparent;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.04),
+    0 2px 4px rgba(0, 0, 0, 0.03);
 
   transition:
     transform 0.15s ease,
-    box-shadow 0.15s ease;
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 
-  /* 👇 NUEVO: base del borde */
-  border-left: 3px solid transparent;
-
+  position: relative;
 }
 
 /* =====================
@@ -21,32 +30,49 @@
 ===================== */
 
 .card--muted {
-  background: #f9fafb;
+  background: #f8fafc;
 }
 
 .card--elevated {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06),
-    0 4px 8px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.06),
+    0 6px 12px rgba(0, 0, 0, 0.04);
 }
 
 .card--large {
-  border-radius: 18px;
+  border-radius: 24px;
 }
 
 .card--with-padding {
   padding: 16px;
 }
 
+/* =====================
+   CLICKABLE
+===================== */
+
 .card--clickable {
   cursor: pointer;
+}
 
-  &:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-  }
+.card--clickable:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.08),
+    0 6px 12px rgba(0, 0, 0, 0.05);
+}
+
+.card--clickable:active {
+  transform: translateY(-1px);
+}
+
+.card--clickable:focus-visible {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 3px;
 }
 
 /* =====================
-   STATUS (BORDE IZQ)
+   STATUS
 ===================== */
 
 .card--success {
@@ -71,7 +97,46 @@
 
 .divider {
   height: 1px;
-  background-color: black;
   background: #e5e7eb;
-  margin: 6px 0;
+  margin: 8px 0;
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT SMALL
+====================================================== */
+
+@include desktop-height-small {
+
+  .card {
+    border-radius: 16px;
+  }
+
+  .card--with-padding {
+    padding: 12px;
+  }
+
+  .divider {
+    margin: 4px 0;
+  }
+
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT LARGE
+====================================================== */
+
+@include desktop-height-large {
+
+  .card {
+    border-radius: 24px;
+  }
+
+  .card--with-padding {
+    padding: 20px;
+  }
+
+  .divider {
+    margin: 10px 0;
+  }
+
 }

@@ -1,27 +1,26 @@
 import type { AxiosError } from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
 import { useCrearEmpleadoEducativo } from "../../hooks/useCrearEmpleadoEducativo";
+import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
 import styles from "./EmpleadoEducativoCreatePage.module.scss";
 import type { EmpleadoEducativoCreateOutput } from "../../form/empleadoEducativo.form.types";
 import { useEmpleadoEducativoCreateForm } from "../../form/hooks/useEmpleadoEducativoCreateForm";
 import EmpleadoEducativoCreateForm from "../../components/EmpleadoEducativoCreateForm";
 
-export default function EquipoEducativoCreatePage() {
+export default function EmpleadoEducativoCreatePage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
-	const navigate = useNavigate();
 	const crearEmpleado = useCrearEmpleadoEducativo();
+	const empleadoNav = useEmpleadoNavigation();
 
 	// Fecha actual formateada
 	const hoy = new Date().toLocaleDateString("en-CA", {
 		timeZone: "America/Argentina/Buenos_Aires",
 	});
 
-	// 🔥 Estados limpios
 	const [agregarFecha, setAgregarFecha] = useState(false);
 	const [usarHoy, setUsarHoy] = useState(false);
 	const [cuilExiste, setCuilExiste] = useState(false);
@@ -29,6 +28,7 @@ export default function EquipoEducativoCreatePage() {
 	const {
 		form: {
 			register,
+			control,
 			handleSubmit,
 			setValue,
 			setError,
@@ -45,7 +45,6 @@ export default function EquipoEducativoCreatePage() {
 			const nuevo = !prev;
 
 			if (!nuevo) {
-				// Si se desactiva → limpiar fecha
 				setValue("fechaDeIngreso", undefined);
 				setUsarHoy(false);
 			}
@@ -86,9 +85,9 @@ export default function EquipoEducativoCreatePage() {
 			});
 
 			toast.success("Personal educativo creado correctamente");
-			navigate("/empleadosEducativos");
+			empleadoNav.listar();
 
-			// 🔥 Reset limpio
+			// Reset limpio
 			reset({
 				cuil: "",
 				nombre: "",
@@ -122,17 +121,33 @@ export default function EquipoEducativoCreatePage() {
 	return (
 		<PageLayout>
 			<div className={styles.page}>
-				<EmpleadoEducativoCreateForm
-					register={register}
-					errors={errors}
-					isSubmitting={isSubmitting}
-					agregarFecha={agregarFecha}
-					onToggleAgregarFecha={toggleAgregarFecha}
-					usarHoy={usarHoy}
-					onToggleUsarHoy={toggleUsarHoy}
-					onSubmit={handleSubmit(onSubmit)}
-				/>
+
+				<div className={styles.topHeader}>
+					<div className={styles.topHeaderContent}>
+						<h1 className={styles.title}>Crear personal educativo</h1>
+						<p className={styles.subtitle}>
+							Completá los datos para registrar un nuevo miembro del equipo
+						</p>
+					</div>
+				</div>
+
+				<div className={styles.container}>
+					<EmpleadoEducativoCreateForm
+						register={register}
+						control={control}
+						errors={errors}
+						isSubmitting={isSubmitting}
+						agregarFecha={agregarFecha}
+						onToggleAgregarFecha={toggleAgregarFecha}
+						usarHoy={usarHoy}
+						onToggleUsarHoy={toggleUsarHoy}
+						onSubmit={handleSubmit(onSubmit)}
+					/>
+				</div>
+
 			</div>
 		</PageLayout>
 	);
+
+
 }

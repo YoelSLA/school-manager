@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import "./AsistenciaPage.css";
 
-import { useNavigate } from "react-router-dom";
 import { useEmpleadosAsistencias } from "../../hooks/useEmpleadosAsistencias";
 import { useRolesConAsistencias } from "../../hooks/useRolesConAsistencias";
 import AsistenciasSidebar from "./AsistenciasSidebar";
 import type { RolItem } from "./AsistenciasSidebar/AsistenciasSidebar";
 import EmpleadoResultsList from "./EmpleadoResultsList";
 import EmpleadoSearchBar from "./EmpleadoSearchBar";
+import { useAsistenciaNavigation } from "../../hooks/useAsistenciaNavigation";
 
 /* =========================
 	 HELPERS
@@ -23,7 +23,7 @@ function todayISO(): string {
 
 export default function AsistenciasPage() {
 	const fecha = todayISO();
-	const navigate = useNavigate();
+	const asistenciaNav = useAsistenciaNavigation();
 
 	/* =========================
 		 ROLES (SIDEBAR)
@@ -128,17 +128,7 @@ export default function AsistenciasPage() {
 				<EmpleadoResultsList
 					empleados={hayRolesSeleccionados ? empleados : []}
 					onSelect={(empleado) => {
-						navigate(`/asistencias/${empleado.id}`, {
-							state: {
-								currentLabel: `${empleado.apellido}, ${empleado.nombre}`,
-								empleado: {
-									nombre: empleado.nombre,
-									apellido: empleado.apellido,
-									cuil: empleado.cuil,
-									roles: empleado.roles,
-								},
-							},
-						});
+						asistenciaNav.verDetalle(empleado);
 					}}
 				/>
 			</main>

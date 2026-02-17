@@ -1,3 +1,5 @@
+@use "@/styles/breakpoints" as *;
+
 .footer {
 	margin-top: auto;
 	display: flex;
@@ -33,4 +35,18 @@
 
 .icon {
 	transition: transform 0.15s ease;
+}
+
+
+@include desktop-height-small {
+	.footer {
+		padding: 6px 8px;
+		/* antes 8px */
+	}
+
+	.link {
+		font-size: 0.7rem;
+		/* antes 0.8rem */
+		gap: 3px;
+	}
 }

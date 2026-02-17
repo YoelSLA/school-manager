@@ -1,21 +1,89 @@
+@use "@/styles/breakpoints" as *;
+
+/* ======================================================
+   BASE (medium)
+====================================================== */
+
 .sidebar-page {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
 	min-height: 0;
 	gap: 8px;
-	padding-top: 0;
-	background-color: var(--bg-page);
+
+	/* ================= SIDEBAR ================= */
+
+	&__sidebar {
+		flex-shrink: 0;
+		position: relative;
+		z-index: 5;
+		padding: 12px 16px;
+		background-color: bisque;
+	}
+
+	/* ================= BODY ================= */
+
+	&__body {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		min-height: 0; // 👈 ESTA ES LA LÍNEA CLAVE
+		gap: 8px;
+		position: relative;
+		z-index: 1;
+		background-color: greenyellow;
+	}
+
+	/* ================= CONTENT ================= */
+
+	&__content {
+		flex: 1;
+		min-height: 0;
+		overflow: hidden;
+		display: flex;
+	}
+
+	/* ================= PAGINATION ================= */
+
+	&__pagination {
+		flex-shrink: 0;
+		border-top: 1px solid var(--border);
+		background-color: var(--bg-page);
+	}
 }
 
-.sidebar-page__sidebar {
-	flex-shrink: 0;
-	overflow-x: auto;
+/* ======================================================
+   📏 DESKTOP HEIGHT SMALL
+====================================================== */
+
+@include desktop-height-small {
+	.sidebar-page {
+		gap: 4px;
+
+		&__sidebar {
+			padding: 8px 12px;
+		}
+
+		&__body {
+			gap: 4px;
+		}
+	}
 }
 
-/* CONTENT */
-.sidebar-page__content {
-	flex: 1;
-	min-height: 0;
-	overflow-y: auto;
+/* ======================================================
+   📏 DESKTOP HEIGHT LARGE
+====================================================== */
+
+@include desktop-height-large {
+	.sidebar-page {
+		gap: 12px;
+
+		&__sidebar {
+			padding: 16px 20px;
+		}
+
+		&__body {
+			gap: 12px;
+		}
+	}
 }

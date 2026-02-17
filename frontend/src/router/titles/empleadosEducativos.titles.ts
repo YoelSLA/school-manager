@@ -19,7 +19,10 @@ export const empleadosEducativosTitles: Record<string, BreadcrumbResolver> = {
 
 	"/empleadosEducativos/:empleadoId": (params) => [
 		{ label: "Empleados educativos", to: "/empleadosEducativos" },
-		{ label: `#${params.empleadoId}` },
+		{
+			label: `#${params.empleadoId}`,
+			to: `/empleadosEducativos/${params.empleadoId}`,
+		},
 	],
 
 	"/empleadosEducativos/:empleadoId/editar": (params) => [

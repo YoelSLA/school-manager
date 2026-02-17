@@ -1,9 +1,9 @@
 import { Card, CardDivider } from "@/components/Card";
-import EmpleadoCardFooter from "./EmpleadoCardFooter";
 import EmpleadoCardHeader from "./EmpleadoCardHeader";
 import EmpleadoCardInfo from "./EmpleadoCardInfo";
 import EmpleadoCardRoles from "./EmpleadoCardRoles";
 import type { EmpleadoEducativoDetalleDTO } from "../../types/empleadosEducativos.types";
+import styles from "./EmpleadoEducativoCard.module.scss";
 
 type Props = {
 	empleado: EmpleadoEducativoDetalleDTO;
@@ -22,7 +22,13 @@ export default function EmpleadoEducativoCard({
 	const cardStatus = activo ? "success" : "info";
 
 	return (
-		<Card elevated status={cardStatus}>
+		<Card
+			elevated
+			status={cardStatus}
+			clickable
+			onClick={() => onVerDetalle?.(empleado)}
+			className={styles.card}
+		>
 			<EmpleadoCardHeader
 				apellido={apellido}
 				nombre={nombre}
@@ -37,10 +43,6 @@ export default function EmpleadoEducativoCard({
 			<CardDivider />
 
 			<EmpleadoCardRoles roles={empleado.rolesVigentes} />
-
-			<CardDivider />
-
-			<EmpleadoCardFooter empleado={empleado} onVerDetalle={onVerDetalle} />
 		</Card>
 	);
 }

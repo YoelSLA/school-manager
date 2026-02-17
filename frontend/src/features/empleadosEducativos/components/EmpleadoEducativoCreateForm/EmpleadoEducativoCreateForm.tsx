@@ -1,17 +1,21 @@
-import type { FieldErrors, UseFormRegister } from "react-hook-form";
+import type {
+	FieldErrors,
+	UseFormRegister,
+	Control,
+} from "react-hook-form";
 
 import ContactoSection from "./ContactoSection/ContactoSection";
 import DatosPersonalesSection from "./DatosPersonalesSection/DatosPersonalesSection";
 import IngresoSection from "./IngresoSection/IngresoSection";
 
-import FormActions from "@/components/FormActions"; // 👈 nuevo
+import FormActions from "@/components/FormActions";
 
 import styles from "./EmpleadoEducativoForm.module.scss";
 import type { EmpleadoEducativoCreateOutput } from "../../form/empleadoEducativo.form.types";
 
-
 type Props = {
 	register: UseFormRegister<EmpleadoEducativoCreateOutput>;
+	control: Control<EmpleadoEducativoCreateOutput>; // 👈 NUEVO
 	errors: FieldErrors<EmpleadoEducativoCreateOutput>;
 	isSubmitting: boolean;
 
@@ -26,6 +30,7 @@ type Props = {
 
 export default function EmpleadoEducativoCreateForm({
 	register,
+	control, // 👈 NUEVO
 	errors,
 	isSubmitting,
 	agregarFecha,
@@ -37,11 +42,18 @@ export default function EmpleadoEducativoCreateForm({
 	return (
 		<form className={styles.form} onSubmit={onSubmit}>
 			<div className={styles.grid}>
-				<DatosPersonalesSection register={register} errors={errors} />
+				<DatosPersonalesSection
+					register={register}
+					errors={errors}
+				/>
 
-				<ContactoSection register={register} errors={errors} />
+				<ContactoSection
+					register={register}
+					errors={errors}
+				/>
 
 				<IngresoSection
+					control={control} // 👈 NUEVO
 					register={register}
 					errors={errors}
 					agregarFecha={agregarFecha}
@@ -51,7 +63,6 @@ export default function EmpleadoEducativoCreateForm({
 				/>
 			</div>
 
-			{/* 🔥 Nuevo botón genérico */}
 			<FormActions
 				isSubmitting={isSubmitting}
 				label="Guardar"

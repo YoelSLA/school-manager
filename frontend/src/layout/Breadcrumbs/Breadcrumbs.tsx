@@ -12,7 +12,7 @@ type BreadcrumbState = {
 	from?: string;
 	label?: string;
 	skipBase?: boolean;
-	currentLabel?: string;
+	dynamicLabels?: Record<string, string>;
 };
 
 export default function Breadcrumbs() {
@@ -24,20 +24,46 @@ export default function Breadcrumbs() {
 	};
 
 	const baseItems = resolveBreadcrumbs(pathname);
+
+
 	if (!baseItems || baseItems.length === 0) return null;
 
+	let items: BreadcrumbItem[] = [...baseItems];
+
+	if (state?.dynamicLabels) {
+
+		items = items.map((item) => {
+			if (!item.to) return item;
+
+			const segments = item.to.split("/").filter(Boolean);
+
+
+			for (const segment of segments) {
+
+				if (state.dynamicLabels?.[segment]) {
+
+
+					return {
+						...item,
+						label: state.dynamicLabels[segment],
+					};
+				}
+			}
+
+			return item;
+		});
+	} else {
+
+	}
+
 	const contextualItems: BreadcrumbItem[] =
-		state?.from && state?.label ? [{ label: state.label, to: state.from }] : [];
-
-	const lastBaseItem = baseItems[baseItems.length - 1];
-
-	const currentItem: BreadcrumbItem = state?.currentLabel
-		? { label: state.currentLabel }
-		: lastBaseItem;
+		state?.from && state?.label
+			? [{ label: state.label, to: state.from }]
+			: [];
 
 	const finalItems: BreadcrumbItem[] = state?.skipBase
-		? [...contextualItems, currentItem]
-		: [...contextualItems, ...baseItems.slice(0, -1), currentItem];
+		? [...contextualItems, items[items.length - 1]]
+		: [...contextualItems, ...items];
 
 	return (
 		<nav className={styles.breadcrumbs} aria-label="Breadcrumb">
@@ -53,8 +79,7 @@ export default function Breadcrumbs() {
 
 					{index < finalItems.length - 1 && (
 						<span className={styles.separator}>
-							{" "}
-							<ChevronRight className={styles.separator} />
+							<ChevronRight />
 						</span>
 					)}
 				</span>

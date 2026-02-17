@@ -1,0 +1,40 @@
+@use "@/styles/breakpoints" as *;
+
+:root {
+  --header-offset: 60px;
+  --header-top-gap: 16px;
+  --header-total-height: calc(var(--header-offset) + var(--header-top-gap));
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT SMALL
+====================================================== */
+
+@include desktop-height-small {
+  :root {
+    --header-offset: 50px;
+    --header-top-gap: 8px;
+  }
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT MEDIUM
+====================================================== */
+
+@include desktop-height-medium {
+  :root {
+    --header-offset: 60px;
+    --header-top-gap: 12px;
+  }
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT LARGE
+====================================================== */
+
+@include desktop-height-large {
+  :root {
+    --header-offset: 70px;
+    --header-top-gap: 16px;
+  }
+}

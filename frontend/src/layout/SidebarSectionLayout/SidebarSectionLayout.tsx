@@ -5,6 +5,7 @@ type Props = {
 	title: string;
 	subtitle?: string;
 	filters?: ReactNode;
+	controls?: ReactNode;
 	actions?: ReactNode;
 };
 
@@ -12,6 +13,7 @@ export default function SidebarSectionLayout({
 	title,
 	subtitle,
 	filters,
+	controls,
 	actions,
 }: Props) {
 	return (
@@ -19,12 +21,22 @@ export default function SidebarSectionLayout({
 			<div className={styles.sidebar__left}>
 				<div className={styles.sidebar__header}>
 					<h2 className={styles.sidebar__title}>{title}</h2>
-					{subtitle && <p className={styles.sidebar__subtitle}>{subtitle}</p>}
+					{subtitle && (
+						<p className={styles.sidebar__subtitle}>
+							{subtitle}
+						</p>
+					)}
 				</div>
 			</div>
 
-			{filters && <div className={styles.sidebar__center}>{filters}</div>}
-			{actions && <div className={styles.sidebar__right}>{actions}</div>}
+			<div className={styles.sidebar__center}>
+				{filters}
+				{controls}
+			</div>
+
+			<div className={styles.sidebar__right}>
+				{actions}
+			</div>
 		</div>
 	);
 }
