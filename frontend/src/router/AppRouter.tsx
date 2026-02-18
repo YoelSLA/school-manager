@@ -8,38 +8,57 @@ import { AsistenciasRoutes } from "./asistencias.routes";
 import { AcademicoRoutes } from "./academico.routes";
 import { DesignacionesRoutes } from "./designaciones.routes";
 import { LicenciasRoutes } from "./licencias.routes";
+import { useUpdater } from "@/hooks/useAdapter";
+import UpdateModal from "@/components/UpdateModal/UpdateModal";
+
 
 export default function AppRouter() {
+	const {
+		updateAvailable,
+		progress,
+		downloaded,
+		restartApp,
+	} = useUpdater();
+
 	return (
-		<Routes>
+		<>
+			{/* 🔥 MODAL GLOBAL */}
+			{updateAvailable && (
+				<UpdateModal
+					progress={progress}
+					downloaded={downloaded}
+					onRestart={restartApp}
+				/>
+			)}
 
-			{/* Público */}
-			<Route
-				path="/seleccionar-escuela"
-				element={<SeleccionarEscuelaPage />}
-			/>
+			{/* 🌍 ROUTES */}
+			<Routes>
 
-			{/* App protegida */}
-			<Route
-				path="/"
-				element={
-					<RutaProtegida>
-						<AppLayout />
-					</RutaProtegida>
-				}
-			>
+				{/* Público */}
+				<Route
+					path="/seleccionar-escuela"
+					element={<SeleccionarEscuelaPage />}
+				/>
 
-				<Route index element={<Navigate to="dashboard" replace />} />
-				<Route path="dashboard" element={<div>Dashboard</div>} />
+				{/* App protegida */}
+				<Route
+					path="/"
+					element={
+						<RutaProtegida>
+							<AppLayout />
+						</RutaProtegida>
+					}
+				>
+					<Route index element={<Navigate to="dashboard" replace />} />
+					<Route path="dashboard" element={<div>Dashboard</div>} />
 
-				{/* Feature routes */}
-				{EmpleadosEducativosRoutes()}
-				{AsistenciasRoutes()}
-				{AcademicoRoutes()}
-				{DesignacionesRoutes()}
-				{LicenciasRoutes()}
-
-			</Route>
-		</Routes>
+					{EmpleadosEducativosRoutes()}
+					{AsistenciasRoutes()}
+					{AcademicoRoutes()}
+					{DesignacionesRoutes()}
+					{LicenciasRoutes()}
+				</Route>
+			</Routes>
+		</>
 	);
 }
