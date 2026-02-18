@@ -1,10 +1,8 @@
 export const licenciasQueryKeys = {
 	all: ["licencias"] as const,
 
-	lists: () => [...licenciasQueryKeys.all, "list"] as const,
-
-	byEscuela: (escuelaId: number) =>
-		[...licenciasQueryKeys.lists(), "escuela", escuelaId] as const,
+	byEscuela: (escuelaId: number, page: number, size: number) =>
+		[...licenciasQueryKeys.all, "escuela", escuelaId, page, size] as const,
 
 	detail: (licenciaId: number) =>
 		[...licenciasQueryKeys.all, "detail", licenciaId] as const,

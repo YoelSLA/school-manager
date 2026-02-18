@@ -39,8 +39,10 @@
 }
 
 .separator {
-	width: 14px;
-	height: 14px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
 	margin: 0 6px;
 	color: #9ca3af;
 	flex-shrink: 0;

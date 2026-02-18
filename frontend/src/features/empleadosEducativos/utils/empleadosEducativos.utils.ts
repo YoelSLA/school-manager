@@ -1,5 +1,8 @@
 import type { SortState } from "@/utils/types";
-import type { EmpleadoEducativoFiltro } from "../types/empleadosEducativos.types";
+import type {
+	CausaBaja,
+	EmpleadoEducativoFiltro,
+} from "../types/empleadosEducativos.types";
 
 export const FILTROS_EMPLEADOS: {
 	label: string;
@@ -35,3 +38,34 @@ export function buildSortQuery(sort: SortState): string[] {
 
 	return sorts;
 }
+
+export const CAUSA_BAJA_LABELS: Record<CausaBaja, string> = {
+	RENUNCIA_POR_CAUSAS_PARTICULARES: "Renuncia por causas particulares",
+	RENUNCIA_POR_CESE: "Renuncia por cese",
+	JUBILACION: "Jubilación",
+	FALLECIMIENTO: "Fallecimiento",
+	OTRAS: "Otras",
+};
+
+export const CAUSAS_BAJA: { value: CausaBaja; label: string }[] = [
+	{
+		value: "RENUNCIA_POR_CAUSAS_PARTICULARES",
+		label: "Renuncia por causas particulares",
+	},
+	{
+		value: "RENUNCIA_POR_CESE",
+		label: "Renuncia por cese",
+	},
+	{
+		value: "JUBILACION",
+		label: "Jubilación",
+	},
+	{
+		value: "FALLECIMIENTO",
+		label: "Fallecimiento",
+	},
+	{
+		value: "OTRAS",
+		label: "Otras",
+	},
+];

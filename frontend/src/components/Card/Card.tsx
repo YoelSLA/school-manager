@@ -7,18 +7,13 @@ type Props = {
 	children: ReactNode;
 	className?: string;
 
-	/* Variantes visuales */
 	status?: CardStatus;
 	muted?: boolean;
 	elevated?: boolean;
-	padded?: boolean;
 	clickable?: boolean;
 	largeRadius?: boolean;
 
-	/* Interacción */
 	onClick?: () => void;
-
-	/* Extras */
 	viewTransitionName?: string;
 };
 
@@ -28,7 +23,6 @@ export default function Card({
 	status,
 	muted = false,
 	elevated = false,
-	padded = false,
 	clickable = false,
 	largeRadius = false,
 	onClick,
@@ -40,28 +34,18 @@ export default function Card({
 
 	const cardClassName = [
 		styles.card,
-
-		/* status (borde izquierdo) */
 		status && styles[`card--${status}`],
-
-		/* variants */
 		muted && styles["card--muted"],
 		elevated && styles["card--elevated"],
-		padded && styles["card--with-padding"],
 		clickable && styles["card--clickable"],
 		largeRadius && styles["card--large"],
-
-		/* clases externas */
 		className,
 	]
 		.filter(Boolean)
 		.join(" ");
 
-	/* 👇 handlers SOLO si es clickable */
 	const handleClick = () => {
-		if (clickable && onClick) {
-			onClick();
-		}
+		if (clickable && onClick) onClick();
 	};
 
 	const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
@@ -82,7 +66,9 @@ export default function Card({
 			role={clickable ? "button" : undefined}
 			tabIndex={clickable ? 0 : undefined}
 		>
-			{children}
+			<div className={styles.card__inner}>
+				{children}
+			</div>
 		</article>
 	);
 }

@@ -14,6 +14,7 @@ type Props<T extends string> = {
 	actionLabel: string;
 	onAction: () => void;
 	controls?: ReactNode;
+	extraActions?: ReactNode; // 👈 NUEVO
 };
 
 export default function FilteredSidebar<T extends string>({
@@ -24,20 +25,29 @@ export default function FilteredSidebar<T extends string>({
 	onChange,
 	actionLabel,
 	onAction,
-	controls
+	controls,
+	extraActions,
 }: Props<T>) {
 	return (
 		<SidebarSectionLayout
 			title={title}
 			subtitle={subtitle}
-			filters={<FilterPillGroup
-				items={filtros}
-				value={value}
-				onChange={onChange}
-			/>}
-			actions={<Button onClick={onAction}>{actionLabel}</Button>}
+			filters={
+				<FilterPillGroup
+					items={filtros}
+					value={value}
+					onChange={onChange}
+				/>
+			}
 			controls={controls}
+			actions={
+				<>
+					{extraActions}
+					<Button onClick={onAction}>
+						{actionLabel}
+					</Button>
+				</>
+			}
 		/>
 	);
 }
-

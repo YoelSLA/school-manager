@@ -1,0 +1,50 @@
+@use "@/styles/breakpoints" as *;
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #e0f2fe;
+  color: #0369a1;
+
+  padding: 4px 10px;
+  border-radius: 999px;
+
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* =========================
+   DESKTOP HEIGHT LARGE
+========================= */
+
+@include desktop-height-large {
+  .chip {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+}
+
+/* =========================
+   DESKTOP HEIGHT MEDIUM
+========================= */
+
+@include desktop-height-medium {
+  .chip {
+    font-size: 0.7rem;
+    padding: 3px 9px;
+  }
+}
+
+/* =========================
+   DESKTOP HEIGHT SMALL
+========================= */
+
+@include desktop-height-small {
+  .chip {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+  }
+}

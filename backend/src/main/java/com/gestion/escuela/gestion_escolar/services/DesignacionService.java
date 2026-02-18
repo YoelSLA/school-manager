@@ -5,6 +5,8 @@ import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionProvision
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoCaracteristicaAsignacion;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -39,10 +41,11 @@ public interface DesignacionService {
 			List<Long> designacionIds,
 			LocalDate fechaInicio
 	);
-
-	<T extends Designacion> List<T> obtenerDesignacionesPorEscuela(
+	
+	<T extends Designacion> Page<T> obtenerDesignacionesPorEscuela(
 			Long escuelaId,
-			Class<T> tipo
+			Class<T> tipo,
+			Pageable pageable
 	);
 
 	Optional<Asignacion> obtenerCargoActivo(Long designacionId, LocalDate referencia);

@@ -1,0 +1,132 @@
+@use "@/styles/breakpoints" as *;
+
+/* =====================================
+   BLOCK
+===================================== */
+
+.info {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 14px;
+
+	/* ================= ROW ================= */
+
+	&__row {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+	/* ================= ICON ================= */
+
+	&__icon {
+		width: 18px;
+		height: 18px;
+		color: #64748b;
+		flex-shrink: 0;
+	}
+
+	/* ================= LABEL ================= */
+
+	&__label {
+		font-size: 0.8rem;
+		font-weight: 500;
+		color: #6b7280;
+		letter-spacing: 0.3px;
+	}
+
+	/* ================= SEPARATOR ================= */
+
+	&__separator {
+		color: #cbd5e1;
+		font-weight: 500;
+	}
+
+	/* ================= VALUE ================= */
+
+	&__value {
+		font-size: 0.95rem;
+		font-weight: 600;
+		color: #111827;
+		white-space: nowrap;
+	}
+
+	&__valueEmpty {
+		color: #64748b;
+		font-weight: 500;
+	}
+}
+
+/* =====================================
+   DESKTOP HEIGHT SMALL (60px)
+===================================== */
+
+@include desktop-height-small {
+	.info {
+		padding: 8px 12px;
+		border-radius: 10px;
+
+		&__icon {
+			width: 16px;
+			height: 16px;
+		}
+
+		&__label {
+			font-size: 0.7rem;
+		}
+
+		&__value {
+			font-size: 0.8rem;
+		}
+	}
+}
+
+/* =====================================
+   DESKTOP HEIGHT MEDIUM (60px)
+===================================== */
+
+@include desktop-height-medium {
+	.info {
+		padding: 10px 16px;
+		border-radius: 12px;
+
+		&__icon {
+			width: 18px;
+			height: 18px;
+		}
+
+		&__label {
+			font-size: 0.75rem;
+		}
+
+		&__value {
+			font-size: 0.9rem;
+		}
+	}
+}
+
+/* =====================================
+   DESKTOP HEIGHT LARGE (80px)
+===================================== */
+
+@include desktop-height-large {
+	.info {
+		padding: 14px 20px;
+		border-radius: 14px;
+
+		&__icon {
+			width: 20px;
+			height: 20px;
+		}
+
+		&__label {
+			font-size: 0.85rem;
+		}
+
+		&__value {
+			font-size: 1.05rem;
+		}
+	}
+}

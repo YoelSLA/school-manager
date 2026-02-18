@@ -2,18 +2,7 @@ import { ChevronRight } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { resolveBreadcrumbs } from "@/utils";
 import styles from "./Breadcrumbs.module.scss";
-
-type BreadcrumbItem = {
-	label: string;
-	to?: string;
-};
-
-type BreadcrumbState = {
-	from?: string;
-	label?: string;
-	skipBase?: boolean;
-	dynamicLabels?: Record<string, string>;
-};
+import type { BreadcrumbItem, BreadcrumbState } from "@/utils/types";
 
 export default function Breadcrumbs() {
 	const location = useLocation();

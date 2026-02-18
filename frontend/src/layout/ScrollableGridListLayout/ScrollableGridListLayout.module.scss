@@ -1,41 +1,53 @@
 @use "@/styles/breakpoints" as *;
 
-.list-layout {
+.listLayout {
 	flex: 1;
-	height: 100%;
+	min-height: 0;
 	display: flex;
-	padding: 8px;
-	background-color: red;
+	// background-color: red;
 
 	&__grid {
 		flex: 1;
+		min-height: 0;
 		display: grid;
 		width: 100%;
-		gap: 12px;
-		grid-template-columns: repeat(2, 1fr);
+		align-content: start;
+		// background-color: chartreuse;
 	}
 }
 
-/* 🟦 Desktop chico (1366) */
 @include desktop-width-small {
-	.list-layout__grid {
-		grid-template-columns: repeat(4, 1fr);
-		gap: 8px;
+	.listLayout {
+		padding: 8px;
+
+		&__grid {
+			grid-template-columns: repeat(4, 1fr);
+			gap: 4px;
+			grid-auto-rows: 250px;
+		}
 	}
 }
 
-/* 🟩 Desktop medio */
 @include desktop-width-medium {
-	.list-layout__grid {
-		grid-template-columns: repeat(4, 1fr);
-		gap: 12px;
+	.listLayout {
+		padding: 4px;
+
+		&__grid {
+			grid-template-columns: repeat(4, 1fr);
+			gap: 4px;
+			grid-auto-rows: 280px;
+		}
 	}
 }
 
-/* 🟪 Desktop grande */
 @include desktop-width-large {
-	.list-layout__grid {
-		grid-template-columns: repeat(5, 1fr);
-		gap: 16px;
+	.listLayout {
+		padding: 4px;
+
+		&__grid {
+			grid-template-columns: repeat(5, 1fr);
+			gap: 4px;
+			grid-auto-rows: 360px;
+		}
 	}
 }

@@ -13,6 +13,8 @@ import com.gestion.escuela.gestion_escolar.persistence.AsistenciaRepository;
 import com.gestion.escuela.gestion_escolar.persistence.EmpleadoEducativoRepository;
 import com.gestion.escuela.gestion_escolar.services.AsistenciaService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -112,15 +114,24 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 
 
 	@Override
-	public List<EmpleadoEducativo> buscarEmpleados(
+	public Page<EmpleadoEducativo> buscarEmpleados(
 			LocalDate fecha,
 			List<RolEducativo> roles,
-			String query
+			String query,
+			Pageable pageable
 	) {
+
+		List<RolEducativo> rolesFiltro =
+				(roles == null || roles.isEmpty()) ? null : roles;
+
+		String queryFiltro =
+				(query == null || query.isBlank()) ? null : query;
+
 		return empleadoEducativoRepository.buscarEmpleadosConRolVigente(
 				fecha,
-				roles == null || roles.isEmpty() ? null : roles,
-				query == null || query.isBlank() ? null : query
+				rolesFiltro,
+				queryFiltro,
+				pageable
 		);
 	}
 

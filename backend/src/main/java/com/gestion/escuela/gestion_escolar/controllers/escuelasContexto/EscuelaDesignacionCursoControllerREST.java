@@ -1,8 +1,10 @@
 package com.gestion.escuela.gestion_escolar.controllers.escuelasContexto;
 
+import com.gestion.escuela.gestion_escolar.controllers.dtos.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.cursos.DesignacionCursoCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.cursos.DesignacionCursoResumenDTO;
 import com.gestion.escuela.gestion_escolar.mappers.DesignacionCursoMapper;
+import com.gestion.escuela.gestion_escolar.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.Curso;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.Materia;
@@ -13,6 +15,9 @@ import com.gestion.escuela.gestion_escolar.services.EscuelaService;
 import com.gestion.escuela.gestion_escolar.services.MateriaService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -65,16 +70,32 @@ public class EscuelaDesignacionCursoControllerREST {
 	}
 
 	@GetMapping
-	public List<DesignacionCursoResumenDTO> listarCursos(
-			@PathVariable Long escuelaId
+	public PageResponse<DesignacionCursoResumenDTO> listarCursos(
+			@PathVariable Long escuelaId,
+			Pageable pageable
 	) {
-		return designacionService.obtenerDesignacionesPorEscuela(
+
+		int MAX_SIZE = 20;
+		int pageSize = Math.min(pageable.getPageSize(), MAX_SIZE);
+
+		Pageable limitedPageable = PageRequest.of(
+				pageable.getPageNumber(),
+				pageSize,
+				pageable.getSort()
+		);
+
+		Page<DesignacionCurso> designaciones =
+				designacionService.obtenerDesignacionesPorEscuela(
 						escuelaId,
-						DesignacionCurso.class
-				)
-				.stream()
-				.map(DesignacionCursoMapper::toResumen)
-				.toList();
+						DesignacionCurso.class,
+						limitedPageable
+				);
+
+		return PageMapper.toPageResponse(
+				designaciones,
+				DesignacionCursoMapper::toResumen
+		);
 	}
+
 
 }

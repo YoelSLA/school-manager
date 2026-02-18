@@ -1,15 +1,18 @@
 @use "@/styles/breakpoints" as *;
 
 /* =====================
-   BASE
+   CARD
 ===================== */
 
 .card {
-  background: #ffffff;
+  background-color: var(--bg-card);
   border-radius: 20px;
 
   display: flex;
   flex-direction: column;
+
+  position: relative;
+  overflow: hidden;
 
   border-left: 3px solid transparent;
 
@@ -22,73 +25,98 @@
     box-shadow 0.2s ease,
     border-color 0.2s ease;
 
-  position: relative;
+  /* INNER */
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+  }
+
+  /* VARIANTS */
+
+  &--muted {
+    background-color: #f8fafc;
+  }
+
+  &--elevated {
+    box-shadow:
+      0 12px 28px rgba(0, 0, 0, 0.06),
+      0 6px 12px rgba(0, 0, 0, 0.04);
+  }
+
+  &--large {
+    border-radius: 24px;
+  }
+
+  /* CLICKABLE */
+
+  &--clickable {
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 14px 30px rgba(0, 0, 0, 0.08),
+        0 6px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    &:active {
+      transform: translateY(-1px);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--primary-500);
+      outline-offset: 3px;
+    }
+  }
+
+  /* STATUS */
+
+  &--success {
+    border-left-color: #16a34a;
+  }
+
+  &--warning {
+    border-left-color: #f59e0b;
+  }
+
+  &--danger {
+    border-left-color: #dc2626;
+  }
+
+  &--info {
+    border-left-color: #2563eb;
+  }
 }
 
 /* =====================
-   VARIANTS
+   BREAKPOINTS (AFUERA)
 ===================== */
 
-.card--muted {
-  background: #f8fafc;
+@include desktop-height-small {
+  .card {
+    height: 250px;
+    padding: 12px;
+  }
+
 }
 
-.card--elevated {
-  box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.06),
-    0 6px 12px rgba(0, 0, 0, 0.04);
+@include desktop-height-medium {
+  .card {
+    height: 280px;
+    padding: 16px;
+  }
+
 }
 
-.card--large {
-  border-radius: 24px;
-}
+@include desktop-height-large {
+  .card {
+    height: 350px;
+    padding: 20px;
+  }
 
-.card--with-padding {
-  padding: 16px;
-}
-
-/* =====================
-   CLICKABLE
-===================== */
-
-.card--clickable {
-  cursor: pointer;
-}
-
-.card--clickable:hover {
-  transform: translateY(-4px);
-  box-shadow:
-    0 14px 30px rgba(0, 0, 0, 0.08),
-    0 6px 12px rgba(0, 0, 0, 0.05);
-}
-
-.card--clickable:active {
-  transform: translateY(-1px);
-}
-
-.card--clickable:focus-visible {
-  outline: 2px solid var(--primary-500);
-  outline-offset: 3px;
-}
-
-/* =====================
-   STATUS
-===================== */
-
-.card--success {
-  border-left-color: #16a34a;
-}
-
-.card--warning {
-  border-left-color: #f59e0b;
-}
-
-.card--danger {
-  border-left-color: #dc2626;
-}
-
-.card--info {
-  border-left-color: #2563eb;
 }
 
 /* =====================
@@ -98,45 +126,5 @@
 .divider {
   height: 1px;
   background: #e5e7eb;
-  margin: 8px 0;
-}
-
-/* ======================================================
-   📏 DESKTOP HEIGHT SMALL
-====================================================== */
-
-@include desktop-height-small {
-
-  .card {
-    border-radius: 16px;
-  }
-
-  .card--with-padding {
-    padding: 12px;
-  }
-
-  .divider {
-    margin: 4px 0;
-  }
-
-}
-
-/* ======================================================
-   📏 DESKTOP HEIGHT LARGE
-====================================================== */
-
-@include desktop-height-large {
-
-  .card {
-    border-radius: 24px;
-  }
-
-  .card--with-padding {
-    padding: 20px;
-  }
-
-  .divider {
-    margin: 10px 0;
-  }
-
+  margin: 4px 0;
 }

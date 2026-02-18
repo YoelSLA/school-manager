@@ -1,21 +1,17 @@
-import type {
-	FieldErrors,
-	UseFormRegister,
-	Control,
-} from "react-hook-form";
+import type { FieldErrors, UseFormRegister } from "react-hook-form";
 
 import ContactoSection from "./ContactoSection/ContactoSection";
 import DatosPersonalesSection from "./DatosPersonalesSection/DatosPersonalesSection";
 import IngresoSection from "./IngresoSection/IngresoSection";
 
-import FormActions from "@/components/FormActions";
+import FormActions from "@/components/FormActions"; // 👈 nuevo
 
 import styles from "./EmpleadoEducativoForm.module.scss";
 import type { EmpleadoEducativoCreateOutput } from "../../form/empleadoEducativo.form.types";
 
+
 type Props = {
 	register: UseFormRegister<EmpleadoEducativoCreateOutput>;
-	control: Control<EmpleadoEducativoCreateOutput>; // 👈 NUEVO
 	errors: FieldErrors<EmpleadoEducativoCreateOutput>;
 	isSubmitting: boolean;
 
@@ -30,7 +26,6 @@ type Props = {
 
 export default function EmpleadoEducativoCreateForm({
 	register,
-	control, // 👈 NUEVO
 	errors,
 	isSubmitting,
 	agregarFecha,
@@ -42,32 +37,40 @@ export default function EmpleadoEducativoCreateForm({
 	return (
 		<form className={styles.form} onSubmit={onSubmit}>
 			<div className={styles.grid}>
-				<DatosPersonalesSection
-					register={register}
-					errors={errors}
-				/>
 
-				<ContactoSection
-					register={register}
-					errors={errors}
-				/>
+				<div className={styles.datos}>
+					<DatosPersonalesSection
+						register={register}
+						errors={errors}
+					/>
+				</div>
 
-				<IngresoSection
-					control={control} // 👈 NUEVO
-					register={register}
-					errors={errors}
-					agregarFecha={agregarFecha}
-					onToggleAgregarFecha={onToggleAgregarFecha}
-					usarHoy={usarHoy}
-					onToggleUsarHoy={onToggleUsarHoy}
-				/>
+				<div className={styles.rightColumn}>
+					<ContactoSection
+						register={register}
+						errors={errors}
+					/>
+
+					<IngresoSection
+						register={register}
+						errors={errors}
+						agregarFecha={agregarFecha}
+						onToggleAgregarFecha={onToggleAgregarFecha}
+						usarHoy={usarHoy}
+						onToggleUsarHoy={onToggleUsarHoy}
+					/>
+				</div>
+
+				{/* 🔥 Ahora dentro del grid */}
+				<div className={styles.actions}>
+					<FormActions
+						isSubmitting={isSubmitting}
+						label="Guardar"
+						align="right"
+					/>
+				</div>
+
 			</div>
-
-			<FormActions
-				isSubmitting={isSubmitting}
-				label="Guardar"
-				align="right"
-			/>
 		</form>
 	);
 }

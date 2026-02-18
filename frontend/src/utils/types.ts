@@ -1,3 +1,5 @@
+import type { Params } from "react-router-dom";
+
 type FranjaHorariaBaseDTO = {
 	dia: string;
 	horaDesde: string;
@@ -46,7 +48,7 @@ export type PageResponse<T> = {
 	last: boolean;
 	hasNext: boolean;
 	hasPrevious: boolean;
-	sort: string;
+	sort: string | undefined;
 };
 
 export type SortDirection = "asc" | "desc";
@@ -56,3 +58,19 @@ export type SortState = {
 	apellido?: SortDirection;
 	fechaDeIngreso?: SortDirection;
 };
+
+export type BreadcrumbItem = {
+	label: string;
+	to?: string;
+};
+
+export type BreadcrumbState = {
+	from?: string;
+	label?: string;
+	skipBase?: boolean;
+	dynamicLabels?: Record<string, string>;
+};
+
+export type BreadcrumbResolver =
+	| BreadcrumbItem[]
+	| ((params: Params<string>) => BreadcrumbItem[]);

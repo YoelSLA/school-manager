@@ -13,21 +13,15 @@ export default function SidebarPageLayout({
 	pagination,
 }: Props) {
 	return (
-		<section className={styles["sidebar-page"]}>
-			<aside className={styles["sidebar-page__sidebar"]}>
+		<section className={styles.sidebarPage}>
+			<aside className={styles.sidebarPage__sidebar}>
 				{sidebar}
 			</aside>
-
-			<div className={styles["sidebar-page__body"]}>
-				<main className={styles["sidebar-page__content"]}>
-					{children}
-				</main>
-
-				{pagination && (
-					<div className={styles["sidebar-page__pagination"]}>
-						{pagination}
-					</div>
-				)}
+			<main className={styles.sidebarPage__content}>
+				{children}
+			</main>
+			<div className={styles.sidebarPage__pagination}>
+				{pagination}
 			</div>
 		</section>
 	);

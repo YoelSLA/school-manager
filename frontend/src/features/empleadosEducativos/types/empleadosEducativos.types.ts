@@ -63,3 +63,15 @@ export type EmpleadoFormValues = {
 	domicilio?: string;
 	fechaIngreso?: string; // ISO yyyy-MM-dd
 };
+
+export type BajaDefinitivaDTO = {
+	fechaBaja: string;
+	causa: string;
+};
+
+export type CausaBaja =
+	| "RENUNCIA_POR_CAUSAS_PARTICULARES"
+	| "RENUNCIA_POR_CESE"
+	| "JUBILACION"
+	| "FALLECIMIENTO"
+	| "OTRAS";

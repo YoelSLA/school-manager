@@ -1,10 +1,8 @@
 export const materiasQueryKeys = {
 	all: ["materias"] as const,
 
-	lists: () => [...materiasQueryKeys.all, "list"] as const,
-
-	byEscuela: (escuelaId: number) =>
-		[...materiasQueryKeys.lists(), "escuela", escuelaId] as const,
+	byEscuela: (escuelaId: number, page: number, size: number) =>
+		[...materiasQueryKeys.all, "escuela", escuelaId, page, size] as const,
 
 	selects: () => [...materiasQueryKeys.all, "select"] as const,
 

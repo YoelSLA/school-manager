@@ -7,8 +7,8 @@ type Props = {
 
 export default function ScrollableGridListLayout({ children }: Props) {
 	return (
-		<section className={styles["list-layout"]}>
-			<div className={styles["list-layout__grid"]}>
+		<section className={styles.listLayout}>
+			<div className={styles.listLayout__grid}>
 				{children}
 			</div>
 		</section>

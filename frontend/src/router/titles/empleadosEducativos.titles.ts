@@ -1,13 +1,4 @@
-import type { Params } from "react-router-dom";
-
-type BreadcrumbItem = {
-	label: string;
-	to?: string;
-};
-
-type BreadcrumbResolver =
-	| BreadcrumbItem[]
-	| ((params: Params<string>) => BreadcrumbItem[]);
+import type { BreadcrumbResolver } from "@/utils/types";
 
 export const empleadosEducativosTitles: Record<string, BreadcrumbResolver> = {
 	"/empleadosEducativos": [{ label: "Empleados educativos" }],

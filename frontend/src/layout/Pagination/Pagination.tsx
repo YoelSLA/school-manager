@@ -11,14 +11,31 @@ export default function Pagination({
   totalPages,
   onChange,
 }: Props) {
-  if (totalPages <= 1) return null;
+
+  console.log("🔵 Pagination render");
+  console.log("page actual:", page);
+  console.log("totalPages:", totalPages);
+
+  if (totalPages <= 1) {
+    console.log("⛔ No se renderiza porque totalPages <= 1");
+    return null;
+  }
 
   const goTo = (p: number) => {
-    if (p < 1 || p > totalPages) return;
+    console.log("👉 Intentando ir a página:", p);
+
+    if (p < 0 || p >= totalPages) {
+      console.log("❌ Página fuera de rango:", p);
+      return;
+    }
+
+    console.log("✅ Cambio válido, llamando onChange con:", p);
     onChange(p);
   };
 
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const pages = Array.from({ length: totalPages }, (_, i) => i);
+
+  console.log("📄 Array de páginas generado:", pages);
 
   return (
     <div className={styles.pagination}>
@@ -26,30 +43,36 @@ export default function Pagination({
         type="button"
         className={styles.pagination__nav}
         onClick={() => goTo(page - 1)}
-        disabled={page === 1}
+        disabled={page === 0}
       >
         ‹
       </button>
 
       <div className={styles.pagination__pages}>
-        {pages.map((p) => (
-          <button
-            key={p}
-            type="button"
-            className={`${styles.pagination__page} ${p === page ? styles["pagination__page--active"] : ""
-              }`}
-            onClick={() => goTo(p)}
-          >
-            {p}
-          </button>
-        ))}
+        {pages.map((p) => {
+          console.log("Render botón página:", p);
+
+          return (
+            <button
+              key={p}
+              type="button"
+              className={`${styles.pagination__page} ${p === page
+                  ? styles["pagination__page--active"]
+                  : ""
+                }`}
+              onClick={() => goTo(p)}
+            >
+              {p + 1}
+            </button>
+          );
+        })}
       </div>
 
       <button
         type="button"
         className={styles.pagination__nav}
         onClick={() => goTo(page + 1)}
-        disabled={page === totalPages}
+        disabled={page === totalPages - 1}
       >
         ›
       </button>

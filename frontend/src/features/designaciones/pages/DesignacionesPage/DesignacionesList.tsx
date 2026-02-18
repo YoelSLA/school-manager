@@ -1,8 +1,5 @@
 import ListState from "@/components/ListState";
 import ScrollableGridListLayout from "@/layout/ScrollableGridListLayout/ScrollableGridListLayout";
-
-
-
 import type {
 	DesignacionAdministrativaResumenDTO,
 	DesignacionCursoResumenDTO,

@@ -4,14 +4,14 @@ import styles from "./AppLayout.module.scss";
 
 export default function AppLayout() {
 	return (
-		<div className={styles["app-layout"]}>
-			<Header />
-
-			<div className={styles["app-layout__viewport"]}>
-				<main className={styles["app-layout__content"]}>
-					<Outlet />
-				</main>
+		<div className={styles.appLayout}>
+			<div className={styles.appLayout__header}>
+				<Header />
 			</div>
+
+			<main className={styles.appLayout__content}>
+				<Outlet />
+			</main>
 		</div>
 	);
 }

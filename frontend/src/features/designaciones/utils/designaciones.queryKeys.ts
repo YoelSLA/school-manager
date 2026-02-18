@@ -7,10 +7,15 @@ export const designacionesQueryKeys = {
 	curso: {
 		all: () => [...designacionesQueryKeys.all, "curso"] as const,
 
-		lists: () => [...designacionesQueryKeys.all, "curso", "list"] as const,
-
-		byEscuela: (escuelaId: number) =>
-			[...designacionesQueryKeys.all, "curso", "escuela", escuelaId] as const,
+		byEscuela: (escuelaId: number, page: number, size: number) =>
+			[
+				...designacionesQueryKeys.all,
+				"curso",
+				"escuela",
+				escuelaId,
+				page,
+				size,
+			] as const,
 
 		detail: (designacionId: number) =>
 			[...designacionesQueryKeys.all, "curso", designacionId] as const,
@@ -19,15 +24,14 @@ export const designacionesQueryKeys = {
 	administrativa: {
 		all: () => [...designacionesQueryKeys.all, "administrativa"] as const,
 
-		lists: () =>
-			[...designacionesQueryKeys.all, "administrativa", "list"] as const,
-
-		byEscuela: (escuelaId: number) =>
+		byEscuela: (escuelaId: number, page: number, size: number) =>
 			[
 				...designacionesQueryKeys.all,
 				"administrativa",
 				"escuela",
 				escuelaId,
+				page,
+				size,
 			] as const,
 
 		detail: (designacionId: number) =>

@@ -1,20 +1,14 @@
 @use "@/styles/breakpoints" as *;
 
 .app-header {
-	position: fixed;
-	top: 16px;
-	left: 16px;
-	right: 16px;
-	height: var(--header-offset);
+	height: 56px; // base 1366x680
 
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 
-	padding: 0 24px;
-	border-radius: 999px;
-
-	z-index: 1000;
+	padding: 0 12px;
+	border-radius: 20px;
 
 	background: var(--primary-900);
 	box-shadow: var(--shadow-md);
@@ -24,13 +18,13 @@
 	&__left {
 		display: flex;
 		align-items: center;
-		gap: 10px;
+		gap: 8px;
 	}
 
 	&__logo {
 		font-weight: 600;
 		font-size: 14px;
-		padding: 6px 14px;
+		padding: 4px 10px;
 		border-radius: 999px;
 
 		color: var(--text-inverse);
@@ -38,8 +32,8 @@
 	}
 
 	&__school-button {
-		height: 36px;
-		padding: 0 14px;
+		height: 30px;
+		padding: 0 10px;
 
 		display: flex;
 		align-items: center;
@@ -48,7 +42,7 @@
 		border-radius: 999px;
 		border: none;
 
-		font-size: 13px;
+		font-size: 12px;
 		font-weight: 500;
 
 		color: var(--text-inverse);
@@ -66,25 +60,24 @@
 
 	&__nav {
 		display: flex;
-		gap: 6px;
+		gap: 4px;
 
-		padding: 6px;
+		padding: 4px;
 		border-radius: 999px;
 
 		background: rgba(255, 255, 255, 0.1);
-		backdrop-filter: blur(6px);
 	}
 
 	&__link {
-		padding: 8px 14px;
+		padding: 6px 12px;
 		border-radius: 999px;
 
-		font-size: 13px;
+		font-size: 12px;
 		font-weight: 500;
 		text-decoration: none;
 
 		color: var(--menu-text-muted);
-		transition: background 0.2s ease, color 0.2s ease;
+		transition: all 0.2s ease;
 
 		&:hover {
 			background: rgba(255, 255, 255, 0.15);
@@ -94,208 +87,49 @@
 		&--active {
 			background: var(--primary-700);
 			color: var(--text-inverse);
-			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 		}
 	}
-
-	/* ================= ACTIONS ================= */
-
-	&__actions {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-	}
-
-	&__icon-btn {
-		width: 36px;
-		height: 36px;
-
-		border-radius: 50%;
-		border: none;
-
-		background: rgba(255, 255, 255, 0.12);
-		color: var(--text-inverse);
-
-		cursor: pointer;
-		transition: background 0.2s ease;
-
-		&:hover {
-			background: rgba(255, 255, 255, 0.22);
-		}
-	}
-
-	&__avatar {
-		width: 36px;
-		height: 36px;
-
-		border-radius: 50%;
-
-		background: var(--primary-700);
-		color: var(--text-inverse);
-
-		display: flex;
-		align-items: center;
-		justify-content: center;
-
-		font-size: 13px;
-		font-weight: 600;
-
-		box-shadow: var(--shadow-sm);
-	}
 }
-
-/* ======================================================
-   📏 DESKTOP HEIGHT SMALL (override separado)
-====================================================== */
-
-@include desktop-height-small {
-	.app-header {
-		top: 8px;
-		padding: 0 16px;
-	}
-
-	.app-header__left {
-		gap: 6px;
-	}
-
-	.app-header__logo {
-		font-size: 12px;
-		padding: 4px 10px;
-	}
-
-	.app-header__school-button {
-		height: 30px;
-		padding: 0 10px;
-		font-size: 12px;
-		gap: 4px;
-	}
-
-	.app-header__nav {
-		padding: 4px;
-		gap: 4px;
-	}
-
-	.app-header__link {
-		padding: 6px 10px;
-		font-size: 12px;
-	}
-
-	.app-header__actions {
-		gap: 6px;
-	}
-
-	.app-header__icon-btn {
-		width: 30px;
-		height: 30px;
-	}
-
-	.app-header__avatar {
-		width: 30px;
-		height: 30px;
-		font-size: 11px;
-	}
-}
-
-/* ======================================================
-   📏 DESKTOP HEIGHT MEDIUM
-====================================================== */
 
 @include desktop-height-medium {
 	.app-header {
-		top: 14px;
-		padding: 0 22px;
-	}
+		height: 60px;
+		padding: 0 16px;
 
-	.app-header__left {
-		gap: 10px;
-	}
+		&__logo {
+			font-size: 14px;
+			padding: 6px 14px;
+		}
 
-	.app-header__logo {
-		font-size: 14px;
-		padding: 6px 14px;
-	}
+		&__school-button {
+			height: 34px;
+			font-size: 13px;
+		}
 
-	.app-header__school-button {
-		height: 34px;
-		padding: 0 14px;
-		font-size: 13px;
-		gap: 6px;
-	}
-
-	.app-header__nav {
-		padding: 6px;
-		gap: 6px;
-	}
-
-	.app-header__link {
-		padding: 8px 14px;
-		font-size: 13px;
-	}
-
-	.app-header__actions {
-		gap: 8px;
-	}
-
-	.app-header__icon-btn {
-		width: 34px;
-		height: 34px;
-	}
-
-	.app-header__avatar {
-		width: 34px;
-		height: 34px;
-		font-size: 13px;
+		&__link {
+			font-size: 13px;
+			padding: 8px 14px;
+		}
 	}
 }
 
-/* ======================================================
-   📏 DESKTOP HEIGHT LARGE
-====================================================== */
-
 @include desktop-height-large {
 	.app-header {
-		top: 20px;
-		padding: 0 28px;
-	}
+		height: 72px;
+		padding: 0 24px;
 
-	.app-header__left {
-		gap: 14px;
-	}
+		&__logo {
+			font-size: 16px;
+		}
 
-	.app-header__logo {
-		font-size: 16px;
-		padding: 8px 18px;
-	}
+		&__school-button {
+			height: 40px;
+			font-size: 14px;
+		}
 
-	.app-header__school-button {
-		height: 40px;
-		padding: 0 18px;
-		font-size: 14px;
-		gap: 8px;
-	}
-
-	.app-header__nav {
-		padding: 8px;
-		gap: 8px;
-	}
-
-	.app-header__link {
-		padding: 10px 18px;
-		font-size: 14px;
-	}
-
-	.app-header__actions {
-		gap: 10px;
-	}
-
-	.app-header__icon-btn {
-		width: 40px;
-		height: 40px;
-	}
-
-	.app-header__avatar {
-		width: 40px;
-		height: 40px;
-		font-size: 14px;
+		&__link {
+			font-size: 14px;
+			padding: 10px 18px;
+		}
 	}
 }

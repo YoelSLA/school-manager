@@ -7,7 +7,7 @@ export const useEmpleadoNavigation = () => {
 
 	const buildState = (empleado: EmpleadoEducativoDetalleDTO) => ({
 		dynamicLabels: {
-			[empleado.id]: `${empleado.apellido}, ${empleado.nombre}`,
+			[String(empleado.id)]: `${empleado.apellido}, ${empleado.nombre}`,
 		},
 	});
 

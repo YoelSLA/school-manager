@@ -1,7 +1,7 @@
 @use "@/styles/breakpoints" as *;
 
 /* ======================================================
-   BASE (medium)
+   SIDEBAR SECTION
 ====================================================== */
 
 .sidebar {
@@ -9,43 +9,41 @@
 	align-items: center;
 	justify-content: space-between;
 
-	min-height: 64px;
-	padding: 0 16px;
-	gap: 16px;
+	height: 48px; // 🔹 base (small 1366x680)
+	padding: 0 12px;
+	gap: 12px;
 
 	background-color: var(--bg-sidebar);
 	border: 1px solid var(--border);
-	border-radius: 16px;
+	border-radius: 12px;
 
 	/* ================= LEFT ================= */
 
 	&__left {
 		display: flex;
-		min-width: 0;
 		flex-shrink: 0;
 	}
 
 	&__header {
 		display: flex;
 		flex-direction: column;
-		gap: 4px;
+		justify-content: center;
+		gap: 2px;
 		line-height: 1.1;
 	}
 
 	&__title {
 		margin: 0;
-		font-size: 0.95rem;
+		font-size: 0.85rem;
 		font-weight: 600;
-		color: #111827;
 		white-space: nowrap;
 	}
 
 	&__subtitle {
 		margin: 0;
-		font-size: 0.75rem;
+		font-size: 0.7rem;
 		font-weight: 500;
-		color: #6b7280;
-		opacity: 0.85;
+		opacity: 0.8;
 		white-space: nowrap;
 	}
 
@@ -54,11 +52,11 @@
 	&__center {
 		display: flex;
 		align-items: center;
-		gap: 40px;
+		gap: 20px;
 
 		flex: 1;
 		justify-content: center;
-		min-width: 0;
+
 	}
 
 	/* ================= RIGHT ================= */
@@ -66,54 +64,71 @@
 	&__right {
 		display: flex;
 		align-items: center;
-		gap: 8px;
+		gap: 6px;
 		flex-shrink: 0;
 	}
 }
 
 /* ======================================================
-   📏 DESKTOP HEIGHT SMALL
+   📏 DESKTOP HEIGHT SMALL (1366x680)
+   🔹 Compacto real
 ====================================================== */
 
 @include desktop-height-small {
 	.sidebar {
-		min-height: 48px;
-		padding: 0 12px;
-		gap: 12px;
-		border-radius: 12px;
-
-		&__header {
-			gap: 2px;
-		}
+		height: 48px;
+		padding: 0 10px;
+		gap: 10px;
 
 		&__title {
-			font-size: 0.85rem;
+			font-size: 0.8rem;
 		}
 
 		&__subtitle {
-			font-size: 0.7rem;
+			font-size: 0.65rem;
 		}
 
 		&__center {
-			gap: 24px;
+			gap: 16px;
 		}
 	}
 }
 
 /* ======================================================
-   📏 DESKTOP HEIGHT LARGE
+   📏 DESKTOP HEIGHT MEDIUM (1536x780)
+====================================================== */
+
+@include desktop-height-medium {
+	.sidebar {
+		height: 56px;
+		padding: 0 16px;
+		gap: 16px;
+		border-radius: 14px;
+
+		&__title {
+			font-size: 0.95rem;
+		}
+
+		&__subtitle {
+			font-size: 0.75rem;
+		}
+
+		&__center {
+			gap: 32px;
+		}
+	}
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT LARGE (1920x980)
 ====================================================== */
 
 @include desktop-height-large {
 	.sidebar {
-		min-height: 72px;
+		height: 64px;
 		padding: 0 20px;
 		gap: 20px;
-		border-radius: 20px;
-
-		&__header {
-			gap: 6px;
-		}
+		border-radius: 16px;
 
 		&__title {
 			font-size: 1.05rem;
@@ -124,7 +139,7 @@
 		}
 
 		&__center {
-			gap: 56px;
+			gap: 48px;
 		}
 	}
 }

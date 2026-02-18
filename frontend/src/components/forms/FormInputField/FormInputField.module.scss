@@ -12,12 +12,12 @@
 	}
 
 	/* =====================
-     INPUT / SELECT / TEXTAREA
+     INPUT
   ===================== */
 
 	&__input {
 		@include form-control;
-		padding-right: 36px; // espacio para icono de error
+		padding-right: 36px; // espacio para icono
 	}
 
 	/* =====================
@@ -31,31 +31,70 @@
 	}
 
 	/* =====================
+     ERROR ICON (dentro input)
+  ===================== */
+
+	&__error-icon {
+		position: absolute;
+		right: 10px;
+		top: 34px;
+		font-size: 14px;
+		color: #dc2626;
+		pointer-events: none;
+	}
+
+	/* =====================
      ERROR TOOLTIP
   ===================== */
 
 	&__error-tooltip {
-		@include form-error-tooltip;
+		position: absolute;
+		top: calc(100% + 4px);
+		left: 0;
+
+		display: flex;
+		align-items: center;
+		gap: 6px;
+
+		padding: 6px 8px;
+		border-radius: 6px;
+
+		font-size: 12px;
+		line-height: 1.35;
+
+		background-color: #dc2626; // 👈 rojo equilibrado
+		color: #ffffff;
+
+		white-space: nowrap;
+		z-index: 20;
+
+		box-shadow: 0 6px 16px rgba(220, 38, 38, 0.25); // sombra con tono rojo
+
+		opacity: 0;
+		transform: translateY(-4px);
+		transition: opacity 0.15s ease, transform 0.15s ease;
 	}
 
-	/* Mostrar tooltip solo en hover o focus */
-	&--error:hover &__error-tooltip,
-	&--error:focus-within &__error-tooltip {
+	/* 👇 ESTA ES LA CLAVE */
+	&--error &__error-tooltip {
 		opacity: 1;
 		transform: translateY(0);
 	}
 
 	/* =====================
-     ERROR ICON
+     TOOLTIP ICON
   ===================== */
 
-	&__error-icon {
-		@include form-error-icon;
+	&__tooltip-icon {
+		display: flex;
+		align-items: center;
+		font-size: 12px;
+
 	}
 
 	/* =====================
-   READONLY STATE
-===================== */
+     READONLY STATE
+  ===================== */
 
 	&--readonly {
 		.form-field__input {
@@ -69,6 +108,4 @@
 		margin-left: 6px;
 		color: #9ca3af;
 	}
-
-
 }

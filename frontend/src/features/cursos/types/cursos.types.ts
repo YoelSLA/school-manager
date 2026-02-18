@@ -16,3 +16,8 @@ export type CursoNombreDTO = {
 	turno: Turno;
 };
 
+export type CrearCursoDTO = {
+	anio: number;
+	grado: number;
+	turno: Turno;
+};

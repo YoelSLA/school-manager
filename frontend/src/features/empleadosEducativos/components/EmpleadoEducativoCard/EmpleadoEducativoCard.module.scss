@@ -3,39 +3,58 @@
 .card {
 	display: flex;
 	flex-direction: column;
-	height: auto;
 	transition: all 0.2s ease;
-
-	/* ======================================================
-	   BASE (medium)
-	====================================================== */
-
-	max-height: 300px;
-	padding: 12px;
-	gap: 12px;
-	overflow: hidden;
 }
 
-/* ======================================================
-   📏 DESKTOP HEIGHT SMALL
-====================================================== */
-
 @include desktop-height-small {
+
 	.card {
-		max-height: 230px;
-		padding: 8px;
-		gap: 8px;
+
+		.sectionHeader {
+			height: 80px;
+		}
+
+		.sectionInfo {
+			height: 60px;
+
+		}
+
+		.sectionRoles {
+			height: 70px;
+		}
 	}
 }
 
-/* ======================================================
-   📏 DESKTOP HEIGHT LARGE
-====================================================== */
+@include desktop-height-medium {
+	.card {
+		.sectionHeader {
+			height: 90px;
+		}
+
+		.sectionInfo {
+			height: 60px;
+
+		}
+
+		.sectionRoles {
+			height: 80px;
+		}
+	}
+}
 
 @include desktop-height-large {
 	.card {
-		max-height: 340px;
-		padding: 20px;
-		gap: 16px;
+		.sectionHeader {
+			height: 120px;
+		}
+
+		.sectionInfo {
+			height: 80px;
+
+		}
+
+		.sectionRoles {
+			height: 100px;
+		}
 	}
 }

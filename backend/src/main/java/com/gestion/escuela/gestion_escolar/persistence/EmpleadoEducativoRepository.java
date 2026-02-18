@@ -32,8 +32,6 @@ public interface EmpleadoEducativoRepository extends JpaRepository<EmpleadoEduca
 			Long id
 	);
 
-	List<EmpleadoEducativo> findByEscuelaId(Long escuelaId);
-
 	@Query("""
 				select e from EmpleadoEducativo e
 				where e.escuela.id = :escuelaId
@@ -48,32 +46,52 @@ public interface EmpleadoEducativoRepository extends JpaRepository<EmpleadoEduca
 			String search
 	);
 
-	@Query("""
-				select distinct e
-				from EmpleadoEducativo e
-				join e.asignaciones a
-				join a.designacion d
-				where
-					a.periodo.fechaDesde <= :fecha
-				and (a.periodo.fechaHasta is null or a.periodo.fechaHasta >= :fecha)
-				and (
-					:roles is null
-					or d.rolEducativo in :roles
-				)
-				and (
-					:query is null
-					or cast(e.apellido as string) ilike concat('%', cast(:query as string), '%')
-					or cast(e.nombre as string)   ilike concat('%', cast(:query as string), '%')
-					or cast(e.cuil as string)     ilike concat('%', cast(:query as string), '%')
-				)
-			""")
-	List<EmpleadoEducativo> buscarEmpleadosConRolVigente(
+	@Query(
+			value = """
+					select distinct e
+					from EmpleadoEducativo e
+					join e.asignaciones a
+					join a.designacion d
+					where
+					    a.periodo.fechaDesde <= :fecha
+					and (a.periodo.fechaHasta is null or a.periodo.fechaHasta >= :fecha)
+					and (
+					    :roles is null
+					    or d.rolEducativo in :roles
+					)
+					and (
+					    :query is null
+					    or cast(e.apellido as string) ilike concat('%', cast(:query as string), '%')
+					    or cast(e.nombre as string)   ilike concat('%', cast(:query as string), '%')
+					    or cast(e.cuil as string)     ilike concat('%', cast(:query as string), '%')
+					)
+					""",
+			countQuery = """
+					select count(distinct e)
+					from EmpleadoEducativo e
+					join e.asignaciones a
+					join a.designacion d
+					where
+					    a.periodo.fechaDesde <= :fecha
+					and (a.periodo.fechaHasta is null or a.periodo.fechaHasta >= :fecha)
+					and (
+					    :roles is null
+					    or d.rolEducativo in :roles
+					)
+					and (
+					    :query is null
+					    or cast(e.apellido as string) ilike concat('%', cast(:query as string), '%')
+					    or cast(e.nombre as string)   ilike concat('%', cast(:query as string), '%')
+					    or cast(e.cuil as string)     ilike concat('%', cast(:query as string), '%')
+					)
+					"""
+	)
+	Page<EmpleadoEducativo> buscarEmpleadosConRolVigente(
 			@Param("fecha") LocalDate fecha,
 			@Param("roles") List<RolEducativo> roles,
-			@Param("query") String query
+			@Param("query") String query,
+			Pageable pageable
 	);
-
-	List<EmpleadoEducativo> findByEscuelaIdAndActivo(Long escuelaId, boolean estado);
 
 	Page<EmpleadoEducativo> findByEscuelaId(
 			Long escuelaId,

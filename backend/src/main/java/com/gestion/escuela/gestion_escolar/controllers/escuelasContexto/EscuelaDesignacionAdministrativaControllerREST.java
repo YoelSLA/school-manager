@@ -1,14 +1,19 @@
 package com.gestion.escuela.gestion_escolar.controllers.escuelasContexto;
 
+import com.gestion.escuela.gestion_escolar.controllers.dtos.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.administrativas.DesignacionAdministrativaCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.administrativas.DesignacionAdministrativaResumenDTO;
 import com.gestion.escuela.gestion_escolar.mappers.DesignacionAdministrativaMapper;
+import com.gestion.escuela.gestion_escolar.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import com.gestion.escuela.gestion_escolar.services.DesignacionService;
 import com.gestion.escuela.gestion_escolar.services.EscuelaService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,16 +57,32 @@ public class EscuelaDesignacionAdministrativaControllerREST {
 	}
 
 	@GetMapping
-	public List<DesignacionAdministrativaResumenDTO> listarAdministrativas(
-			@PathVariable Long escuelaId
+	public PageResponse<DesignacionAdministrativaResumenDTO> listarAdministrativas(
+			@PathVariable Long escuelaId,
+			Pageable pageable
 	) {
-		return designacionService
-				.obtenerDesignacionesPorEscuela(
+
+		int MAX_SIZE = 20;
+		int pageSize = Math.min(pageable.getPageSize(), MAX_SIZE);
+
+		Pageable limitedPageable = PageRequest.of(
+				pageable.getPageNumber(),
+				pageSize,
+				pageable.getSort()
+		);
+
+		Page<DesignacionAdministrativa> designaciones =
+				designacionService.obtenerDesignacionesPorEscuela(
 						escuelaId,
-						DesignacionAdministrativa.class
-				)
-				.stream()
-				.map(DesignacionAdministrativaMapper::toResumen)
-				.toList();
+						DesignacionAdministrativa.class,
+						limitedPageable
+				);
+
+		return PageMapper.toPageResponse(
+				designaciones,
+				DesignacionAdministrativaMapper::toResumen
+		);
 	}
+
+
 }

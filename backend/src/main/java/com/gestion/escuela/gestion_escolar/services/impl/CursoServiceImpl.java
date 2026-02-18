@@ -9,6 +9,8 @@ import com.gestion.escuela.gestion_escolar.persistence.CursoRepository;
 import com.gestion.escuela.gestion_escolar.persistence.EscuelaRepository;
 import com.gestion.escuela.gestion_escolar.services.CursoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -82,22 +84,40 @@ public class CursoServiceImpl implements CursoService {
 	}
 
 	@Override
-	public List<Curso> buscarPorEscuela(Long escuelaId, Turno turno) {
+	public Page<Curso> buscarPorEscuela(
+			Long escuelaId,
+			Turno turno,
+			Pageable pageable
+	) {
 		escuelaRepository.findById(escuelaId)
 				.orElseThrow(() ->
 						new RecursoNoEncontradoException("escuela", escuelaId)
 				);
 
 		if (turno == null) {
-			return cursoRepository.findByEscuelaId(escuelaId);
+			return cursoRepository.findByEscuelaId(
+					escuelaId,
+					pageable
+			);
 		}
 
-		return cursoRepository.findByEscuelaIdAndTurno(escuelaId, turno);
+		return cursoRepository.findByEscuelaIdAndTurno(
+				escuelaId,
+				turno,
+				pageable
+		);
 	}
 
 	@Override
-	public List<Curso> buscarPorEscuela(Long escuelaId) {
-		return buscarPorEscuela(escuelaId, null);
+	public List<Curso> buscarTodosPorEscuela(Long escuelaId) {
+
+		escuelaRepository.findById(escuelaId)
+				.orElseThrow(() ->
+						new RecursoNoEncontradoException("escuela", escuelaId)
+				);
+
+		return cursoRepository.findByEscuelaId(escuelaId);
 	}
+
 
 }

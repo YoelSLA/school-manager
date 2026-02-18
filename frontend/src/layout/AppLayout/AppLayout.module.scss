@@ -1,56 +1,44 @@
 @use "@/styles/breakpoints" as *;
 
-.app-layout {
+.appLayout {
 	height: 100vh;
-	overflow: hidden;
+	display: flex;
+	flex-direction: column;
 	background: var(--bg-page);
+	// background-color: orange;
 
-	&__viewport {
-		margin-top: var(--header-total-height);
-		height: calc(100vh - var(--header-total-height));
-
-		display: flex;
-		flex-direction: column;
-
-		padding: 8px;
-		min-height: 0;
-		background-color: rebeccapurple;
+	&__header {
+		// background-color: lightseagreen;
 	}
 
 	&__content {
 		flex: 1;
 		min-height: 0;
-		overflow: hidden;
-		background-color: aqua;
+		overflow: auto;
+
+		display: flex;
+		flex-direction: column;
+		// background-color: darkgreen;
 	}
 }
-
-/* ======================================================
-   📏 DESKTOP HEIGHT SMALL
-====================================================== */
 
 @include desktop-height-small {
-	.app-layout__viewport {
-		padding: 6px;
+	.appLayout {
+		padding: 4px;
+		gap: 4px;
 	}
 }
-
-/* ======================================================
-   📏 DESKTOP HEIGHT MEDIUM
-====================================================== */
 
 @include desktop-height-medium {
-	.app-layout__viewport {
-		padding: 12px;
+	.appLayout {
+		padding: 8px;
+		gap: 8px;
 	}
 }
 
-/* ======================================================
-   📏 DESKTOP HEIGHT LARGE
-====================================================== */
-
 @include desktop-height-large {
-	.app-layout__viewport {
-		padding: 18px;
+	.appLayout {
+		padding: 12px;
+		gap: 12px;
 	}
 }

@@ -1,7 +1,10 @@
+import type { RolEducativo } from "@/features/designaciones/types/designacion.types";
+import RolEducativoBadge from "../../RolEducativoBadge";
 import styles from "./EmpleadoCardRoles.module.scss";
 
+
 type Props = {
-	roles: string[];
+	roles: RolEducativo[];
 };
 
 export default function EmpleadoCardRoles({ roles }: Props) {
@@ -12,13 +15,13 @@ export default function EmpleadoCardRoles({ roles }: Props) {
 			{roles.length > 0 ? (
 				<div className={styles.roles__list}>
 					{roles.map((rol) => (
-						<span key={rol} className={styles.roles__chip}>
-							{rol}
-						</span>
+						<RolEducativoBadge key={rol} value={rol} />
 					))}
 				</div>
 			) : (
-				<span className={styles.roles__empty}>Sin roles asignados</span>
+				<span className={styles.roles__empty}>
+					Sin roles asignados
+				</span>
 			)}
 		</section>
 	);

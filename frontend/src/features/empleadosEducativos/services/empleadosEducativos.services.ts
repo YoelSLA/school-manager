@@ -89,3 +89,20 @@ export const getEmpleadoEducativoById = async (
 
 	return data;
 };
+
+export const darDeBajaDefinitiva = async (
+	empleadoId: number,
+	payload: {
+		fechaBaja: string;
+		causa: string;
+	},
+): Promise<void> => {
+	await http.post(
+		`/empleadosEducativos/${empleadoId}/baja-definitiva`,
+		payload,
+	);
+};
+
+export const reactivarEmpleado = async (empleadoId: number): Promise<void> => {
+	await http.post(`/empleadosEducativos/${empleadoId}/reactivar`);
+};

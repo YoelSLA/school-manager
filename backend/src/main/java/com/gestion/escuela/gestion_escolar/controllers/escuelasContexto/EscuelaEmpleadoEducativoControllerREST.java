@@ -88,14 +88,6 @@ public class EscuelaEmpleadoEducativoControllerREST {
 			@PageableDefault(size = 10, sort = "apellido", direction = Sort.Direction.ASC)
 			Pageable pageable
 	) {
-
-		System.out.println("==== DEBUG listarPorEscuela ====");
-		System.out.println("escuelaId: " + escuelaId);
-		System.out.println("estado (raw): " + estado);
-		System.out.println("page number: " + pageable.getPageNumber());
-		System.out.println("page size: " + pageable.getPageSize());
-		System.out.println("sort: " + pageable.getSort());
-
 		Boolean estadoFiltro = null;
 
 		if (estado != null) {
@@ -109,12 +101,8 @@ public class EscuelaEmpleadoEducativoControllerREST {
 			};
 		}
 
-		System.out.println("estadoFiltro (boolean): " + estadoFiltro);
-
 		int MAX_SIZE = 20;
 		int pageSize = Math.min(pageable.getPageSize(), MAX_SIZE);
-
-		System.out.println("pageSize limitado: " + pageSize);
 
 		Pageable limitedPageable = PageRequest.of(
 				pageable.getPageNumber(),
@@ -128,10 +116,6 @@ public class EscuelaEmpleadoEducativoControllerREST {
 						estadoFiltro,
 						limitedPageable
 				);
-
-		System.out.println("totalElements: " + empleados.getTotalElements());
-		System.out.println("totalPages: " + empleados.getTotalPages());
-		System.out.println("content size: " + empleados.getContent().size());
 
 		return PageMapper.toPageResponse(
 				empleados,

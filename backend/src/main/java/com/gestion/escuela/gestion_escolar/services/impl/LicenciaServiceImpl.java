@@ -8,11 +8,12 @@ import com.gestion.escuela.gestion_escolar.persistence.LicenciaRepository;
 import com.gestion.escuela.gestion_escolar.services.AsistenciaService;
 import com.gestion.escuela.gestion_escolar.services.LicenciaService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Service
 @Transactional
@@ -28,9 +29,17 @@ public class LicenciaServiceImpl implements LicenciaService {
 	}
 
 	@Override
-	public List<Licencia> buscarPorEscuela(Long escuelaId) {
-		escuelaRepository.findById(escuelaId).orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
-		return licenciaRepository.buscarRaicesPorEscuelaId(escuelaId);
+	public Page<Licencia> buscarPorEscuela(
+			Long escuelaId,
+			Pageable pageable
+	) {
+		escuelaRepository.findById(escuelaId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
+
+		return licenciaRepository.buscarRaicesPorEscuelaId(
+				escuelaId,
+				pageable
+		);
 	}
 
 	@Override
@@ -43,7 +52,7 @@ public class LicenciaServiceImpl implements LicenciaService {
 		Licencia original = obtenerPorId(licenciaId);
 
 		Licencia renovada = original.renovar(nuevoTipo, nuevoHasta, descripcion);
-		
+
 		Licencia guardada = licenciaRepository.save(renovada);
 		asistenciaService.impactarLicencia(guardada);
 

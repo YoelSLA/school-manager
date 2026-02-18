@@ -14,7 +14,9 @@ import Pagination from "@/layout/Pagination";
 import type { SortState } from "@/utils/types";
 import SortBuilder from "@/components/EmpleadoSortDropdown";
 import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
-
+import Button from "@/components/Button/Button";
+import { RefreshCw } from "lucide-react";
+import styles from "./EmpleadosEducativosPage.module.scss";
 
 
 export default function EmpleadosEducativosPage() {
@@ -23,30 +25,33 @@ export default function EmpleadosEducativosPage() {
 
 	const [sort, setSort] = useState<SortState>({});
 
-	const [page, setPage] = useState(1);
+	const [page, setPage] = useState(0);
 	const pageSize = useDynamicPageSize();
 
-	const backendPage = page - 1;
 
-	const { data, isLoading } =
+	const { data, isLoading, refetch, isFetching } =
 		useEmpleadosEducativos(
 			filtro,
-			backendPage,
+			page,
 			pageSize,
 			sort
 		);
 
 	const empleadoNav = useEmpleadoNavigation();
 
-	/* Resetear página cuando cambia filtro o sort */
 	const handleSortChange = (newSort: SortState) => {
 		setSort(newSort);
-		setPage(1);
+		setPage(0);
 	};
 
 	const handleFiltroChange = (newFiltro: EmpleadoEducativoFiltro) => {
 		setFiltro(newFiltro);
-		setPage(1);
+		setPage(0);
+	};
+
+	const handleRefresh = () => {
+		setPage(0);
+		refetch();
 	};
 
 
@@ -69,6 +74,21 @@ export default function EmpleadosEducativosPage() {
 							value={sort}
 							onChange={handleSortChange}
 						/>
+					}
+					extraActions={
+						<Button
+							variant="secondary"
+							onClick={handleRefresh}
+							disabled={isFetching}
+						>
+							<span className={styles.refreshContent}>
+								<RefreshCw
+									size={16}
+									className={isFetching ? styles.spin : ""}
+								/>
+								<span>Actualizar</span>
+							</span>
+						</Button>
 					}
 				/>
 			}

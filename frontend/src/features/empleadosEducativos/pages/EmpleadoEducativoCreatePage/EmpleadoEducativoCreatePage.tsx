@@ -10,25 +10,19 @@ import styles from "./EmpleadoEducativoCreatePage.module.scss";
 import type { EmpleadoEducativoCreateOutput } from "../../form/empleadoEducativo.form.types";
 import { useEmpleadoEducativoCreateForm } from "../../form/hooks/useEmpleadoEducativoCreateForm";
 import EmpleadoEducativoCreateForm from "../../components/EmpleadoEducativoCreateForm";
+import { getTodayArgentinaISO } from "@/utils";
 
 export default function EmpleadoEducativoCreatePage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 	const crearEmpleado = useCrearEmpleadoEducativo();
 	const empleadoNav = useEmpleadoNavigation();
-
-	// Fecha actual formateada
-	const hoy = new Date().toLocaleDateString("en-CA", {
-		timeZone: "America/Argentina/Buenos_Aires",
-	});
-
+	const hoy = getTodayArgentinaISO();
 	const [agregarFecha, setAgregarFecha] = useState(false);
 	const [usarHoy, setUsarHoy] = useState(false);
-	const [cuilExiste, setCuilExiste] = useState(false);
 
 	const {
 		form: {
 			register,
-			control,
 			handleSubmit,
 			setValue,
 			setError,
@@ -73,11 +67,6 @@ export default function EmpleadoEducativoCreatePage() {
 			return;
 		}
 
-		if (cuilExiste) {
-			toast.error("Ese CUIL ya está registrado");
-			return;
-		}
-
 		try {
 			await crearEmpleado.mutateAsync({
 				escuelaId: escuelaActiva.id,
@@ -101,7 +90,6 @@ export default function EmpleadoEducativoCreatePage() {
 
 			setAgregarFecha(false);
 			setUsarHoy(false);
-			setCuilExiste(false);
 		} catch (error: unknown) {
 			const axiosError = error as AxiosError;
 
@@ -110,7 +98,6 @@ export default function EmpleadoEducativoCreatePage() {
 					type: "manual",
 					message: "Ese CUIL ya está registrado",
 				});
-				setCuilExiste(true);
 				toast.error("Ese CUIL ya está registrado");
 			} else {
 				toast.error("Error al crear el personal educativo");
@@ -122,19 +109,9 @@ export default function EmpleadoEducativoCreatePage() {
 		<PageLayout>
 			<div className={styles.page}>
 
-				<div className={styles.topHeader}>
-					<div className={styles.topHeaderContent}>
-						<h1 className={styles.title}>Crear personal educativo</h1>
-						<p className={styles.subtitle}>
-							Completá los datos para registrar un nuevo miembro del equipo
-						</p>
-					</div>
-				</div>
-
 				<div className={styles.container}>
 					<EmpleadoEducativoCreateForm
 						register={register}
-						control={control}
 						errors={errors}
 						isSubmitting={isSubmitting}
 						agregarFecha={agregarFecha}
