@@ -2,15 +2,28 @@ import { useQuery } from "@tanstack/react-query";
 import { getLicenciasPorEscuela } from "../services/licencias.services";
 import { licenciasQueryKeys } from "../utils/licencias.queryKeys";
 
-export function useLicencias(escuelaId?: number) {
+export function useLicencias(
+	escuelaId?: number,
+	page: number = 0,
+	size: number = 10,
+) {
 	return useQuery({
-		queryKey: escuelaId
-			? licenciasQueryKeys.byEscuela(escuelaId)
-			: licenciasQueryKeys.all, // fallback seguro
+		queryKey:
+			escuelaId != null
+				? licenciasQueryKeys.byEscuela(escuelaId, page, size)
+				: ["licencias", "disabled"],
 
-		queryFn: () => getLicenciasPorEscuela(escuelaId!),
+		queryFn: () => {
+			if (escuelaId == null) throw new Error("escuelaId requerido");
 
-		enabled: !!escuelaId,
-		staleTime: 1000 * 60, // 1 minuto
+			return getLicenciasPorEscuela(escuelaId, page, size);
+		},
+
+		enabled: escuelaId != null,
+
+		// reemplazo keepPreviousData (v5)
+		placeholderData: (previousData) => previousData,
+
+		staleTime: 1000 * 60,
 	});
 }

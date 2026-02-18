@@ -1,5 +1,60 @@
+@use "@/styles/breakpoints" as *;
+
 .card {
 	display: flex;
 	flex-direction: column;
-	height: 100%;
+	transition: all 0.2s ease;
+}
+
+@include desktop-height-small {
+
+	.card {
+
+		.sectionHeader {
+			height: 80px;
+		}
+
+		.sectionInfo {
+			height: 60px;
+
+		}
+
+		.sectionRoles {
+			height: 70px;
+		}
+	}
+}
+
+@include desktop-height-medium {
+	.card {
+		.sectionHeader {
+			height: 90px;
+		}
+
+		.sectionInfo {
+			height: 60px;
+
+		}
+
+		.sectionRoles {
+			height: 80px;
+		}
+	}
+}
+
+@include desktop-height-large {
+	.card {
+		.sectionHeader {
+			height: 120px;
+		}
+
+		.sectionInfo {
+			height: 80px;
+
+		}
+
+		.sectionRoles {
+			height: 100px;
+		}
+	}
 }

@@ -9,6 +9,7 @@ import type {
 	DesignacionDetalleDTO,
 	EstadoCargo,
 } from "../types/designacion.types";
+import type { PageResponse } from "@/utils/types";
 
 /* ======================
    Crear
@@ -34,19 +35,28 @@ export async function crearDesignacionCurso(
 
 export async function listarDesignacionesAdministrativas(
 	escuelaId: number,
-): Promise<DesignacionAdministrativaResumenDTO[]> {
-	const { data } = await http.get<DesignacionAdministrativaResumenDTO[]>(
-		`/escuelas/${escuelaId}/designaciones/administrativas`,
-	);
+	page: number = 0,
+	size: number = 10,
+): Promise<PageResponse<DesignacionAdministrativaResumenDTO>> {
+	const { data } = await http.get<
+		PageResponse<DesignacionAdministrativaResumenDTO>
+	>(`/escuelas/${escuelaId}/designaciones/administrativas`, {
+		params: { page, size },
+	});
 
 	return data;
 }
 
 export async function listarDesignacionesCursos(
 	escuelaId: number,
-): Promise<DesignacionCursoResumenDTO[]> {
-	const { data } = await http.get<DesignacionCursoResumenDTO[]>(
+	page: number = 0,
+	size: number = 10,
+): Promise<PageResponse<DesignacionCursoResumenDTO>> {
+	const { data } = await http.get<PageResponse<DesignacionCursoResumenDTO>>(
 		`/escuelas/${escuelaId}/designaciones/cursos`,
+		{
+			params: { page, size },
+		},
 	);
 
 	return data;

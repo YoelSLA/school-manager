@@ -1,7 +1,9 @@
 package com.gestion.escuela.gestion_escolar.controllers.escuelasContexto;
 
+import com.gestion.escuela.gestion_escolar.controllers.dtos.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.*;
 import com.gestion.escuela.gestion_escolar.mappers.EmpleadoEducativoMapper;
+import com.gestion.escuela.gestion_escolar.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
@@ -9,6 +11,11 @@ import com.gestion.escuela.gestion_escolar.services.EmpleadoEducativoService;
 import com.gestion.escuela.gestion_escolar.services.EscuelaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,12 +53,6 @@ public class EscuelaEmpleadoEducativoControllerREST {
 			@Valid @RequestBody EmpleadoEducativoUpdateDTO dto
 	) {
 
-		System.out.println("EscuelaId: " + escuelaId);
-		System.out.println("EmpleadoId: " + empleadoId);
-
-		// Validar escuela
-		escuelaService.obtenerPorId(escuelaId);
-
 		// 1️⃣ Obtener entidad actual
 		EmpleadoEducativo empleadoActual = empleadoEducativoService.obtenerPorEscuela(escuelaId, empleadoId);
 		Set<RolEducativo> rolesEducativos = empleadoEducativoService.obtenerRolesEducativos(empleadoId);
@@ -81,11 +82,12 @@ public class EscuelaEmpleadoEducativoControllerREST {
 	}
 
 	@GetMapping
-	public List<EmpleadoEducativoResumenDTO> listarPorEscuela(
+	public PageResponse<EmpleadoEducativoResumenDTO> listarPorEscuela(
 			@PathVariable Long escuelaId,
-			@RequestParam(required = false) String estado
+			@RequestParam(required = false) String estado,
+			@PageableDefault(size = 10, sort = "apellido", direction = Sort.Direction.ASC)
+			Pageable pageable
 	) {
-
 		Boolean estadoFiltro = null;
 
 		if (estado != null) {
@@ -99,14 +101,29 @@ public class EscuelaEmpleadoEducativoControllerREST {
 			};
 		}
 
-		return empleadoEducativoService
-				.listarPorEscuela(escuelaId, estadoFiltro)
-				.stream()
-				.map(e -> EmpleadoEducativoMapper.toResumen(
+		int MAX_SIZE = 20;
+		int pageSize = Math.min(pageable.getPageSize(), MAX_SIZE);
+
+		Pageable limitedPageable = PageRequest.of(
+				pageable.getPageNumber(),
+				pageSize,
+				pageable.getSort()
+		);
+
+		Page<EmpleadoEducativo> empleados =
+				empleadoEducativoService.listarPorEscuela(
+						escuelaId,
+						estadoFiltro,
+						limitedPageable
+				);
+
+		return PageMapper.toPageResponse(
+				empleados,
+				e -> EmpleadoEducativoMapper.toResumen(
 						e,
 						empleadoEducativoService.obtenerRolesEducativos(e.getId())
-				))
-				.toList();
+				)
+		);
 	}
 
 

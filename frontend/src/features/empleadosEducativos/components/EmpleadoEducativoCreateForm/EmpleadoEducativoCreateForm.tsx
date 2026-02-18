@@ -37,26 +37,40 @@ export default function EmpleadoEducativoCreateForm({
 	return (
 		<form className={styles.form} onSubmit={onSubmit}>
 			<div className={styles.grid}>
-				<DatosPersonalesSection register={register} errors={errors} />
 
-				<ContactoSection register={register} errors={errors} />
+				<div className={styles.datos}>
+					<DatosPersonalesSection
+						register={register}
+						errors={errors}
+					/>
+				</div>
 
-				<IngresoSection
-					register={register}
-					errors={errors}
-					agregarFecha={agregarFecha}
-					onToggleAgregarFecha={onToggleAgregarFecha}
-					usarHoy={usarHoy}
-					onToggleUsarHoy={onToggleUsarHoy}
-				/>
+				<div className={styles.rightColumn}>
+					<ContactoSection
+						register={register}
+						errors={errors}
+					/>
+
+					<IngresoSection
+						register={register}
+						errors={errors}
+						agregarFecha={agregarFecha}
+						onToggleAgregarFecha={onToggleAgregarFecha}
+						usarHoy={usarHoy}
+						onToggleUsarHoy={onToggleUsarHoy}
+					/>
+				</div>
+
+				{/* 🔥 Ahora dentro del grid */}
+				<div className={styles.actions}>
+					<FormActions
+						isSubmitting={isSubmitting}
+						label="Guardar"
+						align="right"
+					/>
+				</div>
+
 			</div>
-
-			{/* 🔥 Nuevo botón genérico */}
-			<FormActions
-				isSubmitting={isSubmitting}
-				label="Guardar"
-				align="right"
-			/>
 		</form>
 	);
 }

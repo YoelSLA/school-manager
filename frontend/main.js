@@ -10,9 +10,14 @@ function createWindow() {
 		minHeight: 720,
 		resizable: true,
 		maximizable: true,
-		autoHideMenuBar: false,
+		autoHideMenuBar: app.isPackaged,
 		icon: path.join(__dirname, "build/school.ico"),
 	});
+
+	if (app.isPackaged) {
+		Menu.setApplicationMenu(null);
+		win.setMenuBarVisibility(false);
+	}
 
 	if (app.isPackaged) {
 		win.loadFile(path.join(__dirname, "dist/index.html"));

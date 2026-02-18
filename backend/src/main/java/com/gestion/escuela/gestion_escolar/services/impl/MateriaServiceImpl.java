@@ -8,6 +8,8 @@ import com.gestion.escuela.gestion_escolar.persistence.EscuelaRepository;
 import com.gestion.escuela.gestion_escolar.persistence.MateriaRepository;
 import com.gestion.escuela.gestion_escolar.services.MateriaService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,11 +79,31 @@ public class MateriaServiceImpl implements MateriaService {
 	}
 
 	@Override
-	public List<Materia> buscarPorEscuela(Long escuelaId) {
+	public Page<Materia> buscarPorEscuela(
+			Long escuelaId,
+			Pageable pageable
+	) {
 
-		escuelaRepository.findById(escuelaId).orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
+		escuelaRepository.findById(escuelaId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
 
-		return materiaRepository.findByEscuelaId(escuelaId);
+		return materiaRepository.findByEscuelaId(
+				escuelaId,
+				pageable
+		);
 	}
+
+	@Override
+	public List<Materia> buscarNombresPorEscuela(Long escuelaId) {
+
+		escuelaRepository.findById(escuelaId)
+				.orElseThrow(() ->
+						new RecursoNoEncontradoException("escuela", escuelaId)
+				);
+
+		return materiaRepository
+				.findByEscuelaIdOrderByNombreAsc(escuelaId);
+	}
+
 
 }

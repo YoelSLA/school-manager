@@ -1,6 +1,9 @@
 import { matchPath } from "react-router-dom";
 import type { TipoLicencia } from "@/features/licencias/utils/tipoLicencia";
-import type { DesignacionFiltro } from "@/features/designaciones/types/designacion.types";
+import type {
+	DesignacionFiltro,
+	RolEducativo,
+} from "@/features/designaciones/types/designacion.types";
 import { routeTitles } from "@/router/titles";
 
 export function diasRestantes(fechaHasta: string): number {
@@ -92,4 +95,83 @@ export const FILTROS_DESIGNACIONES: {
 
 export function formatLicenciaLabel(codigo: string, descripcion: string) {
 	return `${codigo.padEnd(6, " ")} — ${descripcion}`;
+}
+
+export const ROL_EDUCATIVO_LABELS: Record<RolEducativo, string> = {
+	DIRECCION: "Dirección",
+	VICEDIRECCION: "Vicedirección",
+	SECRETARIA: "Secretaría",
+	ORIENTACION_EDUCACIONAL: "Orientación Educacional",
+	ORIENTACION_SOCIAL: "Orientación Social",
+	BIBLIOTECARIO: "Bibliotecario",
+	PRECEPTORIA: "Preceptoría",
+	DOCENTE: "Docente",
+	AUXILIAR: "Auxiliar",
+	ENCARGO_DE_MEDIO_DE_APOYO_TECNICO_PROFESIONAL:
+		"Encargado de Medio de Apoyo Técnico Profesional",
+};
+
+const ARG_TZ = "America/Argentina/Buenos_Aires";
+
+/**
+ * Crea una fecha interpretando YYYY-MM-DD como fecha LOCAL (Argentina)
+ */
+export function createArgentinaDate(fecha: string): Date | null {
+	if (!fecha) return null;
+
+	const parts = fecha.split("-");
+	if (parts.length !== 3) return null;
+
+	const [year, month, day] = parts.map(Number);
+
+	if (!year || !month || !day) return null;
+
+	// 👇 se crea en horario local (NO UTC)
+	return new Date(year, month - 1, day);
+}
+
+/**
+ * Formatter fijo Argentina
+ */
+export const argentinaDateFormatter = new Intl.DateTimeFormat("es-AR", {
+	timeZone: ARG_TZ,
+	day: "2-digit",
+	month: "long",
+	year: "numeric",
+});
+
+export function formatFechaIngreso(fecha?: string | null): {
+	texto: string;
+	tieneFecha: boolean;
+} {
+	if (!fecha) {
+		return { texto: "Sin fecha", tieneFecha: false };
+	}
+
+	const date = createArgentinaDate(fecha);
+
+	if (!date) {
+		return { texto: "Sin fecha", tieneFecha: false };
+	}
+
+	return {
+		texto: argentinaDateFormatter.format(date),
+		tieneFecha: true,
+	};
+}
+
+/**
+ * Devuelve la fecha actual en Argentina en formato YYYY-MM-DD
+ */
+export function getTodayArgentinaISO(): string {
+	const now = new Date();
+
+	const formatter = new Intl.DateTimeFormat("en-CA", {
+		timeZone: ARG_TZ,
+		year: "numeric",
+		month: "2-digit",
+		day: "2-digit",
+	});
+
+	return formatter.format(now);
 }

@@ -55,6 +55,7 @@ export default function AsistenciaDetallePage() {
 		 MUTATION
 	================================ */
 	const { mutate: registrarAsistencia, isPending: isRegistrando } =
+
 		useRegistrarInasistenciasManual(escuelaActiva?.id, empleadoIdNumber, anio, mes);
 
 	const { mutate: eliminarInasistencias, isPending: isEliminando } =

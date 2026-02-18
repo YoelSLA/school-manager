@@ -40,3 +40,9 @@
 		flex-shrink: 0;
 	}
 }
+
+.header-empleado__actions {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}

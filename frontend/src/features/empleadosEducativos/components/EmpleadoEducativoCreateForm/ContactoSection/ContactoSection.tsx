@@ -2,12 +2,12 @@ import { Home, Mail, Phone } from "lucide-react";
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
 import FormInputField from "@/components/forms/FormInputField/FormInputField";
 import styles from "@/components/FormSection/FormSection.module.scss";
-import type { EmpleadoEducativoFormOutput } from "@/features/empleadosEducativos/form/empleadoEducativo.form.types";
 import FormSection from "@/components/FormSection";
+import type { EmpleadoEducativoCreateInput, EmpleadoEducativoCreateOutput } from "@/features/empleadosEducativos/form/empleadoEducativo.form.types";
 
 type Props = {
-	register: UseFormRegister<EmpleadoEducativoFormOutput>;
-	errors: FieldErrors<EmpleadoEducativoFormOutput>;
+	register: UseFormRegister<EmpleadoEducativoCreateInput>;
+	errors: FieldErrors<EmpleadoEducativoCreateOutput>;
 };
 
 export default function ContactoSection({ register, errors }: Props) {

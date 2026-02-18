@@ -6,8 +6,7 @@ import type {
 
 import FormInputField from "@/components/forms/FormInputField/FormInputField";
 import FormSection from "@/components/FormSection";
-import { formSectionStyles } from "@/components/FormSection/FormSection";
-import styles from "./IngresoSection.module.scss";
+import styles from "./IngresoSection.module.scss"
 import type { EmpleadoEducativoCreateOutput } from "@/features/empleadosEducativos/form/empleadoEducativo.form.types";
 
 type Props = {
@@ -31,7 +30,7 @@ export default function IngresoSection({
 		<FormSection title="FECHA DE INGRESO">
 
 			{/* Check principal */}
-			<label className={formSectionStyles.section__checkbox}>
+			<label className={styles.section__checkbox}>
 				<input
 					type="checkbox"
 					checked={agregarFecha}
@@ -42,13 +41,18 @@ export default function IngresoSection({
 
 			{/* Bloque siempre renderizado (no salta layout) */}
 			<div
-				className={`${styles.fechaRow} ${agregarFecha ? styles.visible : styles.hidden
-					}`}
+				className={`
+					${styles.section__fechaRow}
+					${agregarFecha
+						? styles.section__visible
+						: styles.section__hidden
+					}
+				`}
 			>
-				<div className={styles.inputWrapper}>
+				<div className={styles.section__inputWrapper}>
 					<FormInputField
 						label={
-							<span className={styles.fechaLabel}>
+							<span className={styles.section__fechaLabel}>
 								<Calendar size={14} />
 								Fecha
 							</span>
@@ -60,7 +64,7 @@ export default function IngresoSection({
 					/>
 				</div>
 
-				<label className={formSectionStyles.section__checkbox}>
+				<label className={styles.section__checkbox}>
 					<input
 						type="checkbox"
 						checked={usarHoy}

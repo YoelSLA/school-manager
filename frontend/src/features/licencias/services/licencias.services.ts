@@ -5,13 +5,20 @@ import type {
 	LicenciaResumenDTO,
 	RenovarLicenciaDTO,
 } from "../types/licencia.types";
+import type { PageResponse } from "@/utils/types";
 
 export const getLicenciasPorEscuela = async (
 	escuelaId: number,
-): Promise<LicenciaResumenDTO[]> => {
-	const { data } = await http.get<LicenciaResumenDTO[]>(
+	page: number = 0,
+	size: number = 10,
+): Promise<PageResponse<LicenciaResumenDTO>> => {
+	const { data } = await http.get<PageResponse<LicenciaResumenDTO>>(
 		`/escuelas/${escuelaId}/licencias`,
+		{
+			params: { page, size },
+		},
 	);
+
 	return data;
 };
 

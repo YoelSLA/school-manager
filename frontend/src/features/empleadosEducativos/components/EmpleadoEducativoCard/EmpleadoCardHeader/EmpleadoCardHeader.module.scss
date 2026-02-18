@@ -1,0 +1,192 @@
+@use "@/styles/breakpoints" as *;
+
+/* =====================================
+   BLOCK
+===================================== */
+
+.cardHeader {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	flex-direction: column;
+
+	/* ================= TOP ROW ================= */
+
+	&__topRow {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		width: 100%;
+	}
+
+	/* ================= NOMBRE ROW (COLUMNA) ================= */
+
+	&__nombreRow {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+
+	/* ===== PRIMERA FILA: USER + NOMBRE ===== */
+
+	&__nombreBlock {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	&__icon {
+		width: 24px;
+		height: 24px;
+		margin-right: 10px;
+	}
+
+	/* Contenedor de User + bloque nombre */
+	&__nombreRow>.cardHeader__icon {
+		float: left;
+	}
+
+	/* Fila visual de user + nombre */
+	&__nombreRow {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		row-gap: 6px;
+		column-gap: 10px;
+	}
+
+	/* Apellido */
+	&__apellido {
+		font-weight: 600;
+		font-size: 1rem;
+		line-height: 1.1;
+		color: #111827;
+	}
+
+	/* Nombre */
+	&__nombreText {
+		font-size: 0.85rem;
+		line-height: 1.1;
+		color: #374151;
+	}
+
+	/* ================= CUIL ROW ================= */
+
+	&__cuilRow {
+		display: contents; // usa el grid padre
+	}
+
+	&__iconSecondary {
+		width: 18px;
+		height: 18px;
+		opacity: 0.75;
+		align-self: start;
+		margin-top: 2px;
+	}
+
+	&__cuil {
+		font-size: 0.75rem;
+		color: #6b7280;
+	}
+
+	/* ================= BADGE ================= */
+
+	&__topRow> :last-child {
+		align-self: flex-start;
+		font-size: 0.75rem;
+		padding: 4px 10px;
+	}
+}
+
+/* =====================================
+   DESKTOP HEIGHT SMALL (80px)
+===================================== */
+
+@include desktop-height-small {
+	.cardHeader {
+
+		&__icon {
+			width: 22px;
+			height: 22px;
+		}
+
+		&__iconSecondary {
+			width: 16px;
+			height: 16px;
+		}
+
+		&__apellido {
+			font-size: 1.1rem;
+		}
+
+		&__nombreText {
+			font-size: .9rem;
+		}
+
+		&__cuil {
+			font-size: 0.8rem;
+		}
+	}
+}
+
+/* =====================================
+   DESKTOP HEIGHT MEDIUM
+===================================== */
+
+@include desktop-height-medium {
+	.cardHeader {
+
+		&__icon {
+			width: 24px;
+			height: 24px;
+		}
+
+		&__iconSecondary {
+			width: 18px;
+			height: 18px;
+		}
+
+		&__apellido {
+			font-size: 1.2rem;
+		}
+
+		&__nombreText {
+			font-size: 1rem;
+		}
+
+		&__cuil {
+			font-size: 0.9rem;
+		}
+	}
+}
+
+/* =====================================
+   DESKTOP HEIGHT LARGE
+===================================== */
+
+@include desktop-height-large {
+	.cardHeader {
+
+		&__icon {
+			width: 28px;
+			height: 28px;
+		}
+
+		&__iconSecondary {
+			width: 20px;
+			height: 20px;
+		}
+
+		&__apellido {
+			font-size: 1.35rem;
+		}
+
+		&__nombreText {
+			font-size: 1.1rem;
+		}
+
+		&__cuil {
+			font-size: 1rem;
+		}
+	}
+}

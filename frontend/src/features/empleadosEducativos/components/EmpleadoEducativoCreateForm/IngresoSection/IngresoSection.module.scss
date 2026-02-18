@@ -1,27 +1,78 @@
-.fechaRow {
+.section {
+  position: relative;
   display: flex;
-  align-items: flex-end;
-  gap: 16px;
-  flex-wrap: wrap;
-  transition: opacity 0.2s ease;
-}
+  flex-direction: column;
+  gap: 18px;
+  padding: 22px 26px;
+  border-radius: 18px;
 
-.inputWrapper {
-  flex: 1;
-}
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.06);
 
-.fechaLabel {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.04),
+    0 20px 40px rgba(0, 0, 0, 0.06);
 
-.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
+  transition: box-shadow 0.2s ease;
 
-.visible {
-  opacity: 1;
-  pointer-events: auto;
+  /* =========================
+     CHECKBOX
+  ========================= */
+
+  &__checkbox {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    justify-content: center;
+    align-items: center;
+
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+
+    input {
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+  }
+
+  /* =========================
+     FECHA ROW (Ingreso)
+  ========================= */
+
+  &__fechaRow {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    flex-wrap: wrap;
+    transition: opacity 0.2s ease;
+  }
+
+  &__inputWrapper {
+    flex: 1;
+  }
+
+  &__fechaLabel {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  &__hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }

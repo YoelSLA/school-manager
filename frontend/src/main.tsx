@@ -9,7 +9,6 @@ import { BrowserRouter, HashRouter } from "react-router-dom";
 import { store } from "@/store";
 
 import "@/styles/index.css";
-import "@/styles/layout.css";
 import "@/styles/tokens.css";
 
 import { queryClient } from "./queryClient";

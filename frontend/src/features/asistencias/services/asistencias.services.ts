@@ -6,6 +6,7 @@ import type {
 	RegistrarInasistenciasManualDTO,
 	RolCountDTO,
 } from "../types/asistencias.types";
+import type { PageResponse } from "@/utils/types";
 
 export async function registrarInasistenciasManual(
 	payload: RegistrarInasistenciasManualDTO,
@@ -50,9 +51,13 @@ type ObtenerEmpleadosParams = {
 
 export async function obtenerEmpleadosAsistencias(
 	params: ObtenerEmpleadosParams,
-): Promise<EmpleadoAsistenciaDTO[]> {
-	const queryParams: Record<string, string> = {
+	page: number = 0,
+	size: number = 10,
+): Promise<PageResponse<EmpleadoAsistenciaDTO>> {
+	const queryParams: Record<string, string | number> = {
 		fecha: params.fecha,
+		page,
+		size,
 	};
 
 	if (params.roles && params.roles.length > 0) {
@@ -63,7 +68,7 @@ export async function obtenerEmpleadosAsistencias(
 		queryParams.q = params.q;
 	}
 
-	const response = await http.get<EmpleadoAsistenciaDTO[]>(
+	const response = await http.get<PageResponse<EmpleadoAsistenciaDTO>>(
 		"/asistencias/empleados",
 		{ params: queryParams },
 	);

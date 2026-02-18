@@ -9,6 +9,9 @@ import type {
 	EmpleadoEducativoCreateDTO,
 	EmpleadoEducativoUpdateDTO,
 } from "../form/empleadoEducativo.form.types";
+import type { PageResponse, SortState } from "@/utils/types";
+import { buildSortQuery } from "../utils/empleadosEducativos.utils";
+import qs from "qs";
 
 export const crearEmpleadoEducativo = async (
 	escuelaId: number,
@@ -38,11 +41,25 @@ export const crearLicencia = async (
 export const getEmpleadosPorEscuela = async (
 	escuelaId: number,
 	estado: EmpleadoEducativoFiltro = "TODOS",
-): Promise<EmpleadoEducativoDetalleDTO[]> => {
-	const { data } = await http.get<EmpleadoEducativoDetalleDTO[]>(
+	page: number = 0,
+	size: number = 10,
+	sort: SortState = { apellido: "asc" },
+): Promise<PageResponse<EmpleadoEducativoDetalleDTO>> => {
+	const sortParams = buildSortQuery(sort);
+
+	const params = {
+		...(estado !== "TODOS" && { estado }),
+		page,
+		size,
+		...(sortParams.length > 0 && { sort: sortParams }),
+	};
+
+	const { data } = await http.get<PageResponse<EmpleadoEducativoDetalleDTO>>(
 		`/escuelas/${escuelaId}/empleadosEducativos`,
 		{
-			params: estado !== "TODOS" ? { estado } : {},
+			params,
+			paramsSerializer: (params) =>
+				qs.stringify(params, { arrayFormat: "repeat" }),
 		},
 	);
 
@@ -71,4 +88,21 @@ export const getEmpleadoEducativoById = async (
 	);
 
 	return data;
+};
+
+export const darDeBajaDefinitiva = async (
+	empleadoId: number,
+	payload: {
+		fechaBaja: string;
+		causa: string;
+	},
+): Promise<void> => {
+	await http.post(
+		`/empleadosEducativos/${empleadoId}/baja-definitiva`,
+		payload,
+	);
+};
+
+export const reactivarEmpleado = async (empleadoId: number): Promise<void> => {
+	await http.post(`/empleadosEducativos/${empleadoId}/reactivar`);
 };

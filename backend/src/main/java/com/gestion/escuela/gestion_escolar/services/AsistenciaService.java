@@ -6,6 +6,8 @@ import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.RolCantidad;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -29,10 +31,11 @@ public interface AsistenciaService {
 			LocalDate fecha
 	);
 
-	List<EmpleadoEducativo> buscarEmpleados(
+	Page<EmpleadoEducativo> buscarEmpleados(
 			LocalDate fecha,
 			List<RolEducativo> roles,
-			String query
+			String query,
+			Pageable pageable
 	);
 
 	void registrarInasistenciasManuales(

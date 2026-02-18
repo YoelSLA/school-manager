@@ -1,68 +1,122 @@
+@use "@/styles/breakpoints" as *;
+
+/* =====================
+   CARD
+===================== */
+
 .card {
-  background: #ffffff;
-  border-radius: 16px;
+  background-color: var(--bg-card);
+  border-radius: 20px;
 
   display: flex;
   flex-direction: column;
 
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+
+  border-left: 3px solid transparent;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.04),
+    0 2px 4px rgba(0, 0, 0, 0.03);
 
   transition:
     transform 0.15s ease,
-    box-shadow 0.15s ease;
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 
-  /* 👇 NUEVO: base del borde */
-  border-left: 3px solid transparent;
+  /* INNER */
 
-}
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+  }
 
-/* =====================
-   VARIANTS
-===================== */
+  /* VARIANTS */
 
-.card--muted {
-  background: #f9fafb;
-}
+  &--muted {
+    background-color: #f8fafc;
+  }
 
-.card--elevated {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06),
-    0 4px 8px rgba(0, 0, 0, 0.04);
-}
+  &--elevated {
+    box-shadow:
+      0 12px 28px rgba(0, 0, 0, 0.06),
+      0 6px 12px rgba(0, 0, 0, 0.04);
+  }
 
-.card--large {
-  border-radius: 18px;
-}
+  &--large {
+    border-radius: 24px;
+  }
 
-.card--with-padding {
-  padding: 16px;
-}
+  /* CLICKABLE */
 
-.card--clickable {
-  cursor: pointer;
+  &--clickable {
+    cursor: pointer;
 
-  &:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 14px 30px rgba(0, 0, 0, 0.08),
+        0 6px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    &:active {
+      transform: translateY(-1px);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--primary-500);
+      outline-offset: 3px;
+    }
+  }
+
+  /* STATUS */
+
+  &--success {
+    border-left-color: #16a34a;
+  }
+
+  &--warning {
+    border-left-color: #f59e0b;
+  }
+
+  &--danger {
+    border-left-color: #dc2626;
+  }
+
+  &--info {
+    border-left-color: #2563eb;
   }
 }
 
 /* =====================
-   STATUS (BORDE IZQ)
+   BREAKPOINTS (AFUERA)
 ===================== */
 
-.card--success {
-  border-left-color: #16a34a;
+@include desktop-height-small {
+  .card {
+    height: 250px;
+    padding: 12px;
+  }
+
 }
 
-.card--warning {
-  border-left-color: #f59e0b;
+@include desktop-height-medium {
+  .card {
+    height: 280px;
+    padding: 16px;
+  }
+
 }
 
-.card--danger {
-  border-left-color: #dc2626;
-}
+@include desktop-height-large {
+  .card {
+    height: 350px;
+    padding: 20px;
+  }
 
-.card--info {
-  border-left-color: #2563eb;
 }
 
 /* =====================
@@ -71,7 +125,6 @@
 
 .divider {
   height: 1px;
-  background-color: black;
   background: #e5e7eb;
-  margin: 6px 0;
+  margin: 4px 0;
 }

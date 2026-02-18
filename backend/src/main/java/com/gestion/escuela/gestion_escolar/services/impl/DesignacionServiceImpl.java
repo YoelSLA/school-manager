@@ -20,6 +20,8 @@ import com.gestion.escuela.gestion_escolar.persistence.EscuelaRepository;
 import com.gestion.escuela.gestion_escolar.persistence.LicenciaRepository;
 import com.gestion.escuela.gestion_escolar.services.DesignacionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -159,22 +161,22 @@ public class DesignacionServiceImpl implements DesignacionService {
 	}
 
 	@Override
-	public <T extends Designacion> List<T> obtenerDesignacionesPorEscuela(
+	public <T extends Designacion> Page<T> obtenerDesignacionesPorEscuela(
 			Long escuelaId,
-			Class<T> tipo
+			Class<T> tipo,
+			Pageable pageable
 	) {
 		if (escuelaId == null || tipo == null) {
 			throw new IllegalArgumentException("Escuela y tipo son obligatorios");
 		}
 
-		// Validamos que la escuela exista
 		if (!escuelaRepository.existsById(escuelaId)) {
 			throw new RecursoNoEncontradoException("escuela", escuelaId);
 		}
 
-		return designacionRepository
-				.findByEscuelaIdAndTipo(escuelaId, tipo);
+		return designacionRepository.findByEscuelaIdAndTipo(escuelaId, tipo, pageable);
 	}
+
 
 	@Override
 	public Optional<Asignacion> obtenerCargoActivo(

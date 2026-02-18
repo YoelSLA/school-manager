@@ -1,0 +1,90 @@
+@use "@/styles/breakpoints" as *;
+
+/* ======================================================
+   BASE (medium)
+====================================================== */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &:not(:last-child) {
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  &__title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  &__option {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: var(--bg-card-hover);
+    }
+
+    input {
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+  }
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT SMALL
+====================================================== */
+
+@include desktop-height-small {
+  .field {
+    gap: 6px;
+
+    &:not(:last-child) {
+      padding-bottom: 8px;
+    }
+
+    &__title {
+      font-size: 12px;
+    }
+
+    &__option {
+      font-size: 12px;
+      padding: 4px 6px;
+      gap: 6px;
+    }
+  }
+}
+
+/* ======================================================
+   📏 DESKTOP HEIGHT LARGE
+====================================================== */
+
+@include desktop-height-large {
+  .field {
+    gap: 12px;
+
+    &:not(:last-child) {
+      padding-bottom: 16px;
+    }
+
+    &__title {
+      font-size: 14px;
+    }
+
+    &__option {
+      font-size: 14px;
+      padding: 6px 10px;
+      gap: 10px;
+    }
+  }
+}

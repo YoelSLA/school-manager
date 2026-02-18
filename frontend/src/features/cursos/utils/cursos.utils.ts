@@ -1,4 +1,8 @@
-import type { CursoFiltro, CursoNombreDTO, CursoResponseDTO } from "../types/cursos.types";
+import type {
+	CursoFiltro,
+	CursoNombreDTO,
+	CursoResponseDTO,
+} from "../types/cursos.types";
 
 export const FILTROS_CURSOS: {
 	label: string;
@@ -19,7 +23,6 @@ export const filtrosCursos: Record<
 	TARDE: (curso) => curso.turno === "TARDE",
 	VESPERTINO: (curso) => curso.turno === "VESPERTINO",
 };
-
 
 export const TURNO_LABELS: Record<string, string> = {
 	MANIANA: "Mañana",
@@ -47,7 +50,6 @@ function parseDivision(value: string) {
 	};
 }
 
-
 export function ordenarCursos(a: CursoNombreDTO, b: CursoNombreDTO) {
 	// 1. Turno
 	const turnoA = ORDEN_TURNO[a.turno] ?? 99;
@@ -67,3 +69,9 @@ export function ordenarCursos(a: CursoNombreDTO, b: CursoNombreDTO) {
 
 	return aDiv.division - bDiv.division;
 }
+
+export const TURNO_OPTIONS = [
+	{ value: "MANIANA", label: "Mañana" },
+	{ value: "TARDE", label: "Tarde" },
+	{ value: "VESPERTINO", label: "Vespertino" },
+] as const;

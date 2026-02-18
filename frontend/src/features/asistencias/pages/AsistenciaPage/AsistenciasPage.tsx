@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import "./AsistenciaPage.css";
 
-import { useNavigate } from "react-router-dom";
+import Pagination from "@/layout/Pagination";
+import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
+
 import { useEmpleadosAsistencias } from "../../hooks/useEmpleadosAsistencias";
 import { useRolesConAsistencias } from "../../hooks/useRolesConAsistencias";
+
 import AsistenciasSidebar from "./AsistenciasSidebar";
 import type { RolItem } from "./AsistenciasSidebar/AsistenciasSidebar";
 import EmpleadoResultsList from "./EmpleadoResultsList";
 import EmpleadoSearchBar from "./EmpleadoSearchBar";
+import { useAsistenciaNavigation } from "../../hooks/useAsistenciaNavigation";
 
 /* =========================
 	 HELPERS
@@ -23,7 +27,7 @@ function todayISO(): string {
 
 export default function AsistenciasPage() {
 	const fecha = todayISO();
-	const navigate = useNavigate();
+	const asistenciaNav = useAsistenciaNavigation();
 
 	/* =========================
 		 ROLES (SIDEBAR)
@@ -45,7 +49,7 @@ export default function AsistenciasPage() {
 				id: rol.id,
 				label: rol.label,
 				count: rol.count,
-				checked: true, // todos activos por defecto
+				checked: true,
 			})),
 		);
 	}, [rolesData]);
@@ -65,30 +69,40 @@ export default function AsistenciasPage() {
 				checked: false,
 			})),
 		);
-
 		setQuery("");
 	}
 
 	const rolesActivos = roles.filter((r) => r.checked).map((r) => r.id);
-
 	const hayRolesSeleccionados = rolesActivos.length > 0;
 
 	/* =========================
-		 BUSQUEDA + EMPLEADOS
+		 BUSQUEDA + PAGINACION
 	========================= */
 
 	const [query, setQuery] = useState("");
+	const [page, setPage] = useState(0);
+	const pageSize = useDynamicPageSize();
+
+	// 🔥 Reset page cuando cambian filtros
+	useEffect(() => {
+		setPage(0);
+	}, []);
 
 	const {
-		data: empleados = [],
+		data,
 		isLoading: isLoadingEmpleados,
 		isError: isErrorEmpleados,
 	} = useEmpleadosAsistencias({
 		fecha,
 		roles: rolesActivos,
 		query,
+		page,
+		size: pageSize,
 		enabled: hayRolesSeleccionados,
 	});
+
+	const empleados = data?.content ?? [];
+	const totalPages = data?.totalPages ?? 0;
 
 	/* =========================
 		 ESTADOS
@@ -121,25 +135,25 @@ export default function AsistenciasPage() {
 			<main className="asistencias-page__content">
 				{/* BUSCADOR */}
 				<div className="asistencias-page__search">
-					<EmpleadoSearchBar value={query} onChange={setQuery} />
+					<EmpleadoSearchBar
+						value={query}
+						onChange={setQuery}
+					/>
 				</div>
 
 				{/* LISTA */}
 				<EmpleadoResultsList
 					empleados={hayRolesSeleccionados ? empleados : []}
 					onSelect={(empleado) => {
-						navigate(`/asistencias/${empleado.id}`, {
-							state: {
-								currentLabel: `${empleado.apellido}, ${empleado.nombre}`,
-								empleado: {
-									nombre: empleado.nombre,
-									apellido: empleado.apellido,
-									cuil: empleado.cuil,
-									roles: empleado.roles,
-								},
-							},
-						});
+						asistenciaNav.verDetalle(empleado);
 					}}
+				/>
+
+				{/* PAGINACION */}
+				<Pagination
+					page={page}
+					totalPages={totalPages}
+					onChange={setPage}
 				/>
 			</main>
 		</section>

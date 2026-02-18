@@ -48,12 +48,15 @@ export default function FormInputField<T extends FieldValues>({
 				id={fieldId}
 				type={type}
 				className={styles["form-field__input"]}
+				aria-invalid={!!error}
+				aria-describedby={error ? `${fieldId}-error` : undefined}
 				{...register(name, registerOptions)}
 				{...inputProps}
 			/>
 
 			{error && (
 				<>
+					{/* Icono dentro del input */}
 					<span
 						className={styles["form-field__error-icon"]}
 						aria-hidden
@@ -61,11 +64,16 @@ export default function FormInputField<T extends FieldValues>({
 						⚠
 					</span>
 
+					{/* Tooltip flotante */}
 					<div
+						id={`${fieldId}-error`}
 						className={styles["form-field__error-tooltip"]}
 						role="alert"
 					>
-						{error}
+						<span className={styles["form-field__tooltip-icon"]}>
+							⚠
+						</span>
+						<span>{error}</span>
 					</div>
 				</>
 			)}

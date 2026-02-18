@@ -1,14 +1,19 @@
 package com.gestion.escuela.gestion_escolar.controllers.escuelasContexto;
 
+import com.gestion.escuela.gestion_escolar.controllers.dtos.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.CursoCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.CursoNombreDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.CursoResponseDTO;
 import com.gestion.escuela.gestion_escolar.mappers.CursoMapper;
+import com.gestion.escuela.gestion_escolar.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.Curso;
 import com.gestion.escuela.gestion_escolar.models.enums.Turno;
 import com.gestion.escuela.gestion_escolar.services.CursoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,21 +52,40 @@ public class EscuelaCursoControllerREST {
 	}
 
 	@GetMapping
-	public List<CursoResponseDTO> listarCursos(
+	public PageResponse<CursoResponseDTO> listarCursos(
 			@PathVariable Long escuelaId,
-			@RequestParam(name = "turno", required = false) Turno turno
+			@RequestParam(name = "turno", required = false) Turno turno,
+			Pageable pageable
 	) {
-		return cursoService.buscarPorEscuela(escuelaId, turno)
-				.stream()
-				.map(CursoMapper::toResponse)
-				.toList();
+
+		int MAX_SIZE = 20;
+		int pageSize = Math.min(pageable.getPageSize(), MAX_SIZE);
+
+		Pageable limitedPageable = PageRequest.of(
+				pageable.getPageNumber(),
+				pageSize,
+				pageable.getSort()
+		);
+
+		Page<Curso> cursos =
+				cursoService.buscarPorEscuela(
+						escuelaId,
+						turno,
+						limitedPageable
+				);
+
+		return PageMapper.toPageResponse(
+				cursos,
+				CursoMapper::toResponse
+		);
 	}
+
 
 	@GetMapping("/nombres")
 	public List<CursoNombreDTO> listarNombresCursos(
 			@PathVariable Long escuelaId
 	) {
-		return cursoService.buscarPorEscuela(escuelaId)
+		return cursoService.buscarTodosPorEscuela(escuelaId)
 				.stream()
 				.map(CursoMapper::toNombreDTO)
 				.toList();

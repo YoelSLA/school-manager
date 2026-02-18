@@ -1,54 +1,153 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import FilteredSidebar from "@/components/FilteredSidebar/FilteredSidebar";
+import Pagination from "@/layout/Pagination";
+import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
+import SidebarPageLayout from "@/layout/SidebarPageLayout/SidebarPageLayout";
 
-import SidebarPageLayout from "@/layout/SidebarPageLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
+
 import { useCursos } from "../../hooks/useCursos";
-import type { CursoFiltro, CursoResponseDTO } from "../../types/cursos.types";
+import { useCrearCurso } from "../../hooks/useCrearCurso";
+
+import type {
+	CursoFiltro,
+	CursoResponseDTO,
+} from "../../types/cursos.types";
+
 import { FILTROS_CURSOS } from "../../utils/cursos.utils";
 import CursosList from "./CursosList";
+import CrearCursoModal from "../../components/CrearCursoModal";
+import type { CrearCursoFormOutput } from "../../form/curso.form.types";
 
 export default function CursosPage() {
-	const navigate = useNavigate();
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 
-	const [filtro, setFiltro] = useState<CursoFiltro>("TODOS");
+	/* =========================
+		 FILTRO
+	========================= */
 
-	const { data: cursos = [], isLoading } = useCursos(escuelaActiva?.id, filtro);
+	const [filtro, setFiltro] =
+		useState<CursoFiltro>("TODOS");
+
+	/* =========================
+		 PAGINACION
+	========================= */
+
+	const [page, setPage] = useState(0);
+	const pageSize = useDynamicPageSize();
+
+	// Reset cuando cambia filtro o tamaño
+	useEffect(() => {
+		setPage(0);
+	}, []);
+
+	/* =========================
+		 QUERY
+	========================= */
+
+	const { data, isLoading } = useCursos(
+		escuelaActiva?.id,
+		filtro,
+		page,
+		pageSize,
+	);
+
+	const cursos = data?.content ?? [];
+	const totalPages = data?.totalPages ?? 0;
+
+	/* =========================
+		 CREAR CURSO
+	========================= */
+
+	const [isCrearOpen, setIsCrearOpen] =
+		useState(false);
+
+	const { mutate: crearCurso, isPending } =
+		useCrearCurso();
 
 	const handleCrearCurso = () => {
-		navigate("/cursos/crear");
+		setIsCrearOpen(true);
 	};
 
-	const handleVerDetalle = (curso: CursoResponseDTO) => {
-		navigate(`/cursos/${curso.id}`, {
-			state: {
-				currentLabel: `${curso.division} – Turno ${curso.turno}`,
+	const handleSubmitCrear = (
+		data: CrearCursoFormOutput,
+	) => {
+		if (!escuelaActiva) return;
+
+		crearCurso(
+			{
+				escuelaId: escuelaActiva.id,
+				data,
 			},
-		});
+			{
+				onSuccess: () => {
+					setIsCrearOpen(false); // 👈 cerrar modal acá
+				},
+			},
+		);
 	};
+
+
+	/* =========================
+		 DETALLE
+	========================= */
+
+	const handleVerDetalle = (
+		curso: CursoResponseDTO,
+	) => {
+		// si querés mantener navegación futura
+		console.log("Ver detalle:", curso.id);
+	};
+
+	/* =========================
+		 RENDER
+	========================= */
 
 	return (
-		<SidebarPageLayout
-			sidebar={
-				<FilteredSidebar
-					title="Cursos"
-					subtitle="Listado de cursos de la escuela"
-					filtros={FILTROS_CURSOS}
-					value={filtro}
-					onChange={setFiltro}
-					actionLabel="+ Nuevo curso"
-					onAction={handleCrearCurso}
+		<>
+			<SidebarPageLayout
+				sidebar={
+					<FilteredSidebar
+						title="Cursos"
+						subtitle="Listado de cursos de la escuela"
+						filtros={FILTROS_CURSOS}
+						value={filtro}
+						onChange={setFiltro}
+						actionLabel="+ Nuevo curso"
+						onAction={handleCrearCurso}
+					/>
+				}
+				pagination={
+					totalPages > 1 ? (
+						<Pagination
+							page={page}
+							totalPages={totalPages}
+							onChange={setPage}
+						/>
+					) : undefined
+				}
+			>
+				<CursosList
+					cursos={cursos}
+					isLoading={isLoading}
+					onVerDetalle={handleVerDetalle}
 				/>
-			}
-		>
-			<CursosList
-				cursos={cursos}
-				isLoading={isLoading}
-				onVerDetalle={handleVerDetalle}
-			/>
-		</SidebarPageLayout>
+			</SidebarPageLayout>
+
+			{/* =========================
+			    MODAL
+			========================= */}
+
+			{isCrearOpen && (
+				<CrearCursoModal
+					onClose={() =>
+						setIsCrearOpen(false)
+					}
+					isSubmitting={isPending}
+					onSubmit={handleSubmitCrear}
+				/>
+			)}
+		</>
 	);
 }

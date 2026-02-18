@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import RutaProtegida from "./RutaProtegida";
-import AppLayout from "@/layout/AppLayout";
+import AppLayout from "@/layout/AppLayout/AppLayout";
 import SeleccionarEscuelaPage from "@/features/escuelas/pages";
 
 import { EmpleadosEducativosRoutes } from "./empleadosEducativos.routes";

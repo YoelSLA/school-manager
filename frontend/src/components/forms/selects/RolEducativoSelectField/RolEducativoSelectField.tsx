@@ -1,6 +1,6 @@
 import type { UseFormRegister } from "react-hook-form";
 import FormSelectField from "@/components/forms/FormSelectField/FormSelectField";
-import type { DesignacionAdministrativaFormInput, DesignacionCursoFormInput } from "@/features/designaciones/form/designacion.form.types";
+import type { DesignacionAdministrativaFormInput } from "@/features/designaciones/form/designacion.form.types";
 import { RolEducativo } from "@/features/designaciones/types/designacion.types";
 import { ROL_EDUCATIVO_LABELS } from "@/features/designaciones/utils/designacion.utils";
 

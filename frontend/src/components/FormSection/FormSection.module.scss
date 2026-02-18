@@ -1,10 +1,7 @@
-@use "@/styles/breakpoints" as *;
-
 .section {
   position: relative;
   display: flex;
   flex-direction: column;
-
   gap: 18px;
   padding: 22px 26px;
   border-radius: 18px;
@@ -56,10 +53,18 @@
         #60a5fa);
   }
 
-  &__grid {
+  /* CONTENEDOR FLEXIBLE */
+
+  &__content {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 40px;
+
+    &--column {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
   }
 
   &__half {
@@ -70,35 +75,4 @@
     grid-column: 1 / -1;
     width: 100%;
   }
-
-  &__checkbox {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-
-    justify-content: center;
-    align-items: center;
-
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-muted);
-    cursor: pointer;
-
-    input {
-      accent-color: var(--primary);
-      cursor: pointer;
-    }
-
-    span {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-  }
-}
-
-.required {
-  color: #ef4444; // rojo elegante (tailwind red-500)
-  margin-left: 4px;
-  font-weight: 600;
 }

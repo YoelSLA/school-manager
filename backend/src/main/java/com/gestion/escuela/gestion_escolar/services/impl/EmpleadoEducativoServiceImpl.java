@@ -18,6 +18,8 @@ import com.gestion.escuela.gestion_escolar.persistence.LicenciaRepository;
 import com.gestion.escuela.gestion_escolar.services.AsistenciaService;
 import com.gestion.escuela.gestion_escolar.services.EmpleadoEducativoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -127,16 +129,22 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 	}
 
 	@Override
-	public List<EmpleadoEducativo> listarPorEscuela(Long escuelaId, Boolean estado) {
+	public Page<EmpleadoEducativo> listarPorEscuela(
+			Long escuelaId,
+			Boolean estado,
+			Pageable pageable
+	) {
 
 		escuelaRepository.findById(escuelaId)
 				.orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
 
 		if (estado == null) {
-			return empleadoEducativoRepository.findByEscuelaId(escuelaId);
+			return empleadoEducativoRepository
+					.findByEscuelaId(escuelaId, pageable);
 		}
 
-		return empleadoEducativoRepository.findByEscuelaIdAndActivo(escuelaId, estado);
+		return empleadoEducativoRepository
+				.findByEscuelaIdAndActivo(escuelaId, estado, pageable);
 	}
 
 

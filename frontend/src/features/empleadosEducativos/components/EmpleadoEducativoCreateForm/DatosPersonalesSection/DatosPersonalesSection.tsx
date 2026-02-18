@@ -1,18 +1,19 @@
 import { Calendar, IdCard, User, UserRound } from "lucide-react";
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
 import FormInputField from "@/components/forms/FormInputField/FormInputField";
-import type { EmpleadoEducativoFormOutput } from "@/features/empleadosEducativos/form/empleadoEducativo.form.types";
-import FormSection from "@/components/FormSection";
+
 import styles from "@/components/FormSection/FormSection.module.scss";
+import type { EmpleadoEducativoCreateInput, EmpleadoEducativoCreateOutput } from "@/features/empleadosEducativos/form/empleadoEducativo.form.types";
+import FormSection from "@/components/FormSection";
 
 type Props = {
-	register: UseFormRegister<EmpleadoEducativoFormOutput>;
-	errors: FieldErrors<EmpleadoEducativoFormOutput>;
+	register: UseFormRegister<EmpleadoEducativoCreateInput>;
+	errors: FieldErrors<EmpleadoEducativoCreateOutput>;
 };
 
 export default function DatosPersonalesSection({ register, errors }: Props) {
 	return (
-		<FormSection title="DATOS PERSONALES">
+		<FormSection title="DATOS PERSONALES" layout="column">
 			<FormInputField
 				label={
 					<>

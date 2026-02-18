@@ -20,12 +20,20 @@ export const asistenciasQueryKeys = {
 			mes,
 		] as const,
 
-	empleadosPorFecha: (fecha: string, roles: string[], query: string) =>
+	empleadosPorFecha: (
+		fecha: string,
+		roles: string[],
+		query: string,
+		page: number,
+		size: number,
+	) =>
 		[
 			...asistenciasQueryKeys.all,
 			"empleados",
 			fecha,
-			[...roles].sort(),
+			[...roles].sort(), // 🔥 estabilidad
 			query,
+			page,
+			size,
 		] as const,
 };
