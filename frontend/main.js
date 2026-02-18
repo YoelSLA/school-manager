@@ -13,7 +13,6 @@ function createWindow() {
 		resizable: true,
 		maximizable: true,
 		autoHideMenuBar: !isDev,
-		icon: path.join(__dirname, "build/school.ico"),
 		webPreferences: {
 			contextIsolation: false,
 			nodeIntegration: true,
