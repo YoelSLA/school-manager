@@ -5,12 +5,14 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "start": "electron .",
+    "electron:start": "electron .",
+    "electron:pack": "electron-builder --dir",
+    "electron:dist": "electron-builder",
     "electron:build": "vite build && electron-builder"
   },
-  "author": "",
+  "author": "Yoel Lucas Ventoso",
   "license": "ISC",
-  "description": "",
+  "description": "Aplicación de escritorio para la gestión integral de instituciones educativas",
   "build": {
     "appId": "com.gestionescolar.app",
     "productName": "Sistema de Gestión Escolar",
@@ -25,7 +27,7 @@
     ],
     "win": {
       "target": "nsis",
-      "icon": "build/icon.ico"
+      "icon": "build/school.ico"
     },
     "publish": [
       {
