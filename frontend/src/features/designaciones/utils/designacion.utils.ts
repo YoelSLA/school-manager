@@ -41,4 +41,8 @@ export const ORIENTACIONES = [
 		value: "Bachiller en Economía y Administración",
 		label: "Bachiller en Economía y Administración",
 	},
+	{
+		value: "Bachiller de Ciclo Básico",
+		label: "Bachiller de Ciclo Básico",
+	},
 ] as const;

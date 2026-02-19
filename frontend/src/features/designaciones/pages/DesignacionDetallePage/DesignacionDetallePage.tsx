@@ -4,7 +4,7 @@ import PageLayout from "@/layout/PageLayout/PageLayout";
 import CrearAsignacionModal from "@/features/asignaciones/components/CrearAsignacionModal/CrearAsgnacionModal";
 import useDesignacion from "../../hooks/useDesignacion";
 import { useCargosDesignacion } from "../../hooks/useCargosDesignacion";
-import { useCargoActivo } from "../../hooks/useCargoActivo";
+import { useCargoActivo } from "../../../asignaciones/hooks/useCargoActivo";
 import DesignacionHeaderInfo from "./DesignacionHeaderInfo/DesignacionHeaderInfo";
 import DesignacionHorarios from "./DesignacionHorarios";
 import DesignacionCargosHistorial from "./DesignacionCargosHistorial/DesignacionCargosHistorial";

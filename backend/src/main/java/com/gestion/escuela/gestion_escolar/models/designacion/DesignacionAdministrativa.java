@@ -8,11 +8,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "designaciones_administrativas")
+@Table(name = "designacion_administrativa")
 @Getter
 @Setter
 public class DesignacionAdministrativa extends Designacion {
-	
+
 	protected DesignacionAdministrativa() {
 	}
 

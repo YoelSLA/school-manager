@@ -12,7 +12,7 @@ import { useCrearDesignacionCurso } from "../../hooks/useCrearDesignacionCurso";
 import type { TipoDesignacion } from "../../types/designacion.types";
 import AdministrativaForm from "../../components/AdministrativaForm/AdministrativaForm";
 import styles from "./DesignacionCreatePage.module.scss";
-import DesignacionTabs from "./DesignacionTabs";
+import DesignacionTabs from "./DesignacionTabs/DesignacionTabs";
 import CursoForm from "../../components/CursoForm/CursoForm";
 
 export default function DesignacionCreatePage() {

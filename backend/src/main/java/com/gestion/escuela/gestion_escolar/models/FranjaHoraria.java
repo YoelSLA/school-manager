@@ -10,7 +10,7 @@ import lombok.Setter;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "franjas_horarias")
+@Table(name = "franja_horaria")
 @Getter
 @Setter
 public class FranjaHoraria {

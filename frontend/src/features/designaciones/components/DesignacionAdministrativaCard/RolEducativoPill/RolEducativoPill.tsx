@@ -1,16 +1,17 @@
 import { Briefcase } from "lucide-react";
-import type { rolEducativoLabels } from "../../../utils/designacion.badges";
+import type { RolEducativo } from "@/features/designaciones/types/designacion.types";
 import styles from "./RolEducativoPill.module.scss";
+import { ROL_EDUCATIVO_LABELS } from "@/utils";
 
 type Props = {
-	rolEducativo: keyof typeof rolEducativoLabels;
+	rolEducativo: RolEducativo;
 };
 
 export default function RolEducativoPill({ rolEducativo }: Props) {
 	return (
 		<span className={styles.pill}>
 			<Briefcase size={16} />
-			{rolEducativo.toLocaleUpperCase()}
+			{ROL_EDUCATIVO_LABELS[rolEducativo]}
 		</span>
 	);
 }

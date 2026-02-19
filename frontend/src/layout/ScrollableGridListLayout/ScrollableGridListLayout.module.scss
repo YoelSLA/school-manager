@@ -18,23 +18,24 @@
 
 @include desktop-width-small {
 	.listLayout {
-		padding: 8px;
+		padding: 0 8px;
 
 		&__grid {
 			grid-template-columns: repeat(4, 1fr);
-			gap: 4px;
+			gap: 8px;
 			grid-auto-rows: 250px;
+			// background-color: black;
 		}
 	}
 }
 
 @include desktop-width-medium {
 	.listLayout {
-		padding: 4px;
+		padding: 0 12px;
 
 		&__grid {
 			grid-template-columns: repeat(4, 1fr);
-			gap: 4px;
+			gap: 12px;
 			grid-auto-rows: 280px;
 		}
 	}
@@ -42,12 +43,12 @@
 
 @include desktop-width-large {
 	.listLayout {
-		padding: 4px;
+		padding: 0 16px;
 
 		&__grid {
 			grid-template-columns: repeat(5, 1fr);
-			gap: 4px;
-			grid-auto-rows: 360px;
+			gap: 16px;
+			grid-auto-rows: 350px;
 		}
 	}
 }

@@ -5,10 +5,11 @@
   display: flex;
   flex-direction: column;
   padding-top: 0;
-  gap: 8px; // base (medium por defecto)
+  gap: 8px;
 
   &__breadcrumb {
     flex-shrink: 0;
+    // background-color: coral;
   }
 
   &__content {
@@ -21,10 +22,6 @@
   }
 }
 
-/* ======================================================
-   📏 DESKTOP HEIGHT SMALL
-====================================================== */
-
 @include desktop-height-small {
   .page-layout {
     gap: 4px;
@@ -35,10 +32,6 @@
   }
 }
 
-/* ======================================================
-   📏 DESKTOP HEIGHT MEDIUM
-====================================================== */
-
 @include desktop-height-medium {
   .page-layout {
     gap: 8px;
@@ -48,10 +41,6 @@
     gap: 8px;
   }
 }
-
-/* ======================================================
-   📏 DESKTOP HEIGHT LARGE
-====================================================== */
 
 @include desktop-height-large {
   .page-layout {

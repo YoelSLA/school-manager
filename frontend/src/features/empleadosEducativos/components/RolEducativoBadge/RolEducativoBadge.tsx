@@ -7,7 +7,6 @@ type Props = {
 };
 
 export default function RolEducativoBadge({ value }: Props) {
-  console.log(value, ROL_EDUCATIVO_LABELS[value]);
   const label = ROL_EDUCATIVO_LABELS[value];
 
   return (

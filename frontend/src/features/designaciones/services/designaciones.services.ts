@@ -10,9 +10,10 @@ import type {
 	EstadoCargo,
 } from "../types/designacion.types";
 import type { PageResponse } from "@/utils/types";
+import { AsignacionDetalleDTO } from "@/features/asignaciones/types/asignacion.types";
 
 /* ======================
-   Crear
+	 Crear
 ====================== */
 
 export async function crearDesignacionAdministrativa(
@@ -30,7 +31,7 @@ export async function crearDesignacionCurso(
 }
 
 /* ======================
-   Listar
+	 Listar
 ====================== */
 
 export async function listarDesignacionesAdministrativas(
@@ -63,7 +64,7 @@ export async function listarDesignacionesCursos(
 }
 
 /* ======================
-   Detalle
+	 Detalle
 ====================== */
 
 export const obtenerDesignacionDetalle = async (
@@ -77,7 +78,7 @@ export const obtenerDesignacionDetalle = async (
 };
 
 /* ======================
-   Cargos
+	 Cargos
 ====================== */
 
 export async function listarCargosPorDesignacion(
@@ -91,8 +92,10 @@ export async function listarCargosPorDesignacion(
 	return data;
 }
 
-export async function obtenerCargoActivo(designacionId: number) {
-	const { data } = await http.get(
+export async function obtenerCargoActivo(
+	designacionId: number,
+): Promise<AsignacionDetalleDTO> {
+	const { data } = await http.get<AsignacionDetalleDTO>(
 		`/designaciones/${designacionId}/cargo-activo`,
 	);
 
@@ -100,7 +103,7 @@ export async function obtenerCargoActivo(designacionId: number) {
 }
 
 /* ======================
-   Cubrir
+	 Cubrir
 ====================== */
 
 export const cubrirConTitular = async (

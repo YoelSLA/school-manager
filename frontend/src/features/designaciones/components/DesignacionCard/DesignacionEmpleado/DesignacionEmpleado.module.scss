@@ -1,0 +1,104 @@
+@use "@/styles/breakpoints" as *;
+
+.persona {
+  display: flex;
+  justify-content: space-around;
+  gap: 6px;
+  width: 100%;
+}
+
+/* Badge arriba a la izquierda */
+.badgeWrapper {
+  display: flex;
+}
+
+/* Bloque info alineado a la derecha */
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nombre {
+  font-weight: 500;
+}
+
+.cuil {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ===============================
+   HEIGHT SMALL
+================================ */
+
+@include desktop-height-small {
+
+  .persona {
+    gap: 2px;
+  }
+
+  .line {
+    gap: 4px;
+  }
+
+  .nombre {
+    font-size: 12px;
+  }
+
+  .cuil {
+    font-size: 11px;
+  }
+}
+
+/* ===============================
+   HEIGHT MEDIUM
+================================ */
+
+@include desktop-height-medium {
+
+  .persona {
+    gap: 4px;
+  }
+
+  .line {
+    gap: 6px;
+  }
+
+  .nombre {
+    font-size: 13px;
+  }
+
+  .cuil {
+    font-size: 12px;
+  }
+}
+
+/* ===============================
+   HEIGHT LARGE
+================================ */
+
+@include desktop-height-large {
+
+  .persona {
+    gap: 6px;
+  }
+
+  .line {
+    gap: 8px;
+  }
+
+  .nombre {
+    font-size: 14px;
+  }
+
+  .cuil {
+    font-size: 13px;
+  }
+}

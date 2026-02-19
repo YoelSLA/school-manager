@@ -1,4 +1,5 @@
 import type { TipoDesignacion } from "@/features/designaciones/types/designacion.types";
+import Button from "@/components/Button/Button";
 import styles from "./DesignacionTabs.module.scss";
 
 type Props = {
@@ -9,25 +10,22 @@ type Props = {
 export default function DesignacionTabs({ value, onChange }: Props) {
 	return (
 		<div className={styles["designacion-create__tabs"]}>
-			<button
-				type="button"
-				className={`${styles["designacion-create__tab"]} ${
-					value === "CURSO" ? styles["designacion-create__tab--active"] : ""
-				}`}
-				onClick={() => onChange("CURSO")}
-			>
-				Curso
-			</button>
-
-			<button
-				type="button"
-				className={`${styles["designacion-create__tab"]} ${
-					value === "ADMIN" ? styles["designacion-create__tab--active"] : ""
-				}`}
+			<Button
+				variant="filter"
+				active={value === "ADMIN"}
 				onClick={() => onChange("ADMIN")}
+				className={styles["designacion-create__tab"]}
 			>
 				Administrativa
-			</button>
+			</Button>
+			<Button
+				variant="filter"
+				active={value === "CURSO"}
+				onClick={() => onChange("CURSO")}
+				className={styles["designacion-create__tab"]}
+			>
+				Curso
+			</Button>
 		</div>
 	);
 }

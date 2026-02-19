@@ -97,7 +97,6 @@ export default function CursosPage() {
 		curso: CursoResponseDTO,
 	) => {
 		// si querés mantener navegación futura
-		console.log("Ver detalle:", curso.id);
 	};
 
 	/* =========================
@@ -119,13 +118,11 @@ export default function CursosPage() {
 					/>
 				}
 				pagination={
-					totalPages > 1 ? (
-						<Pagination
-							page={page}
-							totalPages={totalPages}
-							onChange={setPage}
-						/>
-					) : undefined
+					<Pagination
+						page={page}
+						totalPages={totalPages}
+						onChange={setPage}
+					/>
 				}
 			>
 				<CursosList

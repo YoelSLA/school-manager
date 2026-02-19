@@ -1,7 +1,6 @@
 import type { DesignacionAdministrativaResumenDTO } from "../../types/designacion.types";
 import DesignacionCard from "../DesignacionCard";
-import DesignacionCardHorarios from "../DesignacionCard/DesignacionCardHorarios";
-import styles from "./DesignacionAdministrativaCard.module.scss";
+import RolEducativoPill from "./RolEducativoPill";
 
 type Props = {
 	designacion: DesignacionAdministrativaResumenDTO;
@@ -14,17 +13,14 @@ export default function DesignacionAdministrativaCard({
 }: Props) {
 	return (
 		<DesignacionCard
+			designacionId={designacion.id}
+			franjasCount={designacion.franjasHorarias.length}
 			cupof={designacion.cupof}
 			estadoDesignacion={designacion.estadoDesignacion}
 			rolEducativo={designacion.rolEducativo}
-			viewTransitionName={`designacion-${designacion.cupof}`}
 			onVerDetalle={() => onVerDetalle(designacion.id)}
 		>
-			<div className={styles.centerRow}>
-				<DesignacionCardHorarios
-					franjasCount={designacion.franjasHorarias.length}
-				/>
-			</div>
+			<RolEducativoPill rolEducativo={designacion.rolEducativo} />
 		</DesignacionCard>
 	);
 }

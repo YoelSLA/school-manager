@@ -17,7 +17,6 @@ export default function EmpleadoEducativoCard({
 	onVerDetalle,
 }: Props) {
 	const { apellido, nombre, cuil, activo, fechaDeIngreso } = empleado;
-	console.log(fechaDeIngreso, "FECHA DE INGRESO")
 	const { texto, tieneFecha } = formatFechaIngreso(fechaDeIngreso);
 
 	/* =====================

@@ -8,11 +8,11 @@ export const FILTROS_CURSOS: {
 	label: string;
 	value: CursoFiltro;
 }[] = [
-	{ label: "Todos", value: "TODOS" },
-	{ label: "Mañana", value: "MANIANA" },
-	{ label: "Tarde", value: "TARDE" },
-	{ label: "Vespertino", value: "VESPERTINO" },
-];
+		{ label: "Todos", value: "TODOS" },
+		{ label: "Mañana", value: "MANIANA" },
+		{ label: "Tarde", value: "TARDE" },
+		{ label: "Vespertino", value: "VESPERTINO" },
+	];
 
 export const filtrosCursos: Record<
 	CursoFiltro,
@@ -27,7 +27,7 @@ export const filtrosCursos: Record<
 export const TURNO_LABELS: Record<string, string> = {
 	MANIANA: "Mañana",
 	TARDE: "Tarde",
-	NOCHE: "Noche",
+	VESPERTINO: "Vespertino",
 };
 
 export const ORDEN_TURNO: Record<string, number> = {

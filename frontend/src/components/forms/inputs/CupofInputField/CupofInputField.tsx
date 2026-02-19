@@ -18,11 +18,9 @@ export default function CupofInputField<T extends FieldValues>({
 		<FormInputField<T>
 			label="CUPOF"
 			name={name}
-			type="number"
 			register={register}
 			error={error}
 			inputProps={{ min: 1 }}
 		/>
-
 	);
 }

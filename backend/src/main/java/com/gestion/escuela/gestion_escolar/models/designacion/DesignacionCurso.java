@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "designaciones_cursos")
+@Table(name = "designacion_curso")
 @Getter
 @Setter
 public class DesignacionCurso extends Designacion {

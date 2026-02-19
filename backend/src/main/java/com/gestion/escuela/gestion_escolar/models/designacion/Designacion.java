@@ -24,7 +24,7 @@ import java.util.*;
 
 @Entity
 @Table(
-		name = "designaciones",
+		name = "designacion",
 		uniqueConstraints = {
 				@UniqueConstraint(columnNames = {"escuela_id", "cupof"})
 		}

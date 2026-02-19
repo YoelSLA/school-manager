@@ -1,20 +1,82 @@
+@use "@/styles/breakpoints" as *;
+
+/* =========================
+   BASE
+========================= */
+
 .header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	width: 100%;
 }
 
-/* CUPOF */
 .cupof {
 	display: flex;
 	align-items: center;
-	gap: 8px;
+	gap: 6px;
 
-	font-size: 1.1rem;
 	font-weight: 600;
 	color: #111827;
 
 	svg {
-		color: #6b7280;
+		color: #9ca3af;
+	}
+}
+
+/* =========================
+   SMALL HEIGHT
+========================= */
+
+@include desktop-height-small {
+	.header {
+		height: 36px;
+	}
+
+	.cupof {
+		font-size: 0.9rem;
+
+		svg {
+			width: 14px;
+			height: 14px;
+		}
+	}
+}
+
+/* =========================
+   MEDIUM HEIGHT
+========================= */
+
+@include desktop-height-medium {
+	.header {
+		height: 40px;
+	}
+
+	.cupof {
+		font-size: 0.95rem;
+
+		svg {
+			width: 16px;
+			height: 16px;
+		}
+	}
+}
+
+/* =========================
+   LARGE HEIGHT
+========================= */
+
+@include desktop-height-large {
+	.header {
+		height: 48px;
+	}
+
+	.cupof {
+		font-size: 1rem;
+
+		svg {
+			width: 18px;
+			height: 18px;
+		}
 	}
 }

@@ -1,23 +1,74 @@
+@use "@/styles/breakpoints" as *;
+
 .horarios {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
+	justify-content: center;
 
-	padding: 4px 10px;
+
 	border-radius: 999px;
-
-	font-size: 13px;
 	font-weight: 500;
 
 	color: #6b7280;
-	background: #f9fafb;
-
-	&__icon {
-		font-size: 14px;
-		line-height: 1;
-	}
+	background: #f3f4f6;
 
 	&__text {
 		white-space: nowrap;
+	}
+
+	&__icon {
+		flex-shrink: 0;
+	}
+}
+
+/* =========================
+   SMALL (100px card)
+========================= */
+
+@include desktop-height-small {
+	.horarios {
+		padding: 3px 8px;
+		font-size: 12px;
+		gap: 4px;
+	}
+
+	.horarios__icon {
+		width: 12px;
+		height: 12px;
+	}
+}
+
+/* =========================
+   MEDIUM (120px card)
+========================= */
+
+@include desktop-height-medium {
+	.horarios {
+		padding: 4px 10px;
+		font-size: 13px;
+		gap: 6px;
+	}
+
+	.horarios__icon {
+		width: 14px;
+		height: 14px;
+	}
+}
+
+/* =========================
+   LARGE (140px card)
+========================= */
+
+@include desktop-height-large {
+	.horarios {
+		padding: 5px 12px;
+		font-size: 14px;
+		gap: 8px;
+	}
+
+	.horarios__icon {
+		width: 16px;
+		height: 16px;
 	}
 }

@@ -1,0 +1,74 @@
+@use "@/styles/breakpoints" as *;
+
+/* =========================
+   BASE
+========================= */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  border-radius: 999px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  background: #eef2ff;
+  color: #3730a3;
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+/* =========================
+   SMALL (100px card)
+========================= */
+
+@include desktop-height-small {
+  .pill {
+    padding: 20px;
+    font-size: 12px;
+    gap: 4px;
+  }
+
+  .pill svg {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* =========================
+   MEDIUM (120px card)
+========================= */
+
+@include desktop-height-medium {
+  .pill {
+    padding: 24px;
+    font-size: 16px;
+    gap: 6px;
+  }
+
+  .pill svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+/* =========================
+   LARGE (140px card)
+========================= */
+
+@include desktop-height-large {
+  .pill {
+    padding: 28px;
+    font-size: 20px;
+    gap: 8px;
+  }
+
+  .pill svg {
+    width: 16px;
+    height: 16px;
+  }
+}
