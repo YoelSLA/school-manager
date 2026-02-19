@@ -72,6 +72,12 @@
       background: var(--primary-600);
       color: white;
       border-color: var(--primary-600);
+      cursor: default;
+
+      &:hover {
+        background: var(--primary-600);
+        border-color: var(--primary-600);
+      }
     }
   }
 }

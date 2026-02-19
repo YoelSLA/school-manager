@@ -4,58 +4,83 @@ import type {
 	RolEducativo,
 } from "../../types/designacion.types";
 import styles from "./DesignacionCard.module.scss";
-import DesignacionCardActions from "./DesignacionCardActions/DesignacionCardActions";
 import DesignacionCardHeader from "./DesignacionCardHeader/DesignacionCardHeader";
-import RolEducativoPill from "./RolEducativoPill/RolEducativoPill";
+import DesignacionEmpleado from "./DesignacionEmpleado";
+import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
+import DesignacionCardHorarios from "./DesignacionCardHorarios";
 
 type Props = {
+	designacionId: number; // 👈 ahora obligatorio
+	franjasCount: number;
 	cupof: number;
 	estadoDesignacion: EstadoDesignacion;
 	rolEducativo: RolEducativo;
 	onVerDetalle: () => void;
 	children: React.ReactNode;
-	viewTransitionName?: string;
 };
 
 export default function DesignacionCard({
+	designacionId,
+	franjasCount,
 	cupof,
 	estadoDesignacion,
-	rolEducativo,
 	children,
 	onVerDetalle,
-	viewTransitionName,
 }: Props) {
-	const status = estadoDesignacion === "CUBIERTA" ? "success" : "danger";
+
+	const { cargoActivo } = useCargoActivo(designacionId);
+
+	console.log(cargoActivo)
+
+	const empleado = cargoActivo
+		? {
+			nombre: cargoActivo.empleado.nombre,
+			apellido: cargoActivo.empleado.apellido,
+			cuil: cargoActivo.empleado.cuil,
+			situacionDeRevista: cargoActivo.situacionDeRevista
+
+		}
+		: undefined;
+
+	const status =
+		estadoDesignacion === "CUBIERTA" ? "success" : "danger";
 
 	return (
 		<Card
-			padded
 			clickable
 			status={status}
 			className={styles.card}
-			viewTransitionName={viewTransitionName}
 			onClick={onVerDetalle}
 		>
-			<DesignacionCardHeader
-				cupof={cupof}
-				estadoDesignacion={estadoDesignacion}
-			/>
-
-			<CardDivider />
-
-			<div className={styles.centerRow}>
-				<RolEducativoPill rolEducativo={rolEducativo} />
+			{/* HEADER */}
+			<div className={styles.sectionHeader}>
+				<DesignacionCardHeader
+					cupof={cupof}
+					estadoDesignacion={estadoDesignacion}
+				/>
 			</div>
 
 			<CardDivider />
 
-			{/* CONTENIDO VARIABLE */}
-			{children}
+			{/* PERSONA */}
+			<div className={styles.sectionEmpleado}>
+				<DesignacionEmpleado
+					empleado={empleado}
+				/>
+			</div>
 
 			<CardDivider />
 
-			{/* SOLO AFFORDANCE VISUAL */}
-			<DesignacionCardActions />
+			<div className={styles.sectionContent}>
+				{children}
+			</div>
+
+			<CardDivider />
+
+
+			<div className={styles.sectionHorarios}>
+				<DesignacionCardHorarios franjasCount={franjasCount} />
+			</div>
 		</Card>
 	);
 }

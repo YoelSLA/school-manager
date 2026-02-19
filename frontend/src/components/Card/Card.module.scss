@@ -98,7 +98,7 @@
 @include desktop-height-small {
   .card {
     height: 250px;
-    padding: 12px;
+    padding: 6px 12px;
   }
 
 }
@@ -106,7 +106,7 @@
 @include desktop-height-medium {
   .card {
     height: 280px;
-    padding: 16px;
+    padding: 8px 16px;
   }
 
 }
@@ -114,7 +114,7 @@
 @include desktop-height-large {
   .card {
     height: 350px;
-    padding: 20px;
+    padding: 10px 20px;
   }
 
 }

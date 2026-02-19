@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 public abstract class CaracteristicaAsignacion {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	public abstract void validarAplicacion(Asignacion asignacion);

@@ -18,7 +18,7 @@ import java.util.List;
 public class Escuela {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String direccion;

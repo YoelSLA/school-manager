@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(
-		name = "empleados_educativos",
+		name = "empleado_educativo",
 		uniqueConstraints = {
 				@UniqueConstraint(columnNames = {"cuil", "escuela_id"}),
 				@UniqueConstraint(columnNames = {"email", "escuela_id"})
@@ -42,8 +42,8 @@ public class EmpleadoEducativo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	private Long id;
+
 	@ManyToOne(optional = false)
 
 	@JoinColumn(name = "escuela_id")

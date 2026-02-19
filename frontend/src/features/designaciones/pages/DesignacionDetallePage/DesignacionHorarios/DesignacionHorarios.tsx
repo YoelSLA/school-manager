@@ -8,7 +8,20 @@ type Props = {
 };
 
 export default function DesignacionHorarios({ franjas }: Props) {
-	const franjasPorDia = franjas.reduce<
+	// 🔥 1️⃣ Ordenamos TODAS las franjas primero
+	const franjasOrdenadas = [...franjas].sort((a, b) => {
+		// primero por día según DIAS_SEMANA
+		const ordenDia =
+			DIAS_SEMANA.indexOf(a.dia) - DIAS_SEMANA.indexOf(b.dia);
+
+		if (ordenDia !== 0) return ordenDia;
+
+		// luego por horaDesde
+		return a.horaDesde.localeCompare(b.horaDesde);
+	});
+
+	// 🔥 2️⃣ Agrupamos ya ordenadas
+	const franjasPorDia = franjasOrdenadas.reduce<
 		Record<string, FranjaHorariaMinimoDTO[]>
 	>((acc, franja) => {
 		acc[franja.dia] ??= [];

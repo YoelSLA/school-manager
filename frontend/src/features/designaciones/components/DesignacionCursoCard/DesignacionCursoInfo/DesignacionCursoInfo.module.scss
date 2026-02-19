@@ -1,0 +1,216 @@
+@use "@/styles/breakpoints" as *;
+
+@use "@/styles/breakpoints" as *;
+
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+  height: 100%;
+  width: 100%;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.item svg {
+  flex-shrink: 0;
+}
+
+/* 🎨 Colores por tipo */
+
+.materia svg {
+  color: #2563eb; // azul
+}
+
+.curso svg {
+  color: #16a34a; // verde
+}
+
+.orientacion svg {
+  color: #7c3aed; // violeta
+}
+
+.materia {
+  align-items: start;
+}
+
+.materia .value {
+  line-height: 1.2;
+  height: calc(1.2em * 2);
+  overflow: hidden;
+  width: 100%;
+}
+
+/* =========================
+   SMALL (100px)
+========================= */
+
+@include desktop-height-small {
+  .body {
+    padding: 4px;
+  }
+
+  .item svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .value {
+    font-size: 13px;
+  }
+
+  .valueEmphasis {
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
+/* =========================
+   MEDIUM (120px)
+========================= */
+
+@include desktop-height-medium {
+
+  .body {
+    padding: 8px;
+  }
+
+  .item svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .value {
+    font-size: 14px;
+  }
+
+  .valueEmphasis {
+    font-size: 15px;
+    font-weight: 600;
+  }
+}
+
+/* =========================
+   LARGE (140px)
+========================= */
+
+@include desktop-height-large {
+
+  .body {
+    padding: 12px;
+  }
+
+  .item svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .value {
+    font-size: 15px;
+  }
+
+  .valueEmphasis {
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.item svg {
+  flex-shrink: 0;
+}
+
+/* 🎨 Colores por tipo */
+
+.materia svg {
+  color: #2563eb; // azul
+}
+
+.curso svg {
+  color: #16a34a; // verde
+}
+
+.orientacion svg {
+  color: #7c3aed; // violeta
+}
+
+.materia {
+  align-items: start;
+}
+
+.materia .value {
+  line-height: 1.2;
+  height: calc(1.2em * 2);
+  overflow: hidden;
+  width: 100%;
+}
+
+/* =========================
+   SMALL (100px)
+========================= */
+
+@include desktop-height-small {
+  .item svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .value {
+    font-size: 13px;
+  }
+
+  .valueEmphasis {
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
+/* =========================
+   MEDIUM (120px)
+========================= */
+
+@include desktop-height-medium {
+  .item svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .value {
+    font-size: 14px;
+  }
+
+  .valueEmphasis {
+    font-size: 15px;
+    font-weight: 600;
+  }
+}
+
+/* =========================
+   LARGE (140px)
+========================= */
+
+@include desktop-height-large {
+  .item svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .value {
+    font-size: 15px;
+  }
+
+  .valueEmphasis {
+    font-size: 16px;
+    font-weight: 600;
+  }
+}

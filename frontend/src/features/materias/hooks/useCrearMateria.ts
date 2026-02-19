@@ -17,15 +17,9 @@ export function useCrearMateria(escuelaId?: number) {
 		onSuccess: () => {
 			if (!escuelaId) return;
 
-			// 🧾 Listado completo
 			queryClient.invalidateQueries({
-				queryKey: materiasQueryKeys.byEscuela(escuelaId),
+				queryKey: materiasQueryKeys.all,
 			});
-
-			// 🎯 Selects / combos
-			queryClient.invalidateQueries({
-				queryKey: materiasQueryKeys.selectByEscuela(escuelaId),
-			});
-		},
+		}
 	});
 }

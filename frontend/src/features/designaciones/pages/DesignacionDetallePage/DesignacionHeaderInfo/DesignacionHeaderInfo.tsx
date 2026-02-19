@@ -2,7 +2,6 @@ import styles from "./DesignacionHeaderInfo.module.scss";
 import Badge from "@/components/Badge";
 import {
 	ESTADO_DESIGNACION_BADGE,
-	rolEducativoLabels,
 } from "@/features/designaciones/utils/designacion.badges";
 
 import type { DesignacionDetalleDTO } from "../../../types/designacion.types";
@@ -39,9 +38,9 @@ export default function DesignacionHeaderInfo({ designacion }: Props) {
 						#{cupof}
 					</span>
 
-					<h2 className={styles["designacion-header-info__rol"]}>
+					{/* <h2 className={styles["designacion-header-info__rol"]}>
 						{rolEducativoLabels[rolEducativo]}
-					</h2>
+					</h2> */}
 				</div>
 
 				{/* CENTRO */}

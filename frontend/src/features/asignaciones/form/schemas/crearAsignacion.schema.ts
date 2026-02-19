@@ -18,6 +18,6 @@ export const crearAsignacionSchema = z.object({
 		message: "La fecha de toma de posesión es obligatoria",
 	}),
 
-	caracteristica: z.enum(CaracteristicaAsignacion).optional(),
+	caracteristica: z.nativeEnum(CaracteristicaAsignacion).optional(),
 	usarFechaHoy: z.boolean().optional(),
 });
