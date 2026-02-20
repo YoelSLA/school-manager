@@ -15,7 +15,7 @@ spring:
 
   flyway:
     enabled: true
-    baseline-on-migrate: true
+    baseline-on-migrate: false
 
   jackson:
     time-zone: America/Argentina/Buenos_Aires
