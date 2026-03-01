@@ -1,7 +1,15 @@
-import z from "zod";
+import { z } from "zod";
+
+/* =========================
+	 Regex
+========================= */
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const cuilRegex = /^\d{2}-\d{8}-\d{1}$/;
+
+/* =========================
+	 Helpers
+========================= */
 
 const capitalizarNombre = (valor: string) =>
 	valor
@@ -9,38 +17,68 @@ const capitalizarNombre = (valor: string) =>
 		.toLowerCase()
 		.replace(/\b\p{L}/gu, (c) => c.toUpperCase());
 
-export const crearEmpleadoEducativoSchema = z.object({
-	cuil: z
-		.string()
-		.min(1, "El CUIL es obligatorio")
-		.regex(cuilRegex, "El CUIL debe tener el formato XX-XXXXXXXX-X"),
+/* =========================
+	 Schemas individuales
+========================= */
 
-	nombre: z
-		.string()
-		.min(1, "El nombre es obligatorio")
-		.regex(/^[\p{L}\s]+$/u, "Solo letras")
-		.transform(capitalizarNombre),
+export const cuilSchema = z
+	.string()
+	.min(1, "El CUIL es obligatorio")
+	.regex(cuilRegex, "El CUIL debe tener el formato XX-XXXXXXXX-X");
 
-	apellido: z
-		.string()
-		.min(1, "El apellido es obligatorio")
-		.regex(/^[\p{L}\s]+$/u, "Solo letras")
-		.transform(capitalizarNombre),
+export const nombreSchema = z
+	.string()
+	.min(1, "El nombre es obligatorio")
+	.regex(/^[\p{L}\s]+$/u, "Solo letras")
+	.transform(capitalizarNombre);
 
-	domicilio: z.string().optional(),
+export const apellidoSchema = z
+	.string()
+	.min(1, "El apellido es obligatorio")
+	.regex(/^[\p{L}\s]+$/u, "Solo letras")
+	.transform(capitalizarNombre);
 
-	telefono: z.string().optional(),
+export const domicilioSchema = z.string().optional();
 
-	email: z
-		.string()
-		.min(1, "El email es obligatorio")
-		.regex(emailRegex, "El email no tiene un formato válido"),
+export const telefonoSchema = z.string().optional();
 
-	fechaDeNacimiento: z.string().min(1, "La fecha de nacimiento es obligatoria"),
+export const emailSchema = z
+	.string()
+	.min(1, "El email es obligatorio")
+	.regex(emailRegex, "El email no tiene un formato válido");
 
-	fechaDeIngreso: z
-		.string()
-		.optional()
-		.or(z.literal(""))
-		.transform((val) => (val === "" ? undefined : val)),
+export const fechaObligatoriaSchema = z.iso.date({
+	message: "Debe tener formato YYYY-MM-DD",
 });
+
+export const fechaOpcionalSchema = z
+	.union([z.iso.date(), z.literal("")])
+	.optional()
+	.transform((val) => (val === "" ? undefined : val));
+
+/* =========================
+	 Schema compuesto
+========================= */
+
+export const crearEmpleadoEducativoSchema = z
+	.object({
+		cuil: cuilSchema,
+		nombre: nombreSchema,
+		apellido: apellidoSchema,
+		domicilio: domicilioSchema,
+		telefono: telefonoSchema,
+		email: emailSchema,
+		fechaDeNacimiento: fechaObligatoriaSchema,
+		fechaDeIngreso: fechaOpcionalSchema,
+	})
+	.refine(
+		(data) => {
+			if (!data.fechaDeIngreso) return true;
+			return data.fechaDeIngreso >= data.fechaDeNacimiento;
+		},
+		{
+			message:
+				"La fecha de ingreso no puede ser anterior a la fecha de nacimiento",
+			path: ["fechaDeIngreso"],
+		}
+	);

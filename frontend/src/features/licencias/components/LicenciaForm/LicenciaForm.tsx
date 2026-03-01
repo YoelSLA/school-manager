@@ -15,10 +15,13 @@ type Props = {
 };
 
 export default function LicenciaForm({ onSubmit, error, isSubmitting }: Props) {
+
 	const {
 		form: {
 			register,
 			handleSubmit,
+			watch,
+			setValue,
 			formState: { errors },
 		},
 	} = useLicenciaForm();
@@ -33,7 +36,11 @@ export default function LicenciaForm({ onSubmit, error, isSubmitting }: Props) {
 		}
 
 		setEmpleadoError(null);
-		await onSubmit(empleadoId, data);
+
+		await onSubmit(empleadoId, {
+			...data,
+			fechaHasta: data.fechaHasta || undefined,
+		});
 	};
 
 	return (
@@ -66,6 +73,8 @@ export default function LicenciaForm({ onSubmit, error, isSubmitting }: Props) {
 					<section className={styles["licencia-form__right"]}>
 						<LicenciaDatosSection
 							register={register}
+							watch={watch}
+							setValue={setValue}
 							errors={errors}
 						/>
 					</section>

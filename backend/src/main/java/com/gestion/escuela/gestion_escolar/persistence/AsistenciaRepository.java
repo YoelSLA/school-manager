@@ -6,17 +6,19 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface AsistenciaRepository extends JpaRepository<Asistencia, Long> {
 
 	List<Asistencia> findByEmpleadoEducativoId(Long empleadoId);
 
-	Optional<Asistencia> findByEmpleadoEducativoIdAndFecha(Long empleadoId, LocalDate fecha);
-
 	List<Asistencia> findByEmpleadoEducativoIdAndFechaIn(Long empleadoId, List<LocalDate> fechas);
-	
-	List<Asistencia> findByEscuelaIdAndEmpleadoEducativoIdAndFechaBetween(Long escuelaId, Long empleadoId, LocalDate fechaDesde, LocalDate fechaHasta);
+
+	List<Asistencia> findByEmpleadoEducativoIdAndEscuelaIdAndFechaBetween(
+			Long empleadoId,
+			Long escuelaId,
+			LocalDate desde,
+			LocalDate hasta
+	);
 }
 

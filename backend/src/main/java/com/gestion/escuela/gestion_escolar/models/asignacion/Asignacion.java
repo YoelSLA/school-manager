@@ -2,22 +2,20 @@ package com.gestion.escuela.gestion_escolar.models.asignacion;
 
 import com.gestion.escuela.gestion_escolar.models.BajaAsignacion;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
-import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.Periodo;
 import com.gestion.escuela.gestion_escolar.models.caracteristicaAsignacion.CaracteristicaAsignacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista;
-import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
-import com.gestion.escuela.gestion_escolar.models.exceptions.asignacion.AsignacionYaAsociadaADesignacionException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 import com.gestion.escuela.gestion_escolar.models.exceptions.asignacion.AsignacionYaDadaDeBajaException;
-import com.gestion.escuela.gestion_escolar.models.exceptions.asignacion.AsignacionYaTieneCaracteristicaException;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDate;
+
+import static com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista.TITULAR;
 
 @Entity
 @Table(name = "asignacion")
@@ -26,28 +24,26 @@ import java.time.LocalDate;
 @Getter
 public abstract class Asignacion {
 
+	// =========================
+	// 🔹 CAMPOS
+	// =========================
+
 	@ManyToOne(optional = false)
 	protected EmpleadoEducativo empleadoEducativo;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	@ManyToOne(optional = false)
 	private Designacion designacion;
 
 	@Embedded
-	private BajaAsignacion bajaAsignacion;
-
-	@Embedded
 	private Periodo periodo;
 
-	@OneToOne(
-			cascade = CascadeType.ALL,
-			orphanRemoval = true
-	)
+	@Embedded
+	private BajaAsignacion bajaAsignacion;
+
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "caracteristica_id")
-	@Setter
 	private CaracteristicaAsignacion caracteristica;
 
 	protected Asignacion() {
@@ -55,139 +51,144 @@ public abstract class Asignacion {
 
 	public Asignacion(
 			EmpleadoEducativo empleadoEducativo,
+			Designacion designacion,
 			Periodo periodo
 	) {
-		validarCreacionAsignacion(empleadoEducativo, periodo);
+		validarCrearAsignacion(empleadoEducativo, designacion, periodo);
 		this.empleadoEducativo = empleadoEducativo;
+		this.designacion = designacion;
 		this.periodo = periodo;
 	}
 
-	public void asignarEmpleado(EmpleadoEducativo empleado) {
-		if (empleado == null) {
-			throw new CampoObligatorioException("empleado");
-		}
-		this.empleadoEducativo = empleado;
-	}
+	public void finalizarPorBajaDefinitiva(CausaBaja causaBaja, LocalDate fechaBaja) {
 
-	public void asignarADesignacion(Designacion designacion) {
-		if (designacion == null) {
-			throw new CampoObligatorioException("designación");
-		}
-		if (this.designacion != null) {
-			throw new AsignacionYaAsociadaADesignacionException();
-		}
-		this.designacion = designacion;
-	}
-
-	public void finalizarPorBajaDefinitiva(CausaBaja causa, LocalDate fecha) {
-		if (estaDadaDeBajaEn(fecha)) {
+		if (estaDadaDeBajaEn(fechaBaja)) {
 			throw new AsignacionYaDadaDeBajaException();
 		}
 
-		this.bajaAsignacion = new BajaAsignacion(fecha, causa);
+		this.darDeBajaEn(fechaBaja);
 
-		designacion.notificarBajaDefinitivaDe(this, fecha);
+		this.bajaAsignacion = new BajaAsignacion(fechaBaja, causaBaja);
+
+		if (this.puedeGenerarVacanteDefinitiva()) {
+			designacion.notificarBajaDefinitivaDe(this, fechaBaja);
+		}
+	}
+
+	public void asignarEmpleado(EmpleadoEducativo empleadoEducativo) {
+		Validaciones.noNulo(empleadoEducativo, "empleado educativo");
+		this.empleadoEducativo = empleadoEducativo;
 	}
 
 	public void aplicarCaracteristica(CaracteristicaAsignacion nueva) {
-		if (this.caracteristica != null) {
-			throw new AsignacionYaTieneCaracteristicaException();
-		}
-		nueva.validarAplicacion(this);
-		this.caracteristica = nueva;
-		nueva.alAsignarse(this);
+		throw new UnsupportedOperationException("Solo una asignación TITULAR puede tener característica");
 	}
 
-	@Transient
-	public EstadoAsignacion getEstadoEn(LocalDate fecha) {
+	public void darDeBajaEn(LocalDate fechaBaja) {
+		Validaciones.noNulo(fechaBaja, "fecha baja");
 
-		// 1. Baja manda siempre
-		if (bajaAsignacion != null && !fecha.isBefore(bajaAsignacion.getFechaBaja())) {
-			return EstadoAsignacion.BAJA;
+		if (!periodo.estaVigenteEn(fechaBaja)) {
+			throw new IllegalStateException("La asignación no está vigente en esa fecha");
 		}
 
-		// 2. Todavía no empezó
-		if (fecha.isBefore(periodo.getFechaDesde())) {
-			return EstadoAsignacion.PENDIENTE;
-		}
-
-		// 3. Finalizada (ya terminó)
-		if (periodo.getFechaHasta() != null && fecha.isAfter(periodo.getFechaHasta())) {
-			return EstadoAsignacion.FINALIZADA;
-		}
-
-		// 4. Licencia
-		if (estaEnLicenciaEn(fecha)) {
-			return EstadoAsignacion.LICENCIA;
-		}
-
-		// 5. Activa
-		return EstadoAsignacion.ACTIVA;
+		this.periodo = this.periodo.cerrarEn(fechaBaja);
 	}
 
-
-	@Transient
-	public LocalDate getFechaBaja() {
-		return bajaAsignacion != null ? bajaAsignacion.getFechaBaja() : null;
+	public boolean estaActivaEn(LocalDate fecha) {
+		return getEstadoEn(fecha) == EstadoAsignacion.ACTIVA;
 	}
 
-	@Transient
-	public CausaBaja getCausaBaja() {
-		return bajaAsignacion != null ? bajaAsignacion.getCausa() : null;
-	}
-
-	@Transient
-	public abstract SituacionDeRevista getSituacionDeRevista();
-
-	public boolean estaDadaDeBajaEn(LocalDate fecha) {
-		return bajaAsignacion != null
-				&& fecha != null
-				&& !fecha.isBefore(bajaAsignacion.getFechaBaja());
-	}
-
-	public boolean tieneCaracteristica() {
-		return caracteristica != null;
-	}
-
-	public boolean afectadaPor(Licencia licencia) {
-		return licencia != null && periodo.seSuperponeCon(licencia.getPeriodo());
-	}
-
-	public boolean cubreDesignacionEn(LocalDate fecha) {
-		return periodo.contiene(fecha) && !estaDadaDeBajaEn(fecha) && !estaEnLicenciaEn(fecha);
-	}
-
-	public boolean generaVacantePorLicenciaEn(LocalDate fecha) {
-		return periodo.contiene(fecha) && !estaDadaDeBajaEn(fecha) && estaEnLicenciaEn(fecha);
-	}
-
-	private boolean estaEnLicenciaEn(LocalDate fecha) {
-		return empleadoEducativo.getLicencias()
-				.stream()
-				.anyMatch(l -> l.estaVigenteEn(fecha) && afectadaPor(l));
-	}
-
-	private void validarCreacionAsignacion(EmpleadoEducativo empleadoEducativo, Periodo periodo) {
-		if (empleadoEducativo == null) {
-			throw new CampoObligatorioException("empleado educativo");
-		}
-		if (periodo == null) {
-			throw new CampoObligatorioException("período");
-		}
+	public boolean estaEnLicenciaEn(LocalDate fecha) {
+		return getEstadoEn(fecha) == EstadoAsignacion.LICENCIA;
 	}
 
 	public boolean puedeGenerarVacanteDefinitiva() {
 		return false;
 	}
 
-	public boolean estaActiva(LocalDate fecha) {
-		return !estaDadaDeBajaEn(fecha);
+	public boolean estaDadaDeBajaEn(LocalDate fecha) {
+		return bajaAsignacion != null && !fecha.isBefore(bajaAsignacion.getFechaBaja());
 	}
 
-	public boolean estaVigenteEn(LocalDate fecha) {
-		if (fecha == null)
-			return false;
+	public boolean tieneCaracteristica() {
+		return caracteristica != null;
+	}
 
-		return periodo.contiene(fecha) && !estaDadaDeBajaEn(fecha);
+	@Transient
+	public EstadoAsignacion getEstadoEn(LocalDate fecha) {
+		Validaciones.noNulo(fecha, "fecha");
+
+		if (bajaAsignacion != null && !fecha.isBefore(bajaAsignacion.getFechaBaja())) {
+			return EstadoAsignacion.BAJA;
+		}
+
+		if (fecha.isBefore(periodo.getFechaDesde())) {
+			return EstadoAsignacion.PENDIENTE;
+		}
+
+		if (periodo.getFechaHasta() != null && fecha.isAfter(periodo.getFechaHasta())) {
+			return EstadoAsignacion.FINALIZADA;
+		}
+
+		if (empleadoEducativo.estaEnLicenciaPara(designacion, fecha)) {
+			return EstadoAsignacion.LICENCIA;
+		}
+
+		return EstadoAsignacion.ACTIVA;
+	}
+
+	@Transient
+	public LocalDate getFechaBaja() {
+		return bajaAsignacion != null
+				? bajaAsignacion.getFechaBaja()
+				: null;
+	}
+
+	@Transient
+	public CausaBaja getCausaBaja() {
+		return bajaAsignacion != null
+				? bajaAsignacion.getCausa()
+				: null;
+	}
+
+	@Transient
+	public abstract SituacionDeRevista getSituacionDeRevista();
+
+	protected void asignarCaracteristica(CaracteristicaAsignacion nueva) {
+		this.caracteristica = nueva;
+	}
+
+	private void validarCrearAsignacion(
+			EmpleadoEducativo empleadoEducativo,
+			Designacion designacion,
+			Periodo periodo
+	) {
+		Validaciones.noNulo(empleadoEducativo, "empleado educativo");
+		Validaciones.noNulo(designacion, "designacion");
+		Validaciones.noNulo(periodo, "periodo");
+	}
+
+	@Override
+	public String toString() {
+		return getClass().getSimpleName() + "{ " +
+				"id = " + id +
+				", empleadoId = " + (empleadoEducativo != null ? empleadoEducativo.getId() : null) +
+				", designacionId = " + (designacion != null ? designacion.getId() : null) +
+				", periodo = " + periodo +
+				", baja = " + (bajaAsignacion != null) +
+				", caracteristicaId = " + (caracteristica != null ? caracteristica.getId() : null) +
+				" }";
+	}
+
+	public boolean seSuperponeCon(Periodo periodo) {
+		return this.periodo.seSuperponeCon(periodo);
+	}
+
+	public boolean ejerceEn(LocalDate fecha) {
+		return estaActivaEn(fecha);
+	}
+
+	public boolean esTitular() {
+		return getSituacionDeRevista() == TITULAR;
 	}
 }

@@ -7,11 +7,12 @@ import com.gestion.escuela.gestion_escolar.models.Materia;
 
 public class MateriaMapper {
 
-	public static Materia toEntity(MateriaCreateDTO d) {
+	public static Materia toEntity(MateriaCreateDTO dto) {
+
 		return new Materia(
-				d.nombre(),
-				d.abreviatura(),
-				d.cantidadModulos()
+				dto.nombre(),
+				dto.abreviatura(),
+				dto.cantidadModulos()
 		);
 	}
 
@@ -30,6 +31,5 @@ public class MateriaMapper {
 				materia.getNombre()
 		);
 	}
-
 
 }

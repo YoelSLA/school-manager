@@ -4,7 +4,6 @@ import com.gestion.escuela.gestion_escolar.models.Curso;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.Materia;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -23,17 +22,22 @@ public class DesignacionCurso extends Designacion {
 	@ManyToOne(optional = false)
 	private Curso curso;
 
-	@Column(nullable = false)
-	private String orientacion;
-
 	protected DesignacionCurso() {
 	}
 
-	public DesignacionCurso(Escuela escuela, Integer cupof, Materia materia, Curso curso, String orientacion) {
+	public DesignacionCurso(Escuela escuela, Integer cupof, Materia materia, Curso curso) {
 		super(escuela, cupof, RolEducativo.DOCENTE);
 		this.materia = materia;
 		this.curso = curso;
-		this.orientacion = orientacion;
+	}
+
+	public String getOrientacion() {
+		return null;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString().replace("}", ", materiaId=" + (materia != null ? materia.getId() : null) + ", cursoId=" + (curso != null ? curso.getId() : null) + ", orientacion='" + getOrientacion() + '\'' + '}');
 	}
 
 }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { FieldValues, UseFormRegister } from "react-hook-form";
 import type {
-  Franja,
+  FranjaHoraria,
   FormWithFranjas,
 } from "@/features/designaciones/types/designacion.types";
 
@@ -14,7 +14,7 @@ import ErrorModal from "@/components/ErrorModal";
 type Props<T extends FieldValues & FormWithFranjas> = {
   fields: { id: string }[];
   register: UseFormRegister<T>;
-  append: (value: Franja) => void;
+  append: (value: FranjaHoraria) => void;
   remove: (index: number) => void;
 };
 

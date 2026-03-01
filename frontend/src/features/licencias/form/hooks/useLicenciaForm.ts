@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { crearLicenciaSchema } from "../schemas/crearLicencia.schema";
-import { LICENCIA_DEFAULTS } from "../defaults/licencia.defaults";
+import { LICENCIA_DEFAULTS } from "../defaults/licencia.default";
 import type {
 	LicenciaFormInput,
 	LicenciaFormOutput,

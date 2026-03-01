@@ -2,10 +2,12 @@ package com.gestion.escuela.gestion_escolar.models.caracteristicaAsignacion;
 
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_caracteristica")
+@Getter
 public abstract class CaracteristicaAsignacion {
 
 	@Id

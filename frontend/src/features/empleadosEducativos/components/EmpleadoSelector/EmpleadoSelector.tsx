@@ -28,7 +28,7 @@ export default function EmpleadoSelector({
 				onChange={setSearch}
 				onSelect={(e) => {
 					setEmpleadoSeleccionado(e);
-					setSearch(""); // limpia el input
+					setSearch("");
 					onSelect(e);
 				}}
 				label={label}

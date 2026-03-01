@@ -14,11 +14,17 @@ public interface MateriaService {
 
 	Materia obtenerPorId(Long id);
 
-	Page<Materia> buscarPorEscuela(
+	Page<Materia> listarMateriasPorEscuela(Long escuelaId, Pageable pageable);
+
+	List<Materia> listarMateriasPorEscuela(Long escuelaId);
+
+	void eliminar(Long escuelaId, Long materiaId);
+
+	Materia actualizar(
 			Long escuelaId,
-			Pageable pageable
+			Long materiaId,
+			String nombre,
+			String abreviatura,
+			Integer cantidadModulos
 	);
-
-	List<Materia> buscarNombresPorEscuela(Long escuelaId);
-
 }

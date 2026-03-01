@@ -6,19 +6,18 @@ import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.DiaDeSemana;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
-import com.gestion.escuela.gestion_escolar.models.exceptions.EmpleadoEnLicenciaException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.EmpleadoInactivoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
+import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionNoActivaDelEmpleadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.licencia.LicenciaSuperpuestaException;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -89,7 +88,7 @@ public class EmpleadoEducativo {
 			String email
 	) {
 
-		validarCamposObligatorios(escuela, cuil, nombre, apellido, fechaDeNacimiento, fechaDeIngreso, email);
+		validarDatosBasicos(escuela, cuil, nombre, apellido, email, fechaDeNacimiento);
 		validarFechas(fechaDeNacimiento, fechaDeIngreso);
 
 		this.escuela = escuela;
@@ -105,13 +104,25 @@ public class EmpleadoEducativo {
 		this.licencias = new HashSet<>();
 	}
 
-	public Licencia crearLicencia(TipoLicencia tipo, Periodo periodo, String descripcion) {
+	public Licencia crearLicencia(
+			TipoLicencia tipo,
+			Periodo periodo,
+			String descripcion,
+			Set<Designacion> designaciones
+	) {
 
-		validarCreacionLicencia(tipo, periodo);
-		Licencia licencia = new Licencia(tipo, periodo, descripcion);
-		afectarDesignacionesPorLicencia(licencia, periodo);
+		validarCrearLicencia(tipo, periodo);
+		validarDesignacionesPropiasYActivas(designaciones, periodo);
+
+		Licencia licencia = new Licencia(
+				this,
+				tipo,
+				periodo,
+				descripcion,
+				designaciones
+		);
+
 		licencias.add(licencia);
-		licencia.asignarEmpleadoEducativo(this);
 
 		return licencia;
 	}
@@ -120,12 +131,13 @@ public class EmpleadoEducativo {
 			CausaBaja causaBaja,
 			LocalDate fechaBaja
 	) {
-		validarBajaDefinitiva(causaBaja, fechaBaja);
+
+		Validaciones.noNulo(causaBaja, "causa baja");
+		Validaciones.noNulo(fechaBaja, "fecha de baja");
 
 		this.activo = false;
 
-		asignacionesVigentesEn(fechaBaja).forEach(a -> a.finalizarPorBajaDefinitiva(causaBaja, fechaBaja));
-
+		asignacionesAfectadasPorBaja(fechaBaja).forEach(a -> a.finalizarPorBajaDefinitiva(causaBaja, fechaBaja));
 	}
 
 	public void agregarAsignacion(Asignacion asignacion) {
@@ -140,31 +152,6 @@ public class EmpleadoEducativo {
 		asignaciones.add(asignacion);
 	}
 
-	public Set<Designacion> designacionesAfectadasPor(Licencia licencia) {
-		if (licencia == null) {
-			return Set.of();
-		}
-
-		return asignaciones.stream()
-				.filter(a -> a.afectadaPor(licencia))
-				.map(Asignacion::getDesignacion)
-				.collect(Collectors.toUnmodifiableSet());
-	}
-
-	public void validarPuedeTomarPosesionEn(LocalDate fecha) {
-		if (fecha == null) {
-			throw new CampoObligatorioException("fecha de toma de posesión");
-		}
-
-		if (!this.activo) {
-			throw new EmpleadoInactivoException(id);
-		}
-
-		if (tieneLicenciaEn(fecha)) {
-			throw new EmpleadoEnLicenciaException(id, fecha);
-		}
-	}
-
 	public void actualizar(
 			String cuil,
 			String nombre,
@@ -175,6 +162,10 @@ public class EmpleadoEducativo {
 			LocalDate fechaDeIngreso,
 			String email
 	) {
+
+		validarDatosBasicos(this.escuela, cuil, nombre, apellido, email, fechaDeNacimiento);
+		validarFechas(fechaDeNacimiento, fechaDeIngreso);
+
 		this.cuil = cuil;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -187,136 +178,168 @@ public class EmpleadoEducativo {
 
 	public Set<DiaDeSemana> diasLaborablesEn(LocalDate fecha) {
 		return asignaciones.stream()
-				.filter(a -> a.estaActiva(fecha))
+				.filter(a -> a.estaActivaEn(fecha))
 				.map(Asignacion::getDesignacion)
 				.flatMap(d -> d.getFranjasHorarias().stream())
 				.map(FranjaHoraria::getDia)
 				.collect(Collectors.toSet());
 	}
 
-	public Set<DiaDeSemana> diasQueTrabajaEnEscuela(Long escuelaId) {
+	public Optional<Licencia> licenciaActivaEn(LocalDate fecha) {
 
-		if (!this.escuela.getId().equals(escuelaId)) {
-			throw new IllegalStateException(
-					"El empleado no pertenece a la escuela indicada"
-			);
+		if (fecha == null) {
+			return Optional.empty();
+		}
+
+		return licencias.stream().filter(l -> l.estaVigenteEn(fecha)).findFirst();
+	}
+
+	public Set<Designacion> designacionesActivasEn(LocalDate fecha) {
+
+		if (fecha == null) {
+			return Set.of();
 		}
 
 		return asignaciones.stream()
-				.flatMap(a -> a.getDesignacion().getFranjasHorarias().stream())
-				.map(FranjaHoraria::getDia)
-				.collect(Collectors.toSet());
+				.filter(a -> a.estaActivaEn(fecha))
+				.map(Asignacion::getDesignacion)
+				.collect(Collectors.toUnmodifiableSet());
 	}
 
-	public List<LocalDate> calcularDiasLaborables(Licencia licencia) {
+	public Set<Asignacion> asignacionesActivasEn(LocalDate fecha) {
 
-		Periodo periodo = licencia.getPeriodo();
-		List<LocalDate> fechas = new ArrayList<>();
-
-		for (LocalDate fecha = periodo.getFechaDesde();
-			 !fecha.isAfter(periodo.getFechaHasta());
-			 fecha = fecha.plusDays(1)) {
-
-			DayOfWeek dayOfWeek = fecha.getDayOfWeek();
-
-			if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
-				continue; // no es día laboral en el dominio
-			}
-
-			Set<DiaDeSemana> diasTrabaja = diasLaborablesEn(fecha);
-
-			DiaDeSemana dia = DiaDeSemana.from(fecha);
-
-			if (diasTrabaja.contains(dia)) {
-				fechas.add(fecha);
-			}
+		if (fecha == null) {
+			return Set.of();
 		}
 
-		return fechas;
+		return asignaciones.stream()
+				.filter(a -> a.estaActivaEn(fecha))
+				.collect(Collectors.toUnmodifiableSet());
 	}
 
-	private boolean tieneLicenciaEn(LocalDate fecha) {
-		return licencias.stream().anyMatch(l -> l.estaVigenteEn(fecha));
+	public Set<Asignacion> asignacionesEnLicenciaEn(LocalDate fecha) {
+
+		if (fecha == null) {
+			return Set.of();
+		}
+
+		return asignaciones.stream()
+				.filter(a -> estaEnLicenciaPara(a.getDesignacion(), fecha))
+				.collect(Collectors.toUnmodifiableSet());
 	}
 
-	private void validarBajaDefinitiva(CausaBaja causaBaja, LocalDate fechaBaja) {
-		if (causaBaja == null)
-			throw new CampoObligatorioException("causa de baja");
-		if (fechaBaja == null)
-			throw new CampoObligatorioException("fecha de baja");
+	public boolean estaEnLicenciaPara(Designacion designacion, LocalDate fecha) {
+		return licencias.stream()
+				.anyMatch(l -> l.afectaA(designacion, fecha));
 	}
 
-	private boolean tieneLicenciaSuperpuesta(Periodo periodo) {
-		if (periodo == null) {
+	public boolean debeAsistirEn(LocalDate fecha) {
+
+		if (fecha == null) {
 			return false;
 		}
 
-		return licencias.stream().anyMatch(l -> l.seSuperponeCon(periodo));
+		DiaDeSemana dia;
+		try {
+			dia = DiaDeSemana.from(fecha);
+		} catch (
+				Exception e) {
+			return false;
+		}
+
+		Set<DiaDeSemana> diasBloqueados = diasQueNoTrabajaPorLicencia(fecha);
+
+		for (Asignacion a : asignaciones) {
+
+			boolean licencia = a.estaEnLicenciaEn(fecha);
+
+			if (!licencia) {
+				continue;
+			}
+
+			boolean trabajaEseDia = a.getDesignacion().trabajaElDia(fecha);
+			boolean bloqueado = diasBloqueados.contains(dia);
+
+			if (trabajaEseDia && bloqueado) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
-	private void validarCamposObligatorios(Escuela escuela,
-										   String cuil,
-										   String nombre,
-										   String apellido,
-										   LocalDate fechaDeNacimiento,
-										   LocalDate fechaDeIngreso,
-										   String email) {
+	public Set<DiaDeSemana> diasQueNoTrabajaPorLicencia(LocalDate fecha) {
 
-		if (escuela == null)
-			throw new CampoObligatorioException("escuela");
-		if (cuil == null || cuil.isBlank())
-			throw new CampoObligatorioException("cuil");
-		if (nombre == null || nombre.isBlank())
-			throw new CampoObligatorioException("nombre");
-		if (apellido == null || apellido.isBlank())
-			throw new CampoObligatorioException("apellido");
-		if (email == null || email.isBlank())
-			throw new CampoObligatorioException("email");
-		if (fechaDeNacimiento == null)
-			throw new CampoObligatorioException("fecha de nacimiento");
+		return licenciaActivaEn(fecha)
+				.map(l ->
+						l.getDesignaciones()
+								.stream()
+								.flatMap(d -> d.getFranjasHorarias().stream())
+								.map(FranjaHoraria::getDia)
+								.collect(Collectors.toSet())
+				)
+				.orElseGet(Set::of);
 	}
 
-	private void validarFechas(LocalDate nacimiento, LocalDate ingreso) {
+	private Set<Asignacion> asignacionesAfectadasPorBaja(LocalDate fecha) {
+		Set<Asignacion> resultado = new HashSet<>();
+		resultado.addAll(asignacionesActivasEn(fecha));
+		resultado.addAll(asignacionesEnLicenciaEn(fecha));
+		return resultado;
+	}
 
-		if (ingreso == null) {
-			return; // no hay nada que validar
-		}
+	private void validarDatosBasicos(
+			Escuela escuela,
+			String cuil,
+			String nombre,
+			String apellido,
+			String email,
+			LocalDate fechaDeNacimiento
+	) {
 
-		if (ingreso.isBefore(nacimiento)) {
-			throw new RangoFechasInvalidoException(
-					"La fecha de ingreso no puede ser anterior a la fecha de nacimiento"
-			);
+		Validaciones.noNulo(escuela, "escuela");
+		Validaciones.cuilValido(cuil);
+		Validaciones.noBlank(nombre, "nombre");
+		Validaciones.noBlank(apellido, "apellido");
+		Validaciones.emailValido(email);
+		Validaciones.noNulo(fechaDeNacimiento, "fecha de nacimiento");
+	}
+
+	private void validarFechas(LocalDate fechaDeNacimiento, LocalDate fechaDeIngreso) {
+		if (fechaDeIngreso != null && fechaDeIngreso.isBefore(fechaDeNacimiento)) {
+			throw new RangoFechasInvalidoException(fechaDeIngreso, fechaDeNacimiento);
 		}
 	}
 
-	private void validarCreacionLicencia(TipoLicencia tipo, Periodo periodo) {
-		if (tipo == null) {
-			throw new CampoObligatorioException("tipo de licencia");
+	private void validarCrearLicencia(TipoLicencia tipo, Periodo periodo) {
+
+		Validaciones.noNulo(tipo, "tipo de licencia");
+		Validaciones.noNulo(periodo, "periodo");
+
+		if (!this.activo) {
+			throw new EmpleadoInactivoException(this);
 		}
-		if (periodo == null) {
-			throw new CampoObligatorioException("período");
-		}
-		if (tieneLicenciaSuperpuesta(periodo)) {
+
+		if (licencias.stream().anyMatch(l -> l.getPeriodo().seSuperponeCon(periodo))) {
 			throw new LicenciaSuperpuestaException();
 		}
 	}
 
-	private void afectarDesignacionesPorLicencia(Licencia licencia, Periodo periodo) {
-		asignacionesVigentesEn(periodo.getFechaDesde()).stream()
-				.map(Asignacion::getDesignacion)
-				.forEach(licencia::afectarDesignacion);
-	}
+	private void validarDesignacionesPropiasYActivas(
+			Set<Designacion> designaciones,
+			Periodo periodo
+	) {
 
-	private List<Asignacion> asignacionesVigentesEn(LocalDate fecha) {
-		if (fecha == null) {
-			return List.of();
+		Validaciones.noVacio(designaciones, "designacion.");
+
+		Set<Designacion> activas = designacionesActivasEn(periodo.getFechaDesde());
+
+		if (!activas.containsAll(designaciones)) {
+			throw new DesignacionNoActivaDelEmpleadoException(designaciones);
 		}
-
-		return asignaciones.stream()
-				.filter(a -> a.estaActiva(fecha))        // existe en el sistema
-				.filter(a -> a.estaVigenteEn(fecha))   // aplica a la fecha
-				.toList();
 	}
 
-
+	public boolean tieneAlgunCargoQueSeSuperponeCon(Periodo periodo) {
+		return this.asignaciones.stream().anyMatch(a -> a.seSuperponeCon(periodo));
+	}
 }

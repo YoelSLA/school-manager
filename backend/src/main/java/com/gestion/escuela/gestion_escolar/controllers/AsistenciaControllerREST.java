@@ -54,9 +54,6 @@ public class AsistenciaControllerREST {
 			LocalDate fecha
 	) {
 
-		System.out.println(fecha);
-
-
 		List<RolCount> roles =
 				asistenciaService.contarEmpleadosPorRolVigente(fecha)
 						.stream()
@@ -66,8 +63,6 @@ public class AsistenciaControllerREST {
 								r.cantidad()
 						))
 						.toList();
-
-		System.out.println(roles);
 
 		return roles;
 	}

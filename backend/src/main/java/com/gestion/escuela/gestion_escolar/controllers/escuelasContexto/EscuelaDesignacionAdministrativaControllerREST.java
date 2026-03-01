@@ -9,10 +9,10 @@ import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import com.gestion.escuela.gestion_escolar.services.DesignacionService;
 import com.gestion.escuela.gestion_escolar.services.EscuelaService;
+import com.gestion.escuela.gestion_escolar.web.PaginationUtils;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,14 +62,7 @@ public class EscuelaDesignacionAdministrativaControllerREST {
 			Pageable pageable
 	) {
 
-		int MAX_SIZE = 20;
-		int pageSize = Math.min(pageable.getPageSize(), MAX_SIZE);
-
-		Pageable limitedPageable = PageRequest.of(
-				pageable.getPageNumber(),
-				pageSize,
-				pageable.getSort()
-		);
+		Pageable limitedPageable = PaginationUtils.limit(pageable);
 
 		Page<DesignacionAdministrativa> designaciones =
 				designacionService.obtenerDesignacionesPorEscuela(
@@ -78,10 +71,7 @@ public class EscuelaDesignacionAdministrativaControllerREST {
 						limitedPageable
 				);
 
-		return PageMapper.toPageResponse(
-				designaciones,
-				DesignacionAdministrativaMapper::toResumen
-		);
+		return PageMapper.toPageResponse(designaciones, DesignacionAdministrativaMapper::toResumen);
 	}
 
 

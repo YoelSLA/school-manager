@@ -1,0 +1,19 @@
+.body {
+	display: flex;
+	flex-direction: column;
+	gap: 22px;
+}
+
+.description {
+	font-size: 0.95rem;
+	color: #4b5563;
+	line-height: 1.5;
+	padding-bottom: 4px;
+	border-bottom: 1px solid #f1f5f9;
+}
+
+.fieldGroup {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+}

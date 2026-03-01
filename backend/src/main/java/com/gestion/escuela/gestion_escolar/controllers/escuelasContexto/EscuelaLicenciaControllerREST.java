@@ -6,9 +6,9 @@ import com.gestion.escuela.gestion_escolar.mappers.LicenciaMapper;
 import com.gestion.escuela.gestion_escolar.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.services.LicenciaService;
+import com.gestion.escuela.gestion_escolar.web.PaginationUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,25 +28,11 @@ public class EscuelaLicenciaControllerREST {
 			Pageable pageable
 	) {
 
-		int MAX_SIZE = 20;
-		int pageSize = Math.min(pageable.getPageSize(), MAX_SIZE);
+		Pageable limitedPageable = PaginationUtils.limit(pageable);
 
-		Pageable limitedPageable = PageRequest.of(
-				pageable.getPageNumber(),
-				pageSize,
-				pageable.getSort()
-		);
+		Page<Licencia> licencias = licenciaService.buscarPorEscuela(escuelaId, limitedPageable);
 
-		Page<Licencia> licencias =
-				licenciaService.buscarPorEscuela(
-						escuelaId,
-						limitedPageable
-				);
-
-		return PageMapper.toPageResponse(
-				licencias,
-				LicenciaMapper::toResumen
-		);
+		return PageMapper.toPageResponse(licencias, LicenciaMapper::toResumen);
 	}
 
 }

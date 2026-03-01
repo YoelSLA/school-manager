@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import FormInputField from "@/components/forms/FormInputField/FormInputField";
 import FormSelectField from "@/components/forms/FormSelectField/FormSelectField";
-import Modal from "@/components/Modal";
+import Modal from "@/components/Modal/Modal";
 import "./LicenciaRenovarModal.css";
 import { agruparPorArticulo } from "@/utils";
 import { useRenovarLicencia } from "../../hooks/useRenovarLicencia";

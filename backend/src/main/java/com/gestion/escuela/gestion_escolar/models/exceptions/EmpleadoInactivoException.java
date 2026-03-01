@@ -1,15 +1,17 @@
 package com.gestion.escuela.gestion_escolar.models.exceptions;
 
+import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
+
 public class EmpleadoInactivoException extends RuntimeException {
 
-	private final Long empleadoId;
-
-	public EmpleadoInactivoException(Long empleadoId) {
-		super("El empleado " + empleadoId + " se encuentra inactivo");
-		this.empleadoId = empleadoId;
-	}
-
-	public Long getEmpleadoId() {
-		return empleadoId;
+	public EmpleadoInactivoException(EmpleadoEducativo empleado) {
+		super(
+				"El empleado %s %s (CUIL: %s) se encuentra inactivo"
+						.formatted(
+								empleado.getApellido(),
+								empleado.getNombre(),
+								empleado.getCuil()
+						)
+		);
 	}
 }

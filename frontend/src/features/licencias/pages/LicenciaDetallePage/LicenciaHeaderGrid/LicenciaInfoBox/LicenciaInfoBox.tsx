@@ -73,11 +73,10 @@ export default function LicenciaInfoBox({ licencia }: Props) {
 					<div>
 						<span className={styles.label}>Duración</span>
 						<span className={styles.value}>
-							{licencia.periodo.dias} días ·{" "}
-							{diasRestantes(
-								licencia.periodo.fechaHasta,
-							)}{" "}
-							restantes
+							{licencia.periodo.dias ?? "—"} días ·{" "}
+							{licencia.periodo.fechaHasta
+								? `${diasRestantes(licencia.periodo.fechaHasta)} restantes`
+								: "Vigente"}
 						</span>
 					</div>
 				</div>

@@ -1,0 +1,2 @@
+ALTER TABLE materia
+DROP COLUMN IF EXISTS orientacion;

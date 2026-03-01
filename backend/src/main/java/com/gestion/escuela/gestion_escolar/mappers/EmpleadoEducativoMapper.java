@@ -26,6 +26,16 @@ public class EmpleadoEducativoMapper {
 		);
 	}
 
+	public static EmpleadoEducativoConRolesDTO toMinimoConRoles(EmpleadoEducativo e, Set<RolEducativo> roles) {
+		return new EmpleadoEducativoConRolesDTO(
+				e.getId(),
+				e.getCuil(),
+				e.getNombre(),
+				e.getApellido(),
+				roles
+		);
+	}
+
 	public static EmpleadoEducativoResumenDTO toResumen(EmpleadoEducativo e, Set<RolEducativo> rolesEducativos) {
 		return new EmpleadoEducativoResumenDTO(
 				e.getId(),

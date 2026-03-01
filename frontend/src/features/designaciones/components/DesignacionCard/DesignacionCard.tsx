@@ -30,8 +30,6 @@ export default function DesignacionCard({
 
 	const { cargoActivo } = useCargoActivo(designacionId);
 
-	console.log(cargoActivo)
-
 	const empleado = cargoActivo
 		? {
 			nombre: cargoActivo.empleado.nombre,

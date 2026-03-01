@@ -1,22 +1,46 @@
-import z from "zod";
-import { designacionBaseSchema } from "./designacionBase.schema";
+import { z } from "zod";
+import { crearFranjaHorariaSchema } from "@/utils/schemas/crearfranjaHoraria.schema";
 
-const requiredSelectId = (label: string) =>
-	z
-		.coerce
-		.number({
-			required_error: `${label} es obligatorio`,
-			invalid_type_error: `${label} inválido`,
-		})
-		.int(`${label} debe ser un número entero`)
-		.positive(`Debe seleccionar un ${label.toLowerCase()}`);
-
-
-export const crearDesignacionCursoSchema = designacionBaseSchema.extend({
-	materiaId: requiredSelectId("Materia"),
-	cursoId: requiredSelectId("Curso"),
-	orientacion: z
+export const crearDesignacionCursoSchema = z.object({
+	cupof: z
 		.string()
 		.trim()
-		.min(1, "La orientación es obligatoria"),
+		.min(1, "El CUPOF es obligatorio")
+		.refine((val) => !Number.isNaN(Number(val)), {
+			message: "El CUPOF debe ser un número válido",
+		})
+		.transform((val) => Number(val))
+		.refine((val) => Number.isInteger(val), {
+			message: "El CUPOF debe ser entero",
+		})
+		.refine((val) => val > 0, {
+			message: "El CUPOF debe ser mayor a 0",
+		}),
+
+	franjasHorarias: z
+		.array(crearFranjaHorariaSchema)
+		.min(1, "Debe haber al menos una franja horaria"),
+
+	materiaId: z
+		.string()
+		.min(1, "Debe seleccionar una materia")
+		.transform((val) => Number(val))
+		.refine((val) => Number.isInteger(val), {
+			message: "Materia inválida",
+		})
+		.refine((val) => val > 0, {
+			message: "Debe seleccionar una materia",
+		}),
+
+	cursoId: z
+		.string()
+		.min(1, "Debe seleccionar un curso")
+		.transform((val) => Number(val))
+		.refine((val) => Number.isInteger(val), {
+			message: "Curso inválido",
+		})
+		.refine((val) => val > 0, {
+			message: "Debe seleccionar un curso",
+		}),
+
 });

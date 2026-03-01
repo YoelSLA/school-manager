@@ -1,5 +1,5 @@
 /* ======================================================
-   DASHBOARD
+	 DASHBOARD
 ====================================================== */
 
 export const dashboardPaths = {
@@ -7,7 +7,7 @@ export const dashboardPaths = {
 };
 
 /* ======================================================
-   EMPLEADOS EDUCATIVOS
+	 EMPLEADOS EDUCATIVOS
 ====================================================== */
 
 export const empleadosEducativosPaths = {
@@ -22,7 +22,7 @@ export const empleadosEducativosPaths = {
 };
 
 /* ======================================================
-   ASISTENCIAS
+	 ASISTENCIAS
 ====================================================== */
 
 export const asistenciasPaths = {
@@ -32,7 +32,7 @@ export const asistenciasPaths = {
 };
 
 /* ======================================================
-   CURSOS
+	 CURSOS
 ====================================================== */
 
 export const cursosPaths = {
@@ -42,7 +42,7 @@ export const cursosPaths = {
 };
 
 /* ======================================================
-   MATERIAS
+	 MATERIAS
 ====================================================== */
 
 export const materiasPaths = {
@@ -50,7 +50,7 @@ export const materiasPaths = {
 };
 
 /* ======================================================
-   DESIGNACIONES
+	 DESIGNACIONES
 ====================================================== */
 
 export const designacionesPaths = {
@@ -62,7 +62,7 @@ export const designacionesPaths = {
 };
 
 /* ======================================================
-   LICENCIAS
+	 LICENCIAS
 ====================================================== */
 
 export const licenciasPaths = {
@@ -70,5 +70,9 @@ export const licenciasPaths = {
 
 	create: "/licencias/crear",
 
-	detail: (licenciaId: number | string) => `/licencias/${licenciaId}`,
+	detail: (licenciaId: number | string) =>
+		`/licencias/${licenciaId}`,
+
+	designaciones: (licenciaId: number | string) =>
+		`/licencias/${licenciaId}/designaciones`,
 };

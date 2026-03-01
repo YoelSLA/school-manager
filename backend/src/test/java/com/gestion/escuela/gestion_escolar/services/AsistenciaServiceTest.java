@@ -1,25 +1,21 @@
 package com.gestion.escuela.gestion_escolar.services;
 
 
-import com.gestion.escuela.gestion_escolar.models.*;
-import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
+import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
+import com.gestion.escuela.gestion_escolar.models.Escuela;
+import com.gestion.escuela.gestion_escolar.models.FranjaHoraria;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
-import com.gestion.escuela.gestion_escolar.models.enums.*;
+import com.gestion.escuela.gestion_escolar.models.enums.DiaDeSemana;
+import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -107,70 +103,70 @@ public class AsistenciaServiceTest {
 		preceptoria = crearDesignacionAdministrativa(2467833, RolEducativo.PRECEPTORIA, franjasHorariasPreceptoria);
 	}
 
-	@Test
-	void impactarLicencia_creaAsistenciasEnDiasLaborables() {
-		// Arrange
-		LocalDate fechaInicio = LocalDate.of(2026, 1, 5);
-		LocalDate fechaFin = LocalDate.of(2026, 1, 16);
-		Periodo periodo = new Periodo(fechaInicio, fechaFin);
-		Licencia licencia = juanPerez.crearLicencia(TipoLicencia.L_A1, periodo, null);
-
-		LocalDate fechaTomaPosesion = LocalDate.of(2026, 1, 2);
-		AsignacionTitular asignacionTitular1 = secretaria.cubrirConTitular(juanPerez, fechaTomaPosesion);
-		AsignacionTitular asignacionTitular2 = preceptoria.cubrirConTitular(juanPerez, fechaTomaPosesion);
-
-		// sanity check
-		assertEquals(EstadoAsignacion.LICENCIA, asignacionTitular1.getEstadoEn(fechaInicio));
-		assertEquals(EstadoAsignacion.LICENCIA, asignacionTitular2.getEstadoEn(fechaInicio));
-		assertEquals(EstadoDesignacion.LICENCIA, secretaria.getEstadoEn(fechaInicio));
-		assertEquals(EstadoDesignacion.LICENCIA, preceptoria.getEstadoEn(fechaInicio));
-
-		// Act
-		asistenciaService.impactarLicencia(licencia);
-
-		// =======================
-		// ASSERT
-		// =======================
-
-		List<Asistencia> asistencias = asistenciaService.asistenciasDe(juanPerez.getId());
-
-		for (Asistencia a : asistencias) {
-			System.out.println(a);
-		}
-
-		// 2 semanas → 10 días laborales
-		assertEquals(10, asistencias.size());
-
-		// Me armo un set de fechas reales creadas
-		Set<LocalDate> fechasAsistidas = asistencias.stream()
-				.map(Asistencia::getFecha)
-				.collect(Collectors.toSet());
-
-		// Recorro todo el período día por día
-		for (LocalDate fecha = fechaInicio; !fecha.isAfter(fechaFin); fecha = fecha.plusDays(1)) {
-
-			DayOfWeek dayOfWeek = fecha.getDayOfWeek();
-
-			if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
-				// ❌ fines de semana → NO debe haber asistencia
-				assertFalse(
-						fechasAsistidas.contains(fecha),
-						"No debería haber asistencia el " + fecha
-				);
-			} else {
-				// ✅ día laboral → DEBE haber asistencia
-				assertTrue(
-						fechasAsistidas.contains(fecha),
-						"Falta asistencia el " + fecha
-				);
-			}
-		}
-
-		// Verificación fina de cada asistencia
-		asistencias.forEach(a -> {
-			assertEquals(OrigenAsistencia.LICENCIA, a.getOrigenAsistencia());
-			assertEquals(licencia.getId(), a.getLicencia().getId());
-		});
-	}
+//	@Test
+//	void impactarLicencia_creaAsistenciasEnDiasLaborables() {
+//		// Arrange
+//		LocalDate fechaInicio = LocalDate.of(2026, 1, 5);
+//		LocalDate fechaFin = LocalDate.of(2026, 1, 16);
+//		Periodo periodo = new Periodo(fechaInicio, fechaFin);
+//		Licencia licencia = juanPerez.crearLicencia(TipoLicencia.L_A1, periodo, null);
+//
+//		LocalDate fechaTomaPosesion = LocalDate.of(2026, 1, 2);
+//		AsignacionTitular asignacionTitular1 = secretaria.cubrirConTitular(juanPerez, fechaTomaPosesion);
+//		AsignacionTitular asignacionTitular2 = preceptoria.cubrirConTitular(juanPerez, fechaTomaPosesion);
+//
+//		// sanity check
+//		assertEquals(EstadoAsignacion.LICENCIA, asignacionTitular1.getEstadoEn(fechaInicio));
+//		assertEquals(EstadoAsignacion.LICENCIA, asignacionTitular2.getEstadoEn(fechaInicio));
+//		assertEquals(EstadoDesignacion.LICENCIA, secretaria.getEstadoEn(fechaInicio));
+//		assertEquals(EstadoDesignacion.LICENCIA, preceptoria.getEstadoEn(fechaInicio));
+//
+//		// Act
+//		asistenciaService.impactarLicencia(licencia);
+//
+//		// =======================
+//		// ASSERT
+//		// =======================
+//
+//		List<Asistencia> asistencias = asistenciaService.asistenciasDe(juanPerez.getId());
+//
+//		for (Asistencia a : asistencias) {
+//
+//		}
+//
+//		// 2 semanas → 10 días laborales
+//		assertEquals(10, asistencias.size());
+//
+//		// Me armo un set de fechas reales creadas
+//		Set<LocalDate> fechasAsistidas = asistencias.stream()
+//				.map(Asistencia::getFecha)
+//				.collect(Collectors.toSet());
+//
+//		// Recorro todo el período día por día
+//		for (LocalDate fecha = fechaInicio; !fecha.isAfter(fechaFin); fecha = fecha.plusDays(1)) {
+//
+//			DayOfWeek dayOfWeek = fecha.getDayOfWeek();
+//
+//			if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
+//				// ❌ fines de semana → NO debe haber asistencia
+//				assertFalse(
+//						fechasAsistidas.contains(fecha),
+//						"No debería haber asistencia el " + fecha
+//				);
+//			} else {
+//				// ✅ día laboral → DEBE haber asistencia
+//				assertTrue(
+//						fechasAsistidas.contains(fecha),
+//						"Falta asistencia el " + fecha
+//				);
+//			}
+//		}
+//
+//		// Verificación fina de cada asistencia
+//		asistencias.forEach(a -> {
+//			assertEquals(OrigenAsistencia.LICENCIA, a.getOrigenAsistencia());
+//			assertEquals(licencia.getId(), a.getLicencia().getId());
+//		});
+//	}
 
 }

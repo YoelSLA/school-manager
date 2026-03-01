@@ -26,7 +26,8 @@ public interface EmpleadoEducativoService {
 			Long empleadoId,
 			TipoLicencia tipo,
 			Periodo periodo,
-			String descripcion
+			String descripcion,
+			Set<Long> designacionIds
 	);
 
 	void darDeBajaDefinitiva(
@@ -36,7 +37,7 @@ public interface EmpleadoEducativoService {
 	);
 
 	EmpleadoEducativo obtenerPorEscuela(Long escuelaId, Long empleadoId);
-	
+
 	Page<EmpleadoEducativo> listarPorEscuela(
 			Long escuelaId,
 			Boolean estado,

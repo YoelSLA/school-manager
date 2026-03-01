@@ -10,6 +10,10 @@ public enum DiaDeSemana {
 	VIERNES;
 
 	public static DiaDeSemana from(LocalDate fecha) {
+
+		if (fecha == null)
+			return null;
+
 		return switch (fecha.getDayOfWeek()) {
 			case MONDAY ->
 					LUNES;
@@ -21,10 +25,9 @@ public enum DiaDeSemana {
 					JUEVES;
 			case FRIDAY ->
 					VIERNES;
-			default ->
-					throw new IllegalArgumentException(
-							"No es un día laboral: " + fecha.getDayOfWeek()
-					);
+			case SATURDAY,
+				 SUNDAY ->
+					null; // 👈 no excepción
 		};
 	}
 }

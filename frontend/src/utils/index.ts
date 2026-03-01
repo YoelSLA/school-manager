@@ -89,9 +89,9 @@ export const FILTROS_DESIGNACIONES: {
 	value: DesignacionFiltro;
 	label: string;
 }[] = [
-	{ value: "ADMIN", label: "Administrativas" },
-	{ value: "CURSO", label: "Cursos" },
-];
+		{ value: "ADMIN", label: "Administrativas" },
+		{ value: "CURSO", label: "Cursos" },
+	];
 
 export function formatLicenciaLabel(codigo: string, descripcion: string) {
 	return `${codigo.padEnd(6, " ")} — ${descripcion}`;
@@ -174,4 +174,11 @@ export function getTodayArgentinaISO(): string {
 	});
 
 	return formatter.format(now);
+}
+
+export function formatDiaLabel(dia: string) {
+	const normalizado =
+		dia === "MIERCOLES" ? "MIÉRCOLES" : dia;
+
+	return normalizado.charAt(0) + normalizado.slice(1).toLowerCase();
 }

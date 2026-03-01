@@ -5,6 +5,7 @@ import Button from "@/components/Button";
 
 import styles from "./FranjaHorariaRow.module.scss";
 import { DIAS_SEMANA } from "@/features/designaciones/utils/designacion.utils";
+import { formatDiaLabel } from "@/utils";
 
 type Props<T extends FieldValues & FormWithFranjas> = {
   index: number;
@@ -26,7 +27,7 @@ export default function FranjaHorariaRow<T extends FormWithFranjas>({
       <select className={styles.field} {...register(diaPath)}>
         {DIAS_SEMANA.map((dia) => (
           <option key={dia} value={dia}>
-            {dia}
+            {formatDiaLabel(dia)}
           </option>
         ))}
       </select>

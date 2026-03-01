@@ -9,7 +9,4 @@ public class CampoObligatorioException extends DominioException {
 		this.campo = campo;
 	}
 
-	public String getCampo() {
-		return campo;
-	}
 }

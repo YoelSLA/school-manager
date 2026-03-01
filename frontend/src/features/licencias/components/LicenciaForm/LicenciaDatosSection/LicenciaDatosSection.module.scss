@@ -1,32 +1,3 @@
-.section {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-/* =====================
-   TÍTULO
-===================== */
-
-.title {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-/* =====================
-   CAMPOS
-===================== */
-
-.fields {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-/* =====================
-   FECHAS
-===================== */
-
 .dates {
   display: grid;
   grid-template-columns: 1fr 1fr;

@@ -5,7 +5,8 @@ import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoLicencia;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
-import com.gestion.escuela.gestion_escolar.models.exceptions.LicenciaSinEmpleadoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -51,21 +52,61 @@ public class Licencia {
 	private Periodo periodo;
 
 	protected Licencia() {
+
 		this.designaciones = new HashSet<>();
+
 	}
 
 	public Licencia(
+			EmpleadoEducativo empleadoEducativo,
 			TipoLicencia tipoLicencia,
 			Periodo periodo,
-			String descripcion
+			String descripcion,
+			Set<Designacion> designaciones
 	) {
-		if (tipoLicencia == null) {
-			throw new CampoObligatorioException("tipo de licencia");
-		}
+
+		Validaciones.noNulo(empleadoEducativo, "empleado educativo");
+		Validaciones.noNulo(tipoLicencia, "tipo licencia");
+		Validaciones.noNulo(periodo, "periodo");
+		Validaciones.noVacio(designaciones, "designación afectada");
+
+		this.empleadoEducativo = empleadoEducativo;
 		this.tipoLicencia = tipoLicencia;
-		this.descripcion = descripcion;
 		this.periodo = periodo;
-		this.designaciones = new HashSet<>();
+		this.descripcion = descripcion;
+		this.designaciones = new HashSet<>(designaciones);
+
+	}
+
+	public void asignarEmpleadoEducativo(EmpleadoEducativo empleadoEducativo) {
+		if (empleadoEducativo == null) {
+			throw new CampoObligatorioException("empleado educativo");
+		}
+		this.empleadoEducativo = empleadoEducativo;
+	}
+
+	public boolean estaVigenteEn(LocalDate fecha) {
+		return periodo.estaVigenteEn(fecha);
+	}
+
+	public boolean afectaA(Designacion designacion, LocalDate fecha) {
+		return periodo.estaVigenteEn(fecha) && designaciones.contains(designacion);
+	}
+
+	public Integer dias() {
+		return Math.toIntExact(periodo.dias());
+	}
+
+	@Transient
+	public EstadoLicencia getEstadoEn(LocalDate fecha) {
+
+		if (!periodo.estaVigenteEn(fecha)) {
+			return EstadoLicencia.INACTIVA;
+		}
+
+		return estaCubiertaEn(fecha)
+				? EstadoLicencia.CUBIERTA
+				: EstadoLicencia.DESCUBIERTA;
 	}
 
 	public Licencia renovar(
@@ -74,13 +115,33 @@ public class Licencia {
 			String descripcion
 	) {
 
+		if (periodo.esAbierto()) {
+			throw new IllegalStateException("No se puede renovar una licencia sin fecha de fin");
+		}
+
+		Validaciones.noNulo(nuevoHasta, "nueva hasta");
+
+		if (!nuevoHasta.isAfter(periodo.getFechaHasta())) {
+			throw new IllegalArgumentException(
+					"La fecha fin de renovación debe ser posterior a la actual"
+			);
+		}
+
 		LocalDate nuevoDesde = periodo.getFechaHasta().plusDays(1);
 
-		Licencia nueva = crearRenovacion(tipoLicencia, new Periodo(nuevoDesde, nuevoHasta), descripcion);
+		Licencia nueva = new Licencia(
+				this.empleadoEducativo,
+				tipoLicencia,
+				new Periodo(nuevoDesde, nuevoHasta),
+				descripcion,
+				this.designaciones
+		);
 
-		enlazarCon(nueva);
+		this.licenciaSiguiente = nueva;
+		nueva.licenciaAnterior = this;
 
 		return nueva;
+
 	}
 
 	public List<Licencia> cadenaCompleta() {
@@ -97,96 +158,24 @@ public class Licencia {
 		return cadena;
 	}
 
-	public boolean seSuperponeCon(Periodo otro) {
-		return periodo.seSuperponeCon(otro);
-	}
-
-	@Transient
-	public EstadoLicencia getEstadoEn(LocalDate fecha) {
-
-		if (!periodo.contiene(fecha)) {
-			return EstadoLicencia.INACTIVA;
-		}
-
-		return estaCubiertaEn(fecha)
-				? EstadoLicencia.CUBIERTA
-				: EstadoLicencia.DESCUBIERTA;
-	}
-
-	public Integer dias() {
-		return Math.toIntExact(periodo.dias());
-	}
-
 	public Set<Designacion> getDesignaciones() {
 		return Collections.unmodifiableSet(designaciones);
 	}
 
-	public void afectarDesignacion(Designacion designacion) {
-		if (designacion == null) {
-			throw new CampoObligatorioException("designación");
-		}
-		this.designaciones.add(designacion);
-	}
-
-	public void asignarEmpleadoEducativo(EmpleadoEducativo empleadoEducativo) {
-		if (empleadoEducativo == null) {
-			throw new CampoObligatorioException("empleado educativo");
-		}
-		this.empleadoEducativo = empleadoEducativo;
-	}
-
-	public boolean afectaDesignacion(Designacion designacion, LocalDate fecha) {
-		if (fecha == null || !incluyeDesignacion(designacion)) {
-			return false;
-		}
-
-		return empleadoEducativo.getAsignaciones().stream()
-				.filter(a -> a.getDesignacion().equals(designacion))
-				.anyMatch(a -> a.generaVacantePorLicenciaEn(fecha));
-	}
-
-	/**
-	 * Inicializa las designaciones afectadas por esta licencia.
-	 * Debe usarse solo al momento de creación.
-	 */
-	public void inicializarDesignacionesAfectadas() {
-		if (empleadoEducativo == null) {
-			throw new LicenciaSinEmpleadoException();
-		}
-
-		this.designaciones.addAll(
-				empleadoEducativo.designacionesAfectadasPor(this)
-		);
-	}
-
-	public boolean estaVigenteEn(LocalDate fecha) {
-		if (fecha == null) {
-			return false;
-		}
-
-		return periodo.contiene(fecha);
-	}
-
-	private void enlazarCon(Licencia siguiente) {
-		this.licenciaSiguiente = siguiente;
-		siguiente.licenciaAnterior = this;
-	}
-
-	private Licencia crearRenovacion(
-			TipoLicencia tipoLicencia,
-			Periodo periodo,
-			String descripcion
-	) {
-		Licencia nueva = new Licencia(
-				tipoLicencia,
-				periodo,
-				descripcion
-		);
-
-		nueva.asignarEmpleadoEducativo(this.empleadoEducativo);
-		nueva.designaciones.addAll(this.designaciones);
-
-		return nueva;
+	@Override
+	public String toString() {
+		return "Licencia{" +
+				"id=" + id +
+				", empleadoId=" + (empleadoEducativo != null ? empleadoEducativo.getId() : null) +
+				", tipoLicencia=" + tipoLicencia +
+				", descripcion='" + descripcion + '\'' +
+				", periodo=" + periodo +
+				", licenciaAnteriorId=" + (licenciaAnterior != null ? licenciaAnterior.getId() : null) +
+				", licenciaSiguienteId=" + (licenciaSiguiente != null ? licenciaSiguiente.getId() : null) +
+				", designacionesIds=" + designaciones.stream()
+				.map(Designacion::getId)
+				.toList() +
+				'}';
 	}
 
 	private boolean estaCubiertaEn(LocalDate fecha) {
@@ -198,10 +187,6 @@ public class Licencia {
 				.allMatch(d -> d.getEstadoEn(fecha) == EstadoDesignacion.CUBIERTA);
 	}
 
-	private boolean incluyeDesignacion(Designacion designacion) {
-		return designacion != null && designaciones.contains(designacion);
-	}
-
 	private Licencia licenciaRaiz() {
 		Licencia actual = this;
 
@@ -210,5 +195,11 @@ public class Licencia {
 		}
 
 		return actual;
+	}
+
+	public void validarFechaValidaParaCobertura(LocalDate fecha) {
+		if (fecha.isBefore(this.periodo.getFechaDesde())) {
+			throw new RangoFechasInvalidoException(this.periodo.getFechaDesde(), fecha);
+		}
 	}
 }

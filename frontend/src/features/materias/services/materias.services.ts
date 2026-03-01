@@ -18,6 +18,28 @@ export async function crearMateria(
 	return response.data;
 }
 
+export async function editMateria(
+	escuelaId: number,
+	materiaId: number,
+	payload: CrearMateriaDTO,
+): Promise<MateriaResponseDTO> {
+
+	const response = await http.put<MateriaResponseDTO>(
+		`/escuelas/${escuelaId}/materias/${materiaId}`,
+		payload,
+	);
+
+	return response.data;
+}
+
+export async function deleteMateria(
+	escuelaId: number,
+	materiaId: number,
+): Promise<void> {
+
+	await http.delete(`/escuelas/${escuelaId}/materias/${materiaId}`);
+}
+
 export async function obtenerMaterias(
 	escuelaId: number,
 	page: number = 0,
@@ -42,3 +64,4 @@ export async function obtenerMateriasNombres(
 
 	return response.data;
 }
+

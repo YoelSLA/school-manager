@@ -30,10 +30,6 @@ public class DesignacionControllerREST {
 			@PathVariable Long designacionId,
 			@Valid @RequestBody CubrirTitularDTO dto
 	) {
-		System.out.println("DTO");
-		System.out.println(dto.empleadoId());
-		System.out.println(dto.fechaTomaPosesion());
-		System.out.println(dto.caracteristica());
 		return AsignacionMapper.toDetalle(
 				designacionService.cubrirConTitular(
 						designacionId,
@@ -53,7 +49,8 @@ public class DesignacionControllerREST {
 				designacionService.cubrirConProvisional(
 						designacionId,
 						dto.empleadoId(),
-						dto.fechaTomaPosesion()
+						dto.fechaInicio(),
+						dto.fechaFin()
 				)
 		);
 	}

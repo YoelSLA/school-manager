@@ -4,6 +4,7 @@ import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.Periodo;
+import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.DiaDeSemana;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
@@ -11,11 +12,7 @@ import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo.EmpleadoEducativoDuplicadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo.EmpleadoNoPerteneceAEscuelaException;
-import com.gestion.escuela.gestion_escolar.persistence.AsignacionRepository;
-import com.gestion.escuela.gestion_escolar.persistence.EmpleadoEducativoRepository;
-import com.gestion.escuela.gestion_escolar.persistence.EscuelaRepository;
-import com.gestion.escuela.gestion_escolar.persistence.LicenciaRepository;
-import com.gestion.escuela.gestion_escolar.services.AsistenciaService;
+import com.gestion.escuela.gestion_escolar.persistence.*;
 import com.gestion.escuela.gestion_escolar.services.EmpleadoEducativoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -37,7 +34,7 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 	private final LicenciaRepository licenciaRepository;
 	private final EscuelaRepository escuelaRepository;
 	private final AsignacionRepository asignacionRepository;
-	private final AsistenciaService asistenciaService;
+	private final DesignacionRepository designacionRepository;
 
 	@Override
 	public EmpleadoEducativo crear(Long escuelaId, EmpleadoEducativo empleado) {
@@ -79,27 +76,25 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 	@Override
 	public EmpleadoEducativo obtenerPorId(Long id) {
 		return empleadoEducativoRepository.findById(id)
-				.orElseThrow(() ->
-						new RecursoNoEncontradoException("empleado educativo", id)
-				);
+				.orElseThrow(() -> new RecursoNoEncontradoException("empleado educativo", id));
 	}
 
 	@Override
-	@Transactional
 	public Licencia crearLicencia(
 			Long empleadoId,
 			TipoLicencia tipo,
 			Periodo periodo,
-			String descripcion
+			String descripcion,
+			Set<Long> designacionIds
 	) {
+
 		EmpleadoEducativo empleado = obtenerPorId(empleadoId);
 
-		Licencia licencia = empleado.crearLicencia(tipo, periodo, descripcion);
-		licencia.inicializarDesignacionesAfectadas();
+		Set<Designacion> designaciones = new HashSet<>(designacionRepository.findAllById(designacionIds));
+
+		Licencia licencia = empleado.crearLicencia(tipo, periodo, descripcion, designaciones);
 
 		licenciaRepository.save(licencia);
-
-		asistenciaService.impactarLicencia(licencia);
 
 		return licencia;
 	}
@@ -164,10 +159,16 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 			Long empleadoId,
 			Periodo periodo
 	) {
+
+		if (periodo.getFechaHasta() == null) {
+			throw new IllegalArgumentException(
+					"No se pueden calcular días laborables en un período abierto"
+			);
+		}
+
 		EmpleadoEducativo empleado = obtenerPorId(empleadoId);
 
-		// 📘 Regla de dominio: qué días trabaja (en ESTA escuela)
-		Set<DiaDeSemana> diasQueTrabaja = empleado.diasQueTrabajaEnEscuela(escuelaId);
+		Set<DiaDeSemana> diasQueTrabaja = empleado.diasLaborablesEn(periodo.getFechaDesde());
 
 		Set<LocalDate> fechasEnQueTrabaja = new HashSet<>();
 
@@ -183,8 +184,8 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 				}
 
 			} catch (
-					IllegalArgumentException e) {
-				// sábado o domingo → se ignora
+					IllegalArgumentException ignored) {
+				// sábado/domingo
 			}
 		}
 

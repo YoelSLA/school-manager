@@ -12,4 +12,10 @@ export const licenciasTitles: Record<string, BreadcrumbResolver> = {
 		{ label: "Licencias", to: "/licencias" },
 		{ label: `#${params.licenciaId}` },
 	],
+
+	"/licencias/:licenciaId/designaciones": (params) => [
+		{ label: "Licencias", to: "/licencias" },
+		{ label: `#${params.licenciaId}`, to: `/licencias/${params.licenciaId}` },
+		{ label: "Designaciones" },
+	],
 };

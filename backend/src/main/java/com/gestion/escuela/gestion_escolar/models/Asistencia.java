@@ -1,27 +1,21 @@
 package com.gestion.escuela.gestion_escolar.models;
 
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsistencia;
-import com.gestion.escuela.gestion_escolar.models.enums.OrigenAsistencia;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
+import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 @Entity
 @Table(
 		name = "asistencia",
 		uniqueConstraints = {
-				@UniqueConstraint(columnNames = {"empleado_id", "escuela_id", "fecha"})
+				@UniqueConstraint(columnNames = {"empleado_educativo_id", "escuela_id", "fecha"})
 		}
 )
-
 @Getter
-@Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Asistencia {
 
 	@Id
@@ -43,14 +37,7 @@ public class Asistencia {
 	private EstadoAsistencia estadoAsistencia;
 
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
-	private OrigenAsistencia origenAsistencia;
-
-	@Enumerated(EnumType.STRING)
 	private TipoLicencia tipoLicencia;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Licencia licencia;
 
 	private String observacion;
 
@@ -61,18 +48,47 @@ public class Asistencia {
 	public Asistencia(
 			EmpleadoEducativo empleadoEducativo,
 			LocalDate fecha,
-			OrigenAsistencia origenAsistencia,
+			EstadoAsistencia estadoAsistencia,
 			TipoLicencia tipoLicencia,
-			Licencia licencia,
 			String observacion
 	) {
+
+		Validaciones.noNulo(empleadoEducativo, "empleado educativo");
+		Validaciones.noNulo(fecha, "fecha");
+		Validaciones.noNulo(estadoAsistencia, "estado asistencia");
+
 		this.escuela = empleadoEducativo.getEscuela();
-		this.empleadoEducativo = Objects.requireNonNull(empleadoEducativo);
-		this.fecha = Objects.requireNonNull(fecha);
-		this.estadoAsistencia = EstadoAsistencia.AUSENTE;
-		this.origenAsistencia = Objects.requireNonNull(origenAsistencia);
+		this.empleadoEducativo = empleadoEducativo;
+		this.fecha = fecha;
+		this.estadoAsistencia = estadoAsistencia;
 		this.tipoLicencia = tipoLicencia;
-		this.licencia = licencia;
+		this.observacion = observacion;
+
+		validarInvariantes();
+	}
+
+	public boolean esJustificada() {
+		return tipoLicencia != null;
+	}
+
+	public boolean esInjustificada() {
+		return estadoAsistencia == EstadoAsistencia.AUSENTE
+				&& tipoLicencia == null;
+	}
+
+	public void actualizarManual(
+			TipoLicencia tipoLicencia,
+			String observacion
+	) {
+
+		// 🔹 Solo tiene sentido si es AUSENTE
+		if (this.estadoAsistencia != EstadoAsistencia.AUSENTE) {
+			throw new IllegalStateException(
+					"Solo se puede actualizar una asistencia AUSENTE"
+			);
+		}
+
+		this.tipoLicencia = tipoLicencia;
 		this.observacion = observacion;
 
 		validarInvariantes();
@@ -80,64 +96,10 @@ public class Asistencia {
 
 	private void validarInvariantes() {
 
-		if (origenAsistencia == OrigenAsistencia.MANUAL && licencia != null) {
-			throw new IllegalStateException("Asistencia MANUAL no puede tener una licencia prologonda asociada");
-		}
-
-		if (origenAsistencia == OrigenAsistencia.LICENCIA && licencia == null) {
-			throw new IllegalStateException("Asistencia con origen LICENCIA debe tener licencia prolongada asociada");
-		}
-	}
-
-	public boolean esManual() {
-		return origenAsistencia == OrigenAsistencia.MANUAL;
-	}
-
-	public boolean esPorLicencia() {
-		return origenAsistencia == OrigenAsistencia.LICENCIA;
-	}
-
-	public boolean esJustificada() {
-		return esPorLicencia() || tipoLicencia != null;
-	}
-
-	public boolean esInjustificada() {
-		return esManual() && tipoLicencia == null;
-	}
-
-	public void aplicarLicencia(Licencia licencia) {
-		this.origenAsistencia = OrigenAsistencia.LICENCIA;
-		this.licencia = Objects.requireNonNull(licencia);
-		this.tipoLicencia = null;
-		this.observacion = null;
-
-		validarInvariantes();
-	}
-
-	@Override
-	public String toString() {
-		return "Asistencia{" +
-				"id=" + id +
-				", fecha=" + fecha +
-				", estado=" + estadoAsistencia +
-				", origen=" + origenAsistencia +
-				", empleadoId=" + (empleadoEducativo != null ? empleadoEducativo.getId() : null) +
-				", licenciaId=" + (licencia != null ? licencia.getId() : null) +
-				", tipoLicencia=" + tipoLicencia +
-				", observacion='" + observacion + '\'' +
-				'}';
-	}
-
-	public void actualizarManual(TipoLicencia tipoLicencia, String observacion) {
-		if (this.origenAsistencia != OrigenAsistencia.MANUAL) {
+		if (estadoAsistencia == EstadoAsistencia.PRESENTE && tipoLicencia != null) {
 			throw new IllegalStateException(
-					"Solo se pueden editar la asistencia manual"
+					"Una asistencia PRESENTE no puede tener tipo de licencia"
 			);
 		}
-
-		this.tipoLicencia = tipoLicencia;
-		this.observacion = observacion;
 	}
-
-
 }
