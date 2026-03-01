@@ -13,10 +13,10 @@ import com.gestion.escuela.gestion_escolar.services.CursoService;
 import com.gestion.escuela.gestion_escolar.services.DesignacionService;
 import com.gestion.escuela.gestion_escolar.services.EscuelaService;
 import com.gestion.escuela.gestion_escolar.services.MateriaService;
+import com.gestion.escuela.gestion_escolar.web.PaginationUtils;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -75,14 +75,7 @@ public class EscuelaDesignacionCursoControllerREST {
 			Pageable pageable
 	) {
 
-		int MAX_SIZE = 20;
-		int pageSize = Math.min(pageable.getPageSize(), MAX_SIZE);
-
-		Pageable limitedPageable = PageRequest.of(
-				pageable.getPageNumber(),
-				pageSize,
-				pageable.getSort()
-		);
+		Pageable limitedPageable = PaginationUtils.limit(pageable);
 
 		Page<DesignacionCurso> designaciones =
 				designacionService.obtenerDesignacionesPorEscuela(
@@ -91,10 +84,7 @@ public class EscuelaDesignacionCursoControllerREST {
 						limitedPageable
 				);
 
-		return PageMapper.toPageResponse(
-				designaciones,
-				DesignacionCursoMapper::toResumen
-		);
+		return PageMapper.toPageResponse(designaciones, DesignacionCursoMapper::toResumen);
 	}
 
 

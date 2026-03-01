@@ -17,12 +17,24 @@ export function useRenovarLicencia() {
 		},
 
 		onSuccess: (_data, { licenciaId }) => {
+			// 🔹 detalle
 			queryClient.invalidateQueries({
 				queryKey: licenciasQueryKeys.detail(licenciaId),
 			});
 
+			// 🔹 timeline (porque renovación afecta cadena)
 			queryClient.invalidateQueries({
-				queryKey: licenciasQueryKeys.lists(),
+				queryKey: licenciasQueryKeys.timeline(licenciaId),
+			});
+
+			// 🔹 designaciones (puede cambiar estado)
+			queryClient.invalidateQueries({
+				queryKey: licenciasQueryKeys.designaciones(licenciaId),
+			});
+
+			// 🔹 opcional: invalidar todas las licencias
+			queryClient.invalidateQueries({
+				queryKey: licenciasQueryKeys.all,
 			});
 		},
 	});

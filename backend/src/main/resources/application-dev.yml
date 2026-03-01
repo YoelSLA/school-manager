@@ -1,3 +1,6 @@
+server:
+  port: 8080
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5433/gestion_escolar_dev
@@ -8,7 +11,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
@@ -19,7 +22,3 @@ spring:
 
   jackson:
     time-zone: America/Argentina/Buenos_Aires
-
-logging:
-  level:
-    org.hibernate.SQL: DEBUG

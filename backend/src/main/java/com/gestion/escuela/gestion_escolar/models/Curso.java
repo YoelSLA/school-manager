@@ -1,9 +1,11 @@
 package com.gestion.escuela.gestion_escolar.models;
 
 import com.gestion.escuela.gestion_escolar.models.enums.Turno;
+import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
+import com.gestion.escuela.gestion_escolar.models.exceptions.curso.AnioInvalidoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.curso.GradoInvalidoException;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(
@@ -27,24 +29,54 @@ public class Curso {
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "escuela_id", nullable = false)
-	@Setter
 	private Escuela escuela;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private Turno turno;
 
-	public Curso() {
+	protected Curso() {
 	}
 
-	public Curso(Turno turno, Integer anio, Integer grado) {
+	public Curso(Turno turno, Integer anio, Integer grado, Escuela escuela) {
+		validar(turno, anio, grado, escuela);
+
 		this.turno = turno;
 		this.anio = anio;
 		this.grado = grado;
+		this.escuela = escuela;
+	}
+
+	public void asignarAEscuela(Escuela escuela) {
+		Validaciones.noNulo(escuela, "escuela");
+		this.escuela = escuela;
 	}
 
 	public String anioDivision() {
 		return anio + "° " + grado;
 	}
+
+	@Override
+	public String toString() {
+		return anioDivision() + " - " + turno;
+	}
+
+	private void validar(Turno turno, Integer anio, Integer grado, Escuela escuela) {
+
+		Validaciones.noNulo(turno, "turno");
+		Validaciones.noNulo(anio, "anio");
+		Validaciones.noNulo(grado, "grado");
+		Validaciones.noNulo(escuela, "escuela");
+
+		if (anio <= 0) {
+			throw new AnioInvalidoException(anio);
+		}
+
+		if (grado <= 0) {
+			throw new GradoInvalidoException(grado);
+		}
+	}
+
+
 }
 

@@ -1,4 +1,4 @@
-import Modal from "@/components/Modal";
+import Modal from "@/components/Modal/Modal";
 import TipoLicenciaSelect from "@/features/licencias/components/TipoLicenciaSelect/TipoLicenciaSelect";
 import type { RegistrarInasistenciaFormOutput } from "../form/asistencias.form.types";
 import { useRegistrarInasistenciaForm } from "../form/useRegistrarInasistenciaForm";

@@ -1,6 +1,6 @@
 import type z from "zod";
-import type { crearMateriaSchema } from "./crearMateria.schema";
+import type { crearMateriaSchema } from "./schemas/crearMateria.schema";
+import type { editarMateriaSchema } from "./schemas/editarMateria.schema";
 
-export type CrearMateriaFormInput = z.input<typeof crearMateriaSchema>;
-
-export type CrearMateriaFormOutput = z.output<typeof crearMateriaSchema>;
+export type CrearMateriaFormValues = z.infer<typeof crearMateriaSchema>;
+export type EditarMateriaFormValues = z.infer<typeof editarMateriaSchema>;

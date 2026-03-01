@@ -25,24 +25,20 @@ public class CursoServiceImpl implements CursoService {
 	private final EscuelaRepository escuelaRepository;
 
 	@Override
-	public Curso crear(Curso curso, Long escuelaId) {
-
-		Escuela escuela = escuelaRepository.findById(escuelaId).orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
+	public Curso crear(Curso curso) {
 
 		if (cursoRepository.existsByAnioAndGradoAndEscuelaId(
 				curso.getAnio(),
 				curso.getGrado(),
-				escuelaId
+				curso.getEscuela().getId()
 		)) {
 			throw new RecursoDuplicadoException(
 					"curso",
 					"año y grado",
 					curso.getAnio() + "° / " + curso.getGrado() + "°",
-					"la escuela " + escuela.getNombre()
+					"la escuela " + curso.getEscuela().getNombre()
 			);
 		}
-
-		curso.setEscuela(escuela);
 
 		return cursoRepository.save(curso);
 	}
@@ -72,7 +68,7 @@ public class CursoServiceImpl implements CursoService {
 				);
 			}
 
-			curso.setEscuela(escuela);
+			curso.asignarAEscuela(escuela);
 		}
 
 		cursoRepository.saveAll(cursos);

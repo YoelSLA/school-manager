@@ -10,7 +10,7 @@ import java.util.List;
 public interface CursoService {
 
 
-	Curso crear(Curso curso, Long escuelaId);
+	Curso crear(Curso curso);
 
 	void crearBatch(Long escuelaId, List<Curso> cursos);
 

@@ -24,7 +24,7 @@ export function useCubrirDesignacionesConSuplente() {
 
 			// 🔄 todas las listas de licencias
 			queryClient.invalidateQueries({
-				queryKey: licenciasQueryKeys.lists(),
+				queryKey: licenciasQueryKeys.all,
 			});
 		},
 	});

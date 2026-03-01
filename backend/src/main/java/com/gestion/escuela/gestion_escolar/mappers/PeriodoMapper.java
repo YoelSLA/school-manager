@@ -9,10 +9,13 @@ import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 public class PeriodoMapper {
 
 	public static PeriodoResponseDTO toPeriodoResponse(Licencia licencia) {
+
+		Periodo periodo = licencia.getPeriodo();
+
 		return new PeriodoResponseDTO(
-				licencia.getPeriodo().getFechaDesde(),
-				licencia.getPeriodo().getFechaHasta(),
-				licencia.dias()
+				periodo.getFechaDesde(),
+				periodo.getFechaHasta(),
+				periodo.esAbierto() ? null : licencia.dias()
 		);
 	}
 

@@ -19,10 +19,10 @@ public class AsignacionSuplente extends Asignacion {
 
 	public AsignacionSuplente(
 			EmpleadoEducativo empleado,
+			Designacion designacion,
 			Periodo periodo
 	) {
-		super(empleado, periodo);
-		
+		super(empleado, designacion, periodo);
 	}
 
 	@Override
@@ -30,13 +30,21 @@ public class AsignacionSuplente extends Asignacion {
 		return SituacionDeRevista.SUPLENTE;
 	}
 
-	public void convertirseEnProvisional(LocalDate fechaInicio, Designacion designacion) {
-		// 1️⃣ Finalizar suplencia
-		this.finalizarPorBajaDefinitiva(CausaBaja.PASE_DE_SUPLENTE_A_PROVISIONAL, fechaInicio);
+	public void convertirseEnProvisional(LocalDate fechaDesde) {
 
-		// 2️⃣ Crear provisional
-		designacion.cubrirConProvisional(this.empleadoEducativo, fechaInicio);
+		// 1️⃣ Finalizar suplencia (día anterior)
+		LocalDate fechaFinSuplencia = fechaDesde.minusDays(1);
 
+		this.finalizarPorBajaDefinitiva(
+				CausaBaja.PASE_DE_SUPLENTE_A_PROVISIONAL,
+				fechaFinSuplencia
+		);
+
+		// 2️⃣ Crear provisional automática
+		getDesignacion().cubrirConProvisionalAutomatico(
+				this.getEmpleadoEducativo(),
+				fechaDesde
+		);
 	}
-}
 
+}

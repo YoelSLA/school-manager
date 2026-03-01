@@ -2,7 +2,7 @@ package com.gestion.escuela.gestion_escolar.services;
 
 import com.gestion.escuela.gestion_escolar.models.Asistencia;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
-import com.gestion.escuela.gestion_escolar.models.Licencia;
+import com.gestion.escuela.gestion_escolar.models.EstadoAsistenciaDia;
 import com.gestion.escuela.gestion_escolar.models.RolCantidad;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
@@ -16,12 +16,11 @@ import java.util.List;
 
 public interface AsistenciaService {
 
-	void impactarLicencia(Licencia licencia);
-
 	@Transactional(readOnly = true)
 	List<Asistencia> asistenciasDe(Long empleadoId);
 
-	List<Asistencia> obtenerAsistenciasDelMes(
+	@Transactional(readOnly = true)
+	List<EstadoAsistenciaDia> obtenerEstadoMensual(
 			Long escuelaId,
 			Long empleadoId,
 			YearMonth mes
@@ -46,4 +45,6 @@ public interface AsistenciaService {
 	);
 
 	void eliminarInasistenciasManual(Long empleadoId, List<LocalDate> fechas);
+
+
 }

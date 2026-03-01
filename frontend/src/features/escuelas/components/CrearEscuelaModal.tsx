@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import Modal from "@/components/Modal";
+import Modal from "@/components/Modal/Modal";
 import type { EscuelaFormOutput } from "../form/escuela.form.types";
 import EscuelaForm from "./EscuelaForm/EscuelaForm";
 

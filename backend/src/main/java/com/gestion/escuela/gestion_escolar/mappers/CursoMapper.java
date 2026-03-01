@@ -4,14 +4,16 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.CursoCreateDT
 import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.CursoNombreDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.CursoResponseDTO;
 import com.gestion.escuela.gestion_escolar.models.Curso;
+import com.gestion.escuela.gestion_escolar.models.Escuela;
 
 public final class CursoMapper {
 
-	public static Curso toEntity(CursoCreateDTO d) {
+	public static Curso toEntity(CursoCreateDTO d, Escuela e) {
 		return new Curso(
 				d.turno(),
 				d.anio(),
-				d.grado()
+				d.grado(),
+				e
 		);
 	}
 

@@ -10,19 +10,25 @@ type Props = {
 };
 
 export function LicenciaCardFechas({ periodo }: Props) {
+	const { fechaDesde, fechaHasta, dias } = periodo;
+
 	return (
 		<div className="licencia-fechas">
 			<div className="licencia-fechas-rango">
 				<span className="icon">📅</span>
 				<span>
-					{formatearFecha(periodo.fechaDesde)} al{" "}
-					{formatearFecha(periodo.fechaHasta)}
+					{formatearFecha(fechaDesde)} al{" "}
+					{fechaHasta
+						? formatearFecha(fechaHasta)
+						: "Sin fecha de finalización"}
 				</span>
 			</div>
 
 			<div className="licencia-fechas-dias">
 				<span className="icon">⏳</span>
-				<span>{periodo.dias} días</span>
+				<span>
+					{dias ?? "—"} días
+				</span>
 			</div>
 		</div>
 	);

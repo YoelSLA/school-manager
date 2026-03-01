@@ -1,5 +1,6 @@
 import type {
 	NormativaDTO,
+	PeriodoAbiertoDTO,
 	PeriodoCerradoDTO,
 	PeriodoCreateDTO,
 } from "@/utils/types";
@@ -40,15 +41,7 @@ export type TipoPeriodoLicencia = "ORIGINAL" | "RENOVACION";
 export type LicenciaTimelineItemDTO = {
 	id: number;
 	tipo: TipoPeriodoLicencia;
-	periodo: PeriodoCerradoDTO;
-};
-
-export type CrearLicenciaForm = {
-	empleadoId?: number;
-	tipoLicencia: string;
-	fechaDesde: string;
-	fechaHasta: string;
-	descripcion?: string;
+	periodo: PeriodoAbiertoDTO;
 };
 
 // --------------------------------------------------------------------
@@ -57,7 +50,6 @@ export interface LicenciaDesignacionBaseDTO {
 	cupof: number;
 	estado: EstadoDesignacion;
 	rolEducativo: RolEducativo;
-	tipo: "ADMINISTRATIVA" | "CURSO";
 }
 
 export interface LicenciaDesignacionAdministrativaDTO
@@ -94,3 +86,8 @@ export enum EstadoLicencia {
 	DESCUBIERTA = "DESCUBIERTA",
 	INACTIVA = "INACTIVA",
 }
+
+export type LicenciaTimelineItem = LicenciaTimelineItemDTO;
+export type LicenciaResumen = LicenciaResumenDTO
+export type LicenciaDetalle = LicenciaDetalleDTO;
+export type LicenciaDesignacion = LicenciaDesignacionDTO;

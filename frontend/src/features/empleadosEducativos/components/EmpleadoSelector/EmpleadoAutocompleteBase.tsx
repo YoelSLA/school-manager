@@ -66,7 +66,7 @@ export default function EmpleadoAutocompleteBase({
 								type="button"
 								className={styles["empleado-autocomplete__button"]}
 								onMouseDown={(ev) => {
-									ev.preventDefault(); // 🔥 evita blur
+									ev.preventDefault();
 									onSelect(e);
 								}}
 							>

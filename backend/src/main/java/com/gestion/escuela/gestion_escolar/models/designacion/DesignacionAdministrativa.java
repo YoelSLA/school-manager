@@ -20,4 +20,9 @@ public class DesignacionAdministrativa extends Designacion {
 		super(escuela, cupof, rolEducativo);
 	}
 
+	@Override
+	public String toString() {
+		return super.toString();
+	}
+
 }

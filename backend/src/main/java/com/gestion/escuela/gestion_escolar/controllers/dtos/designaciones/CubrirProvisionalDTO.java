@@ -9,9 +9,11 @@ public record CubrirProvisionalDTO(
 		@NotNull(message = "El empleado es obligatorio")
 		Long empleadoId,
 
-		@NotNull(message = "La fecha de toma de posesión es obligatoria")
-		LocalDate fechaTomaPosesion
+		@NotNull(message = "La fecha de inicio es obligatoria")
+		LocalDate fechaInicio,
+
+		@NotNull(message = "La fecha fin es obligatoria")
+		LocalDate fechaFin
 
 ) {
 }
-

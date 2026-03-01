@@ -24,8 +24,7 @@ public class DesignacionCursoMapper {
 				escuela,
 				dto.cupof(),
 				materia,
-				curso,
-				dto.orientacion()
+				curso
 		);
 
 		dto.franjasHorarias()

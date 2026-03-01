@@ -3,12 +3,12 @@ import { useParams } from "react-router-dom";
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import LicenciaRenovarModal from "../../components/LicenciaRenovarModal";
 import { useLicenciaDetalle } from "../../hooks/useLicenciaDetalle";
+import { useLicenciaTimeline } from "../../hooks/useLicenciaTimeline";
 import { useLicenciasNavigation } from "../../hooks/useLicenciasNavigation";
 
 import styles from "./LicenciaDetallePage.module.scss";
 import LicenciaHeaderStack from "./LicenciaHeaderGrid";
 import LicenciaTimelineBox from "./LicenciaTimelineBox";
-
 
 export default function LicenciaDetallePage() {
 	const { licenciaId } = useParams<{ licenciaId: string }>();
@@ -17,7 +17,18 @@ export default function LicenciaDetallePage() {
 
 	const [renovarVisible, setRenovarVisible] = useState(false);
 
-	const { licencia, isLoading, isError } = useLicenciaDetalle(licenciaIdNumber);
+	const {
+		licencia,
+		isLoading,
+		isError,
+	} = useLicenciaDetalle(licenciaIdNumber);
+
+	// 🔹 Nuevo hook independiente
+	const {
+		data: timeline = [],
+		isLoading: timelineLoading,
+		isError: timelineError,
+	} = useLicenciaTimeline(licenciaIdNumber);
 
 	if (isLoading) return <div className="page-loading">Cargando licencia…</div>;
 	if (isError) return <div className="page-error">{isError}</div>;
@@ -30,13 +41,19 @@ export default function LicenciaDetallePage() {
 					<div className={styles.header}>
 						<LicenciaHeaderStack licencia={licencia} />
 					</div>
+
 					<div className={styles.timeline}>
-						<LicenciaTimelineBox
-							timeline={licencia.timeline}
-							licenciaActualId={licencia.id}
-							onNavigate={licenciasNav.verDetalle}
-							onRenovar={() => setRenovarVisible(true)}
-						/>
+						{timelineLoading && <p>Cargando timeline…</p>}
+						{timelineError && <p>Error al cargar timeline</p>}
+
+						{!timelineLoading && !timelineError && (
+							<LicenciaTimelineBox
+								timeline={timeline}
+								licenciaActualId={licencia.id}
+								onNavigate={licenciasNav.verDetalle}
+								onRenovar={() => setRenovarVisible(true)}
+							/>
+						)}
 					</div>
 				</div>
 			</div>

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Button from "@/components/Button";
 import FilterPillGroup from "@/components/FilterPillGroup/FilterPillGroup";
 import Pagination from "@/layout/Pagination";
@@ -17,10 +16,13 @@ import DesignacionesList from "./DesignacionesList";
 import { useDesignacionesAdministrativas } from "../../hooks/useDesignacionesAdministrativas";
 import { useDesignacionesCursos } from "../../hooks/useDesignacionesCursos";
 import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
+import { useDesignacionesNavigation } from "../../hooks/useDesignacionesNavigation";
+
 
 export default function DesignacionesPage() {
-	const navigate = useNavigate();
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
+
+	const navigation = useDesignacionesNavigation();
 
 	const [filtro, setFiltro] =
 		useState<DesignacionFiltro>("ADMIN");
@@ -55,14 +57,6 @@ export default function DesignacionesPage() {
 	const data = filtro === "ADMIN" ? adminData : cursoData;
 	const totalPages = data?.totalPages ?? 0;
 
-	const handleVerDetalle = (id: number) => {
-		navigate(`/designaciones/${id}`);
-	};
-
-	const handleCrearDesignacion = () => {
-		navigate("/designaciones/crear");
-	};
-
 	const adminDesignaciones = adminData?.content ?? [];
 	const cursoDesignaciones = cursoData?.content ?? [];
 
@@ -80,7 +74,7 @@ export default function DesignacionesPage() {
 						/>
 					}
 					actions={
-						<Button onClick={handleCrearDesignacion}>
+						<Button onClick={navigation.crear}>
 							+ Nueva designación
 						</Button>
 					}
@@ -102,7 +96,7 @@ export default function DesignacionesPage() {
 					designaciones={adminDesignaciones}
 					isLoading={isLoadingAdmin}
 					isError={isErrorAdmin}
-					onVerDetalle={handleVerDetalle}
+					onVerDetalle={navigation.verDetalle}
 				/>
 			) : (
 				<DesignacionesList
@@ -110,7 +104,7 @@ export default function DesignacionesPage() {
 					designaciones={cursoDesignaciones}
 					isLoading={isLoadingCursos}
 					isError={isErrorCursos}
-					onVerDetalle={handleVerDetalle}
+					onVerDetalle={navigation.verDetalle}
 				/>
 			)}
 		</SidebarPageLayout>

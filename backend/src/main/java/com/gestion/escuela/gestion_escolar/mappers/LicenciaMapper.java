@@ -9,7 +9,6 @@ import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoPeriodoLicencia;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class LicenciaMapper {
 
@@ -48,7 +47,6 @@ public class LicenciaMapper {
 
 		TipoLicencia tipo = l.getTipoLicencia();
 
-		// 🔹 Normativa encapsulada
 		LicenciaNormativaDTO normativa =
 				new LicenciaNormativaDTO(
 						tipo.getCodigo(),
@@ -56,37 +54,17 @@ public class LicenciaMapper {
 						tipo.getDescripcion()
 				);
 
-		// 🔹 Designaciones afectadas (igual que antes)
-		List<LicenciaDesignacionDTO> designaciones =
-				l.getEmpleadoEducativo()
-						.designacionesAfectadasPor(l)
-						.stream()
-						.map(LicenciaMapper::toDesignacionDTO)
-						.toList();
-
-		// 🔹 Timeline completo desde la raíz
-		List<LicenciaTimelineItemDTO> timeline =
-				l.cadenaCompleta().stream()
-						.map(LicenciaMapper::toTimelineItem)
-						.toList();
-
 		return new LicenciaDetalleDTO(
 				l.getId(),
 				EmpleadoEducativoMapper.toMinimo(l.getEmpleadoEducativo()),
 				normativa,
 				l.getDescripcion(),
 				PeriodoMapper.toPeriodoResponse(l),
-				l.getEstadoEn(HOY),
-				designaciones,
-				timeline
+				l.getEstadoEn(HOY)
 		);
 	}
 
-	/* =========================
-	   DESIGNACIONES AFECTADAS
-	   ========================= */
-
-	private static LicenciaDesignacionDTO toDesignacionDTO(Designacion d) {
+	public static LicenciaDesignacionDTO toDesignacionDTO(Designacion d) {
 
 		if (d instanceof DesignacionAdministrativa da) {
 			return new LicenciaDesignacionAdministrativaDTO(
@@ -114,7 +92,7 @@ public class LicenciaMapper {
 		);
 	}
 
-	private static LicenciaTimelineItemDTO toTimelineItem(Licencia l) {
+	public static LicenciaTimelineItemDTO toTimelineItem(Licencia l) {
 		return new LicenciaTimelineItemDTO(
 				l.getId(),
 				l.getLicenciaAnterior() == null ? TipoPeriodoLicencia.ORIGINAL : TipoPeriodoLicencia.RENOVACION,

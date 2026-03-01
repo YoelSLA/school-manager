@@ -1,4 +1,4 @@
-import Modal from "@/components/Modal";
+import Modal from "@/components/Modal/Modal";
 import type { BajaDefinitivaOutput } from "../../form/empleadoEducativo.form.types";
 import { useBajaDefinitivaForm } from "../../form/hooks/useBajaDefinitivaForm";
 import CausaBajaSelectField from "@/components/forms/selects/CausaBajaSelectField";

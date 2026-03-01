@@ -1,6 +1,7 @@
 package com.gestion.escuela.gestion_escolar.models;
 
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
+import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -78,7 +79,7 @@ public class Escuela {
 		if (designacion == null) {
 			throw new IllegalArgumentException("La designación no puede ser null");
 		}
-		designacion.setEscuela(this);
+		designacion.asignarEscuela(this);
 		this.designaciones.add(designacion);
 	}
 
@@ -87,7 +88,6 @@ public class Escuela {
 			return;
 		}
 		this.designaciones.remove(designacion);
-		designacion.setEscuela(null);
 	}
 
 	public void agregarEmpleado(EmpleadoEducativo empleado) {
@@ -107,26 +107,23 @@ public class Escuela {
 	}
 
 	public void agregarMateria(Materia materia) {
-		if (materia == null) {
-			throw new IllegalArgumentException("La materia no puede ser null");
-		}
+		Validaciones.noNulo(materia, "materia");
+
 		materia.setEscuela(this);
 		this.materias.add(materia);
 	}
 
 	public void removerMateria(Materia materia) {
-		if (materia == null) {
+		if (materia == null)
 			return;
-		}
+
 		this.materias.remove(materia);
-		materia.setEscuela(null);
 	}
 
 	public void agregarCurso(Curso curso) {
-		if (curso == null) {
-			throw new IllegalArgumentException("El curso no puede ser null");
-		}
-		curso.setEscuela(this);
+		Validaciones.noNulo(curso, "curso");
+
+		curso.asignarAEscuela(this);
 		this.cursos.add(curso);
 	}
 
@@ -135,7 +132,6 @@ public class Escuela {
 			return;
 		}
 		this.cursos.remove(curso);
-		curso.setEscuela(null);
 	}
 
 	/* ==========================

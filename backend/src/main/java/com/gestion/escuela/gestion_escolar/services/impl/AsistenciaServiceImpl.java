@@ -1,13 +1,10 @@
 package com.gestion.escuela.gestion_escolar.services.impl;
 
-import com.gestion.escuela.gestion_escolar.models.Asistencia;
-import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
-import com.gestion.escuela.gestion_escolar.models.Licencia;
-import com.gestion.escuela.gestion_escolar.models.RolCantidad;
+import com.gestion.escuela.gestion_escolar.models.*;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsistencia;
-import com.gestion.escuela.gestion_escolar.models.enums.OrigenAsistencia;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
+import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
 import com.gestion.escuela.gestion_escolar.persistence.AsignacionRepository;
 import com.gestion.escuela.gestion_escolar.persistence.AsistenciaRepository;
 import com.gestion.escuela.gestion_escolar.persistence.EmpleadoEducativoRepository;
@@ -21,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -32,59 +30,51 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 	private final EmpleadoEducativoRepository empleadoEducativoRepository;
 
 	@Override
-	public void impactarLicencia(Licencia licencia) {
-
-		EmpleadoEducativo empleado = licencia.getEmpleadoEducativo();
-		List<LocalDate> diasLaborables = empleado.calcularDiasLaborables(licencia);
-
-		for (LocalDate fecha : diasLaborables) {
-
-			Optional<Asistencia> existente = asistenciaRepository.findByEmpleadoEducativoIdAndFecha(empleado.getId(), fecha);
-
-			Asistencia asistencia;
-			if (existente.isPresent()) {
-				asistencia = existente.get();
-				asistencia.setOrigenAsistencia(OrigenAsistencia.LICENCIA);
-				asistencia.setLicencia(licencia);
-				asistencia.setObservacion(null);
-
-			} else {
-				asistencia = new Asistencia(
-						empleado,
-						fecha,
-						OrigenAsistencia.LICENCIA,
-						licencia.getTipoLicencia(),
-						licencia,
-						null
-				);
-
-			}
-			asistenciaRepository.save(asistencia);
-		}
-	}
-
-	@Override
 	@Transactional(readOnly = true)
 	public List<Asistencia> asistenciasDe(Long empleadoId) {
 		return asistenciaRepository.findByEmpleadoEducativoId(empleadoId);
 	}
 
 	@Override
-	public List<Asistencia> obtenerAsistenciasDelMes(
+	@Transactional(readOnly = true)
+	public List<EstadoAsistenciaDia> obtenerEstadoMensual(
 			Long escuelaId,
 			Long empleadoId,
 			YearMonth mes
 	) {
-		LocalDate fechaDesde = mes.atDay(1);
-		LocalDate fechaHasta = mes.atEndOfMonth();
 
-		return asistenciaRepository
-				.findByEscuelaIdAndEmpleadoEducativoIdAndFechaBetween(
+		EmpleadoEducativo empleado = empleadoEducativoRepository.findById(empleadoId)
+				.orElseThrow(() ->
+						new RecursoNoEncontradoException("empleado", empleadoId)
+				);
+
+		LocalDate inicio = mes.atDay(1);
+		LocalDate fin = mes.atEndOfMonth();
+
+		List<Asistencia> manuales = asistenciaRepository
+				.findByEmpleadoEducativoIdAndEscuelaIdAndFechaBetween(
 						escuelaId,
 						empleadoId,
-						fechaDesde,
-						fechaHasta
+						inicio,
+						fin
 				);
+
+		Map<LocalDate, Asistencia> manualesPorFecha =
+				manuales.stream()
+						.collect(Collectors.toMap(
+								Asistencia::getFecha,
+								a -> a
+						));
+
+		List<LocalDate> fechasQueDebeAsistir = diasQueDebeAsistir(empleado, mes);
+
+		System.out.println("FECHAS QUE DEBE ASISTIR");
+		System.out.println(fechasQueDebeAsistir);
+
+		return fechasQueDebeAsistir
+				.stream()
+				.map(f -> construirEstadoDia(empleado, f, manualesPorFecha))
+				.toList();
 	}
 
 	@Override
@@ -112,7 +102,6 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 				.toList();
 	}
 
-
 	@Override
 	public Page<EmpleadoEducativo> buscarEmpleados(
 			LocalDate fecha,
@@ -121,11 +110,9 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 			Pageable pageable
 	) {
 
-		List<RolEducativo> rolesFiltro =
-				(roles == null || roles.isEmpty()) ? null : roles;
+		List<RolEducativo> rolesFiltro = (roles == null || roles.isEmpty()) ? null : roles;
 
-		String queryFiltro =
-				(query == null || query.isBlank()) ? null : query;
+		String queryFiltro = (query == null || query.isBlank()) ? null : query;
 
 		return empleadoEducativoRepository.buscarEmpleadosConRolVigente(
 				fecha,
@@ -135,90 +122,159 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 		);
 	}
 
-
 	@Override
+	@Transactional
 	public void registrarInasistenciasManuales(
 			EmpleadoEducativo empleado,
 			List<LocalDate> fechas,
 			TipoLicencia tipoLicencia,
 			String observacion
 	) {
-		List<Asistencia> resultado = new ArrayList<>();
 
-		for (LocalDate fecha : fechas) {
-
-			Optional<Asistencia> existenteOpt =
-					asistenciaRepository.findByEmpleadoEducativoIdAndFecha(
-							empleado.getId(),
-							fecha
-					);
-
-			if (existenteOpt.isPresent()) {
-				Asistencia existente = existenteOpt.get();
-
-				// ❌ No se puede editar si viene de licencia
-				if (existente.getOrigenAsistencia() == OrigenAsistencia.LICENCIA) {
-					throw new IllegalStateException(
-							"La asistencia del " + fecha + " fue generada por licencia y no puede editarse"
-					);
-				}
-
-				// ✅ Editar asistencia MANUAL existente
-				existente.actualizarManual(tipoLicencia, observacion);
-				resultado.add(existente);
-
-			} else {
-				// ✅ Crear nueva asistencia MANUAL
-				Asistencia nueva = new Asistencia(
-						empleado,
-						fecha,
-						OrigenAsistencia.MANUAL,
-						tipoLicencia,
-						null,
-						observacion
-				);
-				resultado.add(nueva);
-			}
-		}
-
-		asistenciaRepository.saveAll(resultado);
-	}
-
-	@Override
-	public void eliminarInasistenciasManual(
-			Long empleadoId,
-			List<LocalDate> fechas
-	) {
 		if (fechas == null || fechas.isEmpty()) {
 			return;
 		}
 
-		List<Asistencia> asistencias =
-				asistenciaRepository.findByEmpleadoEducativoIdAndFechaIn(
-						empleadoId,
-						fechas
-				);
+		// 🔹 1. Traer todas las asistencias manuales existentes en una sola query
+		List<Asistencia> existentes = asistenciaRepository
+				.findByEmpleadoEducativoIdAndFechaIn(empleado.getId(), fechas);
 
-		for (Asistencia asistencia : asistencias) {
+		Map<LocalDate, Asistencia> existentesPorFecha =
+				existentes.stream()
+						.collect(Collectors.toMap(
+								Asistencia::getFecha,
+								a -> a
+						));
 
-			// ✅ solo AUSENTES
-			if (!asistencia.getEstadoAsistencia().equals(EstadoAsistencia.AUSENTE)) {
+		List<Asistencia> aGuardar = new ArrayList<>();
+
+		for (LocalDate fecha : fechas) {
+
+			// 🔹 2. No permitir registrar manual si hay licencia activa
+			if (empleado.licenciaActivaEn(fecha).isPresent()) {
 				throw new IllegalStateException(
-						"No se puede eliminar una asistencia que no sea AUSENTE"
+						"No se puede registrar inasistencia manual el " + fecha +
+								" porque existe una licencia activa"
 				);
 			}
 
-			// ✅ solo MANUALES (sin licencia)
-			if (asistencia.getLicencia() != null) {
-				throw new IllegalStateException(
-						"No se puede eliminar una inasistencia generada por licencia"
+			Asistencia existente = existentesPorFecha.get(fecha);
+
+			if (existente != null) {
+				// ✅ Actualizar manual existente
+				existente.actualizarManual(tipoLicencia, observacion);
+				aGuardar.add(existente);
+
+			} else {
+				// ✅ Crear nueva asistencia manual
+				Asistencia nueva = new Asistencia(
+						empleado,
+						fecha,
+						EstadoAsistencia.AUSENTE,
+						tipoLicencia,
+						observacion
 				);
+
+				aGuardar.add(nueva);
 			}
 		}
 
+		asistenciaRepository.saveAll(aGuardar);
+	}
+
+	@Override
+	public void eliminarInasistenciasManual(Long empleadoId, List<LocalDate> fechas) {
+
+		if (fechas == null || fechas.isEmpty()) {
+			return;
+		}
+
+		List<Asistencia> asistencias = asistenciaRepository.findByEmpleadoEducativoIdAndFechaIn(empleadoId, fechas);
+
+		for (Asistencia asistencia : asistencias) {
+
+			// 🔹 Solo se pueden eliminar AUSENTES manuales
+			if (asistencia.getEstadoAsistencia() != EstadoAsistencia.AUSENTE) {
+				throw new IllegalStateException("No se puede eliminar una asistencia que no sea AUSENTE");
+			}
+		}
 		asistenciaRepository.deleteAll(asistencias);
 	}
 
+	/**
+	 * Construye el estado real del empleado en una fecha específica
+	 * Reglas:
+	 * 1️⃣ Si existe asistencia manual persistida → se usa esa.
+	 * 2️⃣ Si no hay manual pero hay licencia activa → AUSENTE por licencia.
+	 * 3️⃣ Si no hay nada → PRESENTE.
+	 */
+	private EstadoAsistenciaDia construirEstadoDia(
+			EmpleadoEducativo empleado,
+			LocalDate fecha,
+			Map<LocalDate, Asistencia> manualesPorFecha
+	) {
+
+		// 🔹 Caso 1: asistencia manual
+		Asistencia manual = manualesPorFecha.get(fecha);
+		if (manual != null) {
+			return EstadoAsistenciaDia.manual(manual);
+		}
+
+		// 🔹 Caso 2: licencia activa
+		Optional<Licencia> licenciaActiva = empleado.licenciaActivaEn(fecha);
+
+		return licenciaActiva.map(licencia -> EstadoAsistenciaDia.porLicencia(
+				fecha,
+				licencia
+		)).orElseGet(() -> EstadoAsistenciaDia.presente(fecha));
+
+	}
+
+	public List<LocalDate> diasQueDebeAsistir(
+			EmpleadoEducativo empleado,
+			YearMonth yearMonth
+	) {
+
+		System.out.println("=================================");
+		System.out.println("=== diasQueDebeAsistir ===");
+		System.out.println("Empleado: " + empleado.getId());
+		System.out.println("Mes: " + yearMonth);
+		System.out.println("=================================");
+
+		LocalDate inicio = yearMonth.atDay(1);
+		LocalDate fin = yearMonth.atEndOfMonth();
+
+		System.out.println("Rango evaluado: " + inicio + " -> " + fin);
+
+		List<LocalDate> resultado = new ArrayList<>();
+
+		inicio.datesUntil(fin.plusDays(1))
+				.forEach(fecha -> {
+
+					System.out.println("---------------------------------");
+					System.out.println("Evaluando fecha: " + fecha);
+					System.out.println("DayOfWeek: " + fecha.getDayOfWeek());
+
+					boolean debeAsistir = empleado.debeAsistirEn(fecha);
+
+					System.out.println("Resultado debeAsistirEn(" + fecha + "): " + debeAsistir);
+
+					if (debeAsistir) {
+						System.out.println("✔ SE AGREGA AL RESULTADO");
+						resultado.add(fecha);
+					} else {
+						System.out.println("✘ NO se agrega");
+					}
+				});
+
+		System.out.println("=================================");
+		System.out.println("Total días que debe asistir: " + resultado.size());
+		resultado.forEach(d -> System.out.println("  -> " + d));
+		System.out.println("=== FIN diasQueDebeAsistir ===");
+		System.out.println("=================================");
+
+		return resultado;
+	}
 
 }
 

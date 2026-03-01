@@ -8,8 +8,6 @@ public record PeriodoCreateDTO(
 
 		@NotNull(message = "La fecha desde es obligatoria")
 		LocalDate fechaDesde,
-
-		@NotNull(message = "La fecha hasta es obligatoria")
 		LocalDate fechaHasta
 ) {
 

@@ -4,6 +4,6 @@ public record MateriaResponseDTO(
 		Long id,
 		String nombre,
 		String abreviatura,
-		Integer modulos
+		Integer cantidadModulos
 ) {
 }

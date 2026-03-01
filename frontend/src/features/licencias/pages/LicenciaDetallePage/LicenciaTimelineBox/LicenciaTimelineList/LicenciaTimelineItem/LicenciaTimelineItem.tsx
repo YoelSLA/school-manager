@@ -37,7 +37,9 @@ export default function LicenciaTimelineItem({
 
 					<div className={styles["timeline-item__dates"]}>
 						{formatearFecha(item.periodo.fechaDesde)} ➡️{" "}
-						{formatearFecha(item.periodo.fechaHasta)}
+						{item.periodo.fechaHasta
+							? formatearFecha(item.periodo.fechaHasta)
+							: "Vigente"}
 					</div>
 				</div>
 

@@ -2,8 +2,10 @@ package com.gestion.escuela.gestion_escolar.services.impl;
 
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
+import com.gestion.escuela.gestion_escolar.models.Periodo;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionProvisional;
+import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionSuplente;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
 import com.gestion.escuela.gestion_escolar.models.caracteristicaAsignacion.Articulo13;
 import com.gestion.escuela.gestion_escolar.models.caracteristicaAsignacion.CambioDeFuncion;
@@ -13,11 +15,9 @@ import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoCaracteristicaAsignacion;
 import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
-import com.gestion.escuela.gestion_escolar.persistence.DesignacionRepository;
-import com.gestion.escuela.gestion_escolar.persistence.EmpleadoEducativoRepository;
-import com.gestion.escuela.gestion_escolar.persistence.EscuelaRepository;
-import com.gestion.escuela.gestion_escolar.persistence.LicenciaRepository;
+import com.gestion.escuela.gestion_escolar.persistence.*;
 import com.gestion.escuela.gestion_escolar.services.DesignacionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -38,6 +38,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 	private final LicenciaRepository licenciaRepository;
 	private final EmpleadoEducativoRepository empleadoEducativoRepository;
 	private final EscuelaRepository escuelaRepository;
+	private final AsignacionRepository asignacionRepository;
 
 	/**
 	 * Persiste una designación previamente creada y válida.
@@ -97,7 +98,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 		AsignacionTitular titular = designacion.cubrirConTitular(empleado, fechaTomaPosesion);
 
 		if (caracteristica != null) {
-			titular.setCaracteristica(crearCaracteristica(caracteristica));
+			titular.aplicarCaracteristica(crearCaracteristica(caracteristica));
 		}
 
 		designacionRepository.save(designacion);
@@ -108,7 +109,8 @@ public class DesignacionServiceImpl implements DesignacionService {
 	public AsignacionProvisional cubrirConProvisional(
 			Long designacionId,
 			Long empleadoId,
-			LocalDate fechaInicio
+			LocalDate fechaDesde,
+			LocalDate fechaHasta
 	) {
 
 		Designacion designacion = designacionRepository.findById(designacionId)
@@ -121,7 +123,13 @@ public class DesignacionServiceImpl implements DesignacionService {
 						new RecursoNoEncontradoException("empleado educativo", empleadoId)
 				);
 
-		AsignacionProvisional asignacion = designacion.cubrirConProvisional(empleado, fechaInicio);
+		if (fechaHasta != null && fechaHasta.isBefore(fechaDesde)) {
+			throw new IllegalArgumentException("La fecha fin no puede ser anterior a la fecha inicio");
+		}
+
+		Periodo periodo = new Periodo(fechaDesde, fechaHasta);
+
+		AsignacionProvisional asignacion = designacion.cubrirConProvisionalManual(empleado, periodo);
 
 		designacionRepository.save(designacion);
 
@@ -155,8 +163,59 @@ public class DesignacionServiceImpl implements DesignacionService {
 
 		List<Designacion> designaciones = obtenerDesignaciones(designacionIds);
 
-		designaciones.forEach(
-				d -> d.cubrirConSuplente(licencia, suplente, fechaInicio)
+		designaciones.forEach(d -> {
+
+			LocalDate inicioCiclo = fechaInicio;
+			LocalDate hoy = LocalDate.now();
+
+//			while (true) {
+//
+////				LocalDate finCiclo = licencia.getPeriodo().fechaFinEfectivaPara(inicioCiclo);
+//
+//				if (inicioCiclo.isAfter(hoy)) {
+//					break;
+//				}
+//
+//				d.cubrirConSuplente(licencia, suplente, inicioCiclo, finCiclo
+//				);
+//
+//				inicioCiclo = finCiclo.plusDays(1);
+//			}
+		});
+	}
+
+	public AsignacionSuplente renovarCobertura(
+			Long asignacionId,
+			LocalDate nuevaFechaFin
+	) {
+
+		Asignacion actual = asignacionRepository.findById(asignacionId)
+				.orElseThrow(() ->
+						new RecursoNoEncontradoException("asignacion", asignacionId)
+				);
+
+		if (!actual.estaActivaEn(LocalDate.now())) {
+			throw new IllegalStateException("Solo se puede renovar una asignación activa");
+		}
+
+		LocalDate nuevaFechaInicio = actual.getPeriodo().getFechaHasta().plusDays(1);
+
+		if (!nuevaFechaFin.isAfter(nuevaFechaInicio.minusDays(1))) {
+			throw new RangoFechasInvalidoException(nuevaFechaInicio, nuevaFechaInicio);
+		}
+
+		// 1️⃣ Cerrar actual
+//		actual.finalizar();
+
+		// 2️⃣ Crear nueva
+		Periodo nuevoPeriodo = new Periodo(nuevaFechaInicio, nuevaFechaFin);
+
+		//		actual.getDesignacion().agregarAsignacion(nueva);
+
+		return new AsignacionSuplente(
+				actual.getEmpleadoEducativo(),
+				actual.getDesignacion(),
+				nuevoPeriodo
 		);
 	}
 

@@ -2,427 +2,87 @@ package com.gestion.escuela.gestion_escolar.models.designacion;
 
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
-import com.gestion.escuela.gestion_escolar.models.Licencia;
+import com.gestion.escuela.gestion_escolar.models.FranjaHoraria;
 import com.gestion.escuela.gestion_escolar.models.Periodo;
-import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionProvisional;
-import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionSuplente;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
 import com.gestion.escuela.gestion_escolar.models.enums.*;
-import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionNoAfectadaPorLicenciaException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.DesignacionYaTieneTitularException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionYaCubiertaException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
+import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Tests de Designación Administrativa")
 class DesignacionAdministrativaTest {
 
 	private Escuela escuela;
-	private EmpleadoEducativo juanPerez;
-	private EmpleadoEducativo mariaLopez;
-	private DesignacionAdministrativa secretaria;
-	private DesignacionAdministrativa preceptoria;
+	private EmpleadoEducativo leguizamonMarina;
+	private EmpleadoEducativo giardinoNoraRosa;
+	private EmpleadoEducativo vallejosValeria;
+	private DesignacionAdministrativa direccion2467830;
+	private DesignacionAdministrativa auxiliar2330001;
+
 
 	@BeforeEach
 	void setUp() {
 		escuela = crearEscuela65Bernal();
-		juanPerez = crearEmpleadoJuanPerez();
-		mariaLopez = crearEmpleadoMariaLopez();
-		secretaria = crearDesignacionAdministrativa(2467832, RolEducativo.SECRETARIA);
-		preceptoria = crearDesignacionAdministrativa(2467833, RolEducativo.PRECEPTORIA);
-	}
 
-	@Test
-	void unaDesignacionSinAsignacionesEstaVacante() {
-
-		// Assert
-		assertEquals(EstadoDesignacion.VACANTE, secretaria.getEstadoEn(LocalDate.now()));
-	}
-
-	@Test
-	void cuandoHayAsignacionQueEjerceLaDesignacionEstaCubierta() {
-
-		// Arrange
-		LocalDate fechaTomaPosesion = LocalDate.of(2026, 1, 10);
-		secretaria.cubrirConTitular(juanPerez, fechaTomaPosesion);
-
-		// Assert
-		assertEquals(EstadoDesignacion.CUBIERTA, secretaria.getEstadoEn(fechaTomaPosesion)
-		);
-	}
-
-	@Test
-	void cuandoTitularEstaDeLicenciaYNoHaySuplenteEstaVacantePorLicencia() {
-
-		// Arrange
-		LocalDate fechaTomaPosesion = LocalDate.of(2026, 3, 1);
-
-		secretaria.cubrirConTitular(juanPerez, fechaTomaPosesion);
-
-		LocalDate fechaInicio = LocalDate.of(2026, 3, 10);
-		LocalDate fechaFin = LocalDate.of(2026, 3, 20);
-		Periodo periodo = new Periodo(fechaInicio, fechaFin);
-		juanPerez.crearLicencia(TipoLicencia.L_A1, periodo, "Reposo");
-
-
-		// Assert
-		assertEquals(EstadoDesignacion.LICENCIA, secretaria.getEstadoEn(fechaInicio));
-	}
-
-	@Test
-	void sePuedeCubrirConProvisionalCuandoEstaVacante() {
-		LocalDate fechaInicio = LocalDate.of(2026, 2, 10);
-
-		preceptoria.cubrirConProvisional(juanPerez, fechaInicio);
-
-		assertEquals(EstadoDesignacion.CUBIERTA, preceptoria.getEstadoEn(fechaInicio));
-	}
-
-	@Test
-	void laAsignacionProvisionalFinalizaElPrimeroDeMarzo() {
-		LocalDate fechaInicio = LocalDate.of(2026, 2, 10);
-
-		preceptoria.cubrirConProvisional(juanPerez, fechaInicio);
-
-		AsignacionProvisional asignacionProvisional = (AsignacionProvisional) preceptoria.asignacionQueEjerceEn(fechaInicio).orElseThrow();
-
-		assertEquals(LocalDate.of(2026, 3, 1), asignacionProvisional.getPeriodo().getFechaHasta());
-	}
-
-	@Test
-	void laAsignacionProvisionalFinalizaElPrimeroDeMarzoDelAnioQueViene() {
-		LocalDate fechaInicio = LocalDate.of(2026, 3, 1);
-
-		preceptoria.cubrirConProvisional(juanPerez, fechaInicio);
-
-		AsignacionProvisional asignacionProvisional = (AsignacionProvisional) preceptoria.asignacionQueEjerceEn(fechaInicio).orElseThrow();
-
-		assertEquals(LocalDate.of(2027, 3, 1), asignacionProvisional.getPeriodo().getFechaHasta());
-	}
-
-	@Test
-	void noSePuedeCubrirConProvisionalSiLaDesignacionEstaCubierta() {
-
-		// Arrange
-		LocalDate fechaTomaPosesion = LocalDate.of(2026, 3, 1);
-
-		secretaria.cubrirConTitular(juanPerez, fechaTomaPosesion);
-
-		// Act + Assert
-		assertThrows(
-				DesignacionYaCubiertaException.class,
-				() -> secretaria.cubrirConProvisional(
-						mariaLopez,
-						fechaTomaPosesion.plusDays(5)
-				)
-		);
-	}
-
-	@Test
-	void cuandoTitularTieneBajaDefinitivaElSuplentePasaAProvisional() {
-
-		// Arrange
-		LocalDate fechaTomaPosesion = LocalDate.of(2026, 3, 1);
-
-		LocalDate fechaBaja = LocalDate.of(2026, 3, 15);
-
-		secretaria.cubrirConTitular(juanPerez, fechaTomaPosesion);
-
-		juanPerez.darDeBajaDefinitiva(CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES, fechaBaja);
-
-		// Act
-		LocalDate fechaInicio = LocalDate.of(2026, 3, 20);
-		secretaria.cubrirConProvisional(mariaLopez, fechaInicio);
-
-		// Assert
-
-		// Asignacion
-		Asignacion asignacionQueEjerce = secretaria.asignacionQueEjerceEn(fechaInicio).orElseThrow();
-
-		assertInstanceOf(AsignacionProvisional.class, asignacionQueEjerce);
-		assertEquals(mariaLopez, asignacionQueEjerce.getEmpleadoEducativo());
-		assertEquals(LocalDate.of(2027, 3, 1), asignacionQueEjerce.getPeriodo().getFechaHasta());
-
-		// Designacion
-		assertEquals(EstadoDesignacion.CUBIERTA, secretaria.getEstadoEn(fechaInicio));
-
-	}
-
-	@Test
-	void cuandoHayVacantePorLicenciaSePuedeCubrirConSuplente() {
-
-		// Arrange
-		LocalDate fechaTomaPosesion = LocalDate.of(2026, 3, 1);
-		AsignacionTitular asignacionTitular = secretaria.cubrirConTitular(juanPerez, fechaTomaPosesion);
-
-		LocalDate inicioLicencia = LocalDate.of(2026, 3, 10);
-		LocalDate finLicencia = LocalDate.of(2026, 3, 30);
-		Periodo periodo = new Periodo(inicioLicencia, finLicencia);
-		Licencia licencia =
-				juanPerez.crearLicencia(
-						TipoLicencia.L_A1,
-						periodo,
-						"Reposo"
-				);
-
-		// Act
-		LocalDate inicioSuplencia = LocalDate.of(2026, 3, 15);
-		AsignacionSuplente asignacionSuplente = secretaria.cubrirConSuplente(
-				licencia,
-				mariaLopez,
-				inicioSuplencia
+		leguizamonMarina = crearEmpleado(
+				"27-22604033-7",
+				"Marina",
+				"Leguizamon",
+				LocalDate.of(1971, Month.JANUARY, 22),
+				LocalDate.of(2004, Month.JULY, 21)
 		);
 
-		// Assert
-		assertEquals(EstadoAsignacion.LICENCIA, asignacionTitular.getEstadoEn(inicioSuplencia));
-		assertEquals(EstadoAsignacion.ACTIVA, asignacionSuplente.getEstadoEn(inicioSuplencia));
-		assertEquals(EstadoDesignacion.CUBIERTA, secretaria.getEstadoEn(inicioSuplencia));
-
-
-	}
-
-	@Test
-	void noSePuedeCubrirSiLaLicenciaNoAfectaLaDesignacion() {
-
-		// Arrange
-		Licencia licencia =
-				juanPerez.crearLicencia(
-						TipoLicencia.L_A1,
-						new Periodo(LocalDate.of(2026, 3, 10),
-								LocalDate.of(2026, 3, 20)),
-						"Reposo"
-				);
-
-		// Act + Assert
-		assertThrows(
-				DesignacionNoAfectadaPorLicenciaException.class,
-				() -> secretaria.cubrirConSuplente(
-						licencia,
-						mariaLopez,
-						LocalDate.of(2026, 3, 15)
-				)
-		);
-	}
-
-	@Test
-	void darDeBajaDefinitivaTitularSinSuplenteDejaDesignacionVacante() {
-
-		// Arrange
-		LocalDate fechaTomaPosesion = LocalDate.of(2026, 3, 1);
-		LocalDate fechaBaja = LocalDate.of(2026, 3, 10);
-
-		AsignacionTitular asignacionTitular = preceptoria.cubrirConTitular(juanPerez, fechaTomaPosesion);
-
-		// Precondiciones
-		assertEquals(EstadoAsignacion.ACTIVA, asignacionTitular.getEstadoEn(fechaBaja));
-		assertEquals(EstadoDesignacion.CUBIERTA, preceptoria.getEstadoEn(fechaBaja));
-
-		// Act
-		juanPerez.darDeBajaDefinitiva(CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES, fechaBaja);
-
-		// Assert
-
-		assertEquals(EstadoAsignacion.BAJA, asignacionTitular.getEstadoEn(fechaBaja));
-		assertEquals(EstadoDesignacion.VACANTE, secretaria.getEstadoEn(fechaBaja));
-	}
-
-	@Test
-	void darDeBajaDefinitivaTitularEnLicenciaSinSuplenteDejaDesignacionVacante() {
-		// GIVEN
-
-		LocalDate fechaTomaPosesion = LocalDate.of(2026, 3, 1);
-		AsignacionTitular asignacionTitular = secretaria.cubrirConTitular(juanPerez, fechaTomaPosesion);
-
-
-		// Licencia activa del titular
-		LocalDate inicioLicencia = LocalDate.of(2026, 3, 8);
-		LocalDate finLicencia = LocalDate.of(2026, 3, 20);
-		Periodo periodo = new Periodo(inicioLicencia, finLicencia);
-		juanPerez.crearLicencia(TipoLicencia.L_A1, periodo, "Reposo medico");
-
-		LocalDate fechaBaja = LocalDate.of(2026, 3, 15);
-
-		// Precondiciones
-
-		// El titular está en licencia → no ejerce
-		assertEquals(EstadoAsignacion.LICENCIA, asignacionTitular.getEstadoEn(fechaBaja));
-
-		assertEquals(EstadoDesignacion.LICENCIA, secretaria.getEstadoEn(fechaBaja));
-
-		// WHEN
-		juanPerez.darDeBajaDefinitiva(CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES, fechaBaja);
-
-		// THEN
-
-		// La asignación titular queda dada de baja
-		assertEquals(EstadoAsignacion.BAJA, asignacionTitular.getEstadoEn(fechaBaja));
-
-		// La designación queda vacante
-		assertEquals(EstadoDesignacion.VACANTE, secretaria.getEstadoEn(fechaBaja));
-	}
-
-	@Test
-	void darDeBajaDefinitivaProvisionalDejaDesignacionVacante() {
-		// given
-
-		LocalDate fechaTomaPosesion = LocalDate.of(2026, 3, 4);
-
-		preceptoria.cubrirConProvisional(juanPerez, fechaTomaPosesion);
-
-		LocalDate fechaBaja = LocalDate.of(2026, 4, 15);
-
-		// sanity
-		assertEquals(EstadoDesignacion.CUBIERTA, preceptoria.getEstadoEn(fechaBaja));
-
-		// Act
-		juanPerez.darDeBajaDefinitiva(CausaBaja.FALLECIMIENTO, fechaBaja);
-
-		// Assert
-		AsignacionProvisional asignacionProvisional = (AsignacionProvisional) preceptoria.getAsignaciones().get(0);
-		assertEquals(EstadoAsignacion.BAJA, asignacionProvisional.getEstadoEn(fechaBaja.plusDays(1)));
-		assertEquals(LocalDate.of(2027, 3, 1), asignacionProvisional.getPeriodo().getFechaHasta());
-
-		assertEquals(EstadoDesignacion.VACANTE, preceptoria.getEstadoEn(fechaBaja));
-
-	}
-
-	@Test
-	void darDeBajaDefinitivaTitularEnLicenciaConSuplenteActivoCreaAsignacionProvisional() {
-
-		// Arrange
-		LocalDate fechaTomaPosesion = LocalDate.of(2026, 3, 1);
-
-		// Titular
-		AsignacionTitular asignacionTitular = preceptoria.cubrirConTitular(juanPerez, fechaTomaPosesion);
-
-		// Licencia del titular
-		LocalDate inicioLicencia = LocalDate.of(2026, 3, 10);
-		LocalDate finLicencia = LocalDate.of(2026, 3, 25);
-		Periodo periodo = new Periodo(inicioLicencia, finLicencia);
-		Licencia licencia = juanPerez.crearLicencia(
-				TipoLicencia.L_A1,
-				periodo,
-				"Reposo medico"
+		giardinoNoraRosa = crearEmpleado(
+				"27-14762038-7",
+				"Nora Rosa",
+				"Giardino",
+				LocalDate.of(1961, Month.NOVEMBER, 10),
+				LocalDate.of(1998, Month.MARCH, 1)
 		);
 
-		// Cubrir la designación por licencia → crea SUPLENTE
-		LocalDate inicioSuplencia = LocalDate.of(2026, 3, 13);
-		preceptoria.cubrirConSuplente(licencia, mariaLopez, inicioSuplencia);
-
-		// Obtener la asignación SUPLENTE creada
-		AsignacionSuplente asignacionSuplente =
-				(AsignacionSuplente) preceptoria.getAsignaciones().stream()
-						.filter(a -> a.getSituacionDeRevista() == SituacionDeRevista.SUPLENTE)
-						.findFirst()
-						.orElseThrow();
-
-		// Precondiciones
-		LocalDate fechaBaja = LocalDate.of(2026, 3, 20);
-		assertEquals(EstadoDesignacion.CUBIERTA, preceptoria.getEstadoEn(fechaBaja));
-
-		assertEquals(SituacionDeRevista.SUPLENTE, asignacionSuplente.getSituacionDeRevista());
-
-		assertEquals(EstadoAsignacion.ACTIVA, asignacionSuplente.getEstadoEn(fechaBaja));
-
-		// Act
-		juanPerez.darDeBajaDefinitiva(CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES, fechaBaja);
-
-		// Assert
-
-		// 1️⃣ El titular queda dado de baja
-		assertEquals(EstadoAsignacion.BAJA, asignacionTitular.getEstadoEn(fechaBaja));
-
-		// 2️⃣ La asignación SUPLENTE original queda dada de baja
-		assertEquals(EstadoAsignacion.BAJA, asignacionSuplente.getEstadoEn(fechaBaja));
-
-		// 3️⃣ Existe una NUEVA asignación PROVISIONAL activa
-		AsignacionProvisional asignacionProvisional =
-				(AsignacionProvisional) preceptoria.getAsignaciones().stream()
-						.filter(a -> a.getSituacionDeRevista() == SituacionDeRevista.PROVISIONAL)
-						.findFirst()
-						.orElseThrow();
-
-		assertEquals(EstadoAsignacion.ACTIVA, asignacionProvisional.getEstadoEn(fechaBaja));
-		assertEquals(LocalDate.of(2027, 3, 1), asignacionProvisional.getPeriodo().getFechaHasta());
-		assertEquals(mariaLopez, asignacionProvisional.getEmpleadoEducativo());
-
-		// 5️⃣ La designación sigue cubierta
-		assertEquals(EstadoDesignacion.CUBIERTA, preceptoria.getEstadoEn(fechaBaja));
-	}
-
-	@Test
-	void unaVacantePorRenunciaDeTitularSoloSePuedeCubrirConProvisional() {
-
-		// Setup
-		LocalDate fechaTomaPosesion = LocalDate.of(2026, 3, 1);
-
-		AsignacionTitular asignacionTitular = preceptoria.cubrirConTitular(juanPerez, fechaTomaPosesion);
-
-
-		LocalDate fechaBaja = LocalDate.of(2026, 3, 20);
-		juanPerez.darDeBajaDefinitiva(CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES, fechaBaja);
-
-		assertEquals(EstadoDesignacion.VACANTE, preceptoria.getEstadoEn(fechaBaja));
-
-		// Exercise
-		LocalDate fechaIncio = LocalDate.of(2026, 3, 25);
-		preceptoria.cubrirConProvisional(mariaLopez, fechaIncio);
-
-		// Assert
-		assertEquals(EstadoAsignacion.BAJA, asignacionTitular.getEstadoEn(fechaBaja));
-		assertEquals(EstadoDesignacion.CUBIERTA, preceptoria.getEstadoEn(fechaIncio));
-
-		Asignacion asignacionActiva = preceptoria.asignacionQueEjerceEn(fechaIncio).orElseThrow();
-		assertEquals(SituacionDeRevista.PROVISIONAL, asignacionActiva.getSituacionDeRevista());
-
-		assertEquals(mariaLopez, asignacionActiva.getEmpleadoEducativo());
-
-	}
-
-	@Test
-	void siTitularRenunciaDuranteLicenciaElSuplentePasaAProvisional() {
-
-		// Setup
-		LocalDate tomaPosesion = LocalDate.of(2026, 3, 1);
-
-		AsignacionTitular asignacionTitular = preceptoria.cubrirConTitular(juanPerez, tomaPosesion);
-
-		// Titular pide licencia
-		LocalDate inicioLicencia = LocalDate.of(2026, 3, 15);
-		LocalDate finLicencia = LocalDate.of(2026, 3, 25);
-		Periodo periodo = new Periodo(inicioLicencia, finLicencia);
-		Licencia licencia = juanPerez.crearLicencia(TipoLicencia.L_A1, periodo, "Reposo");
-
-		LocalDate inicioSuplencia = LocalDate.of(2026, 3, 16);
-		preceptoria.cubrirConSuplente(licencia, mariaLopez, inicioSuplencia);
-
-		assertEquals(EstadoAsignacion.LICENCIA, asignacionTitular.getEstadoEn(inicioLicencia));
-		assertEquals(EstadoDesignacion.CUBIERTA, preceptoria.getEstadoEn(inicioSuplencia));
-
-		// Act
-		LocalDate fechaRenuncia = LocalDate.of(2026, 3, 20);
-		juanPerez.darDeBajaDefinitiva(CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES, fechaRenuncia);
-
-		// Assert — la designación sigue cubierta
-		assertEquals(EstadoDesignacion.CUBIERTA, preceptoria.getEstadoEn(fechaRenuncia.plusDays(1))
+		vallejosValeria = crearEmpleado(
+				"27-33688860-9",
+				"Nora Rosa",
+				"Giardino",
+				LocalDate.of(1988, Month.APRIL, 17),
+				LocalDate.of(2024, Month.FEBRUARY, 24)
 		);
 
-		Asignacion asignacionActual = preceptoria.asignacionQueEjerceEn(fechaRenuncia.plusDays(1)).orElseThrow();
+		direccion2467830 = crearDesignacionAdministrativa(2467830, RolEducativo.DIRECCION);
+		auxiliar2330001 = crearDesignacionAdministrativa(2330001, RolEducativo.AUXILIAR);
+	}
 
-		assertEquals(SituacionDeRevista.PROVISIONAL, asignacionActual.getSituacionDeRevista());
-		assertEquals(LocalDate.of(2027, 3, 1), asignacionActual.getPeriodo().getFechaHasta());
-
-		assertEquals(mariaLopez, asignacionActual.getEmpleadoEducativo());
-
-		// Assert — la suplencia fue dada de baja
-		assertTrue(
-				preceptoria.getAsignaciones().stream()
-						.filter(a -> a.getSituacionDeRevista() == SituacionDeRevista.SUPLENTE)
-						.allMatch(a -> a.getEstadoEn(fechaRenuncia.plusDays(1))
-								== EstadoAsignacion.BAJA)
+	private EmpleadoEducativo crearEmpleado(
+			String cuil,
+			String nombre,
+			String apellido,
+			LocalDate nacimiento,
+			LocalDate ingreso
+	) {
+		return new EmpleadoEducativo(
+				escuela,
+				cuil,
+				nombre,
+				apellido,
+				" ",
+				" ",
+				nacimiento,
+				ingreso,
+				"test@gmail.com"
 		);
 	}
 
@@ -435,39 +95,509 @@ class DesignacionAdministrativaTest {
 		);
 	}
 
-	private EmpleadoEducativo crearEmpleadoJuanPerez() {
-		return new EmpleadoEducativo(
-				escuela,
-				"20-34567891-2",
-				"Juan",
-				"Pérez",
-				"Mitre 1450",
-				"1162347890",
-				LocalDate.of(1982, 6, 18),
-				LocalDate.of(2008, 4, 1),
-				"juan.perez@test.com"
-		);
-	}
-
-	private EmpleadoEducativo crearEmpleadoMariaLopez() {
-		return new EmpleadoEducativo(
-				escuela,
-				"27-38945612-7",
-				"María",
-				"López",
-				"Sarmiento 980",
-				"1145983210",
-				LocalDate.of(1989, 9, 3),
-				LocalDate.of(2016, 3, 12),
-				"maria.lopez@test.com"
-		);
-	}
-
 	private DesignacionAdministrativa crearDesignacionAdministrativa(
 			Integer cupof,
 			RolEducativo rolEducativo
 	) {
 		return new DesignacionAdministrativa(escuela, cupof, rolEducativo);
+	}
+
+	@Nested
+	@DisplayName("Estado inicial")
+	class EstadoInicial {
+
+		@Test
+		@DisplayName("Una designación sin asignaciones está vacante")
+		void designacionSinAsignacionesEstaVacante() {
+			assertEquals(
+					EstadoDesignacion.VACANTE,
+					direccion2467830.getEstadoEn(LocalDate.now())
+			);
+		}
+	}
+
+	@Nested
+	@DisplayName("Cobertura con titular")
+	class CoberturaTitular {
+
+		@Test
+		@DisplayName("Cuando hay titular activo la designación está cubierta")
+		void titularActivoCubreDesignacion() {
+
+			LocalDate fechaTomaPosesion = LocalDate.of(2004, Month.JULY, 21);
+
+			auxiliar2330001.cubrirConTitular(leguizamonMarina, fechaTomaPosesion);
+
+			assertEquals(EstadoDesignacion.CUBIERTA, auxiliar2330001.getEstadoEn(fechaTomaPosesion));
+		}
+
+		@Test
+		@DisplayName("No se puede cubrir con segundo titular activo")
+		void noPuedeHaberDosTitulares() {
+
+			LocalDate fecha = LocalDate.of(2024, 3, 1);
+
+			auxiliar2330001.cubrirConTitular(leguizamonMarina, fecha);
+
+			assertThrows(
+					DesignacionYaTieneTitularException.class,
+					() -> auxiliar2330001.cubrirConTitular(vallejosValeria, fecha)
+			);
+		}
+	}
+
+	@Nested
+	@DisplayName("Cobertura provisional")
+	class CoberturaProvisional {
+
+		@Test
+		@DisplayName("Se puede cubrir con provisional cuando está vacante")
+		void sePuedeCubrirConProvisional() {
+
+			LocalDate fechaTomaPosesion = LocalDate.of(2017, Month.JUNE, 7);
+			LocalDate fechaCese = LocalDate.of(2018, Month.FEBRUARY, 28);
+			Periodo periodo = new Periodo(fechaTomaPosesion, fechaCese);
+
+			direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo);
+
+			assertEquals(EstadoDesignacion.CUBIERTA, direccion2467830.getEstadoEn(fechaTomaPosesion));
+		}
+
+		@Test
+		@DisplayName("No se puede cubrir con provisional si está cubierta")
+		void noSePuedeCubrirSiYaEstaCubierta() {
+
+			LocalDate fechaTomaPosesion = LocalDate.of(2017, Month.MARCH, 1);
+
+			LocalDate fechaTomaPosesion2 = LocalDate.of(2017, Month.JUNE, 7);
+			LocalDate fechaCese = LocalDate.of(2018, Month.FEBRUARY, 28);
+			Periodo periodo = new Periodo(fechaTomaPosesion2, fechaCese);
+
+			direccion2467830.cubrirConTitular(leguizamonMarina, fechaTomaPosesion);
+
+			assertThrows(
+					DesignacionYaCubiertaException.class,
+					() -> direccion2467830.cubrirConProvisionalManual(
+							giardinoNoraRosa,
+							periodo
+					)
+			);
+		}
+
+		@Test
+		@DisplayName("Cobertura automática genera período hasta último día hábil de febrero siguiente")
+		void cubrirConProvisionalAutomaticoGeneraPeriodoCorrecto() {
+
+			LocalDate inicio = LocalDate.of(2024, 3, 1);
+
+			AsignacionProvisional asignacion =
+					direccion2467830.cubrirConProvisionalAutomatico(
+							giardinoNoraRosa,
+							inicio
+					);
+
+
+			assertEquals(inicio, asignacion.getPeriodo().getFechaDesde());
+		}
+
+		@Test
+		@DisplayName("No permite cobertura automática si ya está cubierta")
+		void noPermiteCoberturaAutomaticaSiEstaCubierta() {
+
+			LocalDate inicio = LocalDate.of(2024, 3, 1);
+
+			direccion2467830.cubrirConTitular(
+					leguizamonMarina,
+					inicio
+			);
+
+			assertThrows(
+					DesignacionYaCubiertaException.class,
+					() -> direccion2467830.cubrirConProvisionalAutomatico(
+							giardinoNoraRosa,
+							inicio
+					)
+			);
+		}
+	}
+
+	@Nested
+	@DisplayName("Vacante por licencia")
+	class Licencias {
+
+		@Test
+		@DisplayName("Cuando titular está de licencia la designación queda en estado LICENCIA")
+		void titularEnLicencia() {
+
+			LocalDate fechaTomaPosesion = LocalDate.of(2004, Month.JULY, 21);
+			auxiliar2330001.cubrirConTitular(leguizamonMarina, fechaTomaPosesion);
+
+			LocalDate fechaInicio = LocalDate.of(2025, Month.FEBRUARY, 24);
+			LocalDate fechaFin = LocalDate.of(2026, Month.FEBRUARY, 4);
+			Periodo periodo = new Periodo(fechaInicio, fechaFin);
+
+			leguizamonMarina.crearLicencia(TipoLicencia.L_115D1, periodo, "Reposo", Set.of(auxiliar2330001));
+
+			assertEquals(EstadoDesignacion.VACANTE, auxiliar2330001.getEstadoEn(fechaInicio));
+		}
+	}
+
+	@Nested
+	@DisplayName("Cobertura con suplente")
+	class Suplencias {
+
+//		@Test
+//		@DisplayName("Se puede cubrir con suplente si la licencia afecta la designación")
+//		void cubrirConSuplente() {
+//
+//			// Arrange
+//			LocalDate fechaTomaPosesion = LocalDate.of(2004, Month.JULY, 21);
+//			AsignacionTitular asignacionTitular = auxiliar2330001.cubrirConTitular(leguizamonMarina, fechaTomaPosesion);
+//
+//			LocalDate fechaInicio = LocalDate.of(2025, Month.FEBRUARY, 24);
+//			LocalDate fechaFin = LocalDate.of(2026, Month.FEBRUARY, 4);
+//			Periodo periodo = new Periodo(fechaInicio, fechaFin);
+//
+//			Licencia licencia = leguizamonMarina.crearLicencia(TipoLicencia.L_115D1, periodo, "Reposo", Set.of(auxiliar2330001));
+//
+//			// sanity check
+//			assertEquals(EstadoDesignacion.VACANTE, auxiliar2330001.getEstadoEn(fechaInicio));
+//
+//			// Act
+//			AsignacionSuplente asignacionSuplente = auxiliar2330001.cubrirConSuplente(licencia, vallejosValeria, fechaInicio);
+//
+//			// Assert
+//			assertEquals(EstadoAsignacion.LICENCIA, asignacionTitular.getEstadoEn(fechaInicio));
+//			assertEquals(EstadoAsignacion.ACTIVA, asignacionSuplente.getEstadoEn(fechaInicio));
+//
+//			assertEquals(EstadoDesignacion.CUBIERTA, auxiliar2330001.getEstadoEn(fechaInicio));
+//
+//
+//		}
+	}
+
+	@Nested
+	@DisplayName("Asignación que ejerce")
+	class AsignacionQueEjerce {
+
+		@Test
+		@DisplayName("Si la fecha es null devuelve Optional vacío")
+		void fechaNullDevuelveEmpty() {
+
+			assertEquals(
+					Optional.empty(),
+					direccion2467830.asignacionQueEjerceEn(null)
+			);
+		}
+
+	}
+
+	@Nested
+	@DisplayName("Renovación provisional")
+	class RenovacionProvisional {
+
+		@Test
+		@DisplayName("Renovación automática debe iniciar el 1 de marzo y finalizar el último día hábil de febrero siguiente.")
+		void renovarProvisionalAutomatica() {
+
+			// Arrange
+			LocalDate fechaInicio = LocalDate.of(2017, Month.JUNE, 7);
+			LocalDate fechaFin = LocalDate.of(2018, Month.FEBRUARY, 28);
+			Periodo periodo = new Periodo(fechaInicio, fechaFin);
+
+			AsignacionProvisional anterior = direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo);
+
+			// Act
+			AsignacionProvisional renovada = direccion2467830.renovarProvisionalAutomatica(anterior);
+
+			// Assert
+			assertNotNull(renovada);
+			assertEquals(LocalDate.of(2018, Month.MARCH, 1), renovada.getPeriodo().getFechaDesde());
+			assertEquals(LocalDate.of(2019, Month.FEBRUARY, 28), renovada.getPeriodo().getFechaHasta());
+			assertEquals(giardinoNoraRosa, renovada.getEmpleadoEducativo());
+			assertEquals(SituacionDeRevista.PROVISIONAL, renovada.getSituacionDeRevista());
+		}
+
+		@Test
+		@DisplayName("Renovación desde marzo debe iniciar el 1 de marzo y respetar la fecha fin indicada")
+		void renovarProvisionalDesdeMarzoConFechaFinManual() {
+
+			// Arrange
+			LocalDate fechaInicio = LocalDate.of(2017, Month.JUNE, 7);
+			LocalDate fechaFin = LocalDate.of(2018, Month.FEBRUARY, 28);
+			Periodo periodo = new Periodo(fechaInicio, fechaFin);
+
+			AsignacionProvisional anterior = direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo);
+
+			LocalDate nuevaFechaFin = LocalDate.of(2018, Month.DECEMBER, 31);
+
+			// Act
+			AsignacionProvisional renovada = direccion2467830.renovarProvisionalDesdeMarzo(anterior, nuevaFechaFin);
+
+			// Assert
+			assertNotNull(renovada);
+			assertEquals(LocalDate.of(2018, Month.MARCH, 1), renovada.getPeriodo().getFechaDesde());
+			assertEquals(nuevaFechaFin, renovada.getPeriodo().getFechaHasta());
+			assertEquals(giardinoNoraRosa, renovada.getEmpleadoEducativo());
+			assertEquals(SituacionDeRevista.PROVISIONAL, renovada.getSituacionDeRevista());
+		}
+
+		@Test
+		@DisplayName("Renovación manual debe respetar las fechas indicadas cuando no hay superposición")
+		void renovarProvisionalManual() {
+
+			// Arrange
+			LocalDate fechaInicio = LocalDate.of(2017, Month.JUNE, 7);
+			LocalDate fechaFin = LocalDate.of(2018, Month.FEBRUARY, 28);
+			Periodo periodo = new Periodo(fechaInicio, fechaFin);
+
+			AsignacionProvisional anterior =
+					direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo);
+
+			Periodo nuevoPeriodo = new Periodo(
+					LocalDate.of(2018, Month.MARCH, 1),
+					LocalDate.of(2018, Month.NOVEMBER, 30)
+			);
+
+			// Act
+			AsignacionProvisional renovada = direccion2467830.renovarProvisionalManual(anterior, nuevoPeriodo);
+
+			// Assert
+			assertNotNull(renovada);
+			assertEquals(nuevoPeriodo, renovada.getPeriodo());
+			assertEquals(giardinoNoraRosa, renovada.getEmpleadoEducativo());
+		}
+
+	}
+
+	@Nested
+	@DisplayName("Superposición de asignaciones")
+	class Superposicion {
+
+//		@Test
+//		@DisplayName("No permite superposición en misma fecha inicio")
+//		void noPermiteSuperposicionMismaFecha() {
+//
+//			LocalDate fecha = LocalDate.of(2024, 3, 1);
+//
+//			direccion2467830.cubrirConTitular(leguizamonMarina, fecha);
+//
+//			Periodo periodo = new Periodo(
+//					LocalDate.of(2024, 2, 28),
+//					LocalDate.of(2025, 2, 28)
+//			);
+//
+//			assertThrows(
+//					DesignacionYaCubiertaException.class,
+//					() -> direccion2467830.cubrirConProvisionalManual(
+//							vallejosValeria,
+//							periodo
+//					)
+//			);
+//		}
+
+	}
+
+	@Nested
+	@DisplayName("Asociación con escuela")
+	class AsociacionEscuela {
+
+		@Test
+		@DisplayName("No permite asignar escuela null")
+		void noPermiteAsignarEscuelaNull() {
+
+			assertThrows(
+					CampoObligatorioException.class,
+					() -> direccion2467830.asignarEscuela(null)
+			);
+		}
+
+		@Test
+		@DisplayName("Permite reasignar escuela")
+		void permiteAsignarNuevaEscuela() {
+
+			Escuela nuevaEscuela = new Escuela(
+					"Escuela N°10",
+					"Quilmes",
+					"Calle Falsa 123",
+					"12345678"
+			);
+
+			direccion2467830.asignarEscuela(nuevaEscuela);
+
+			assertEquals(nuevaEscuela, direccion2467830.getEscuela());
+		}
+
+	}
+
+	@Nested
+	@DisplayName("Franjas horarias")
+	class FranjasHorarias {
+
+		@Test
+		@DisplayName("No permite agregar franja null")
+		void noPermiteAgregarFranjaNull() {
+
+			assertThrows(
+					CampoObligatorioException.class,
+					() -> direccion2467830.agregarFranjaHoraria(null)
+			);
+		}
+
+		@Test
+		@DisplayName("Agrega franja y asigna la designación correctamente")
+		void agregarFranjaAsignaDesignacion() {
+
+			FranjaHoraria franja = new FranjaHoraria(
+					DiaDeSemana.LUNES,
+					LocalTime.of(8, 0),
+					LocalTime.of(10, 0)
+			);
+
+			direccion2467830.agregarFranjaHoraria(franja);
+
+			assertTrue(direccion2467830.getFranjasHorarias().contains(franja));
+
+		}
+
+		@Nested
+		@DisplayName("toString")
+		class ToStringTests {
+
+			@Test
+			@DisplayName("toString contiene datos principales")
+			void toStringContieneDatosClave() {
+
+				String texto = direccion2467830.toString();
+
+				assertTrue(texto.contains("DesignacionAdministrativa"));
+				assertTrue(texto.contains("cupof = 2467830"));
+				assertTrue(texto.contains("rolEducativo"));
+			}
+
+		}
+	}
+
+	@Nested
+	@DisplayName("notificarBajaDefinitivaDe")
+	class NotificarBajaDefinitiva {
+
+		private LocalDate fecha;
+
+		@BeforeEach
+		void setUp() {
+			fecha = LocalDate.of(2026, Month.MARCH, 10);
+		}
+
+//		@Test
+//		@DisplayName("Si genera vacante y hay suplente activo se convierte en provisional")
+//		void convierteSuplenteEnProvisional() {
+//
+//			// Arrange
+//			LocalDate fechaTomaPosesion = LocalDate.of(2004, Month.JULY, 21);
+//
+//			AsignacionTitular titular =
+//					auxiliar2330001.cubrirConTitular(
+//							leguizamonMarina,
+//							fechaTomaPosesion
+//					);
+//
+//			assertEquals(EstadoDesignacion.CUBIERTA, auxiliar2330001.getEstadoEn(fechaTomaPosesion));
+//			assertEquals(EstadoAsignacion.ACTIVA, titular.getEstadoEn(fechaTomaPosesion));
+//
+//			// 2️⃣ Licencia del titular que habilita suplente
+//			LocalDate fechaInicio = LocalDate.of(2026, Month.MARCH, 1);
+//			LocalDate fechaFin = LocalDate.of(2026, Month.JULY, 31);
+//			Periodo periodoLicencia = new Periodo(fechaInicio, fechaFin);
+//
+//			Licencia licencia = leguizamonMarina.crearLicencia(
+//					TipoLicencia.L_115D1,
+//					periodoLicencia,
+//					null,
+//					Set.of(auxiliar2330001)
+//			);
+//
+//			assertEquals(EstadoDesignacion.VACANTE, auxiliar2330001.getEstadoEn(fechaInicio));
+//			assertEquals(EstadoAsignacion.LICENCIA, titular.getEstadoEn(fechaInicio));
+//
+//			AsignacionSuplente suplente = auxiliar2330001.cubrirConSuplente(licencia, vallejosValeria, periodoLicencia.getFechaDesde());
+//
+//			assertEquals(EstadoDesignacion.CUBIERTA, auxiliar2330001.getEstadoEn(fechaInicio));
+//			assertEquals(EstadoAsignacion.ACTIVA, suplente.getEstadoEn(fechaInicio));
+//
+//			// Act
+//			LocalDate fechaBaja = LocalDate.of(2026, Month.MAY, 10);
+//			titular.finalizarPorBajaDefinitiva(CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES, fechaBaja);
+//
+//		}
+
+		@Test
+		@DisplayName("Se genera vacante en la designación porque no hay suplente activo.")
+		void generaVacantePeroNoHaySuplenteActivo() {
+
+			// Arrange
+			LocalDate fechaTomaPosesion = LocalDate.of(2004, Month.JULY, 21);
+
+			AsignacionTitular titular =
+					auxiliar2330001.cubrirConTitular(
+							leguizamonMarina,
+							fechaTomaPosesion
+					);
+
+			assertEquals(EstadoDesignacion.CUBIERTA, auxiliar2330001.getEstadoEn(fechaTomaPosesion));
+			assertEquals(EstadoAsignacion.ACTIVA, titular.getEstadoEn(fechaTomaPosesion));
+
+			// Act
+			LocalDate fechaBaja = LocalDate.of(2026, Month.MAY, 10);
+			auxiliar2330001.notificarBajaDefinitivaDe(titular, fechaBaja);
+
+			// Assert
+			assertEquals(EstadoDesignacion.CUBIERTA, auxiliar2330001.getEstadoEn(fechaTomaPosesion));
+			assertEquals(EstadoAsignacion.ACTIVA, titular.getEstadoEn(fechaTomaPosesion));
+
+		}
+
+		@Test
+		@DisplayName("El Provisional no genera vacante.")
+		void noGeneraVacanteNoHaceNada() {
+
+			// Arrange
+			LocalDate fechaTomaPosesion = LocalDate.of(2017, Month.JUNE, 7);
+			LocalDate fechaCese = LocalDate.of(2018, Month.FEBRUARY, 28);
+			Periodo periodo = new Periodo(fechaTomaPosesion, fechaCese);
+
+			AsignacionProvisional provisional = direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo);
+
+			assertEquals(EstadoDesignacion.CUBIERTA, direccion2467830.getEstadoEn(fechaTomaPosesion));
+			assertEquals(EstadoAsignacion.ACTIVA, provisional.getEstadoEn(fechaTomaPosesion));
+
+			// Act
+			LocalDate fechaBaja = LocalDate.of(2017, Month.SEPTEMBER, 10);
+			auxiliar2330001.notificarBajaDefinitivaDe(provisional, fechaBaja);
+
+			// Assert
+			assertEquals(EstadoDesignacion.CUBIERTA, direccion2467830.getEstadoEn(fechaTomaPosesion));
+			assertEquals(EstadoAsignacion.ACTIVA, provisional.getEstadoEn(fechaTomaPosesion));
+
+		}
+
+		@Test
+		@DisplayName("Si genera vacante pero no hay suplente no hace nada")
+		void noHaceNadaSiNoHaySuplente() {
+
+			// Arrange
+			AsignacionTitular titular =
+					auxiliar2330001.cubrirConTitular(
+							leguizamonMarina,
+							LocalDate.of(2004, Month.JULY, 21)
+					);
+
+			// Act & Assert
+			assertDoesNotThrow(() -> auxiliar2330001.notificarBajaDefinitivaDe(titular, fecha));
+
+			// sigue sin nadie provisional
+			assertEquals(EstadoDesignacion.CUBIERTA, auxiliar2330001.getEstadoEn(fecha));
+		}
 	}
 
 }

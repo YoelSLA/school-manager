@@ -32,7 +32,8 @@ public interface DesignacionService {
 	AsignacionProvisional cubrirConProvisional(
 			Long designacionId,
 			Long empleadoId,
-			LocalDate fechaInicio
+			LocalDate fechaInicio,
+			LocalDate fechaFin
 	);
 
 	void cubrirConSuplentes(
@@ -41,7 +42,7 @@ public interface DesignacionService {
 			List<Long> designacionIds,
 			LocalDate fechaInicio
 	);
-	
+
 	<T extends Designacion> Page<T> obtenerDesignacionesPorEscuela(
 			Long escuelaId,
 			Class<T> tipo,

@@ -1,5 +1,5 @@
 import type { SubmitHandler } from "react-hook-form";
-import Modal from "@/components/Modal";
+import Modal from "@/components/Modal/Modal";
 import type { AsignacionFormOutput } from "../../form/asignacion.form.types";
 import { useAsignacionForm } from "../../form/hooks/useAsignacionForm";
 import { useCrearAsignacion } from "../../hooks/useCrearAsignacion";

@@ -1,8 +1,6 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.CubrirDesignacionesDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.RenovarLicenciaDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.*;
 import com.gestion.escuela.gestion_escolar.mappers.LicenciaMapper;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.services.DesignacionService;
@@ -12,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/licencias")
@@ -51,6 +51,28 @@ public class LicenciaControllerREST {
 		Licencia licencia = licenciaService.obtenerPorId(licenciaId);
 		return LicenciaMapper.toDetalle(licencia);
 	}
-	
+
+	@GetMapping("/{licenciaId}/designaciones-afectadas")
+	public List<LicenciaDesignacionDTO> obtenerDesignacionesAfectadas(
+			@PathVariable Long licenciaId
+	) {
+
+		return licenciaService.obtenerDesignacionesAfectadas(licenciaId)
+				.stream()
+				.map(LicenciaMapper::toDesignacionDTO)
+				.toList();
+	}
+
+	@GetMapping("/{licenciaId}/timeline")
+	public List<LicenciaTimelineItemDTO> obtenerTimeline(
+			@PathVariable Long licenciaId
+	) {
+
+		return licenciaService.obtenerTimeline(licenciaId)
+				.stream()
+				.map(LicenciaMapper::toTimelineItem)
+				.toList();
+	}
+
 }
 

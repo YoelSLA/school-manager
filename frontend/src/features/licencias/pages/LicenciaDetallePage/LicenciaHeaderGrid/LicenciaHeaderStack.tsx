@@ -26,7 +26,7 @@ export default function LicenciaHeaderStack({ licencia }: Props) {
 				<Button
 					variant="primary"
 					onClick={() =>
-						licenciasNav.verDesignaciones(licencia.id)
+						licenciasNav.verDesignaciones(licencia.id, licencia.empleado)
 					}
 				>
 					Ver designaciones afectadas

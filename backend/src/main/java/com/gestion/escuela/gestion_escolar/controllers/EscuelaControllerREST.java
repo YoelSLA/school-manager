@@ -5,9 +5,7 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.escuelas.EscuelaCrea
 import com.gestion.escuela.gestion_escolar.controllers.dtos.escuelas.EscuelaResumenDTO;
 import com.gestion.escuela.gestion_escolar.mappers.AsistenciaMapper;
 import com.gestion.escuela.gestion_escolar.mappers.EscuelaMapper;
-import com.gestion.escuela.gestion_escolar.models.Asistencia;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
-import com.gestion.escuela.gestion_escolar.models.Periodo;
 import com.gestion.escuela.gestion_escolar.services.AsistenciaService;
 import com.gestion.escuela.gestion_escolar.services.EmpleadoEducativoService;
 import com.gestion.escuela.gestion_escolar.services.EscuelaService;
@@ -18,12 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/escuelas")
@@ -64,43 +58,17 @@ public class EscuelaControllerREST {
 			@RequestParam int anio,
 			@RequestParam int mes
 	) {
+
 		YearMonth yearMonth = YearMonth.of(anio, mes);
 
-		// 1️⃣ Ausencias del mes (scopiadas por escuela)
-		List<Asistencia> ausencias =
-				asistenciaService.obtenerAsistenciasDelMes(
+		return asistenciaService
+				.obtenerEstadoMensual(
 						escuelaId,
 						empleadoId,
 						yearMonth
-				);
-
-		Map<LocalDate, Asistencia> ausenciasPorFecha =
-				ausencias.stream()
-						.collect(Collectors.toMap(
-								Asistencia::getFecha,
-								a -> a
-						));
-
-		// 2️⃣ Días laborables (también por escuela)
-		Set<LocalDate> diasLaborables =
-				empleadoEducativoService.diasLaborablesEnPeriodo(
-						escuelaId,
-						empleadoId,
-						new Periodo(
-								yearMonth.atDay(1),
-								yearMonth.atEndOfMonth()
-						)
-				);
-
-		// 3️⃣ Mapear a DTO
-		return diasLaborables.stream()
-				.sorted()
-				.map(dia ->
-						AsistenciaMapper.toDiaDTO(
-								dia,
-								ausenciasPorFecha.get(dia)
-						)
 				)
+				.stream()
+				.map(AsistenciaMapper::toDiaDTO)
 				.toList();
 	}
 

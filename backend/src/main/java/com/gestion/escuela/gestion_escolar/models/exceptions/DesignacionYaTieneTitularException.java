@@ -1,15 +1,15 @@
 package com.gestion.escuela.gestion_escolar.models.exceptions;
 
+import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
+
 public class DesignacionYaTieneTitularException extends RuntimeException {
 
-	public DesignacionYaTieneTitularException(Long designacionId) {
-		super(mensaje(designacionId));
-	}
-
-	private static String mensaje(Long designacionId) {
-		if (designacionId == null) {
-			return "La designación ya tiene un titular activo";
-		}
-		return "La designación con id " + designacionId + " ya tiene un titular activo";
+	public DesignacionYaTieneTitularException(Designacion designacion) {
+		super(
+				"La designación CUPOF " +
+						designacion.getCupof() +
+						" (" + designacion.getRolEducativo() +
+						") ya tiene un titular activo"
+		);
 	}
 }

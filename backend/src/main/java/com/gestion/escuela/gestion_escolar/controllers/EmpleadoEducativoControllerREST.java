@@ -32,11 +32,13 @@ public class EmpleadoEducativoControllerREST {
 			@PathVariable Long empleadoId,
 			@Valid @RequestBody LicenciaCreateDTO dto
 	) {
+
 		Licencia licencia = empleadoEducativoService.crearLicencia(
 				empleadoId,
 				dto.tipoLicencia(),
 				PeriodoMapper.toEntity(dto.periodo()),
-				dto.descripcion()
+				dto.descripcion(),
+				dto.designacionIds()
 		);
 
 		return LicenciaMapper.toDetalle(licencia);

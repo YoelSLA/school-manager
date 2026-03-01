@@ -85,7 +85,7 @@ public class EscuelaEmpleadoEducativoControllerREST {
 	public PageResponse<EmpleadoEducativoResumenDTO> listarPorEscuela(
 			@PathVariable Long escuelaId,
 			@RequestParam(required = false) String estado,
-			@PageableDefault(size = 10, sort = "apellido", direction = Sort.Direction.ASC)
+			@PageableDefault(sort = "apellido", direction = Sort.Direction.ASC)
 			Pageable pageable
 	) {
 		Boolean estadoFiltro = null;
@@ -128,13 +128,19 @@ public class EscuelaEmpleadoEducativoControllerREST {
 
 
 	@GetMapping(params = "search")
-	public List<EmpleadoEducativoMinimoDTO> buscarEmpleados(
+	public List<EmpleadoEducativoConRolesDTO> buscarEmpleados(
 			@PathVariable Long escuelaId,
 			@RequestParam String search
 	) {
+
 		return empleadoEducativoService.buscarPorEscuela(escuelaId, search)
 				.stream()
-				.map(EmpleadoEducativoMapper::toMinimo)
+				.map(empleado -> {
+
+					Set<RolEducativo> roles = empleadoEducativoService.obtenerRolesEducativos(empleado.getId());
+
+					return EmpleadoEducativoMapper.toMinimoConRoles(empleado, roles);
+				})
 				.toList();
 	}
 

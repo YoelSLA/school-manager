@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
+@Service
 @Transactional
 public class MateriaServiceImpl implements MateriaService {
 
@@ -26,7 +26,8 @@ public class MateriaServiceImpl implements MateriaService {
 	@Override
 	public Materia crear(Long escuelaId, Materia materia) {
 
-		Escuela escuela = escuelaRepository.findById(escuelaId).orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
+		Escuela escuela = escuelaRepository.findById(escuelaId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
 
 		if (materiaRepository.existsByNombreIgnoreCaseAndEscuelaId(
 				materia.getNombre(),
@@ -40,7 +41,8 @@ public class MateriaServiceImpl implements MateriaService {
 			);
 		}
 
-		materia.setEscuela(escuela);
+		escuela.agregarMateria(materia);
+
 		return materiaRepository.save(materia);
 	}
 
@@ -51,7 +53,9 @@ public class MateriaServiceImpl implements MateriaService {
 			return;
 		}
 
-		Escuela escuela = escuelaRepository.findById(escuelaId).orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
+		Escuela escuela = escuelaRepository.findById(escuelaId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
+
 
 		for (Materia materia : materias) {
 
@@ -67,7 +71,7 @@ public class MateriaServiceImpl implements MateriaService {
 				);
 			}
 
-			materia.setEscuela(escuela);
+			escuela.agregarMateria(materia);
 		}
 
 		materiaRepository.saveAll(materias);
@@ -79,31 +83,50 @@ public class MateriaServiceImpl implements MateriaService {
 	}
 
 	@Override
-	public Page<Materia> buscarPorEscuela(
-			Long escuelaId,
-			Pageable pageable
-	) {
+	public Page<Materia> listarMateriasPorEscuela(Long escuelaId, Pageable pageable) {
 
-		escuelaRepository.findById(escuelaId)
-				.orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
+		escuelaRepository.findById(escuelaId).orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
 
-		return materiaRepository.findByEscuelaId(
-				escuelaId,
-				pageable
-		);
+		return materiaRepository.findByEscuelaIdOrderByNombreAsc(escuelaId, pageable);
 	}
 
 	@Override
-	public List<Materia> buscarNombresPorEscuela(Long escuelaId) {
+	public List<Materia> listarMateriasPorEscuela(Long escuelaId) {
 
-		escuelaRepository.findById(escuelaId)
-				.orElseThrow(() ->
-						new RecursoNoEncontradoException("escuela", escuelaId)
-				);
+		escuelaRepository.findById(escuelaId).orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
 
-		return materiaRepository
-				.findByEscuelaIdOrderByNombreAsc(escuelaId);
+		return materiaRepository.findByEscuelaIdOrderByNombreAsc(escuelaId);
 	}
 
+	public void eliminar(Long escuelaId, Long materiaId) {
+
+		Escuela escuela = escuelaRepository.findById(escuelaId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
+
+		Materia materia = materiaRepository
+				.findByIdAndEscuelaId(materiaId, escuelaId)
+				.orElseThrow(() ->
+						new RecursoNoEncontradoException("materia", materiaId)
+				);
+
+		escuela.removerMateria(materia);
+
+		materiaRepository.delete(materia);
+	}
+
+	@Override
+	public Materia actualizar(Long escuelaId,
+							  Long materiaId,
+							  String nombre,
+							  String abreviatura,
+							  Integer cantidadModulos
+	) {
+		Materia materia = materiaRepository.findByIdAndEscuelaId(materiaId, escuelaId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("materia", materiaId));
+
+		materia.actualizar(nombre, abreviatura, cantidadModulos);
+
+		return materiaRepository.save(materia);
+	}
 
 }
