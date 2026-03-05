@@ -750,9 +750,10 @@ class EmpleadoEducativoTest {
 		private DesignacionCurso crearDesignacionCurso(
 				Integer cupof,
 				Materia materia,
-				Curso curso
+				Curso curso,
+				String orientacion
 		) {
-			return new DesignacionCurso(escuela, cupof, materia, curso);
+			return new DesignacionCurso(escuela, cupof, materia, curso, orientacion);
 		}
 
 		private FranjaHoraria crearFranja(
@@ -778,9 +779,9 @@ class EmpleadoEducativoTest {
 			Curso a2g1 = new Curso(MANIANA, 2, 1);
 			Curso a3g1 = new Curso(MANIANA, 3, 1);
 
-			designacion2467775 = crearDesignacionCurso(2467775, practicasDelLenguaje, a1g1);
-			designacion2467791 = crearDesignacionCurso(2467791, practicasDelLenguaje, a2g1);
-			designacion2467811 = crearDesignacionCurso(2467811, practicasDelLenguaje, a3g1);
+			designacion2467775 = crearDesignacionCurso(2467775, practicasDelLenguaje, a1g1, "Bachiller de Ciclo Básico");
+			designacion2467791 = crearDesignacionCurso(2467791, practicasDelLenguaje, a2g1, "Bachiller de Ciclo Básico");
+			designacion2467811 = crearDesignacionCurso(2467811, practicasDelLenguaje, a3g1, "Bachiller de Ciclo Básico");
 
 			designacion2467775.agregarFranjaHoraria(crearFranja(LUNES, 12, 0, 13, 0));
 			designacion2467775.agregarFranjaHoraria(crearFranja(VIERNES, 9, 45, 10, 45));
