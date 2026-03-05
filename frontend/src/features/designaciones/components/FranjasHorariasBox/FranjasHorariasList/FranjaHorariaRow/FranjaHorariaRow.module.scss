@@ -1,8 +1,16 @@
+@use "@/styles/breakpoints" as *;
+
+$row-small: 44px;
+$row-medium: 50px;
+$row-large: 64px;
+
 .row {
   display: grid;
   grid-template-columns: 1.2fr 1fr 1fr auto;
   gap: 10px;
   align-items: center;
+
+  height: $row-medium;
 
   padding: 8px;
   border-radius: 14px;
@@ -22,7 +30,7 @@
 }
 
 .field {
-  height: 36px;
+  height: 100%;
   padding: 0 12px;
   border-radius: 10px;
   border: 1px solid #d1d5db;
@@ -42,8 +50,10 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  height: 36px;
+
+  height: 100%;
   padding: 0 12px;
+
   border-radius: 10px;
   border: 1px solid #d1d5db;
   background-color: #ffffff;
@@ -75,8 +85,9 @@
 }
 
 .remove {
-  height: 36px;
+  height: 100%;
   width: 36px;
+
   padding: 0;
   border-radius: 10px;
 
@@ -97,4 +108,77 @@
     background-color: #dc2626;
     transform: scale(1.05);
   }
+}
+
+/* =========================
+   RESPONSIVE POR ALTURA
+========================= */
+
+/* 1366 laptops */
+@include desktop-height-small {
+
+  .row {
+    height: $row-small;
+    gap: 6px;
+    padding: 6px;
+    border-radius: 12px;
+  }
+
+  .field {
+    font-size: 11px;
+  }
+
+  .timeField {
+
+    input {
+      font-size: 11px;
+    }
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  .remove {
+    width: 32px;
+  }
+
+}
+
+/* 1536 */
+@include desktop-height-medium {
+
+  .row {
+    height: $row-medium;
+    gap: 10px;
+    padding: 8px;
+  }
+
+}
+
+/* 1920 */
+@include desktop-height-large {
+
+  .row {
+    height: $row-large;
+    gap: 12px;
+    padding: 10px;
+  }
+
+  .field {
+    font-size: 13px;
+  }
+
+  .timeField {
+
+    input {
+      font-size: 13px;
+    }
+  }
+
+  .remove {
+    width: 40px;
+  }
+
 }

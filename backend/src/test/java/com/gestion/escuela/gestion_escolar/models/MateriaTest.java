@@ -34,7 +34,7 @@ class MateriaTest {
 	@DisplayName("Creación de Materia")
 	class Creacion {
 
-		@ParameterizedTest(name = "Debe fallar con cuil = ''{0}''")
+		@ParameterizedTest(name = "Debe fallar con nombre = ''{0}''")
 		@NullAndEmptySource
 		@ValueSource(strings = {" "})
 		@DisplayName("Debe fallar si el nombre es null, vacío o solo espacios")
@@ -49,7 +49,7 @@ class MateriaTest {
 			);
 		}
 
-		@ParameterizedTest(name = "Debe fallar con cuil = ''{0}''")
+		@ParameterizedTest(name = "Debe fallar con abreviatura = ''{0}''")
 		@NullAndEmptySource
 		@ValueSource(strings = {" "})
 		@DisplayName("Debe fallar si el abreviatura es null, vacío o solo espacios")

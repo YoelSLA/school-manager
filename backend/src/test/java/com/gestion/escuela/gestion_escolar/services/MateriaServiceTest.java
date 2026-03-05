@@ -1,45 +1,25 @@
 package com.gestion.escuela.gestion_escolar.services;
 
+import com.gestion.escuela.gestion_escolar.AbstractIntegrationTest;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.Materia;
 import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoDuplicadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.transaction.annotation.Transactional;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
-import java.util.TimeZone;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
-@Transactional
-@ActiveProfiles("test")
-@Testcontainers(disabledWithoutDocker = true)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class MateriaServiceTest {
-
-	@Container
-	static PostgreSQLContainer<?> postgres =
-			new PostgreSQLContainer<>("postgres:15")
-					.withDatabaseName("testdb")
-					.withUsername("test")
-					.withPassword("test")
-					.withEnv("TZ", "UTC")
-					.withCommand("postgres", "-c", "timezone=UTC");
+class MateriaServiceTest extends AbstractIntegrationTest {
 
 	@Autowired
 	private EscuelaService escuelaService;
@@ -48,21 +28,6 @@ class MateriaServiceTest {
 	private MateriaService materiaService;
 
 	private Escuela escuelaBDD;
-
-	@DynamicPropertySource
-	static void configureProperties(DynamicPropertyRegistry registry) {
-		registry.add("spring.datasource.url", postgres::getJdbcUrl);
-		registry.add("spring.datasource.username", postgres::getUsername);
-		registry.add("spring.datasource.password", postgres::getPassword);
-
-		registry.add("spring.jpa.properties.hibernate.jdbc.time_zone", () -> "UTC");
-		registry.add("spring.datasource.hikari.data-source-properties.TimeZone", () -> "UTC");
-	}
-
-	@BeforeAll
-	static void forceUtc() {
-		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-	}
 
 	@BeforeEach
 	void setUp() {

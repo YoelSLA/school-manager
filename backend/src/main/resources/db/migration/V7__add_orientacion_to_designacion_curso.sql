@@ -1,0 +1,2 @@
+ALTER TABLE designacion_curso
+    ADD COLUMN orientacion VARCHAR(255) NOT NULL DEFAULT 'GENERAL';

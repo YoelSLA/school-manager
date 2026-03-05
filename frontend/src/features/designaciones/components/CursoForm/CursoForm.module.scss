@@ -1,25 +1,30 @@
 .curso-form {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.left {
 	background-color: #fff;
 	border-radius: 16px;
-	padding: 8px;
+	padding: 12px;
 	display: flex;
 	flex-direction: column;
 	gap: 1.25rem;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
 
-	&__row {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
-	}
+.row {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+}
 
-	&__full {
-		width: 100%;
-	}
+.full {
+	width: 100%;
+}
 
-	// opcional: separadores visuales suaves
-	&__separator {
-		height: 1px;
-		background-color: var(--color-border, #e5e7eb);
-	}
+.separator {
+	height: 1px;
+	background-color: var(--color-border, #e5e7eb);
 }

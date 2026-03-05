@@ -1,20 +1,21 @@
-import type { FieldValues, Path, UseFormRegister, } from "react-hook-form";
+import type { UseFormRegister } from "react-hook-form";
 import FormSelectField from "@/components/forms/FormSelectField/FormSelectField";
 import { ORIENTACIONES } from "@/features/designaciones/utils/designacion.utils";
+import type { DesignacionCursoFormValues } from "@/features/designaciones/form/designacion.form.types";
 
-
-type Props<T extends FieldValues> = {
-  name: Path<T>;
-  register: UseFormRegister<T>;
+type Props = {
+  register: UseFormRegister<DesignacionCursoFormValues>;
   error?: string;
 };
-export default function OrientacionSelectField<
-  T extends FieldValues
->({ name, register, error }: Props<T>) {
+
+export default function OrientacionSelectField({
+  register,
+  error,
+}: Props) {
   return (
     <FormSelectField
       label="Orientación"
-      name={name}
+      name="orientacion"
       register={register}
       error={error}
     >

@@ -9,18 +9,18 @@ import java.util.List;
 
 public interface CursoService {
 
-
-	Curso crear(Curso curso);
-
 	void crearBatch(Long escuelaId, List<Curso> cursos);
+
+	void eliminar(Long escuelaId, Long cursoId);
+
+	Curso crear(Long escuelaId, Curso curso);
 
 	Curso obtenerPorId(Long id);
 
-	Page<Curso> buscarPorEscuela(
-			Long escuelaId,
-			Turno turno,
-			Pageable pageable
-	);
+	Curso actualizar(Long escuelaId, Long cursoId, Integer anio, Integer grado, Turno turno);
 
-	List<Curso> buscarTodosPorEscuela(Long escuelaId);
+	List<Curso> listarCursosPorEscuela(Long escuelaId);
+
+	Page<Curso> listarCursosPorEscuela(Long escuelaId, Turno turno, Pageable pageable);
+
 }

@@ -1,11 +1,10 @@
 import type { FieldPath, FieldValues, UseFormRegister } from "react-hook-form";
-import type { FormWithFranjas } from "@/features/designaciones/types/designacion.types";
 import { Trash2, Clock } from "lucide-react";
 import Button from "@/components/Button";
 
 import styles from "./FranjaHorariaRow.module.scss";
-import { DIAS_SEMANA } from "@/features/designaciones/utils/designacion.utils";
-import { formatDiaLabel } from "@/utils";
+import { DIAS_SEMANA } from "@/utils";
+import type { FormWithFranjas } from "@/utils/types";
 
 type Props<T extends FieldValues & FormWithFranjas> = {
   index: number;
@@ -27,7 +26,7 @@ export default function FranjaHorariaRow<T extends FormWithFranjas>({
       <select className={styles.field} {...register(diaPath)}>
         {DIAS_SEMANA.map((dia) => (
           <option key={dia} value={dia}>
-            {formatDiaLabel(dia)}
+            {dia}
           </option>
         ))}
       </select>

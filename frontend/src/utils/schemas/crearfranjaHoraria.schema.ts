@@ -1,8 +1,9 @@
 import { z } from "zod";
+import { Dia } from "../types";
 
 export const crearFranjaHorariaSchema = z
 	.object({
-		dia: z.enum(["LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES"]),
+		dia: z.enum(Dia),
 		horaDesde: z.string().min(1),
 		horaHasta: z.string().min(1),
 	})

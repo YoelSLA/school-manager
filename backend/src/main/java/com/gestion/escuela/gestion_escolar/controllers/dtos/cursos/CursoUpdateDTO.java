@@ -4,7 +4,7 @@ import com.gestion.escuela.gestion_escolar.models.enums.Turno;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
-public record CursoCreateDTO(
+public record CursoUpdateDTO(
 
 		@NotNull(message = "El turno es obligatorio")
 		Turno turno,
@@ -16,6 +16,5 @@ public record CursoCreateDTO(
 		@NotNull(message = "El grado es obligatorio")
 		@Min(value = 1, message = "El grado debe ser mayor o igual a 1")
 		Integer grado
-
 ) {
 }

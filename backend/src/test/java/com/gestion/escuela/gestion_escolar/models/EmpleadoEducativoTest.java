@@ -774,9 +774,9 @@ class EmpleadoEducativoTest {
 
 			Materia practicasDelLenguaje = new Materia("Practicas del Lenguaje", "PLG", 4);
 
-			Curso a1g1 = new Curso(MANIANA, 1, 1, escuela);
-			Curso a2g1 = new Curso(MANIANA, 2, 1, escuela);
-			Curso a3g1 = new Curso(MANIANA, 3, 1, escuela);
+			Curso a1g1 = new Curso(MANIANA, 1, 1);
+			Curso a2g1 = new Curso(MANIANA, 2, 1);
+			Curso a3g1 = new Curso(MANIANA, 3, 1);
 
 			designacion2467775 = crearDesignacionCurso(2467775, practicasDelLenguaje, a1g1);
 			designacion2467791 = crearDesignacionCurso(2467791, practicasDelLenguaje, a2g1);

@@ -1,7 +1,7 @@
 import type { Params } from "react-router-dom";
 
 type FranjaHorariaBaseDTO = {
-	dia: string;
+	dia: Dia;
 	horaDesde: string;
 	horaHasta: string;
 };
@@ -74,3 +74,23 @@ export type BreadcrumbState = {
 export type BreadcrumbResolver =
 	| BreadcrumbItem[]
 	| ((params: Params<string>) => BreadcrumbItem[]);
+
+
+export type FranjaHoraria = {
+	dia: Dia;
+	horaDesde: string;
+	horaHasta: string;
+};
+
+export type FormWithFranjas = {
+	franjasHorarias: FranjaHoraria[];
+};
+
+export enum Dia {
+	LUNES = "Lunes",
+	MARTES = "Martes",
+	MIERCOLES = "Miércoles",
+	JUEVES = "Jueves",
+	VIERNES = "Viernes"
+
+}

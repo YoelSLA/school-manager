@@ -123,7 +123,7 @@ public class Escuela {
 	public void agregarCurso(Curso curso) {
 		Validaciones.noNulo(curso, "curso");
 
-		curso.asignarAEscuela(this);
+		curso.setEscuela(this);
 		this.cursos.add(curso);
 	}
 

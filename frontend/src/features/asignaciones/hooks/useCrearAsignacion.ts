@@ -26,6 +26,7 @@ type Variables = {
 	empleadoId: number;
 	tipoAsignacion: "TITULAR" | "PROVISIONAL";
 	fechaTomaPosesion: string;
+	fechaCese: string;
 	caracteristica?: CaracteristicaAsignacion;
 };
 
@@ -41,6 +42,7 @@ export function useCrearAsignacion({
 			empleadoId,
 			tipoAsignacion,
 			fechaTomaPosesion,
+			fechaCese,
 			caracteristica,
 		}: Variables) => {
 			if (tipoAsignacion === "TITULAR") {
@@ -54,6 +56,7 @@ export function useCrearAsignacion({
 			if (tipoAsignacion === "PROVISIONAL") {
 				return cubrirConProvisional(designacionId, {
 					empleadoId,
+					fechaCese,
 					fechaTomaPosesion,
 				});
 			}

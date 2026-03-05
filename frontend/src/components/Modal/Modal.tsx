@@ -6,9 +6,7 @@ type Props = {
 	children: ReactNode;
 	title?: string;
 	size?: "small" | "medium" | "large";
-
 	onCancel: () => void;
-	onConfirm: () => void;
 	confirmLabel?: string;
 	isSubmitting?: boolean;
 };
@@ -18,7 +16,6 @@ export default function Modal({
 	title,
 	size = "medium",
 	onCancel,
-	onConfirm,
 	confirmLabel = "Guardar",
 	isSubmitting = false,
 }: Props) {
@@ -46,9 +43,8 @@ export default function Modal({
 					</Button>
 
 					<Button
-						type="button"
+						type="submit"
 						variant="primary"
-						onClick={onConfirm}
 						loading={isSubmitting}
 					>
 						{confirmLabel}

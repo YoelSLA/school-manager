@@ -5,6 +5,7 @@ import type {
 	RolEducativo,
 } from "@/features/designaciones/types/designacion.types";
 import { routeTitles } from "@/router/titles";
+import { Dia } from "./types";
 
 export function diasRestantes(fechaHasta: string): number {
 	const [year, month, day] = fechaHasta.split("-").map(Number);
@@ -182,3 +183,5 @@ export function formatDiaLabel(dia: string) {
 
 	return normalizado.charAt(0) + normalizado.slice(1).toLowerCase();
 }
+
+export const DIAS_SEMANA: Dia[] = Object.values(Dia);

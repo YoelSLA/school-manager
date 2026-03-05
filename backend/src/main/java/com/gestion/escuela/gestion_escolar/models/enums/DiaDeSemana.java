@@ -1,13 +1,21 @@
 package com.gestion.escuela.gestion_escolar.models.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.time.LocalDate;
 
 public enum DiaDeSemana {
-	LUNES,
-	MARTES,
-	MIERCOLES,
-	JUEVES,
-	VIERNES;
+	LUNES("Lunes"),
+	MARTES("Martes"),
+	MIERCOLES("Miércoles"),
+	JUEVES("Jueves"),
+	VIERNES("Viernes");
+
+	private final String nombre;
+
+	DiaDeSemana(String nombre) {
+		this.nombre = nombre;
+	}
 
 	public static DiaDeSemana from(LocalDate fecha) {
 
@@ -29,6 +37,11 @@ public enum DiaDeSemana {
 				 SUNDAY ->
 					null; // 👈 no excepción
 		};
+	}
+
+	@JsonValue
+	public String getNombre() {
+		return nombre;
 	}
 }
 

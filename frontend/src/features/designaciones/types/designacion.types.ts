@@ -1,4 +1,5 @@
 import type {
+	FranjaHoraria,
 	FranjaHorariaCreateDTO,
 	FranjaHorariaMinimoDTO,
 } from "@/utils/types";
@@ -93,16 +94,7 @@ export type CubrirTitularDTO = {
 export type CubrirProvisionalDTO = {
 	empleadoId: number;
 	fechaTomaPosesion: string;
-};
-
-export type FranjaHoraria = {
-	dia: Dia;
-	horaDesde: string;
-	horaHasta: string;
-};
-
-export type FormWithFranjas = {
-	franjasHorarias: FranjaHoraria[];
+	fechaCese: string;
 };
 
 export enum RolEducativo {
@@ -144,26 +136,9 @@ export type DesignacionBaseForm = {
 
 export type EstadoCargo = "LICENCIA" | "BAJA" | "FINALIZADA" | "PENDIENTE";
 
-
-export type DesignacionCursoFormValues = {
-	cupof: string;
-	materiaId: string;
-	cursoId: string;
-	orientacion: string;
-	franjasHorarias: FranjaHoraria[];
-};
-
 export type DesignacionAdministrativaFormValues = {
 	cupof: string;
 	rolEducativo: RolEducativo
 	franjasHorarias: FranjaHoraria[]
 };
 
-export enum Dia {
-	LUNES = "Lunes",
-	MARTES = "Martes",
-	MIERCOLES = "Miércoles",
-	JUEVES = "Jueves",
-	VIERNES = "Viernes"
-
-}

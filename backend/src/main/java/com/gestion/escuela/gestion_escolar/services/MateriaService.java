@@ -8,17 +8,13 @@ import java.util.List;
 
 public interface MateriaService {
 
-	Materia crear(Long escuelaId, Materia materia);
-
 	void crearBatch(Long escuelaId, List<Materia> materias);
 
-	Materia obtenerPorId(Long id);
-
-	Page<Materia> listarMateriasPorEscuela(Long escuelaId, Pageable pageable);
-
-	List<Materia> listarMateriasPorEscuela(Long escuelaId);
-
 	void eliminar(Long escuelaId, Long materiaId);
+
+	Materia crear(Long escuelaId, Materia materia);
+
+	Materia obtenerPorId(Long id);
 
 	Materia actualizar(
 			Long escuelaId,
@@ -27,4 +23,8 @@ public interface MateriaService {
 			String abreviatura,
 			Integer cantidadModulos
 	);
+
+	Page<Materia> listarMateriasPorEscuela(Long escuelaId, Pageable pageable);
+
+	List<Materia> listarMateriasPorEscuela(Long escuelaId);
 }

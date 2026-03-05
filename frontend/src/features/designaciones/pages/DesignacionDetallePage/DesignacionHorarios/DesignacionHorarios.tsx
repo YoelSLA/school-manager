@@ -1,7 +1,7 @@
 import type { FranjaHorariaMinimoDTO } from "@/utils/types";
 import styles from "./DesignacionHorarios.module.scss";
 import HorarioDia from "./HorarioDia";
-import { DIAS_SEMANA } from "@/features/designaciones/utils/designacion.utils";
+import { DIAS_SEMANA } from "@/utils";
 
 type Props = {
 	franjas: FranjaHorariaMinimoDTO[];
@@ -11,8 +11,7 @@ export default function DesignacionHorarios({ franjas }: Props) {
 	// 🔥 1️⃣ Ordenamos TODAS las franjas primero
 	const franjasOrdenadas = [...franjas].sort((a, b) => {
 		// primero por día según DIAS_SEMANA
-		const ordenDia =
-			DIAS_SEMANA.indexOf(a.dia) - DIAS_SEMANA.indexOf(b.dia);
+		const ordenDia = DIAS_SEMANA.indexOf(a.dia) - DIAS_SEMANA.indexOf(b.dia);
 
 		if (ordenDia !== 0) return ordenDia;
 

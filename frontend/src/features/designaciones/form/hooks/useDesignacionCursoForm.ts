@@ -1,75 +1,49 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-import { DESIGNACION_CURSO_DEFAULTS } from "../defaults/designacionCurso.defaults";
 import { crearDesignacionCursoSchema } from "../schemas/crearDesignacionCurso.schema";
 import type { MateriaNombreDTO } from "@/features/materias/types/materias.types";
 import type { CursoNombreDTO } from "@/features/cursos/types/cursos.types";
-import type { DesignacionCursoFormValues } from "../../types/designacion.types";
+import type { DesignacionCursoFormValues } from "../designacion.form.types";
+import { Dia } from "@/utils/types";
 
 type Props = {
 	materias?: MateriaNombreDTO[];
 	cursos?: CursoNombreDTO[];
+	orientaciones?: string[];
 };
 
 export function useDesignacionCursoForm({
 	materias,
 	cursos,
+	orientaciones,
 }: Props) {
 	const form = useForm<DesignacionCursoFormValues>({
-		resolver: async (values, context, options) => {
-			try {
-				return await zodResolver(crearDesignacionCursoSchema)(
-					values,
-					context,
-					options
-				);
-			} catch (error) {
-				console.log("🔥 ZOD RAW ERROR:", error);
-
-				if (error instanceof Error) {
-					console.log("Mensaje:", error.message);
-				}
-
-				if (error && typeof error === "object" && "issues" in error) {
-					console.log("Issues:", (error as any).issues);
-				}
-
-				throw error;
-			}
-		},
+		resolver: zodResolver(crearDesignacionCursoSchema),
 		defaultValues: DESIGNACION_CURSO_DEFAULTS,
 	});
 
 	const { setValue, getValues } = form;
 
-	const franjas = useFieldArray({
+	const franjas = useFieldArray<
+		DesignacionCursoFormValues,
+		"franjasHorarias"
+	>({
 		control: form.control,
 		name: "franjasHorarias",
 	});
-
-	console.log("📚 materias:", materias);
-
-	useEffect(() => {
-		const subscription = form.watch((values) => {
-			console.log("👀 WATCH VALUES:", values);
-			console.log("👀 TYPEOF CUPOF EN WATCH:", typeof values.cupof);
-		});
-
-		return () => subscription.unsubscribe();
-	}, [form]);
 
 	useEffect(() => {
 		if (!materias?.length) return;
 
 		const biologia = materias.find(
-			(m) => m.nombre.toLowerCase() === "biología",
+			(m) => m.nombre.toLowerCase() === "biología"
 		);
 
 		if (!biologia) return;
 
 		if (!getValues("materiaId")) {
-			setValue("materiaId", String(biologia.id));
+			setValue("materiaId", biologia.id);
 		}
 	}, [materias, setValue, getValues]);
 
@@ -77,12 +51,34 @@ export function useDesignacionCursoForm({
 		if (!cursos?.length) return;
 
 		if (!getValues("cursoId")) {
-			setValue("cursoId", String(cursos[0].id));
+			setValue("cursoId", cursos[0].id);
 		}
 	}, [cursos, setValue, getValues]);
+
+	useEffect(() => {
+		if (!orientaciones?.length) return;
+
+		if (!getValues("orientacion")) {
+			setValue("orientacion", orientaciones[0]);
+		}
+	}, [orientaciones, setValue, getValues]);
 
 	return {
 		form,
 		franjas,
 	};
 }
+
+const DESIGNACION_CURSO_DEFAULTS: DesignacionCursoFormValues = {
+	cupof: 1,
+	materiaId: 1,
+	cursoId: 1,
+	orientacion: "",
+	franjasHorarias: [
+		{
+			dia: Dia.LUNES,
+			horaDesde: "08:00",
+			horaHasta: "12:00",
+		},
+	],
+};

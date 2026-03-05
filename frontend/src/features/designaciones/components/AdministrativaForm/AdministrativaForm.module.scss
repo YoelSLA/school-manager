@@ -1,7 +1,13 @@
+.administrativa-form {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
 .left {
 	background-color: #fff;
 	border-radius: 16px;
-	padding: 8px;
+	padding: 12px;
 	display: flex;
 	flex-direction: column;
 	gap: 1.25rem;

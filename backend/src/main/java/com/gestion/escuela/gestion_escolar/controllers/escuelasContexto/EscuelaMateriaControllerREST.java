@@ -33,11 +33,9 @@ public class EscuelaMateriaControllerREST {
 			@Valid @RequestBody MateriaCreateDTO dto
 	) {
 
-		Materia materiaModelo = MateriaMapper.toEntity(dto);
+		Materia materia = materiaService.crear(escuelaId, MateriaMapper.toEntity(dto));
 
-		Materia materiaCreada = materiaService.crear(escuelaId, materiaModelo);
-
-		return MateriaMapper.toResponse(materiaCreada);
+		return MateriaMapper.toResponse(materia);
 	}
 
 	@PostMapping("/batch")

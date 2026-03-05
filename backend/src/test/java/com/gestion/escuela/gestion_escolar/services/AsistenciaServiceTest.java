@@ -1,6 +1,7 @@
 package com.gestion.escuela.gestion_escolar.services;
 
 
+import com.gestion.escuela.gestion_escolar.AbstractIntegrationTest;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.FranjaHoraria;
@@ -9,18 +10,12 @@ import com.gestion.escuela.gestion_escolar.models.enums.DiaDeSemana;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-@SpringBootTest
-@ActiveProfiles("test")
-@Transactional
-public class AsistenciaServiceTest {
+public class AsistenciaServiceTest extends AbstractIntegrationTest {
 
 	@Autowired
 	private DesignacionService designacionService;

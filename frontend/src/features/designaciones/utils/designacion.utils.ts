@@ -1,15 +1,8 @@
-import { Franja, RolEducativo } from "../types/designacion.types";
+import { Dia, type FranjaHoraria } from "@/utils/types";
+import { RolEducativo } from "../types/designacion.types";
 
-export const DIAS_SEMANA = [
-	"LUNES",
-	"MARTES",
-	"MIERCOLES",
-	"JUEVES",
-	"VIERNES",
-];
-
-export const DEFAULT_FRANJA: Franja = {
-	dia: "LUNES",
+export const DEFAULT_FRANJA: FranjaHoraria = {
+	dia: Dia.LUNES,
 	horaDesde: "08:00",
 	horaHasta: "12:00",
 };

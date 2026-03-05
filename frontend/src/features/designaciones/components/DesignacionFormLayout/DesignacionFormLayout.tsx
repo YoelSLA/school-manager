@@ -1,23 +1,24 @@
 import type {
+	ArrayPath,
 	FieldArrayWithId,
 	FieldValues,
 	UseFieldArrayAppend,
 	UseFieldArrayRemove,
 	UseFormRegister,
 } from "react-hook-form";
-import type {
-	FormWithFranjas,
-} from "@/features/designaciones/types/designacion.types";
 import Button from "@/components/Button";
 import FranjasHorariasBox from "../FranjasHorariasBox/FranjasHorariasBox";
 import styles from "./DesignacionFormLayout.module.scss";
+import type { FormWithFranjas } from "@/utils/types";
+
+type FranjasPath<T extends FieldValues> = Extract<ArrayPath<T>, "franjasHorarias">;
 
 type Props<T extends FieldValues & FormWithFranjas> = {
 	left: React.ReactNode;
 	isSubmitting: boolean;
-	fields: FieldArrayWithId<T, "franjasHorarias">[];
+	fields: FieldArrayWithId<T, FranjasPath<T>>[];
 	register: UseFormRegister<T>;
-	append: UseFieldArrayAppend<T, "franjasHorarias">;
+	append: UseFieldArrayAppend<T, FranjasPath<T>>;
 	remove: UseFieldArrayRemove;
 };
 

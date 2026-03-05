@@ -49,8 +49,8 @@ public class DesignacionControllerREST {
 				designacionService.cubrirConProvisional(
 						designacionId,
 						dto.empleadoId(),
-						dto.fechaInicio(),
-						dto.fechaFin()
+						dto.fechaTomaPosesion(),
+						dto.fechaCese()
 				)
 		);
 	}

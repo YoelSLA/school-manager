@@ -13,7 +13,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class MateriaRestAssuredTest extends AbstractIntegrationTest {
+class CursoRestAssuredTest extends AbstractIntegrationTest {
 
 	@LocalServerPort
 	int port;
@@ -25,18 +25,19 @@ class MateriaRestAssuredTest extends AbstractIntegrationTest {
 	}
 
 	@Test
-	void flujoCompletoMateria() {
+	void flujoCompletoCurso() {
 
+		// 1️⃣ Crear escuela
 		long escuelaId =
 				given()
 						.contentType(ContentType.JSON)
 						.body("""
-								    {
-								      "nombre": "Escuela N°66",
-									  "localidad": "Bernal",
-									  "direccion": "Brown 5066",
-									  "telefono": "45674567"
-								    }
+								{
+								  "nombre": "Escuela N°77",
+								  "localidad": "Quilmes",
+								  "direccion": "Rivadavia 1234",
+								  "telefono": "12345678"
+								}
 								""")
 						.when()
 						.post("/api/escuelas")
@@ -46,51 +47,55 @@ class MateriaRestAssuredTest extends AbstractIntegrationTest {
 						.jsonPath()
 						.getLong("id");
 
-		long materiaId =
+		// 2️⃣ Crear curso
+		long cursoId =
 				given()
 						.contentType(ContentType.JSON)
 						.body("""
-								    {
-								      "nombre": "Matemática",
-								      "abreviatura": "MAT",
-								      "cantidadModulos": 4
-								    }
+								{
+								  "turno": "Mañana",
+								  "anio": 1,
+								  "grado": 1
+								}
 								""")
 						.when()
-						.post("/api/escuelas/" + escuelaId + "/materias")
+						.post("/api/escuelas/" + escuelaId + "/cursos")
 						.then()
 						.statusCode(201)
 						.extract()
-						.jsonPath().
-						getLong("id");
+						.jsonPath()
+						.getLong("id");
 
-
+		// 3️⃣ Listar cursos
 		given()
 				.when()
-				.get("/api/escuelas/" + escuelaId + "/materias")
+				.get("/api/escuelas/" + escuelaId + "/cursos")
 				.then()
 				.statusCode(200)
-				.body("content.nombre", hasItem("Matemática"));
+				.body("content.grado", hasItem(1));
 
+		// 4️⃣ Actualizar curso
 		given()
 				.contentType(ContentType.JSON)
 				.body("""
-						    {
-						      "nombre": "Matemática Avanzada",
-						      "abreviatura": "MAT2",
-						      "cantidadModulos": 5
-						    }
+						{
+						  "turno": "Mañana",
+						  "anio": 1,
+						  "grado": 3
+						}
 						""")
 				.when()
-				.put("/api/escuelas/" + escuelaId + "/materias/" + materiaId)
+				.put("/api/escuelas/" + escuelaId + "/cursos/" + cursoId)
 				.then()
 				.statusCode(200)
-				.body("nombre", equalTo("Matemática Avanzada"));
+				.body("turno", equalTo("Mañana"))
+				.body("anio", equalTo(1))
+				.body("grado", equalTo(3));
 
-
+		// 5️⃣ Eliminar curso
 		given()
 				.when()
-				.delete("/api/escuelas/" + escuelaId + "/materias/" + materiaId)
+				.delete("/api/escuelas/" + escuelaId + "/cursos/" + cursoId)
 				.then()
 				.statusCode(204);
 	}
