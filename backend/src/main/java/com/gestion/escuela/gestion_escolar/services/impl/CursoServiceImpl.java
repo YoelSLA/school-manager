@@ -25,50 +25,43 @@ public class CursoServiceImpl implements CursoService {
 	private final EscuelaRepository escuelaRepository;
 
 	@Override
-	public Curso crear(Curso curso) {
+	public Curso crear(Long escuelaId, Curso curso) {
 
-		if (cursoRepository.existsByAnioAndGradoAndEscuelaId(
+		Escuela escuela = escuelaRepository.findById(escuelaId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
+
+		validarNoDuplicado(
+				escuelaId,
 				curso.getAnio(),
 				curso.getGrado(),
-				curso.getEscuela().getId()
-		)) {
-			throw new RecursoDuplicadoException(
-					"curso",
-					"año y grado",
-					curso.getAnio() + "° / " + curso.getGrado() + "°",
-					"la escuela " + curso.getEscuela().getNombre()
-			);
-		}
+				curso.getTurno(),
+				escuela.getNombre()
+		);
+
+		escuela.agregarCurso(curso);
 
 		return cursoRepository.save(curso);
 	}
 
 	@Override
-	@Transactional
 	public void crearBatch(Long escuelaId, List<Curso> cursos) {
 
 		if (cursos == null || cursos.isEmpty()) {
 			return;
 		}
 
-		Escuela escuela = escuelaRepository.findById(escuelaId).orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
+		Escuela escuela = escuelaRepository.findById(escuelaId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
 
 		for (Curso curso : cursos) {
-
-			if (cursoRepository.existsByAnioAndGradoAndEscuelaId(
+			validarNoDuplicado(
+					escuelaId,
 					curso.getAnio(),
 					curso.getGrado(),
-					escuelaId
-			)) {
-				throw new RecursoDuplicadoException(
-						"curso",
-						"año y grado",
-						curso.getAnio() + "° / " + curso.getGrado() + "°",
-						"la escuela " + escuela.getNombre()
-				);
-			}
-
-			curso.asignarAEscuela(escuela);
+					curso.getTurno(),
+					escuela.getNombre()
+			);
+			escuela.agregarCurso(curso);
 		}
 
 		cursoRepository.saveAll(cursos);
@@ -80,39 +73,99 @@ public class CursoServiceImpl implements CursoService {
 	}
 
 	@Override
-	public Page<Curso> buscarPorEscuela(
+	public Page<Curso> listarCursosPorEscuela(
 			Long escuelaId,
 			Turno turno,
 			Pageable pageable
 	) {
+
 		escuelaRepository.findById(escuelaId)
 				.orElseThrow(() ->
 						new RecursoNoEncontradoException("escuela", escuelaId)
 				);
 
 		if (turno == null) {
-			return cursoRepository.findByEscuelaId(
-					escuelaId,
-					pageable
-			);
+			return cursoRepository.findByEscuelaId(escuelaId, pageable);
 		}
 
-		return cursoRepository.findByEscuelaIdAndTurno(
-				escuelaId,
-				turno,
-				pageable
-		);
+		return cursoRepository.findByEscuelaIdAndTurno(escuelaId, turno, pageable);
+
 	}
 
 	@Override
-	public List<Curso> buscarTodosPorEscuela(Long escuelaId) {
+	public List<Curso> listarCursosPorEscuela(Long escuelaId) {
 
 		escuelaRepository.findById(escuelaId)
-				.orElseThrow(() ->
-						new RecursoNoEncontradoException("escuela", escuelaId)
-				);
+				.orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
 
 		return cursoRepository.findByEscuelaId(escuelaId);
+
+	}
+
+	public void eliminar(Long escuelaId, Long cursoId) {
+
+		Escuela escuela = escuelaRepository.findById(escuelaId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
+
+		Curso curso = cursoRepository
+				.findByIdAndEscuelaId(cursoId, escuelaId)
+				.orElseThrow(() ->
+						new RecursoNoEncontradoException("curso", cursoId)
+				);
+
+		escuela.removerCurso(curso);
+
+		cursoRepository.delete(curso);
+
+	}
+
+	@Override
+	public Curso actualizar(Long escuelaId, Long cursoId, Integer anio, Integer grado, Turno turno) {
+
+		Escuela escuela = escuelaRepository.findById(escuelaId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
+
+		Curso curso = cursoRepository.findByIdAndEscuelaId(cursoId, escuelaId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("curso", cursoId));
+
+		if (cursoRepository.existsByEscuelaIdAndAnioAndGradoAndTurnoAndIdNot(
+				escuelaId,
+				anio,
+				grado,
+				turno,
+				cursoId
+		)) {
+			throw new RecursoDuplicadoException(
+					"curso",
+					"año, grado y turno",
+					anio + "° / " + grado + "° - " + turno,
+					"la escuela " + escuela.getNombre()
+			);
+		}
+
+		curso.actualizar(turno, anio, grado);
+
+		return cursoRepository.save(curso);
+
+	}
+
+	private void validarNoDuplicado(
+			Long escuelaId,
+			Integer anio,
+			Integer grado,
+			Turno turno,
+			String nombreEscuela
+	) {
+		if (cursoRepository.existsByEscuelaIdAndAnioAndGradoAndTurno(
+				escuelaId, anio, grado, turno
+		)) {
+			throw new RecursoDuplicadoException(
+					"curso",
+					"año, grado y turno",
+					anio + "° / " + grado + "° - " + turno,
+					"la escuela " + nombreEscuela
+			);
+		}
 	}
 
 

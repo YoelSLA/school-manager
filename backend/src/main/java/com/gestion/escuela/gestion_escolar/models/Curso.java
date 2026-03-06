@@ -38,16 +38,25 @@ public class Curso {
 	protected Curso() {
 	}
 
-	public Curso(Turno turno, Integer anio, Integer grado, Escuela escuela) {
-		validar(turno, anio, grado, escuela);
+	public Curso(Turno turno, Integer anio, Integer grado) {
+
+		validarCrearOActualizarTurno(turno, anio, grado);
 
 		this.turno = turno;
 		this.anio = anio;
 		this.grado = grado;
-		this.escuela = escuela;
 	}
 
-	public void asignarAEscuela(Escuela escuela) {
+	public void actualizar(Turno turno, Integer anio, Integer grado) {
+
+		validarCrearOActualizarTurno(turno, anio, grado);
+
+		this.turno = turno;
+		this.anio = anio;
+		this.grado = grado;
+	}
+
+	public void setEscuela(Escuela escuela) {
 		Validaciones.noNulo(escuela, "escuela");
 		this.escuela = escuela;
 	}
@@ -58,15 +67,14 @@ public class Curso {
 
 	@Override
 	public String toString() {
-		return anioDivision() + " - " + turno;
+		return anioDivision() + " - " + turno.getNombre();
 	}
 
-	private void validar(Turno turno, Integer anio, Integer grado, Escuela escuela) {
+	private void validarCrearOActualizarTurno(Turno turno, Integer anio, Integer grado) {
 
 		Validaciones.noNulo(turno, "turno");
 		Validaciones.noNulo(anio, "anio");
 		Validaciones.noNulo(grado, "grado");
-		Validaciones.noNulo(escuela, "escuela");
 
 		if (anio <= 0) {
 			throw new AnioInvalidoException(anio);
@@ -76,7 +84,6 @@ public class Curso {
 			throw new GradoInvalidoException(grado);
 		}
 	}
-
 
 }
 

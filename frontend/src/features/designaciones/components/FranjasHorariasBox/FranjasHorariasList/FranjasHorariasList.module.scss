@@ -1,21 +1,33 @@
+@use "@/styles/breakpoints" as *;
+@use "./FranjaHorariaRow/FranjaHorariaRow.module.scss" as franjaRow;
+
+/* padding vertical total */
+$list-padding-y: 16px;
+
+/* rows visibles */
+$rows-small: 5;
+$rows-medium: 5;
+$rows-large: 6;
+
+/* gap por breakpoint */
+$gap-small: 2px;
+$gap-medium: 6px;
+$gap-large: 10px;
+
+/* helper */
+@function list-height($row-height, $rows, $gap) {
+  @return calc(#{$row-height} * #{$rows} + #{$gap} * (#{$rows} - 1) + #{$list-padding-y});
+}
+
 .list {
   display: flex;
   flex-direction: column;
-  gap: 4px;
 
-  padding: 8px;
   border-radius: 20px;
 
-  background-color: #f9fafb;
-  border: 1px solid #e5e7eb;
-
-  max-height: calc(56px * 4);
   overflow-y: auto;
-
-  /* evita saltos cuando aparece el scroll */
   scrollbar-gutter: stable;
 
-  /* scroll más fino (Chrome / Edge) */
   &::-webkit-scrollbar {
     width: 5px;
   }
@@ -31,5 +43,29 @@
 
   &::-webkit-scrollbar-thumb:hover {
     background-color: #9ca3af;
+  }
+}
+
+/* 1366 laptops */
+@include desktop-height-small {
+  .list {
+    gap: $gap-small;
+    max-height: list-height(franjaRow.$row-small, $rows-small, $gap-small);
+  }
+}
+
+/* 1536 */
+@include desktop-height-medium {
+  .list {
+    gap: $gap-medium;
+    max-height: list-height(franjaRow.$row-medium, $rows-medium, $gap-medium);
+  }
+}
+
+/* 1920 */
+@include desktop-height-large {
+  .list {
+    gap: $gap-large;
+    max-height: list-height(franjaRow.$row-large, $rows-large, $gap-large);
   }
 }

@@ -1,48 +1,34 @@
 package com.gestion.escuela.gestion_escolar.models;
 
-import com.gestion.escuela.gestion_escolar.models.enums.Turno;
 import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.curso.AnioInvalidoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.curso.GradoInvalidoException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static com.gestion.escuela.gestion_escolar.models.enums.Turno.MANIANA;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 @DisplayName("Tests de Curso")
 class CursoTest {
 
-	private Escuela escuelaDummy() {
-		return new Escuela();
+	Escuela escuela;
+	Curso curso;
+
+	@BeforeEach
+	void setUp() {
+		escuela = mock(Escuela.class);
+		curso = new Curso(MANIANA, 1, 1);
 	}
 
-	// ==============================
-	// CREACIÓN
-	// ==============================
-
 	@Nested
-	@DisplayName("Creación de Curso")
-	class Creacion {
-
-		@Test
-		@DisplayName("Debe crear un curso válido correctamente")
-		void creaCursoValido() {
-
-			Curso curso = new Curso(
-					Turno.MANIANA,
-					1,
-					3,
-					escuelaDummy()
-			);
-
-			assertEquals(Turno.MANIANA, curso.getTurno());
-			assertEquals(1, curso.getAnio());
-			assertEquals(3, curso.getGrado());
-			assertNotNull(curso.getEscuela());
-		}
+	@DisplayName("Creación de curso")
+	class CrearTest {
 
 		@Test
 		@DisplayName("Debe lanzar CampoObligatorioException si turno es null")
@@ -53,8 +39,7 @@ class CursoTest {
 					() -> new Curso(
 							null,
 							1,
-							3,
-							escuelaDummy()
+							3
 					)
 			);
 		}
@@ -66,10 +51,9 @@ class CursoTest {
 			assertThrows(
 					CampoObligatorioException.class,
 					() -> new Curso(
-							Turno.MANIANA,
+							MANIANA,
 							null,
-							3,
-							escuelaDummy()
+							3
 					)
 			);
 		}
@@ -81,24 +65,8 @@ class CursoTest {
 			assertThrows(
 					CampoObligatorioException.class,
 					() -> new Curso(
-							Turno.MANIANA,
+							MANIANA,
 							1,
-							null,
-							escuelaDummy()
-					)
-			);
-		}
-
-		@Test
-		@DisplayName("Debe lanzar CampoObligatorioException si escuela es null")
-		void fallaSiEscuelaEsNull() {
-
-			assertThrows(
-					CampoObligatorioException.class,
-					() -> new Curso(
-							Turno.MANIANA,
-							1,
-							3,
 							null
 					)
 			);
@@ -111,12 +79,7 @@ class CursoTest {
 
 			assertThrows(
 					AnioInvalidoException.class,
-					() -> new Curso(
-							Turno.MANIANA,
-							anioInvalido,
-							3,
-							escuelaDummy()
-					)
+					() -> new Curso(MANIANA, anioInvalido, 3)
 			);
 		}
 
@@ -128,30 +91,76 @@ class CursoTest {
 			assertThrows(
 					GradoInvalidoException.class,
 					() -> new Curso(
-							Turno.MANIANA,
+							MANIANA,
 							1,
-							gradoInvalido,
-							escuelaDummy()
+							gradoInvalido
 					)
 			);
 		}
 
 		@Test
-		@DisplayName("Debe permitir año y grado igual a 1 (valor mínimo válido)")
-		void permiteValoresLimiteValidos() {
+		@DisplayName("Debe crear un curso válido correctamente")
+		void creaCursoValido() {
 
-			assertDoesNotThrow(() -> new Curso(
-					Turno.MANIANA,
+			Curso curso = new Curso(
+					MANIANA,
 					1,
-					1,
-					escuelaDummy()
-			));
+					3
+			);
+
+			assertNull(curso.getId());
+			assertNull(curso.getEscuela());
+			assertEquals(MANIANA, curso.getTurno());
+			assertEquals(1, curso.getAnio());
+			assertEquals(3, curso.getGrado());
+
 		}
+
 	}
 
-	// ==============================
-	// ANIO DIVISION
-	// ==============================
+	@Nested
+	@DisplayName("Actualización de curso")
+	class ActualizarTest {
+
+		@Test
+		@DisplayName("Debe actualizar correctamente los datos del curso.")
+		void actualizaCorrectamente() {
+
+			curso.actualizar(MANIANA, 2, 2);
+
+			assertNull(curso.getId());
+			assertNull(curso.getEscuela());
+			assertEquals(MANIANA, curso.getTurno());
+			assertEquals(2, curso.getAnio());
+			assertEquals(2, curso.getGrado());
+		}
+
+	}
+
+	@Nested
+	@DisplayName("Asignación de escuela al curso.")
+	class AsignarEscuelaTest {
+
+		@Test
+		@DisplayName("Debe asignar la escuela correctamente")
+		void asignaEscuelaCorrectamente() {
+
+			curso.setEscuela(escuela);
+
+			assertEquals(escuela, curso.getEscuela());
+		}
+
+		@Test
+		@DisplayName("Debe fallar si la escuela es null")
+		void fallaSiEscuelaEsNull() {
+
+			assertThrows(
+					CampoObligatorioException.class,
+					() -> curso.setEscuela(null)
+			);
+		}
+
+	}
 
 	@Nested
 	@DisplayName("Representación de año y división")
@@ -161,66 +170,9 @@ class CursoTest {
 		@DisplayName("Debe retornar correctamente el formato 'anio° grado'")
 		void retornaFormatoCorrecto() {
 
-			Curso curso = new Curso(
-					Turno.TARDE,
-					2,
-					4,
-					escuelaDummy()
-			);
-
-			assertEquals("2° 4", curso.anioDivision());
+			assertEquals("1° 1", curso.anioDivision());
 		}
 	}
-
-	// ==============================
-	// ASIGNACIÓN DE ESCUELA
-	// ==============================
-
-	@Nested
-	@DisplayName("Asignación de escuela")
-	class AsignacionEscuela {
-
-		@Test
-		@DisplayName("Debe asignar correctamente una nueva escuela al curso")
-		void asignaNuevaEscuelaCorrectamente() {
-
-			Escuela escuelaInicial = escuelaDummy();
-			Escuela nuevaEscuela = escuelaDummy();
-
-			Curso curso = new Curso(
-					Turno.MANIANA,
-					1,
-					3,
-					escuelaInicial
-			);
-
-			curso.asignarAEscuela(nuevaEscuela);
-
-			assertEquals(nuevaEscuela, curso.getEscuela());
-		}
-
-		@Test
-		@DisplayName("Debe lanzar CampoObligatorioException si se intenta asignar escuela null")
-		void fallaSiEscuelaEsNull() {
-
-			Curso curso = new Curso(
-					Turno.MANIANA,
-					1,
-					3,
-					escuelaDummy()
-			);
-
-			assertThrows(
-					CampoObligatorioException.class,
-					() -> curso.asignarAEscuela(null)
-			);
-		}
-	}
-
-
-	// ==============================
-	// TO STRING
-	// ==============================
 
 	@Nested
 	@DisplayName("Representación textual del curso")
@@ -230,14 +182,7 @@ class CursoTest {
 		@DisplayName("Debe retornar formato correcto en toString")
 		void retornaFormatoCorrecto() {
 
-			Curso curso = new Curso(
-					Turno.VESPERTINO,
-					3,
-					2,
-					escuelaDummy()
-			);
-
-			assertEquals("3° 2 - VESPERTINO", curso.toString());
+			assertEquals("1° 1 - Mañana", curso.toString());
 		}
 	}
 }

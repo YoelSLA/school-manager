@@ -1,8 +1,8 @@
 import type { FieldValues, UseFormRegister } from "react-hook-form";
-import type { FormWithFranjas } from "@/features/designaciones/types/designacion.types";
 
 import FranjaHorariaRow from "./FranjaHorariaRow";
 import styles from "./FranjasHorariasList.module.scss";
+import type { FormWithFranjas } from "@/utils/types";
 
 type Props<T extends FieldValues & FormWithFranjas> = {
   fields: { id: string }[];

@@ -17,6 +17,8 @@ import { useDesignacionesAdministrativas } from "../../hooks/useDesignacionesAdm
 import { useDesignacionesCursos } from "../../hooks/useDesignacionesCursos";
 import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
 import { useDesignacionesNavigation } from "../../hooks/useDesignacionesNavigation";
+import { RefreshCw } from "lucide-react";
+import styles from "./DesignacionesPage.module.scss";
 
 
 export default function DesignacionesPage() {
@@ -38,6 +40,8 @@ export default function DesignacionesPage() {
 		data: adminData,
 		isLoading: isLoadingAdmin,
 		isError: isErrorAdmin,
+		refetch: refetchAdmin,
+		isFetching: isFetchingAdmin,
 	} = useDesignacionesAdministrativas(
 		escuelaActiva?.id,
 		page,
@@ -48,11 +52,28 @@ export default function DesignacionesPage() {
 		data: cursoData,
 		isLoading: isLoadingCursos,
 		isError: isErrorCursos,
+		refetch: refetchCursos,
+		isFetching: isFetchingCursos,
 	} = useDesignacionesCursos(
 		escuelaActiva?.id,
 		page,
 		pageSize,
 	);
+
+	const handleRefresh = () => {
+		setPage(0);
+
+		if (filtro === "ADMIN") {
+			refetchAdmin();
+		} else {
+			refetchCursos();
+		}
+	};
+
+	const isFetching =
+		filtro === "ADMIN"
+			? isFetchingAdmin
+			: isFetchingCursos;
 
 	const data = filtro === "ADMIN" ? adminData : cursoData;
 	const totalPages = data?.totalPages ?? 0;
@@ -74,9 +95,25 @@ export default function DesignacionesPage() {
 						/>
 					}
 					actions={
-						<Button onClick={navigation.crear}>
-							+ Nueva designación
-						</Button>
+						<>
+							<Button
+								variant="secondary"
+								onClick={handleRefresh}
+								disabled={isFetching}
+							>
+								<span className={styles.refreshContent}>
+									<RefreshCw
+										size={16}
+										className={isFetching ? styles.spin : ""}
+									/>
+									<span>Actualizar</span>
+								</span>
+							</Button>
+
+							<Button onClick={navigation.crear}>
+								+ Nueva designación
+							</Button>
+						</>
 					}
 				/>
 			}

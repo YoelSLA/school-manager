@@ -3,7 +3,7 @@ import { formatearFecha } from "@/utils";
 import Badge from "@/components/Badge";
 import { ESTADO_ASIGNACION_BADGE } from "@/features/asignaciones/utils/asignacion.badges";
 import styles from "./CargoRow.module.scss";
-import SituacionRevistaBadge from "@/features/asignaciones/components/SituacionRevistaBadge/SituacionRevistaBadge";
+import SituacionRevistaBadge from "@/components/SituacionRevistaBadge/SituacionRevistaBadge";
 import { User } from "lucide-react";
 
 type Props = {

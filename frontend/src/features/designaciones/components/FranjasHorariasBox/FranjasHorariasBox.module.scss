@@ -1,13 +1,35 @@
+@use "@/styles/breakpoints" as *;
+@use "../FranjasHorariasBox/FranjasHorariasList/FranjaHorariaRow/FranjaHorariaRow.module.scss" as franjaRow;
+
+/* config */
+$gap-small: 2px;
+$gap-medium: 4px;
+$gap-large: 6px;
+
+$rows-small: 5;
+$rows-medium: 5;
+$rows-large: 7;
+
+/* extras de layout */
+$title-height: 26px;
+$footer-height: 46px;
+$box-padding-y: 16px;
+$list-padding-y: 16px;
+
+/* helper */
+@function list-height($row, $rows, $gap) {
+  @return ($row * $rows)+($gap * ($rows - 1))+$list-padding-y;
+}
+
 /* =====================
-   CAJA
+   BOX
 ===================== */
 
 .box {
   display: flex;
   flex-direction: column;
-
-  height: 100%;
   min-height: 0;
+  height: 100%; // 👈 se estira al alto del layout
 
   padding: 8px;
   border-radius: 20px;
@@ -18,7 +40,7 @@
 }
 
 /* =====================
-   TÍTULO
+   TITLE
 ===================== */
 
 .title {
@@ -32,7 +54,7 @@
 }
 
 /* =====================
-   LISTA SCROLLEABLE
+   LIST
 ===================== */
 
 .list {
@@ -41,12 +63,9 @@
 
   display: flex;
   flex-direction: column;
-  gap: 10px;
 
   overflow-y: auto;
   padding-right: 6px;
-
-  scrollbar-gutter: stable;
 
   &::-webkit-scrollbar {
     width: 6px;
@@ -69,7 +88,31 @@
 .footer {
   flex-shrink: 0;
   margin-top: 14px;
-
   display: flex;
   justify-content: flex-end;
+}
+
+/* =====================
+   ALTURA RESPONSIVE
+===================== */
+
+@include desktop-height-small {
+  .list {
+    max-height: list-height(franjaRow.$row-small, $rows-small, $gap-small);
+    gap: $gap-small;
+  }
+}
+
+@include desktop-height-medium {
+  .list {
+    max-height: list-height(franjaRow.$row-medium, $rows-medium, $gap-medium);
+    gap: $gap-medium;
+  }
+}
+
+@include desktop-height-large {
+  .list {
+    max-height: list-height(franjaRow.$row-large, $rows-large, $gap-large);
+    gap: $gap-large;
+  }
 }

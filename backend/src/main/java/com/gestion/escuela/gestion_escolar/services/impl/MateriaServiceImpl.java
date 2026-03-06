@@ -29,17 +29,11 @@ public class MateriaServiceImpl implements MateriaService {
 		Escuela escuela = escuelaRepository.findById(escuelaId)
 				.orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
 
-		if (materiaRepository.existsByNombreIgnoreCaseAndEscuelaId(
+		validarNombreUnico(
+				escuelaId,
 				materia.getNombre(),
-				escuelaId
-		)) {
-			throw new RecursoDuplicadoException(
-					"materia",
-					"nombre",
-					materia.getNombre(),
-					"la escuela " + escuela.getNombre()
-			);
-		}
+				escuela.getNombre()
+		);
 
 		escuela.agregarMateria(materia);
 
@@ -56,20 +50,13 @@ public class MateriaServiceImpl implements MateriaService {
 		Escuela escuela = escuelaRepository.findById(escuelaId)
 				.orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
 
-
 		for (Materia materia : materias) {
 
-			if (materiaRepository.existsByNombreIgnoreCaseAndEscuelaId(
+			validarNombreUnico(
+					escuelaId,
 					materia.getNombre(),
-					escuelaId
-			)) {
-				throw new RecursoDuplicadoException(
-						"materia",
-						"nombre",
-						materia.getNombre(),
-						"la escuela " + escuela.getNombre()
-				);
-			}
+					escuela.getNombre()
+			);
 
 			escuela.agregarMateria(materia);
 		}
@@ -119,14 +106,47 @@ public class MateriaServiceImpl implements MateriaService {
 							  Long materiaId,
 							  String nombre,
 							  String abreviatura,
-							  Integer cantidadModulos
-	) {
-		Materia materia = materiaRepository.findByIdAndEscuelaId(materiaId, escuelaId)
+							  Integer cantidadModulos) {
+
+		Materia materia = materiaRepository
+				.findByIdAndEscuelaId(materiaId, escuelaId)
 				.orElseThrow(() -> new RecursoNoEncontradoException("materia", materiaId));
+
+		if (materiaRepository.existsByEscuelaIdAndNombreIgnoreCaseAndIdNot(
+				escuelaId,
+				nombre,
+				materiaId
+		)) {
+			throw new RecursoDuplicadoException(
+					"materia",
+					"nombre",
+					nombre,
+					"la escuela " + materia.getEscuela().getNombre()
+			);
+		}
 
 		materia.actualizar(nombre, abreviatura, cantidadModulos);
 
 		return materiaRepository.save(materia);
 	}
+
+	private void validarNombreUnico(
+			Long escuelaId,
+			String nombre,
+			String nombreEscuela
+	) {
+		if (materiaRepository.existsByNombreIgnoreCaseAndEscuelaId(
+				nombre,
+				escuelaId
+		)) {
+			throw new RecursoDuplicadoException(
+					"materia",
+					"nombre",
+					nombre,
+					"la escuela " + nombreEscuela
+			);
+		}
+	}
+
 
 }

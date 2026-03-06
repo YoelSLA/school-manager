@@ -14,9 +14,13 @@ public interface MateriaRepository extends JpaRepository<Materia, Long> {
 
 	boolean existsByNombreIgnoreCaseAndEscuelaId(String nombre, Long escuelaId);
 
+	boolean existsByEscuelaIdAndNombreIgnoreCaseAndIdNot(Long escuelaId, String nombre, Long materiaId);
+
 	Page<Materia> findByEscuelaIdOrderByNombreAsc(Long escuelaId, Pageable pageable);
 
 	List<Materia> findByEscuelaIdOrderByNombreAsc(Long escuelaId);
 
 	Optional<Materia> findByIdAndEscuelaId(Long id, Long escuelaId);
+
+
 }

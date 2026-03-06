@@ -1,12 +1,11 @@
-const { app, BrowserWindow, Menu, globalShortcut, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const { autoUpdater } = require("electron-updater");
 const path = require("node:path");
 
 let mainWindow;
+const isDev = !app.isPackaged;
 
 function createWindow() {
-	const isDev = !app.isPackaged;
-
 	mainWindow = new BrowserWindow({
 		width: 1366,
 		height: 720,
@@ -14,46 +13,29 @@ function createWindow() {
 		minHeight: 720,
 		resizable: true,
 		maximizable: true,
-		autoHideMenuBar: !isDev,
 		webPreferences: {
 			contextIsolation: false,
 			nodeIntegration: true,
 		},
 	});
 
-	if (!isDev) {
-		Menu.setApplicationMenu(null);
-		mainWindow.setMenuBarVisibility(false);
-	}
-
 	if (isDev) {
 		mainWindow.loadURL("http://localhost:5173");
-		mainWindow.webContents.openDevTools();
+		mainWindow.webContents.openDevTools({ mode: "detach" });
 	} else {
-		const indexPath = path.join(__dirname, "dist", "index.html");
-		mainWindow.loadFile(indexPath);
+		mainWindow.loadFile(path.join(__dirname, "dist", "index.html"));
 	}
 }
 
-app.whenReady().then(() => {
-	createWindow();
+function setupAutoUpdater() {
+	if (!app.isPackaged) return;
 
-	/* =========================
-	   DEVTOOLS SHORTCUT
-	========================= */
-	globalShortcut.register("Control+Shift+I", () => {
-		if (mainWindow) {
-			mainWindow.webContents.openDevTools({ mode: "detach" });
-		}
-	});
+	autoUpdater.autoDownload = true;
+	autoUpdater.autoInstallOnAppQuit = true;
 
-	/* =========================
-	   AUTO UPDATE
-	========================= */
-
-	if (app.isPackaged) {
+	setTimeout(() => {
 		autoUpdater.checkForUpdatesAndNotify();
-	}
+	}, 5000);
 
 	autoUpdater.on("checking-for-update", () => {
 		console.log("🔎 Buscando actualización...");
@@ -61,45 +43,33 @@ app.whenReady().then(() => {
 
 	autoUpdater.on("update-available", () => {
 		console.log("⬇️ Actualización disponible");
-		if (mainWindow) {
-			mainWindow.webContents.send("update_available");
-		}
+		mainWindow?.webContents.send("update_available");
 	});
 
 	autoUpdater.on("update-not-available", () => {
 		console.log("✅ No hay actualizaciones");
 	});
 
-	autoUpdater.on("download-progress", (progressObj) => {
-		const percent = Math.round(progressObj.percent);
-
+	autoUpdater.on("download-progress", (progress) => {
+		const percent = Math.round(progress.percent);
 		console.log(`📦 Descargando: ${percent}%`);
-
-		if (mainWindow) {
-			mainWindow.webContents.send("download_progress", percent);
-		}
+		mainWindow?.webContents.send("download_progress", percent);
 	});
 
 	autoUpdater.on("update-downloaded", () => {
 		console.log("🎉 Actualización descargada");
-
-		// 🔥 YA NO reiniciamos automáticamente
-		if (mainWindow) {
-			mainWindow.webContents.send("update_downloaded");
-		}
+		mainWindow?.webContents.send("update_downloaded");
 	});
 
 	autoUpdater.on("error", (err) => {
 		console.error("❌ Error en autoUpdater:", err);
-
-		if (mainWindow) {
-			mainWindow.webContents.send("update_error");
-		}
+		mainWindow?.webContents.send("update_error");
 	});
+}
 
-	/* =========================
-	   IPC RESTART DESDE REACT
-	========================= */
+app.whenReady().then(() => {
+	createWindow();
+	setupAutoUpdater();
 
 	ipcMain.on("restart_app", () => {
 		console.log("🔄 Reiniciando aplicación...");
@@ -107,16 +77,6 @@ app.whenReady().then(() => {
 	});
 });
 
-/* =========================
-   LIMPIEZA
-========================= */
-
-app.on("will-quit", () => {
-	globalShortcut.unregisterAll();
-});
-
 app.on("window-all-closed", () => {
-	if (process.platform !== "darwin") {
-		app.quit();
-	}
+	app.quit();
 });

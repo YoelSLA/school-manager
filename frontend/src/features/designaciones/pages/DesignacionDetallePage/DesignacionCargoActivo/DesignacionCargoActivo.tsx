@@ -7,7 +7,7 @@ import styles from "./DesignacionCargoActivo.module.scss";
 import { ESTADO_ASIGNACION_BADGE } from "@/features/asignaciones/utils/asignacion.badges";
 import Badge from "@/components/Badge";
 import { formatearFecha } from "@/utils";
-import SituacionRevistaBadge from "@/features/asignaciones/components/SituacionRevistaBadge/SituacionRevistaBadge";
+import SituacionRevistaBadge from "@/components/SituacionRevistaBadge/SituacionRevistaBadge";
 
 type Props = {
   cargo: AsignacionDetalleDTO;

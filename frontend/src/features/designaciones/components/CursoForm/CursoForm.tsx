@@ -1,5 +1,4 @@
 import { useDesignacionCursoForm } from "@/features/designaciones/form/hooks/useDesignacionCursoForm";
-
 import DesignacionFormLayout from "../DesignacionFormLayout/DesignacionFormLayout";
 import { useMateriasSelect } from "@/features/materias/hooks/useMateriasSelect";
 import { useAppSelector } from "@/store/hooks";
@@ -7,9 +6,12 @@ import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useCursosNombres } from "@/features/cursos/hooks/useCursosNombres";
 import CursoSelectField from "@/components/forms/selects/CursoSelectField";
 import MateriaSelectField from "@/components/forms/selects/MateriaSelectField";
-import type { DesignacionCursoFormValues } from "../../types/designacion.types";
 import type { SubmitHandler } from "react-hook-form";
-import CupofCursoInputField from "@/components/forms/inputs/CupofInputField";
+import type { DesignacionCursoFormValues } from "../../form/designacion.form.types";
+import CupofInputField from "@/components/forms/inputs/CupofInputField";
+import styles from "./CursoForm.module.scss";
+import OrientacionSelectField from "@/components/forms/selects/OrientacionSelectField";
+import { ORIENTACIONES } from "../../utils/designacion.utils";
 
 type Props = {
 	onSubmit: (data: DesignacionCursoFormValues) => Promise<void>;
@@ -31,7 +33,9 @@ export default function CursoForm({ onSubmit, isSubmitting }: Props) {
 		franjas: { fields, append, remove },
 	} = useDesignacionCursoForm({
 		materias,
-		cursos
+		cursos,
+		orientaciones: ORIENTACIONES.map(o => o.value)
+
 	});
 
 	const _onSubmitHandler: SubmitHandler<DesignacionCursoFormValues> =
@@ -39,33 +43,12 @@ export default function CursoForm({ onSubmit, isSubmitting }: Props) {
 			await onSubmit(data);
 		};
 
-
 	return (
-		<form
-			onSubmit={handleSubmit(
-				async (data) => {
-					console.log("✅ PASÓ VALIDACIÓN:", data);
-					console.log("DATA:", data);
-
-					console.log("typeof cupof:", typeof data.cupof);
-					console.log("typeof cursoId:", typeof data.cursoId);
-					console.log("typeof materiaId:", typeof data.materiaId);
-
-					console.log("franjasHorarias:", data.franjasHorarias);
-					console.log("es array?", Array.isArray(data.franjasHorarias));
-
-					console.log("tipo dia:", typeof data.franjasHorarias[0]?.dia);
-					_onSubmitHandler
-				},
-				(errors) => {
-					console.log("❌ ERRORES:", errors);
-				}
-			)}
-		>
-			<DesignacionFormLayout
+		<form onSubmit={handleSubmit(_onSubmitHandler)}>
+			<DesignacionFormLayout<DesignacionCursoFormValues>
 				left={
-					<div>
-						<CupofCursoInputField
+					<div className={styles.left}>
+						<CupofInputField<DesignacionCursoFormValues>
 							register={register}
 							error={errors.cupof?.message}
 						/>
@@ -84,8 +67,12 @@ export default function CursoForm({ onSubmit, isSubmitting }: Props) {
 							error={errors.materiaId?.message}
 						/>
 
-
+						<OrientacionSelectField
+							register={register}
+							error={errors.orientacion?.message}
+						/>
 					</div>
+
 				}
 				fields={fields}
 				register={register}

@@ -1,48 +1,20 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
-import { DESIGNACION_ADMINISTRATIVA_DEFAULTS } from "../defaults/designacionAdministrativa.defaults";
-import type {
-	DesignacionAdministrativaFormValues,
-} from "../designacion.form.types";
+import type { DesignacionAdministrativaFormValues } from "../designacion.form.types";
 import { crearDesignacionAdministrativaSchema } from "../schemas/crearDesignacionAdministrativa.schema";
-import { useEffect } from "react";
+import { Dia } from "@/utils/types";
+import { RolEducativo } from "../../types/designacion.types";
 
 export function useDesignacionAdministrativaForm() {
 	const form = useForm<DesignacionAdministrativaFormValues>({
-		resolver: async (values, context, options) => {
-			try {
-				return await zodResolver(crearDesignacionAdministrativaSchema)(
-					values,
-					context,
-					options
-				);
-			} catch (error) {
-				console.log("🔥 ZOD RAW ERROR:", error);
-
-				if (error instanceof Error) {
-					console.log("Mensaje:", error.message);
-				}
-
-				if (error && typeof error === "object" && "issues" in error) {
-					console.log("Issues:", (error as any).issues);
-				}
-
-				throw error;
-			}
-		},
+		resolver: zodResolver(crearDesignacionAdministrativaSchema),
 		defaultValues: DESIGNACION_ADMINISTRATIVA_DEFAULTS,
 	});
 
-	useEffect(() => {
-		const subscription = form.watch((values) => {
-			console.log("👀 WATCH VALUES:", values);
-			console.log("👀 TYPEOF CUPOF EN WATCH:", typeof values.cupof);
-		});
-
-		return () => subscription.unsubscribe();
-	}, [form]);
-
-	const franjas = useFieldArray({
+	const franjas = useFieldArray<
+		DesignacionAdministrativaFormValues,
+		"franjasHorarias"
+	>({
 		control: form.control,
 		name: "franjasHorarias",
 	});
@@ -52,3 +24,15 @@ export function useDesignacionAdministrativaForm() {
 		franjas,
 	};
 }
+
+const DESIGNACION_ADMINISTRATIVA_DEFAULTS: DesignacionAdministrativaFormValues = {
+	cupof: "",
+	rolEducativo: RolEducativo.AUXILIAR,
+	franjasHorarias: [
+		{
+			dia: Dia.LUNES,
+			horaDesde: "08:00",
+			horaHasta: "12:00",
+		},
+	],
+};

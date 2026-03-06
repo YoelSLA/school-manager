@@ -43,7 +43,7 @@ public class EscuelaDesignacionCursoControllerREST {
 		Materia materia = materiaService.obtenerPorId(dto.materiaId());
 		Curso curso = cursoService.obtenerPorId(dto.cursoId());
 
-		DesignacionCurso designacion = DesignacionCursoMapper.toEntity(dto, escuela, curso, materia);
+		DesignacionCurso designacion = DesignacionCursoMapper.toEntity(dto, escuela, curso, materia, dto.orientacion());
 
 		DesignacionCurso creada = designacionService.crear(designacion);
 
@@ -62,7 +62,7 @@ public class EscuelaDesignacionCursoControllerREST {
 				.map(dto -> {
 					Curso curso = cursoService.obtenerPorId(dto.cursoId());
 					Materia materia = materiaService.obtenerPorId(dto.materiaId());
-					return DesignacionCursoMapper.toEntity(dto, escuela, curso, materia);
+					return DesignacionCursoMapper.toEntity(dto, escuela, curso, materia, dto.orientacion());
 				})
 				.toList();
 

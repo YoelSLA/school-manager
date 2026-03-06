@@ -1,21 +1,31 @@
 import { useState } from "react";
-import type { FieldValues, UseFormRegister } from "react-hook-form";
 import type {
-  FranjaHoraria,
-  FormWithFranjas,
-} from "@/features/designaciones/types/designacion.types";
-
+  FieldValues,
+  UseFormRegister,
+  UseFieldArrayAppend,
+  UseFieldArrayRemove,
+  FieldArrayWithId,
+  ArrayPath,
+  FieldArray,
+} from "react-hook-form";
 import Button from "@/components/Button";
 import { DEFAULT_FRANJA } from "@/features/designaciones/utils/designacion.utils";
 import FranjasHorariasList from "./FranjasHorariasList";
 import styles from "./FranjasHorariasBox.module.scss";
 import ErrorModal from "@/components/ErrorModal";
+import type { FormWithFranjas } from "@/utils/types";
+
+
+type FranjasPath<T extends FormWithFranjas> = Extract<
+  ArrayPath<T>,
+  "franjasHorarias"
+>;
 
 type Props<T extends FieldValues & FormWithFranjas> = {
-  fields: { id: string }[];
+  fields: FieldArrayWithId<T, FranjasPath<T>>[];
   register: UseFormRegister<T>;
-  append: (value: FranjaHoraria) => void;
-  remove: (index: number) => void;
+  append: UseFieldArrayAppend<T, FranjasPath<T>>;
+  remove: UseFieldArrayRemove;
 };
 
 export default function FranjasHorariasBox<
@@ -61,7 +71,9 @@ export default function FranjasHorariasBox<
             type="button"
             size="sm"
             variant="secondary"
-            onClick={() => append(DEFAULT_FRANJA)}
+            onClick={() =>
+              append(DEFAULT_FRANJA as FieldArray<T, FranjasPath<T>>)
+            }
           >
             + Agregar franja
           </Button>
@@ -69,10 +81,7 @@ export default function FranjasHorariasBox<
       </section>
 
       {error && (
-        <ErrorModal
-          error={error}
-          onClose={() => setError(null)}
-        />
+        <ErrorModal error={error} onClose={() => setError(null)} />
       )}
     </>
   );

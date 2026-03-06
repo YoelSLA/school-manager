@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CursoRepository extends JpaRepository<Curso, Long> {
@@ -17,7 +18,20 @@ public interface CursoRepository extends JpaRepository<Curso, Long> {
 			Pageable pageable
 	);
 
-	boolean existsByAnioAndGradoAndEscuelaId(Integer anio, Integer grado, Long escuelaId);
+	boolean existsByEscuelaIdAndAnioAndGradoAndTurnoAndIdNot(
+			Long escuelaId,
+			Integer anio,
+			Integer grado,
+			Turno turno,
+			Long id
+	);
+
+	boolean existsByEscuelaIdAndAnioAndGradoAndTurno(
+			Long escuelaId,
+			Integer anio,
+			Integer grado,
+			Turno turno
+	);
 
 	Page<Curso> findByEscuelaIdAndTurno(
 			Long escuelaId,
@@ -26,5 +40,7 @@ public interface CursoRepository extends JpaRepository<Curso, Long> {
 	);
 
 	List<Curso> findByEscuelaId(Long escuelaId);
+
+	Optional<Curso> findByIdAndEscuelaId(Long materiaId, Long escuelaId);
 }
 

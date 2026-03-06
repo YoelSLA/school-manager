@@ -1,5 +1,6 @@
 import { http } from "@/services/axios";
 import type {
+	CubrirProvisionalDTO,
 	CubrirTitularDTO,
 	DesignacionAdministrativaCreateDTO,
 	DesignacionAdministrativaResumenDTO,
@@ -10,7 +11,7 @@ import type {
 	EstadoCargo,
 } from "../types/designacion.types";
 import type { PageResponse } from "@/utils/types";
-import { AsignacionDetalleDTO } from "@/features/asignaciones/types/asignacion.types";
+import type { AsignacionDetalleDTO } from "@/features/asignaciones/types/asignacion.types";
 
 /* ======================
 	 Crear
@@ -115,10 +116,7 @@ export const cubrirConTitular = async (
 
 export const cubrirConProvisional = async (
 	designacionId: number,
-	payload: {
-		empleadoId: number;
-		fechaTomaPosesion: string;
-	},
+	payload: CubrirProvisionalDTO
 ): Promise<void> => {
 	await http.post(
 		`/designaciones/${designacionId}/cubrir/provisional`,

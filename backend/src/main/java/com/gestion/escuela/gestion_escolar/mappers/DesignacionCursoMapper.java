@@ -17,14 +17,16 @@ public class DesignacionCursoMapper {
 			DesignacionCursoCreateDTO dto,
 			Escuela escuela,
 			Curso curso,
-			Materia materia
+			Materia materia,
+			String orientacion
 	) {
 
 		DesignacionCurso designacion = new DesignacionCurso(
 				escuela,
 				dto.cupof(),
 				materia,
-				curso
+				curso,
+				orientacion
 		);
 
 		dto.franjasHorarias()
@@ -39,7 +41,6 @@ public class DesignacionCursoMapper {
 
 	public static DesignacionCursoResumenDTO toResumen(DesignacionCurso d) {
 
-		LocalDate hoy = LocalDate.now();
 		List<FranjaHorariaMinimoDTO> franjas = d.getFranjasHorarias().stream()
 				.map(FranjaHorariaMapper::toMinimo)
 				.toList();

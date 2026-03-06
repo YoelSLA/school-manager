@@ -4,20 +4,18 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.CursoCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.CursoNombreDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.CursoResponseDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.CursoUpdateDTO;
 import com.gestion.escuela.gestion_escolar.mappers.CursoMapper;
 import com.gestion.escuela.gestion_escolar.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.Curso;
-import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.enums.Turno;
 import com.gestion.escuela.gestion_escolar.services.CursoService;
-import com.gestion.escuela.gestion_escolar.services.EscuelaService;
 import com.gestion.escuela.gestion_escolar.web.PaginationUtils;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,19 +26,18 @@ import java.util.List;
 public class EscuelaCursoControllerREST {
 
 	private final CursoService cursoService;
-	private final EscuelaService escuelaService;
 
 	@PostMapping
-	public ResponseEntity<CursoResponseDTO> crearCurso(
+	@ResponseStatus(HttpStatus.CREATED)
+	public CursoResponseDTO crearCurso(
 			@PathVariable Long escuelaId,
 			@Valid @RequestBody CursoCreateDTO dto
 	) {
 
-		Escuela escuela = escuelaService.obtenerPorId(escuelaId);
+		Curso curso = cursoService.crear(escuelaId, CursoMapper.toEntity(dto));
 
-		Curso curso = cursoService.crear(CursoMapper.toEntity(dto, escuela));
+		return CursoMapper.toResponse(curso);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(CursoMapper.toResponse(curso));
 	}
 
 	@PostMapping("/batch")
@@ -50,17 +47,45 @@ public class EscuelaCursoControllerREST {
 			@RequestBody List<CursoCreateDTO> cursosDTOs
 	) {
 
-		Escuela escuela = escuelaService.obtenerPorId(escuelaId);
-
 		List<Curso> cursos = cursosDTOs.stream()
-				.map(c -> CursoMapper.toEntity(c, escuela))
+				.map(CursoMapper::toEntity)
 				.toList();
 
 		cursoService.crearBatch(escuelaId, cursos);
+
+	}
+
+	@PutMapping("/{cursoId}")
+	public CursoResponseDTO actualizarCurso(
+			@PathVariable Long escuelaId,
+			@PathVariable Long cursoId,
+			@Valid @RequestBody CursoUpdateDTO dto
+	) {
+
+		Curso curso = cursoService.actualizar(
+				escuelaId,
+				cursoId,
+				dto.anio(),
+				dto.grado(),
+				dto.turno());
+
+		return CursoMapper.toResponse(curso);
+
+	}
+
+	@DeleteMapping("/{cursoId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void eliminarCurso(
+			@PathVariable Long escuelaId,
+			@PathVariable Long cursoId
+	) {
+
+		cursoService.eliminar(escuelaId, cursoId);
+
 	}
 
 	@GetMapping
-	public PageResponse<CursoResponseDTO> listarCursos(
+	public PageResponse<CursoResponseDTO> listarCursosPorEscuela(
 			@PathVariable Long escuelaId,
 			@RequestParam(name = "turno", required = false) Turno turno,
 			Pageable pageable
@@ -68,17 +93,16 @@ public class EscuelaCursoControllerREST {
 
 		Pageable limitedPageable = PaginationUtils.limit(pageable);
 
-		Page<Curso> cursos = cursoService.buscarPorEscuela(escuelaId, turno, limitedPageable);
+		Page<Curso> cursos = cursoService.listarCursosPorEscuela(escuelaId, turno, limitedPageable);
 
 		return PageMapper.toPageResponse(cursos, CursoMapper::toResponse);
 	}
 
-
 	@GetMapping("/nombres")
-	public List<CursoNombreDTO> listarNombresCursos(
+	public List<CursoNombreDTO> listarCursosPorEscuela(
 			@PathVariable Long escuelaId
 	) {
-		return cursoService.buscarTodosPorEscuela(escuelaId)
+		return cursoService.listarCursosPorEscuela(escuelaId)
 				.stream()
 				.map(CursoMapper::toNombreDTO)
 				.toList();
