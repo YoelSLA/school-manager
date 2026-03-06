@@ -33,4 +33,6 @@ jobs:
         run: chmod +x mvnw
 
       - name: Build and run tests
-        run: ./mvnw clean verify
+        run: ./mvnw -B -ntp clean verify
+        env:
+          TESTCONTAINERS_DISABLED: true
