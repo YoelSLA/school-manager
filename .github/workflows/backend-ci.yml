@@ -33,6 +33,4 @@ jobs:
         run: chmod +x mvnw
 
       - name: Build and run tests
-        run: ./mvnw -B -ntp clean verify
-        env:
-          TESTCONTAINERS_DISABLED: true
+        run: ./mvnw -B -ntp clean verify -Dgroups=!integration

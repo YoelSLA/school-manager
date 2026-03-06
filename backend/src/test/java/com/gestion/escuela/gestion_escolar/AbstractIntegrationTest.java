@@ -1,8 +1,8 @@
 package com.gestion.escuela.gestion_escolar;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -14,10 +14,10 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.TimeZone;
 
+@Tag("integration")
 @SpringBootTest
 @ActiveProfiles("test")
 @Testcontainers(disabledWithoutDocker = true)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
 @DisabledIfEnvironmentVariable(named = "CI", matches = "true")
 public abstract class AbstractIntegrationTest {
