@@ -2,16 +2,16 @@ import { http } from "@/services/axios";
 import type {
 	CubrirProvisionalDTO,
 	CubrirTitularDTO,
-	DesignacionAdministrativaCreateDTO,
 	DesignacionAdministrativaResumenDTO,
-	DesignacionCursoCreateDTO,
 	DesignacionCursoDetalleDTO,
+	DesignacionCursoFilter,
 	DesignacionCursoResumenDTO,
 	DesignacionDetalleDTO,
 	EstadoCargo,
 } from "../types/designacion.types";
 import type { PageResponse } from "@/utils/types";
 import type { AsignacionDetalleDTO } from "@/features/asignaciones/types/asignacion.types";
+import { DesignacionAdministrativaCreateDTO, DesignacionCursoCreateDTO } from "../form/designacion.form.types";
 
 /* ======================
 	 Crear
@@ -29,6 +29,24 @@ export async function crearDesignacionCurso(
 	data: DesignacionCursoCreateDTO,
 ): Promise<void> {
 	await http.post(`/escuelas/${escuelaId}/designaciones/cursos`, data);
+}
+
+/* ======================
+	 Editar
+====================== */
+
+export async function actualizarDesignacionAdministrativa(
+	designacionId: number,
+	data: DesignacionAdministrativaCreateDTO
+): Promise<void> {
+	await http.put(`/designaciones/${designacionId}/administrativa`, data);
+}
+
+export async function actualizarDesignacionCurso(
+	designacionId: number,
+	data: DesignacionCursoCreateDTO
+): Promise<void> {
+	await http.put(`/designaciones/${designacionId}/curso`, data);
 }
 
 /* ======================
@@ -53,12 +71,19 @@ export async function listarDesignacionesCursos(
 	escuelaId: number,
 	page: number = 0,
 	size: number = 10,
+	filter?: DesignacionCursoFilter
 ): Promise<PageResponse<DesignacionCursoResumenDTO>> {
+
+
 	const { data } = await http.get<PageResponse<DesignacionCursoResumenDTO>>(
 		`/escuelas/${escuelaId}/designaciones/cursos`,
 		{
-			params: { page, size },
-		},
+			params: {
+				page,
+				size,
+				...filter,
+			},
+		}
 	);
 
 	return data;

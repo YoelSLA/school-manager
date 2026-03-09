@@ -118,10 +118,11 @@ public class MateriaServiceImpl implements MateriaService {
 				materiaId
 		)) {
 			throw new RecursoDuplicadoException(
-					"materia",
-					"nombre",
-					nombre,
-					"la escuela " + materia.getEscuela().getNombre()
+					String.format(
+							"Ya existe una materia con nombre '%s' en la escuela %s",
+							nombre,
+							materia.getEscuela().getNombre()
+					)
 			);
 		}
 
@@ -140,10 +141,11 @@ public class MateriaServiceImpl implements MateriaService {
 				escuelaId
 		)) {
 			throw new RecursoDuplicadoException(
-					"materia",
-					"nombre",
-					nombre,
-					"la escuela " + nombreEscuela
+					String.format(
+							"Ya existe una materia con nombre '%s' en la escuela %s",
+							nombre,
+							nombreEscuela
+					)
 			);
 		}
 	}

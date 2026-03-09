@@ -1,4 +1,4 @@
-import { z } from "zod";
+import z from "zod";
 import { CaracteristicaAsignacion } from "../types/asignacion.types";
 
 export const crearAsignacionSchema = z
@@ -84,5 +84,6 @@ export const crearAsignacionSchema = z
 
 		console.log("✅ ZOD VALIDACIÓN COMPLETADA");
 	});
+
 
 export type AsignacionFormValues = z.infer<typeof crearAsignacionSchema>;

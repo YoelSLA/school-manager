@@ -10,11 +10,6 @@ type Props = {
 export default function SituacionRevistaBadge({ value }: Props) {
   const config = SITUACION_REVISTA_CONFIG[value.toUpperCase() as SituacionDeRevista];
 
-  if (!config) {
-    console.warn("Situación de revista desconocida:", value);
-    return null;
-  }
-
   const { label, className, Icon } = config;
 
   return (

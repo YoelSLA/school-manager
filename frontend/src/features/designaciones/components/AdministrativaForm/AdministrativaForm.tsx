@@ -3,8 +3,8 @@ import { useDesignacionAdministrativaForm } from "@/features/designaciones/form/
 import DesignacionFormLayout from "../DesignacionFormLayout/DesignacionFormLayout";
 import RolEducativoSelectField from "../../../../components/forms/selects/RolEducativoSelectField/RolEducativoSelectField";
 import styles from "./AdministrativaForm.module.scss";
-import type { DesignacionAdministrativaFormValues } from "../../types/designacion.types";
 import CupofInputField from "@/components/forms/inputs/CupofInputField/CupofInputField";
+import { DesignacionAdministrativaFormValues } from "../../form/designacion.form.types";
 
 type Props = {
 	onSubmit: (data: DesignacionAdministrativaFormValues) => Promise<void>;

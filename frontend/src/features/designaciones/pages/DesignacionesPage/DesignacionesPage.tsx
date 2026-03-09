@@ -10,31 +10,46 @@ import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
 
 import { FILTROS_DESIGNACIONES } from "@/utils";
-import type { DesignacionFiltro } from "../../types/designacion.types";
+import type { CursoFiltersState, DesignacionFiltro } from "../../types/designacion.types";
 
 import DesignacionesList from "./DesignacionesList";
 import { useDesignacionesAdministrativas } from "../../hooks/useDesignacionesAdministrativas";
 import { useDesignacionesCursos } from "../../hooks/useDesignacionesCursos";
+
 import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
 import { useDesignacionesNavigation } from "../../hooks/useDesignacionesNavigation";
 import { RefreshCw } from "lucide-react";
 import styles from "./DesignacionesPage.module.scss";
 
+import FiltersModal from "@/components/FiltersModal";
+import CursoFilters from "../../components/CursoFilters";
+import AdminFilters from "../../components/AdminFilters";
 
 export default function DesignacionesPage() {
-	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 
+	const [cursoFilters, setCursoFilters] = useState<CursoFiltersState>({});
+	const [draftCursoFilters, setDraftCursoFilters] = useState<CursoFiltersState>({});
+
+	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 	const navigation = useDesignacionesNavigation();
 
-	const [filtro, setFiltro] =
-		useState<DesignacionFiltro>("ADMIN");
-
+	const [filtro, setFiltro] = useState<DesignacionFiltro>("ADMIN");
 	const [page, setPage] = useState(0);
+	const [openFilters, setOpenFilters] = useState(false);
+
 	const pageSize = useDynamicPageSize();
+
+	/* =========================
+		 RESET PAGE
+	========================= */
 
 	useEffect(() => {
 		setPage(0);
-	}, []);
+	}, [filtro, pageSize]);
+
+	/* =========================
+		 QUERIES
+	========================= */
 
 	const {
 		data: adminData,
@@ -46,6 +61,9 @@ export default function DesignacionesPage() {
 		escuelaActiva?.id,
 		page,
 		pageSize,
+		{
+			enabled: filtro === "ADMIN",
+		}
 	);
 
 	const {
@@ -58,9 +76,45 @@ export default function DesignacionesPage() {
 		escuelaActiva?.id,
 		page,
 		pageSize,
+		cursoFilters,
+		{
+			enabled: filtro === "CURSO",
+		}
 	);
 
+	/* =========================
+		 DATA
+	========================= */
+
+	const data = filtro === "ADMIN" ? adminData : cursoData;
+	const totalPages = data?.totalPages ?? 0;
+
+	const adminDesignaciones = adminData?.content ?? [];
+	const cursoDesignaciones = cursoData?.content ?? [];
+
+	const isFetching =
+		filtro === "ADMIN"
+			? isFetchingAdmin
+			: isFetchingCursos;
+
+	/* =========================
+		 FIX PAGE OUT OF RANGE
+	========================= */
+
+	useEffect(() => {
+
+		if (page >= totalPages && totalPages > 0) {
+			setPage(totalPages - 1);
+		}
+
+	}, [totalPages]);
+
+	/* =========================
+		 ACTIONS
+	========================= */
+
 	const handleRefresh = () => {
+
 		setPage(0);
 
 		if (filtro === "ADMIN") {
@@ -70,44 +124,64 @@ export default function DesignacionesPage() {
 		}
 	};
 
-	const isFetching =
-		filtro === "ADMIN"
-			? isFetchingAdmin
-			: isFetchingCursos;
+	/* =========================
+		 PAGE CHANGE
+	========================= */
 
-	const data = filtro === "ADMIN" ? adminData : cursoData;
-	const totalPages = data?.totalPages ?? 0;
+	const handlePageChange = (newPage: number) => {
+		setPage(newPage);
+	};
 
-	const adminDesignaciones = adminData?.content ?? [];
-	const cursoDesignaciones = cursoData?.content ?? [];
+	/* =========================
+		 RENDER
+	========================= */
 
 	return (
+
 		<SidebarPageLayout
+
 			sidebar={
 				<SidebarSectionLayout
 					title="Designaciones"
 					subtitle="Listado de cargos de la escuela"
+
 					filters={
 						<FilterPillGroup
 							items={FILTROS_DESIGNACIONES}
 							value={filtro}
-							onChange={setFiltro}
+							onChange={(value) => {
+								setFiltro(value);
+							}}
 						/>
 					}
+
 					actions={
 						<>
+
+							<Button
+								variant="secondary"
+								onClick={() => setOpenFilters(true)}
+							>
+								Filtros
+							</Button>
+
 							<Button
 								variant="secondary"
 								onClick={handleRefresh}
 								disabled={isFetching}
 							>
+
 								<span className={styles.refreshContent}>
+
 									<RefreshCw
 										size={16}
 										className={isFetching ? styles.spin : ""}
 									/>
+
 									<span>Actualizar</span>
+
 								</span>
+
 							</Button>
 
 							<Button onClick={navigation.crear}>
@@ -117,17 +191,19 @@ export default function DesignacionesPage() {
 					}
 				/>
 			}
+
 			pagination={
-				totalPages > 1 ? (
-					<Pagination
-						page={page}
-						totalPages={totalPages}
-						onChange={setPage}
-					/>
-				) : undefined
+				<Pagination
+					page={page}
+					totalPages={totalPages}
+					onChange={handlePageChange}
+				/>
 			}
+
 		>
+
 			{filtro === "ADMIN" ? (
+
 				<DesignacionesList
 					filtro="ADMIN"
 					designaciones={adminDesignaciones}
@@ -135,7 +211,9 @@ export default function DesignacionesPage() {
 					isError={isErrorAdmin}
 					onVerDetalle={navigation.verDetalle}
 				/>
+
 			) : (
+
 				<DesignacionesList
 					filtro="CURSO"
 					designaciones={cursoDesignaciones}
@@ -143,7 +221,32 @@ export default function DesignacionesPage() {
 					isError={isErrorCursos}
 					onVerDetalle={navigation.verDetalle}
 				/>
+
 			)}
+
+			{openFilters && (
+				<FiltersModal
+					open={openFilters}
+					onClose={() => setOpenFilters(false)}
+					onClear={() => setDraftCursoFilters({})}
+					onApply={() => {
+						setCursoFilters(draftCursoFilters);
+						setPage(0);
+						setOpenFilters(false);
+					}}
+				>
+					{filtro === "CURSO" ? (
+						<CursoFilters
+							escuelaId={escuelaActiva?.id}
+							filters={draftCursoFilters}
+							onChange={setDraftCursoFilters}
+						/>
+					) : (
+						<AdminFilters />
+					)}
+				</FiltersModal>
+			)}
+
 		</SidebarPageLayout>
 	);
 }

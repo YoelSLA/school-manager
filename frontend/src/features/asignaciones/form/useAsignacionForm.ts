@@ -1,22 +1,15 @@
 import { useForm } from "react-hook-form";
-import { type AsignacionFormValues, crearAsignacionSchema } from "./crearAsignacion.schema";
 import { CaracteristicaAsignacion } from "../types/asignacion.types";
+import { AsignacionFormValues, crearAsignacionSchema } from "./crearAsignacion.schema";
 
 export function useAsignacionForm() {
 
 	const form = useForm<AsignacionFormValues>({
 		resolver: async (values) => {
-			console.log("🟡 RHF VALUES:", values);
 
 			const result = crearAsignacionSchema.safeParse(values);
 
 			if (!result.success) {
-				console.error("💥 ZOD ERROR RAW:", result.error);
-
-				console.error("💥 ZOD FLATTEN:", result.error.flatten());
-
-				console.error("💥 ZOD FIELD ERRORS:", result.error.flatten().fieldErrors);
-
 				return {
 					values: {},
 					errors: Object.entries(result.error.flatten().fieldErrors).reduce(
@@ -30,12 +23,10 @@ export function useAsignacionForm() {
 
 							return acc;
 						},
-						{} as any
+						{} as Record<string, { type: string; message: string }>
 					),
 				};
 			}
-
-			console.log("✅ ZOD OK:", result.data);
 
 			return {
 				values: result.data,
@@ -43,18 +34,23 @@ export function useAsignacionForm() {
 			};
 		},
 
-		defaultValues: ASIGNACION_DEFAULTS,
+		defaultValues: TITULAR_DEFAULTS,
 		mode: "onSubmit",
 	});
 
 	return { form };
 }
 
-const ASIGNACION_DEFAULTS: AsignacionFormValues = {
-	empleadoId: undefined,
+const TITULAR_DEFAULTS: Extract<AsignacionFormValues, { tipoAsignacion: "TITULAR" }> = {
 	tipoAsignacion: "TITULAR",
+	empleadoId: undefined,
+	fechaTomaPosesion: "",
+	caracteristica: CaracteristicaAsignacion.NORMAL,
+};
+
+const PROVISIONAL_DEFAULTS: Extract<AsignacionFormValues, { tipoAsignacion: "PROVISIONAL" }> = {
+	tipoAsignacion: "PROVISIONAL",
+	empleadoId: undefined,
 	fechaTomaPosesion: "",
 	fechaCese: "",
-	caracteristica: CaracteristicaAsignacion.NORMAL,
-	usarFechaHoy: true,
 };

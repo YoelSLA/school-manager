@@ -1,42 +1,84 @@
+import { DesignacionCursoFilter } from "../types/designacion.types";
+
 export const designacionesQueryKeys = {
 	all: ["designaciones"] as const,
 
+	lists: () => [...designacionesQueryKeys.all, "list"] as const,
+
 	detail: (designacionId: number) =>
-		[...designacionesQueryKeys.all, designacionId] as const,
+		[...designacionesQueryKeys.all, "detail", designacionId] as const,
+
+	/* =========================
+		 CURSOS
+	========================= */
 
 	curso: {
-		all: () => [...designacionesQueryKeys.all, "curso"] as const,
+		lists: () =>
+			[...designacionesQueryKeys.lists(), "curso"] as const,
 
-		byEscuela: (escuelaId: number) =>
+		byEscuela: (
+			escuelaId: number,
+			page: number = 0,
+			size: number = 10,
+			filter?: DesignacionCursoFilter
+		) =>
+			[
+				...designacionesQueryKeys.curso.lists(),
+				"escuela",
+				escuelaId,
+				page,
+				size,
+				filter
+			] as const,
+
+		detail: (designacionId: number) =>
 			[
 				...designacionesQueryKeys.all,
 				"curso",
+				"detail",
+				designacionId,
+			] as const,
+	},
+
+	/* =========================
+		 ADMINISTRATIVAS
+	========================= */
+
+	administrativa: {
+		lists: () =>
+			[...designacionesQueryKeys.lists(), "administrativa"] as const,
+
+		byEscuela: (
+			escuelaId: number,
+			page: number = 0,
+			size: number = 10
+		) =>
+			[
+				...designacionesQueryKeys.administrativa.lists(),
 				"escuela",
 				escuelaId,
 			] as const,
 
 		detail: (designacionId: number) =>
-			[...designacionesQueryKeys.all, "curso", designacionId] as const,
-	},
-
-	administrativa: {
-		all: () => [...designacionesQueryKeys.all, "administrativa"] as const,
-
-		byEscuela: (escuelaId: number) =>
 			[
 				...designacionesQueryKeys.all,
 				"administrativa",
-				"escuela",
-				escuelaId,
+				"detail",
+				designacionId,
 			] as const,
-
-		detail: (designacionId: number) =>
-			[...designacionesQueryKeys.all, "administrativa", designacionId] as const,
 	},
+
+	/* =========================
+		 CARGOS
+	========================= */
 
 	cargos: {
 		all: (designacionId: number) =>
-			[...designacionesQueryKeys.all, designacionId, "cargos"] as const,
+			[
+				...designacionesQueryKeys.all,
+				designacionId,
+				"cargos",
+			] as const,
 
 		list: (designacionId: number, estado?: string) =>
 			[
@@ -47,6 +89,10 @@ export const designacionesQueryKeys = {
 			] as const,
 
 		activo: (designacionId: number) =>
-			[...designacionesQueryKeys.all, designacionId, "cargo-activo"] as const,
+			[
+				...designacionesQueryKeys.all,
+				designacionId,
+				"cargo-activo",
+			] as const,
 	},
 };

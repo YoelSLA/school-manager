@@ -1,3 +1,4 @@
+const { app, BrowserWindow, ipcMain, globalShortcut } = require("electron");
 const { app, BrowserWindow, ipcMain } = require("electron");
 const { autoUpdater } = require("electron-updater");
 const path = require("node:path");
@@ -19,12 +20,26 @@ function createWindow() {
 		},
 	});
 
+	mainWindow.setMenu(null); // desactiva el menú
+
 	if (isDev) {
 		mainWindow.loadURL("http://localhost:5173");
 		mainWindow.webContents.openDevTools({ mode: "detach" });
 	} else {
 		mainWindow.loadFile(path.join(__dirname, "dist", "index.html"));
 	}
+}
+
+function setupShortcuts() {
+	if (!isDev) return;
+
+	globalShortcut.register("F12", () => {
+		mainWindow?.webContents.toggleDevTools();
+	});
+
+	globalShortcut.register("CommandOrControl+Shift+I", () => {
+		mainWindow?.webContents.toggleDevTools();
+	});
 }
 
 function setupAutoUpdater() {
@@ -69,12 +84,17 @@ function setupAutoUpdater() {
 
 app.whenReady().then(() => {
 	createWindow();
+	setupShortcuts();
 	setupAutoUpdater();
 
 	ipcMain.on("restart_app", () => {
 		console.log("🔄 Reiniciando aplicación...");
 		autoUpdater.quitAndInstall();
 	});
+});
+
+app.on("will-quit", () => {
+	globalShortcut.unregisterAll();
 });
 
 app.on("window-all-closed", () => {

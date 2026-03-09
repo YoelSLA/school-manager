@@ -70,7 +70,7 @@ export function useDesignacionCursoForm({
 }
 
 const DESIGNACION_CURSO_DEFAULTS: DesignacionCursoFormValues = {
-	cupof: 1,
+	cupof: undefined,
 	materiaId: 1,
 	cursoId: 1,
 	orientacion: "",
