@@ -103,13 +103,7 @@ public class EscuelaCursoControllerREST {
 			@PathVariable Long escuelaId
 	) {
 
-		System.out.println(">> Entró al endpoint listarCursosPorEscuela");
-		System.out.println(">> escuelaId recibido: " + escuelaId);
-
 		var cursos = cursoService.listarCursosPorEscuela(escuelaId);
-
-		System.out.println(">> Cursos obtenidos del service: " + cursos.size());
-		System.out.println(">> Cursos: " + cursos);
 
 		List<CursoNombreDTO> resultado = cursos
 				.stream()

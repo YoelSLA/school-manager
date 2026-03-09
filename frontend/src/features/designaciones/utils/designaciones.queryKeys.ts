@@ -57,8 +57,6 @@ export const designacionesQueryKeys = {
 				...designacionesQueryKeys.administrativa.lists(),
 				"escuela",
 				escuelaId,
-				page,
-				size,
 			] as const,
 
 		detail: (designacionId: number) =>

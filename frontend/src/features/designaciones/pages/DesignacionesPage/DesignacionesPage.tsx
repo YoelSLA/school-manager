@@ -18,9 +18,9 @@ import { useDesignacionesCursos } from "../../hooks/useDesignacionesCursos";
 
 import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
 import { useDesignacionesNavigation } from "../../hooks/useDesignacionesNavigation";
-
 import { RefreshCw } from "lucide-react";
 import styles from "./DesignacionesPage.module.scss";
+
 import FiltersModal from "@/components/FiltersModal";
 import CursoFilters from "../../components/CursoFilters";
 import AdminFilters from "../../components/AdminFilters";
@@ -187,7 +187,6 @@ export default function DesignacionesPage() {
 							<Button onClick={navigation.crear}>
 								+ Nueva designación
 							</Button>
-
 						</>
 					}
 				/>

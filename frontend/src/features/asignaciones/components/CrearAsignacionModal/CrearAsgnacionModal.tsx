@@ -1,25 +1,19 @@
 import { useEffect } from "react";
 import type { SubmitHandler } from "react-hook-form";
-
 import Modal from "@/components/Modal/Modal";
 import FormInputField from "@/components/forms/FormInputField/FormInputField";
 import FormSelectField from "@/components/forms/FormSelectField/FormSelectField";
-
 import { EmpleadoSelectorRHF } from "@/features/empleadosEducativos/components/EmpleadoSelector";
-
 import {
 	CARACTERISTICA_ASIGNACION_OPTIONS,
 	TIPO_ASIGNACION_OPTIONS,
 } from "@/features/asignaciones/utils/asignaciones.utils";
-
 import { useAsignacionForm } from "../../form/useAsignacionForm";
 import { useCubrirConTitular } from "../../hooks/useCubrirConTitular";
 import { useCubrirConProvisional } from "../../hooks/useCubrirConProvisional";
-
 import styles from "./CrrearAsignacionModal.module.scss";
-import { AsignacionFormValues } from "../../form/crearAsignacion.schema";
 import { CaracteristicaAsignacion } from "../../types/asignacion.types";
-
+import type { AsignacionFormValues } from "../../form/crearAsignacion.schema";
 
 type Props = {
 	designacionId: number;
@@ -113,7 +107,6 @@ export default function CrearAsignacionModal({
 						</div>
 
 						<div className={styles["crear-asignacion-modal__right"]}>
-
 							<FormSelectField<AsignacionFormValues>
 								label="TIPO"
 								name="tipoAsignacion"
