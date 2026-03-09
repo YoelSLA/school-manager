@@ -4,21 +4,28 @@ import type { MateriaNombreDTO } from "../types/materias.types";
 import { materiasQueryKeys } from "../types/materias.queryKeys";
 
 export function useMateriasSelect(escuelaId?: number) {
-	const query = useQuery<MateriaNombreDTO[]>({
-		queryKey:
-			escuelaId != null
-				? materiasQueryKeys.selectByEscuela(escuelaId)
-				: materiasQueryKeys.selects(),
 
-		queryFn: () => {
+	const query = useQuery<MateriaNombreDTO[]>({
+		queryKey: materiasQueryKeys.selectByEscuela(escuelaId ?? 0),
+
+		queryFn: async () => {
+
 			if (!escuelaId) {
-				throw new Error("escuelaId es requerido para obtener materias");
+				throw new Error("escuelaId es requerido");
 			}
-			return obtenerMateriasNombres(escuelaId);
+
+			const data = await obtenerMateriasNombres(escuelaId);
+
+			return data;
 		},
 
 		enabled: !!escuelaId,
-		staleTime: 1000 * 60 * 5,
+
+		// cache
+		staleTime: 1000 * 60 * 10,
+		gcTime: 1000 * 60 * 30,
+		refetchOnWindowFocus: false,
+		refetchOnMount: false,
 	});
 
 	return {

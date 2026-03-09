@@ -7,9 +7,9 @@ export type ButtonVariant =
 	| "filter"
 	| "success"
 	| "danger"
-	| "ghost"; // ✅ agregado
+	| "ghost";
 
-export type ButtonSize = "sm" | "md";
+export type ButtonSize = "sm" | "md" | "icon";
 
 type Props = {
 	children: ReactNode;
@@ -41,6 +41,7 @@ export default function Button({
 		styles[`btn${variant.charAt(0).toUpperCase()}${variant.slice(1)}`],
 		size === "sm" && styles.btnSm,
 		size === "md" && styles.btnMd,
+		size === "icon" && styles.btnIcon,
 		active && styles.isActive,
 		loading && styles.isLoading,
 		className,

@@ -1,8 +1,7 @@
 package com.gestion.escuela.gestion_escolar.services.impl;
 
-import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
-import com.gestion.escuela.gestion_escolar.models.Licencia;
-import com.gestion.escuela.gestion_escolar.models.Periodo;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionCursoFilterDTO;
+import com.gestion.escuela.gestion_escolar.models.*;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionProvisional;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionSuplente;
@@ -12,11 +11,12 @@ import com.gestion.escuela.gestion_escolar.models.caracteristicaAsignacion.Cambi
 import com.gestion.escuela.gestion_escolar.models.caracteristicaAsignacion.CaracteristicaAsignacion;
 import com.gestion.escuela.gestion_escolar.models.caracteristicaAsignacion.RecalificacionLaboralDefinitiva;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
+import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
+import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
+import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoCaracteristicaAsignacion;
-import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
-import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
-import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.*;
 import com.gestion.escuela.gestion_escolar.persistence.*;
 import com.gestion.escuela.gestion_escolar.services.DesignacionService;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +26,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +41,8 @@ public class DesignacionServiceImpl implements DesignacionService {
 	private final EmpleadoEducativoRepository empleadoEducativoRepository;
 	private final EscuelaRepository escuelaRepository;
 	private final AsignacionRepository asignacionRepository;
+	private final MateriaRepository materiaRepository;
+	private final CursoRepository cursoRepository;
 
 	/**
 	 * Persiste una designación previamente creada y válida.
@@ -46,19 +50,73 @@ public class DesignacionServiceImpl implements DesignacionService {
 	 */
 	@Override
 	public <T extends Designacion> T crear(T designacion) {
-		if (designacion == null) {
-			throw new IllegalArgumentException("La designación es obligatoria");
-		}
+
+		Validaciones.noNulo(designacion, "designacion");
+
+		Escuela escuela = designacion.getEscuela();
+		Integer cupof = designacion.getCupof();
+
+		validarCupofUnico(
+				escuela.getId(),
+				cupof,
+				null
+		);
+
 		return designacionRepository.save(designacion);
 	}
 
 	@Override
 	public <T extends Designacion> void crearBatch(List<T> designaciones) {
-		if (designaciones == null || designaciones.isEmpty()) {
-			throw new IllegalArgumentException(
-					"Debe indicar al menos una designación"
+
+		Validaciones.noVacio(designaciones, "designaciones");
+
+		Escuela escuela = designaciones.get(0).getEscuela();
+		Long escuelaId = escuela.getId();
+		String nombreEscuela = escuela.getNombre();
+
+	/* ======================
+	   CUPOfs DEL BATCH
+	====================== */
+
+		Set<Integer> cupofsBatch = new HashSet<>();
+
+		for (Designacion d : designaciones) {
+			Integer cupof = d.getCupof();
+
+			if (!cupofsBatch.add(cupof)) {
+				throw new RecursoDuplicadoException(
+						String.format(
+								"Ya existe una designación con cupof %s en %s",
+								cupof,
+								nombreEscuela
+						)
+				);
+			}
+		}
+
+	/* ======================
+	   VALIDAR CONTRA DB
+	====================== */
+
+		List<Designacion> existentes =
+				designacionRepository.findByEscuelaIdAndCupofIn(escuelaId, cupofsBatch);
+
+		if (!existentes.isEmpty()) {
+
+			Integer cupofDuplicado = existentes.get(0).getCupof();
+
+			throw new RecursoDuplicadoException(
+					String.format(
+							"Ya existe una designación con cupof %s en %s",
+							cupofDuplicado,
+							nombreEscuela
+					)
 			);
 		}
+
+	/* ======================
+	   GUARDAR
+	====================== */
 
 		designacionRepository.saveAll(designaciones);
 	}
@@ -113,25 +171,41 @@ public class DesignacionServiceImpl implements DesignacionService {
 			LocalDate fechaHasta
 	) {
 
+		System.out.println("=== cubrirConProvisional ===");
+		System.out.println("designacionId: " + designacionId);
+		System.out.println("empleadoId: " + empleadoId);
+		System.out.println("fechaDesde: " + fechaDesde);
+		System.out.println("fechaHasta: " + fechaHasta);
+
 		Designacion designacion = designacionRepository.findById(designacionId)
-				.orElseThrow(() ->
-						new RecursoNoEncontradoException("designación", designacionId)
-				);
+				.orElseThrow(() -> {
+					System.out.println("No se encontró la designación con id: " + designacionId);
+					return new RecursoNoEncontradoException("designación", designacionId);
+				});
+
+		System.out.println("Designación encontrada: " + designacion.getId());
 
 		EmpleadoEducativo empleado = empleadoEducativoRepository.findById(empleadoId)
-				.orElseThrow(() ->
-						new RecursoNoEncontradoException("empleado educativo", empleadoId)
-				);
+				.orElseThrow(() -> {
+					System.out.println("No se encontró el empleado con id: " + empleadoId);
+					return new RecursoNoEncontradoException("empleado educativo", empleadoId);
+				});
+
+		System.out.println("Empleado encontrado: " + empleado.getId());
 
 		if (fechaHasta != null && fechaHasta.isBefore(fechaDesde)) {
+			System.out.println("Error: fechaHasta es anterior a fechaDesde");
 			throw new IllegalArgumentException("La fecha fin no puede ser anterior a la fecha inicio");
 		}
 
 		Periodo periodo = new Periodo(fechaDesde, fechaHasta);
+		System.out.println("Periodo creado: desde=" + fechaDesde + " hasta=" + fechaHasta);
 
 		AsignacionProvisional asignacion = designacion.cubrirConProvisionalManual(empleado, periodo);
+		System.out.println("Asignación provisional creada");
 
 		designacionRepository.save(designacion);
+		System.out.println("Designación guardada en base de datos");
 
 		return asignacion;
 	}
@@ -220,20 +294,41 @@ public class DesignacionServiceImpl implements DesignacionService {
 	}
 
 	@Override
-	public <T extends Designacion> Page<T> obtenerDesignacionesPorEscuela(
+	public Page<DesignacionCurso> obtenerDesignacionesCursoPorEscuela(
 			Long escuelaId,
-			Class<T> tipo,
+			DesignacionCursoFilterDTO filter,
 			Pageable pageable
 	) {
-		if (escuelaId == null || tipo == null) {
-			throw new IllegalArgumentException("Escuela y tipo son obligatorios");
-		}
 
 		if (!escuelaRepository.existsById(escuelaId)) {
 			throw new RecursoNoEncontradoException("escuela", escuelaId);
 		}
 
-		return designacionRepository.findByEscuelaIdAndTipo(escuelaId, tipo, pageable);
+		String estado = filter.estado() == null
+				? null
+				: filter.estado().name();
+
+		return designacionRepository.buscarCursosConFiltro(
+				escuelaId,
+				filter.cursoId(),
+				filter.materiaId(),
+				filter.orientacion(),
+				estado,
+				pageable
+		);
+	}
+
+	@Override
+	public Page<DesignacionAdministrativa> obtenerDesignacionesAdministrativasPorEscuela(
+			Long escuelaId,
+			Pageable pageable
+	) {
+
+		if (!escuelaRepository.existsById(escuelaId)) {
+			throw new RecursoNoEncontradoException("escuela", escuelaId);
+		}
+
+		return designacionRepository.findAdministrativasByEscuelaId(escuelaId, pageable);
 	}
 
 
@@ -269,6 +364,70 @@ public class DesignacionServiceImpl implements DesignacionService {
 				.toList();
 	}
 
+	@Override
+	@Transactional
+	public void actualizarDesignacionCurso(
+			Long designacionId,
+			Integer cupof,
+			Long materiaId,
+			Long cursoId,
+			String orientacion,
+			Set<FranjaHoraria> franjasHorarias
+	) {
+
+		DesignacionCurso designacionCurso = designacionRepository
+				.findCursoById(designacionId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("Designación curso", designacionId));
+
+		Materia materia = materiaRepository.findById(materiaId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("Materia", materiaId));
+
+		Curso curso = cursoRepository.findById(cursoId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("Curso", cursoId));
+
+		validarCupofUnico(
+				designacionCurso.getEscuela().getId(),
+				cupof,
+				designacionCurso.getId()
+		);
+
+		designacionCurso.actualizar(cupof, materia, curso, orientacion);
+
+		designacionCurso.reemplazarFranjas(franjasHorarias);
+	}
+
+	@Override
+	@Transactional
+	public void actualizarDesignacionAdministrativa(
+			Long designacionId,
+			Integer cupof,
+			RolEducativo rolEducativo,
+			Set<FranjaHoraria> franjasHorarias
+	) {
+
+		DesignacionAdministrativa designacion = designacionRepository
+				.findAdministrativaById(designacionId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("Designación administrativa", designacionId));
+
+		validarCupofUnico(
+				designacion.getEscuela().getId(),
+				cupof,
+				designacion.getId()
+		);
+
+    /* ======================
+       ACTUALIZAR CAMPOS
+    ====================== */
+
+		designacion.actualizar(cupof, rolEducativo);
+
+    /* ======================
+       ACTUALIZAR FRANJAS
+    ====================== */
+
+		designacion.reemplazarFranjas(franjasHorarias);
+	}
+
 
 	private CaracteristicaAsignacion crearCaracteristica(
 			TipoCaracteristicaAsignacion tipo
@@ -281,6 +440,23 @@ public class DesignacionServiceImpl implements DesignacionService {
 			case RECALIFICACION_LABORAL_DEFINITIVA ->
 					new RecalificacionLaboralDefinitiva();
 		};
+	}
+
+	private void validarCupofUnico(Long escuelaId, Integer cupof, Long designacionId) {
+
+		boolean existe = designacionId == null
+				? designacionRepository.existsByEscuelaIdAndCupof(escuelaId, cupof)
+				: designacionRepository.existsByEscuelaIdAndCupofAndIdNot(escuelaId, cupof, designacionId);
+
+		if (existe) {
+			throw new RecursoDuplicadoException(
+					String.format(
+							"Ya existe una designación con cupof %s en la escuela %s",
+							cupof,
+							escuelaId
+					)
+			);
+		}
 	}
 
 

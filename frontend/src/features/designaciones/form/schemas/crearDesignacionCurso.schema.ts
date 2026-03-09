@@ -6,7 +6,8 @@ export const crearDesignacionCursoSchema = z.object({
 	cupof: z.coerce
 		.number({ message: "El CUPOF debe ser un número válido" })
 		.int({ message: "El CUPOF debe ser entero" })
-		.positive({ message: "El CUPOF debe ser mayor a 0" }),
+		.positive({ message: "El CUPOF debe ser mayor a 0" })
+		.optional(),
 
 	franjasHorarias: z
 		.array(crearFranjaHorariaSchema)

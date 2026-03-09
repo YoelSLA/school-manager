@@ -1,6 +1,7 @@
 package com.gestion.escuela.gestion_escolar.controllers.escuelasContexto;
 
 import com.gestion.escuela.gestion_escolar.controllers.dtos.PageResponse;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionCursoFilterDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.cursos.DesignacionCursoCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.cursos.DesignacionCursoResumenDTO;
 import com.gestion.escuela.gestion_escolar.mappers.DesignacionCursoMapper;
@@ -72,20 +73,23 @@ public class EscuelaDesignacionCursoControllerREST {
 	@GetMapping
 	public PageResponse<DesignacionCursoResumenDTO> listarCursos(
 			@PathVariable Long escuelaId,
+			DesignacionCursoFilterDTO filter,
 			Pageable pageable
 	) {
 
 		Pageable limitedPageable = PaginationUtils.limit(pageable);
 
 		Page<DesignacionCurso> designaciones =
-				designacionService.obtenerDesignacionesPorEscuela(
+				designacionService.obtenerDesignacionesCursoPorEscuela(
 						escuelaId,
-						DesignacionCurso.class,
+						filter,
 						limitedPageable
 				);
 
-		return PageMapper.toPageResponse(designaciones, DesignacionCursoMapper::toResumen);
+		return PageMapper.toPageResponse(
+				designaciones,
+				DesignacionCursoMapper::toResumen
+		);
 	}
-
 
 }

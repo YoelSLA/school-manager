@@ -4,8 +4,11 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.Asignac
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.CubrirProvisionalDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.CubrirTitularDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.administrativas.DesignacionAdministrativaUpdateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.cursos.DesignacionCursoUpdateDTO;
 import com.gestion.escuela.gestion_escolar.mappers.AsignacionMapper;
 import com.gestion.escuela.gestion_escolar.mappers.DesignacionMapper;
+import com.gestion.escuela.gestion_escolar.models.FranjaHoraria;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
 import com.gestion.escuela.gestion_escolar.services.DesignacionService;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/designaciones")
@@ -92,6 +97,58 @@ public class DesignacionControllerREST {
 				.stream()
 				.map(AsignacionMapper::toDetalle)
 				.toList();
+	}
+
+	@PutMapping("/{designacionId}/curso")
+	public ResponseEntity<Void> actualizarDesignacionCurso(
+			@PathVariable Long designacionId,
+			@Valid @RequestBody DesignacionCursoUpdateDTO dto
+	) {
+
+		Set<FranjaHoraria> franjas = dto.franjasHorarias()
+				.stream()
+				.map(f -> new FranjaHoraria(
+						f.dia(),
+						f.horaDesde(),
+						f.horaHasta()
+				))
+				.collect(Collectors.toSet());
+
+		designacionService.actualizarDesignacionCurso(
+				designacionId,
+				dto.cupof(),
+				dto.materiaId(),
+				dto.cursoId(),
+				dto.orientacion(),
+				franjas
+		);
+
+		return ResponseEntity.noContent().build();
+	}
+
+	@PutMapping("/{designacionId}/administrativa")
+	public ResponseEntity<Void> actualizarDesignacionAdministrativa(
+			@PathVariable Long designacionId,
+			@Valid @RequestBody DesignacionAdministrativaUpdateDTO dto
+	) {
+
+		Set<FranjaHoraria> franjas = dto.franjasHorarias()
+				.stream()
+				.map(f -> new FranjaHoraria(
+						f.dia(),
+						f.horaDesde(),
+						f.horaHasta()
+				))
+				.collect(Collectors.toSet());
+
+		designacionService.actualizarDesignacionAdministrativa(
+				designacionId,
+				dto.cupof(),
+				dto.rolEducativo(),
+				franjas
+		);
+
+		return ResponseEntity.noContent().build();
 	}
 
 

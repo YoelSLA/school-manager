@@ -5,11 +5,19 @@ import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
 import { useCrearDesignacionAdministrativa } from "../../hooks/useCrearDesignacionAdministrativa";
 import { useCrearDesignacionCurso } from "../../hooks/useCrearDesignacionCurso";
-import type { DesignacionAdministrativaCreateDTO, DesignacionAdministrativaFormValues, DesignacionCursoCreateDTO, DesignacionCursoFormValues, TipoDesignacion } from "../../types/designacion.types";
 import AdministrativaForm from "../../components/AdministrativaForm/AdministrativaForm";
 import styles from "./DesignacionCreatePage.module.scss";
 import DesignacionTabs from "./DesignacionTabs/DesignacionTabs";
 import CursoForm from "../../components/CursoForm/CursoForm";
+import {
+	DesignacionAdministrativaCreateDTO,
+	DesignacionAdministrativaFormValues,
+	DesignacionCursoCreateDTO,
+	DesignacionCursoFormValues,
+} from "../../form/designacion.form.types";
+import { TipoDesignacion } from "../../types/designacion.types";
+import axios from "axios";
+import ErrorModal from "@/components/ErrorModal";
 
 export default function DesignacionCreatePage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
@@ -19,38 +27,63 @@ export default function DesignacionCreatePage() {
 	const crearAdministrativa = useCrearDesignacionAdministrativa(
 		escuelaActiva?.id,
 	);
+
 	const [tipo, setTipo] = useState<TipoDesignacion>("ADMIN");
 
-	const handleCrearCurso = async (data: DesignacionCursoFormValues) => {
-		const payload: DesignacionCursoCreateDTO = {
-			...data,
-			cupof: Number(data.cupof),
-			materiaId: Number(data.materiaId),
-			cursoId: Number(data.cursoId),
-		};
+	const [errorModal, setErrorModal] = useState<{
+		title: string;
+		message: string;
+	} | null>(null);
 
-		await crearCurso.mutateAsync(payload);
-		navigate(-1);
+	const handleCrearCurso = async (data: DesignacionCursoFormValues) => {
+		try {
+			const payload: DesignacionCursoCreateDTO = {
+				...data,
+				cupof: Number(data.cupof),
+				materiaId: Number(data.materiaId),
+				cursoId: Number(data.cursoId),
+			};
+
+			await crearCurso.mutateAsync(payload);
+
+			navigate(-1);
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				const mensaje =
+					error.response?.data?.message ??
+					"Ocurrió un error al crear la designación";
+
+				setErrorModal({
+					title: "No se pudo crear la designación",
+					message: mensaje,
+				});
+			}
+		}
 	};
 
 	const handleCrearAdministrativa = async (
 		data: DesignacionAdministrativaFormValues,
 	) => {
 		try {
-			console.log("🚀 Enviando payload:", data);
-
 			const payload: DesignacionAdministrativaCreateDTO = {
 				...data,
 				cupof: Number(data.cupof),
 			};
 
-			const result = await crearAdministrativa.mutateAsync(payload);
-
-			console.log("✅ Mutation OK:", result);
+			await crearAdministrativa.mutateAsync(payload);
 
 			navigate(-1);
 		} catch (error) {
-			console.error("💥 Error en mutation:", error);
+			if (axios.isAxiosError(error)) {
+				const mensaje =
+					error.response?.data?.message ??
+					"Ocurrió un error al crear la designación";
+
+				setErrorModal({
+					title: "No se pudo crear la designación",
+					message: mensaje,
+				});
+			}
 		}
 	};
 
@@ -75,6 +108,13 @@ export default function DesignacionCreatePage() {
 					)}
 				</div>
 			</section>
+
+			{errorModal && (
+				<ErrorModal
+					error={errorModal}
+					onClose={() => setErrorModal(null)}
+				/>
+			)}
 		</PageLayout>
 	);
 }

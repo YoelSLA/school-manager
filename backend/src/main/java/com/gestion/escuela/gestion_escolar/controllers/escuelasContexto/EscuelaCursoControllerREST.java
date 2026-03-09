@@ -102,10 +102,24 @@ public class EscuelaCursoControllerREST {
 	public List<CursoNombreDTO> listarCursosPorEscuela(
 			@PathVariable Long escuelaId
 	) {
-		return cursoService.listarCursosPorEscuela(escuelaId)
+
+		System.out.println(">> Entró al endpoint listarCursosPorEscuela");
+		System.out.println(">> escuelaId recibido: " + escuelaId);
+
+		var cursos = cursoService.listarCursosPorEscuela(escuelaId);
+
+		System.out.println(">> Cursos obtenidos del service: " + cursos.size());
+		System.out.println(">> Cursos: " + cursos);
+
+		List<CursoNombreDTO> resultado = cursos
 				.stream()
 				.map(CursoMapper::toNombreDTO)
 				.toList();
+
+		System.out.println(">> DTOs generados: " + resultado.size());
+		System.out.println(">> Resultado: " + resultado);
+
+		return resultado;
 	}
 
 }

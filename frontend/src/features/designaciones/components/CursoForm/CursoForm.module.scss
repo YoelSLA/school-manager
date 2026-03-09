@@ -28,3 +28,24 @@
 	height: 1px;
 	background-color: var(--color-border, #e5e7eb);
 }
+
+.header {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	margin-bottom: 12px;
+	background-color: #fff;
+	border-radius: 20px;
+	padding: 8px;
+}
+
+.title {
+	font-size: 1.4rem;
+	font-weight: 600;
+	color: #111827;
+}
+
+.subtitle {
+	font-size: 0.9rem;
+	color: #6b7280;
+}

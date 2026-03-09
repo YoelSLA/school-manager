@@ -1,19 +1,29 @@
+import { useNavigate } from "react-router-dom";
+
 import styles from "./DesignacionHeaderInfo.module.scss";
 import Badge from "@/components/Badge";
+import Button from "@/components/Button";
+
 import {
 	ESTADO_DESIGNACION_BADGE,
 } from "@/features/designaciones/utils/designacion.badges";
 
+import { designacionesPaths } from "@/router/paths";
+
 import type { DesignacionDetalleDTO } from "../../../types/designacion.types";
 
-import { BookOpen, Compass, GraduationCap } from "lucide-react";
+import { BookOpen, Compass, GraduationCap, Pencil } from "lucide-react";
+import RolEducativoBadge from "@/features/empleadosEducativos/components/RolEducativoBadge";
 
 type Props = {
 	designacion: DesignacionDetalleDTO;
 };
 
 export default function DesignacionHeaderInfo({ designacion }: Props) {
+	const navigate = useNavigate();
+
 	const {
+		id,
 		rolEducativo,
 		cupof,
 		estadoDesignacion,
@@ -29,21 +39,20 @@ export default function DesignacionHeaderInfo({ designacion }: Props) {
 		.filter(Boolean)
 		.join(" ");
 
+	const handleEditar = () => {
+		navigate(designacionesPaths.edit(id));
+	};
+
 	return (
 		<section className={styles["designacion-header-info"]}>
 			<div className={topClassName}>
-				{/* IZQUIERDA */}
 				<div className={styles["designacion-header-info__left"]}>
 					<span className={styles["designacion-header-info__cupof"]}>
 						#{cupof}
 					</span>
-
-					{/* <h2 className={styles["designacion-header-info__rol"]}>
-						{rolEducativoLabels[rolEducativo]}
-					</h2> */}
+					<RolEducativoBadge value={rolEducativo} />
 				</div>
 
-				{/* CENTRO */}
 				{esCurso && (
 					<div className={styles["designacion-header-info__center"]}>
 						<div className={styles["curso-badge"]}>
@@ -69,12 +78,22 @@ export default function DesignacionHeaderInfo({ designacion }: Props) {
 					</div>
 				)}
 
-				{/* DERECHA */}
-				<Badge
-					variant={ESTADO_DESIGNACION_BADGE[estadoDesignacion]}
-				>
-					{estadoDesignacion}
-				</Badge>
+				<div className={styles["designacion-header-info__actions"]}>
+					<Badge
+						variant={ESTADO_DESIGNACION_BADGE[estadoDesignacion]}
+					>
+						{estadoDesignacion}
+					</Badge>
+
+					<Button
+						variant="secondary"
+						size="sm"
+						onClick={handleEditar}
+					>
+						<Pencil size={16} />
+						Editar
+					</Button>
+				</div>
 			</div>
 		</section>
 	);

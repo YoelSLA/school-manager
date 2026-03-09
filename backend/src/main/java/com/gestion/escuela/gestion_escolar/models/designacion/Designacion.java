@@ -324,5 +324,23 @@ public abstract class Designacion {
 		return asignaciones.stream().anyMatch(a -> a.ejerceEn(fecha));
 	}
 
+	public boolean tieneAsignacionQueSeSuperponeCon(Periodo periodo) {
+		return this.asignaciones.stream()
+				.anyMatch(a -> a.seSuperponeCon(periodo));
+	}
 
+	protected void actualizarCupof(Integer cupof) {
+		Validaciones.noNulo(cupof, "cupof");
+		this.cupof = cupof;
+	}
+
+	protected void actualizarRolEducativo(RolEducativo rolEducativo) {
+		Validaciones.noNulo(rolEducativo, "rol educativo");
+		this.rolEducativo = rolEducativo;
+	}
+
+	public void reemplazarFranjas(Set<FranjaHoraria> nuevasFranjas) {
+		this.franjasHorarias.clear();
+		this.franjasHorarias.addAll(nuevasFranjas);
+	}
 }

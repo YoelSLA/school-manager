@@ -26,7 +26,7 @@ export function useDesignacionAdministrativaForm() {
 }
 
 const DESIGNACION_ADMINISTRATIVA_DEFAULTS: DesignacionAdministrativaFormValues = {
-	cupof: "",
+	cupof: undefined,
 	rolEducativo: RolEducativo.AUXILIAR,
 	franjasHorarias: [
 		{

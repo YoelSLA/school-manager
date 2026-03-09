@@ -3,6 +3,7 @@ package com.gestion.escuela.gestion_escolar.controllers.exceptions;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoDuplicadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -70,6 +71,22 @@ public class GlobalExceptionHandler {
 		);
 
 		return ResponseEntity.badRequest().body(error);
+	}
+
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<ApiError> handleDataIntegrity(
+			HttpServletRequest request
+	) {
+
+		ApiError error = new ApiError(
+				LocalDateTime.now(),
+				HttpStatus.CONFLICT.value(),
+				HttpStatus.CONFLICT.getReasonPhrase(),
+				"Ya existe un recurso con esos datos",
+				request.getRequestURI()
+		);
+
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
 	}
 
 }

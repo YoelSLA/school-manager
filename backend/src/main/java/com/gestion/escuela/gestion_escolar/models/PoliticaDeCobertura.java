@@ -95,18 +95,18 @@ public class PoliticaDeCobertura {
 		}
 	}
 
-	private static void validarCubrirConProvisional(Designacion designacion,
-													EmpleadoEducativo empleado,
-													Periodo periodo
+	private static void validarCubrirConProvisional(
+			Designacion designacion,
+			EmpleadoEducativo empleado,
+			Periodo periodo
 	) {
 
 		Validaciones.noNulo(empleado, "empleado educativo");
 		Validaciones.noNulo(periodo, "periodo");
 
-		if (empleado.tieneAlgunCargoQueSeSuperponeCon(periodo)) {
+		if (designacion.tieneAsignacionQueSeSuperponeCon(periodo)) {
 			throw new DesignacionYaCubiertaException(designacion);
 		}
-
 	}
 
 

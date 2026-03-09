@@ -1,4 +1,6 @@
 import styles from "./Pagination.module.scss";
+import Button from "@/components/Button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type Props = {
   page: number;
@@ -11,6 +13,7 @@ export default function Pagination({
   totalPages,
   onChange,
 }: Props) {
+
   if (totalPages === 0) {
     return null;
   }
@@ -27,37 +30,43 @@ export default function Pagination({
 
   return (
     <div className={styles.pagination}>
-      <button
+      <Button
         type="button"
+        size="icon"
+        variant="secondary"
         className={styles.pagination__nav}
         onClick={() => goTo(page - 1)}
         disabled={page === 0}
       >
-        ‹
-      </button>
+        <ChevronLeft size={16} />
+      </Button>
 
       <div className={styles.pagination__pages}>
         {pages.map((p) => (
-          <button
+          <Button
             key={p}
             type="button"
+            size="sm"
+            variant={p === page ? "primary" : "ghost"}
             className={`${styles.pagination__page} ${p === page ? styles["pagination__page--active"] : ""
               }`}
             onClick={() => goTo(p)}
           >
             {p + 1}
-          </button>
+          </Button>
         ))}
       </div>
 
-      <button
+      <Button
         type="button"
+        size="icon"
+        variant="secondary"
         className={styles.pagination__nav}
         onClick={() => goTo(page + 1)}
         disabled={page === totalPages - 1}
       >
-        ›
-      </button>
+        <ChevronRight size={16} />
+      </Button>
     </div>
   );
 }

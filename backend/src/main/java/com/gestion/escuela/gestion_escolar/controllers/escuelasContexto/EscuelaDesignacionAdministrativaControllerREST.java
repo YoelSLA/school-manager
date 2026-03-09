@@ -65,14 +65,15 @@ public class EscuelaDesignacionAdministrativaControllerREST {
 		Pageable limitedPageable = PaginationUtils.limit(pageable);
 
 		Page<DesignacionAdministrativa> designaciones =
-				designacionService.obtenerDesignacionesPorEscuela(
+				designacionService.obtenerDesignacionesAdministrativasPorEscuela(
 						escuelaId,
-						DesignacionAdministrativa.class,
 						limitedPageable
 				);
 
-		return PageMapper.toPageResponse(designaciones, DesignacionAdministrativaMapper::toResumen);
+		return PageMapper.toPageResponse(
+				designaciones,
+				DesignacionAdministrativaMapper::toResumen
+		);
 	}
-
 
 }

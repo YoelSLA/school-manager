@@ -136,17 +136,19 @@ public class CursoServiceImpl implements CursoService {
 				cursoId
 		)) {
 			throw new RecursoDuplicadoException(
-					"curso",
-					"año, grado y turno",
-					anio + "° / " + grado + "° - " + turno,
-					"la escuela " + escuela.getNombre()
+					String.format(
+							"Ya existe un curso %s° %s - turno %s en la escuela %s",
+							anio,
+							grado,
+							turno,
+							escuela.getNombre()
+					)
 			);
 		}
 
 		curso.actualizar(turno, anio, grado);
 
 		return cursoRepository.save(curso);
-
 	}
 
 	private void validarNoDuplicado(
@@ -160,10 +162,13 @@ public class CursoServiceImpl implements CursoService {
 				escuelaId, anio, grado, turno
 		)) {
 			throw new RecursoDuplicadoException(
-					"curso",
-					"año, grado y turno",
-					anio + "° / " + grado + "° - " + turno,
-					"la escuela " + nombreEscuela
+					String.format(
+							"Ya existe un curso %s° %s - turno %s en la escuela %s",
+							anio,
+							grado,
+							turno,
+							nombreEscuela
+					)
 			);
 		}
 	}

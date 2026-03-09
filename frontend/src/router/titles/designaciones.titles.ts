@@ -12,4 +12,10 @@ export const designacionesTitles: Record<string, BreadcrumbResolver> = {
 		{ label: "Designaciones", to: "/designaciones" },
 		{ label: `#${params.designacionId}` },
 	],
+
+	"/designaciones/:designacionId/editar": (params) => [
+		{ label: "Designaciones", to: "/designaciones" },
+		{ label: `#${params.designacionId}`, to: `/designaciones/${params.designacionId}` },
+		{ label: "Editar" },
+	],
 };

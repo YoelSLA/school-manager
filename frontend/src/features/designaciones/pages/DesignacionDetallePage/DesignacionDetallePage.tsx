@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import CrearAsignacionModal from "@/features/asignaciones/components/CrearAsignacionModal/CrearAsgnacionModal";
-import useDesignacion from "../../hooks/useDesignacion";
 import { useCargosDesignacion } from "../../hooks/useCargosDesignacion";
 import { useCargoActivo } from "../../../asignaciones/hooks/useCargoActivo";
 import DesignacionHeaderInfo from "./DesignacionHeaderInfo/DesignacionHeaderInfo";
@@ -13,6 +12,7 @@ import type { FiltroCargos } from "@/features/asignaciones/types/asignacion.type
 
 import styles from "./DesignacionDetallePage.module.scss";
 import DesignacionCargoActivo from "./DesignacionCargoActivo/DesignacionCargoActivo";
+import useDesignacionDetalle from "../../hooks/useDesignacionDetalle";
 
 export default function DesignacionDetallePage() {
 	const { designacionId } = useParams<{ designacionId: string }>();
@@ -30,7 +30,7 @@ export default function DesignacionDetallePage() {
 		isLoading,
 		error,
 		refetch: refetchDesignacion,
-	} = useDesignacion(id);
+	} = useDesignacionDetalle(id);
 
 	// 🔹 Cargo activo (estado actual)
 	const {

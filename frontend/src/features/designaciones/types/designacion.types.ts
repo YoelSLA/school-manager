@@ -1,29 +1,10 @@
 import type {
-	FranjaHoraria,
-	FranjaHorariaCreateDTO,
 	FranjaHorariaMinimoDTO,
 } from "@/utils/types";
 import type {
 	AsignacionDetalleDTO,
 	CaracteristicaAsignacion,
 } from "../../asignaciones/types/asignacion.types";
-
-// --------------------------------------------------------------------
-
-type DesignacionCreateDTO = {
-	cupof: number;
-	franjasHorarias: FranjaHorariaCreateDTO[];
-};
-
-export type DesignacionAdministrativaCreateDTO = DesignacionCreateDTO & {
-	rolEducativo: RolEducativo;
-};
-
-export type DesignacionCursoCreateDTO = DesignacionCreateDTO & {
-	materiaId: number;
-	cursoId: number;
-	orientacion: string;
-};
 
 // --------------------------------------------------------------------
 
@@ -136,9 +117,16 @@ export type DesignacionBaseForm = {
 
 export type EstadoCargo = "LICENCIA" | "BAJA" | "FINALIZADA" | "PENDIENTE";
 
-export type DesignacionAdministrativaFormValues = {
-	cupof: string;
-	rolEducativo: RolEducativo
-	franjasHorarias: FranjaHoraria[]
+export type DesignacionCursoFilter = {
+	cursoId?: string;
+	materiaId?: string;
+	orientacion?: string;
+	estado?: string;
 };
 
+export type CursoFiltersState = {
+	cursoId?: string;
+	materiaId?: string;
+	orientacion?: string;
+	estado?: string;
+};

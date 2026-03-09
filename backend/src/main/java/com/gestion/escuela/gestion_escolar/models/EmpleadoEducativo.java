@@ -339,7 +339,4 @@ public class EmpleadoEducativo {
 		}
 	}
 
-	public boolean tieneAlgunCargoQueSeSuperponeCon(Periodo periodo) {
-		return this.asignaciones.stream().anyMatch(a -> a.seSuperponeCon(periodo));
-	}
 }
