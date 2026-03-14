@@ -16,7 +16,10 @@ import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoCaracteristicaAsignacion;
-import com.gestion.escuela.gestion_escolar.models.exceptions.*;
+import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoDuplicadoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 import com.gestion.escuela.gestion_escolar.persistence.*;
 import com.gestion.escuela.gestion_escolar.services.DesignacionService;
 import lombok.RequiredArgsConstructor;
@@ -215,47 +218,51 @@ public class DesignacionServiceImpl implements DesignacionService {
 			Long licenciaId,
 			Long suplenteId,
 			List<Long> designacionIds,
-			LocalDate fechaInicio
+			LocalDate fechaTomaPosesion
 	) {
-		if (fechaInicio == null) {
-			throw new CampoObligatorioException("La fecha de inicio es obligatoria");
-		}
 
-		if (designacionIds == null || designacionIds.isEmpty()) {
-			throw new CampoObligatorioException("Debe indicar al menos una designación");
-		}
+		System.out.println("===== cubrirConSuplentes =====");
+		System.out.println("licenciaId: " + licenciaId);
+		System.out.println("suplenteId: " + suplenteId);
+		System.out.println("designacionIds: " + designacionIds);
+		System.out.println("fechaInicio: " + fechaTomaPosesion);
+
+		Validaciones.noNulo(fechaTomaPosesion, "fecha toma posesión");
+		Validaciones.noVacio(designacionIds, "designacionIds");
 
 		Licencia licencia = licenciaRepository.findById(licenciaId)
-				.orElseThrow(() ->
-						new RecursoNoEncontradoException("licencia", licenciaId)
-				);
+				.orElseThrow(() -> {
+					System.out.println("Licencia no encontrada: " + licenciaId);
+					return new RecursoNoEncontradoException("licencia", licenciaId);
+				});
+
+		System.out.println("Licencia encontrada: " + licencia.getId());
 
 		EmpleadoEducativo suplente = empleadoEducativoRepository.findById(suplenteId)
-				.orElseThrow(() ->
-						new RecursoNoEncontradoException("empleado educativo", suplenteId)
-				);
+				.orElseThrow(() -> {
+					System.out.println("Suplente no encontrado: " + suplenteId);
+					return new RecursoNoEncontradoException("empleado educativo", suplenteId);
+				});
+
+		System.out.println("Suplente encontrado: " + suplente.getId());
 
 		List<Designacion> designaciones = obtenerDesignaciones(designacionIds);
 
+		System.out.println("Cantidad de designaciones encontradas: " + designaciones.size());
+
 		designaciones.forEach(d -> {
 
-			LocalDate inicioCiclo = fechaInicio;
-			LocalDate hoy = LocalDate.now();
+			System.out.println("Procesando designacion: " + d.getId());
 
-//			while (true) {
-//
-////				LocalDate finCiclo = licencia.getPeriodo().fechaFinEfectivaPara(inicioCiclo);
-//
-//				if (inicioCiclo.isAfter(hoy)) {
-//					break;
-//				}
-//
-//				d.cubrirConSuplente(licencia, suplente, inicioCiclo, finCiclo
-//				);
-//
-//				inicioCiclo = finCiclo.plusDays(1);
-//			}
+			d.cubrirConSuplente(
+					licencia,
+					suplente,
+					fechaTomaPosesion
+			);
+			
 		});
+
+		System.out.println("===== FIN cubrirConSuplentes =====");
 	}
 
 	public AsignacionSuplente renovarCobertura(
@@ -426,6 +433,33 @@ public class DesignacionServiceImpl implements DesignacionService {
     ====================== */
 
 		designacion.reemplazarFranjas(franjasHorarias);
+	}
+
+	public Asignacion editarAsignacion(
+			Long designacionId,
+			Long asignacionId,
+			Long empleadoId,
+			LocalDate fechaTomaPosesion,
+			LocalDate fechaCese
+	) {
+
+		EmpleadoEducativo empleado = empleadoEducativoRepository.findById(empleadoId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("empleado educativo", empleadoId));
+
+		designacionRepository.findById(designacionId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("designación", designacionId));
+
+		Asignacion asignacion = asignacionRepository
+				.findByIdAndDesignacionId(asignacionId, designacionId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("asignacion", asignacionId));
+
+		asignacion.actualizar(
+				empleado,
+				fechaTomaPosesion,
+				fechaCese
+		);
+
+		return asignacionRepository.save(asignacion);
 	}
 
 

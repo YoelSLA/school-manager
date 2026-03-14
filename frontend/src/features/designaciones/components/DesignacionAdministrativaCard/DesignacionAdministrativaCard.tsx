@@ -4,7 +4,7 @@ import RolEducativoPill from "./RolEducativoPill";
 
 type Props = {
 	designacion: DesignacionAdministrativaResumenDTO;
-	onVerDetalle: (designacionId: number) => void;
+	onVerDetalle: (designacion: DesignacionAdministrativaResumenDTO) => void;
 };
 
 export default function DesignacionAdministrativaCard({
@@ -17,8 +17,7 @@ export default function DesignacionAdministrativaCard({
 			franjasCount={designacion.franjasHorarias.length}
 			cupof={designacion.cupof}
 			estadoDesignacion={designacion.estadoDesignacion}
-			rolEducativo={designacion.rolEducativo}
-			onVerDetalle={() => onVerDetalle(designacion.id)}
+			onVerDetalle={() => onVerDetalle(designacion)}
 		>
 			<RolEducativoPill rolEducativo={designacion.rolEducativo} />
 		</DesignacionCard>

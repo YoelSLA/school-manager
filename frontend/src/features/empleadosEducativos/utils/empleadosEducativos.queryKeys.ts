@@ -9,6 +9,12 @@ export const empleadosEducativosQueryKeys = {
 	detail: (empleadoId: number) =>
 		[...empleadosEducativosQueryKeys.all, "detail", empleadoId] as const,
 
+	designacionesActivas: (empleadoId: number) =>
+		[
+			...empleadosEducativosQueryKeys.detail(empleadoId),
+			"designaciones-activas",
+		] as const,
+
 	byEscuela: (
 		escuelaId: number,
 		estado: EmpleadoEducativoFiltro = "TODOS",
@@ -23,7 +29,7 @@ export const empleadosEducativosQueryKeys = {
 			estado,
 			page,
 			size,
-			sort, // 👈 ahora es objeto
+			sort,
 		] as const,
 
 	search: (

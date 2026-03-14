@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public interface AsignacionRepository extends JpaRepository<Asignacion, Long> {
@@ -37,5 +38,7 @@ public interface AsignacionRepository extends JpaRepository<Asignacion, Long> {
 	List<RolCantidadProjection> contarEmpleadosPorRolVigente(
 			@Param("fecha") LocalDate fecha
 	);
+	
+	Optional<Asignacion> findByIdAndDesignacionId(Long id, Long designacionId);
 
 }

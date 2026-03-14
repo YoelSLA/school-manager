@@ -1,4 +1,3 @@
-import type { LicenciaCreateDTO } from "@/features/licencias/types/licencia.types";
 import { http } from "@/services/axios";
 import type {
 	EmpleadoEducativoDetalleDTO,
@@ -12,6 +11,8 @@ import type {
 import type { PageResponse, SortState } from "@/utils/types";
 import { buildSortQuery } from "../utils/empleadosEducativos.utils";
 import qs from "qs";
+import { LicenciaCreateDTO } from "@/features/licencias/form/crearLicencia.schema";
+import { DesignacionLicenciaItemDTO } from "@/features/licencias/types/licencia.types";
 
 export const crearEmpleadoEducativo = async (
 	escuelaId: number,
@@ -105,4 +106,14 @@ export const darDeBajaDefinitiva = async (
 
 export const reactivarEmpleado = async (empleadoId: number): Promise<void> => {
 	await http.post(`/empleadosEducativos/${empleadoId}/reactivar`);
+};
+
+export const getDesignacionesActivas = async (
+	empleadoId: number,
+): Promise<DesignacionLicenciaItemDTO[]> => {
+	const { data } = await http.get<DesignacionLicenciaItemDTO[]>(
+		`/empleadosEducativos/${empleadoId}/designaciones-activas`,
+	);
+
+	return data;
 };

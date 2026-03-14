@@ -25,7 +25,6 @@ export default function MateriaCreateModal({
 		<Modal
 			title="Crear nueva materia"
 			onCancel={onClose}
-			onConfirm={handleSubmit(onSubmit)}
 			confirmLabel="Crear"
 			isSubmitting={isSubmitting}
 		>
@@ -53,8 +52,6 @@ export default function MateriaCreateModal({
 						error={errors.cantidadModulos?.message}
 						inputProps={{ min: 1 }}
 					/>
-
-
 				</FormSection>
 			</form>
 		</Modal>

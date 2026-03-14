@@ -1,22 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-
 import {
   cubrirConTitular,
 } from "@/features/designaciones/services/designaciones.services";
-
 import {
   mapAsignacionError,
   type UserError,
 } from "../errors/asignacionErrorMapper";
-
 import { designacionesQueryKeys } from "@/features/designaciones/utils/designaciones.queryKeys";
 import { empleadosEducativosQueryKeys } from "@/features/empleadosEducativos/utils/empleadosEducativos.queryKeys";
 import { asistenciasQueryKeys } from "@/features/asistencias/utils/asistencias.queryKeys";
-import type { CaracteristicaAsignacion } from "../types/asignacion.types";
+import type { CubrirTitularRequest } from "../types/asignacion.types";
 
-
-type Params = {
+type Props = {
   designacionId: number;
   onSuccess: () => void;
   onClose: () => void;
@@ -26,15 +22,12 @@ export function useCubrirConTitular({
   designacionId,
   onSuccess,
   onClose,
-}: Params) {
+}: Props) {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (data: {
-      empleadoId: number;
-      fechaTomaPosesion: string;
-      caracteristica?: CaracteristicaAsignacion;
-    }) => cubrirConTitular(designacionId, data),
+    mutationFn: (data: CubrirTitularRequest) =>
+      cubrirConTitular(designacionId, data),
 
     onSuccess: (_, { empleadoId }) => {
       queryClient.invalidateQueries({

@@ -1,7 +1,18 @@
-import { type ReactNode, useId } from "react";
+import {
+	type ReactNode,
+	useEffect,
+	useId,
+	useRef,
+	useState,
+} from "react";
+
 import useEmpleadoSearch from "../../hooks/useEmpleadoSearch";
+
+
 import type { EmpleadoEducativoMinimoDTO } from "../../types/empleadosEducativos.types";
+
 import styles from "./EmpleadoAutocompleteBase.module.scss";
+import useDebounce from "../../hooks/useDebounce";
 
 type AutocompleteProps = {
 	value: string;
@@ -22,17 +33,79 @@ export default function EmpleadoAutocompleteBase({
 	error,
 	disabled,
 }: AutocompleteProps) {
-	const shouldSearch = !disabled && value.trim().length > 0;
-	const { empleados, loading } = useEmpleadoSearch(shouldSearch ? value : "");
+
 	const inputId = useId();
+	const containerRef = useRef<HTMLDivElement>(null);
+
+	const [isOpen, setIsOpen] = useState(false);
+	const [highlightIndex, setHighlightIndex] = useState(-1);
+
+	const debouncedSearch = useDebounce(value, 300);
+
+	const shouldSearch = !disabled && debouncedSearch.trim().length > 0;
+
+	const { empleados, loading } = useEmpleadoSearch(
+		shouldSearch ? debouncedSearch : ""
+	);
+
+	// cerrar al click afuera
+	useEffect(() => {
+		const handleClickOutside = (e: MouseEvent) => {
+			if (
+				containerRef.current &&
+				!containerRef.current.contains(e.target as Node)
+			) {
+				setIsOpen(false);
+			}
+		};
+
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
+
+	const handleSelect = (empleado: EmpleadoEducativoMinimoDTO) => {
+		onSelect(empleado);
+		setIsOpen(false);
+		setHighlightIndex(-1);
+	};
+
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+
+		if (!empleados.length) return;
+
+		switch (e.key) {
+			case "ArrowDown":
+				e.preventDefault();
+				setHighlightIndex((prev) =>
+					prev < empleados.length - 1 ? prev + 1 : 0
+				);
+				break;
+
+			case "ArrowUp":
+				e.preventDefault();
+				setHighlightIndex((prev) =>
+					prev > 0 ? prev - 1 : empleados.length - 1
+				);
+				break;
+
+			case "Enter":
+				if (highlightIndex >= 0) {
+					e.preventDefault();
+					handleSelect(empleados[highlightIndex]);
+				}
+				break;
+
+			case "Escape":
+				setIsOpen(false);
+				break;
+		}
+	};
 
 	return (
-		<div className={styles["empleado-autocomplete"]}>
+		<div ref={containerRef} className={styles.autocomplete}>
+
 			{label && (
-				<label
-					htmlFor={inputId}
-					className={styles["empleado-autocomplete__label"]}
-				>
+				<label htmlFor={inputId} className={styles.label}>
 					{label}
 				</label>
 			)}
@@ -42,32 +115,34 @@ export default function EmpleadoAutocompleteBase({
 				type="text"
 				value={value}
 				placeholder={placeholder}
-				onChange={(e) => onChange(e.target.value)}
+				disabled={disabled}
+				onChange={(e) => {
+					onChange(e.target.value);
+					setIsOpen(true);
+				}}
+				onFocus={() => setIsOpen(true)}
+				onKeyDown={handleKeyDown}
 				aria-invalid={!!error}
-				className={[
-					styles["empleado-autocomplete__input"],
-					error && styles["empleado-autocomplete__input--error"],
-				]
-					.filter(Boolean)
-					.join(" ")}
+				className={`${styles.input} ${error ? styles.inputError : ""}`}
 			/>
 
-			{shouldSearch && loading && (
-				<div className={styles["empleado-autocomplete__loading"]}>
+			{shouldSearch && isOpen && loading && (
+				<div className={styles.loading}>
 					Buscando…
 				</div>
 			)}
 
-			{shouldSearch && empleados.length > 0 && (
-				<ul className={styles["empleado-autocomplete__list"]}>
-					{empleados.map((e) => (
-						<li key={e.id} className={styles["empleado-autocomplete__item"]}>
+			{shouldSearch && isOpen && empleados.length > 0 && (
+				<ul className={styles.list}>
+					{empleados.map((e, index) => (
+						<li key={e.id} className={styles.item}>
 							<button
 								type="button"
-								className={styles["empleado-autocomplete__button"]}
+								className={`${styles.button} ${index === highlightIndex ? styles.active : ""
+									}`}
 								onMouseDown={(ev) => {
 									ev.preventDefault();
-									onSelect(e);
+									handleSelect(e);
 								}}
 							>
 								{e.apellido}, {e.nombre}
@@ -78,7 +153,7 @@ export default function EmpleadoAutocompleteBase({
 			)}
 
 			{error && (
-				<span className={styles["empleado-autocomplete__error"]}>
+				<span className={styles.error}>
 					{error.message}
 				</span>
 			)}

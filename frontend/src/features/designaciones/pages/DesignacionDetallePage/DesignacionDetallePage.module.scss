@@ -19,12 +19,12 @@
 }
 
 /* =====================
-   BODY — 3 COLUMNAS
+   BODY
 ===================== */
 
 .body {
-  display: grid;
-  grid-template-columns: 0.3fr 0.5fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 12px;
 
   flex: 1;
@@ -32,49 +32,57 @@
 }
 
 /* =====================
-   HORARIOS (SCROLL REAL)
+   CARGO ACTIVO (COMPACTO)
+===================== */
+
+.cargoActivo {
+  background-color: #d9d9d9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* =====================
+   GRID PRINCIPAL
+===================== */
+
+.content {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 12px;
+
+  flex: 1;
+  min-height: 0;
+}
+
+/* =====================
+   HORARIOS
 ===================== */
 
 .horarios {
-  background: #ffffff;
-  border-radius: 16px;
+  background-color: #d9d9d9;
+  border-radius: 20px;
+  padding: 8px;
 
-  /* único scroll */
   overflow-y: auto;
   min-height: 0;
 }
 
 /* =====================
-   CARGO ACTIVO
-===================== */
-
-.cargoActivo {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 16px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  /* no scrollea */
-  flex-shrink: 0;
-}
-
-/* =====================
-   HISTORIAL DE CARGOS
+   HISTORIAL
 ===================== */
 
 .historial {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 16px;
+  background-color: #d9d9d9;
+  border-radius: 20px;
+  padding: 8px;
 
   display: flex;
   flex-direction: column;
   gap: 12px;
 
-  /* scroll propio */
   overflow-y: auto;
   min-height: 0;
 }

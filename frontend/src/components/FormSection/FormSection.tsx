@@ -4,7 +4,7 @@ import styles from "./FormSection.module.scss";
 type Layout = "grid" | "column";
 
 type Props = {
-  title?: string; // 👈 ahora opcional
+  title?: string;
   children: ReactNode;
   layout?: Layout;
 };

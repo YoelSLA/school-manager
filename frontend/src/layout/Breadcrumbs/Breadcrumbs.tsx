@@ -5,6 +5,7 @@ import styles from "./Breadcrumbs.module.scss";
 import type { BreadcrumbItem, BreadcrumbState } from "@/utils/types";
 
 export default function Breadcrumbs() {
+
 	const location = useLocation();
 
 	const { pathname, state } = location as {
@@ -14,7 +15,6 @@ export default function Breadcrumbs() {
 
 	const baseItems = resolveBreadcrumbs(pathname);
 
-
 	if (!baseItems || baseItems.length === 0) return null;
 
 	let items: BreadcrumbItem[] = [...baseItems];
@@ -22,26 +22,27 @@ export default function Breadcrumbs() {
 	if (state?.dynamicLabels) {
 
 		items = items.map((item) => {
-			if (!item.to) return item;
+
+			if (!item.to) {
+				return item;
+			}
 
 			const segments = item.to.split("/").filter(Boolean);
 
-
 			for (const segment of segments) {
 
-				if (state.dynamicLabels?.[segment]) {
+				const dynamicLabel = state.dynamicLabels?.[segment];
 
-
+				if (dynamicLabel) {
 					return {
 						...item,
-						label: state.dynamicLabels[segment],
+						label: dynamicLabel,
 					};
 				}
 			}
 
 			return item;
 		});
-	} else {
 
 	}
 
@@ -56,8 +57,11 @@ export default function Breadcrumbs() {
 
 	return (
 		<nav className={styles.breadcrumbs} aria-label="Breadcrumb">
+
 			{finalItems.map((item, index) => (
+
 				<span key={item.to ?? item.label} className={styles.item}>
+
 					{item.to ? (
 						<Link to={item.to} className={styles.link}>
 							{item.label}
@@ -71,8 +75,11 @@ export default function Breadcrumbs() {
 							<ChevronRight />
 						</span>
 					)}
+
 				</span>
+
 			))}
+
 		</nav>
 	);
 }

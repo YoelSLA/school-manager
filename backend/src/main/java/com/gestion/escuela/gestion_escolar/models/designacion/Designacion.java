@@ -272,7 +272,7 @@ public abstract class Designacion {
 
 		LocalDate fechaInicio = nueva.getPeriodo().getFechaDesde();
 
-		boolean hayAsignacionQueEjerce = asignaciones.stream().anyMatch(a -> a.estaActivaEn(fechaInicio));
+		boolean hayAsignacionQueEjerce = asignaciones.stream().anyMatch(a -> a.estaEjerciendoEn(fechaInicio));
 
 		if (hayAsignacionQueEjerce) {
 			throw new DesignacionYaCubiertaException(this);
@@ -280,7 +280,7 @@ public abstract class Designacion {
 	}
 
 	public boolean tieneTitularActivo(LocalDate fecha) {
-		return asignaciones.stream().anyMatch(a -> a.esTitular() && a.ejerceEn(fecha));
+		return asignaciones.stream().anyMatch(a -> a.esTitular() && a.estaEjerciendoEn(fecha));
 	}
 
 	@Override
@@ -316,12 +316,31 @@ public abstract class Designacion {
 	}
 
 	public boolean tieneVacantePorLicenciaEn(LocalDate fecha) {
-		return asignaciones.stream()
-				.anyMatch(a -> a.estaEnLicenciaEn(fecha));
+		return asignaciones.stream().anyMatch(a -> a.estaEnLicenciaEn(fecha));
 	}
 
 	public boolean estaCubiertaEn(LocalDate fecha) {
-		return asignaciones.stream().anyMatch(a -> a.ejerceEn(fecha));
+
+		System.out.println("==== DEBUG estaCubiertaEn ====");
+		System.out.println("fecha: " + fecha);
+		System.out.println("cantidad asignaciones: " + asignaciones.size());
+
+		for (Asignacion a : asignaciones) {
+			System.out.println("----------------------------");
+			System.out.println("asignacionId: " + a.getId());
+			System.out.println("empleadoId: " + (a.getEmpleadoEducativo() != null ? a.getEmpleadoEducativo().getId() : null));
+			System.out.println("estado: " + a.getEstadoEn(fecha));
+			System.out.println("estaActiva: " + a.estaActivaEn(fecha));
+			System.out.println("estaEnLicencia: " + a.estaEnLicenciaEn(fecha));
+			System.out.println("estaEjerciendo: " + a.estaEjerciendoEn(fecha));
+		}
+
+		boolean cubierta = asignaciones.stream().anyMatch(a -> a.estaEjerciendoEn(fecha));
+
+		System.out.println("RESULTADO estaCubiertaEn: " + cubierta);
+		System.out.println("==============================");
+
+		return cubierta;
 	}
 
 	public boolean tieneAsignacionQueSeSuperponeCon(Periodo periodo) {

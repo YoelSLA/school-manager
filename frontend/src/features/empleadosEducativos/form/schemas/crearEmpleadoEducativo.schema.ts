@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { requiredFechaISO, optionalFechaISO } from "@/utils/zod/schemas";
 
 /* =========================
 	 Regex
@@ -47,15 +48,6 @@ export const emailSchema = z
 	.min(1, "El email es obligatorio")
 	.regex(emailRegex, "El email no tiene un formato válido");
 
-export const fechaObligatoriaSchema = z.iso.date({
-	message: "Debe tener formato YYYY-MM-DD",
-});
-
-export const fechaOpcionalSchema = z
-	.union([z.iso.date(), z.literal("")])
-	.optional()
-	.transform((val) => (val === "" ? undefined : val));
-
 /* =========================
 	 Schema compuesto
 ========================= */
@@ -68,8 +60,10 @@ export const crearEmpleadoEducativoSchema = z
 		domicilio: domicilioSchema,
 		telefono: telefonoSchema,
 		email: emailSchema,
-		fechaDeNacimiento: fechaObligatoriaSchema,
-		fechaDeIngreso: fechaOpcionalSchema,
+		fechaDeNacimiento: requiredFechaISO(
+			"La fecha de nacimiento es obligatoria"
+		),
+		fechaDeIngreso: optionalFechaISO(),
 	})
 	.refine(
 		(data) => {

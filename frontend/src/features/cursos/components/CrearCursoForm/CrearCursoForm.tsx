@@ -1,15 +1,12 @@
 import FormInputField from "@/components/forms/FormInputField/FormInputField";
 import FormSelectField from "@/components/forms/FormSelectField/FormSelectField";
-import type {
-  CrearCursoFormInput,
-  CrearCursoFormOutput,
-} from "../../form/curso.form.types";
 import { useCrearCursoForm } from "../../form/useCrearCursoForm";
 import { TURNO_OPTIONS } from "../../utils/cursos.utils";
 import FormSection from "@/components/FormSection";
+import { CrearCursoFormValues } from "../../form/crearCurso.schema";
 
 type Props = {
-  onSubmit: (data: CrearCursoFormOutput) => void;
+  onSubmit: (data: CrearCursoFormValues) => void;
   onSubmitRef: (submit: () => void) => void;
 };
 
@@ -27,7 +24,7 @@ export default function CrearCursoForm({ onSubmit, onSubmitRef }: Props) {
   return (
     <form>
       <FormSection title="Datos del curso" layout="column">
-        <FormSelectField<CrearCursoFormInput>
+        <FormSelectField<CrearCursoFormValues>
           label="Turno"
           name="turno"
           register={register}

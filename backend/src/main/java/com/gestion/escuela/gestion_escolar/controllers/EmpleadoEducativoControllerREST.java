@@ -1,9 +1,11 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
+import com.gestion.escuela.gestion_escolar.controllers.dtos.DesignacionLicenciaItemDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.BajaDefinitivaDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.EmpleadoEducativoDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaDetalleDTO;
+import com.gestion.escuela.gestion_escolar.mappers.DesignacionMapper;
 import com.gestion.escuela.gestion_escolar.mappers.EmpleadoEducativoMapper;
 import com.gestion.escuela.gestion_escolar.mappers.LicenciaMapper;
 import com.gestion.escuela.gestion_escolar.mappers.PeriodoMapper;
@@ -18,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/empleadosEducativos")
@@ -38,7 +41,7 @@ public class EmpleadoEducativoControllerREST {
 				dto.tipoLicencia(),
 				PeriodoMapper.toEntity(dto.periodo()),
 				dto.descripcion(),
-				dto.designacionIds()
+				dto.designacionesIds()
 		);
 
 		return LicenciaMapper.toDetalle(licencia);
@@ -66,6 +69,17 @@ public class EmpleadoEducativoControllerREST {
 		Set<RolEducativo> rolesEducativos = empleadoEducativoService.obtenerRolesEducativos(empleadoId);
 
 		return EmpleadoEducativoMapper.toDetalle(empleado, rolesEducativos);
+	}
+
+	@GetMapping("/{empleadoId}/designaciones-activas")
+	public Set<DesignacionLicenciaItemDTO> obtenerDesignacionesActivas(
+			@PathVariable Long empleadoId
+	) {
+
+		return empleadoEducativoService.obtenerDesignacionesActivas(empleadoId)
+				.stream()
+				.map(DesignacionMapper::toLicenciaItem)
+				.collect(Collectors.toSet());
 	}
 
 }

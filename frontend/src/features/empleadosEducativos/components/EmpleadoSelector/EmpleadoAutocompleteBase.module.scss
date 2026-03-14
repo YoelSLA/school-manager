@@ -1,113 +1,89 @@
-@use "@/styles/form-control.base.scss" as *;
-
-.empleado-autocomplete {
+.autocomplete {
 	position: relative;
 	width: 100%;
 
-	display: flex;
-	flex-direction: column;
-	gap: 4px;
-
-	font-family: inherit;
-
-	/* ===============================
-	   LABEL
-	================================ */
-
-	&__label {
-		@include form-label;
-	}
-
-	/* ===============================
-	   INPUT
-	================================ */
-
-	&__input {
-		@include form-control;
-	}
-
-	/* ===============================
-	   LOADING
-	================================ */
-
-	&__loading {
+	.label {
+		display: block;
 		font-size: 12px;
-		color: #6b7280;
-		margin-top: 2px;
+		margin-bottom: 4px;
+		color: #374151;
 	}
 
-	/* ===============================
-	   DROPDOWN LIST
-	================================ */
+	.input {
+		width: 100%;
+		padding: 8px 10px;
 
-	&__list {
+		border: 1px solid #d1d5db;
+		border-radius: 20px;
+
+		font-size: 14px;
+
+		&:focus {
+			outline: none;
+			border-color: #6366f1;
+			box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+		}
+	}
+
+	.inputError {
+		border-color: #ef4444;
+	}
+
+	.loading {
+		padding: 8px;
+		font-size: 13px;
+		color: #6b7280;
+	}
+
+	.list {
 		position: absolute;
-		top: calc(100% + 4px);
+		top: 100%;
 		left: 0;
 		right: 0;
-		z-index: 1000;
 
-		margin: 0;
+		margin-top: 4px;
 		padding: 4px 0;
-		list-style: none;
 
-		background: #ffffff;
+		background: white;
 		border: 1px solid #e5e7eb;
-		border-radius: 10px;
+		border-radius: 6px;
 
-		box-shadow:
-			0 10px 15px -3px rgba(0, 0, 0, 0.1),
-			0 4px 6px -4px rgba(0, 0, 0, 0.1);
+		box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 
 		max-height: 220px;
 		overflow-y: auto;
+
+		z-index: 20;
 	}
 
-	/* ===============================
-	   LIST ITEM
-	================================ */
-
-	&__item {
-		margin: 0;
+	.item {
+		list-style: none;
 	}
 
-	/* ===============================
-	   ITEM BUTTON
-	================================ */
-
-	&__button {
+	.button {
 		width: 100%;
-		padding: 8px 12px;
+		padding: 8px 10px;
 
-		display: flex;
-		align-items: center;
-
+		text-align: left;
 		background: none;
 		border: none;
-		cursor: pointer;
 
-		font-size: 13px;
-		color: #111827;
-		text-align: left;
+		font-size: 14px;
+		cursor: pointer;
 
 		&:hover {
 			background: #f3f4f6;
 		}
-
-		&:active {
-			background: #e5e7eb;
-		}
 	}
 
-	/* ===============================
-	   ERROR MESSAGE
-	================================ */
-
-	&__error {
-		@include form-error-message;
+	.active {
+		background: #eef2ff;
 	}
 
-	&__error-icon {
-		@include form-error-icon;
+	.error {
+		display: block;
+		margin-top: 4px;
+		font-size: 12px;
+		color: #ef4444;
 	}
 }

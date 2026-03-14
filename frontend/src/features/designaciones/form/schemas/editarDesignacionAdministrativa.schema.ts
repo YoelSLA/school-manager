@@ -15,3 +15,9 @@ export const editarDesignacionAdministrativaSchema = z.object({
 
   rolEducativo: z.enum(RolEducativo),
 });
+
+export type EditarDesignacionAdministrativaFormValues =
+  z.infer<typeof editarDesignacionAdministrativaSchema>;
+
+export type DesignacionAdministrativaUpdateDTO =
+  EditarDesignacionAdministrativaFormValues;

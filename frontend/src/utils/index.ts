@@ -38,23 +38,14 @@ export function resolveBreadcrumbs(pathname: string) {
 }
 
 export function formatearFecha(fechaISO: string): string {
-	const [y, m, d] = fechaISO.split("-");
+	const [y, m, d] = fechaISO.split("-").map(Number);
+
 	const meses = [
-		"ene",
-		"feb",
-		"mar",
-		"abr",
-		"may",
-		"jun",
-		"jul",
-		"ago",
-		"sep",
-		"oct",
-		"nov",
-		"dic",
+		"ene", "feb", "mar", "abr", "may", "jun",
+		"jul", "ago", "sep", "oct", "nov", "dic"
 	];
 
-	return `${d} ${meses[Number(m) - 1]} ${y.slice(2)}`;
+	return `${String(d).padStart(2, "0")} ${meses[m - 1]} ${y}`;
 }
 
 export function formatPeriodo(desde: string, hasta: string) {
@@ -185,3 +176,7 @@ export function formatDiaLabel(dia: string) {
 }
 
 export const DIAS_SEMANA: Dia[] = Object.values(Dia);
+
+export function toDateString(date: Date) {
+	return date.toISOString().split("T")[0];
+}

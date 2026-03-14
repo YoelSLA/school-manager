@@ -1,7 +1,7 @@
 import ListState from "@/components/ListState";
 import ScrollableGridListLayout from "@/layout/ScrollableGridListLayout/ScrollableGridListLayout";
-import LicenciaCard from "../../components/LicenciaCard";
 import type { LicenciaResumenDTO } from "../../types/licencia.types";
+import LicenciaCard from "../../components/LicenciaCard";
 
 type Props = {
 	licencias: LicenciaResumenDTO[];

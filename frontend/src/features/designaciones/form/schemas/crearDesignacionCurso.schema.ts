@@ -27,3 +27,8 @@ export const crearDesignacionCursoSchema = z.object({
 		.string()
 		.min(1, { message: "Debe seleccionar una orientación" }),
 });
+
+
+export type DesignacionCursoFormValues = z.infer<typeof crearDesignacionCursoSchema>;
+
+export type DesignacionCursoCreateDTO = DesignacionCursoFormValues;

@@ -10,8 +10,9 @@ import type {
 	EstadoCargo,
 } from "../types/designacion.types";
 import type { PageResponse } from "@/utils/types";
-import type { AsignacionDetalleDTO } from "@/features/asignaciones/types/asignacion.types";
-import { DesignacionAdministrativaCreateDTO, DesignacionCursoCreateDTO } from "../form/designacion.form.types";
+import type { AsignacionDetalleDTO, EditarAsignacionDTO } from "@/features/asignaciones/types/asignacion.types";
+import { DesignacionAdministrativaCreateDTO } from "../form/schemas/crearDesignacionAdministrativa.schema";
+import { DesignacionCursoCreateDTO } from "../form/schemas/crearDesignacionCurso.schema";
 
 /* ======================
 	 Crear
@@ -148,3 +149,35 @@ export const cubrirConProvisional = async (
 		payload,
 	);
 };
+
+
+/* ======================
+	Editar asignación
+====================== */
+
+export async function editarAsignacion(
+	designacionId: number,
+	asignacionId: number,
+	payload: EditarAsignacionDTO
+): Promise<void> {
+	await http.put(
+		`/designaciones/${designacionId}/asignaciones/${asignacionId}`,
+		payload
+	);
+}
+
+/* ======================
+	 Asignación detalle
+====================== */
+
+export async function obtenerAsignacionDetalle(
+	designacionId: number,
+	asignacionId: number
+): Promise<AsignacionDetalleDTO> {
+
+	const { data } = await http.get<AsignacionDetalleDTO>(
+		`/designaciones/${designacionId}/asignaciones/${asignacionId}`
+	);
+
+	return data;
+}

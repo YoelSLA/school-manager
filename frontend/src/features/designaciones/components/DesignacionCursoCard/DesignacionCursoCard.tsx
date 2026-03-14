@@ -4,7 +4,7 @@ import DesignacionCursoInfo from "./DesignacionCursoInfo";
 
 type Props = {
 	designacion: DesignacionCursoResumenDTO;
-	onVerDetalle: (designacionId: number) => void;
+	onVerDetalle: (designacion: DesignacionCursoResumenDTO) => void;
 };
 
 export default function DesignacionCursoCard({
@@ -18,8 +18,7 @@ export default function DesignacionCursoCard({
 			franjasCount={designacion.franjasHorarias.length}
 			cupof={designacion.cupof}
 			estadoDesignacion={designacion.estadoDesignacion}
-			rolEducativo={designacion.rolEducativo}
-			onVerDetalle={() => onVerDetalle(designacion.id)}
+			onVerDetalle={() => onVerDetalle(designacion)}
 		>
 			<DesignacionCursoInfo
 				designacion={designacion}

@@ -1,4 +1,5 @@
 import type { EmpleadoEducativoMinimoDTO } from "../../types/empleadosEducativos.types";
+import { X, IdCard, User } from "lucide-react";
 import styles from "./EmpleadoSelectedCard.module.scss";
 
 type Props = {
@@ -8,26 +9,32 @@ type Props = {
 
 export default function EmpleadoSelectedCard({ empleado, onRemove }: Props) {
 	return (
-		<div className={styles["empleado-card"]}>
+		<div className={styles.empleadoCard}>
 			<button
 				type="button"
-				className={styles["empleado-card__remove"]}
+				className={styles.remove}
 				onClick={onRemove}
 				aria-label="Quitar empleado"
 			>
-				✕
+				<X size={18} />
 			</button>
 
-			<div className={styles["empleado-card__meta"]}>
-				<span className={styles["empleado-card__label"]}>CUIL</span>
-				<span className={styles["empleado-card__value"]}>{empleado.cuil}</span>
+			<div className={styles.meta}>
+				<span className={styles.label}>
+					<IdCard size={16} className={styles.icon} />
+					CUIL
+				</span>
+
+				<span className={styles.value}>{empleado.cuil}</span>
 			</div>
 
-			<div className={styles["empleado-card__main"]}>
-				<span className={styles["empleado-card__label"]}>
-					Apellido y nombre
+			<div className={styles.main}>
+				<span className={styles.label}>
+					<User size={16} className={styles.icon} />
+					Apellido, nombre
 				</span>
-				<span className={styles["empleado-card__name"]}>
+
+				<span className={styles.name}>
 					{empleado.apellido}, {empleado.nombre}
 				</span>
 			</div>

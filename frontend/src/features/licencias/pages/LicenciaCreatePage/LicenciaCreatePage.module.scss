@@ -1,6 +1,57 @@
-.crear-licencia {
+@use "../../../../styles/debug.mixins" as debug;
+
+.crearLicencia {
+	height: 100%;
+
+	@include debug.debug(lightgray);
+}
+
+.crearLicenciaGrid {
+	display: grid;
+	grid-template-columns: 0.5fr 1fr;
+	gap: 24px;
+	height: 100%;
+
+	@include debug.debug(aqua);
+}
+
+.crearLicenciaLeft {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	gap: 20px;
+
+	min-height: 0;
+
+	@include debug.debug(bisque);
+}
+
+.crearLicenciaRight {
+	display: flex;
+	flex-direction: column;
+
+	@include debug.debug(#d32f2f);
+}
+
+.crearLicenciaEmpleado {
+	@include debug.debug(lightgreen);
+	background-color: #fff;
+	border-radius: 25px;
+	padding: 10px;
+}
+
+.crearLicenciaDesignaciones {
+	flex: 1;
+	min-height: 0;
+
+	@include debug.debug(pink);
+	background-color: #fff;
+	border-radius: 25px;
+	padding: 10px;
+}
+
+.crearLicenciaError {
+	color: #d32f2f;
+	font-size: 14px;
+
+	@include debug.debug(purple);
 }

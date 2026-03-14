@@ -22,7 +22,7 @@ public record LicenciaCreateDTO(
 		String descripcion,
 
 		@NotEmpty(message = "Debe indicar al menos una designación afectada")
-		Set<Long> designacionIds
+		Set<Long> designacionesIds
 ) {
 }
 

@@ -1,5 +1,4 @@
 const { app, BrowserWindow, ipcMain, globalShortcut } = require("electron");
-const { app, BrowserWindow, ipcMain } = require("electron");
 const { autoUpdater } = require("electron-updater");
 const path = require("node:path");
 
@@ -20,7 +19,9 @@ function createWindow() {
 		},
 	});
 
-	mainWindow.setMenu(null); // desactiva el menú
+	if (!isDev) {
+		mainWindow.setMenu(null);
+	}
 
 	if (isDev) {
 		mainWindow.loadURL("http://localhost:5173");

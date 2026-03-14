@@ -2,19 +2,12 @@ import type {
 	NormativaDTO,
 	PeriodoAbiertoDTO,
 	PeriodoCerradoDTO,
-	PeriodoCreateDTO,
 } from "@/utils/types";
 import type {
 	EstadoDesignacion,
 	RolEducativo,
 } from "../../designaciones/types/designacion.types";
 import type { EmpleadoEducativoMinimoDTO } from "../../empleadosEducativos/types/empleadosEducativos.types";
-
-export type LicenciaCreateDTO = {
-	periodo: PeriodoCreateDTO;
-	tipoLicencia: string;
-	descripcion?: string;
-};
 
 export type LicenciaDetalleDTO = {
 	id: number;
@@ -91,3 +84,47 @@ export type LicenciaTimelineItem = LicenciaTimelineItemDTO;
 export type LicenciaResumen = LicenciaResumenDTO
 export type LicenciaDetalle = LicenciaDetalleDTO;
 export type LicenciaDesignacion = LicenciaDesignacionDTO;
+
+export type DesignacionLicenciaAdministrativaItemDTO = {
+	id: number;
+	cupof: number;
+	rolEducativo: string;
+	tipoDesignacion: "ADMINISTRATIVA";
+};
+
+export type DesignacionLicenciaCursoItemDTO = {
+	id: number;
+	cupof: number;
+	rolEducativo: string;
+	tipoDesignacion: "CURSO";
+	materia: MateriaNombreDTO;
+	curso: CursoNombreDTO;
+	orientacion: string;
+
+};
+
+export type DesignacionLicenciaItemDTO =
+	| DesignacionLicenciaAdministrativaItemDTO
+	| DesignacionLicenciaCursoItemDTO;
+
+export type MateriaNombreDTO = {
+	id: number;
+	nombre: string;
+};
+
+export type CursoNombreDTO = {
+	id: number;
+	division: string;
+	turno: string
+};
+
+export type LicenciaCreateDTO = {
+	tipoLicencia: string;
+	periodo: {
+		fechaDesde: string;
+		fechaHasta?: string | null;
+	};
+	descripcion?: string;
+	designacionesIds: number[];
+};
+

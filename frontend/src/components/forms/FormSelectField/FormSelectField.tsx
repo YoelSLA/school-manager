@@ -5,13 +5,21 @@ import type {
 	RegisterOptions,
 	UseFormRegister,
 } from "react-hook-form";
+
 import styles from "./FormSelectField.module.scss";
 
-type Props<T extends FieldValues> = {
+type Props<T extends FieldValues = FieldValues> = {
 	label: ReactNode;
-	name: Path<T>;
-	register: UseFormRegister<T>;
+	name?: Path<T>;
+
+	// RHF
+	register?: UseFormRegister<T>;
 	registerOptions?: RegisterOptions<T, Path<T>>;
+
+	// Select normal
+	value?: string;
+	onChange?: React.ChangeEventHandler<HTMLSelectElement>;
+
 	error?: string;
 	id?: string;
 	children: ReactNode;
@@ -23,12 +31,17 @@ export default function FormSelectField<T extends FieldValues>({
 	name,
 	register,
 	registerOptions,
+	value,
+	onChange,
 	error,
 	id,
 	children,
 	disabled = false,
 }: Props<T>) {
 	const fieldId = id ?? name;
+
+	const registerProps =
+		register && name ? register(name, registerOptions) : {};
 
 	return (
 		<div
@@ -49,7 +62,9 @@ export default function FormSelectField<T extends FieldValues>({
 					id={fieldId}
 					className={styles["form-select__select"]}
 					disabled={disabled}
-					{...register(name, registerOptions)}
+					value={value}
+					onChange={onChange}
+					{...registerProps}
 				>
 					{disabled && <option value="">No aplica</option>}
 					{children}
@@ -70,10 +85,7 @@ export default function FormSelectField<T extends FieldValues>({
 			</div>
 
 			{error && (
-				<div
-					className={styles["form-select__error-tooltip"]}
-					role="alert"
-				>
+				<div className={styles["form-select__error-tooltip"]} role="alert">
 					{error}
 				</div>
 			)}

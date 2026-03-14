@@ -3,7 +3,6 @@ import axios from "axios";
 
 import {
   cubrirConProvisional,
-  cubrirConTitular,
 } from "@/features/designaciones/services/designaciones.services";
 
 import {
@@ -14,8 +13,7 @@ import {
 import { designacionesQueryKeys } from "@/features/designaciones/utils/designaciones.queryKeys";
 import { empleadosEducativosQueryKeys } from "@/features/empleadosEducativos/utils/empleadosEducativos.queryKeys";
 import { asistenciasQueryKeys } from "@/features/asistencias/utils/asistencias.queryKeys";
-import type { CaracteristicaAsignacion } from "../types/asignacion.types";
-
+import { CubrirProvisionalRequest } from "../types/asignacion.types";
 
 type Params = {
   designacionId: number;
@@ -31,11 +29,8 @@ export function useCubrirConProvisional({
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (data: {
-      empleadoId: number;
-      fechaTomaPosesion: string;
-      fechaCese: string;
-    }) => cubrirConProvisional(designacionId, data),
+    mutationFn: (data: CubrirProvisionalRequest) =>
+      cubrirConProvisional(designacionId, data),
 
     onSuccess: (_, { empleadoId }) => {
       queryClient.invalidateQueries({
