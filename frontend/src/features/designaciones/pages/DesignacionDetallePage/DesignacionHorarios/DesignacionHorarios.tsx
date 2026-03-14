@@ -1,7 +1,7 @@
+import { DIAS_SEMANA } from "@/utils";
 import type { FranjaHorariaMinimoDTO } from "@/utils/types";
 import styles from "./DesignacionHorarios.module.scss";
 import HorarioDia from "./HorarioDia";
-import { DIAS_SEMANA } from "@/utils";
 
 type Props = {
 	franjas: FranjaHorariaMinimoDTO[];
@@ -30,15 +30,9 @@ export default function DesignacionHorarios({ franjas }: Props) {
 
 	return (
 		<section className={styles["designacion-horarios"]}>
-			{DIAS_SEMANA.filter((dia) => franjasPorDia[dia]).map(
-				(dia) => (
-					<HorarioDia
-						key={dia}
-						dia={dia}
-						franjas={franjasPorDia[dia]}
-					/>
-				),
-			)}
+			{DIAS_SEMANA.filter((dia) => franjasPorDia[dia]).map((dia) => (
+				<HorarioDia key={dia} dia={dia} franjas={franjasPorDia[dia]} />
+			))}
 		</section>
 	);
 }

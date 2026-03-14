@@ -1,1 +1,1 @@
-export {default} from "./FechaField"
+export { default } from "./FechaField";

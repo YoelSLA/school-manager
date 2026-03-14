@@ -1,4 +1,6 @@
 import { http } from "@/services/axios";
+import type { PageResponse } from "@/utils/types";
+import type { CubrirDesignacionesConSuplente } from "../form/cubrirDesignacionesConSuplente.schema";
 import type {
 	CubrirDesignacionesRequest,
 	LicenciaDesignacion,
@@ -11,8 +13,6 @@ import type {
 	LicenciaTimelineItemDTO,
 	RenovarLicenciaDTO,
 } from "../types/licencia.types";
-import type { PageResponse } from "@/utils/types";
-import { CubrirDesignacionesConSuplente } from "../form/cubrirDesignacionesConSuplente.schema";
 
 export const cubrirDesignacionesConSuplente = async (
 	licenciaId: number,
@@ -31,7 +31,9 @@ export const renovarLicencia = async (
 export const getLicenciaDetalle = async (
 	licenciaId: number,
 ): Promise<LicenciaDetalle> => {
-	const { data } = await http.get<LicenciaDetalleDTO>(`/licencias/${licenciaId}`);
+	const { data } = await http.get<LicenciaDetalleDTO>(
+		`/licencias/${licenciaId}`,
+	);
 	return data;
 };
 

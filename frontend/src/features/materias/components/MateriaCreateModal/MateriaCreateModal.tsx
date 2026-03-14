@@ -1,9 +1,8 @@
-
-import Modal from "@/components/Modal/Modal";
-import type { CrearMateriaFormValues } from "../../form/materias.form.types";
-import { useMateriaForm } from "../../form/hooks/useCreateMateriaForm";
 import FormSection from "@/components/FormSection";
 import FormInputField from "@/components/forms/FormInputField";
+import Modal from "@/components/Modal/Modal";
+import { useMateriaForm } from "../../form/hooks/useCreateMateriaForm";
+import type { CrearMateriaFormValues } from "../../form/materias.form.types";
 
 type Props = {
 	onClose: () => void;
@@ -16,10 +15,13 @@ export default function MateriaCreateModal({
 	isSubmitting,
 	onSubmit,
 }: Props) {
-
 	const { form } = useMateriaForm();
 
-	const { register, handleSubmit, formState: { errors } } = form
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = form;
 
 	return (
 		<Modal

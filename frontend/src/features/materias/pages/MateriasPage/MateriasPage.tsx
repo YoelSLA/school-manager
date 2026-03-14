@@ -1,32 +1,35 @@
 import { useEffect, useState } from "react";
 import Button from "@/components/Button";
+import ConfirmModal from "@/components/ConfirmModal";
+import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
 import Pagination from "@/layout/Pagination";
 import SidebarPageLayout from "@/layout/SidebarPageLayout/SidebarPageLayout";
 import SidebarSectionLayout from "@/layout/SidebarSectionLayout/SidebarSectionLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
-import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
-
 import CrearMateriaModal from "../../components/MateriaCreateModal";
+import MateriaEditModal from "../../components/MateriaEditModal/MateriaEditModal";
 import type { CrearMateriaFormValues } from "../../form/materias.form.types";
 import { useCrearMateria } from "../../hooks/useCreateMateria";
-import { useMaterias } from "../../hooks/useMaterias";
-import MateriasList from "./MateriasList";
-import MateriaEditModal from "../../components/MateriaEditModal/MateriaEditModal";
-import { useEditMateria } from "../../hooks/useUpdateMateria";
 import { useDeleteMateria } from "../../hooks/useDeleteMateria";
+import { useMaterias } from "../../hooks/useMaterias";
+import { useEditMateria } from "../../hooks/useUpdateMateria";
 import type { MateriaResponseDTO } from "../../types/materias.types";
-import ConfirmModal from "@/components/ConfirmModal";
+import MateriasList from "./MateriasList";
 
 export default function MateriasPage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [materiaAEditar, setMateriaAEditar] = useState<typeof materias[number] | null>(null);
-	const [materiaAEliminar, setMateriaAEliminar] = useState<MateriaResponseDTO | null>(null);
+	const [materiaAEditar, setMateriaAEditar] = useState<
+		(typeof materias)[number] | null
+	>(null);
+	const [materiaAEliminar, setMateriaAEliminar] =
+		useState<MateriaResponseDTO | null>(null);
 
-	const { mutate: createMateria, isPending } =
-		useCrearMateria(escuelaActiva?.id);
+	const { mutate: createMateria, isPending } = useCrearMateria(
+		escuelaActiva?.id,
+	);
 
 	const handleCreateMateria = (data: CrearMateriaFormValues) => {
 		if (!escuelaActiva) return;
@@ -42,8 +45,9 @@ export default function MateriasPage() {
 		setIsModalOpen(true);
 	};
 
-	const { mutate: editMateria, isPending: isEditing } =
-		useEditMateria(escuelaActiva?.id);
+	const { mutate: editMateria, isPending: isEditing } = useEditMateria(
+		escuelaActiva?.id,
+	);
 
 	const handleEditMateria = (data: CrearMateriaFormValues) => {
 		if (!escuelaActiva || !materiaAEditar) return;
@@ -54,17 +58,17 @@ export default function MateriasPage() {
 				onSuccess: () => {
 					setMateriaAEditar(null);
 				},
-			}
+			},
 		);
 	};
 
-	const handleEditarMateriaClick = (materia: typeof materias[number]) => {
+	const handleEditarMateriaClick = (materia: (typeof materias)[number]) => {
 		setMateriaAEditar(materia);
 	};
 
-	const { mutate: deleteMateria, isPending: isDeleting } =
-		useDeleteMateria(escuelaActiva?.id);
-
+	const { mutate: deleteMateria, isPending: isDeleting } = useDeleteMateria(
+		escuelaActiva?.id,
+	);
 
 	const handleDeleteMateria = (materia: MateriaResponseDTO) => {
 		setMateriaAEliminar(materia);
@@ -91,11 +95,7 @@ export default function MateriasPage() {
 		setPage(0);
 	}, []);
 
-	const { data, isLoading } = useMaterias(
-		escuelaActiva?.id,
-		page,
-		pageSize,
-	);
+	const { data, isLoading } = useMaterias(escuelaActiva?.id, page, pageSize);
 
 	const materias = data?.content ?? [];
 	const totalPages = data?.totalPages ?? 0;
@@ -108,9 +108,7 @@ export default function MateriasPage() {
 						title="Materias"
 						subtitle="Listado de materias de la escuela"
 						actions={
-							<Button onClick={handleCrearMateriaClick}>
-								+ Nueva materia
-							</Button>
+							<Button onClick={handleCrearMateriaClick}>+ Nueva materia</Button>
 						}
 					/>
 				}

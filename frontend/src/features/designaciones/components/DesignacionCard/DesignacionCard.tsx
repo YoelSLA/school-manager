@@ -1,15 +1,10 @@
 import { Card, CardDivider } from "@/components/Card";
-import type {
-	EstadoDesignacion,
-} from "../../types/designacion.types";
-
-import styles from "./DesignacionCard.module.scss";
-
-import DesignacionCardHeader from "./DesignacionCardHeader/DesignacionCardHeader";
-import DesignacionEmpleado from "./DesignacionEmpleado";
-import DesignacionCardHorarios from "./DesignacionCardHorarios";
-
 import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
+import type { EstadoDesignacion } from "../../types/designacion.types";
+import styles from "./DesignacionCard.module.scss";
+import DesignacionCardHeader from "./DesignacionCardHeader/DesignacionCardHeader";
+import DesignacionCardHorarios from "./DesignacionCardHorarios";
+import DesignacionEmpleado from "./DesignacionEmpleado";
 
 type Props = {
 	designacionId: number;
@@ -28,20 +23,16 @@ export default function DesignacionCard({
 	onVerDetalle,
 	children,
 }: Props) {
-
 	const { cargoActivo } = useCargoActivo(designacionId);
 
 	const empleado = cargoActivo?.empleado
 		? {
-			...cargoActivo.empleado,
-			situacionDeRevista: cargoActivo.situacionDeRevista,
-		}
+				...cargoActivo.empleado,
+				situacionDeRevista: cargoActivo.situacionDeRevista,
+			}
 		: undefined;
 
-	const status =
-		estadoDesignacion === "CUBIERTA"
-			? "success"
-			: "danger";
+	const status = estadoDesignacion === "CUBIERTA" ? "success" : "danger";
 
 	return (
 		<Card
@@ -50,7 +41,6 @@ export default function DesignacionCard({
 			className={styles.card}
 			onClick={onVerDetalle}
 		>
-
 			{/* HEADER */}
 			<div className={styles.sectionHeader}>
 				<DesignacionCardHeader
@@ -63,27 +53,20 @@ export default function DesignacionCard({
 
 			{/* EMPLEADO */}
 			<div className={styles.sectionEmpleado}>
-				<DesignacionEmpleado
-					empleado={empleado}
-				/>
+				<DesignacionEmpleado empleado={empleado} />
 			</div>
 
 			<CardDivider />
 
 			{/* CONTENIDO ESPECÍFICO (ADMIN / CURSO) */}
-			<div className={styles.sectionContent}>
-				{children}
-			</div>
+			<div className={styles.sectionContent}>{children}</div>
 
 			<CardDivider />
 
 			{/* HORARIOS */}
 			<div className={styles.sectionHorarios}>
-				<DesignacionCardHorarios
-					franjasCount={franjasCount}
-				/>
+				<DesignacionCardHorarios franjasCount={franjasCount} />
 			</div>
-
 		</Card>
 	);
 }

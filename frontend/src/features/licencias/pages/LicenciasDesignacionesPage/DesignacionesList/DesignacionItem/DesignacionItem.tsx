@@ -1,16 +1,8 @@
+import { BookOpen, Briefcase, GraduationCap, Hash } from "lucide-react";
+import Badge from "@/components/Badge";
+import { ESTADO_DESIGNACION_BADGE } from "@/features/designaciones/utils/designacion.badges";
 import type { LicenciaDesignacionDTO } from "@/features/licencias/types/licencia.types";
 import styles from "./DesignacionItem.module.scss";
-
-import {
-	BookOpen,
-	GraduationCap,
-	Hash,
-	Briefcase,
-} from "lucide-react";
-
-
-import { ESTADO_DESIGNACION_BADGE } from "@/features/designaciones/utils/designacion.badges";
-import Badge from "@/components/Badge";
 
 type Props = {
 	designacion: LicenciaDesignacionDTO;
@@ -23,14 +15,14 @@ export default function DesignacionItem({
 	checked,
 	onToggle,
 }: Props) {
-
 	const estaCubierta = designacion.estado === "CUBIERTA";
 	const { estado } = designacion;
 
 	return (
 		<label
-			className={`${styles.designacionItem} ${estaCubierta ? styles["designacionItem--disabled"] : ""
-				}`}
+			className={`${styles.designacionItem} ${
+				estaCubierta ? styles["designacionItem--disabled"] : ""
+			}`}
 		>
 			<input
 				type="checkbox"
@@ -46,9 +38,7 @@ export default function DesignacionItem({
 						<span>{designacion.rolEducativo}</span>
 					</div>
 
-					<Badge variant={ESTADO_DESIGNACION_BADGE[estado]}>
-						{estado}
-					</Badge>
+					<Badge variant={ESTADO_DESIGNACION_BADGE[estado]}>{estado}</Badge>
 				</div>
 
 				<div className={styles.designacionItem__cupof}>

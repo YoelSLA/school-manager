@@ -1,18 +1,8 @@
-import {
-	type ReactNode,
-	useEffect,
-	useId,
-	useRef,
-	useState,
-} from "react";
-
-import useEmpleadoSearch from "../../hooks/useEmpleadoSearch";
-
-
-import type { EmpleadoEducativoMinimoDTO } from "../../types/empleadosEducativos.types";
-
-import styles from "./EmpleadoAutocompleteBase.module.scss";
+import { type ReactNode, useEffect, useId, useRef, useState } from "react";
 import useDebounce from "../../hooks/useDebounce";
+import useEmpleadoSearch from "../../hooks/useEmpleadoSearch";
+import type { EmpleadoEducativoMinimoDTO } from "../../types/empleadosEducativos.types";
+import styles from "./EmpleadoAutocompleteBase.module.scss";
 
 type AutocompleteProps = {
 	value: string;
@@ -33,7 +23,6 @@ export default function EmpleadoAutocompleteBase({
 	error,
 	disabled,
 }: AutocompleteProps) {
-
 	const inputId = useId();
 	const containerRef = useRef<HTMLDivElement>(null);
 
@@ -45,7 +34,7 @@ export default function EmpleadoAutocompleteBase({
 	const shouldSearch = !disabled && debouncedSearch.trim().length > 0;
 
 	const { empleados, loading } = useEmpleadoSearch(
-		shouldSearch ? debouncedSearch : ""
+		shouldSearch ? debouncedSearch : "",
 	);
 
 	// cerrar al click afuera
@@ -70,21 +59,20 @@ export default function EmpleadoAutocompleteBase({
 	};
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-
 		if (!empleados.length) return;
 
 		switch (e.key) {
 			case "ArrowDown":
 				e.preventDefault();
 				setHighlightIndex((prev) =>
-					prev < empleados.length - 1 ? prev + 1 : 0
+					prev < empleados.length - 1 ? prev + 1 : 0,
 				);
 				break;
 
 			case "ArrowUp":
 				e.preventDefault();
 				setHighlightIndex((prev) =>
-					prev > 0 ? prev - 1 : empleados.length - 1
+					prev > 0 ? prev - 1 : empleados.length - 1,
 				);
 				break;
 
@@ -103,7 +91,6 @@ export default function EmpleadoAutocompleteBase({
 
 	return (
 		<div ref={containerRef} className={styles.autocomplete}>
-
 			{label && (
 				<label htmlFor={inputId} className={styles.label}>
 					{label}
@@ -127,9 +114,7 @@ export default function EmpleadoAutocompleteBase({
 			/>
 
 			{shouldSearch && isOpen && loading && (
-				<div className={styles.loading}>
-					Buscando…
-				</div>
+				<div className={styles.loading}>Buscando…</div>
 			)}
 
 			{shouldSearch && isOpen && empleados.length > 0 && (
@@ -138,8 +123,9 @@ export default function EmpleadoAutocompleteBase({
 						<li key={e.id} className={styles.item}>
 							<button
 								type="button"
-								className={`${styles.button} ${index === highlightIndex ? styles.active : ""
-									}`}
+								className={`${styles.button} ${
+									index === highlightIndex ? styles.active : ""
+								}`}
 								onMouseDown={(ev) => {
 									ev.preventDefault();
 									handleSelect(e);
@@ -152,11 +138,7 @@ export default function EmpleadoAutocompleteBase({
 				</ul>
 			)}
 
-			{error && (
-				<span className={styles.error}>
-					{error.message}
-				</span>
-			)}
+			{error && <span className={styles.error}>{error.message}</span>}
 		</div>
 	);
 }

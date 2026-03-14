@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { FormProvider } from "react-hook-form";
-
-import PageLayout from "@/layout/PageLayout/PageLayout";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
-import { useCrearLicencia } from "../../hooks/useCrearLicencia";
 import { useDesignacionesActivas } from "@/features/empleadosEducativos/hooks/useDesignacionesActivas";
-import { useLicenciaForm } from "../../form/useLicenciaForm";
-import styles from "./LicenciaCreatePage.module.scss";
-import { CrearLicenciaFormValues } from "../../form/crearLicencia.schema";
-import { LicenciaCreateDTO } from "../../types/licencia.types";
-import DesignacionesSelector from "../../components/LicenciaForm/DesignacionesSelector";
+import PageLayout from "@/layout/PageLayout/PageLayout";
 import LicenciaDatosSection from "../../components/LicenciaForm";
+import DesignacionesSelector from "../../components/LicenciaForm/DesignacionesSelector";
+import type { CrearLicenciaFormValues } from "../../form/crearLicencia.schema";
+import { useLicenciaForm } from "../../form/useLicenciaForm";
+import { useCrearLicencia } from "../../hooks/useCrearLicencia";
+import type { LicenciaCreateDTO } from "../../types/licencia.types";
+import styles from "./LicenciaCreatePage.module.scss";
 
 export default function LicenciaCreatePage() {
 	const { crearLicencia, isLoading, error } = useCrearLicencia();
@@ -73,9 +72,7 @@ export default function LicenciaCreatePage() {
 								/>
 
 								{empleadoError && (
-									<p className={styles.crearLicenciaError}>
-										{empleadoError}
-									</p>
+									<p className={styles.crearLicenciaError}>{empleadoError}</p>
 								)}
 							</div>
 
@@ -84,9 +81,7 @@ export default function LicenciaCreatePage() {
 									designaciones={designaciones ?? []}
 									loading={loadingDesignaciones}
 									value={designacionesIds}
-									onChange={(ids) =>
-										form.setValue("designacionesIds", ids)
-									}
+									onChange={(ids) => form.setValue("designacionesIds", ids)}
 								/>
 							</div>
 						</aside>
@@ -96,11 +91,7 @@ export default function LicenciaCreatePage() {
 							<LicenciaDatosSection
 								form={form}
 								isSubmitting={isLoading}
-								error={
-									error
-										? "No se pudo crear la licencia"
-										: null
-								}
+								error={error ? "No se pudo crear la licencia" : null}
 							/>
 						</main>
 					</div>

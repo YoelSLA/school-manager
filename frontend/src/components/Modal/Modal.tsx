@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import styles from "./Modal.module.scss";
 import Button from "@/components/Button";
+import styles from "./Modal.module.scss";
 
 type Props = {
 	children: ReactNode;
@@ -22,10 +22,7 @@ export default function Modal({
 	showConfirm = true,
 }: Props) {
 	return (
-		<div
-			className={styles.modalBackdrop}
-			onClick={onCancel}
-		>
+		<div className={styles.modalBackdrop} onClick={onCancel}>
 			<div
 				className={`${styles.modal} ${styles[size]}`}
 				onClick={(e) => e.stopPropagation()}
@@ -36,9 +33,7 @@ export default function Modal({
 					</header>
 				)}
 
-				<div className={styles.modalContent}>
-					{children}
-				</div>
+				<div className={styles.modalContent}>{children}</div>
 
 				<footer className={styles.modalFooter}>
 					<Button
@@ -51,11 +46,7 @@ export default function Modal({
 					</Button>
 
 					{showConfirm && (
-						<Button
-							type="submit"
-							variant="primary"
-							loading={isSubmitting}
-						>
+						<Button type="submit" variant="primary" loading={isSubmitting}>
 							{confirmLabel}
 						</Button>
 					)}

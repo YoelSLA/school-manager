@@ -18,33 +18,20 @@ export function useDesignacionesCursos(
 	page: number = 0,
 	size: number = 10,
 	filter?: DesignacionCursoFilter,
-	options?: Options
+	options?: Options,
 ) {
-
 	const enabled = escuelaId != null && (options?.enabled ?? true);
 
 	return useQuery({
-
 		queryKey:
 			escuelaId != null
-				? designacionesQueryKeys.curso.byEscuela(
-					escuelaId,
-					page,
-					size,
-					filter
-				)
+				? designacionesQueryKeys.curso.byEscuela(escuelaId, page, size, filter)
 				: designacionesQueryKeys.curso.lists(),
 
 		queryFn: () => {
-			if (escuelaId == null)
-				throw new Error("escuelaId es requerido");
+			if (escuelaId == null) throw new Error("escuelaId es requerido");
 
-			return listarDesignacionesCursos(
-				escuelaId,
-				page,
-				size,
-				filter
-			);
+			return listarDesignacionesCursos(escuelaId, page, size, filter);
 		},
 
 		enabled,

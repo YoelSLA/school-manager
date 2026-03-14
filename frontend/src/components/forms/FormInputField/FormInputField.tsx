@@ -39,8 +39,7 @@ export default function FormInputField<T extends FieldValues>({
 	const fieldId = name ? String(name) : inputProps?.id;
 	const isReadOnly = inputProps?.readOnly;
 
-	const registerProps =
-		register && name ? register(name, registerOptions) : {};
+	const registerProps = register && name ? register(name, registerOptions) : {};
 
 	return (
 		<div

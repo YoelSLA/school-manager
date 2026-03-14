@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { crearCurso } from "../services/cursos.services";
-import { cursosQueryKeys } from "../utils/cursos.queryKeys";
 import type { CrearCursoDTO } from "../types/cursos.types";
+import { cursosQueryKeys } from "../utils/cursos.queryKeys";
 
 type CrearCursoParams = {
 	escuelaId: number;

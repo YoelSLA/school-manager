@@ -7,11 +7,14 @@ import type {
 	UseFormRegister,
 } from "react-hook-form";
 import Button from "@/components/Button";
+import type { FormWithFranjas } from "@/utils/types";
 import FranjasHorariasBox from "../FranjasHorariasBox/FranjasHorariasBox";
 import styles from "./DesignacionFormLayout.module.scss";
-import type { FormWithFranjas } from "@/utils/types";
 
-type FranjasPath<T extends FieldValues> = Extract<ArrayPath<T>, "franjasHorarias">;
+type FranjasPath<T extends FieldValues> = Extract<
+	ArrayPath<T>,
+	"franjasHorarias"
+>;
 
 type Props<T extends FieldValues & FormWithFranjas> = {
 	left: React.ReactNode;
@@ -23,22 +26,13 @@ type Props<T extends FieldValues & FormWithFranjas> = {
 };
 
 export default function DesignacionFormLayout<
-	T extends FieldValues & FormWithFranjas
->({
-	left,
-	isSubmitting,
-	fields,
-	register,
-	append,
-	remove,
-}: Props<T>) {
+	T extends FieldValues & FormWithFranjas,
+>({ left, isSubmitting, fields, register, append, remove }: Props<T>) {
 	return (
 		<div className={styles["designacion-form"]}>
 			<div className={styles["designacion-form__grid"]}>
 				<div className={styles["designacion-form__content"]}>
-					<div className={styles["designacion-form__left"]}>
-						{left}
-					</div>
+					<div className={styles["designacion-form__left"]}>{left}</div>
 
 					<div className={styles["designacion-form__right"]}>
 						<FranjasHorariasBox<T>
@@ -51,11 +45,7 @@ export default function DesignacionFormLayout<
 				</div>
 
 				<div className={styles["designacion-form__footer"]}>
-					<Button
-						type="submit"
-						variant="primary"
-						disabled={isSubmitting}
-					>
+					<Button type="submit" variant="primary" disabled={isSubmitting}>
 						{isSubmitting ? "Guardando…" : "Guardar"}
 					</Button>
 				</div>

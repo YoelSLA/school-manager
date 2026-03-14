@@ -1,23 +1,23 @@
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ErrorModal from "@/components/ErrorModal";
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
-import { useCrearDesignacionAdministrativa } from "../../hooks/useCrearDesignacionAdministrativa";
-import { useCrearDesignacionCurso } from "../../hooks/useCrearDesignacionCurso";
 import AdministrativaForm from "../../components/AdministrativaForm/AdministrativaForm";
-import styles from "./DesignacionCreatePage.module.scss";
-import DesignacionTabs from "./DesignacionTabs/DesignacionTabs";
 import CursoForm from "../../components/CursoForm/CursoForm";
-import {
+import type {
 	DesignacionAdministrativaCreateDTO,
 	DesignacionAdministrativaFormValues,
 	DesignacionCursoCreateDTO,
 	DesignacionCursoFormValues,
 } from "../../form/designacion.form.types";
-import { TipoDesignacion } from "../../types/designacion.types";
-import axios from "axios";
-import ErrorModal from "@/components/ErrorModal";
+import { useCrearDesignacionAdministrativa } from "../../hooks/useCrearDesignacionAdministrativa";
+import { useCrearDesignacionCurso } from "../../hooks/useCrearDesignacionCurso";
+import type { TipoDesignacion } from "../../types/designacion.types";
+import styles from "./DesignacionCreatePage.module.scss";
+import DesignacionTabs from "./DesignacionTabs/DesignacionTabs";
 
 export default function DesignacionCreatePage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
@@ -110,10 +110,7 @@ export default function DesignacionCreatePage() {
 			</section>
 
 			{errorModal && (
-				<ErrorModal
-					error={errorModal}
-					onClose={() => setErrorModal(null)}
-				/>
+				<ErrorModal error={errorModal} onClose={() => setErrorModal(null)} />
 			)}
 		</PageLayout>
 	);

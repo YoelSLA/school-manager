@@ -1,1 +1,1 @@
-export {default} from "./RolEducativoSelectField"
+export { default } from "./RolEducativoSelectField";

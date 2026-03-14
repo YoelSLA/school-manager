@@ -1,6 +1,6 @@
 import { BookOpen, Compass, GraduationCap } from "lucide-react";
+import type { DesignacionCursoResumenDTO } from "@/features/designaciones/types/designacion.types";
 import styles from "./DesignacionCursoInfo.module.scss";
-import { DesignacionCursoResumenDTO } from "@/features/designaciones/types/designacion.types";
 
 type Props = {
 	designacion: Pick<
@@ -12,13 +12,9 @@ type Props = {
 export default function DesignacionCursoInfo({ designacion }: Props) {
 	return (
 		<div className={styles.body}>
-
 			<div className={`${styles.item} ${styles.materia}`}>
 				<BookOpen />
-				<span
-					className={styles.value}
-					title={designacion.materia}
-				>
+				<span className={styles.value} title={designacion.materia}>
 					{designacion.materia}
 				</span>
 			</div>
@@ -34,7 +30,6 @@ export default function DesignacionCursoInfo({ designacion }: Props) {
 				<Compass />
 				<span className={styles.value}>{designacion.orientacion}</span>
 			</div>
-
 		</div>
 	);
 }

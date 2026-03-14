@@ -1,6 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { crearLicenciaSchema, type CrearLicenciaFormValues } from "./crearLicencia.schema";
+import {
+	type CrearLicenciaFormValues,
+	crearLicenciaSchema,
+} from "./crearLicencia.schema";
 
 export function useLicenciaForm() {
 	const form = useForm<CrearLicenciaFormValues>({
@@ -12,7 +15,7 @@ export function useLicenciaForm() {
 				fechaHasta: undefined,
 			},
 			descripcion: "",
-			designacionesIds: []
+			designacionesIds: [],
 		},
 	});
 

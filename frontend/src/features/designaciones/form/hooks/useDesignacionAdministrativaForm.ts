@@ -1,9 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
-import type { DesignacionAdministrativaFormValues } from "../designacion.form.types";
-import { crearDesignacionAdministrativaSchema } from "../schemas/crearDesignacionAdministrativa.schema";
 import { Dia } from "@/utils/types";
 import { RolEducativo } from "../../types/designacion.types";
+import type { DesignacionAdministrativaFormValues } from "../designacion.form.types";
+import { crearDesignacionAdministrativaSchema } from "../schemas/crearDesignacionAdministrativa.schema";
 
 export function useDesignacionAdministrativaForm() {
 	const form = useForm<DesignacionAdministrativaFormValues>({
@@ -25,14 +25,15 @@ export function useDesignacionAdministrativaForm() {
 	};
 }
 
-const DESIGNACION_ADMINISTRATIVA_DEFAULTS: DesignacionAdministrativaFormValues = {
-	cupof: undefined,
-	rolEducativo: RolEducativo.AUXILIAR,
-	franjasHorarias: [
-		{
-			dia: Dia.LUNES,
-			horaDesde: "08:00",
-			horaHasta: "12:00",
-		},
-	],
-};
+const DESIGNACION_ADMINISTRATIVA_DEFAULTS: DesignacionAdministrativaFormValues =
+	{
+		cupof: undefined,
+		rolEducativo: RolEducativo.AUXILIAR,
+		franjasHorarias: [
+			{
+				dia: Dia.LUNES,
+				horaDesde: "08:00",
+				horaHasta: "12:00",
+			},
+		],
+	};

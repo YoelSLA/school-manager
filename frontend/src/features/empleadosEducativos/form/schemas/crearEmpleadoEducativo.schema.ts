@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { requiredFechaISO, optionalFechaISO } from "@/utils/zod/schemas";
+import { optionalFechaISO, requiredFechaISO } from "@/utils/zod/schemas";
 
 /* =========================
 	 Regex
@@ -61,7 +61,7 @@ export const crearEmpleadoEducativoSchema = z
 		telefono: telefonoSchema,
 		email: emailSchema,
 		fechaDeNacimiento: requiredFechaISO(
-			"La fecha de nacimiento es obligatoria"
+			"La fecha de nacimiento es obligatoria",
 		),
 		fechaDeIngreso: optionalFechaISO(),
 	})
@@ -74,5 +74,5 @@ export const crearEmpleadoEducativoSchema = z
 			message:
 				"La fecha de ingreso no puede ser anterior a la fecha de nacimiento",
 			path: ["fechaDeIngreso"],
-		}
+		},
 	);

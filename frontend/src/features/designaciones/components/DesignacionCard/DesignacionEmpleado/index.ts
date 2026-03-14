@@ -1,1 +1,1 @@
-export { default } from "./DesignacionEmpleado"
+export { default } from "./DesignacionEmpleado";

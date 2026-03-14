@@ -1,6 +1,5 @@
-import { crearFranjaHorariaSchema } from "@/utils/schemas/crearfranjaHoraria.schema";
-
 import { z } from "zod";
+import { crearFranjaHorariaSchema } from "@/utils/schemas/crearfranjaHoraria.schema";
 
 export const crearDesignacionCursoSchema = z.object({
 	cupof: z.coerce
@@ -28,7 +27,8 @@ export const crearDesignacionCursoSchema = z.object({
 		.min(1, { message: "Debe seleccionar una orientación" }),
 });
 
-
-export type DesignacionCursoFormValues = z.infer<typeof crearDesignacionCursoSchema>;
+export type DesignacionCursoFormValues = z.infer<
+	typeof crearDesignacionCursoSchema
+>;
 
 export type DesignacionCursoCreateDTO = DesignacionCursoFormValues;

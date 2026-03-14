@@ -1,82 +1,82 @@
 @use "../../../../../styles/debug.mixins" as debug;
 
 .selector {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 
-  height: 100%;
-  min-height: 0;
-  /* MUY IMPORTANTE */
+	height: 100%;
+	min-height: 0;
+	/* MUY IMPORTANTE */
 
-  gap: 10px;
+	gap: 10px;
 
-  @include debug.debug(lightblue);
+	@include debug.debug(lightblue);
 }
 
 .title {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #6b7280;
-  text-align: center;
+	font-size: 13px;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: #6b7280;
+	text-align: center;
 
-  @include debug.debug(lightgreen);
+	@include debug.debug(lightgreen);
 }
 
 .list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
 
-  flex: 1;
-  min-height: 0;
+	flex: 1;
+	min-height: 0;
 
-  overflow-y: auto;
-  padding-right: 4px;
+	overflow-y: auto;
+	padding-right: 4px;
 
-  /* Firefox */
-  scrollbar-width: thin;
-  scrollbar-color: #78797f transparent;
+	/* Firefox */
+	scrollbar-width: thin;
+	scrollbar-color: #78797f transparent;
 
-  @include debug.debug(black);
+	@include debug.debug(black);
 
-  /* Chrome / Edge / Safari */
+	/* Chrome / Edge / Safari */
 
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
 
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
+	&::-webkit-scrollbar-track {
+		background: transparent;
+	}
 
-  &::-webkit-scrollbar-thumb {
-    background: #cbd5f5;
-    border-radius: 999px;
-  }
+	&::-webkit-scrollbar-thumb {
+		background: #cbd5f5;
+		border-radius: 999px;
+	}
 
-  &::-webkit-scrollbar-thumb:hover {
-    background: #a5b4fc;
-  }
+	&::-webkit-scrollbar-thumb:hover {
+		background: #a5b4fc;
+	}
 }
 
 .state {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-  flex: 1;
+	flex: 1;
 
-  font-size: 14px;
-  color: #6b7280;
+	font-size: 14px;
+	color: #6b7280;
 
-  @include debug.debug(cyan);
+	@include debug.debug(cyan);
 }
 
 .error {
-  font-size: 13px;
-  color: #dc2626;
+	font-size: 13px;
+	color: #dc2626;
 
-  @include debug.debug(purple);
+	@include debug.debug(purple);
 }

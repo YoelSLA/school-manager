@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { NAV_ITEMS } from "@/utils";
 import Button from "@/components/Button";
+import { NAV_ITEMS } from "@/utils";
 import styles from "./Header.module.scss";
 
 export default function Header() {
@@ -13,9 +13,7 @@ export default function Header() {
 		<header className={styles["app-header"]}>
 			{/* LEFT */}
 			<div className={styles["app-header__left"]}>
-				<div className={styles["app-header__logo"]}>
-					Gestión Escolar
-				</div>
+				<div className={styles["app-header__logo"]}>Gestión Escolar</div>
 				<Button
 					variant="secondary"
 					size="sm"
@@ -33,7 +31,8 @@ export default function Header() {
 						key={item.to}
 						to={item.to}
 						className={({ isActive }) =>
-							`${styles["app-header__link"]} ${isActive ? styles["app-header__link--active"] : ""
+							`${styles["app-header__link"]} ${
+								isActive ? styles["app-header__link--active"] : ""
 							}`
 						}
 					>

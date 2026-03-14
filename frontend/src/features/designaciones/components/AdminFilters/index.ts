@@ -1,1 +1,1 @@
-export { default } from "./AdminFilters"
+export { default } from "./AdminFilters";

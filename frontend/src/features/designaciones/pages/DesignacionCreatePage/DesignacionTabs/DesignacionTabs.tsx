@@ -1,5 +1,5 @@
-import type { TipoDesignacion } from "@/features/designaciones/types/designacion.types";
 import Button from "@/components/Button/Button";
+import type { TipoDesignacion } from "@/features/designaciones/types/designacion.types";
 import styles from "./DesignacionTabs.module.scss";
 
 type Props = {

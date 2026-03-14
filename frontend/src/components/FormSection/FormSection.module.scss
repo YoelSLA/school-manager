@@ -1,100 +1,100 @@
 @use "../../styles/debug.mixins" as debug;
 
 .section {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-height: 0;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	min-height: 0;
 
-  padding: 22px 26px;
-  border-radius: 18px;
+	padding: 22px 26px;
+	border-radius: 18px;
 
-  @include debug.debug(red);
-  background-color: #fff;
+	@include debug.debug(red);
+	background-color: #fff;
 
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.04),
-    0 20px 40px rgba(0, 0, 0, 0.06);
+	box-shadow:
+		0 4px 12px rgba(0, 0, 0, 0.04),
+		0 20px 40px rgba(0, 0, 0, 0.06);
 
-  transition: box-shadow 0.2s ease;
+	transition: box-shadow 0.2s ease;
 
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 24px;
-    bottom: 24px;
-    width: 6px;
-    border-radius: 999px;
+	&::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 24px;
+		bottom: 24px;
+		width: 6px;
+		border-radius: 999px;
 
-    @include debug.debug(yellow);
-  }
+		@include debug.debug(yellow);
+	}
 
-  &:hover {
-    box-shadow:
-      0 6px 16px rgba(0, 0, 0, 0.05),
-      0 24px 50px rgba(0, 0, 0, 0.08);
-  }
+	&:hover {
+		box-shadow:
+			0 6px 16px rgba(0, 0, 0, 0.05),
+			0 24px 50px rgba(0, 0, 0, 0.08);
+	}
 
-  &__title {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-align: center;
+	&__title {
+		font-size: 14px;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		text-align: center;
 
-    color: black;
-    padding: 6px;
+		color: black;
+		padding: 6px;
 
-    @include debug.debug(lime);
-  }
+		@include debug.debug(lime);
+	}
 
-  &__divider {
-    align-self: center;
-    width: 56px;
-    height: 4px;
-    border-radius: 999px;
+	&__divider {
+		align-self: center;
+		width: 56px;
+		height: 4px;
+		border-radius: 999px;
 
-    @include debug.debug(cyan);
-    background-color: black;
-  }
+		@include debug.debug(cyan);
+		background-color: black;
+	}
 
-  &__content {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-    justify-content: space-around;
+	&__content {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 40px;
+		justify-content: space-around;
 
-    flex: 1;
+		flex: 1;
 
-    padding: 10px;
+		padding: 10px;
 
-    @include debug.debug(blue);
+		@include debug.debug(blue);
 
-    &--column {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
+		&--column {
+			display: flex;
+			flex-direction: column;
+			gap: 40px;
 
-      @include debug.debug(orange);
-    }
-  }
+			@include debug.debug(orange);
+		}
+	}
 
-  &__half {
-    grid-column: span 1;
+	&__half {
+		grid-column: span 1;
 
-    padding: 10px;
+		padding: 10px;
 
-    @include debug.debug(purple);
-  }
+		@include debug.debug(purple);
+	}
 
-  &__full {
-    grid-column: 1 / -1;
-    width: 100%;
+	&__full {
+		grid-column: 1 / -1;
+		width: 100%;
 
-    padding: 10px;
+		padding: 10px;
 
-    @include debug.debug(green);
-  }
+		@include debug.debug(green);
+	}
 }

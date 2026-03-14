@@ -1,15 +1,11 @@
 import type { BadgeVariant } from "@/components/Badge/Badge.types";
-import type {
-	EstadoDesignacion,
-} from "../types/designacion.types";
+import type { EstadoDesignacion } from "../types/designacion.types";
 
 export const ESTADO_DESIGNACION_BADGE = {
 	CUBIERTA: "cubierta",
 	LICENCIA: "licencia",
 	VACANTE: "vacante",
 } as const satisfies Record<EstadoDesignacion, BadgeVariant>;
-
-
 
 export const rolLabels: Record<string, string> = {
 	DIRECCION: "Dirección",

@@ -1,1 +1,1 @@
-export { default } from "./LicenciaCubrirDesignacionesModal"
+export { default } from "./LicenciaCubrirDesignacionesModal";

@@ -1,24 +1,18 @@
 import { useEffect, useState } from "react";
 import FilteredSidebar from "@/components/FilteredSidebar/FilteredSidebar";
-import Pagination from "@/layout/Pagination";
 import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
+import Pagination from "@/layout/Pagination";
 import SidebarPageLayout from "@/layout/SidebarPageLayout/SidebarPageLayout";
 
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
-
-import { useCursos } from "../../hooks/useCursos";
-import { useCrearCurso } from "../../hooks/useCrearCurso";
-
-import type {
-	CursoFiltro,
-	CursoResponseDTO,
-} from "../../types/cursos.types";
-
-import { FILTROS_CURSOS } from "../../utils/cursos.utils";
-import CursosList from "./CursosList";
 import CrearCursoModal from "../../components/CrearCursoModal";
 import type { CrearCursoFormOutput } from "../../form/curso.form.types";
+import { useCrearCurso } from "../../hooks/useCrearCurso";
+import { useCursos } from "../../hooks/useCursos";
+import type { CursoFiltro, CursoResponseDTO } from "../../types/cursos.types";
+import { FILTROS_CURSOS } from "../../utils/cursos.utils";
+import CursosList from "./CursosList";
 
 export default function CursosPage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
@@ -27,8 +21,7 @@ export default function CursosPage() {
 		 FILTRO
 	========================= */
 
-	const [filtro, setFiltro] =
-		useState<CursoFiltro>("TODOS");
+	const [filtro, setFiltro] = useState<CursoFiltro>("TODOS");
 
 	/* =========================
 		 PAGINACION
@@ -60,19 +53,15 @@ export default function CursosPage() {
 		 CREAR CURSO
 	========================= */
 
-	const [isCrearOpen, setIsCrearOpen] =
-		useState(false);
+	const [isCrearOpen, setIsCrearOpen] = useState(false);
 
-	const { mutate: crearCurso, isPending } =
-		useCrearCurso();
+	const { mutate: crearCurso, isPending } = useCrearCurso();
 
 	const handleCrearCurso = () => {
 		setIsCrearOpen(true);
 	};
 
-	const handleSubmitCrear = (
-		data: CrearCursoFormOutput,
-	) => {
+	const handleSubmitCrear = (data: CrearCursoFormOutput) => {
 		if (!escuelaActiva) return;
 
 		crearCurso(
@@ -88,14 +77,11 @@ export default function CursosPage() {
 		);
 	};
 
-
 	/* =========================
 		 DETALLE
 	========================= */
 
-	const handleVerDetalle = (
-		curso: CursoResponseDTO,
-	) => {
+	const handleVerDetalle = (curso: CursoResponseDTO) => {
 		// si querés mantener navegación futura
 	};
 
@@ -118,11 +104,7 @@ export default function CursosPage() {
 					/>
 				}
 				pagination={
-					<Pagination
-						page={page}
-						totalPages={totalPages}
-						onChange={setPage}
-					/>
+					<Pagination page={page} totalPages={totalPages} onChange={setPage} />
 				}
 			>
 				<CursosList
@@ -138,9 +120,7 @@ export default function CursosPage() {
 
 			{isCrearOpen && (
 				<CrearCursoModal
-					onClose={() =>
-						setIsCrearOpen(false)
-					}
+					onClose={() => setIsCrearOpen(false)}
 					isSubmitting={isPending}
 					onSubmit={handleSubmitCrear}
 				/>

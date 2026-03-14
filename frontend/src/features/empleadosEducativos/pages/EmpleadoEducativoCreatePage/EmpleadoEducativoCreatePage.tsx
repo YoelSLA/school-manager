@@ -4,13 +4,13 @@ import toast from "react-hot-toast";
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
+import { getTodayArgentinaISO } from "@/utils";
+import EmpleadoEducativoCreateForm from "../../components/EmpleadoEducativoCreateForm";
+import type { EmpleadoEducativoCreateOutput } from "../../form/empleadoEducativo.form.types";
+import { useEmpleadoEducativoCreateForm } from "../../form/hooks/useEmpleadoEducativoCreateForm";
 import { useCrearEmpleadoEducativo } from "../../hooks/useCrearEmpleadoEducativo";
 import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
 import styles from "./EmpleadoEducativoCreatePage.module.scss";
-import type { EmpleadoEducativoCreateOutput } from "../../form/empleadoEducativo.form.types";
-import { useEmpleadoEducativoCreateForm } from "../../form/hooks/useEmpleadoEducativoCreateForm";
-import EmpleadoEducativoCreateForm from "../../components/EmpleadoEducativoCreateForm";
-import { getTodayArgentinaISO } from "@/utils";
 
 export default function EmpleadoEducativoCreatePage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
@@ -108,7 +108,6 @@ export default function EmpleadoEducativoCreatePage() {
 	return (
 		<PageLayout>
 			<div className={styles.page}>
-
 				<div className={styles.container}>
 					<EmpleadoEducativoCreateForm
 						register={register}
@@ -121,10 +120,7 @@ export default function EmpleadoEducativoCreatePage() {
 						onSubmit={handleSubmit(onSubmit)}
 					/>
 				</div>
-
 			</div>
 		</PageLayout>
 	);
-
-
 }

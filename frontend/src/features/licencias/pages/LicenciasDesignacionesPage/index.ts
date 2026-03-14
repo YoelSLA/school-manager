@@ -1,1 +1,1 @@
-export { default } from "./LicenciasDesignacionesPage"
+export { default } from "./LicenciasDesignacionesPage";

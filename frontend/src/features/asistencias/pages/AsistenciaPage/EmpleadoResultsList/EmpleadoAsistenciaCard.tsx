@@ -1,8 +1,8 @@
+import EmpleadoInfo from "@/components/EmpleadoInfo";
 import RolPill from "@/components/RolPill";
 import type { EmpleadoAsistenciaDTO } from "@/features/asistencias/types/asistencias.types";
 import { rolLabels } from "@/features/designaciones/utils/designacion.badges";
 import styles from "./EmpleadoAsistenciaCard.module.scss";
-import EmpleadoInfo from "@/components/EmpleadoInfo";
 
 type Props = {
 	empleado: EmpleadoAsistenciaDTO;
@@ -26,7 +26,6 @@ export default function EmpleadoAsistenciaCard({ empleado }: Props) {
 			</section>
 
 			<hr className={styles.card__divider} />
-
 		</article>
 	);
 }

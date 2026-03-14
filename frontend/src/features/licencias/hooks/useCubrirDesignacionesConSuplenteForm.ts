@@ -1,68 +1,68 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useCubrirDesignacionesConSuplente } from "./useCubrirDesignacionesConSuplente";
 import type { EmpleadoEducativoMinimoDTO } from "@/features/empleadosEducativos/types/empleadosEducativos.types";
 import {
-  CubrirDesignacionesConSuplente,
-  cubrirDesignacionesConSuplenteSchema,
+	type CubrirDesignacionesConSuplente,
+	cubrirDesignacionesConSuplenteSchema,
 } from "../form/cubrirDesignacionesConSuplente.schema";
+import { useCubrirDesignacionesConSuplente } from "./useCubrirDesignacionesConSuplente";
 
 type Props = {
-  licenciaId: number;
-  designacionIds: number[];
-  onSuccess: () => void;
+	licenciaId: number;
+	designacionIds: number[];
+	onSuccess: () => void;
 };
 
 export function useCubrirDesignacionesForm({
-  licenciaId,
-  designacionIds,
-  onSuccess,
+	licenciaId,
+	designacionIds,
+	onSuccess,
 }: Props) {
-  const [suplente, setSuplente] =
-    useState<EmpleadoEducativoMinimoDTO | null>(null);
+	const [suplente, setSuplente] = useState<EmpleadoEducativoMinimoDTO | null>(
+		null,
+	);
 
-  const form = useForm<
-    Pick<CubrirDesignacionesConSuplente, "fechaTomaPosesion">
-  >({
-    resolver: zodResolver(
-      cubrirDesignacionesConSuplenteSchema.pick({
-        fechaTomaPosesion: true,
-      })
-    ),
-    defaultValues: {
-      fechaTomaPosesion: "",
-    },
-  });
+	const form = useForm<
+		Pick<CubrirDesignacionesConSuplente, "fechaTomaPosesion">
+	>({
+		resolver: zodResolver(
+			cubrirDesignacionesConSuplenteSchema.pick({
+				fechaTomaPosesion: true,
+			}),
+		),
+		defaultValues: {
+			fechaTomaPosesion: "",
+		},
+	});
 
-  const { mutateAsync, isPending } =
-    useCubrirDesignacionesConSuplente();
+	const { mutateAsync, isPending } = useCubrirDesignacionesConSuplente();
 
-  const onSubmit = form.handleSubmit(async (data) => {
-    if (!suplente) {
-      form.setError("root", {
-        message: "Debe seleccionar un suplente",
-      });
-      return;
-    }
+	const onSubmit = form.handleSubmit(async (data) => {
+		if (!suplente) {
+			form.setError("root", {
+				message: "Debe seleccionar un suplente",
+			});
+			return;
+		}
 
-    await mutateAsync({
-      licenciaId,
-      body: {
-        empleadoId: suplente.id,
-        designacionesIds: designacionIds,
-        fechaTomaPosesion: data.fechaTomaPosesion,
-      },
-    });
+		await mutateAsync({
+			licenciaId,
+			body: {
+				empleadoId: suplente.id,
+				designacionesIds: designacionIds,
+				fechaTomaPosesion: data.fechaTomaPosesion,
+			},
+		});
 
-    onSuccess();
-  });
+		onSuccess();
+	});
 
-  return {
-    ...form,
-    onSubmit,
-    setSuplente,
-    suplente,
-    isPending,
-  };
+	return {
+		...form,
+		onSubmit,
+		setSuplente,
+		suplente,
+		isPending,
+	};
 }

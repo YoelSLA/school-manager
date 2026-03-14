@@ -1,1 +1,1 @@
-export { default } from "./FormTitular"
+export { default } from "./FormTitular";

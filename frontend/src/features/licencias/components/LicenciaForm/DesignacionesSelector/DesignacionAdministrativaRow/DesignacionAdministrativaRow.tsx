@@ -1,39 +1,39 @@
 import { Hash, User } from "lucide-react";
-import { DesignacionLicenciaAdministrativaItemDTO } from "@/features/licencias/types/licencia.types";
+import type { DesignacionLicenciaAdministrativaItemDTO } from "@/features/licencias/types/licencia.types";
 import styles from "./DesignacionAdministrativaRow.module.scss";
 
 type Props = {
-  designacion: DesignacionLicenciaAdministrativaItemDTO;
-  checked: boolean;
-  onToggle: (id: number) => void;
+	designacion: DesignacionLicenciaAdministrativaItemDTO;
+	checked: boolean;
+	onToggle: (id: number) => void;
 };
 
 export default function DesignacionAdministrativaRow({
-  designacion,
-  checked,
-  onToggle,
+	designacion,
+	checked,
+	onToggle,
 }: Props) {
-  return (
-    <label className={styles.item}>
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={() => onToggle(designacion.id)}
-      />
+	return (
+		<label className={styles.item}>
+			<input
+				type="checkbox"
+				checked={checked}
+				onChange={() => onToggle(designacion.id)}
+			/>
 
-      <div className={styles.content}>
-        <div className={styles.top}>
-          <span className={styles.cupof}>
-            <Hash size={16} />
-            {designacion.cupof}
-          </span>
+			<div className={styles.content}>
+				<div className={styles.top}>
+					<span className={styles.cupof}>
+						<Hash size={16} />
+						{designacion.cupof}
+					</span>
 
-          <span className={styles.rol}>
-            <User size={16} />
-            {designacion.rolEducativo}
-          </span>
-        </div>
-      </div>
-    </label>
-  );
+					<span className={styles.rol}>
+						<User size={16} />
+						{designacion.rolEducativo}
+					</span>
+				</div>
+			</div>
+		</label>
+	);
 }

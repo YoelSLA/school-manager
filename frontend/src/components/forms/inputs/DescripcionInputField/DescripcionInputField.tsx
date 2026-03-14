@@ -3,27 +3,27 @@ import type { FieldValues, Path, UseFormRegister } from "react-hook-form";
 import FormInputField from "@/components/forms/FormInputField/FormInputField";
 
 type Props<T extends FieldValues> = {
-  register: UseFormRegister<T>;
-  name: Path<T>;
-  error?: string;
+	register: UseFormRegister<T>;
+	name: Path<T>;
+	error?: string;
 };
 
 export default function DescripcionField<T extends FieldValues>({
-  register,
-  name,
-  error,
+	register,
+	name,
+	error,
 }: Props<T>) {
-  return (
-    <FormInputField<T>
-      label={
-        <>
-          <AlignLeft size={14} />
-          Descripción
-        </>
-      }
-      name={name}
-      register={register}
-      error={error}
-    />
-  );
+	return (
+		<FormInputField<T>
+			label={
+				<>
+					<AlignLeft size={14} />
+					Descripción
+				</>
+			}
+			name={name}
+			register={register}
+			error={error}
+		/>
+	);
 }

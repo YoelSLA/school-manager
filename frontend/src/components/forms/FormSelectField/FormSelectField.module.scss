@@ -59,7 +59,7 @@
 		pointer-events: none;
 	}
 
-	&__select:disabled+&__chevron {
+	&__select:disabled + &__chevron {
 		color: #9ca3af;
 	}
 

@@ -2,10 +2,10 @@ import { useState } from "react";
 
 import ConfirmarEliminarModal from "../components/ConfirmarEliminarModal";
 import CrearEscuelaModal from "../components/CrearEscuelaModal";
-import type { Escuela } from "../types/escuela.types";
 import type { EscuelaFormOutput } from "../form/escuela.form.types";
 import { useCrearEscuela } from "../hooks/useCrearEscuela";
 import { useEscuelas } from "../hooks/useEscuelas";
+import type { Escuela } from "../types/escuela.types";
 import { SeleccionarEscuelaEmpty } from "./SeleccionarEscuelaEmpty";
 import { SeleccionarEscuelaGrid } from "./SeleccionarEscuelaGrid";
 import { SeleccionarEscuelaHeader } from "./SeleccionarEscuelaHeader";
@@ -35,7 +35,7 @@ export default function SeleccionarEscuelaPage() {
 		<div className={styles["seleccionar-escuela"]}>
 			<SeleccionarEscuelaHeader
 				onCrear={() => setModalCrear(true)}
-				onRefresh={() => { }}
+				onRefresh={() => {}}
 				isLoading={isLoading}
 			/>
 

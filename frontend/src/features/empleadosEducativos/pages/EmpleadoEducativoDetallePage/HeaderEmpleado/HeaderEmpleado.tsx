@@ -33,9 +33,7 @@ export default function HeaderEmpleado({
 						{nombreOrdenado}
 					</h1>
 
-					<Badge variant={ESTADO_EMPLEADO_BADGE[estadoKey]}>
-						{estadoKey}
-					</Badge>
+					<Badge variant={ESTADO_EMPLEADO_BADGE[estadoKey]}>{estadoKey}</Badge>
 				</div>
 
 				<div className={styles["header-empleado__badges"]}>

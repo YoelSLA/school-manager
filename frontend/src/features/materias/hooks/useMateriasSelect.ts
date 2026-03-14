@@ -1,15 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { obtenerMateriasNombres } from "../services/materias.services";
-import type { MateriaNombreDTO } from "../types/materias.types";
 import { materiasQueryKeys } from "../types/materias.queryKeys";
+import type { MateriaNombreDTO } from "../types/materias.types";
 
 export function useMateriasSelect(escuelaId?: number) {
-
 	const query = useQuery<MateriaNombreDTO[]>({
 		queryKey: materiasQueryKeys.selectByEscuela(escuelaId ?? 0),
 
 		queryFn: async () => {
-
 			if (!escuelaId) {
 				throw new Error("escuelaId es requerido");
 			}

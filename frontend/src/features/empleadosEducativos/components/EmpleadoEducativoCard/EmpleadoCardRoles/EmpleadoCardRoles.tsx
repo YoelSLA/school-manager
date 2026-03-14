@@ -2,7 +2,6 @@ import type { RolEducativo } from "@/features/designaciones/types/designacion.ty
 import RolEducativoBadge from "../../RolEducativoBadge";
 import styles from "./EmpleadoCardRoles.module.scss";
 
-
 type Props = {
 	roles: RolEducativo[];
 };
@@ -19,9 +18,7 @@ export default function EmpleadoCardRoles({ roles }: Props) {
 					))}
 				</div>
 			) : (
-				<span className={styles.roles__empty}>
-					Sin roles asignados
-				</span>
+				<span className={styles.roles__empty}>Sin roles asignados</span>
 			)}
 		</section>
 	);

@@ -19,8 +19,9 @@ export function LicenciaDesignacionSelectableCard({
 
 	return (
 		<article
-			className={`licencia-designacion-card ${seleccionable ? "seleccionable" : "no-seleccionable"
-				}`}
+			className={`licencia-designacion-card ${
+				seleccionable ? "seleccionable" : "no-seleccionable"
+			}`}
 		>
 			<div className="licencia-designacion-content">
 				{seleccionable && (

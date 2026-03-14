@@ -1,9 +1,9 @@
+import { Clock, type LucideIcon, Repeat, Star } from "lucide-react";
 import type { BadgeVariant } from "@/components/Badge/Badge.types";
 import type {
 	EstadoAsignacion,
 	SituacionDeRevista,
 } from "../types/asignacion.types";
-import { Clock, type LucideIcon, Repeat, Star } from "lucide-react";
 
 export const ESTADO_ASIGNACION_BADGE = {
 	ACTIVA: "activa",

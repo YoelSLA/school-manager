@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { obtenerNombresCursos } from "../services/cursos.services";
-import { cursosQueryKeys } from "../utils/cursos.queryKeys";
 import type { CursoNombreDTO } from "../types/cursos.types";
+import { cursosQueryKeys } from "../utils/cursos.queryKeys";
 
 export function useCursosNombres(escuelaId?: number) {
 	const query = useQuery<CursoNombreDTO[]>({

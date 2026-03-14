@@ -33,7 +33,9 @@ export default function DatosPersonales({ empleado }: Props) {
 		{
 			icon: Calendar,
 			label: "Fecha de ingreso",
-			value: empleado.fechaDeIngreso ? formatearFecha(empleado.fechaDeIngreso) : "No disponible",
+			value: empleado.fechaDeIngreso
+				? formatearFecha(empleado.fechaDeIngreso)
+				: "No disponible",
 		},
 	];
 

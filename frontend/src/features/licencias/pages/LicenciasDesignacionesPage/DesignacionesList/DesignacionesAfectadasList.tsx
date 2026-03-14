@@ -1,6 +1,6 @@
 import type { LicenciaDesignacionDTO } from "@/features/licencias/types/licencia.types";
-import DesignacionItem from "./DesignacionItem/DesignacionItem";
 import styles from "./DesignacionesAfectadasList.module.scss";
+import DesignacionItem from "./DesignacionItem/DesignacionItem";
 
 type Props = {
 	designaciones: LicenciaDesignacionDTO[];

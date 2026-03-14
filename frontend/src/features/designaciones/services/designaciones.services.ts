@@ -1,4 +1,13 @@
+import type {
+	AsignacionDetalleDTO,
+	EditarAsignacionDTO,
+} from "@/features/asignaciones/types/asignacion.types";
 import { http } from "@/services/axios";
+import type { PageResponse } from "@/utils/types";
+import type {
+	DesignacionAdministrativaCreateDTO,
+	DesignacionCursoCreateDTO,
+} from "../form/designacion.form.types";
 import type {
 	CubrirProvisionalDTO,
 	CubrirTitularDTO,
@@ -9,9 +18,6 @@ import type {
 	DesignacionDetalleDTO,
 	EstadoCargo,
 } from "../types/designacion.types";
-import type { PageResponse } from "@/utils/types";
-import type { AsignacionDetalleDTO, EditarAsignacionDTO } from "@/features/asignaciones/types/asignacion.types";
-import { DesignacionAdministrativaCreateDTO, DesignacionCursoCreateDTO } from "../form/designacion.form.types";
 
 /* ======================
 	 Crear
@@ -37,14 +43,14 @@ export async function crearDesignacionCurso(
 
 export async function actualizarDesignacionAdministrativa(
 	designacionId: number,
-	data: DesignacionAdministrativaCreateDTO
+	data: DesignacionAdministrativaCreateDTO,
 ): Promise<void> {
 	await http.put(`/designaciones/${designacionId}/administrativa`, data);
 }
 
 export async function actualizarDesignacionCurso(
 	designacionId: number,
-	data: DesignacionCursoCreateDTO
+	data: DesignacionCursoCreateDTO,
 ): Promise<void> {
 	await http.put(`/designaciones/${designacionId}/curso`, data);
 }
@@ -71,10 +77,8 @@ export async function listarDesignacionesCursos(
 	escuelaId: number,
 	page: number = 0,
 	size: number = 10,
-	filter?: DesignacionCursoFilter
+	filter?: DesignacionCursoFilter,
 ): Promise<PageResponse<DesignacionCursoResumenDTO>> {
-
-
 	const { data } = await http.get<PageResponse<DesignacionCursoResumenDTO>>(
 		`/escuelas/${escuelaId}/designaciones/cursos`,
 		{
@@ -83,7 +87,7 @@ export async function listarDesignacionesCursos(
 				size,
 				...filter,
 			},
-		}
+		},
 	);
 
 	return data;
@@ -141,14 +145,13 @@ export const cubrirConTitular = async (
 
 export const cubrirConProvisional = async (
 	designacionId: number,
-	payload: CubrirProvisionalDTO
+	payload: CubrirProvisionalDTO,
 ): Promise<void> => {
 	await http.post(
 		`/designaciones/${designacionId}/cubrir/provisional`,
 		payload,
 	);
 };
-
 
 /* ======================
 	Editar asignación
@@ -157,11 +160,11 @@ export const cubrirConProvisional = async (
 export async function editarAsignacion(
 	designacionId: number,
 	asignacionId: number,
-	payload: EditarAsignacionDTO
+	payload: EditarAsignacionDTO,
 ): Promise<void> {
 	await http.put(
 		`/designaciones/${designacionId}/asignaciones/${asignacionId}`,
-		payload
+		payload,
 	);
 }
 
@@ -171,11 +174,10 @@ export async function editarAsignacion(
 
 export async function obtenerAsignacionDetalle(
 	designacionId: number,
-	asignacionId: number
+	asignacionId: number,
 ): Promise<AsignacionDetalleDTO> {
-
 	const { data } = await http.get<AsignacionDetalleDTO>(
-		`/designaciones/${designacionId}/asignaciones/${asignacionId}`
+		`/designaciones/${designacionId}/asignaciones/${asignacionId}`,
 	);
 
 	return data;

@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 import "./AsistenciaPage.css";
 
-import Pagination from "@/layout/Pagination";
 import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
-
+import Pagination from "@/layout/Pagination";
+import { useAsistenciaNavigation } from "../../hooks/useAsistenciaNavigation";
 import { useEmpleadosAsistencias } from "../../hooks/useEmpleadosAsistencias";
 import { useRolesConAsistencias } from "../../hooks/useRolesConAsistencias";
-
 import AsistenciasSidebar from "./AsistenciasSidebar";
 import type { RolItem } from "./AsistenciasSidebar/AsistenciasSidebar";
 import EmpleadoResultsList from "./EmpleadoResultsList";
 import EmpleadoSearchBar from "./EmpleadoSearchBar";
-import { useAsistenciaNavigation } from "../../hooks/useAsistenciaNavigation";
 
 /* =========================
 	 HELPERS
@@ -135,10 +133,7 @@ export default function AsistenciasPage() {
 			<main className="asistencias-page__content">
 				{/* BUSCADOR */}
 				<div className="asistencias-page__search">
-					<EmpleadoSearchBar
-						value={query}
-						onChange={setQuery}
-					/>
+					<EmpleadoSearchBar value={query} onChange={setQuery} />
 				</div>
 
 				{/* LISTA */}
@@ -150,11 +145,7 @@ export default function AsistenciasPage() {
 				/>
 
 				{/* PAGINACION */}
-				<Pagination
-					page={page}
-					totalPages={totalPages}
-					onChange={setPage}
-				/>
+				<Pagination page={page} totalPages={totalPages} onChange={setPage} />
 			</main>
 		</section>
 	);

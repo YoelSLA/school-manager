@@ -1,28 +1,22 @@
 import { useNavigate } from "react-router-dom";
-import { EmpleadoEducativoMinimoDTO } from "@/features/empleadosEducativos/types/empleadosEducativos.types";
+import type { EmpleadoEducativoMinimoDTO } from "@/features/empleadosEducativos/types/empleadosEducativos.types";
 
 export function useLicenciasNavigation() {
 	const navigate = useNavigate();
 
 	return {
-		verDetalle: (licenciaId: number) =>
-			navigate(`/licencias/${licenciaId}`),
+		verDetalle: (licenciaId: number) => navigate(`/licencias/${licenciaId}`),
 
-		crear: () =>
-			navigate("/licencias/crear"),
+		crear: () => navigate("/licencias/crear"),
 
-		editar: (licenciaId: number) =>
-			navigate(`/licencias/${licenciaId}/editar`),
+		editar: (licenciaId: number) => navigate(`/licencias/${licenciaId}/editar`),
 
 		verDesignaciones: (
 			licenciaId: number,
-			empleado: EmpleadoEducativoMinimoDTO
+			empleado: EmpleadoEducativoMinimoDTO,
 		) =>
-			navigate(
-				`/licencias/${licenciaId}/designaciones`,
-				{
-					state: { empleado },
-				}
-			),
+			navigate(`/licencias/${licenciaId}/designaciones`, {
+				state: { empleado },
+			}),
 	};
 }

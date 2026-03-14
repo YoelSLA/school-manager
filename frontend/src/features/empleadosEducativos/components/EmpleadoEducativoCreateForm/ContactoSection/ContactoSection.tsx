@@ -1,9 +1,12 @@
 import { Home, Mail, Phone } from "lucide-react";
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
-import FormInputField from "@/components/forms/FormInputField/FormInputField";
-import styles from "@/components/FormSection/FormSection.module.scss";
 import FormSection from "@/components/FormSection";
-import type { EmpleadoEducativoCreateInput, EmpleadoEducativoCreateOutput } from "@/features/empleadosEducativos/form/empleadoEducativo.form.types";
+import styles from "@/components/FormSection/FormSection.module.scss";
+import FormInputField from "@/components/forms/FormInputField/FormInputField";
+import type {
+	EmpleadoEducativoCreateInput,
+	EmpleadoEducativoCreateOutput,
+} from "@/features/empleadosEducativos/form/empleadoEducativo.form.types";
 
 type Props = {
 	register: UseFormRegister<EmpleadoEducativoCreateInput>;
@@ -15,7 +18,11 @@ export default function ContactoSection({ register, errors }: Props) {
 		<FormSection title="CONTACTO">
 			<div className={styles.section__half}>
 				<FormInputField
-					label={<><Phone size={14} /> Teléfono</>}
+					label={
+						<>
+							<Phone size={14} /> Teléfono
+						</>
+					}
 					name="telefono"
 					register={register}
 					error={errors.telefono?.message}
@@ -24,7 +31,11 @@ export default function ContactoSection({ register, errors }: Props) {
 
 			<div className={styles.section__half}>
 				<FormInputField
-					label={<><Home size={14} /> Domicilio</>}
+					label={
+						<>
+							<Home size={14} /> Domicilio
+						</>
+					}
 					name="domicilio"
 					register={register}
 					error={errors.domicilio?.message}

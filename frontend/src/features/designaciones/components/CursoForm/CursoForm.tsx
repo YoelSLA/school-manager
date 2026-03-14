@@ -1,17 +1,17 @@
-import { useDesignacionCursoForm } from "@/features/designaciones/form/hooks/useDesignacionCursoForm";
-import DesignacionFormLayout from "../DesignacionFormLayout/DesignacionFormLayout";
-import { useMateriasSelect } from "@/features/materias/hooks/useMateriasSelect";
-import { useAppSelector } from "@/store/hooks";
-import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
-import { useCursosNombres } from "@/features/cursos/hooks/useCursosNombres";
+import type { SubmitHandler } from "react-hook-form";
+import CupofInputField from "@/components/forms/inputs/CupofInputField";
 import CursoSelectField from "@/components/forms/selects/CursoSelectField";
 import MateriaSelectField from "@/components/forms/selects/MateriaSelectField";
-import type { SubmitHandler } from "react-hook-form";
-import type { DesignacionCursoFormValues } from "../../form/designacion.form.types";
-import CupofInputField from "@/components/forms/inputs/CupofInputField";
-import styles from "./CursoForm.module.scss";
 import OrientacionSelectField from "@/components/forms/selects/OrientacionSelectField";
+import { useCursosNombres } from "@/features/cursos/hooks/useCursosNombres";
+import { useDesignacionCursoForm } from "@/features/designaciones/form/hooks/useDesignacionCursoForm";
+import { useMateriasSelect } from "@/features/materias/hooks/useMateriasSelect";
+import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
+import { useAppSelector } from "@/store/hooks";
+import type { DesignacionCursoFormValues } from "../../form/designacion.form.types";
 import { ORIENTACIONES } from "../../utils/designacion.utils";
+import DesignacionFormLayout from "../DesignacionFormLayout/DesignacionFormLayout";
+import styles from "./CursoForm.module.scss";
 
 type Props = {
 	onSubmit: (data: DesignacionCursoFormValues) => Promise<void>;
@@ -19,29 +19,34 @@ type Props = {
 };
 
 export default function CursoForm({ onSubmit, isSubmitting }: Props) {
-
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 
-	const { materias, isLoading: isLoadingMaterias } =
-		useMateriasSelect(escuelaActiva?.id);
+	const { materias, isLoading: isLoadingMaterias } = useMateriasSelect(
+		escuelaActiva?.id,
+	);
 
-	const { cursos, isLoading: isLoadingCursos } =
-		useCursosNombres(escuelaActiva?.id);
+	const { cursos, isLoading: isLoadingCursos } = useCursosNombres(
+		escuelaActiva?.id,
+	);
 
 	const {
-		form: { register, handleSubmit, formState: { errors } },
+		form: {
+			register,
+			handleSubmit,
+			formState: { errors },
+		},
 		franjas: { fields, append, remove },
 	} = useDesignacionCursoForm({
 		materias,
 		cursos,
-		orientaciones: ORIENTACIONES.map(o => o.value)
-
+		orientaciones: ORIENTACIONES.map((o) => o.value),
 	});
 
-	const _onSubmitHandler: SubmitHandler<DesignacionCursoFormValues> =
-		async (data) => {
-			await onSubmit(data);
-		};
+	const _onSubmitHandler: SubmitHandler<DesignacionCursoFormValues> = async (
+		data,
+	) => {
+		await onSubmit(data);
+	};
 
 	return (
 		<form onSubmit={handleSubmit(_onSubmitHandler)}>
@@ -72,7 +77,6 @@ export default function CursoForm({ onSubmit, isSubmitting }: Props) {
 							error={errors.orientacion?.message}
 						/>
 					</div>
-
 				}
 				fields={fields}
 				register={register}

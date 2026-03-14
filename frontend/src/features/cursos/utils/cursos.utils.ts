@@ -8,11 +8,11 @@ export const FILTROS_CURSOS: {
 	label: string;
 	value: CursoFiltro;
 }[] = [
-		{ label: "Todos", value: "TODOS" },
-		{ label: "Mañana", value: "MANIANA" },
-		{ label: "Tarde", value: "TARDE" },
-		{ label: "Vespertino", value: "VESPERTINO" },
-	];
+	{ label: "Todos", value: "TODOS" },
+	{ label: "Mañana", value: "MANIANA" },
+	{ label: "Tarde", value: "TARDE" },
+	{ label: "Vespertino", value: "VESPERTINO" },
+];
 
 export const filtrosCursos: Record<
 	CursoFiltro,

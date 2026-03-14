@@ -1,51 +1,51 @@
-import { BookOpen, GraduationCap, User, Hash } from "lucide-react";
-import { DesignacionLicenciaCursoItemDTO } from "@/features/licencias/types/licencia.types";
+import { BookOpen, GraduationCap, Hash, User } from "lucide-react";
+import type { DesignacionLicenciaCursoItemDTO } from "@/features/licencias/types/licencia.types";
 import styles from "./DesignacionCursoRow.module.scss";
 
 type Props = {
-  designacion: DesignacionLicenciaCursoItemDTO;
-  checked: boolean;
-  onToggle: (id: number) => void;
+	designacion: DesignacionLicenciaCursoItemDTO;
+	checked: boolean;
+	onToggle: (id: number) => void;
 };
 
 export default function DesignacionCursoRow({
-  designacion,
-  checked,
-  onToggle,
+	designacion,
+	checked,
+	onToggle,
 }: Props) {
-  return (
-    <label className={styles.item}>
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={() => onToggle(designacion.id)}
-      />
+	return (
+		<label className={styles.item}>
+			<input
+				type="checkbox"
+				checked={checked}
+				onChange={() => onToggle(designacion.id)}
+			/>
 
-      <div className={styles.content}>
-        <div className={styles.top}>
-          <span className={styles.cupof}>
-            <Hash size={16} />
-            {designacion.cupof}
-          </span>
+			<div className={styles.content}>
+				<div className={styles.top}>
+					<span className={styles.cupof}>
+						<Hash size={16} />
+						{designacion.cupof}
+					</span>
 
-          <span className={styles.rol}>
-            <User size={16} />
-            {designacion.rolEducativo}
-          </span>
-        </div>
+					<span className={styles.rol}>
+						<User size={16} />
+						{designacion.rolEducativo}
+					</span>
+				</div>
 
-        <div className={styles.bottom}>
-          <span>
-            <BookOpen size={16} />
-            {designacion.materia.nombre}
-          </span>
+				<div className={styles.bottom}>
+					<span>
+						<BookOpen size={16} />
+						{designacion.materia.nombre}
+					</span>
 
-          <span>
-            <GraduationCap size={16} />
-            {designacion.curso.division} — {designacion.curso.turno}
-          </span>
-        </div>
-      </div>
-    </label>
-  );
+					<span>
+						<GraduationCap size={16} />
+						{designacion.curso.division} — {designacion.curso.turno}
+					</span>
+				</div>
+			</div>
+		</label>
+	);
 }

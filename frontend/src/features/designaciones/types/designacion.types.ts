@@ -1,6 +1,4 @@
-import type {
-	FranjaHorariaMinimoDTO,
-} from "@/utils/types";
+import type { FranjaHorariaMinimoDTO } from "@/utils/types";
 import type {
 	AsignacionDetalleDTO,
 	CaracteristicaAsignacion,
@@ -90,7 +88,6 @@ export enum RolEducativo {
 	AUXILIAR = "AUXILIAR",
 	ENCARGO_DE_MEDIO_DE_APOYO_TECNICO_PROFESIONAL = "ENCARGO_DE_MEDIO_DE_APOYO_TECNICO_PROFESIONAL",
 }
-
 
 export enum EstadoDesignacion {
 	CUBIERTA = "CUBIERTA",

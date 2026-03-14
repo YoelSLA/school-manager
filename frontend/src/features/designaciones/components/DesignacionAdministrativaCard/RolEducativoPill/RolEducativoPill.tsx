@@ -1,7 +1,7 @@
 import { Briefcase } from "lucide-react";
 import type { RolEducativo } from "@/features/designaciones/types/designacion.types";
-import styles from "./RolEducativoPill.module.scss";
 import { ROL_EDUCATIVO_LABELS } from "@/utils";
+import styles from "./RolEducativoPill.module.scss";
 
 type Props = {
 	rolEducativo: RolEducativo;

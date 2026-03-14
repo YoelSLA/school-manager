@@ -4,4 +4,3 @@ export { default as EmpleadoAutocompleteBase } from "./EmpleadoAutocompleteBase"
 export { default as EmpleadoSelectedCard } from "./EmpleadoSelectedCard";
 // Selector
 export { default as EmpleadoSelector } from "./EmpleadoSelector";
-

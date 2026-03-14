@@ -19,14 +19,10 @@ export default function ErrorModal({ error, onClose }: Props) {
 			<div className={styles["error-modal"]}>
 				<header className={styles["error-modal__header"]}>
 					<AlertTriangle size={18} />
-					<h4 className={styles["error-modal__title"]}>
-						{error.title}
-					</h4>
+					<h4 className={styles["error-modal__title"]}>{error.title}</h4>
 				</header>
 
-				<p className={styles["error-modal__message"]}>
-					{error.message}
-				</p>
+				<p className={styles["error-modal__message"]}>{error.message}</p>
 
 				<footer className={styles["error-modal__footer"]}>
 					<button

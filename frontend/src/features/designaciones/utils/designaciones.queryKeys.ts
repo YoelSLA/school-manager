@@ -1,4 +1,4 @@
-import { DesignacionCursoFilter } from "../types/designacion.types";
+import type { DesignacionCursoFilter } from "../types/designacion.types";
 
 export const designacionesQueryKeys = {
 	all: ["designaciones"] as const,
@@ -13,14 +13,13 @@ export const designacionesQueryKeys = {
 	========================= */
 
 	curso: {
-		lists: () =>
-			[...designacionesQueryKeys.lists(), "curso"] as const,
+		lists: () => [...designacionesQueryKeys.lists(), "curso"] as const,
 
 		byEscuela: (
 			escuelaId: number,
 			page: number = 0,
 			size: number = 10,
-			filter?: DesignacionCursoFilter
+			filter?: DesignacionCursoFilter,
 		) =>
 			[
 				...designacionesQueryKeys.curso.lists(),
@@ -28,7 +27,7 @@ export const designacionesQueryKeys = {
 				escuelaId,
 				page,
 				size,
-				filter
+				filter,
 			] as const,
 
 		detail: (designacionId: number) =>
@@ -45,14 +44,9 @@ export const designacionesQueryKeys = {
 	========================= */
 
 	administrativa: {
-		lists: () =>
-			[...designacionesQueryKeys.lists(), "administrativa"] as const,
+		lists: () => [...designacionesQueryKeys.lists(), "administrativa"] as const,
 
-		byEscuela: (
-			escuelaId: number,
-			page: number = 0,
-			size: number = 10
-		) =>
+		byEscuela: (escuelaId: number, page: number = 0, size: number = 10) =>
 			[
 				...designacionesQueryKeys.administrativa.lists(),
 				"escuela",
@@ -74,11 +68,7 @@ export const designacionesQueryKeys = {
 
 	cargos: {
 		all: (designacionId: number) =>
-			[
-				...designacionesQueryKeys.all,
-				designacionId,
-				"cargos",
-			] as const,
+			[...designacionesQueryKeys.all, designacionId, "cargos"] as const,
 
 		list: (designacionId: number, estado?: string) =>
 			[
@@ -89,10 +79,6 @@ export const designacionesQueryKeys = {
 			] as const,
 
 		activo: (designacionId: number) =>
-			[
-				...designacionesQueryKeys.all,
-				designacionId,
-				"cargo-activo",
-			] as const,
+			[...designacionesQueryKeys.all, designacionId, "cargo-activo"] as const,
 	},
 };

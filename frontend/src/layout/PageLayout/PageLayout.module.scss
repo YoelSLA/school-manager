@@ -2,57 +2,57 @@
 @use "@/styles/_debug.mixins" as debug;
 
 .page-layout {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding-top: 0;
-  gap: 8px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	padding-top: 0;
+	gap: 8px;
 
-  @include debug.debug(aqua);
+	@include debug.debug(aqua);
 
-  &__breadcrumb {
-    flex-shrink: 0;
+	&__breadcrumb {
+		flex-shrink: 0;
 
-    @include debug.debug(coral);
-  }
+		@include debug.debug(coral);
+	}
 
-  &__content {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+	&__content {
+		flex: 1;
+		min-height: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
 
-    @include debug.debug(lightcoral);
-  }
+		@include debug.debug(lightcoral);
+	}
 }
 
 @include desktop-height-small {
-  .page-layout {
-    gap: 4px;
-  }
+	.page-layout {
+		gap: 4px;
+	}
 
-  .page-layout__content {
-    gap: 4px;
-  }
+	.page-layout__content {
+		gap: 4px;
+	}
 }
 
 @include desktop-height-medium {
-  .page-layout {
-    gap: 8px;
-  }
+	.page-layout {
+		gap: 8px;
+	}
 
-  .page-layout__content {
-    gap: 8px;
-  }
+	.page-layout__content {
+		gap: 8px;
+	}
 }
 
 @include desktop-height-large {
-  .page-layout {
-    gap: 12px;
-  }
+	.page-layout {
+		gap: 12px;
+	}
 
-  .page-layout__content {
-    gap: 12px;
-  }
+	.page-layout__content {
+		gap: 12px;
+	}
 }

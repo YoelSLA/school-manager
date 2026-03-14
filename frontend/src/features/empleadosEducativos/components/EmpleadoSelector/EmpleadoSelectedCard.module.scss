@@ -14,7 +14,9 @@
 	flex-direction: column;
 	gap: 12px;
 
-	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+	transition:
+		border-color 0.15s ease,
+		box-shadow 0.15s ease;
 
 	&:hover {
 		border-color: #d1d5db;
@@ -40,7 +42,9 @@
 		cursor: pointer;
 		color: #6b7280;
 
-		transition: background 0.15s ease, color 0.15s ease;
+		transition:
+			background 0.15s ease,
+			color 0.15s ease;
 
 		&:hover {
 			background: #f3f4f6;

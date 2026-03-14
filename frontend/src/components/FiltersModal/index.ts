@@ -1,1 +1,1 @@
-export { default } from "./FiltersModal"
+export { default } from "./FiltersModal";
