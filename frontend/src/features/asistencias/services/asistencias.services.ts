@@ -1,4 +1,5 @@
 import { http } from "@/services/axios";
+import type { PageResponse } from "@/utils/types";
 import type {
 	AsistenciaDiaDTO,
 	EliminarInasistenciasManualDTO,
@@ -6,7 +7,6 @@ import type {
 	RegistrarInasistenciasManualDTO,
 	RolCountDTO,
 } from "../types/asistencias.types";
-import type { PageResponse } from "@/utils/types";
 
 export async function registrarInasistenciasManual(
 	payload: RegistrarInasistenciasManualDTO,

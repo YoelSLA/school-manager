@@ -11,7 +11,6 @@ export default function DesignacionCursoCard({
 	designacion,
 	onVerDetalle,
 }: Props) {
-
 	return (
 		<DesignacionCard
 			designacionId={designacion.id}
@@ -20,9 +19,7 @@ export default function DesignacionCursoCard({
 			estadoDesignacion={designacion.estadoDesignacion}
 			onVerDetalle={() => onVerDetalle(designacion)}
 		>
-			<DesignacionCursoInfo
-				designacion={designacion}
-			/>
+			<DesignacionCursoInfo designacion={designacion} />
 		</DesignacionCard>
 	);
 }

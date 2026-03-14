@@ -1,140 +1,137 @@
 @use "@/styles/breakpoints" as *;
 
 .page {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  height: 100%;
-  padding: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	height: 100%;
+	padding: 16px;
 }
 
 .header {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
 
-  padding: 22px 26px;
-  border-radius: 16px;
+	padding: 22px 26px;
+	border-radius: 16px;
 
-  background: linear-gradient(135deg,
-      #ffffff 0%,
-      #eef2ff 100%);
+	background: linear-gradient(135deg, #ffffff 0%, #eef2ff 100%);
 
-  border: none;
+	border: none;
 
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
 
-  &__main {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+	&__main {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
 
-  &__icon {
-    color: #2563eb;
-  }
+	&__icon {
+		color: #2563eb;
+	}
 
-  &__identity {
-    display: flex;
-    gap: 8px;
-    align-items: baseline;
-  }
+	&__identity {
+		display: flex;
+		gap: 8px;
+		align-items: baseline;
+	}
 
-  &__apellido {
-    font-size: 20px;
-    font-weight: 700;
-    color: #111827;
-  }
+	&__apellido {
+		font-size: 20px;
+		font-weight: 700;
+		color: #111827;
+	}
 
-  &__nombre {
-    font-size: 20px;
-    font-weight: 400;
-    color: #374151;
-  }
+	&__nombre {
+		font-size: 20px;
+		font-weight: 400;
+		color: #374151;
+	}
 
-  &__cuil {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 14px;
-    color: #6b7280;
-  }
+	&__cuil {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 14px;
+		color: #6b7280;
+	}
 }
 
 .back {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
 
-  border: none;
-  background: none;
-  cursor: pointer;
+	border: none;
+	background: none;
+	cursor: pointer;
 
-  font-size: 14px;
-  color: #2563eb;
+	font-size: 14px;
+	color: #2563eb;
 }
 
 .title {
-  font-size: 20px;
-  font-weight: 600;
+	font-size: 20px;
+	font-weight: 600;
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-height: 0; // 🔥 clave para que overflow funcione
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	min-height: 0; // 🔥 clave para que overflow funcione
 }
 
 /* Lista scrolleable */
-.container> :first-child {
-  flex: 1;
-  overflow-y: auto;
-  min-height: 0;
+.container > :first-child {
+	flex: 1;
+	overflow-y: auto;
+	min-height: 0;
 }
 
-
 .actions {
-  display: flex;
-  justify-content: flex-end;
+	display: flex;
+	justify-content: flex-end;
 }
 
 @include desktop-height-small {
-  .header {
-    padding: 16px 18px;
+	.header {
+		padding: 16px 18px;
 
-    &__apellido,
-    &__nombre {
-      font-size: 16px;
-    }
-  }
+		&__apellido,
+		&__nombre {
+			font-size: 16px;
+		}
+	}
 
-  .page {
-    gap: 12px;
-    padding: 8px;
-  }
+	.page {
+		gap: 12px;
+		padding: 8px;
+	}
 
-  .actions {
-    padding-top: 8px;
-  }
+	.actions {
+		padding-top: 8px;
+	}
 }
 
 @include desktop-height-large {
-  .header {
-    padding: 26px 32px;
+	.header {
+		padding: 26px 32px;
 
-    &__apellido,
-    &__nombre {
-      font-size: 22px;
-    }
-  }
+		&__apellido,
+		&__nombre {
+			font-size: 22px;
+		}
+	}
 
-  .page {
-    gap: 28px;
-    padding: 24px;
-  }
+	.page {
+		gap: 28px;
+		padding: 24px;
+	}
 
-  .actions {
-    padding-top: 16px;
-  }
+	.actions {
+		padding-top: 16px;
+	}
 }

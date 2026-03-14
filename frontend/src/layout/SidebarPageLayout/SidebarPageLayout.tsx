@@ -14,15 +14,9 @@ export default function SidebarPageLayout({
 }: Props) {
 	return (
 		<section className={styles.sidebarPage}>
-			<aside className={styles.sidebarPage__sidebar}>
-				{sidebar}
-			</aside>
-			<main className={styles.sidebarPage__content}>
-				{children}
-			</main>
-			<div className={styles.sidebarPage__pagination}>
-				{pagination}
-			</div>
+			<aside className={styles.sidebarPage__sidebar}>{sidebar}</aside>
+			<main className={styles.sidebarPage__content}>{children}</main>
+			<div className={styles.sidebarPage__pagination}>{pagination}</div>
 		</section>
 	);
 }

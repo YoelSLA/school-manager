@@ -20,4 +20,4 @@ export type MateriaEditDTO = {
 	nombre: string;
 	abreviatura: string;
 	cantidadModulos: number;
-}
+};

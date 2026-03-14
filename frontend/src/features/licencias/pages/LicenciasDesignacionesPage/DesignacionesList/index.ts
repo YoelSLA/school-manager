@@ -1,1 +1,1 @@
-export { default } from "./DesignacionesAfectadasList"
+export { default } from "./DesignacionesAfectadasList";

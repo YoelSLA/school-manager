@@ -1,8 +1,8 @@
-import Modal from "@/components/Modal";
 import FechaField from "@/components/forms/inputs/FechaInputField";
+import Modal from "@/components/Modal";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
-import styles from "./LicenciaCubrirDesignacionesModal.module.scss";
 import { useCubrirDesignacionesForm } from "../../hooks/useCubrirDesignacionesConSuplenteForm";
+import styles from "./LicenciaCubrirDesignacionesModal.module.scss";
 
 type Props = {
 	licenciaId: number;

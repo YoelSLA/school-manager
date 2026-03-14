@@ -1,1 +1,1 @@
-export { default } from "./MateriaEditModal"
+export { default } from "./MateriaEditModal";

@@ -105,15 +105,10 @@ public class EscuelaCursoControllerREST {
 
 		var cursos = cursoService.listarCursosPorEscuela(escuelaId);
 
-		List<CursoNombreDTO> resultado = cursos
+		return cursos
 				.stream()
 				.map(CursoMapper::toNombreDTO)
 				.toList();
-
-		System.out.println(">> DTOs generados: " + resultado.size());
-		System.out.println(">> Resultado: " + resultado);
-
-		return resultado;
 	}
 
 }

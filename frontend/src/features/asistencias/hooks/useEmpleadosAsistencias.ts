@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import type { PageResponse } from "@/utils/types";
 import { obtenerEmpleadosAsistencias } from "../services/asistencias.services";
 import type { EmpleadoAsistenciaDTO } from "../types/asistencias.types";
 import { asistenciasQueryKeys } from "../utils/asistencias.queryKeys";
-import type { PageResponse } from "@/utils/types";
 
 type Params = {
 	fecha: string;

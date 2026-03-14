@@ -1,11 +1,11 @@
-import styles from "./LicenciaDatosSection.module.scss";
+import type { UseFormReturn } from "react-hook-form";
 import Button from "@/components/Button";
-import TipoLicenciaSelect from "@/features/licencias/components/TipoLicenciaSelect/TipoLicenciaSelect";
-import FechaField from "@/components/forms/inputs/FechaInputField";
-import DescripcionField from "@/components/forms/inputs/DescripcionInputField";
 import FormSection from "@/components/FormSection";
-import { UseFormReturn } from "react-hook-form";
-import { CrearLicenciaFormValues } from "../../form/crearLicencia.schema";
+import DescripcionField from "@/components/forms/inputs/DescripcionInputField";
+import FechaField from "@/components/forms/inputs/FechaInputField";
+import TipoLicenciaSelect from "@/features/licencias/components/TipoLicenciaSelect/TipoLicenciaSelect";
+import type { CrearLicenciaFormValues } from "../../form/crearLicencia.schema";
+import styles from "./LicenciaDatosSection.module.scss";
 
 type Props = {
 	form: UseFormReturn<CrearLicenciaFormValues>;
@@ -28,7 +28,6 @@ export default function LicenciaDatosSection({
 			<div className={styles.licenciaFormContent}>
 				<div className={styles.licenciaSection}>
 					<FormSection title="Datos de la licencia" layout="column">
-
 						<TipoLicenciaSelect
 							register={register}
 							name="tipoLicencia"
@@ -54,17 +53,12 @@ export default function LicenciaDatosSection({
 							name="descripcion"
 							error={errors.descripcion?.message}
 						/>
-
 					</FormSection>
 				</div>
 			</div>
 
 			<footer className={styles.licenciaFormFooter}>
-				{error && (
-					<p className={styles.licenciaFormError}>
-						{error}
-					</p>
-				)}
+				{error && <p className={styles.licenciaFormError}>{error}</p>}
 
 				<Button
 					type="submit"

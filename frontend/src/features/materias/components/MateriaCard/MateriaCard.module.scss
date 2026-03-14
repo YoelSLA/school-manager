@@ -1,139 +1,139 @@
 .card {
-  position: relative;
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 16px;
+	position: relative;
+	background: #ffffff;
+	border-radius: 14px;
+	padding: 16px;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; // 🔥 clave
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between; // 🔥 clave
 
-  border: 1px solid #e5e7eb;
+	border: 1px solid #e5e7eb;
 
-  transition:
-    box-shadow 0.2s ease,
-    transform 0.15s ease;
+	transition:
+		box-shadow 0.2s ease,
+		transform 0.15s ease;
 
-  min-height: 160px; // opcional: da consistencia visual
+	min-height: 160px; // opcional: da consistencia visual
 
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 16px;
-    bottom: 16px;
-    width: 3px;
-    border-radius: 999px;
-    background: var(--primary);
-  }
+	&::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 16px;
+		bottom: 16px;
+		width: 3px;
+		border-radius: 999px;
+		background: var(--primary);
+	}
 
-  &:hover {
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
-    transform: translateY(-3px);
-  }
+	&:hover {
+		box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+		transform: translateY(-3px);
+	}
 
-  /* HEADER */
+	/* HEADER */
 
-  &__header {
-    display: flex;
-    flex-direction: column;
-    align-items: center; // 🔥 centra todo
-    text-align: center;
-    gap: 8px;
-  }
+	&__header {
+		display: flex;
+		flex-direction: column;
+		align-items: center; // 🔥 centra todo
+		text-align: center;
+		gap: 8px;
+	}
 
-  &__title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #111827;
+	&__title {
+		font-size: 1rem;
+		font-weight: 700;
+		color: #111827;
 
-    /* 🔥 fuerza siempre 2 líneas */
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+		/* 🔥 fuerza siempre 2 líneas */
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
 
-    line-height: 1.3;
-    min-height: calc(1.3em * 2); // 👈 siempre ocupa 2 líneas
-  }
+		line-height: 1.3;
+		min-height: calc(1.3em * 2); // 👈 siempre ocupa 2 líneas
+	}
 
-  &__badges {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    margin-top: 4px;
-  }
+	&__badges {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 20px;
+		margin-top: 4px;
+	}
 
-  &__abreviatura {
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: #1d4ed8;
-    background: #e0edff;
-    padding: 3px 10px;
-    border-radius: 999px;
-  }
+	&__abreviatura {
+		font-size: 0.72rem;
+		font-weight: 600;
+		color: #1d4ed8;
+		background: #e0edff;
+		padding: 3px 10px;
+		border-radius: 999px;
+	}
 
-  /* FOOTER */
+	/* FOOTER */
 
-  &__footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+	&__footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 
-    padding-top: 12px;
-    margin-top: 12px;
+		padding-top: 12px;
+		margin-top: 12px;
 
-    border-top: 1px solid #f1f5f9;
-  }
+		border-top: 1px solid #f1f5f9;
+	}
 
-  &__modulos {
-    font-size: 0.72rem;
-    font-weight: 500;
-    color: #6b7280;
-  }
+	&__modulos {
+		font-size: 0.72rem;
+		font-weight: 500;
+		color: #6b7280;
+	}
 
-  &__actions {
-    display: flex;
-    gap: 6px;
-  }
+	&__actions {
+		display: flex;
+		gap: 6px;
+	}
 
-  &__iconButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	&__iconButton {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
-    width: 30px;
-    height: 30px;
+		width: 30px;
+		height: 30px;
 
-    border-radius: 8px;
-    border: none;
-    background: transparent;
+		border-radius: 8px;
+		border: none;
+		background: transparent;
 
-    cursor: pointer;
+		cursor: pointer;
 
-    transition:
-      background 0.15s ease,
-      transform 0.1s ease;
+		transition:
+			background 0.15s ease,
+			transform 0.1s ease;
 
-    svg {
-      color: #6b7280;
-      transition: color 0.15s ease;
-    }
+		svg {
+			color: #6b7280;
+			transition: color 0.15s ease;
+		}
 
-    &:hover {
-      background: #f3f4f6;
-    }
+		&:hover {
+			background: #f3f4f6;
+		}
 
-    &:active {
-      transform: scale(0.92);
-    }
+		&:active {
+			transform: scale(0.92);
+		}
 
-    &--edit:hover svg {
-      color: #2563eb;
-    }
+		&--edit:hover svg {
+			color: #2563eb;
+		}
 
-    &--danger:hover svg {
-      color: #dc2626;
-    }
-  }
+		&--danger:hover svg {
+			color: #dc2626;
+		}
+	}
 }

@@ -28,17 +28,12 @@ ReactDOM.createRoot(rootElement).render(
 		<Provider store={store}>
 			<QueryClientProvider client={queryClient}>
 				<Router>
-					<Toaster
-						position="bottom-right"
-						toastOptions={{ duration: 4000 }}
-					/>
+					<Toaster position="bottom-right" toastOptions={{ duration: 4000 }} />
 					<AppRouter />
 				</Router>
 
-				{import.meta.env.DEV && (
-					<ReactQueryDevtools initialIsOpen={false} />
-				)}
+				{import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
 			</QueryClientProvider>
 		</Provider>
-	</React.StrictMode>
+	</React.StrictMode>,
 );

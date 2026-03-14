@@ -58,8 +58,7 @@ export const designacionesPaths = {
 
 	create: "/designaciones/crear",
 
-	detail: (designacionId: number | string) =>
-		`/designaciones/${designacionId}`,
+	detail: (designacionId: number | string) => `/designaciones/${designacionId}`,
 
 	edit: (designacionId: number | string) =>
 		`/designaciones/${designacionId}/editar`,
@@ -73,8 +72,7 @@ export const licenciasPaths = {
 
 	create: "/licencias/crear",
 
-	detail: (licenciaId: number | string) =>
-		`/licencias/${licenciaId}`,
+	detail: (licenciaId: number | string) => `/licencias/${licenciaId}`,
 
 	designaciones: (licenciaId: number | string) =>
 		`/licencias/${licenciaId}/designaciones`,

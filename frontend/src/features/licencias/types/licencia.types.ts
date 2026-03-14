@@ -81,7 +81,7 @@ export enum EstadoLicencia {
 }
 
 export type LicenciaTimelineItem = LicenciaTimelineItemDTO;
-export type LicenciaResumen = LicenciaResumenDTO
+export type LicenciaResumen = LicenciaResumenDTO;
 export type LicenciaDetalle = LicenciaDetalleDTO;
 export type LicenciaDesignacion = LicenciaDesignacionDTO;
 
@@ -100,7 +100,6 @@ export type DesignacionLicenciaCursoItemDTO = {
 	materia: MateriaNombreDTO;
 	curso: CursoNombreDTO;
 	orientacion: string;
-
 };
 
 export type DesignacionLicenciaItemDTO =
@@ -115,7 +114,7 @@ export type MateriaNombreDTO = {
 export type CursoNombreDTO = {
 	id: number;
 	division: string;
-	turno: string
+	turno: string;
 };
 
 export type LicenciaCreateDTO = {
@@ -127,4 +126,3 @@ export type LicenciaCreateDTO = {
 	descripcion?: string;
 	designacionesIds: number[];
 };
-

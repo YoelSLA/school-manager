@@ -1,9 +1,8 @@
-
-import { Calendar, Clock, Hash, FileText } from "lucide-react";
-import { diasRestantes, formatPeriodo } from "@/utils";
+import { Calendar, Clock, FileText, Hash } from "lucide-react";
 import Badge from "@/components/Badge";
-import { ESTADO_LICENCIA_BADGE } from "@/features/licencias/utils/licencia.bagdes";
 import type { LicenciaDetalleDTO } from "@/features/licencias/types/licencia.types";
+import { ESTADO_LICENCIA_BADGE } from "@/features/licencias/utils/licencia.bagdes";
+import { diasRestantes, formatPeriodo } from "@/utils";
 
 import styles from "./LicenciaInfoBox.module.scss";
 
@@ -12,7 +11,6 @@ type Props = {
 };
 
 export default function LicenciaInfoBox({ licencia }: Props) {
-
 	return (
 		<section className={styles.box}>
 			{/* =====================
@@ -42,9 +40,7 @@ export default function LicenciaInfoBox({ licencia }: Props) {
 			   DESCRIPCIÓN NORMATIVA
 			===================== */}
 			<div className={styles.descripcionWrapper}>
-				<span
-					className={styles.descripcionCodigo}
-				>
+				<span className={styles.descripcionCodigo}>
 					{licencia.normativa.descripcion}
 				</span>
 			</div>

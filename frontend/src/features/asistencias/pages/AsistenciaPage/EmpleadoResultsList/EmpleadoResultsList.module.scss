@@ -2,12 +2,11 @@
 @use "@/styles/_debug.mixins" as debug;
 
 .list {
-  @include debug.debug(red);
+	@include debug.debug(red);
 
-  height: 100%;
-  display: grid;
-  gap: 8px;
-
+	height: 100%;
+	display: grid;
+	gap: 8px;
 }
 
 /* =========================
@@ -15,11 +14,11 @@
 ========================= */
 
 @include desktop-width-small {
-  .list {
-    @include debug.debug(blue);
+	.list {
+		@include debug.debug(blue);
 
-    grid-template-columns: repeat(3, 1fr);
-  }
+		grid-template-columns: repeat(3, 1fr);
+	}
 }
 
 /* =========================
@@ -27,11 +26,11 @@
 ========================= */
 
 @include desktop-width-medium {
-  .list {
-    @include debug.debug(green);
+	.list {
+		@include debug.debug(green);
 
-    grid-template-columns: repeat(3, 1fr);
-  }
+		grid-template-columns: repeat(3, 1fr);
+	}
 }
 
 /* =========================
@@ -39,11 +38,11 @@
 ========================= */
 
 @include desktop-width-large {
-  .list {
-    @include debug.debug(purple);
+	.list {
+		@include debug.debug(purple);
 
-    grid-template-columns: repeat(4, 1fr);
-  }
+		grid-template-columns: repeat(4, 1fr);
+	}
 }
 
 /* =========================
@@ -51,11 +50,11 @@
 ========================= */
 
 .empty {
-  @include debug.debug(orange);
+	@include debug.debug(orange);
 
-  grid-column: 1 / -1;
-  padding: 32px;
-  text-align: center;
-  font-size: 14px;
-  color: #6b7280;
+	grid-column: 1 / -1;
+	padding: 32px;
+	text-align: center;
+	font-size: 14px;
+	color: #6b7280;
 }

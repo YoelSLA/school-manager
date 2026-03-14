@@ -10,7 +10,12 @@ type Props = {
 	onDelete?: (materia: MateriaResponseDTO) => void;
 };
 
-export default function MateriasList({ materias, isLoading, onEdit, onDelete }: Props) {
+export default function MateriasList({
+	materias,
+	isLoading,
+	onEdit,
+	onDelete,
+}: Props) {
 	if (isLoading) {
 		return <ListState>Cargando materias…</ListState>;
 	}
@@ -24,16 +29,10 @@ export default function MateriasList({ materias, isLoading, onEdit, onDelete }: 
 			{materias.map((materia) => (
 				<MateriaCard
 					key={materia.id}
-					materia={materia} onEdit={
-						onEdit
-							? () => onEdit(materia)
-							: undefined
-					}
-					onDelete={
-						onDelete
-							? () => onDelete(materia)
-							: undefined
-					} />
+					materia={materia}
+					onEdit={onEdit ? () => onEdit(materia) : undefined}
+					onDelete={onDelete ? () => onDelete(materia) : undefined}
+				/>
 			))}
 		</ScrollableGridListLayout>
 	);

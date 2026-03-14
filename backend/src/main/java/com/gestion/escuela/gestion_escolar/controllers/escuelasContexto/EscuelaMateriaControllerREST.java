@@ -96,27 +96,12 @@ public class EscuelaMateriaControllerREST {
 	public List<MateriaNombreDTO> listarMateriasPorEscuela(
 			@PathVariable Long escuelaId
 	) {
-
-		System.out.println(">> Entró al endpoint listarMateriasPorEscuela");
-		System.out.println(">> escuelaId recibido: " + escuelaId);
-
 		var materias = materiaService.listarMateriasPorEscuela(escuelaId);
 
-		System.out.println(">> Materias obtenidas del service: " + materias.size());
-		System.out.println(">> Materias: " + materias);
-
-		List<MateriaNombreDTO> resultado = materias
+		return materias
 				.stream()
-				.map(materia -> {
-					System.out.println("Mapeando materia: " + materia);
-					return MateriaMapper.toNombreDTO(materia);
-				})
+				.map(MateriaMapper::toNombreDTO)
 				.toList();
-
-		System.out.println(">> DTOs generados: " + resultado.size());
-		System.out.println(">> Resultado final: " + resultado);
-
-		return resultado;
 	}
 
 }

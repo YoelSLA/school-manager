@@ -1,1 +1,1 @@
-export { default } from "./DesignacionCursoRow"
+export { default } from "./DesignacionCursoRow";

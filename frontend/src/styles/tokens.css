@@ -1,19 +1,18 @@
 :root {
-
 	/* ======================================================
 	   🎓 BRAND / PRIMARY SCALE
 	====================================================== */
 
-	--primary-50: #EFF6FF;
-	--primary-100: #DBEAFE;
-	--primary-200: #BFDBFE;
-	--primary-300: #93C5FD;
-	--primary-400: #60A5FA;
-	--primary-500: #3B82F6;
-	--primary-600: #2563EB; /* principal */
-	--primary-700: #1D4ED8;
-	--primary-800: #1E40AF;
-	--primary-900: #1E3A8A;
+	--primary-50: #eff6ff;
+	--primary-100: #dbeafe;
+	--primary-200: #bfdbfe;
+	--primary-300: #93c5fd;
+	--primary-400: #60a5fa;
+	--primary-500: #3b82f6;
+	--primary-600: #2563eb; /* principal */
+	--primary-700: #1d4ed8;
+	--primary-800: #1e40af;
+	--primary-900: #1e3a8a;
 
 	--primary: var(--primary-600);
 
@@ -21,20 +20,20 @@
 	   🧱 SURFACE SCALE (estructura real del producto)
 	====================================================== */
 
-	--surface-0: #FFFFFF;   /* cards */
-	--surface-1: #F8FAFC;   /* form */
-	--surface-2: #F1F5F9;   /* page */
-	--surface-3: #E2E8F0;   /* containers más marcados */
+	--surface-0: #ffffff; /* cards */
+	--surface-1: #f8fafc; /* form */
+	--surface-2: #f1f5f9; /* page */
+	--surface-3: #e2e8f0; /* containers más marcados */
 
-	--surface-border: #E2E8F0;
-	--surface-border-strong: #CBD5E1;
+	--surface-border: #e2e8f0;
+	--surface-border-strong: #cbd5e1;
 
 	/* ======================================================
 	   🏫 BACKGROUNDS (mapeo claro)
 	====================================================== */
 
 	--bg-page: var(--surface-2);
-	--bg-header: #FFFFFF;
+	--bg-header: #ffffff;
 	--bg-sidebar: var(--surface-1);
 	--bg-form: var(--surface-1);
 	--bg-card: var(--surface-0);
@@ -44,10 +43,10 @@
 	   📝 TEXT
 	====================================================== */
 
-	--text-main: #1E293B;
-	--text-muted: #64748B;
-	--text-light: #94A3B8;
-	--text-inverse: #FFFFFF;
+	--text-main: #1e293b;
+	--text-muted: #64748b;
+	--text-light: #94a3b8;
+	--text-inverse: #ffffff;
 
 	/* ======================================================
 	   🔲 BORDERS
@@ -60,12 +59,12 @@
 	   🎨 STATES
 	====================================================== */
 
-	--success: #16A34A;
-	--success-hover: #15803D;
+	--success: #16a34a;
+	--success-hover: #15803d;
 
-	--warning: #F59E0B;
-	--danger: #DC2626;
-	--danger-hover: #B91C1C;
+	--warning: #f59e0b;
+	--danger: #dc2626;
+	--danger-hover: #b91c1c;
 
 	/* ======================================================
 	   🔵 BUTTON SYSTEM
@@ -74,9 +73,9 @@
 	--btn-primary-bg: var(--primary-600);
 	--btn-primary-hover: var(--primary-700);
 	--btn-primary-active: var(--primary-800);
-	--btn-primary-text: #FFFFFF;
+	--btn-primary-text: #ffffff;
 
-	--btn-secondary-bg: #FFFFFF;
+	--btn-secondary-bg: #ffffff;
 	--btn-secondary-border: var(--border);
 	--btn-secondary-text: var(--text-main);
 
@@ -86,8 +85,8 @@
 
 	--menu-bg: var(--primary-900);
 	--menu-active-bg: var(--primary-800);
-	--menu-text: #FFFFFF;
-	--menu-text-muted: #CBD5E1;
+	--menu-text: #ffffff;
+	--menu-text-muted: #cbd5e1;
 
 	/* ======================================================
 	   📦 RADIUS
@@ -115,29 +114,29 @@
 	   🏷 ESTADOS DE NEGOCIO
 	====================================================== */
 
-	--estado-activa: #DCFCE7;
+	--estado-activa: #dcfce7;
 	--estado-activa-text: #166534;
 
-	--estado-licencia: #FEF3C7;
-	--estado-licencia-text: #92400E;
+	--estado-licencia: #fef3c7;
+	--estado-licencia-text: #92400e;
 
-	--estado-cubierta: #DCFCE7;
+	--estado-cubierta: #dcfce7;
 	--estado-cubierta-text: #166534;
 
-	--estado-descubierta: #FEE2E2;
-	--estado-descubierta-text: #991B1B;
+	--estado-descubierta: #fee2e2;
+	--estado-descubierta-text: #991b1b;
 
-	--estado-vacante: #FEE2E2;
-	--estado-vacante-text: #991B1B;
+	--estado-vacante: #fee2e2;
+	--estado-vacante-text: #991b1b;
 
-	--estado-finalizada: #E5E7EB;
+	--estado-finalizada: #e5e7eb;
 	--estado-finalizada-text: #374151;
 
-	--estado-baja: #FECACA;
-	--estado-baja-text: #7F1D1D;
+	--estado-baja: #fecaca;
+	--estado-baja-text: #7f1d1d;
 
-	--estado-inactiva: #F3F4F6;
-	--estado-inactiva-text: #6B7280;
+	--estado-inactiva: #f3f4f6;
+	--estado-inactiva-text: #6b7280;
 
 	/* ======================================================
 	   📏 SPACING

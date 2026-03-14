@@ -37,7 +37,7 @@ export const FILTROS_CARGOS: {
 	value: FiltroCargos;
 	label: string;
 }[] = [
-		{ value: "LICENCIA", label: "Licencias" },
-		{ value: "FINALIZADA", label: "Finalizados" },
-		{ value: "BAJA", label: "Bajas" },
-	];
+	{ value: "LICENCIA", label: "Licencias" },
+	{ value: "FINALIZADA", label: "Finalizados" },
+	{ value: "BAJA", label: "Bajas" },
+];

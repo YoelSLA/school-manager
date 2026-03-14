@@ -7,10 +7,7 @@ export function AcademicoRoutes() {
 	return (
 		<>
 			<Route path="cursos" element={<CursosPage />} />
-			<Route
-				path="cursos/:cursoId"
-				element={<CursoDetallePage />}
-			/>
+			<Route path="cursos/:cursoId" element={<CursoDetallePage />} />
 			<Route path="materias" element={<MateriasPage />} />
 		</>
 	);

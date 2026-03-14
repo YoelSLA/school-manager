@@ -1,109 +1,109 @@
 @use "@/styles/breakpoints" as *;
 
 .designacion-form {
-  flex: 1;
-  min-height: 0;
-  height: 500px;
+	flex: 1;
+	min-height: 0;
+	height: 500px;
 
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 
-  padding: 8px;
-  border-radius: 20px;
-  background-color: #fff;
+	padding: 8px;
+	border-radius: 20px;
+	background-color: #fff;
 
-  /* =====================
+	/* =====================
      GRID GENERAL
   ===================== */
 
-  &__grid {
-    flex: 1;
-    display: grid;
-    grid-template-rows: 1fr auto;
-    gap: 8px;
-    min-height: 0;
-  }
+	&__grid {
+		flex: 1;
+		display: grid;
+		grid-template-rows: 1fr auto;
+		gap: 8px;
+		min-height: 0;
+	}
 
-  /* =====================
+	/* =====================
      CONTENIDO (2 COLUMNAS)
   ===================== */
 
-  &__content {
-    flex: 1;
-    display: grid;
-    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.5fr);
-    gap: 12px;
-    min-height: 0;
+	&__content {
+		flex: 1;
+		display: grid;
+		grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.5fr);
+		gap: 12px;
+		min-height: 0;
 
-    align-items: stretch; // 👈 CLAVE
-  }
+		align-items: stretch; // 👈 CLAVE
+	}
 
-  /* =====================
+	/* =====================
      COLUMNAS
   ===================== */
 
-  &__left,
-  &__right {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    min-width: 0;
-    min-height: 0;
-  }
+	&__left,
+	&__right {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		min-width: 0;
+		min-height: 0;
+	}
 
-  &__right {
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
+	&__right {
+		display: flex;
+		flex-direction: column;
+		min-height: 0;
+	}
 
-  &__left {
-    padding: 8px;
-    border-radius: 20px;
-    min-height: 0;
+	&__left {
+		padding: 8px;
+		border-radius: 20px;
+		min-height: 0;
 
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
 
-    background-color: #ffffff;
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-  }
+		background-color: #ffffff;
+		border: 1px solid #e5e7eb;
+		box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+	}
 
-  /* =====================
+	/* =====================
      FOOTER
   ===================== */
 
-  &__footer {
-    flex-shrink: 0;
+	&__footer {
+		flex-shrink: 0;
 
-    display: flex;
-    justify-content: flex-end;
+		display: flex;
+		justify-content: flex-end;
 
-    padding: 8px;
-    border-radius: 20px;
+		padding: 8px;
+		border-radius: 20px;
 
-    background-color: #ffffff;
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-  }
+		background-color: #ffffff;
+		border: 1px solid #e5e7eb;
+		box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+	}
 }
 
 @include desktop-height-small {
-  .designacion-form {
-    height: 450px;
-  }
+	.designacion-form {
+		height: 450px;
+	}
 }
 
 @include desktop-height-medium {
-  .designacion-form {
-    height: 500px;
-  }
+	.designacion-form {
+		height: 500px;
+	}
 }
 
 @include desktop-height-large {
-  .designacion-form {
-    height: 650px;
-  }
+	.designacion-form {
+		height: 650px;
+	}
 }

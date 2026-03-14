@@ -20,6 +20,6 @@ export function useCrearMateria(escuelaId?: number) {
 			queryClient.invalidateQueries({
 				queryKey: materiasQueryKeys.all,
 			});
-		}
+		},
 	});
 }

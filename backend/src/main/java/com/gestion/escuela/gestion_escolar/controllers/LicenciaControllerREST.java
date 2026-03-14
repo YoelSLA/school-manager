@@ -28,13 +28,6 @@ public class LicenciaControllerREST {
 			@RequestBody @Valid CubrirDesignacionesDTO dto
 	) {
 
-		System.out.println("==== CONTROLLER cubrirDesignaciones ====");
-		System.out.println("licenciaId: " + licenciaId);
-		System.out.println("empleadoId: " + dto.empleadoId());
-		System.out.println("designacionesIds: " + dto.designacionesIds());
-		System.out.println("fechaTomaPosesion: " + dto.fechaTomaPosesion());
-		System.out.println("=======================================");
-
 		designacionService.cubrirConSuplentes(
 				licenciaId,
 				dto.empleadoId(),

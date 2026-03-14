@@ -1,78 +1,74 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-
-import { EditarDesignacionCursoFormValues, editarDesignacionCursoSchema } from "../schemas/editarDesignacionCurso.schema";
+import type { CursoNombreDTO } from "@/features/cursos/types/cursos.types";
 
 import type { MateriaNombreDTO } from "@/features/materias/types/materias.types";
-import type { CursoNombreDTO } from "@/features/cursos/types/cursos.types";
 import type { DesignacionDetalleDTO } from "../../types/designacion.types";
+import { EditarDesignacionCursoFormValues, editarDesignacionCursoSchema } from "../schemas/editarDesignacionCurso.schema";
 
 type Props = {
-  designacion?: DesignacionDetalleDTO;
-  materias?: MateriaNombreDTO[];
-  cursos?: CursoNombreDTO[];
+	designacion?: DesignacionDetalleDTO;
+	materias?: MateriaNombreDTO[];
+	cursos?: CursoNombreDTO[];
 };
 
 export function useEditarDesignacionCursoForm({
-  designacion,
-  materias,
-  cursos,
+	designacion,
+	materias,
+	cursos,
 }: Props) {
+	const form = useForm<EditarDesignacionCursoFormValues>({
+		resolver: zodResolver(editarDesignacionCursoSchema),
+	});
 
-  const form = useForm<EditarDesignacionCursoFormValues>({
-    resolver: zodResolver(editarDesignacionCursoSchema),
-  });
+	const { reset } = form;
 
-  const { reset } = form;
+	const franjas = useFieldArray<
+		EditarDesignacionCursoFormValues,
+		"franjasHorarias"
+	>({
+		control: form.control,
+		name: "franjasHorarias",
+	});
 
-  const franjas = useFieldArray<
-    EditarDesignacionCursoFormValues,
-    "franjasHorarias"
-  >({
-    control: form.control,
-    name: "franjasHorarias",
-  });
+	useEffect(() => {
+		if (!designacion) {
+			return;
+		}
 
-  useEffect(() => {
+		if (designacion.tipo !== "CURSO") {
+			return;
+		}
 
-    if (!designacion) {
-      return;
-    }
+		if (!materias || !cursos) {
+			return;
+		}
 
-    if (designacion.tipo !== "CURSO") {
-      return;
-    }
+		const materiaEncontrada = materias.find(
+			(m) => m.nombre === designacion.materia,
+		);
 
-    if (!materias || !cursos) {
-      return;
-    }
+		const cursoEncontrado = cursos.find(
+			(c) => c.division === designacion.curso,
+		);
 
-    const materiaEncontrada = materias.find(
-      (m) => m.nombre === designacion.materia
-    );
+		const materiaId = materiaEncontrada?.id;
+		const cursoId = cursoEncontrado?.id;
 
-    const cursoEncontrado = cursos.find(
-      (c) => c.division === designacion.curso
-    );
+		const dataReset = {
+			cupof: designacion.cupof,
+			materiaId,
+			cursoId,
+			orientacion: designacion.orientacion ?? "",
+			franjasHorarias: designacion.franjasHorarias ?? [],
+		};
 
-    const materiaId = materiaEncontrada?.id;
-    const cursoId = cursoEncontrado?.id;
+		reset(dataReset);
+	}, [designacion, materias, cursos, reset]);
 
-    const dataReset = {
-      cupof: designacion.cupof,
-      materiaId,
-      cursoId,
-      orientacion: designacion.orientacion ?? "",
-      franjasHorarias: designacion.franjasHorarias ?? [],
-    };
-
-    reset(dataReset);
-
-  }, [designacion, materias, cursos, reset]);
-
-  return {
-    form,
-    franjas,
-  };
+	return {
+		form,
+		franjas,
+	};
 }

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
 import PageLayout from "@/layout/PageLayout/PageLayout";
+import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
+import { useAppSelector } from "@/store/hooks";
 import RegistrarInasistenciaModal from "../../components/RegistrarInasistenciaModal";
 import { useAsistenciasEmpleadoMes } from "../../hooks/useAsistenciasEmpleadoMes";
 import { useEliminarInasistenciasManual } from "../../hooks/useEliminarInasistenciasManual";
@@ -10,8 +12,6 @@ import styles from "./AsistenciaDetallePage.module.scss";
 import AsistenciaMain from "./AsistenciaMain/AsistenciaMain";
 import SidebarContexto from "./SidebarContexto/SidebarContexto";
 import SidebarTiempo from "./SidebarTiempo";
-import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
-import { useAppSelector } from "@/store/hooks";
 
 export default function AsistenciaDetallePage() {
 	const { empleadoId } = useParams<{ empleadoId: string }>();
@@ -47,19 +47,34 @@ export default function AsistenciaDetallePage() {
 		data: asistencias = [],
 		isLoading,
 		error,
-	} = useAsistenciasEmpleadoMes(escuelaActiva?.id ?? 0, empleadoIdNumber, anio, mes, {
-		enabled: empleadoValido,
-	});
+	} = useAsistenciasEmpleadoMes(
+		escuelaActiva?.id ?? 0,
+		empleadoIdNumber,
+		anio,
+		mes,
+		{
+			enabled: empleadoValido,
+		},
+	);
 
 	/* ===============================
 		 MUTATION
 	================================ */
 	const { mutate: registrarAsistencia, isPending: isRegistrando } =
-
-		useRegistrarInasistenciasManual(escuelaActiva?.id, empleadoIdNumber, anio, mes);
+		useRegistrarInasistenciasManual(
+			escuelaActiva?.id,
+			empleadoIdNumber,
+			anio,
+			mes,
+		);
 
 	const { mutate: eliminarInasistencias, isPending: isEliminando } =
-		useEliminarInasistenciasManual(escuelaActiva?.id, empleadoIdNumber, anio, mes);
+		useEliminarInasistenciasManual(
+			escuelaActiva?.id,
+			empleadoIdNumber,
+			anio,
+			mes,
+		);
 
 	/* ===============================
 		 HANDLERS

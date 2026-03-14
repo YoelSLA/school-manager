@@ -40,8 +40,7 @@ export default function FormSelectField<T extends FieldValues>({
 }: Props<T>) {
 	const fieldId = id ?? name;
 
-	const registerProps =
-		register && name ? register(name, registerOptions) : {};
+	const registerProps = register && name ? register(name, registerOptions) : {};
 
 	return (
 		<div
@@ -75,10 +74,7 @@ export default function FormSelectField<T extends FieldValues>({
 				</span>
 
 				{error && (
-					<span
-						className={styles["form-select__error-icon"]}
-						aria-hidden
-					>
+					<span className={styles["form-select__error-icon"]} aria-hidden>
 						⚠
 					</span>
 				)}

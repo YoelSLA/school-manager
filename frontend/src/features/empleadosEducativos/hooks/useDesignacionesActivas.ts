@@ -3,11 +3,11 @@ import { getDesignacionesActivas } from "../services/empleadosEducativos.service
 import { empleadosEducativosQueryKeys } from "../utils/empleadosEducativos.queryKeys";
 
 export const useDesignacionesActivas = (empleadoId: number | null) => {
-  return useQuery({
-    queryKey: empleadoId
-      ? empleadosEducativosQueryKeys.designacionesActivas(empleadoId)
-      : [],
-    queryFn: () => getDesignacionesActivas(empleadoId!),
-    enabled: !!empleadoId,
-  });
+	return useQuery({
+		queryKey: empleadoId
+			? empleadosEducativosQueryKeys.designacionesActivas(empleadoId)
+			: [],
+		queryFn: () => getDesignacionesActivas(empleadoId!),
+		enabled: !!empleadoId,
+	});
 };

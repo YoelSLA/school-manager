@@ -1,4 +1,4 @@
-import { User, ArrowRight } from "lucide-react";
+import { ArrowRight, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import type { LicenciaDetalleDTO } from "@/features/licencias/types/licencia.types";
 

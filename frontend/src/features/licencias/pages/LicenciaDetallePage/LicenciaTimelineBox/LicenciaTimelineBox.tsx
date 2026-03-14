@@ -1,9 +1,9 @@
-import type { LicenciaTimelineItemDTO } from "@/features/licencias/types/licencia.types";
 import { useUltimaLicencia } from "@/features/licencias/hooks/useUltimaLicencia";
+import type { LicenciaTimelineItemDTO } from "@/features/licencias/types/licencia.types";
 
 import styles from "./LicenciaTimelineBox.module.scss";
-import LicenciaTimelineList from "./LicenciaTimelineList";
 import LicenciaTimelineFooter from "./LicenciaTimelineFooter";
+import LicenciaTimelineList from "./LicenciaTimelineList";
 
 type Props = {
 	timeline: LicenciaTimelineItemDTO[];

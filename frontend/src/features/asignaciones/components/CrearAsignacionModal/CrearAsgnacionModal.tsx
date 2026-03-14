@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useCubrirConTitular } from "../../hooks/useCubrirConTitular";
-import { useCubrirConProvisional } from "../../hooks/useCubrirConProvisional";
-import { useCubrirConTitularForm } from "../../form/useCubrirConTitularForm";
-import { useCubrirConProvisionalForm } from "../../form/useCubrirConProvisionalForm";
-import type { CubrirTitularFormValues } from "../../form/cubrirTitular.schema";
 import type { CubrirProvisionalFormValues } from "../../form/cubrirProvisional.schema";
+import type { CubrirTitularFormValues } from "../../form/cubrirTitular.schema";
+import { useCubrirConProvisionalForm } from "../../form/useCubrirConProvisionalForm";
+import { useCubrirConTitularForm } from "../../form/useCubrirConTitularForm";
+import { useCubrirConProvisional } from "../../hooks/useCubrirConProvisional";
+import { useCubrirConTitular } from "../../hooks/useCubrirConTitular";
 import AsignacionModalBase from "../AsignacionModalBase/AsignacionModalBase";
 
 type Props = {
@@ -18,9 +18,9 @@ export default function CrearAsignacionModal({
 	onClose,
 	onSuccess,
 }: Props) {
-
-	const [tipoAsignacion, setTipoAsignacion] =
-		useState<"TITULAR" | "PROVISIONAL">("TITULAR");
+	const [tipoAsignacion, setTipoAsignacion] = useState<
+		"TITULAR" | "PROVISIONAL"
+	>("TITULAR");
 
 	const cubrirTitular = useCubrirConTitular({
 		designacionId,
@@ -38,7 +38,7 @@ export default function CrearAsignacionModal({
 	const provisionalForm = useCubrirConProvisionalForm();
 
 	const handleTitularSubmit = async (
-		data: CubrirTitularFormValues & { empleadoId: number | null }
+		data: CubrirTitularFormValues & { empleadoId: number | null },
 	) => {
 		if (!data.empleadoId) return;
 
@@ -50,7 +50,7 @@ export default function CrearAsignacionModal({
 	};
 
 	const handleProvisionalSubmit = async (
-		data: CubrirProvisionalFormValues & { empleadoId: number | null }
+		data: CubrirProvisionalFormValues & { empleadoId: number | null },
 	) => {
 		if (!data.empleadoId) return;
 

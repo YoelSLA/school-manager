@@ -1,1 +1,1 @@
-export { default } from "./DesignacionTabs"
+export { default } from "./DesignacionTabs";

@@ -1,78 +1,78 @@
 .section {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  padding: 22px 26px;
-  border-radius: 18px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	padding: 22px 26px;
+	border-radius: 18px;
 
-  background: #ffffff;
-  border: 1px solid rgba(15, 23, 42, 0.06);
+	background: #ffffff;
+	border: 1px solid rgba(15, 23, 42, 0.06);
 
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.04),
-    0 20px 40px rgba(0, 0, 0, 0.06);
+	box-shadow:
+		0 4px 12px rgba(0, 0, 0, 0.04),
+		0 20px 40px rgba(0, 0, 0, 0.06);
 
-  transition: box-shadow 0.2s ease;
+	transition: box-shadow 0.2s ease;
 
-  /* =========================
+	/* =========================
      CHECKBOX
   ========================= */
 
-  &__checkbox {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+	&__checkbox {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
 
-    justify-content: center;
-    align-items: center;
+		justify-content: center;
+		align-items: center;
 
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-muted);
-    cursor: pointer;
+		font-size: 13px;
+		font-weight: 500;
+		color: var(--text-muted);
+		cursor: pointer;
 
-    input {
-      accent-color: var(--primary);
-      cursor: pointer;
-    }
+		input {
+			accent-color: var(--primary);
+			cursor: pointer;
+		}
 
-    span {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-  }
+		span {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+		}
+	}
 
-  /* =========================
+	/* =========================
      FECHA ROW (Ingreso)
   ========================= */
 
-  &__fechaRow {
-    display: flex;
-    align-items: flex-end;
-    gap: 16px;
-    flex-wrap: wrap;
-    transition: opacity 0.2s ease;
-  }
+	&__fechaRow {
+		display: flex;
+		align-items: flex-end;
+		gap: 16px;
+		flex-wrap: wrap;
+		transition: opacity 0.2s ease;
+	}
 
-  &__inputWrapper {
-    flex: 1;
-  }
+	&__inputWrapper {
+		flex: 1;
+	}
 
-  &__fechaLabel {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
+	&__fechaLabel {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+	}
 
-  &__hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
+	&__hidden {
+		opacity: 0;
+		pointer-events: none;
+	}
 
-  &__visible {
-    opacity: 1;
-    pointer-events: auto;
-  }
+	&__visible {
+		opacity: 1;
+		pointer-events: auto;
+	}
 }

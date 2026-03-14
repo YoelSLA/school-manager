@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { darDeBajaDefinitiva } from "../services/empleadosEducativos.services";
-import { empleadosEducativosQueryKeys } from "../utils/empleadosEducativos.queryKeys";
 import type { BajaDefinitivaDTO } from "../types/empleadosEducativos.types";
+import { empleadosEducativosQueryKeys } from "../utils/empleadosEducativos.queryKeys";
 
 type Variables = {
 	empleadoId: number;

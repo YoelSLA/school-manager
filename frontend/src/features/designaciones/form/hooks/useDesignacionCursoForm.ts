@@ -1,11 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-import { crearDesignacionCursoSchema } from "../schemas/crearDesignacionCurso.schema";
-import type { MateriaNombreDTO } from "@/features/materias/types/materias.types";
 import type { CursoNombreDTO } from "@/features/cursos/types/cursos.types";
-import type { DesignacionCursoFormValues } from "../designacion.form.types";
+import type { MateriaNombreDTO } from "@/features/materias/types/materias.types";
 import { Dia } from "@/utils/types";
+import type { DesignacionCursoFormValues } from "../designacion.form.types";
+import { crearDesignacionCursoSchema } from "../schemas/crearDesignacionCurso.schema";
 
 type Props = {
 	materias?: MateriaNombreDTO[];
@@ -25,10 +25,7 @@ export function useDesignacionCursoForm({
 
 	const { setValue, getValues } = form;
 
-	const franjas = useFieldArray<
-		DesignacionCursoFormValues,
-		"franjasHorarias"
-	>({
+	const franjas = useFieldArray<DesignacionCursoFormValues, "franjasHorarias">({
 		control: form.control,
 		name: "franjasHorarias",
 	});
@@ -37,7 +34,7 @@ export function useDesignacionCursoForm({
 		if (!materias?.length) return;
 
 		const biologia = materias.find(
-			(m) => m.nombre.toLowerCase() === "biología"
+			(m) => m.nombre.toLowerCase() === "biología",
 		);
 
 		if (!biologia) return;

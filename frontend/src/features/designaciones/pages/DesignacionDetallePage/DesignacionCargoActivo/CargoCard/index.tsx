@@ -1,1 +1,1 @@
-export { default } from "./CargoCard"
+export { default } from "./CargoCard";

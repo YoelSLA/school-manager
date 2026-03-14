@@ -1,1 +1,1 @@
-export { default } from "./LicenciaCard"
+export { default } from "./LicenciaCard";

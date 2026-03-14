@@ -19,7 +19,6 @@ export default function EmpleadoSelector({
 	defaultEmpleado = null,
 	onChange,
 }: Props) {
-
 	const [search, setSearch] = useState("");
 	const [empleadoSeleccionado, setEmpleadoSeleccionado] =
 		useState<EmpleadoEducativoMinimoDTO | null>(defaultEmpleado);
@@ -38,7 +37,6 @@ export default function EmpleadoSelector({
 
 	return (
 		<section className={styles.empleadoSection}>
-
 			<h3 className={styles.title}>{label}</h3>
 
 			<EmpleadoAutocompleteBase
@@ -57,7 +55,6 @@ export default function EmpleadoSelector({
 					/>
 				)}
 			</div>
-
 		</section>
 	);
 }

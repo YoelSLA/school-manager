@@ -1,29 +1,29 @@
 @use "@/styles/breakpoints" as *;
 
 .info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
 }
 
 .line {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+	display: flex;
+	align-items: center;
+	gap: 6px;
 
-  svg {
-    color: #6b7280;
-    flex-shrink: 0;
-  }
+	svg {
+		color: #6b7280;
+		flex-shrink: 0;
+	}
 }
 
 .nombre {
-  font-weight: 500;
+	font-weight: 500;
 }
 
 .cuil {
-  font-size: 0.85rem;
-  color: var(--text-muted);
+	font-size: 0.85rem;
+	color: var(--text-muted);
 }
 
 /* ===============================
@@ -31,18 +31,17 @@
 ================================ */
 
 @include desktop-height-small {
+	.line {
+		gap: 4px;
+	}
 
-  .line {
-    gap: 4px;
-  }
+	.nombre {
+		font-size: 12px;
+	}
 
-  .nombre {
-    font-size: 12px;
-  }
-
-  .cuil {
-    font-size: 11px;
-  }
+	.cuil {
+		font-size: 11px;
+	}
 }
 
 /* ===============================
@@ -50,18 +49,17 @@
 ================================ */
 
 @include desktop-height-medium {
+	.line {
+		gap: 6px;
+	}
 
-  .line {
-    gap: 6px;
-  }
+	.nombre {
+		font-size: 13px;
+	}
 
-  .nombre {
-    font-size: 13px;
-  }
-
-  .cuil {
-    font-size: 12px;
-  }
+	.cuil {
+		font-size: 12px;
+	}
 }
 
 /* ===============================
@@ -69,16 +67,15 @@
 ================================ */
 
 @include desktop-height-large {
+	.line {
+		gap: 8px;
+	}
 
-  .line {
-    gap: 8px;
-  }
+	.nombre {
+		font-size: 14px;
+	}
 
-  .nombre {
-    font-size: 14px;
-  }
-
-  .cuil {
-    font-size: 13px;
-  }
+	.cuil {
+		font-size: 13px;
+	}
 }

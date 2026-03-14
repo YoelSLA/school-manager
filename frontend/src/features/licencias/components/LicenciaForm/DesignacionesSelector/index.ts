@@ -1,1 +1,1 @@
-export { default } from "./DesignacionesSelector"
+export { default } from "./DesignacionesSelector";

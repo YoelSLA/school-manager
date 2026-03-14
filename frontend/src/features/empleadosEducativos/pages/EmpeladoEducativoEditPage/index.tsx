@@ -1,1 +1,1 @@
-export { default } from './EmpeladoEducativoEditPage';
+export { default } from "./EmpeladoEducativoEditPage";

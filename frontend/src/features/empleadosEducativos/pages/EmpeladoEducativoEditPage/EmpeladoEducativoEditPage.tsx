@@ -1,140 +1,129 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Button from "@/components/Button";
 import PageLayout from "@/layout/PageLayout";
+import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
+import { useAppSelector } from "@/store/hooks";
 import EmpleadoEducativoFormEditar from "../../components/EmpleadoEducativoEditForm/EmpleadoEducativoEditForm";
-
-import styles from "./EmpleadoEducativoEditPage.module.scss";
+import type { EmpleadoEducativoEditOutput } from "../../form/empleadoEducativo.form.types";
 import { useEmpleadoEducativoEditForm } from "../../form/hooks/useEmpleadoEducativoEditForm";
 import { useEditarEmpleadoEducativo } from "../../hooks/useEditarEmpleadoEducativo";
 import { useEmpleadoEducativo } from "../../hooks/useEmpleadoEducativo";
-import { useAppSelector } from "@/store/hooks";
-import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
-import type { EmpleadoEducativoEditOutput } from "../../form/empleadoEducativo.form.types";
-import Button from "@/components/Button";
 import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
+import styles from "./EmpleadoEducativoEditPage.module.scss";
 
 export default function EmpleadoEducativoEditPage() {
-  const { empleadoId } = useParams();
-  const _navigate = useNavigate();
-  const escuelaActiva = useAppSelector(selectEscuelaActiva);
-  const eId = Number(empleadoId);
+	const { empleadoId } = useParams();
+	const _navigate = useNavigate();
+	const escuelaActiva = useAppSelector(selectEscuelaActiva);
+	const eId = Number(empleadoId);
 
-  /* =========================
+	/* =========================
      QUERY
   ========================= */
 
-  const { data: empleado, isLoading } = useEmpleadoEducativo(eId);
+	const { data: empleado, isLoading } = useEmpleadoEducativo(eId);
 
-  /* =========================
+	/* =========================
      FORM
   ========================= */
 
-  const { form } = useEmpleadoEducativoEditForm();
-  const { reset } = form;
+	const { form } = useEmpleadoEducativoEditForm();
+	const { reset } = form;
 
-  /* =========================
+	/* =========================
      MUTATION
   ========================= */
 
-  const editarMutation = useEditarEmpleadoEducativo();
+	const editarMutation = useEditarEmpleadoEducativo();
 
-  const empleadoNav = useEmpleadoNavigation();
+	const empleadoNav = useEmpleadoNavigation();
 
-  /* =========================
+	/* =========================
      MAP DATA → FORM
   ========================= */
 
-  useEffect(() => {
-    if (empleado) {
-      reset({
-        cuil: empleado.cuil,
-        nombre: empleado.nombre,
-        apellido: empleado.apellido,
-        domicilio: empleado.domicilio ?? "",
-        telefono: empleado.telefono ?? "",
-        email: empleado.email,
-        fechaDeNacimiento: empleado.fechaDeNacimiento,
-        fechaDeIngreso: empleado.fechaDeIngreso ?? "",
-      });
-    }
-  }, [reset, empleado]);
+	useEffect(() => {
+		if (empleado) {
+			reset({
+				cuil: empleado.cuil,
+				nombre: empleado.nombre,
+				apellido: empleado.apellido,
+				domicilio: empleado.domicilio ?? "",
+				telefono: empleado.telefono ?? "",
+				email: empleado.email,
+				fechaDeNacimiento: empleado.fechaDeNacimiento,
+				fechaDeIngreso: empleado.fechaDeIngreso ?? "",
+			});
+		}
+	}, [reset, empleado]);
 
-  /* =========================
+	/* =========================
      HANDLERS
   ========================= */
 
-  const onSubmit = (formData: EmpleadoEducativoEditOutput) => {
-    if (!escuelaActiva) return;
+	const onSubmit = (formData: EmpleadoEducativoEditOutput) => {
+		if (!escuelaActiva) return;
 
-    editarMutation.mutate(
-      {
-        escuelaId: escuelaActiva.id,
-        empleadoId: eId,
-        data: formData,
-      },
-      {
-        onSuccess: () => {
-          if (empleado) {
-            empleadoNav.verDetalle(empleado);
-          }
-        },
-      }
-    );
-  };
+		editarMutation.mutate(
+			{
+				escuelaId: escuelaActiva.id,
+				empleadoId: eId,
+				data: formData,
+			},
+			{
+				onSuccess: () => {
+					if (empleado) {
+						empleadoNav.verDetalle(empleado);
+					}
+				},
+			},
+		);
+	};
 
-  const handleCancel = () => {
-    if (empleado) {
-      empleadoNav.verDetalle(empleado);
-    }
-  };
+	const handleCancel = () => {
+		if (empleado) {
+			empleadoNav.verDetalle(empleado);
+		}
+	};
 
-  /* =========================
+	/* =========================
      LOADING
   ========================= */
 
-  if (isLoading) {
-    return (
-      <PageLayout>
-        <div className={styles.loading}>
-          Cargando empleado...
-        </div>
-      </PageLayout>
-    );
-  }
+	if (isLoading) {
+		return (
+			<PageLayout>
+				<div className={styles.loading}>Cargando empleado...</div>
+			</PageLayout>
+		);
+	}
 
-  return (
-    <PageLayout>
-      <div className={styles.page}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          {/* ================= FORM BODY ================= */}
-          <EmpleadoEducativoFormEditar
-            form={form}
-          />
+	return (
+		<PageLayout>
+			<div className={styles.page}>
+				<form onSubmit={form.handleSubmit(onSubmit)}>
+					{/* ================= FORM BODY ================= */}
+					<EmpleadoEducativoFormEditar form={form} />
 
-          {/* ================= ACTIONS ================= */}
+					{/* ================= ACTIONS ================= */}
 
-          <div className={styles.actions}>
-            <Button
-              type="button"
-              variant="danger"
-              onClick={handleCancel}
-            >
-              Cancelar
-            </Button>
+					<div className={styles.actions}>
+						<Button type="button" variant="danger" onClick={handleCancel}>
+							Cancelar
+						</Button>
 
-            <Button
-              type="submit"
-              variant="primary"
-              loading={editarMutation.isPending}
-              disabled={editarMutation.isPending}
-            >
-              Guardar cambios
-            </Button>
-          </div>
-
-        </form>
-      </div>
-    </PageLayout>
-  );
-
+						<Button
+							type="submit"
+							variant="primary"
+							loading={editarMutation.isPending}
+							disabled={editarMutation.isPending}
+						>
+							Guardar cambios
+						</Button>
+					</div>
+				</form>
+			</div>
+		</PageLayout>
+	);
 }

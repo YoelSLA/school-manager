@@ -8,5 +8,5 @@ export const crearMateriaSchema = z.object({
 	cantidadModulos: z.coerce
 		.number({ message: "La cantidad de módulos es obligatoria" })
 		.int({ message: "Debe ser un número entero" })
-		.min(1, { message: "Debe tener al menos 1 módulo" })
+		.min(1, { message: "Debe tener al menos 1 módulo" }),
 });

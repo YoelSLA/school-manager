@@ -1,9 +1,9 @@
+import type { ReactNode } from "react";
 import Button from "@/components/Button";
 import FilterPillGroup, {
 	type Item,
 } from "@/components/FilterPillGroup/FilterPillGroup";
 import SidebarSectionLayout from "@/layout/SidebarSectionLayout/SidebarSectionLayout";
-import type { ReactNode } from "react";
 
 type Props<T extends string> = {
 	title: string;
@@ -33,19 +33,13 @@ export default function FilteredSidebar<T extends string>({
 			title={title}
 			subtitle={subtitle}
 			filters={
-				<FilterPillGroup
-					items={filtros}
-					value={value}
-					onChange={onChange}
-				/>
+				<FilterPillGroup items={filtros} value={value} onChange={onChange} />
 			}
 			controls={controls}
 			actions={
 				<>
 					{extraActions}
-					<Button onClick={onAction}>
-						{actionLabel}
-					</Button>
+					<Button onClick={onAction}>{actionLabel}</Button>
 				</>
 			}
 		/>

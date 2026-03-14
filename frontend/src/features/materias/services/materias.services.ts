@@ -1,10 +1,10 @@
 import { http } from "@/services/axios";
+import type { PageResponse } from "@/utils/types";
 import type {
 	CrearMateriaDTO,
 	MateriaNombreDTO,
 	MateriaResponseDTO,
 } from "../types/materias.types";
-import type { PageResponse } from "@/utils/types";
 
 export async function crearMateria(
 	escuelaId: number,
@@ -23,7 +23,6 @@ export async function editMateria(
 	materiaId: number,
 	payload: CrearMateriaDTO,
 ): Promise<MateriaResponseDTO> {
-
 	const response = await http.put<MateriaResponseDTO>(
 		`/escuelas/${escuelaId}/materias/${materiaId}`,
 		payload,
@@ -36,7 +35,6 @@ export async function deleteMateria(
 	escuelaId: number,
 	materiaId: number,
 ): Promise<void> {
-
 	await http.delete(`/escuelas/${escuelaId}/materias/${materiaId}`);
 }
 
@@ -64,4 +62,3 @@ export async function obtenerMateriasNombres(
 
 	return response.data;
 }
-

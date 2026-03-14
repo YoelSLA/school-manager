@@ -1,37 +1,37 @@
 @use "@/styles/breakpoints" as *;
 
 .persona {
-  display: flex;
-  justify-content: space-around;
-  gap: 6px;
-  width: 100%;
+	display: flex;
+	justify-content: space-around;
+	gap: 6px;
+	width: 100%;
 }
 
 /* Badge arriba a la izquierda */
 .badgeWrapper {
-  display: flex;
+	display: flex;
 }
 
 /* Bloque info alineado a la derecha */
 .info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
 }
 
 .line {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+	display: flex;
+	align-items: center;
+	gap: 6px;
 }
 
 .nombre {
-  font-weight: 500;
+	font-weight: 500;
 }
 
 .cuil {
-  font-size: 0.85rem;
-  color: var(--text-muted);
+	font-size: 0.85rem;
+	color: var(--text-muted);
 }
 
 /* ===============================
@@ -39,22 +39,21 @@
 ================================ */
 
 @include desktop-height-small {
+	.persona {
+		gap: 2px;
+	}
 
-  .persona {
-    gap: 2px;
-  }
+	.line {
+		gap: 4px;
+	}
 
-  .line {
-    gap: 4px;
-  }
+	.nombre {
+		font-size: 12px;
+	}
 
-  .nombre {
-    font-size: 12px;
-  }
-
-  .cuil {
-    font-size: 11px;
-  }
+	.cuil {
+		font-size: 11px;
+	}
 }
 
 /* ===============================
@@ -62,22 +61,21 @@
 ================================ */
 
 @include desktop-height-medium {
+	.persona {
+		gap: 4px;
+	}
 
-  .persona {
-    gap: 4px;
-  }
+	.line {
+		gap: 6px;
+	}
 
-  .line {
-    gap: 6px;
-  }
+	.nombre {
+		font-size: 13px;
+	}
 
-  .nombre {
-    font-size: 13px;
-  }
-
-  .cuil {
-    font-size: 12px;
-  }
+	.cuil {
+		font-size: 12px;
+	}
 }
 
 /* ===============================
@@ -85,20 +83,19 @@
 ================================ */
 
 @include desktop-height-large {
+	.persona {
+		gap: 6px;
+	}
 
-  .persona {
-    gap: 6px;
-  }
+	.line {
+		gap: 8px;
+	}
 
-  .line {
-    gap: 8px;
-  }
+	.nombre {
+		font-size: 14px;
+	}
 
-  .nombre {
-    font-size: 14px;
-  }
-
-  .cuil {
-    font-size: 13px;
-  }
+	.cuil {
+		font-size: 13px;
+	}
 }

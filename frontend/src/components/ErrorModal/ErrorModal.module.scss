@@ -26,8 +26,9 @@
 	width: 100%;
 	max-width: 420px;
 
-	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15),
-	0 4px 10px rgba(0, 0, 0, 0.05);
+	box-shadow:
+		0 10px 25px rgba(0, 0, 0, 0.15),
+		0 4px 10px rgba(0, 0, 0, 0.05);
 
 	animation: error-modal-fade-in 0.2s ease-out;
 
@@ -91,7 +92,9 @@
 		font-weight: 500;
 		cursor: pointer;
 
-		transition: background-color 0.15s ease, transform 0.15s ease;
+		transition:
+			background-color 0.15s ease,
+			transform 0.15s ease;
 
 		&:hover {
 			background-color: #b91c1c;

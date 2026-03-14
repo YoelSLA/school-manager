@@ -1,4 +1,4 @@
-import type { ReactNode, MouseEvent } from "react";
+import type { MouseEvent, ReactNode } from "react";
 import styles from "./Button.module.scss";
 
 export type ButtonVariant =
@@ -60,9 +60,7 @@ export default function Button({
 		>
 			{loading && <span className={styles.spinner} />}
 
-			<span className={styles.content}>
-				{children}
-			</span>
+			<span className={styles.content}>{children}</span>
 		</button>
 	);
 }

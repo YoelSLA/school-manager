@@ -186,18 +186,8 @@ public abstract class Asignacion {
 	}
 
 	public boolean estaEjerciendoEn(LocalDate fecha) {
-
-		boolean activa = estaActivaEn(fecha);
-		boolean licencia = estaEnLicenciaEn(fecha);
-		boolean ejerce = activa && !licencia;
-
-		System.out.println("DEBUG Asignacion " + id);
-		System.out.println("fecha: " + fecha);
-		System.out.println("activa: " + activa);
-		System.out.println("licencia: " + licencia);
-		System.out.println("ejerce: " + ejerce);
-
-		return ejerce;
+		
+		return estaActivaEn(fecha) && !estaEnLicenciaEn(fecha);
 	}
 
 	public boolean esTitular() {

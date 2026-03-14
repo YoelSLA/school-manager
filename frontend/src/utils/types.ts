@@ -75,7 +75,6 @@ export type BreadcrumbResolver =
 	| BreadcrumbItem[]
 	| ((params: Params<string>) => BreadcrumbItem[]);
 
-
 export type FranjaHoraria = {
 	dia: Dia;
 	horaDesde: string;
@@ -91,6 +90,5 @@ export enum Dia {
 	MARTES = "Martes",
 	MIERCOLES = "Miércoles",
 	JUEVES = "Jueves",
-	VIERNES = "Viernes"
-
+	VIERNES = "Viernes",
 }

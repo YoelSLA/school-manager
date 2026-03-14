@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import type { Escuela } from "../types/escuela.types";
 import { eliminarEscuela, getEscuelas } from "../services/escuelas.services";
+import type { Escuela } from "../types/escuela.types";
 import { escuelasQueryKeys } from "../types/escuelas.queryKeys";
 
 export function useEscuelas() {

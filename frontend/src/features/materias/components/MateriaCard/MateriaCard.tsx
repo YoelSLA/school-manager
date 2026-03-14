@@ -8,11 +8,7 @@ type Props = {
 	onDelete?: () => void;
 };
 
-export default function MateriaCard({
-	materia,
-	onEdit,
-	onDelete,
-}: Props) {
+export default function MateriaCard({ materia, onEdit, onDelete }: Props) {
 	return (
 		<article className={styles.card}>
 			<header className={styles.card__header}>

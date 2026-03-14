@@ -2,33 +2,33 @@ import { z } from "zod";
 import { crearFranjaHorariaSchema } from "@/utils/schemas/crearfranjaHoraria.schema";
 
 export const editarDesignacionCursoSchema = z.object({
-  cupof: z.coerce
-    .number({ message: "El CUPOF debe ser un número válido" })
-    .int({ message: "El CUPOF debe ser entero" })
-    .positive({ message: "El CUPOF debe ser mayor a 0" })
-    .optional(),
+	cupof: z.coerce
+		.number({ message: "El CUPOF debe ser un número válido" })
+		.int({ message: "El CUPOF debe ser entero" })
+		.positive({ message: "El CUPOF debe ser mayor a 0" })
+		.optional(),
 
-  franjasHorarias: z
-    .array(crearFranjaHorariaSchema)
-    .min(1, { message: "Debe haber al menos una franja horaria" }),
+	franjasHorarias: z
+		.array(crearFranjaHorariaSchema)
+		.min(1, { message: "Debe haber al menos una franja horaria" }),
 
-  materiaId: z.coerce
-    .number()
-    .int({ message: "Materia inválida" })
-    .positive({ message: "Debe seleccionar una materia" }),
+	materiaId: z.coerce
+		.number()
+		.int({ message: "Materia inválida" })
+		.positive({ message: "Debe seleccionar una materia" }),
 
-  cursoId: z.coerce
-    .number()
-    .int({ message: "Curso inválido" })
-    .positive({ message: "Debe seleccionar un curso" }),
+	cursoId: z.coerce
+		.number()
+		.int({ message: "Curso inválido" })
+		.positive({ message: "Debe seleccionar un curso" }),
 
-  orientacion: z
-    .string()
-    .min(1, { message: "Debe seleccionar una orientación" }),
+	orientacion: z
+		.string()
+		.min(1, { message: "Debe seleccionar una orientación" }),
 });
 
-export type EditarDesignacionCursoFormValues =
-  z.infer<typeof editarDesignacionCursoSchema>;
+export type EditarDesignacionCursoFormValues = z.infer<
+	typeof editarDesignacionCursoSchema
+>;
 
-export type DesignacionCursoUpdateDTO =
-  EditarDesignacionCursoFormValues;
+export type DesignacionCursoUpdateDTO = EditarDesignacionCursoFormValues;

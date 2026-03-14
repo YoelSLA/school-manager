@@ -1,59 +1,59 @@
 .designacion-edit {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-height: 0;
-  width: 100%;
-  gap: 8px;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	min-height: 0;
+	width: 100%;
+	gap: 8px;
 
-  /* ======================
+	/* ======================
 	   Header / título (si agregás)
 	====================== */
 
-  &__header {
-    width: 100%;
-    max-width: var(--container-md);
-    margin: 0 auto;
+	&__header {
+		width: 100%;
+		max-width: var(--container-md);
+		margin: 0 auto;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
 
-  /* ======================
+	/* ======================
 	   Form container
 	====================== */
 
-  &__form {
-    width: 100%;
-    max-width: var(--container-md);
-    margin: 0 auto;
+	&__form {
+		width: 100%;
+		max-width: var(--container-md);
+		margin: 0 auto;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 
-    flex: 1;
-    min-height: 0;
-  }
+		flex: 1;
+		min-height: 0;
+	}
 
-  /* ======================
+	/* ======================
 	   Estados (loading / error)
 	====================== */
 
-  &__state {
-    width: 100%;
-    max-width: var(--container-md);
-    margin: 0 auto;
+	&__state {
+		width: 100%;
+		max-width: var(--container-md);
+		margin: 0 auto;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
-    padding: 24px;
-    border-radius: 16px;
+		padding: 24px;
+		border-radius: 16px;
 
-    background: #fff;
-    border: 1px solid #e5e7eb;
-  }
+		background: #fff;
+		border: 1px solid #e5e7eb;
+	}
 }

@@ -1,1 +1,1 @@
-export { default } from "./DescripcionInputField"
+export { default } from "./DescripcionInputField";

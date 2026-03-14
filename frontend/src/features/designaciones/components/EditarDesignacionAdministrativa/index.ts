@@ -1,1 +1,1 @@
-export { default } from "./EditarDesignacionAdministrativa"
+export { default } from "./EditarDesignacionAdministrativa";

@@ -1,19 +1,13 @@
+import { BookOpen, Compass, GraduationCap, Pencil } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
-import styles from "./DesignacionHeaderInfo.module.scss";
 import Badge from "@/components/Badge";
 import Button from "@/components/Button";
 
-import {
-	ESTADO_DESIGNACION_BADGE,
-} from "@/features/designaciones/utils/designacion.badges";
-
-import { designacionesPaths } from "@/router/paths";
-
-import type { DesignacionDetalleDTO } from "../../../types/designacion.types";
-
-import { BookOpen, Compass, GraduationCap, Pencil } from "lucide-react";
+import { ESTADO_DESIGNACION_BADGE } from "@/features/designaciones/utils/designacion.badges";
 import RolEducativoBadge from "@/features/empleadosEducativos/components/RolEducativoBadge";
+import { designacionesPaths } from "@/router/paths";
+import type { DesignacionDetalleDTO } from "../../../types/designacion.types";
+import styles from "./DesignacionHeaderInfo.module.scss";
 
 type Props = {
 	designacion: DesignacionDetalleDTO;
@@ -22,13 +16,7 @@ type Props = {
 export default function DesignacionHeaderInfo({ designacion }: Props) {
 	const navigate = useNavigate();
 
-	const {
-		id,
-		rolEducativo,
-		cupof,
-		estadoDesignacion,
-		tipo,
-	} = designacion;
+	const { id, rolEducativo, cupof, estadoDesignacion, tipo } = designacion;
 
 	const esCurso = tipo === "CURSO";
 
@@ -79,17 +67,11 @@ export default function DesignacionHeaderInfo({ designacion }: Props) {
 				)}
 
 				<div className={styles["designacion-header-info__actions"]}>
-					<Badge
-						variant={ESTADO_DESIGNACION_BADGE[estadoDesignacion]}
-					>
+					<Badge variant={ESTADO_DESIGNACION_BADGE[estadoDesignacion]}>
 						{estadoDesignacion}
 					</Badge>
 
-					<Button
-						variant="secondary"
-						size="sm"
-						onClick={handleEditar}
-					>
+					<Button variant="secondary" size="sm" onClick={handleEditar}>
 						<Pencil size={16} />
 						Editar
 					</Button>

@@ -1,24 +1,22 @@
 .rol-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
 
-  padding: 4px 12px; // 👈 más aire
-  min-height: 22px; // 👈 altura real
-  border-radius: 999px;
+	padding: 4px 12px; // 👈 más aire
+	min-height: 22px; // 👈 altura real
+	border-radius: 999px;
 
-  font-size: 12px; // 👈 más legible
-  font-weight: 600;
-  letter-spacing: 0.2px;
+	font-size: 12px; // 👈 más legible
+	font-weight: 600;
+	letter-spacing: 0.2px;
 
-  background: linear-gradient(180deg,
-      #eef2ff 0%,
-      #e0e7ff 100%);
+	background: linear-gradient(180deg, #eef2ff 0%, #e0e7ff 100%);
 
-  color: #3730a3;
+	color: #3730a3;
 
-  border: 1px solid #c7d2fe;
+	border: 1px solid #c7d2fe;
 
-  white-space: nowrap;
+	white-space: nowrap;
 }

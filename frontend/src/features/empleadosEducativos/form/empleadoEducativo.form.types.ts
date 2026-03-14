@@ -1,7 +1,7 @@
 import type { z } from "zod";
 import type { crearEmpleadoEducativoSchema } from "./schemas/crearEmpleadoEducativo.schema";
-import type { editarEmpleadoEducativoSchema } from "./schemas/editarEmpleadoEducativo.schema";
 import type { darBajaEmpleadoEducativo } from "./schemas/darBajaEmpleadoEducativo.schema";
+import type { editarEmpleadoEducativoSchema } from "./schemas/editarEmpleadoEducativo.schema";
 
 /* =========================
    CREATE

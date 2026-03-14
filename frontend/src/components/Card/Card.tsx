@@ -66,9 +66,7 @@ export default function Card({
 			role={clickable ? "button" : undefined}
 			tabIndex={clickable ? 0 : undefined}
 		>
-			<div className={styles.card__inner}>
-				{children}
-			</div>
+			<div className={styles.card__inner}>{children}</div>
 		</article>
 	);
 }

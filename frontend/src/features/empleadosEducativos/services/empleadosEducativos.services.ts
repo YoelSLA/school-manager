@@ -1,18 +1,18 @@
+import qs from "qs";
+import type { LicenciaCreateDTO } from "@/features/licencias/form/crearLicencia.schema";
+import type { DesignacionLicenciaItemDTO } from "@/features/licencias/types/licencia.types";
 import { http } from "@/services/axios";
+import type { PageResponse, SortState } from "@/utils/types";
+import type {
+	EmpleadoEducativoCreateDTO,
+	EmpleadoEducativoUpdateDTO,
+} from "../form/empleadoEducativo.form.types";
 import type {
 	EmpleadoEducativoDetalleDTO,
 	EmpleadoEducativoFiltro,
 	EmpleadoEducativoMinimoDTO,
 } from "../types/empleadosEducativos.types";
-import type {
-	EmpleadoEducativoCreateDTO,
-	EmpleadoEducativoUpdateDTO,
-} from "../form/empleadoEducativo.form.types";
-import type { PageResponse, SortState } from "@/utils/types";
 import { buildSortQuery } from "../utils/empleadosEducativos.utils";
-import qs from "qs";
-import { LicenciaCreateDTO } from "@/features/licencias/form/crearLicencia.schema";
-import { DesignacionLicenciaItemDTO } from "@/features/licencias/types/licencia.types";
 
 export const crearEmpleadoEducativo = async (
 	escuelaId: number,

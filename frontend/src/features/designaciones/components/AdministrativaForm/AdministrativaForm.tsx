@@ -1,23 +1,22 @@
-
-import { useDesignacionAdministrativaForm } from "@/features/designaciones/form/hooks/useDesignacionAdministrativaForm";
-import DesignacionFormLayout from "../DesignacionFormLayout/DesignacionFormLayout";
-import RolEducativoSelectField from "../../../../components/forms/selects/RolEducativoSelectField/RolEducativoSelectField";
-import styles from "./AdministrativaForm.module.scss";
 import CupofInputField from "@/components/forms/inputs/CupofInputField/CupofInputField";
-import { DesignacionAdministrativaFormValues } from "../../form/designacion.form.types";
+import { useDesignacionAdministrativaForm } from "@/features/designaciones/form/hooks/useDesignacionAdministrativaForm";
+import RolEducativoSelectField from "../../../../components/forms/selects/RolEducativoSelectField/RolEducativoSelectField";
+import type { DesignacionAdministrativaFormValues } from "../../form/designacion.form.types";
+import DesignacionFormLayout from "../DesignacionFormLayout/DesignacionFormLayout";
+import styles from "./AdministrativaForm.module.scss";
 
 type Props = {
 	onSubmit: (data: DesignacionAdministrativaFormValues) => Promise<void>;
 	isSubmitting: boolean;
 };
 
-export default function AdministrativaForm({
-	onSubmit,
-	isSubmitting,
-}: Props) {
-
+export default function AdministrativaForm({ onSubmit, isSubmitting }: Props) {
 	const {
-		form: { register, handleSubmit, formState: { errors } },
+		form: {
+			register,
+			handleSubmit,
+			formState: { errors },
+		},
 		franjas: { fields, append, remove },
 	} = useDesignacionAdministrativaForm();
 

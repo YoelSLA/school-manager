@@ -1,1 +1,1 @@
-export { default } from "./CursoFilters"
+export { default } from "./CursoFilters";

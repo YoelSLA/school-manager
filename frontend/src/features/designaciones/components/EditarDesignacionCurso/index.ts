@@ -1,1 +1,1 @@
-export { default } from "./EditarDesignacionCurso"
+export { default } from "./EditarDesignacionCurso";

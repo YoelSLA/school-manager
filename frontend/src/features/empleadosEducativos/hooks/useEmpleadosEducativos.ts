@@ -2,10 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
+import type { SortState } from "@/utils/types";
 import { getEmpleadosPorEscuela } from "../services/empleadosEducativos.services";
 import type { EmpleadoEducativoFiltro } from "../types/empleadosEducativos.types";
 import { empleadosEducativosQueryKeys } from "../utils/empleadosEducativos.queryKeys";
-import type { SortState } from "@/utils/types";
 
 export function useEmpleadosEducativos(
 	estado: EmpleadoEducativoFiltro = "TODOS",

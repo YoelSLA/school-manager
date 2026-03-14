@@ -1,34 +1,32 @@
-import { useState, useEffect } from "react";
+import { RefreshCw } from "lucide-react";
+import { useEffect, useState } from "react";
 import Button from "@/components/Button";
 import FilterPillGroup from "@/components/FilterPillGroup/FilterPillGroup";
+import FiltersModal from "@/components/FiltersModal";
+import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
 import Pagination from "@/layout/Pagination";
-
 import SidebarPageLayout from "@/layout/SidebarPageLayout/SidebarPageLayout";
 import SidebarSectionLayout from "@/layout/SidebarSectionLayout/SidebarSectionLayout";
-
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
-
 import { FILTROS_DESIGNACIONES } from "@/utils";
-import type { CursoFiltersState, DesignacionFiltro } from "../../types/designacion.types";
-
-import DesignacionesList from "./DesignacionesList";
+import AdminFilters from "../../components/AdminFilters";
+import CursoFilters from "../../components/CursoFilters";
 import { useDesignacionesAdministrativas } from "../../hooks/useDesignacionesAdministrativas";
 import { useDesignacionesCursos } from "../../hooks/useDesignacionesCursos";
-
-import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
 import { useDesignacionesNavigation } from "../../hooks/useDesignacionesNavigation";
-import { RefreshCw } from "lucide-react";
+import type {
+	CursoFiltersState,
+	DesignacionFiltro,
+} from "../../types/designacion.types";
+import DesignacionesList from "./DesignacionesList";
 import styles from "./DesignacionesPage.module.scss";
 
-import FiltersModal from "@/components/FiltersModal";
-import CursoFilters from "../../components/CursoFilters";
-import AdminFilters from "../../components/AdminFilters";
-
 export default function DesignacionesPage() {
-
 	const [cursoFilters, setCursoFilters] = useState<CursoFiltersState>({});
-	const [draftCursoFilters, setDraftCursoFilters] = useState<CursoFiltersState>({});
+	const [draftCursoFilters, setDraftCursoFilters] = useState<CursoFiltersState>(
+		{},
+	);
 
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 	const navigation = useDesignacionesNavigation();
@@ -57,14 +55,9 @@ export default function DesignacionesPage() {
 		isError: isErrorAdmin,
 		refetch: refetchAdmin,
 		isFetching: isFetchingAdmin,
-	} = useDesignacionesAdministrativas(
-		escuelaActiva?.id,
-		page,
-		pageSize,
-		{
-			enabled: filtro === "ADMIN",
-		}
-	);
+	} = useDesignacionesAdministrativas(escuelaActiva?.id, page, pageSize, {
+		enabled: filtro === "ADMIN",
+	});
 
 	const {
 		data: cursoData,
@@ -72,15 +65,9 @@ export default function DesignacionesPage() {
 		isError: isErrorCursos,
 		refetch: refetchCursos,
 		isFetching: isFetchingCursos,
-	} = useDesignacionesCursos(
-		escuelaActiva?.id,
-		page,
-		pageSize,
-		cursoFilters,
-		{
-			enabled: filtro === "CURSO",
-		}
-	);
+	} = useDesignacionesCursos(escuelaActiva?.id, page, pageSize, cursoFilters, {
+		enabled: filtro === "CURSO",
+	});
 
 	/* =========================
 		 DATA
@@ -92,21 +79,16 @@ export default function DesignacionesPage() {
 	const adminDesignaciones = adminData?.content ?? [];
 	const cursoDesignaciones = cursoData?.content ?? [];
 
-	const isFetching =
-		filtro === "ADMIN"
-			? isFetchingAdmin
-			: isFetchingCursos;
+	const isFetching = filtro === "ADMIN" ? isFetchingAdmin : isFetchingCursos;
 
 	/* =========================
 		 FIX PAGE OUT OF RANGE
 	========================= */
 
 	useEffect(() => {
-
 		if (page >= totalPages && totalPages > 0) {
 			setPage(totalPages - 1);
 		}
-
 	}, [totalPages]);
 
 	/* =========================
@@ -114,7 +96,6 @@ export default function DesignacionesPage() {
 	========================= */
 
 	const handleRefresh = () => {
-
 		setPage(0);
 
 		if (filtro === "ADMIN") {
@@ -137,14 +118,11 @@ export default function DesignacionesPage() {
 	========================= */
 
 	return (
-
 		<SidebarPageLayout
-
 			sidebar={
 				<SidebarSectionLayout
 					title="Designaciones"
 					subtitle="Listado de cargos de la escuela"
-
 					filters={
 						<FilterPillGroup
 							items={FILTROS_DESIGNACIONES}
@@ -154,14 +132,9 @@ export default function DesignacionesPage() {
 							}}
 						/>
 					}
-
 					actions={
 						<>
-
-							<Button
-								variant="secondary"
-								onClick={() => setOpenFilters(true)}
-							>
+							<Button variant="secondary" onClick={() => setOpenFilters(true)}>
 								Filtros
 							</Button>
 
@@ -170,28 +143,21 @@ export default function DesignacionesPage() {
 								onClick={handleRefresh}
 								disabled={isFetching}
 							>
-
 								<span className={styles.refreshContent}>
-
 									<RefreshCw
 										size={16}
 										className={isFetching ? styles.spin : ""}
 									/>
 
 									<span>Actualizar</span>
-
 								</span>
-
 							</Button>
 
-							<Button onClick={navigation.crear}>
-								+ Nueva designación
-							</Button>
+							<Button onClick={navigation.crear}>+ Nueva designación</Button>
 						</>
 					}
 				/>
 			}
-
 			pagination={
 				<Pagination
 					page={page}
@@ -199,11 +165,8 @@ export default function DesignacionesPage() {
 					onChange={handlePageChange}
 				/>
 			}
-
 		>
-
 			{filtro === "ADMIN" ? (
-
 				<DesignacionesList
 					filtro="ADMIN"
 					designaciones={adminDesignaciones}
@@ -211,9 +174,7 @@ export default function DesignacionesPage() {
 					isError={isErrorAdmin}
 					onVerDetalle={navigation.verDetalle}
 				/>
-
 			) : (
-
 				<DesignacionesList
 					filtro="CURSO"
 					designaciones={cursoDesignaciones}
@@ -221,7 +182,6 @@ export default function DesignacionesPage() {
 					isError={isErrorCursos}
 					onVerDetalle={navigation.verDetalle}
 				/>
-
 			)}
 
 			{openFilters && (
@@ -246,7 +206,6 @@ export default function DesignacionesPage() {
 					)}
 				</FiltersModal>
 			)}
-
 		</SidebarPageLayout>
 	);
 }

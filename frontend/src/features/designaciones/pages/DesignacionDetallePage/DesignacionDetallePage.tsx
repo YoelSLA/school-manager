@@ -1,31 +1,31 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import PageLayout from "@/layout/PageLayout/PageLayout";
 import CrearAsignacionModal from "@/features/asignaciones/components/CrearAsignacionModal/CrearAsgnacionModal";
-import { useCargosDesignacion } from "../../hooks/useCargosDesignacion";
+import EditarAsignacionModal from "@/features/asignaciones/components/EditarAsignacionModal/EditarAsignacionModal";
+import type {
+	AsignacionDetalleDTO,
+	FiltroCargos,
+} from "@/features/asignaciones/types/asignacion.types";
+import PageLayout from "@/layout/PageLayout/PageLayout";
 import { useCargoActivo } from "../../../asignaciones/hooks/useCargoActivo";
+import { useCargosDesignacion } from "../../hooks/useCargosDesignacion";
+import useDesignacionDetalle from "../../hooks/useDesignacionDetalle";
+import DesignacionCargoActivo from "./DesignacionCargoActivo/DesignacionCargoActivo";
+import DesignacionCargosHistorial from "./DesignacionCargosHistorial/DesignacionCargosHistorial";
+import styles from "./DesignacionDetallePage.module.scss";
 import DesignacionHeaderInfo from "./DesignacionHeaderInfo/DesignacionHeaderInfo";
 import DesignacionHorarios from "./DesignacionHorarios";
-import DesignacionCargosHistorial from "./DesignacionCargosHistorial/DesignacionCargosHistorial";
-
-import type { AsignacionDetalleDTO, FiltroCargos } from "@/features/asignaciones/types/asignacion.types";
-
-import styles from "./DesignacionDetallePage.module.scss";
-import DesignacionCargoActivo from "./DesignacionCargoActivo/DesignacionCargoActivo";
-import useDesignacionDetalle from "../../hooks/useDesignacionDetalle";
-import EditarAsignacionModal from "@/features/asignaciones/components/EditarAsignacionModal/EditarAsignacionModal";
 
 export default function DesignacionDetallePage() {
 	const { designacionId } = useParams<{ designacionId: string }>();
 	const id = Number(designacionId);
 
-	const [mostrarCrearAsignacion, setMostrarCrearAsignacion] =
-		useState(false);
-	const [cargoAEditar, setCargoAEditar] =
-		useState<AsignacionDetalleDTO | null>(null);
+	const [mostrarCrearAsignacion, setMostrarCrearAsignacion] = useState(false);
+	const [cargoAEditar, setCargoAEditar] = useState<AsignacionDetalleDTO | null>(
+		null,
+	);
 
-	const [filtroCargos, setFiltroCargos] =
-		useState<FiltroCargos>("LICENCIA");
+	const [filtroCargos, setFiltroCargos] = useState<FiltroCargos>("LICENCIA");
 
 	// 🔹 Designación (header + horarios)
 	const {
@@ -36,10 +36,7 @@ export default function DesignacionDetallePage() {
 	} = useDesignacionDetalle(id);
 
 	// 🔹 Cargo activo (estado actual)
-	const {
-		cargoActivo,
-		isLoading: isLoadingActivo,
-	} = useCargoActivo(id);
+	const { cargoActivo, isLoading: isLoadingActivo } = useCargoActivo(id);
 
 	// 🔹 Historial de cargos (filtrado desde backend)
 	const {
@@ -61,7 +58,6 @@ export default function DesignacionDetallePage() {
 				</div>
 				{/* BODY */}
 				<div className={styles.body}>
-
 					{/* CARGO ACTIVO COMPACTO */}
 					<div className={styles.cargoActivo}>
 						<DesignacionCargoActivo
@@ -87,7 +83,6 @@ export default function DesignacionDetallePage() {
 							/>
 						</div>
 					</div>
-
 				</div>
 			</div>
 
@@ -95,9 +90,7 @@ export default function DesignacionDetallePage() {
 			{mostrarCrearAsignacion && (
 				<CrearAsignacionModal
 					designacionId={designacion.id}
-					onClose={() =>
-						setMostrarCrearAsignacion(false)
-					}
+					onClose={() => setMostrarCrearAsignacion(false)}
 					onSuccess={() => {
 						setMostrarCrearAsignacion(false);
 						refetchDesignacion();
@@ -119,7 +112,6 @@ export default function DesignacionDetallePage() {
 					}}
 				/>
 			)}
-
 		</PageLayout>
 	);
 }

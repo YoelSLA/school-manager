@@ -21,11 +21,7 @@ export default function SidebarSectionLayout({
 			<div className={styles.sidebar__left}>
 				<div className={styles.sidebar__header}>
 					<h2 className={styles.sidebar__title}>{title}</h2>
-					{subtitle && (
-						<p className={styles.sidebar__subtitle}>
-							{subtitle}
-						</p>
-					)}
+					{subtitle && <p className={styles.sidebar__subtitle}>{subtitle}</p>}
 				</div>
 			</div>
 
@@ -34,9 +30,7 @@ export default function SidebarSectionLayout({
 				{controls}
 			</div>
 
-			<div className={styles.sidebar__right}>
-				{actions}
-			</div>
+			<div className={styles.sidebar__right}>{actions}</div>
 		</div>
 	);
 }

@@ -174,41 +174,25 @@ public class DesignacionServiceImpl implements DesignacionService {
 			LocalDate fechaHasta
 	) {
 
-		System.out.println("=== cubrirConProvisional ===");
-		System.out.println("designacionId: " + designacionId);
-		System.out.println("empleadoId: " + empleadoId);
-		System.out.println("fechaDesde: " + fechaDesde);
-		System.out.println("fechaHasta: " + fechaHasta);
-
 		Designacion designacion = designacionRepository.findById(designacionId)
-				.orElseThrow(() -> {
-					System.out.println("No se encontró la designación con id: " + designacionId);
-					return new RecursoNoEncontradoException("designación", designacionId);
-				});
-
-		System.out.println("Designación encontrada: " + designacion.getId());
+				.orElseThrow(() ->
+						new RecursoNoEncontradoException("designación", designacionId)
+				);
 
 		EmpleadoEducativo empleado = empleadoEducativoRepository.findById(empleadoId)
-				.orElseThrow(() -> {
-					System.out.println("No se encontró el empleado con id: " + empleadoId);
-					return new RecursoNoEncontradoException("empleado educativo", empleadoId);
-				});
-
-		System.out.println("Empleado encontrado: " + empleado.getId());
+				.orElseThrow(() ->
+						new RecursoNoEncontradoException("empleado educativo", empleadoId)
+				);
 
 		if (fechaHasta != null && fechaHasta.isBefore(fechaDesde)) {
-			System.out.println("Error: fechaHasta es anterior a fechaDesde");
 			throw new IllegalArgumentException("La fecha fin no puede ser anterior a la fecha inicio");
 		}
 
 		Periodo periodo = new Periodo(fechaDesde, fechaHasta);
-		System.out.println("Periodo creado: desde=" + fechaDesde + " hasta=" + fechaHasta);
 
 		AsignacionProvisional asignacion = designacion.cubrirConProvisionalManual(empleado, periodo);
-		System.out.println("Asignación provisional creada");
 
 		designacionRepository.save(designacion);
-		System.out.println("Designación guardada en base de datos");
 
 		return asignacion;
 	}
@@ -221,48 +205,28 @@ public class DesignacionServiceImpl implements DesignacionService {
 			LocalDate fechaTomaPosesion
 	) {
 
-		System.out.println("===== cubrirConSuplentes =====");
-		System.out.println("licenciaId: " + licenciaId);
-		System.out.println("suplenteId: " + suplenteId);
-		System.out.println("designacionIds: " + designacionIds);
-		System.out.println("fechaInicio: " + fechaTomaPosesion);
-
 		Validaciones.noNulo(fechaTomaPosesion, "fecha toma posesión");
 		Validaciones.noVacio(designacionIds, "designacionIds");
 
 		Licencia licencia = licenciaRepository.findById(licenciaId)
-				.orElseThrow(() -> {
-					System.out.println("Licencia no encontrada: " + licenciaId);
-					return new RecursoNoEncontradoException("licencia", licenciaId);
-				});
-
-		System.out.println("Licencia encontrada: " + licencia.getId());
+				.orElseThrow(() ->
+						new RecursoNoEncontradoException("licencia", licenciaId)
+				);
 
 		EmpleadoEducativo suplente = empleadoEducativoRepository.findById(suplenteId)
-				.orElseThrow(() -> {
-					System.out.println("Suplente no encontrado: " + suplenteId);
-					return new RecursoNoEncontradoException("empleado educativo", suplenteId);
-				});
-
-		System.out.println("Suplente encontrado: " + suplente.getId());
+				.orElseThrow(() ->
+						new RecursoNoEncontradoException("empleado educativo", suplenteId)
+				);
 
 		List<Designacion> designaciones = obtenerDesignaciones(designacionIds);
 
-		System.out.println("Cantidad de designaciones encontradas: " + designaciones.size());
-
-		designaciones.forEach(d -> {
-
-			System.out.println("Procesando designacion: " + d.getId());
-
-			d.cubrirConSuplente(
-					licencia,
-					suplente,
-					fechaTomaPosesion
-			);
-			
-		});
-
-		System.out.println("===== FIN cubrirConSuplentes =====");
+		designaciones.forEach(d ->
+				d.cubrirConSuplente(
+						licencia,
+						suplente,
+						fechaTomaPosesion
+				)
+		);
 	}
 
 	public AsignacionSuplente renovarCobertura(
