@@ -27,7 +27,10 @@ export const designacionesQueryKeys = {
 				escuelaId,
 				page,
 				size,
-				filter,
+				filter?.cursoId ?? null,
+				filter?.materiaId ?? null,
+				filter?.orientacion ?? null,
+				filter?.estado ?? null,
 			] as const,
 
 		detail: (designacionId: number) =>
