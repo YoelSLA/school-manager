@@ -20,4 +20,5 @@ export type DesignacionAdministrativaFormValues = z.infer<
 	typeof crearDesignacionAdministrativaSchema
 >;
 
-export type DesignacionAdministrativaCreateDTO = DesignacionAdministrativaFormValues;
+export type DesignacionAdministrativaCreateDTO =
+	DesignacionAdministrativaFormValues;
