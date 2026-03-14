@@ -26,7 +26,7 @@ export function useCrearLicencia() {
 		onSuccess: (_data, { empleadoId }) => {
 			// 📄 1. Todas las listas de licencias
 			queryClient.invalidateQueries({
-				queryKey: licenciasQueryKeys.lists(),
+				queryKey: licenciasQueryKeys.all,
 			});
 
 			// 👤 2. Detalle del empleado afectado

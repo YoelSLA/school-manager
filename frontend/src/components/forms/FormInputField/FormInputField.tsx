@@ -8,13 +8,20 @@ import type {
 
 import styles from "./FormInputField.module.scss";
 
-type Props<T extends FieldValues> = {
+type Props<T extends FieldValues = FieldValues> = {
 	label: React.ReactNode;
-	name: Path<T>;
+	name?: Path<T>;
 	type?: string;
-	register: UseFormRegister<T>;
-	error?: string;
+
+	// RHF
+	register?: UseFormRegister<T>;
 	registerOptions?: RegisterOptions<T>;
+
+	// normal input
+	value?: string;
+	onChange?: React.ChangeEventHandler<HTMLInputElement>;
+
+	error?: string;
 	inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 };
 
@@ -23,16 +30,21 @@ export default function FormInputField<T extends FieldValues>({
 	name,
 	type = "text",
 	register,
-	error,
 	registerOptions,
+	value,
+	onChange,
+	error,
 	inputProps,
 }: Props<T>) {
-	const fieldId = String(name);
+	const fieldId = name ? String(name) : inputProps?.id;
 	const isReadOnly = inputProps?.readOnly;
+
+	const registerProps =
+		register && name ? register(name, registerOptions) : {};
 
 	return (
 		<div
-			className={`${styles["form-field"]} 
+			className={`${styles["form-field"]}
         ${error ? styles["form-field--error"] : ""}
         ${isReadOnly ? styles["form-field--readonly"] : ""}
       `}
@@ -50,29 +62,24 @@ export default function FormInputField<T extends FieldValues>({
 				className={styles["form-field__input"]}
 				aria-invalid={!!error}
 				aria-describedby={error ? `${fieldId}-error` : undefined}
-				{...register(name, registerOptions)}
+				value={value}
+				onChange={onChange}
+				{...registerProps}
 				{...inputProps}
 			/>
 
 			{error && (
 				<>
-					{/* Icono dentro del input */}
-					<span
-						className={styles["form-field__error-icon"]}
-						aria-hidden
-					>
+					<span className={styles["form-field__error-icon"]} aria-hidden>
 						⚠
 					</span>
 
-					{/* Tooltip flotante */}
 					<div
 						id={`${fieldId}-error`}
 						className={styles["form-field__error-tooltip"]}
 						role="alert"
 					>
-						<span className={styles["form-field__tooltip-icon"]}>
-							⚠
-						</span>
+						<span className={styles["form-field__tooltip-icon"]}>⚠</span>
 						<span>{error}</span>
 					</div>
 				</>

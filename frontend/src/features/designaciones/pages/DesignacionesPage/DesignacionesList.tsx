@@ -17,16 +17,15 @@ type Props =
 		filtro: "ADMIN";
 		isLoading: boolean;
 		isError: boolean;
-		onVerDetalle: (id: number) => void;
+		onVerDetalle: (designacion: DesignacionAdministrativaResumenDTO) => void;
 	}
 	| {
 		designaciones: DesignacionCursoResumenDTO[];
 		filtro: "CURSO";
 		isLoading: boolean;
 		isError: boolean;
-		onVerDetalle: (id: number) => void;
+		onVerDetalle: (designacion: DesignacionCursoResumenDTO) => void;
 	};
-
 /* ===============================
 	 COMPONENT
 ================================ */

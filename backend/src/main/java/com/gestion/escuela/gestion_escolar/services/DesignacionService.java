@@ -71,5 +71,7 @@ public interface DesignacionService {
 	void actualizarDesignacionCurso(Long designacionId, Integer cupof, Long cursoId, Long materiaId, String orientacion, Set<FranjaHoraria> franjasHorarias);
 
 	void actualizarDesignacionAdministrativa(Long designacionId, Integer cupof, RolEducativo rolEducativo, Set<FranjaHoraria> franjaHorarias);
+
+	Asignacion editarAsignacion(Long designacionId, Long asignacionId, Long aLong, LocalDate localDate, LocalDate localDate1);
 }
 

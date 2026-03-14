@@ -9,12 +9,12 @@ import java.util.List;
 public record CubrirDesignacionesDTO(
 
 		@NotNull(message = "Debe seleccionar un suplente")
-		Long empleadoSuplenteId,
+		Long empleadoId,
 
-		@NotEmpty(message = "Debe seleccionar al menos una designación")
-		List<Long> designacionIds,
+		@NotEmpty(message = "Debe seleccionar al menos una designación para cubrir")
+		List<Long> designacionesIds,
 
-		@NotNull(message = "Debe indicar la fecha de inicio de la suplencia")
-		LocalDate fechaInicio
+		@NotNull(message = "Debe indicar la fecha de toma de posesión para la suplencia")
+		LocalDate fechaTomaPosesion
 ) {
 }

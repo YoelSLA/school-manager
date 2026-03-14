@@ -1,15 +1,16 @@
 @use "@/styles/breakpoints" as *;
-
+@use "@/styles/_debug.mixins" as debug;
 
 .appLayout {
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
 	background: var(--bg-page);
-	// background-color: orange;
+
+	@include debug.debug(orange);
 
 	&__header {
-		// background-color: lightseagreen;
+		@include debug.debug(lightseagreen);
 	}
 
 	&__content {
@@ -19,7 +20,8 @@
 
 		display: flex;
 		flex-direction: column;
-		// background-color: darkgreen;
+
+		@include debug.debug(darkgreen);
 	}
 }
 

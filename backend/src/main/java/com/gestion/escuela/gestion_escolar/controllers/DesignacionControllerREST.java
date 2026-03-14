@@ -1,6 +1,7 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
 import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.EditarAsignacionDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.CubrirProvisionalDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.CubrirTitularDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionDetalleDTO;
@@ -149,6 +150,24 @@ public class DesignacionControllerREST {
 		);
 
 		return ResponseEntity.noContent().build();
+	}
+
+	@PutMapping("/{designacionId}/asignaciones/{asignacionId}")
+	public AsignacionDetalleDTO editarAsignacion(
+			@PathVariable Long designacionId,
+			@PathVariable Long asignacionId,
+			@Valid @RequestBody EditarAsignacionDTO dto
+	) {
+
+		return AsignacionMapper.toDetalle(
+				designacionService.editarAsignacion(
+						designacionId,
+						asignacionId,
+						dto.empleadoId(),
+						dto.fechaTomaPosesion(),
+						dto.fechaCese()
+				)
+		);
 	}
 
 

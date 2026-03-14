@@ -1,20 +1,21 @@
 import { Card, CardDivider } from "@/components/Card";
 import type {
 	EstadoDesignacion,
-	RolEducativo,
 } from "../../types/designacion.types";
+
 import styles from "./DesignacionCard.module.scss";
+
 import DesignacionCardHeader from "./DesignacionCardHeader/DesignacionCardHeader";
 import DesignacionEmpleado from "./DesignacionEmpleado";
-import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
 import DesignacionCardHorarios from "./DesignacionCardHorarios";
 
+import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
+
 type Props = {
-	designacionId: number; // 👈 ahora obligatorio
+	designacionId: number;
 	franjasCount: number;
 	cupof: number;
 	estadoDesignacion: EstadoDesignacion;
-	rolEducativo: RolEducativo;
 	onVerDetalle: () => void;
 	children: React.ReactNode;
 };
@@ -24,24 +25,23 @@ export default function DesignacionCard({
 	franjasCount,
 	cupof,
 	estadoDesignacion,
-	children,
 	onVerDetalle,
+	children,
 }: Props) {
 
 	const { cargoActivo } = useCargoActivo(designacionId);
 
-	const empleado = cargoActivo
+	const empleado = cargoActivo?.empleado
 		? {
-			nombre: cargoActivo.empleado.nombre,
-			apellido: cargoActivo.empleado.apellido,
-			cuil: cargoActivo.empleado.cuil,
-			situacionDeRevista: cargoActivo.situacionDeRevista
-
+			...cargoActivo.empleado,
+			situacionDeRevista: cargoActivo.situacionDeRevista,
 		}
 		: undefined;
 
 	const status =
-		estadoDesignacion === "CUBIERTA" ? "success" : "danger";
+		estadoDesignacion === "CUBIERTA"
+			? "success"
+			: "danger";
 
 	return (
 		<Card
@@ -50,6 +50,7 @@ export default function DesignacionCard({
 			className={styles.card}
 			onClick={onVerDetalle}
 		>
+
 			{/* HEADER */}
 			<div className={styles.sectionHeader}>
 				<DesignacionCardHeader
@@ -60,7 +61,7 @@ export default function DesignacionCard({
 
 			<CardDivider />
 
-			{/* PERSONA */}
+			{/* EMPLEADO */}
 			<div className={styles.sectionEmpleado}>
 				<DesignacionEmpleado
 					empleado={empleado}
@@ -69,16 +70,20 @@ export default function DesignacionCard({
 
 			<CardDivider />
 
+			{/* CONTENIDO ESPECÍFICO (ADMIN / CURSO) */}
 			<div className={styles.sectionContent}>
 				{children}
 			</div>
 
 			<CardDivider />
 
-
+			{/* HORARIOS */}
 			<div className={styles.sectionHorarios}>
-				<DesignacionCardHorarios franjasCount={franjasCount} />
+				<DesignacionCardHorarios
+					franjasCount={franjasCount}
+				/>
 			</div>
+
 		</Card>
 	);
 }

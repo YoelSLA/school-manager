@@ -18,9 +18,9 @@ function formatDate(date: string) {
 }
 
 const SITUACION_ICON = {
-	TITULAR: Star,
-	PROVISIONAL: Clock,
-	SUPLENTE: Users,
+	Titular: Star,
+	Provisional: Clock,
+	Suplente: Users,
 } as const;
 
 export default function AsignacionRow({ asignacion }: Props) {

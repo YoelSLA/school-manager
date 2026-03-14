@@ -17,7 +17,6 @@ export default function AsignacionesList({ asignaciones }: Props) {
 				title="CARGOS"
 				items={asignaciones}
 				emptyText="No registra cargos"
-				maxItems={2}
 				renderItem={(asignacion) => (
 					<AsignacionRow key={asignacion.id} asignacion={asignacion} />
 				)}

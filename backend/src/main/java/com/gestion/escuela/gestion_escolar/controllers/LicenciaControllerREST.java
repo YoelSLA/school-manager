@@ -27,8 +27,20 @@ public class LicenciaControllerREST {
 			@PathVariable Long licenciaId,
 			@RequestBody @Valid CubrirDesignacionesDTO dto
 	) {
-		designacionService.cubrirConSuplentes(licenciaId, dto.empleadoSuplenteId(), dto.designacionIds(), dto.fechaInicio());
 
+		System.out.println("==== CONTROLLER cubrirDesignaciones ====");
+		System.out.println("licenciaId: " + licenciaId);
+		System.out.println("empleadoId: " + dto.empleadoId());
+		System.out.println("designacionesIds: " + dto.designacionesIds());
+		System.out.println("fechaTomaPosesion: " + dto.fechaTomaPosesion());
+		System.out.println("=======================================");
+
+		designacionService.cubrirConSuplentes(
+				licenciaId,
+				dto.empleadoId(),
+				dto.designacionesIds(),
+				dto.fechaTomaPosesion()
+		);
 	}
 
 	@PostMapping("/{licenciaId}/renovaciones")

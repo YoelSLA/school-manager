@@ -3,6 +3,7 @@ package com.gestion.escuela.gestion_escolar.services;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.Periodo;
+import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
@@ -56,4 +57,6 @@ public interface EmpleadoEducativoService {
 
 	@Transactional
 	EmpleadoEducativo actualizar(EmpleadoEducativo empleado);
+
+	Set<Designacion> obtenerDesignacionesActivas(Long empleadoId);
 }

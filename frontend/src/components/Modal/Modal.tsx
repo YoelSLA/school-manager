@@ -9,6 +9,7 @@ type Props = {
 	onCancel: () => void;
 	confirmLabel?: string;
 	isSubmitting?: boolean;
+	showConfirm?: boolean;
 };
 
 export default function Modal({
@@ -18,21 +19,28 @@ export default function Modal({
 	onCancel,
 	confirmLabel = "Guardar",
 	isSubmitting = false,
+	showConfirm = true,
 }: Props) {
 	return (
-		<div className={styles["modal-backdrop"]}>
-			<div className={`${styles.modal} ${styles[size]}`}>
+		<div
+			className={styles.modalBackdrop}
+			onClick={onCancel}
+		>
+			<div
+				className={`${styles.modal} ${styles[size]}`}
+				onClick={(e) => e.stopPropagation()}
+			>
 				{title && (
-					<header className={styles.modal__header}>
-						<h2 className={styles.modal__title}>{title}</h2>
+					<header className={styles.modalHeader}>
+						<h2 className={styles.modalTitle}>{title}</h2>
 					</header>
 				)}
 
-				<div className={styles.modal__content}>
+				<div className={styles.modalContent}>
 					{children}
 				</div>
 
-				<footer className={styles.modal__footer}>
+				<footer className={styles.modalFooter}>
 					<Button
 						type="button"
 						variant="ghost"
@@ -42,13 +50,15 @@ export default function Modal({
 						Cancelar
 					</Button>
 
-					<Button
-						type="submit"
-						variant="primary"
-						loading={isSubmitting}
-					>
-						{confirmLabel}
-					</Button>
+					{showConfirm && (
+						<Button
+							type="submit"
+							variant="primary"
+							loading={isSubmitting}
+						>
+							{confirmLabel}
+						</Button>
+					)}
 				</footer>
 			</div>
 		</div>

@@ -1,0 +1,97 @@
+/* =========================
+   CARD
+========================= */
+
+.card {
+	min-height: 260px;
+	max-width: 340px;
+}
+
+/* =========================
+   DIVIDER
+========================= */
+
+.divider {
+	height: 1px;
+	background: #e5e7eb;
+	margin: 10px 0;
+}
+
+.empleado {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+/* =========================
+   CODIGO / TIPO
+========================= */
+
+.tipoPill {
+	background: #e5e7eb;
+	padding: 4px 12px;
+	border-radius: 999px;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.codigo {
+	letter-spacing: 0.5px;
+}
+
+/* =========================
+   FECHAS
+========================= */
+
+.fechas {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.fechaItem {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+}
+
+.icon {
+	color: #6b7280;
+	margin-top: 2px;
+}
+
+.label {
+	display: block;
+	font-size: 11px;
+	color: #6b7280;
+	font-weight: 500;
+}
+
+.valor {
+	display: block;
+	font-size: 14px;
+	font-weight: 600;
+	color: #111827;
+}
+
+.fechaItem:nth-child(1) .icon {
+	color: #2563eb; // inicio
+}
+
+.fechaItem:nth-child(2) .icon {
+	color: #16a34a; // fin
+}
+
+.fechaItem:nth-child(3) .icon {
+	color: #f59e0b; // duración
+}

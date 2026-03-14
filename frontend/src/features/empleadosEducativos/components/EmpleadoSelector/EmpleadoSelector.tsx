@@ -2,49 +2,62 @@ import { useState } from "react";
 import type { EmpleadoEducativoMinimoDTO } from "../../types/empleadosEducativos.types";
 import EmpleadoAutocompleteBase from "./EmpleadoAutocompleteBase";
 import EmpleadoSelectedCard from "./EmpleadoSelectedCard";
-import styles from "./EmpleadoSelectorSection.module.scss";
+import styles from "./EmpleadoSelector.module.scss";
 
 type Props = {
 	label?: string;
 	placeholder?: string;
 	disabled?: boolean;
-	onSelect: (empleado: EmpleadoEducativoMinimoDTO) => void;
+	defaultEmpleado?: EmpleadoEducativoMinimoDTO | null;
+	onChange?: (empleado: EmpleadoEducativoMinimoDTO | null) => void;
 };
 
 export default function EmpleadoSelector({
-	label = "Empleado",
-	placeholder = "Buscar por apellido o nombre",
+	label = "EMPLEADO",
+	placeholder = "Buscar por apellido o nombre, cuil",
 	disabled,
-	onSelect,
+	defaultEmpleado = null,
+	onChange,
 }: Props) {
+
 	const [search, setSearch] = useState("");
 	const [empleadoSeleccionado, setEmpleadoSeleccionado] =
-		useState<EmpleadoEducativoMinimoDTO | null>(null);
+		useState<EmpleadoEducativoMinimoDTO | null>(defaultEmpleado);
+
+	const handleSelect = (e: EmpleadoEducativoMinimoDTO) => {
+		setEmpleadoSeleccionado(e);
+		setSearch("");
+		onChange?.(e);
+	};
+
+	const handleRemove = () => {
+		setEmpleadoSeleccionado(null);
+		setSearch("");
+		onChange?.(null);
+	};
 
 	return (
-		<section className={styles["empleado-section"]}>
+		<section className={styles.empleadoSection}>
+
+			<h3 className={styles.title}>{label}</h3>
+
 			<EmpleadoAutocompleteBase
 				value={search}
 				onChange={setSearch}
-				onSelect={(e) => {
-					setEmpleadoSeleccionado(e);
-					setSearch("");
-					onSelect(e);
-				}}
-				label={label}
+				onSelect={handleSelect}
 				placeholder={placeholder}
-				disabled={disabled || !!empleadoSeleccionado}
+				disabled={disabled}
 			/>
 
-			{empleadoSeleccionado && (
-				<EmpleadoSelectedCard
-					empleado={empleadoSeleccionado}
-					onRemove={() => {
-						setEmpleadoSeleccionado(null);
-						setSearch("");
-					}}
-				/>
-			)}
+			<div className={styles.selectedContainer}>
+				{empleadoSeleccionado && (
+					<EmpleadoSelectedCard
+						empleado={empleadoSeleccionado}
+						onRemove={handleRemove}
+					/>
+				)}
+			</div>
+
 		</section>
 	);
 }

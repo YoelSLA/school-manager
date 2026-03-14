@@ -226,6 +226,14 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 		return empleado;
 	}
 
+	@Override
+	public Set<Designacion> obtenerDesignacionesActivas(Long empleadoId) {
+
+		EmpleadoEducativo empleado = obtenerPorId(empleadoId);
+
+		return empleado.designacionesActivasEn(LocalDate.now());
+	}
+
 
 }
 

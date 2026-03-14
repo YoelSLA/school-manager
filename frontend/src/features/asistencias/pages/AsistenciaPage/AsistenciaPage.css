@@ -8,10 +8,6 @@
 	gap: 8px;
 }
 
-.asistencias-page__sidebar {
-	/* background: aqua; */
-}
-
 .asistencias-page__content {
 	display: flex;
 	flex-direction: column;

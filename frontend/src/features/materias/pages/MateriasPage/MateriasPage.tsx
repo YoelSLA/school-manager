@@ -58,7 +58,6 @@ export default function MateriasPage() {
 		);
 	};
 
-
 	const handleEditarMateriaClick = (materia: typeof materias[number]) => {
 		setMateriaAEditar(materia);
 	};

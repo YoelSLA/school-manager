@@ -8,11 +8,12 @@ import DesignacionHeaderInfo from "./DesignacionHeaderInfo/DesignacionHeaderInfo
 import DesignacionHorarios from "./DesignacionHorarios";
 import DesignacionCargosHistorial from "./DesignacionCargosHistorial/DesignacionCargosHistorial";
 
-import type { FiltroCargos } from "@/features/asignaciones/types/asignacion.types";
+import type { AsignacionDetalleDTO, FiltroCargos } from "@/features/asignaciones/types/asignacion.types";
 
 import styles from "./DesignacionDetallePage.module.scss";
 import DesignacionCargoActivo from "./DesignacionCargoActivo/DesignacionCargoActivo";
 import useDesignacionDetalle from "../../hooks/useDesignacionDetalle";
+import EditarAsignacionModal from "@/features/asignaciones/components/EditarAsignacionModal/EditarAsignacionModal";
 
 export default function DesignacionDetallePage() {
 	const { designacionId } = useParams<{ designacionId: string }>();
@@ -20,6 +21,8 @@ export default function DesignacionDetallePage() {
 
 	const [mostrarCrearAsignacion, setMostrarCrearAsignacion] =
 		useState(false);
+	const [cargoAEditar, setCargoAEditar] =
+		useState<AsignacionDetalleDTO | null>(null);
 
 	const [filtroCargos, setFiltroCargos] =
 		useState<FiltroCargos>("LICENCIA");
@@ -56,36 +59,35 @@ export default function DesignacionDetallePage() {
 				<div className={styles.header}>
 					<DesignacionHeaderInfo designacion={designacion} />
 				</div>
-
-				{/* BODY — 3 COLUMNAS */}
+				{/* BODY */}
 				<div className={styles.body}>
-					{/* 🟪 Col 1 — Horarios */}
-					<div className={styles.horarios}>
-						<DesignacionHorarios
-							franjas={designacion.franjasHorarias}
-						/>
-					</div>
 
-					{/* 🟦 Col 2 — Cargo activo */}
+					{/* CARGO ACTIVO COMPACTO */}
 					<div className={styles.cargoActivo}>
 						<DesignacionCargoActivo
 							cargo={cargoActivo}
 							isLoading={isLoadingActivo}
+							onEditar={(cargo) => setCargoAEditar(cargo)}
 						/>
 					</div>
 
-					{/* 🟨 Col 3 — Historial + filtros + nuevo */}
-					<div className={styles.historial}>
-						<DesignacionCargosHistorial
-							cargos={cargos}
-							isLoading={isLoadingCargos}
-							filtro={filtroCargos}
-							onChangeFiltro={setFiltroCargos}
-							onNuevoCargo={() =>
-								setMostrarCrearAsignacion(true)
-							}
-						/>
+					{/* GRID PRINCIPAL */}
+					<div className={styles.content}>
+						<div className={styles.horarios}>
+							<DesignacionHorarios franjas={designacion.franjasHorarias} />
+						</div>
+
+						<div className={styles.historial}>
+							<DesignacionCargosHistorial
+								cargos={cargos}
+								isLoading={isLoadingCargos}
+								filtro={filtroCargos}
+								onChangeFiltro={setFiltroCargos}
+								onNuevoCargo={() => setMostrarCrearAsignacion(true)}
+							/>
+						</div>
 					</div>
+
 				</div>
 			</div>
 
@@ -103,6 +105,21 @@ export default function DesignacionDetallePage() {
 					}}
 				/>
 			)}
+
+			{/* MODAL EDITAR */}
+			{cargoAEditar && (
+				<EditarAsignacionModal
+					asignacion={cargoAEditar}
+					designacionId={id}
+					onClose={() => setCargoAEditar(null)}
+					onSuccess={() => {
+						setCargoAEditar(null);
+						refetchDesignacion();
+						refetchCargos();
+					}}
+				/>
+			)}
+
 		</PageLayout>
 	);
 }

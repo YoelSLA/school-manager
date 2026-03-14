@@ -54,17 +54,15 @@ public class AsistenciaControllerREST {
 			LocalDate fecha
 	) {
 
-		List<RolCount> roles =
-				asistenciaService.contarEmpleadosPorRolVigente(fecha)
-						.stream()
-						.map(r -> new RolCount(
-								r.rol(),
-								r.rol().getLabel(),
-								r.cantidad()
-						))
-						.toList();
+		return asistenciaService.contarEmpleadosPorRolVigente(fecha)
+				.stream()
+				.map(r -> new RolCount(
+						r.rol(),
+						r.rol().getLabel(),
+						r.cantidad()
+				))
+				.toList();
 
-		return roles;
 	}
 
 	@GetMapping("/empleados")

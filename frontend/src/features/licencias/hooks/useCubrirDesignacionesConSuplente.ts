@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { licenciasQueryKeys } from "../utils/licencias.queryKeys";
 import { cubrirDesignacionesConSuplente } from "../services/licencias.services";
-import type { CubrirDesignacionesRequest } from "../types/licencia.types";
+import { CubrirDesignacionesConSuplente } from "../form/cubrirDesignacionesConSuplente.schema";
 
 type Variables = {
 	licenciaId: number;
-	body: CubrirDesignacionesRequest;
+	body: CubrirDesignacionesConSuplente;
 };
 
 export function useCubrirDesignacionesConSuplente() {

@@ -1,0 +1,57 @@
+@use "../../../../styles/debug.mixins" as debug;
+
+.licenciaForm {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+
+	height: 100%;
+
+	@include debug.debug(red);
+}
+
+.licenciaFormContent {
+	display: flex;
+	flex-direction: column;
+
+	flex: 1;
+	min-height: 0;
+
+	@include debug.debug(blue);
+}
+
+.licenciaSection {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+
+	@include debug.debug(lime);
+}
+
+.licenciaFormFooter {
+	display: flex;
+	justify-content: center;
+
+	padding: 12px;
+	border-radius: 16px;
+
+	border: 1px solid #e5e7eb;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+
+	flex-shrink: 0;
+
+	@include debug.debug(orange);
+	background-color: #fff;
+}
+
+.licenciaFormError {
+	color: #dc2626;
+	font-size: 14px;
+	margin-right: auto;
+
+	color: white;
+	padding: 4px 8px;
+	border-radius: 4px;
+
+	@include debug.debug(purple);
+}

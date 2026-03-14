@@ -8,7 +8,7 @@ import type {
 
 // --------------------------------------------------------------------
 
-type DesignacionResumenDTO = {
+export type DesignacionResumenDTO = {
 	id: number;
 	cupof: number;
 	estadoDesignacion: EstadoDesignacion;

@@ -10,10 +10,20 @@
 	line-height: 1.5;
 	padding-bottom: 4px;
 	border-bottom: 1px solid #f1f5f9;
+	text-align: center;
 }
 
 .fieldGroup {
-	display: flex;
-	flex-direction: column;
+	display: grid;
+	grid-template-columns: 2fr 1fr;
 	gap: 18px;
+	align-items: start;
+}
+
+.selector {
+	flex: 2;
+}
+
+.fecha {
+	flex: 1;
 }

@@ -2,7 +2,7 @@
    BACKDROP
 ========================= */
 
-.modal-backdrop {
+.modalBackdrop {
 	position: fixed;
 	inset: 0;
 	z-index: 1000;
@@ -34,9 +34,12 @@
 	display: flex;
 	flex-direction: column;
 
-	animation: modal-fade-in 0.2s ease-out;
+	animation: modalFadeIn 0.2s ease-out;
 
-	/* Sizes */
+	/* =========
+	   SIZES
+	========= */
+
 	&.small {
 		max-width: 480px;
 	}
@@ -53,23 +56,21 @@
 	   HEADER
 	========= */
 
-	&__header {
+	.modalHeader {
 		padding: 16px 20px;
 
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 
-		background: linear-gradient(180deg,
-				#f8fafc,
-				#f1f5f9);
+		background: linear-gradient(180deg, #f8fafc, #f1f5f9);
 
 		border-bottom: 1px solid #e2e8f0;
 		border-top-left-radius: 16px;
 		border-top-right-radius: 16px;
 	}
 
-	&__title {
+	.modalTitle {
 		font-size: 17px;
 		font-weight: 700;
 		color: #0f172a;
@@ -79,7 +80,7 @@
 	   CONTENT
 	========= */
 
-	&__content {
+	.modalContent {
 		background: #ffffff;
 		padding: 24px;
 
@@ -93,7 +94,7 @@
 	   FOOTER
 	========= */
 
-	&__footer {
+	.modalFooter {
 		padding: 16px 20px;
 
 		display: flex;
@@ -109,72 +110,10 @@
 }
 
 /* =========================
-   BUTTONS
-========================= */
-
-.btn {
-	border: none;
-	cursor: pointer;
-	font-size: 14px;
-	line-height: 1;
-	transition: all 0.15s ease;
-}
-
-/* Cancel button */
-.btn--ghost {
-	background: #fee2e2;
-	/* rojo claro */
-	color: #991b1b;
-
-	padding: 8px 16px;
-	border-radius: 12px;
-	font-weight: 600;
-
-	border: 1px solid #fecaca;
-
-	transition: all 0.15s ease;
-
-	&:hover {
-		background: #fecaca;
-		color: #7f1d1d;
-	}
-
-	&:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-}
-
-/* Primary button */
-.btn--primary {
-	background: linear-gradient(180deg,
-			#2563eb,
-			#1d4ed8);
-	color: #ffffff;
-
-	padding: 8px 18px;
-	border-radius: 12px;
-	font-weight: 600;
-
-	box-shadow:
-		0 6px 14px rgba(37, 99, 235, 0.35);
-
-	&:hover {
-		filter: brightness(1.05);
-	}
-
-	&:disabled {
-		opacity: 0.6;
-		box-shadow: none;
-		cursor: not-allowed;
-	}
-}
-
-/* =========================
    ANIMATION
 ========================= */
 
-@keyframes modal-fade-in {
+@keyframes modalFadeIn {
 	from {
 		opacity: 0;
 		transform: translateY(8px) scale(0.98);

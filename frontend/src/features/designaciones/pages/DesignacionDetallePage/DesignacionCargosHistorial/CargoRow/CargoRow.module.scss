@@ -1,0 +1,116 @@
+@use "@/styles/_debug.mixins" as debug;
+
+.row {
+  @include debug.debug(red);
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  padding: 10px 12px;
+  border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: #f9fafb;
+  }
+
+  /* =====================
+     LÍNEA PRINCIPAL
+  ===================== */
+
+  .main {
+    @include debug.debug(blue);
+
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+
+    /* =====================
+       EMPLEADO
+    ===================== */
+
+    .empleado {
+      @include debug.debug(green);
+
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+
+      .empleadoHeader {
+        @include debug.debug(yellow);
+
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        svg {
+          color: #6b7280;
+        }
+
+        .nombre {
+          font-size: 14px;
+          font-weight: 600;
+          color: #111827;
+        }
+      }
+
+      .cuil {
+        font-size: 12px;
+        color: #6b7280;
+      }
+    }
+
+    /* =====================
+       PERÍODO
+    ===================== */
+
+    .periodo {
+      @include debug.debug(purple);
+
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      font-size: 13px;
+      color: #374151;
+
+      .arrow {
+        color: #9ca3af;
+      }
+    }
+  }
+
+  /* =====================
+     LÍNEA BAJA
+  ===================== */
+
+  .baja {
+    @include debug.debug(orange);
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+
+    padding-left: 4px;
+
+    font-size: 12px;
+    color: #6b7280;
+
+    .bajaLabel {
+      color: #9ca3af;
+    }
+
+    .bajaMotivo {
+      font-style: italic;
+      color: #374151;
+    }
+
+    .dot {
+      margin: 0 4px;
+      color: #d1d5db;
+    }
+  }
+}

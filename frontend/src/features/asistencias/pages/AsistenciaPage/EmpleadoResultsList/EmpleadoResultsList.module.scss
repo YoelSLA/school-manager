@@ -1,18 +1,23 @@
 @use "@/styles/breakpoints" as *;
+@use "@/styles/_debug.mixins" as debug;
 
 .list {
-  min-height: 0;
-  overflow-y: auto;
-  padding: 8px;
+  @include debug.debug(red);
+
+  height: 100%;
   display: grid;
   gap: 8px;
+
 }
 
 /* =========================
    DESKTOP CHICO (1366)
 ========================= */
+
 @include desktop-width-small {
   .list {
+    @include debug.debug(blue);
+
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -20,8 +25,11 @@
 /* =========================
    DESKTOP MEDIO (1440–1680)
 ========================= */
+
 @include desktop-width-medium {
   .list {
+    @include debug.debug(green);
+
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -29,8 +37,11 @@
 /* =========================
    DESKTOP GRANDE (1920+)
 ========================= */
+
 @include desktop-width-large {
   .list {
+    @include debug.debug(purple);
+
     grid-template-columns: repeat(4, 1fr);
   }
 }
@@ -38,7 +49,10 @@
 /* =========================
    ESTADO VACÍO
 ========================= */
+
 .empty {
+  @include debug.debug(orange);
+
   grid-column: 1 / -1;
   padding: 32px;
   text-align: center;

@@ -1,1 +1,1 @@
-export { default } from "./LicenciaForm";
+export { default } from "./LicenciaDatosSection";

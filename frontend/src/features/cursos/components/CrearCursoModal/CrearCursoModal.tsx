@@ -1,12 +1,12 @@
 import { useRef } from "react";
 import Modal from "@/components/Modal/Modal";
-import type { CrearCursoFormOutput } from "../../form/curso.form.types";
 import CrearCursoForm from "../CrearCursoForm/CrearCursoForm";
+import { CrearCursoFormValues } from "../../form/crearCurso.schema";
 
 type Props = {
   onClose: () => void;
   isSubmitting: boolean;
-  onSubmit: (data: CrearCursoFormOutput) => void;
+  onSubmit: (data: CrearCursoFormValues) => void;
 };
 
 export default function CrearCursoModal({
@@ -20,7 +20,6 @@ export default function CrearCursoModal({
     <Modal
       title="Nuevo curso"
       onCancel={onClose}
-      onConfirm={() => submitRef.current()}
       confirmLabel="Crear"
       isSubmitting={isSubmitting}
     >

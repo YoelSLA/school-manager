@@ -1,16 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { crearCursoSchema } from "./crearCurso.schema";
-import type {
-	CrearCursoFormInput,
-	CrearCursoFormOutput,
-} from "./curso.form.types";
-import { CURSO_DEFAULTS } from "./curso.default";
+import { CrearCursoFormValues, crearCursoSchema } from "./crearCurso.schema";
 
 export function useCrearCursoForm() {
-	const form = useForm<CrearCursoFormInput, unknown, CrearCursoFormOutput>({
+	const form = useForm<CrearCursoFormValues>({
 		resolver: zodResolver(crearCursoSchema),
-		defaultValues: CURSO_DEFAULTS,
+		defaultValues: {
+			turno: "MANIANA",
+			anio: 1,
+			grado: 1,
+		},
 	});
 
 	return {

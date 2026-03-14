@@ -1,0 +1,22 @@
+.period {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.periodItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.periodLabel {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.periodValue {
+  font-size: 13px;
+  font-weight: 500;
+  color: #111827;
+}

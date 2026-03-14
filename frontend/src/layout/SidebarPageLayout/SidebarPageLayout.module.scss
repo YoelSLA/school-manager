@@ -1,4 +1,5 @@
 @use "@/styles/breakpoints" as *;
+@use "@/styles/_debug.mixins" as debug;
 
 /* ======================================================
    SIDEBAR PAGE LAYOUT
@@ -10,14 +11,16 @@
 	height: 100vh;
 	overflow: hidden;
 	gap: 8px;
-	background-color: blueviolet;
+
+	@include debug.debug(blueviolet);
 
 	/* ================= SIDEBAR ================= */
 
 	&__sidebar {
 		flex-shrink: 0;
 		padding: 8px 12px;
-		background-color: black;
+
+		@include debug.debug(black);
 	}
 
 	/* ================= CONTENT ================= */
@@ -27,14 +30,16 @@
 		display: flex;
 		flex-direction: column;
 		overflow: hidden;
-		background-color: aqua;
+
+		@include debug.debug(aqua);
 	}
 
 	/* ================= PAGINATION ================= */
 
 	&__pagination {
 		flex-shrink: 0;
-		background-color: lightsteelblue;
+
+		@include debug.debug(lightsteelblue);
 	}
 }
 

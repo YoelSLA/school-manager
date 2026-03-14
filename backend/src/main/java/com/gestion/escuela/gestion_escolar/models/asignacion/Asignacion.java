@@ -30,6 +30,7 @@ public abstract class Asignacion {
 
 	@ManyToOne(optional = false)
 	protected EmpleadoEducativo empleadoEducativo;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -184,11 +185,36 @@ public abstract class Asignacion {
 		return this.periodo.seSuperponeCon(periodo);
 	}
 
-	public boolean ejerceEn(LocalDate fecha) {
-		return estaActivaEn(fecha);
+	public boolean estaEjerciendoEn(LocalDate fecha) {
+
+		boolean activa = estaActivaEn(fecha);
+		boolean licencia = estaEnLicenciaEn(fecha);
+		boolean ejerce = activa && !licencia;
+
+		System.out.println("DEBUG Asignacion " + id);
+		System.out.println("fecha: " + fecha);
+		System.out.println("activa: " + activa);
+		System.out.println("licencia: " + licencia);
+		System.out.println("ejerce: " + ejerce);
+
+		return ejerce;
 	}
 
 	public boolean esTitular() {
 		return getSituacionDeRevista() == TITULAR;
 	}
+
+	public void actualizar(
+			EmpleadoEducativo empleado,
+			LocalDate fechaTomaPosesion,
+			LocalDate fechaCese
+	) {
+
+		Validaciones.noNulo(empleado, "empleado educativo");
+		Validaciones.noNulo(fechaTomaPosesion, "fecha de toma de posesión");
+
+		this.empleadoEducativo = empleado;
+		this.periodo = new Periodo(fechaTomaPosesion, fechaCese);
+	}
+
 }

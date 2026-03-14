@@ -12,10 +12,11 @@ import type {
 	RenovarLicenciaDTO,
 } from "../types/licencia.types";
 import type { PageResponse } from "@/utils/types";
+import { CubrirDesignacionesConSuplente } from "../form/cubrirDesignacionesConSuplente.schema";
 
 export const cubrirDesignacionesConSuplente = async (
 	licenciaId: number,
-	body: CubrirDesignacionesRequest,
+	body: CubrirDesignacionesConSuplente,
 ): Promise<void> => {
 	await http.post(`/licencias/${licenciaId}/coberturas`, body);
 };

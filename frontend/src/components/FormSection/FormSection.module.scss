@@ -1,13 +1,17 @@
+@use "../../styles/debug.mixins" as debug;
+
 .section {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  flex: 1;
+  min-height: 0;
+
   padding: 22px 26px;
   border-radius: 18px;
 
-  background: #ffffff;
-  border: 1px solid rgba(15, 23, 42, 0.06);
+  @include debug.debug(red);
+  background-color: #fff;
 
   box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.04),
@@ -21,11 +25,10 @@
     left: 0;
     top: 24px;
     bottom: 24px;
-    width: 4px;
+    width: 6px;
     border-radius: 999px;
-    background: linear-gradient(to bottom,
-        var(--primary),
-        #60a5fa);
+
+    @include debug.debug(yellow);
   }
 
   &:hover {
@@ -40,39 +43,58 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     text-align: center;
-    color: var(--text-muted);
+
+    color: black;
+    padding: 6px;
+
+    @include debug.debug(lime);
   }
 
   &__divider {
     align-self: center;
     width: 56px;
-    height: 2px;
+    height: 4px;
     border-radius: 999px;
-    background: linear-gradient(90deg,
-        var(--primary),
-        #60a5fa);
-  }
 
-  /* CONTENEDOR FLEXIBLE */
+    @include debug.debug(cyan);
+    background-color: black;
+  }
 
   &__content {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 40px;
+    justify-content: space-around;
+
+    flex: 1;
+
+    padding: 10px;
+
+    @include debug.debug(blue);
 
     &--column {
       display: flex;
       flex-direction: column;
       gap: 40px;
+
+      @include debug.debug(orange);
     }
   }
 
   &__half {
     grid-column: span 1;
+
+    padding: 10px;
+
+    @include debug.debug(purple);
   }
 
   &__full {
     grid-column: 1 / -1;
     width: 100%;
+
+    padding: 10px;
+
+    @include debug.debug(green);
   }
 }

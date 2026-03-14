@@ -19,7 +19,6 @@ export default function MateriaEditModal({
   onSubmit,
 }: Props) {
 
-
   const { form } = useEditMateriaForm({ materia });
 
   const {
@@ -29,14 +28,13 @@ export default function MateriaEditModal({
   } = form;
 
   return (
-    <Modal
-      title="Editar materia"
-      onCancel={onClose}
-      onConfirm={handleSubmit(onSubmit)}
-      confirmLabel="Guardar cambios"
-      isSubmitting={isSubmitting}
-    >
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Modal
+        title="Editar materia"
+        onCancel={onClose}
+        confirmLabel="Guardar cambios"
+        isSubmitting={isSubmitting}
+      >
         <FormSection layout="column">
           <FormInputField
             label="Nombre"
@@ -60,9 +58,8 @@ export default function MateriaEditModal({
             error={errors.cantidadModulos?.message}
             inputProps={{ min: 1 }}
           />
-
         </FormSection>
-      </form>
-    </Modal>
+      </Modal>
+    </form>
   );
 }

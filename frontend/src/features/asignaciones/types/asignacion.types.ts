@@ -36,9 +36,9 @@ export type AsignacionAfectadaPorLicenciaDTO = AsignacionHistoricaDTO & {
 };
 
 export enum SituacionDeRevista {
-	TITULAR = "TITULAR",
-	PROVISIONAL = "PROVISIONAL",
-	SUPLENTE = "SUPLENTE",
+	TITULAR = "Titular",
+	PROVISIONAL = "Provisional",
+	SUPLENTE = "Suplente",
 }
 
 export enum EstadoAsignacion {
@@ -49,10 +49,28 @@ export enum EstadoAsignacion {
 	PENDIENTE = "PENDIENTE",
 }
 
-export type FiltroCargos = "LICENCIA" | "FINALIZADA" | "BAJA" | "PENDIENTE";
+export type FiltroCargos = "LICENCIA" | "FINALIZADA" | "BAJA";
 
 export enum CaracteristicaAsignacion {
 	NORMAL = "NORMAL",
 	CAMBIO_DE_FUNCION = "CAMBIO_DE_FUNCION",
 	RECALIFICACION_LABORAL_DEFINITIVA = "RECALIFICACION_LABORAL_DEFINITIVA",
 }
+
+export type CubrirTitularRequest = {
+	empleadoId: number;
+	fechaTomaPosesion: string;
+	caracteristica?: CaracteristicaAsignacion;
+};
+
+export type CubrirProvisionalRequest = {
+	empleadoId: number;
+	fechaTomaPosesion: string;
+	fechaCese: string;
+};
+
+export type EditarAsignacionDTO = {
+	empleadoId: number;
+	fechaTomaPosesion: string;
+	fechaCese?: string | null;
+};

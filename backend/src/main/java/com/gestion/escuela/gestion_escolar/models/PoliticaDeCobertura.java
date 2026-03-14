@@ -49,35 +49,61 @@ public class PoliticaDeCobertura {
 
 	}
 
-	public static void validarCubrirConSuplente(Designacion designacion,
-												Licencia licencia,
-												EmpleadoEducativo suplente,
-												LocalDate fechaInicio
+	public static void validarCubrirConSuplente(
+			Designacion designacion,
+			Licencia licencia,
+			EmpleadoEducativo suplente,
+			LocalDate fechaInicio
 	) {
+
+		System.out.println("===== validarCubrirConSuplente =====");
+		System.out.println("designacionId: " + (designacion != null ? designacion.getId() : null));
+		System.out.println("licenciaId: " + (licencia != null ? licencia.getId() : null));
+		System.out.println("suplenteId: " + (suplente != null ? suplente.getId() : null));
+		System.out.println("fechaInicio: " + fechaInicio);
 
 		Validaciones.noNulo(licencia, "licencia");
 		Validaciones.noNulo(suplente, "empleado educativo");
 		Validaciones.noNulo(fechaInicio, "fecha inicio");
+
 		validarPuedeTomarPosesionEn(suplente, fechaInicio);
 
-		// 1️⃣ La licencia debe afectar a esta designación
-		if (!licencia.afectaA(designacion, fechaInicio)) {
+		boolean afecta = licencia.afectaA(designacion, fechaInicio);
+		System.out.println("afectaA(designacion, fechaInicio): " + afecta);
+
+		if (!afecta) {
+			System.out.println("❌ La licencia NO afecta a la designación");
 			throw new DesignacionNoAfectadaPorLicenciaException(designacion.getId(), licencia.getId());
 		}
 
-		// 2️⃣ La fecha debe ser válida dentro de la licencia
-		licencia.validarFechaValidaParaCobertura(fechaInicio);
-
-		// 3️⃣ Debe existir vacante por licencia
-		if (designacion.tieneVacantePorLicenciaEn(fechaInicio)) {
-			throw new DesignacionYaCubiertaException(designacion);
+		try {
+			licencia.validarFechaValidaParaCobertura(fechaInicio);
+			System.out.println("fechaValidaParaCobertura: true");
+		} catch (
+				Exception e) {
+			System.out.println("❌ fechaValidaParaCobertura: false");
+			throw e;
 		}
 
-		// 4️⃣ No debe estar cubierta
-		if (designacion.estaCubiertaEn(fechaInicio)) {
+		assert designacion != null;
+		boolean tieneVacante = designacion.tieneVacantePorLicenciaEn(fechaInicio);
+		System.out.println("tieneVacantePorLicenciaEn: " + tieneVacante);
+
+		if (!tieneVacante) {
+			System.out.println("❌ No hay vacante por licencia");
 			throw new DesignacionNoVacantePorLicenciaException(designacion.getId());
 		}
 
+		boolean estaCubierta = designacion.estaCubiertaEn(fechaInicio);
+		System.out.println("estaCubiertaEn: " + estaCubierta);
+
+		if (estaCubierta) {
+			System.out.println("❌ La designación ya está cubierta");
+			throw new DesignacionYaCubiertaException(designacion);
+		}
+
+		System.out.println("✅ Validación OK");
+		System.out.println("=====================================");
 	}
 
 	private static void validarPuedeTomarPosesionEn(EmpleadoEducativo empleadoEducativo, LocalDate fecha
