@@ -68,9 +68,6 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 
 		List<LocalDate> fechasQueDebeAsistir = diasQueDebeAsistir(empleado, mes);
 
-		System.out.println("FECHAS QUE DEBE ASISTIR");
-		System.out.println(fechasQueDebeAsistir);
-
 		return fechasQueDebeAsistir
 				.stream()
 				.map(f -> construirEstadoDia(empleado, f, manualesPorFecha))
@@ -235,43 +232,17 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 			YearMonth yearMonth
 	) {
 
-		System.out.println("=================================");
-		System.out.println("=== diasQueDebeAsistir ===");
-		System.out.println("Empleado: " + empleado.getId());
-		System.out.println("Mes: " + yearMonth);
-		System.out.println("=================================");
-
 		LocalDate inicio = yearMonth.atDay(1);
 		LocalDate fin = yearMonth.atEndOfMonth();
-
-		System.out.println("Rango evaluado: " + inicio + " -> " + fin);
 
 		List<LocalDate> resultado = new ArrayList<>();
 
 		inicio.datesUntil(fin.plusDays(1))
 				.forEach(fecha -> {
-
-					System.out.println("---------------------------------");
-					System.out.println("Evaluando fecha: " + fecha);
-					System.out.println("DayOfWeek: " + fecha.getDayOfWeek());
-
-					boolean debeAsistir = empleado.debeAsistirEn(fecha);
-
-					System.out.println("Resultado debeAsistirEn(" + fecha + "): " + debeAsistir);
-
-					if (debeAsistir) {
-						System.out.println("✔ SE AGREGA AL RESULTADO");
+					if (empleado.debeAsistirEn(fecha)) {
 						resultado.add(fecha);
-					} else {
-						System.out.println("✘ NO se agrega");
 					}
 				});
-
-		System.out.println("=================================");
-		System.out.println("Total días que debe asistir: " + resultado.size());
-		resultado.forEach(d -> System.out.println("  -> " + d));
-		System.out.println("=== FIN diasQueDebeAsistir ===");
-		System.out.println("=================================");
 
 		return resultado;
 	}

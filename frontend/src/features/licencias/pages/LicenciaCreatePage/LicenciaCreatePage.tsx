@@ -26,9 +26,6 @@ export default function LicenciaCreatePage() {
 		useDesignacionesActivas(empleadoId);
 
 	const handleSubmit = async (data: CrearLicenciaFormValues) => {
-		console.log("📥 Submit data:", data);
-		console.log("👤 empleadoId:", empleadoId);
-
 		if (!empleadoId) {
 			setEmpleadoError("Debe seleccionar un empleado");
 			return;
@@ -44,17 +41,13 @@ export default function LicenciaCreatePage() {
 			designacionesIds: data.designacionesIds,
 		};
 
-		console.log("📦 Payload generado:", payload);
-
 		try {
-			const result = await crearLicencia({
+			await crearLicencia({
 				empleadoId,
 				payload,
 			});
-
-			console.log("✅ Licencia creada:", result);
-		} catch (error) {
-			console.error("❌ Error al crear licencia:", error);
+		} catch {
+			// el error ya se maneja desde el hook
 		}
 	};
 
@@ -66,7 +59,6 @@ export default function LicenciaCreatePage() {
 					className={styles.crearLicencia}
 				>
 					<div className={styles.crearLicenciaGrid}>
-
 						{/* IZQUIERDA */}
 						<aside className={styles.crearLicenciaLeft}>
 							<div className={styles.crearLicenciaEmpleado}>
@@ -111,7 +103,6 @@ export default function LicenciaCreatePage() {
 								}
 							/>
 						</main>
-
 					</div>
 				</form>
 			</FormProvider>

@@ -19,7 +19,6 @@ export function useCubrirDesignacionesForm({
   designacionIds,
   onSuccess,
 }: Props) {
-
   const [suplente, setSuplente] =
     useState<EmpleadoEducativoMinimoDTO | null>(null);
 
@@ -36,14 +35,10 @@ export function useCubrirDesignacionesForm({
     },
   });
 
-  console.log("Form errors:", form.formState.errors);
-
   const { mutateAsync, isPending } =
     useCubrirDesignacionesConSuplente();
 
   const onSubmit = form.handleSubmit(async (data) => {
-    console.log("DATA DEL FORM:", data);
-
     if (!suplente) {
       form.setError("root", {
         message: "Debe seleccionar un suplente",
