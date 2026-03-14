@@ -93,6 +93,7 @@ public interface DesignacionRepository extends JpaRepository<Designacion, Long> 
 			               and (a.periodo.fechaHasta is null or a.periodo.fechaHasta >= current_date)
 			       ))
 			  )
+			order by d.cupof asc
 			""")
 	Page<DesignacionCurso> buscarCursosConFiltro(
 			Long escuelaId,

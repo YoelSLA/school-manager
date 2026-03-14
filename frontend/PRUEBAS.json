@@ -1,116 +1,23 @@
 {
 	"content": [
 		{
-			"id": 113,
-			"cupof": 2467820,
+			"id": 32,
+			"cupof": 2467798,
 			"estadoDesignacion": "CUBIERTA",
 			"rolEducativo": "DOCENTE",
-			"materia": "Matemática",
-			"curso": "3° 2",
-			"orientacion": "Bachiller de Ciclo Básico",
-			"franjasHorarias": [
-				{
-					"dia": "Martes",
-					"horaDesde": "14:15:00",
-					"horaHasta": "15:15:00"
-				},
-				{
-					"dia": "Lunes",
-					"horaDesde": "16:30:00",
-					"horaHasta": "17:30:00"
-				},
-				{
-					"dia": "Lunes",
-					"horaDesde": "15:15:00",
-					"horaHasta": "16:15:00"
-				},
-				{
-					"dia": "Martes",
-					"horaDesde": "13:00:00",
-					"horaHasta": "14:00:00"
-				}
-			]
-		},
-		{
-			"id": 25,
-			"cupof": 2467810,
-			"estadoDesignacion": "CUBIERTA",
-			"rolEducativo": "DOCENTE",
-			"materia": "Matemática",
-			"curso": "3° 1",
-			"orientacion": "Bachiller de Ciclo Básico",
-			"franjasHorarias": [
-				{
-					"dia": "Lunes",
-					"horaDesde": "07:30:00",
-					"horaHasta": "08:30:00"
-				},
-				{
-					"dia": "Miércoles",
-					"horaDesde": "07:30:00",
-					"horaHasta": "08:30:00"
-				},
-				{
-					"dia": "Miércoles",
-					"horaDesde": "08:45:00",
-					"horaHasta": "09:45:00"
-				},
-				{
-					"dia": "Lunes",
-					"horaDesde": "08:45:00",
-					"horaHasta": "09:45:00"
-				}
-			]
-		},
-		{
-			"id": 104,
-			"cupof": 2467811,
-			"estadoDesignacion": "CUBIERTA",
-			"rolEducativo": "DOCENTE",
-			"materia": "Matemática",
-			"curso": "3° 1",
-			"orientacion": "Bachiller de Ciclo Básico",
-			"franjasHorarias": [
-				{
-					"dia": "Lunes",
-					"horaDesde": "07:30:00",
-					"horaHasta": "08:30:00"
-				},
-				{
-					"dia": "Miércoles",
-					"horaDesde": "07:30:00",
-					"horaHasta": "08:30:00"
-				},
-				{
-					"dia": "Miércoles",
-					"horaDesde": "08:45:00",
-					"horaHasta": "09:45:00"
-				},
-				{
-					"dia": "Lunes",
-					"horaDesde": "08:45:00",
-					"horaHasta": "09:45:00"
-				}
-			]
-		},
-		{
-			"id": 34,
-			"cupof": 2467795,
-			"estadoDesignacion": "CUBIERTA",
-			"rolEducativo": "DOCENTE",
-			"materia": "Matemática",
+			"materia": "Educación Artística",
 			"curso": "2° 1",
 			"orientacion": "Bachiller de Ciclo Básico",
 			"franjasHorarias": [
 				{
 					"dia": "Jueves",
-					"horaDesde": "07:30:00",
-					"horaHasta": "08:30:00"
+					"horaDesde": "11:00:00",
+					"horaHasta": "12:00:00"
 				},
 				{
 					"dia": "Jueves",
-					"horaDesde": "08:45:00",
-					"horaHasta": "09:45:00"
+					"horaDesde": "09:45:00",
+					"horaHasta": "10:45:00"
 				}
 			]
 		},
@@ -124,11 +31,6 @@
 			"orientacion": "Bachiller en Artes Visuales",
 			"franjasHorarias": [
 				{
-					"dia": "Lunes",
-					"horaDesde": "07:30:00",
-					"horaHasta": "08:30:00"
-				},
-				{
 					"dia": "Miércoles",
 					"horaDesde": "07:30:00",
 					"horaHasta": "08:30:00"
@@ -142,110 +44,213 @@
 					"dia": "Lunes",
 					"horaDesde": "08:45:00",
 					"horaHasta": "09:45:00"
+				},
+				{
+					"dia": "Lunes",
+					"horaDesde": "07:30:00",
+					"horaHasta": "08:30:00"
 				}
 			]
 		},
 		{
-			"id": 24,
-			"cupof": 2467800,
+			"id": 89,
+			"cupof": 2467791,
 			"estadoDesignacion": "CUBIERTA",
 			"rolEducativo": "DOCENTE",
-			"materia": "Matemática",
-			"curso": "2° 2",
+			"materia": "Practicas del Lenguaje",
+			"curso": "2° 1",
 			"orientacion": "Bachiller de Ciclo Básico",
 			"franjasHorarias": [
 				{
-					"dia": "Jueves",
-					"horaDesde": "15:15:00",
-					"horaHasta": "16:15:00"
-				},
-				{
-					"dia": "Jueves",
-					"horaDesde": "16:30:00",
-					"horaHasta": "17:30:00"
+					"dia": "Viernes",
+					"horaDesde": "11:45:00",
+					"horaHasta": "12:00:00"
 				},
 				{
 					"dia": "Lunes",
-					"horaDesde": "15:15:00",
-					"horaHasta": "16:15:00"
+					"horaDesde": "08:45:00",
+					"horaHasta": "09:45:00"
 				},
 				{
 					"dia": "Lunes",
-					"horaDesde": "16:30:00",
-					"horaHasta": "17:30:00"
+					"horaDesde": "07:30:00",
+					"horaHasta": "08:30:00"
+				},
+				{
+					"dia": "Viernes",
+					"horaDesde": "09:45:00",
+					"horaHasta": "10:45:00"
 				}
 			]
 		},
 		{
-			"id": 23,
-			"cupof": 2467782,
-			"estadoDesignacion": "CUBIERTA",
+			"id": 90,
+			"cupof": 2467792,
+			"estadoDesignacion": "VACANTE",
 			"rolEducativo": "DOCENTE",
-			"materia": "Matemática",
-			"curso": "1° 2",
+			"materia": "Inglés",
+			"curso": "2° 1",
 			"orientacion": "Bachiller de Ciclo Básico",
 			"franjasHorarias": [
 				{
-					"dia": "Lunes",
-					"horaDesde": "14:15:00",
-					"horaHasta": "15:15:00"
-				},
-				{
 					"dia": "Jueves",
-					"horaDesde": "13:00:00",
-					"horaHasta": "14:00:00"
+					"horaDesde": "12:00:00",
+					"horaHasta": "13:00:00"
 				},
 				{
-					"dia": "Lunes",
-					"horaDesde": "13:00:00",
-					"horaHasta": "14:00:00"
-				},
-				{
-					"dia": "Jueves",
-					"horaDesde": "14:15:00",
-					"horaHasta": "15:15:00"
+					"dia": "Viernes",
+					"horaDesde": "12:00:00",
+					"horaHasta": "13:00:00"
 				}
 			]
 		},
 		{
-			"id": 22,
-			"cupof": 2467774,
-			"estadoDesignacion": "CUBIERTA",
+			"id": 91,
+			"cupof": 2467793,
+			"estadoDesignacion": "VACANTE",
 			"rolEducativo": "DOCENTE",
-			"materia": "Matemática",
-			"curso": "1° 1",
+			"materia": "Historia",
+			"curso": "2° 1",
 			"orientacion": "Bachiller de Ciclo Básico",
 			"franjasHorarias": [
 				{
-					"dia": "Lunes",
+					"dia": "Viernes",
+					"horaDesde": "07:30:00",
+					"horaHasta": "08:30:00"
+				},
+				{
+					"dia": "Viernes",
+					"horaDesde": "08:45:00",
+					"horaHasta": "09:45:00"
+				}
+			]
+		},
+		{
+			"id": 92,
+			"cupof": 2467794,
+			"estadoDesignacion": "VACANTE",
+			"rolEducativo": "DOCENTE",
+			"materia": "Geografía",
+			"curso": "2° 1",
+			"orientacion": "Bachiller de Ciclo Básico",
+			"franjasHorarias": [
+				{
+					"dia": "Miércoles",
 					"horaDesde": "09:45:00",
 					"horaHasta": "10:45:00"
 				},
 				{
-					"dia": "Jueves",
-					"horaDesde": "09:45:00",
-					"horaHasta": "10:45:00"
-				},
+					"dia": "Miércoles",
+					"horaDesde": "11:00:00",
+					"horaHasta": "12:00:00"
+				}
+			]
+		},
+		{
+			"id": 93,
+			"cupof": 2467796,
+			"estadoDesignacion": "CUBIERTA",
+			"rolEducativo": "DOCENTE",
+			"materia": "Fisico Química",
+			"curso": "2° 1",
+			"orientacion": "Bachiller de Ciclo Básico",
+			"franjasHorarias": [
 				{
 					"dia": "Lunes",
 					"horaDesde": "11:00:00",
 					"horaHasta": "12:00:00"
 				},
 				{
-					"dia": "Jueves",
-					"horaDesde": "11:00:00",
-					"horaHasta": "12:00:00"
+					"dia": "Lunes",
+					"horaDesde": "09:45:00",
+					"horaHasta": "10:45:00"
+				}
+			]
+		},
+		{
+			"id": 94,
+			"cupof": 2467797,
+			"estadoDesignacion": "CUBIERTA",
+			"rolEducativo": "DOCENTE",
+			"materia": "Educación Física",
+			"curso": "2° 1",
+			"orientacion": "Bachiller de Ciclo Básico",
+			"franjasHorarias": [
+				{
+					"dia": "Martes",
+					"horaDesde": "13:00:00",
+					"horaHasta": "14:00:00"
+				},
+				{
+					"dia": "Miércoles",
+					"horaDesde": "13:00:00",
+					"horaHasta": "14:00:00"
 				}
 			]
 		}
 	],
 	"page": 0,
 	"size": 8,
-	"totalElements": 8,
-	"totalPages": 1,
+	"totalElements": 10,
+	"totalPages": 2,
 	"first": true,
+	"last": false,
+	"hasNext": true,
+	"hasPrevious": false,
+	"sort": "UNSORTED"
+},
+{
+	"content": [
+		{
+			"id": 94,
+			"cupof": 2467797,
+			"estadoDesignacion": "CUBIERTA",
+			"rolEducativo": "DOCENTE",
+			"materia": "Educación Física",
+			"curso": "2° 1",
+			"orientacion": "Bachiller de Ciclo Básico",
+			"franjasHorarias": [
+				{
+					"dia": "Martes",
+					"horaDesde": "13:00:00",
+					"horaHasta": "14:00:00"
+				},
+				{
+					"dia": "Miércoles",
+					"horaDesde": "13:00:00",
+					"horaHasta": "14:00:00"
+				}
+			]
+		},
+		{
+			"id": 95,
+			"cupof": 2467799,
+			"estadoDesignacion": "VACANTE",
+			"rolEducativo": "DOCENTE",
+			"materia": "Construcción de la Ciudadanía",
+			"curso": "2° 1",
+			"orientacion": "Bachiller de Ciclo Básico",
+			"franjasHorarias": [
+				{
+					"dia": "Martes",
+					"horaDesde": "09:45:00",
+					"horaHasta": "10:45:00"
+				},
+				{
+					"dia": "Martes",
+					"horaDesde": "11:00:00",
+					"horaHasta": "12:00:00"
+				}
+			]
+		}
+	],
+	"page": 1,
+	"size": 8,
+	"totalElements": 10,
+	"totalPages": 2,
+	"first": false,
 	"last": true,
 	"hasNext": false,
-	"hasPrevious": false,
-	"sort": "curso.id: DESC"
+	"hasPrevious": true,
+	"sort": "UNSORTED"
 }
