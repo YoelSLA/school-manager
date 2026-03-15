@@ -1,12 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import {
-	type CrearCursoFormValues,
-	crearCursoSchema,
-} from "./crearCurso.schema";
+import { crearCursoSchema } from "./crearCurso.schema";
+import { CrearCursoDTO } from "@/utils/types";
 
 export function useCrearCursoForm() {
-	const form = useForm<CrearCursoFormValues>({
+	const form = useForm<CrearCursoDTO>({
 		resolver: zodResolver(crearCursoSchema),
 		defaultValues: {
 			turno: "MANIANA",

@@ -4,7 +4,6 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	flex: 1;
 	min-height: 0;
 
 	padding: 22px 26px;
@@ -66,8 +65,6 @@
 		gap: 40px;
 		justify-content: space-around;
 
-		flex: 1;
-
 		padding: 10px;
 
 		@include debug.debug(blue);
@@ -97,4 +94,8 @@
 
 		@include debug.debug(green);
 	}
+}
+
+.section--grow {
+	flex: 1;
 }

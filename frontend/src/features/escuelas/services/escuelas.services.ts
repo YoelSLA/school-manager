@@ -1,25 +1,21 @@
 import { http } from "@/services/axios";
-import type {
-	ActualizarEscuelaDTO,
-	CrearEscuelaDTO,
-	Escuela,
-} from "../types/escuela.types";
+import { EscuelaCreateDTO, EscuelaResponseDTO, EscuelaUpdateDTO } from "@/utils/types";
 
-export const crearEscuela = async (data: CrearEscuelaDTO): Promise<Escuela> => {
-	const { data: escuela } = await http.post<Escuela>("/escuelas", data);
+export const crearEscuela = async (data: EscuelaCreateDTO): Promise<EscuelaResponseDTO> => {
+	const { data: escuela } = await http.post<EscuelaResponseDTO>("/escuelas", data);
 	return escuela;
 };
 
-export const getEscuelas = async (): Promise<Escuela[]> => {
-	const { data } = await http.get<Escuela[]>("/escuelas");
+export const getEscuelas = async (): Promise<EscuelaResponseDTO[]> => {
+	const { data } = await http.get<EscuelaResponseDTO[]>("/escuelas");
 	return data;
 };
 
 export const actualizarEscuela = async (
 	id: number,
-	data: ActualizarEscuelaDTO,
-): Promise<Escuela> => {
-	const { data: escuela } = await http.put<Escuela>(`/escuelas/${id}`, data);
+	data: EscuelaUpdateDTO,
+): Promise<EscuelaResponseDTO> => {
+	const { data: escuela } = await http.put<EscuelaResponseDTO>(`/escuelas/${id}`, data);
 	return escuela;
 };
 

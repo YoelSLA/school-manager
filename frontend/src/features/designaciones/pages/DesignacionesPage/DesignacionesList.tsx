@@ -2,10 +2,7 @@ import ListState from "@/components/ListState";
 import ScrollableGridListLayout from "@/layout/ScrollableGridListLayout/ScrollableGridListLayout";
 import DesignacionAdministrativaCard from "../../components/DesignacionAdministrativaCard";
 import DesignacionCursoCard from "../../components/DesignacionCursoCard";
-import type {
-	DesignacionAdministrativaResumenDTO,
-	DesignacionCursoResumenDTO,
-} from "../../types/designacion.types";
+import { DesignacionAdministrativaResumenDTO, DesignacionCursoResumenDTO } from "@/utils/types";
 
 /* ===============================
 	 PROPS (DISCRIMINATED UNION)
@@ -13,19 +10,19 @@ import type {
 
 type Props =
 	| {
-			designaciones: DesignacionAdministrativaResumenDTO[];
-			filtro: "ADMIN";
-			isLoading: boolean;
-			isError: boolean;
-			onVerDetalle: (designacion: DesignacionAdministrativaResumenDTO) => void;
-	  }
+		designaciones: DesignacionAdministrativaResumenDTO[];
+		filtro: "ADMIN";
+		isLoading: boolean;
+		isError: boolean;
+		onVerDetalle: (designacion: DesignacionAdministrativaResumenDTO) => void;
+	}
 	| {
-			designaciones: DesignacionCursoResumenDTO[];
-			filtro: "CURSO";
-			isLoading: boolean;
-			isError: boolean;
-			onVerDetalle: (designacion: DesignacionCursoResumenDTO) => void;
-	  };
+		designaciones: DesignacionCursoResumenDTO[];
+		filtro: "CURSO";
+		isLoading: boolean;
+		isError: boolean;
+		onVerDetalle: (designacion: DesignacionCursoResumenDTO) => void;
+	};
 /* ===============================
 	 COMPONENT
 ================================ */
@@ -51,19 +48,19 @@ export default function DesignacionesList(props: Props) {
 		<ScrollableGridListLayout>
 			{filtro === "ADMIN"
 				? designaciones.map((d) => (
-						<DesignacionAdministrativaCard
-							key={d.id}
-							designacion={d}
-							onVerDetalle={onVerDetalle}
-						/>
-					))
+					<DesignacionAdministrativaCard
+						key={d.id}
+						designacion={d}
+						onVerDetalle={onVerDetalle}
+					/>
+				))
 				: designaciones.map((d) => (
-						<DesignacionCursoCard
-							key={d.id}
-							designacion={d}
-							onVerDetalle={onVerDetalle}
-						/>
-					))}
+					<DesignacionCursoCard
+						key={d.id}
+						designacion={d}
+						onVerDetalle={onVerDetalle}
+					/>
+				))}
 		</ScrollableGridListLayout>
 	);
 }

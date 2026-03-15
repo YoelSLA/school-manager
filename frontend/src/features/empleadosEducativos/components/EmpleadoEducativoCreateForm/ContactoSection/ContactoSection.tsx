@@ -3,14 +3,11 @@ import type { FieldErrors, UseFormRegister } from "react-hook-form";
 import FormSection from "@/components/FormSection";
 import styles from "@/components/FormSection/FormSection.module.scss";
 import FormInputField from "@/components/forms/FormInputField/FormInputField";
-import type {
-	EmpleadoEducativoCreateInput,
-	EmpleadoEducativoCreateOutput,
-} from "@/features/empleadosEducativos/form/empleadoEducativo.form.types";
+import { EmpleadoEducativoCreateDTO } from "@/utils/types";
 
 type Props = {
-	register: UseFormRegister<EmpleadoEducativoCreateInput>;
-	errors: FieldErrors<EmpleadoEducativoCreateOutput>;
+	register: UseFormRegister<EmpleadoEducativoCreateDTO>;
+	errors: FieldErrors<EmpleadoEducativoCreateDTO>;
 };
 
 export default function ContactoSection({ register, errors }: Props) {

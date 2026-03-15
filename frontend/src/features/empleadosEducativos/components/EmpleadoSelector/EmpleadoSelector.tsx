@@ -1,8 +1,8 @@
-import { useState } from "react";
-import type { EmpleadoEducativoMinimoDTO } from "../../types/empleadosEducativos.types";
+import { useEffect, useState } from "react";
 import EmpleadoAutocompleteBase from "./EmpleadoAutocompleteBase";
 import EmpleadoSelectedCard from "./EmpleadoSelectedCard";
 import styles from "./EmpleadoSelector.module.scss";
+import { EmpleadoEducativoMinimoDTO } from "@/utils/types";
 
 type Props = {
 	label?: string;
@@ -22,6 +22,11 @@ export default function EmpleadoSelector({
 	const [search, setSearch] = useState("");
 	const [empleadoSeleccionado, setEmpleadoSeleccionado] =
 		useState<EmpleadoEducativoMinimoDTO | null>(defaultEmpleado);
+
+	useEffect(() => {
+		setEmpleadoSeleccionado(defaultEmpleado);
+	}, [defaultEmpleado]);
+
 
 	const handleSelect = (e: EmpleadoEducativoMinimoDTO) => {
 		setEmpleadoSeleccionado(e);

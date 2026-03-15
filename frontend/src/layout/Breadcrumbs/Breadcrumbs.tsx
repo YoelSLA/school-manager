@@ -7,8 +7,9 @@ import styles from "./Breadcrumbs.module.scss";
 export default function Breadcrumbs() {
 	const location = useLocation();
 
-	const { pathname, state } = location as {
+	const { pathname, search, state } = location as {
 		pathname: string;
+		search: string;
 		state: BreadcrumbState | null;
 	};
 
@@ -18,11 +19,13 @@ export default function Breadcrumbs() {
 
 	let items: BreadcrumbItem[] = [...baseItems];
 
+	/* =========================
+		 DYNAMIC LABELS
+	========================= */
+
 	if (state?.dynamicLabels) {
 		items = items.map((item) => {
-			if (!item.to) {
-				return item;
-			}
+			if (!item.to) return item;
 
 			const segments = item.to.split("/").filter(Boolean);
 
@@ -41,6 +44,10 @@ export default function Breadcrumbs() {
 		});
 	}
 
+	/* =========================
+		 CONTEXTUAL ITEMS
+	========================= */
+
 	const contextualItems: BreadcrumbItem[] =
 		state?.from && state?.label ? [{ label: state.label, to: state.from }] : [];
 
@@ -48,25 +55,34 @@ export default function Breadcrumbs() {
 		? [...contextualItems, items[items.length - 1]]
 		: [...contextualItems, ...items];
 
+	/* =========================
+		 RENDER
+	========================= */
+
 	return (
 		<nav className={styles.breadcrumbs} aria-label="Breadcrumb">
-			{finalItems.map((item, index) => (
-				<span key={item.to ?? item.label} className={styles.item}>
-					{item.to ? (
-						<Link to={item.to} className={styles.link}>
-							{item.label}
-						</Link>
-					) : (
-						<span className={styles.current}>{item.label}</span>
-					)}
+			{finalItems.map((item, index) => {
+				const isLast = index === finalItems.length - 1;
+				const finalTo = item.to ? `${item.to}${search}` : null;
 
-					{index < finalItems.length - 1 && (
-						<span className={styles.separator}>
-							<ChevronRight />
-						</span>
-					)}
-				</span>
-			))}
+				return (
+					<span key={item.to ?? item.label} className={styles.item}>
+						{item.to && !isLast ? (
+							<Link to={finalTo!} className={styles.link}>
+								{item.label}
+							</Link>
+						) : (
+							<span className={styles.current}>{item.label}</span>
+						)}
+
+						{!isLast && (
+							<span className={styles.separator}>
+								<ChevronRight />
+							</span>
+						)}
+					</span>
+				);
+			})}
 		</nav>
 	);
 }

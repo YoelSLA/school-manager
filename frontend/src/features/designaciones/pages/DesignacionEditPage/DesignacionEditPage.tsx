@@ -2,6 +2,8 @@ import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import { designacionesPaths } from "@/router/paths";
+import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
+import { useAppSelector } from "@/store/hooks";
 import EditarDesignacionAdministrativa from "../../components/EditarDesignacionAdministrativa/EditarDesignacionAdministrativa";
 import EditarDesignacionCurso from "../../components/EditarDesignacionCurso/EditarDesignacionCurso";
 import { useActualizarDesignacionAdministrativa } from "../../hooks/useActualizarDesignacionAdministrativa";
@@ -12,12 +14,16 @@ import styles from "./DesignacionEditPage.module.scss";
 export default function DesignacionEditPage() {
 	const { designacionId } = useParams<{ designacionId: string }>();
 	const id = Number(designacionId);
+
 	const navigate = useNavigate();
 
 	const { designacion, isLoading } = useDesignacionDetalle(id);
 
-	const editarCurso = useActualizarDesignacionCurso();
-	const editarAdministrativa = useActualizarDesignacionAdministrativa();
+	const editarCurso = useActualizarDesignacionCurso(
+		id
+	);
+
+	const editarAdministrativa = useActualizarDesignacionAdministrativa(id);
 
 	const handleSuccess = () => {
 		navigate(designacionesPaths.detail(id));
@@ -34,10 +40,7 @@ export default function DesignacionEditPage() {
 			<EditarDesignacionCurso
 				designacion={designacion}
 				onSubmit={async (data) => {
-					await editarCurso.mutateAsync({
-						designacionId: id,
-						data,
-					});
+					await editarCurso.mutateAsync(data);
 
 					toast.success("Designación actualizada correctamente");
 
@@ -51,10 +54,7 @@ export default function DesignacionEditPage() {
 			<EditarDesignacionAdministrativa
 				designacion={designacion}
 				onSubmit={async (data) => {
-					await editarAdministrativa.mutateAsync({
-						designacionId: id,
-						data,
-					});
+					await editarAdministrativa.mutateAsync(data);
 
 					toast.success("Designación actualizada correctamente");
 
@@ -68,7 +68,9 @@ export default function DesignacionEditPage() {
 	return (
 		<PageLayout>
 			<div className={styles["designacion-edit"]}>
-				<div className={styles["designacion-edit__form"]}>{content}</div>
+				<div className={styles["designacion-edit__form"]}>
+					{content}
+				</div>
 			</div>
 		</PageLayout>
 	);

@@ -1,13 +1,16 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { MATERIA_DEFAULTS } from "../materias.defaults";
-import type { CrearMateriaFormValues } from "../materias.form.types";
 import { crearMateriaSchema } from "../schemas/crearMateria.schema";
+import { MateriaCreateDTO } from "@/utils/types";
 
 export function useMateriaForm() {
-	const form = useForm<CrearMateriaFormValues>({
+	const form = useForm<MateriaCreateDTO>({
 		resolver: zodResolver(crearMateriaSchema),
-		defaultValues: MATERIA_DEFAULTS,
+		defaultValues: {
+			nombre: "",
+			abreviatura: "",
+			cantidadModulos: 1,
+		},
 	});
 
 	return {

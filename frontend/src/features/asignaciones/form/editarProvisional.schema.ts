@@ -19,6 +19,4 @@ export const editarProvisionalSchema = z
 		path: ["fechaCese"],
 	});
 
-export type EditarProvisionalFormValues = z.infer<
-	typeof editarProvisionalSchema
->;
+

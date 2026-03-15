@@ -1,6 +1,6 @@
-import type { DesignacionAdministrativaResumenDTO } from "../../types/designacion.types";
+import { DesignacionAdministrativaResumenDTO } from "@/utils/types";
 import DesignacionCard from "../DesignacionCard";
-import RolEducativoPill from "./RolEducativoPill";
+import RolEducativoPill from "../RolEducativoPill";
 
 type Props = {
 	designacion: DesignacionAdministrativaResumenDTO;

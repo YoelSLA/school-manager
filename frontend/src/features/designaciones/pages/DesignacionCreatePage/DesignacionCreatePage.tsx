@@ -7,17 +7,11 @@ import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
 import AdministrativaForm from "../../components/AdministrativaForm/AdministrativaForm";
 import CursoForm from "../../components/CursoForm/CursoForm";
-import type {
-	DesignacionAdministrativaCreateDTO,
-	DesignacionAdministrativaFormValues,
-	DesignacionCursoCreateDTO,
-	DesignacionCursoFormValues,
-} from "../../form/designacion.form.types";
 import { useCrearDesignacionAdministrativa } from "../../hooks/useCrearDesignacionAdministrativa";
 import { useCrearDesignacionCurso } from "../../hooks/useCrearDesignacionCurso";
-import type { TipoDesignacion } from "../../types/designacion.types";
 import styles from "./DesignacionCreatePage.module.scss";
 import DesignacionTabs from "./DesignacionTabs/DesignacionTabs";
+import { DesignacionAdministrativaCreateDTO, DesignacionCursoCreateDTO, DesignacionFiltro } from "@/utils/types";
 
 export default function DesignacionCreatePage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
@@ -28,14 +22,14 @@ export default function DesignacionCreatePage() {
 		escuelaActiva?.id,
 	);
 
-	const [tipo, setTipo] = useState<TipoDesignacion>("ADMIN");
+	const [tipo, setTipo] = useState<DesignacionFiltro>("ADMIN");
 
 	const [errorModal, setErrorModal] = useState<{
 		title: string;
 		message: string;
 	} | null>(null);
 
-	const handleCrearCurso = async (data: DesignacionCursoFormValues) => {
+	const handleCrearCurso = async (data: DesignacionCursoCreateDTO) => {
 		try {
 			const payload: DesignacionCursoCreateDTO = {
 				...data,
@@ -62,7 +56,7 @@ export default function DesignacionCreatePage() {
 	};
 
 	const handleCrearAdministrativa = async (
-		data: DesignacionAdministrativaFormValues,
+		data: DesignacionAdministrativaCreateDTO,
 	) => {
 		try {
 			const payload: DesignacionAdministrativaCreateDTO = {

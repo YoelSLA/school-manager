@@ -1,11 +1,11 @@
+import { EscuelaResponseDTO } from "@/utils/types";
 import EscuelaCard from "../components/EscuelaCard/EscuelaCard";
-import type { Escuela } from "../types/escuela.types";
 import styles from "./SeleccionarEscuelaGrid.module.scss";
 
 type Props = {
-	escuelas: Escuela[];
-	onEditar: (e: Escuela) => void;
-	onEliminar: (e: Escuela) => void;
+	escuelas: EscuelaResponseDTO[];
+	onEditar: (e: EscuelaResponseDTO) => void;
+	onEliminar: (e: EscuelaResponseDTO) => void;
 };
 
 export function SeleccionarEscuelaGrid({

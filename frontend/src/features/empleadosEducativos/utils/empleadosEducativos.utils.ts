@@ -1,17 +1,13 @@
-import type { SortState } from "@/utils/types";
-import type {
-	CausaBaja,
-	EmpleadoEducativoFiltro,
-} from "../types/empleadosEducativos.types";
+import type { CausaBaja, EmpleadoEducativoFiltro, SortState } from "@/utils/types";
 
 export const FILTROS_EMPLEADOS: {
 	label: string;
 	value: EmpleadoEducativoFiltro;
 }[] = [
-	{ label: "Todos", value: "TODOS" },
-	{ label: "Activos", value: "ACTIVOS" },
-	{ label: "Inactivos", value: "INACTIVOS" },
-];
+		{ label: "Todos", value: "TODOS" },
+		{ label: "Activos", value: "ACTIVOS" },
+		{ label: "Inactivos", value: "INACTIVOS" },
+	];
 
 export type SortType =
 	| "NOMBRE_ASC"

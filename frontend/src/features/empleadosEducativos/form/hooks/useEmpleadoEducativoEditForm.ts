@@ -1,20 +1,21 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { EMPLEADO_EDUCATIVO_EDIT_DEFAULTS } from "../defaults/empleadoEducativoEdit.default";
-import type {
-	EmpleadoEducativoEditInput,
-	EmpleadoEducativoEditOutput,
-} from "../empleadoEducativo.form.types";
 import { editarEmpleadoEducativoSchema } from "../schemas/editarEmpleadoEducativo.schema";
+import { EmpleadoEducativoUpdateDTO } from "@/utils/types";
 
 export function useEmpleadoEducativoEditForm() {
-	const form = useForm<
-		EmpleadoEducativoEditInput,
-		unknown,
-		EmpleadoEducativoEditOutput
-	>({
+	const form = useForm<EmpleadoEducativoUpdateDTO>({
 		resolver: zodResolver(editarEmpleadoEducativoSchema),
-		defaultValues: EMPLEADO_EDUCATIVO_EDIT_DEFAULTS,
+		defaultValues: {
+			cuil: "",
+			nombre: "",
+			apellido: "",
+			domicilio: "",
+			telefono: "",
+			email: "",
+			fechaDeNacimiento: "",
+			fechaDeIngreso: "",
+		}
 	});
 
 	return {

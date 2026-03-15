@@ -27,8 +27,3 @@ export const editarDesignacionCursoSchema = z.object({
 		.min(1, { message: "Debe seleccionar una orientación" }),
 });
 
-export type EditarDesignacionCursoFormValues = z.infer<
-	typeof editarDesignacionCursoSchema
->;
-
-export type DesignacionCursoUpdateDTO = EditarDesignacionCursoFormValues;

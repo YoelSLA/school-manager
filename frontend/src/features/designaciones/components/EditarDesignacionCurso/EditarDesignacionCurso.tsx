@@ -6,15 +6,14 @@ import { useCursosNombres } from "@/features/cursos/hooks/useCursosNombres";
 import { useMateriasSelect } from "@/features/materias/hooks/useMateriasSelect";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
-import type { EditarDesignacionCursoFormValues } from "../../form/designacion.form.types";
 import { useEditarDesignacionCursoForm } from "../../form/hooks/useEditDesignacionCursoForm";
-import type { DesignacionCursoDetalleDTO } from "../../types/designacion.types";
 import styles from "../CursoForm/CursoForm.module.scss";
 import DesignacionFormLayout from "../DesignacionFormLayout/DesignacionFormLayout";
+import { DesignacionCursoDetalleDTO, DesignacionCursoUpdateDTO } from "@/utils/types";
 
 type Props = {
 	designacion: DesignacionCursoDetalleDTO;
-	onSubmit: (data: EditarDesignacionCursoFormValues) => Promise<void>;
+	onSubmit: (data: DesignacionCursoUpdateDTO) => Promise<void>;
 	isSubmitting: boolean;
 };
 
@@ -56,10 +55,10 @@ export default function EditarDesignacionCurso({
 				</p>
 			</div>
 
-			<DesignacionFormLayout<EditarDesignacionCursoFormValues>
+			<DesignacionFormLayout<DesignacionCursoUpdateDTO>
 				left={
 					<div className={styles.left}>
-						<CupofInputField<EditarDesignacionCursoFormValues>
+						<CupofInputField<DesignacionCursoUpdateDTO>
 							register={register}
 							error={errors.cupof?.message}
 						/>

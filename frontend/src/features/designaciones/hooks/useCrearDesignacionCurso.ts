@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { DesignacionCursoCreateDTO } from "../form/designacion.form.types";
 import { crearDesignacionCurso } from "../services/designaciones.services";
-import { designacionesQueryKeys } from "../utils/designaciones.queryKeys";
+import { designacionesQueryKeys } from "../../../utils/queryKeys/designaciones.queryKeys";
+import { DesignacionCursoCreateDTO } from "@/utils/types";
 
 export function useCrearDesignacionCurso(escuelaId?: number) {
 	const queryClient = useQueryClient();

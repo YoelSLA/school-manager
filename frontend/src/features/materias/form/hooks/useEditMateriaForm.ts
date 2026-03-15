@@ -1,19 +1,16 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import type {
-	CrearMateriaFormValues,
-	EditarMateriaFormValues,
-} from "../materias.form.types";
-import { crearMateriaSchema } from "../schemas/crearMateria.schema";
+import { MateriaUpdateDTO } from "@/utils/types";
+import { editarMateriaSchema } from "../schemas/editarMateria.schema";
 
 type Props = {
-	materia: CrearMateriaFormValues;
+	materia: MateriaUpdateDTO;
 };
 
 export function useEditMateriaForm({ materia }: Props) {
-	const form = useForm<EditarMateriaFormValues>({
-		resolver: zodResolver(crearMateriaSchema),
+	const form = useForm<MateriaUpdateDTO>({
+		resolver: zodResolver(editarMateriaSchema),
 		defaultValues: materia,
 	});
 

@@ -1,12 +1,12 @@
 import Badge from "@/components/Badge";
 import Button from "@/components/Button";
 import RolPill from "@/components/RolPill";
-import type { EmpleadoEducativoDetalleDTO } from "@/features/empleadosEducativos/types/empleadosEducativos.types";
 import {
 	ESTADO_EMPLEADO_BADGE,
 	getEstadoEmpleadoKey,
 } from "@/features/empleadosEducativos/utils/empleadosEducativos.bagdes";
 import styles from "./HeaderEmpleado.module.scss";
+import { EmpleadoEducativoDetalleDTO } from "@/utils/types";
 
 type Props = {
 	empleado: EmpleadoEducativoDetalleDTO;

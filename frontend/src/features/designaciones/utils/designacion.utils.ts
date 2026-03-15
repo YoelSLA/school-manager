@@ -1,5 +1,5 @@
 import { Dia, type FranjaHoraria } from "@/utils/types";
-import { RolEducativo } from "../types/designacion.types";
+import { RolEducativo } from "@/utils/types/enums";
 
 export const DEFAULT_FRANJA: FranjaHoraria = {
 	dia: Dia.LUNES,

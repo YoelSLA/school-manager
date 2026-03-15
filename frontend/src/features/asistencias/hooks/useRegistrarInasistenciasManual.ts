@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { registrarInasistenciasManual } from "../services/asistencias.services";
 import type { RegistrarInasistenciasManualDTO } from "../types/asistencias.types";
-import { asistenciasQueryKeys } from "../utils/asistencias.queryKeys";
+import { asistenciasQueryKeys } from "../../../utils/queryKeys/asistencias.queryKeys";
 
 export function useRegistrarInasistenciasManual(
 	escuelaId: number | undefined,

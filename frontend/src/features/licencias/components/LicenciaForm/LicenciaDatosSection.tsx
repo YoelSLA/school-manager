@@ -4,11 +4,11 @@ import FormSection from "@/components/FormSection";
 import DescripcionField from "@/components/forms/inputs/DescripcionInputField";
 import FechaField from "@/components/forms/inputs/FechaInputField";
 import TipoLicenciaSelect from "@/features/licencias/components/TipoLicenciaSelect/TipoLicenciaSelect";
-import type { CrearLicenciaFormValues } from "../../form/crearLicencia.schema";
 import styles from "./LicenciaDatosSection.module.scss";
+import { LicenciaCreateDTO } from "@/utils/types";
 
 type Props = {
-	form: UseFormReturn<CrearLicenciaFormValues>;
+	form: UseFormReturn<LicenciaCreateDTO>;
 	isSubmitting: boolean;
 	error?: string | null;
 };
@@ -27,7 +27,7 @@ export default function LicenciaDatosSection({
 		<div className={styles.licenciaForm}>
 			<div className={styles.licenciaFormContent}>
 				<div className={styles.licenciaSection}>
-					<FormSection title="Datos de la licencia" layout="column">
+					<FormSection title="Datos de la licencia" layout="column" grow={true}>
 						<TipoLicenciaSelect
 							register={register}
 							name="tipoLicencia"

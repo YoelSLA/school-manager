@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getEmpleadoEducativoById } from "../services/empleadosEducativos.services";
-import type { EmpleadoEducativoDetalleDTO } from "../types/empleadosEducativos.types";
-import { empleadosEducativosQueryKeys } from "../utils/empleadosEducativos.queryKeys";
+import { empleadosEducativosQueryKeys } from "../../../utils/queryKeys/empleadosEducativos.queryKeys";
+import { EmpleadoEducativoDetalleDTO } from "@/utils/types";
 
 export function useEmpleadoEducativo(empleadoId: number) {
 	return useQuery<EmpleadoEducativoDetalleDTO>({

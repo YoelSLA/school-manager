@@ -1,6 +1,6 @@
-import type { RolEducativo } from "@/features/designaciones/types/designacion.types";
 import { ROL_EDUCATIVO_LABELS } from "@/utils";
 import styles from "./RolEducativoBadge.module.scss";
+import { RolEducativo } from "@/utils/types/enums";
 
 type Props = {
 	value: RolEducativo;

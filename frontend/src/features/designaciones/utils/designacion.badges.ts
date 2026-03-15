@@ -1,5 +1,5 @@
 import type { BadgeVariant } from "@/components/Badge/Badge.types";
-import type { EstadoDesignacion } from "../types/designacion.types";
+import { EstadoDesignacion } from "@/utils/types/enums";
 
 export const ESTADO_DESIGNACION_BADGE = {
 	CUBIERTA: "cubierta",

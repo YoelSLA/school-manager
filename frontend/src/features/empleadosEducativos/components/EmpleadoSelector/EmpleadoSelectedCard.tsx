@@ -1,6 +1,6 @@
 import { IdCard, User, X } from "lucide-react";
-import type { EmpleadoEducativoMinimoDTO } from "../../types/empleadosEducativos.types";
 import styles from "./EmpleadoSelectedCard.module.scss";
+import { EmpleadoEducativoMinimoDTO } from "@/utils/types";
 
 type Props = {
 	empleado: EmpleadoEducativoMinimoDTO;

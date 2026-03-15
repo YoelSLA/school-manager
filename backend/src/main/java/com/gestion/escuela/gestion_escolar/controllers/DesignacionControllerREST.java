@@ -10,6 +10,7 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.cursos
 import com.gestion.escuela.gestion_escolar.mappers.AsignacionMapper;
 import com.gestion.escuela.gestion_escolar.mappers.DesignacionMapper;
 import com.gestion.escuela.gestion_escolar.models.FranjaHoraria;
+import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
 import com.gestion.escuela.gestion_escolar.services.DesignacionService;
@@ -36,14 +37,16 @@ public class DesignacionControllerREST {
 			@PathVariable Long designacionId,
 			@Valid @RequestBody CubrirTitularDTO dto
 	) {
-		return AsignacionMapper.toDetalle(
-				designacionService.cubrirConTitular(
-						designacionId,
-						dto.empleadoId(),
-						dto.fechaTomaPosesion(),
-						dto.caracteristica()
-				)
+		Asignacion asignacion = designacionService.cubrirConTitular(
+				designacionId,
+				dto.empleadoId(),
+				dto.fechaTomaPosesion(),
+				dto.caracteristica()
 		);
+
+		System.out.println("Asignacion ID: " + asignacion.getId());
+
+		return AsignacionMapper.toDetalle(asignacion);
 	}
 
 	@PostMapping("/{designacionId}/cubrir/provisional")

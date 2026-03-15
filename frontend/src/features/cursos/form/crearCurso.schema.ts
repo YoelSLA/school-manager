@@ -16,6 +16,4 @@ export const crearCursoSchema = z.object({
 		.min(1, { message: "Debe ser mayor o igual a 1" }),
 });
 
-export type CrearCursoFormValues = z.infer<typeof crearCursoSchema>;
 
-export type CrearCursoDTO = CrearCursoFormValues;

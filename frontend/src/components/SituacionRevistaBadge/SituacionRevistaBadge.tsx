@@ -1,4 +1,4 @@
-import type { SituacionDeRevista } from "../../features/asignaciones/types/asignacion.types";
+import { SituacionDeRevista } from "@/utils/types/enums";
 import { SITUACION_REVISTA_CONFIG } from "../../features/asignaciones/utils/asignacion.badges";
 import styles from "./SituacionRevistaBadge.module.scss";
 
@@ -7,10 +7,8 @@ type Props = {
 };
 
 export default function SituacionRevistaBadge({ value }: Props) {
-	const config =
-		SITUACION_REVISTA_CONFIG[value.toUpperCase() as SituacionDeRevista];
 
-	const { label, className, Icon } = config;
+	const { label, className, Icon } = SITUACION_REVISTA_CONFIG[value];
 
 	return (
 		<span className={`${styles.badge} ${styles[className]}`}>

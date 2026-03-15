@@ -1,23 +1,5 @@
-import type {
-	AsignacionDetalleDTO,
-	EditarAsignacionDTO,
-} from "@/features/asignaciones/types/asignacion.types";
 import { http } from "@/services/axios";
-import type { PageResponse } from "@/utils/types";
-import type {
-	DesignacionAdministrativaCreateDTO,
-	DesignacionCursoCreateDTO,
-} from "../form/designacion.form.types";
-import type {
-	CubrirProvisionalDTO,
-	CubrirTitularDTO,
-	DesignacionAdministrativaResumenDTO,
-	DesignacionCursoDetalleDTO,
-	DesignacionCursoFilter,
-	DesignacionCursoResumenDTO,
-	DesignacionDetalleDTO,
-	EstadoCargo,
-} from "../types/designacion.types";
+import type { AsignacionDetalleDTO, CubrirProvisionalDTO, CubrirTitularDTO, DesignacionAdministrativaCreateDTO, DesignacionAdministrativaResumenDTO, DesignacionCursoCreateDTO, DesignacionCursoDetalleDTO, DesignacionCursoFilter, DesignacionCursoResumenDTO, DesignacionDetalleDTO, EditarAsignacionDTO, EstadoCargo, PageResponse } from "@/utils/types";
 
 /* ======================
 	 Crear
@@ -140,7 +122,20 @@ export const cubrirConTitular = async (
 	designacionId: number,
 	payload: CubrirTitularDTO,
 ): Promise<void> => {
-	await http.post(`/designaciones/${designacionId}/cubrir/titular`, payload);
+	console.log("cubrirConTitular → designacionId:", designacionId);
+	console.log("cubrirConTitular → payload:", payload);
+
+	try {
+		const response = await http.post(
+			`/designaciones/${designacionId}/cubrir/titular`,
+			payload,
+		);
+
+		console.log("cubrirConTitular → response:", response);
+	} catch (error) {
+		console.error("cubrirConTitular → error:", error);
+		throw error;
+	}
 };
 
 export const cubrirConProvisional = async (
@@ -162,12 +157,22 @@ export async function editarAsignacion(
 	asignacionId: number,
 	payload: EditarAsignacionDTO,
 ): Promise<void> {
-	await http.put(
-		`/designaciones/${designacionId}/asignaciones/${asignacionId}`,
-		payload,
-	);
-}
+	console.log("editarAsignacion → designacionId:", designacionId);
+	console.log("editarAsignacion → asignacionId:", asignacionId);
+	console.log("editarAsignacion → payload:", payload);
 
+	try {
+		const response = await http.put(
+			`/designaciones/${designacionId}/asignaciones/${asignacionId}`,
+			payload,
+		);
+
+		console.log("editarAsignacion → response:", response);
+	} catch (error) {
+		console.error("editarAsignacion → error:", error);
+		throw error;
+	}
+}
 /* ======================
 	 Asignación detalle
 ====================== */

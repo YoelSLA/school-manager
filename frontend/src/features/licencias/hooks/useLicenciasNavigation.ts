@@ -1,5 +1,5 @@
+import { EmpleadoEducativoMinimoDTO } from "@/utils/types";
 import { useNavigate } from "react-router-dom";
-import type { EmpleadoEducativoMinimoDTO } from "@/features/empleadosEducativos/types/empleadosEducativos.types";
 
 export function useLicenciasNavigation() {
 	const navigate = useNavigate();

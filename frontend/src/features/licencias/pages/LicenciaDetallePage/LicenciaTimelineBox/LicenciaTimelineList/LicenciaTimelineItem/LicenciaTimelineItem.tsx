@@ -1,7 +1,7 @@
 import Button from "@/components/Button";
-import type { LicenciaTimelineItemDTO } from "@/features/licencias/types/licencia.types";
 import { formatearFecha } from "@/utils";
 import styles from "./LicenciaTimelineItem.module.scss";
+import { LicenciaTimelineItemDTO } from "@/utils/types";
 
 type Props = {
 	item: LicenciaTimelineItemDTO;
@@ -16,9 +16,8 @@ export default function LicenciaTimelineItem({
 }: Props) {
 	return (
 		<div
-			className={`${styles["timeline-item"]} ${
-				esActual ? styles["timeline-item--active"] : ""
-			}`}
+			className={`${styles["timeline-item"]} ${esActual ? styles["timeline-item--active"] : ""
+				}`}
 		>
 			<div className={styles["timeline-item__marker"]} />
 

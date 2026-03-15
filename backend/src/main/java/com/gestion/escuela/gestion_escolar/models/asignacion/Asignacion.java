@@ -186,7 +186,7 @@ public abstract class Asignacion {
 	}
 
 	public boolean estaEjerciendoEn(LocalDate fecha) {
-		
+
 		return estaActivaEn(fecha) && !estaEnLicenciaEn(fecha);
 	}
 
@@ -207,4 +207,8 @@ public abstract class Asignacion {
 		this.periodo = new Periodo(fechaTomaPosesion, fechaCese);
 	}
 
+	public void setDesignacion(Designacion designacion) {
+		Validaciones.noNulo(designacion, "designacion");
+		this.designacion = designacion;
+	}
 }

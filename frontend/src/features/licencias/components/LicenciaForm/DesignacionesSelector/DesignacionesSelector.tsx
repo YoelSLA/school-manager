@@ -1,4 +1,4 @@
-import type { DesignacionLicenciaItemDTO } from "@/features/licencias/types/licencia.types";
+import { DesignacionLicenciaItemDTO } from "@/utils/types";
 import DesignacionAdministrativaRow from "./DesignacionAdministrativaRow/DesignacionAdministrativaRow";
 import DesignacionCursoRow from "./DesignacionCursoRow/DesignacionCursoRow";
 import styles from "./DesignacionesSelector.module.scss";

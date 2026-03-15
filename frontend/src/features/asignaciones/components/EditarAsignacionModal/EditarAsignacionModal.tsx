@@ -1,11 +1,10 @@
 import { useState } from "react";
-import type { AsignacionDetalleDTO } from "@/features/asignaciones/types/asignacion.types";
-import type { CubrirProvisionalFormValues } from "../../form/cubrirProvisional.schema";
-import type { CubrirTitularFormValues } from "../../form/cubrirTitular.schema";
 import { useCubrirConProvisionalForm } from "../../form/useCubrirConProvisionalForm";
 import { useCubrirConTitularForm } from "../../form/useCubrirConTitularForm";
 import { useEditarAsignacion } from "../../hooks/useEditarAsignacion";
 import AsignacionModalBase from "../AsignacionModalBase/AsignacionModalBase";
+import { AsignacionDetalleDTO, EditarAsignacionDTO } from "@/utils/types";
+import { CaracteristicaAsignacion } from "@/utils/types/enums";
 
 type Props = {
 	asignacion: AsignacionDetalleDTO;
@@ -20,9 +19,14 @@ export default function EditarAsignacionModal({
 	onClose,
 	onSuccess,
 }: Props) {
+
+	console.log("EditarAsignacionModal → asignacion:", asignacion);
+
 	const [tipoAsignacion, setTipoAsignacion] = useState<
 		"TITULAR" | "PROVISIONAL"
 	>(asignacion.situacionDeRevista === "Titular" ? "TITULAR" : "PROVISIONAL");
+
+	console.log("EditarAsignacionModal → tipoAsignacion inicial:", tipoAsignacion);
 
 	const editarAsignacion = useEditarAsignacion({
 		designacionId,
@@ -31,12 +35,29 @@ export default function EditarAsignacionModal({
 		onSuccess,
 	});
 
-	const titularForm = useCubrirConTitularForm();
+	console.log("EditarAsignacionModal → empleadoId:", asignacion.empleado?.id);
+	console.log("EditarAsignacionModal → fechaDesde:", asignacion.periodo?.fechaDesde);
+
+	const titularForm = useCubrirConTitularForm({
+		defaultValues: {
+			empleadoId: asignacion.empleado.id,
+			fechaTomaPosesion: asignacion.periodo.fechaDesde,
+			caracteristica: CaracteristicaAsignacion.NORMAL,
+		},
+	});
+
+	console.log(
+		"EditarAsignacionModal → titularForm defaultValues:",
+		titularForm.form.getValues(),
+	);
+
 	const provisionalForm = useCubrirConProvisionalForm();
 
 	const handleTitularSubmit = async (
-		data: CubrirTitularFormValues & { empleadoId: number | null },
+		data: EditarAsignacionDTO & { empleadoId: number | null },
 	) => {
+		console.log("handleTitularSubmit → data:", data);
+
 		if (!data.empleadoId) return;
 
 		await editarAsignacion.mutateAsync({
@@ -47,8 +68,10 @@ export default function EditarAsignacionModal({
 	};
 
 	const handleProvisionalSubmit = async (
-		data: CubrirProvisionalFormValues & { empleadoId: number | null },
+		data: EditarAsignacionDTO & { empleadoId: number | null },
 	) => {
+		console.log("handleProvisionalSubmit → data:", data);
+
 		if (!data.empleadoId) return;
 
 		await editarAsignacion.mutateAsync({
@@ -61,6 +84,7 @@ export default function EditarAsignacionModal({
 	return (
 		<AsignacionModalBase
 			title="Editar asignación"
+			defaultEmpleado={asignacion.empleado}
 			tipoAsignacion={tipoAsignacion}
 			setTipoAsignacion={setTipoAsignacion}
 			titularForm={titularForm.form}

@@ -1,11 +1,10 @@
 import { useState } from "react";
-import type { CubrirProvisionalFormValues } from "../../form/cubrirProvisional.schema";
-import type { CubrirTitularFormValues } from "../../form/cubrirTitular.schema";
 import { useCubrirConProvisionalForm } from "../../form/useCubrirConProvisionalForm";
 import { useCubrirConTitularForm } from "../../form/useCubrirConTitularForm";
 import { useCubrirConProvisional } from "../../hooks/useCubrirConProvisional";
 import { useCubrirConTitular } from "../../hooks/useCubrirConTitular";
 import AsignacionModalBase from "../AsignacionModalBase/AsignacionModalBase";
+import { CubrirProvisionalDTO, CubrirTitularDTO } from "@/utils/types";
 
 type Props = {
 	designacionId: number;
@@ -38,19 +37,20 @@ export default function CrearAsignacionModal({
 	const provisionalForm = useCubrirConProvisionalForm();
 
 	const handleTitularSubmit = async (
-		data: CubrirTitularFormValues & { empleadoId: number | null },
+		data: CubrirTitularDTO & { empleadoId: number | null },
 	) => {
 		if (!data.empleadoId) return;
 
 		await cubrirTitular.mutateAsync({
 			empleadoId: data.empleadoId,
 			fechaTomaPosesion: data.fechaTomaPosesion,
-			caracteristica: data.caracteristica,
+			caracteristica:
+				data.caracteristica === "NORMAL" ? undefined : data.caracteristica,
 		});
 	};
 
 	const handleProvisionalSubmit = async (
-		data: CubrirProvisionalFormValues & { empleadoId: number | null },
+		data: CubrirProvisionalDTO & { empleadoId: number | null },
 	) => {
 		if (!data.empleadoId) return;
 

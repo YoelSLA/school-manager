@@ -1,8 +1,8 @@
 import { BookOpen, Briefcase, GraduationCap, Hash } from "lucide-react";
 import Badge from "@/components/Badge";
 import { ESTADO_DESIGNACION_BADGE } from "@/features/designaciones/utils/designacion.badges";
-import type { LicenciaDesignacionDTO } from "@/features/licencias/types/licencia.types";
 import styles from "./DesignacionItem.module.scss";
+import { LicenciaDesignacionDTO } from "@/utils/types";
 
 type Props = {
 	designacion: LicenciaDesignacionDTO;
@@ -20,9 +20,8 @@ export default function DesignacionItem({
 
 	return (
 		<label
-			className={`${styles.designacionItem} ${
-				estaCubierta ? styles["designacionItem--disabled"] : ""
-			}`}
+			className={`${styles.designacionItem} ${estaCubierta ? styles["designacionItem--disabled"] : ""
+				}`}
 		>
 			<input
 				type="checkbox"

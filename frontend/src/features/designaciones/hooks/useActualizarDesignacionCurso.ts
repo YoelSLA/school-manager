@@ -1,24 +1,22 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { DesignacionCursoCreateDTO } from "../form/designacion.form.types";
 import { actualizarDesignacionCurso } from "../services/designaciones.services";
-import { designacionesQueryKeys } from "../utils/designaciones.queryKeys";
+import { designacionesQueryKeys } from "../../../utils/queryKeys/designaciones.queryKeys";
+import { DesignacionCursoCreateDTO } from "@/utils/types";
 
-export function useActualizarDesignacionCurso() {
+export function useActualizarDesignacionCurso(designacionId?: number) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: ({
-			designacionId,
-			data,
-		}: {
-			designacionId: number;
-			data: DesignacionCursoCreateDTO;
-		}) => {
+		mutationFn: (data: DesignacionCursoCreateDTO) => {
+			if (!designacionId) {
+				throw new Error("designacionId requerido para editar designación");
+			}
+
 			return actualizarDesignacionCurso(designacionId, data);
 		},
 
-		onSuccess: (_, variables) => {
-			const { designacionId } = variables;
+		onSuccess: () => {
+			if (!designacionId) return;
 
 			queryClient.invalidateQueries({
 				queryKey: designacionesQueryKeys.detail(designacionId),

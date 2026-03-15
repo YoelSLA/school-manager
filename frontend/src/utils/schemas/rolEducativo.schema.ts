@@ -1,4 +1,4 @@
 import { z } from "zod";
-import { RolEducativo } from "@/features/designaciones/types/designacion.types";
+import { RolEducativo } from "../types/enums";
 
 export const rolEducativoSchema = z.enum(RolEducativo);

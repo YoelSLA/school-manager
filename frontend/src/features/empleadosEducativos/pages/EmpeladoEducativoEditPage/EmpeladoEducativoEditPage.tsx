@@ -5,12 +5,12 @@ import PageLayout from "@/layout/PageLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
 import EmpleadoEducativoFormEditar from "../../components/EmpleadoEducativoEditForm/EmpleadoEducativoEditForm";
-import type { EmpleadoEducativoEditOutput } from "../../form/empleadoEducativo.form.types";
 import { useEmpleadoEducativoEditForm } from "../../form/hooks/useEmpleadoEducativoEditForm";
 import { useEditarEmpleadoEducativo } from "../../hooks/useEditarEmpleadoEducativo";
 import { useEmpleadoEducativo } from "../../hooks/useEmpleadoEducativo";
 import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
 import styles from "./EmpleadoEducativoEditPage.module.scss";
+import { EmpleadoEducativoUpdateDTO } from "@/utils/types";
 
 export default function EmpleadoEducativoEditPage() {
 	const { empleadoId } = useParams();
@@ -19,29 +19,29 @@ export default function EmpleadoEducativoEditPage() {
 	const eId = Number(empleadoId);
 
 	/* =========================
-     QUERY
-  ========================= */
+		 QUERY
+	========================= */
 
 	const { data: empleado, isLoading } = useEmpleadoEducativo(eId);
 
 	/* =========================
-     FORM
-  ========================= */
+		 FORM
+	========================= */
 
 	const { form } = useEmpleadoEducativoEditForm();
 	const { reset } = form;
 
 	/* =========================
-     MUTATION
-  ========================= */
+		 MUTATION
+	========================= */
 
 	const editarMutation = useEditarEmpleadoEducativo();
 
 	const empleadoNav = useEmpleadoNavigation();
 
 	/* =========================
-     MAP DATA → FORM
-  ========================= */
+		 MAP DATA → FORM
+	========================= */
 
 	useEffect(() => {
 		if (empleado) {
@@ -59,10 +59,10 @@ export default function EmpleadoEducativoEditPage() {
 	}, [reset, empleado]);
 
 	/* =========================
-     HANDLERS
-  ========================= */
+		 HANDLERS
+	========================= */
 
-	const onSubmit = (formData: EmpleadoEducativoEditOutput) => {
+	const onSubmit = (formData: EmpleadoEducativoUpdateDTO) => {
 		if (!escuelaActiva) return;
 
 		editarMutation.mutate(
@@ -88,8 +88,8 @@ export default function EmpleadoEducativoEditPage() {
 	};
 
 	/* =========================
-     LOADING
-  ========================= */
+		 LOADING
+	========================= */
 
 	if (isLoading) {
 		return (

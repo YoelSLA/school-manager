@@ -1,6 +1,6 @@
 import { BookOpen, GraduationCap, Hash, User } from "lucide-react";
-import type { DesignacionLicenciaCursoItemDTO } from "@/features/licencias/types/licencia.types";
 import styles from "./DesignacionCursoRow.module.scss";
+import { DesignacionLicenciaCursoItemDTO } from "@/utils/types";
 
 type Props = {
 	designacion: DesignacionLicenciaCursoItemDTO;

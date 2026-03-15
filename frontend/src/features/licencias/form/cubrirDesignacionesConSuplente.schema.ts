@@ -15,6 +15,4 @@ export const cubrirDesignacionesConSuplenteSchema = z.object({
 	),
 });
 
-export type CubrirDesignacionesConSuplente = z.infer<
-	typeof cubrirDesignacionesConSuplenteSchema
->;
+

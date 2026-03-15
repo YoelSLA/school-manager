@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { requiredFechaISO } from "@/utils/zod/schemas";
-import { CaracteristicaAsignacion } from "../types/asignacion.types";
+import { CaracteristicaAsignacion } from "@/utils/types/enums";
 
 export const editarTitularSchema = z.object({
 	empleadoId: z.coerce
@@ -17,4 +17,4 @@ export const editarTitularSchema = z.object({
 	}),
 });
 
-export type EditarTitularFormValues = z.infer<typeof editarTitularSchema>;
+

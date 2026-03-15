@@ -1,10 +1,10 @@
 import { Card, CardDivider } from "@/components/Card";
 import { formatFechaIngreso } from "@/utils";
-import type { EmpleadoEducativoDetalleDTO } from "../../types/empleadosEducativos.types";
 import EmpleadoCardHeader from "./EmpleadoCardHeader/EmpleadoCardHeader";
 import EmpleadoCardInfo from "./EmpleadoCardInfo/EmpleadoCardInfo";
 import EmpleadoCardRoles from "./EmpleadoCardRoles/EmpleadoCardRoles";
 import styles from "./EmpleadoEducativoCard.module.scss";
+import { EmpleadoEducativoDetalleDTO } from "@/utils/types";
 
 type Props = {
 	empleado: EmpleadoEducativoDetalleDTO;

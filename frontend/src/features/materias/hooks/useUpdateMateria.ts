@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { CrearMateriaFormValues } from "../form/materias.form.types";
 import { editMateria } from "../services/materias.services";
-import { materiasQueryKeys } from "../types/materias.queryKeys";
+import { MateriaUpdateDTO } from "@/utils/types";
+import { materiasQueryKeys } from "@/utils/queryKeys/materias.queryKeys";
 
 type EditarMateriaParams = {
 	id: number;
-	data: CrearMateriaFormValues;
+	data: MateriaUpdateDTO;
 };
 
 export function useEditMateria(escuelaId?: number) {

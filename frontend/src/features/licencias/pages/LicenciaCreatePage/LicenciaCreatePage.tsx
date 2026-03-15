@@ -5,11 +5,10 @@ import { useDesignacionesActivas } from "@/features/empleadosEducativos/hooks/us
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import LicenciaDatosSection from "../../components/LicenciaForm";
 import DesignacionesSelector from "../../components/LicenciaForm/DesignacionesSelector";
-import type { CrearLicenciaFormValues } from "../../form/crearLicencia.schema";
 import { useLicenciaForm } from "../../form/useLicenciaForm";
 import { useCrearLicencia } from "../../hooks/useCrearLicencia";
-import type { LicenciaCreateDTO } from "../../types/licencia.types";
 import styles from "./LicenciaCreatePage.module.scss";
+import { LicenciaCreateDTO } from "@/utils/types";
 
 export default function LicenciaCreatePage() {
 	const { crearLicencia, isLoading, error } = useCrearLicencia();
@@ -24,7 +23,7 @@ export default function LicenciaCreatePage() {
 	const { data: designaciones, isLoading: loadingDesignaciones } =
 		useDesignacionesActivas(empleadoId);
 
-	const handleSubmit = async (data: CrearLicenciaFormValues) => {
+	const handleSubmit = async (data: LicenciaCreateDTO) => {
 		if (!empleadoId) {
 			setEmpleadoError("Debe seleccionar un empleado");
 			return;

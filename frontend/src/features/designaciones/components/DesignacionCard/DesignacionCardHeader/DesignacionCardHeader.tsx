@@ -1,8 +1,8 @@
 import { Tag } from "lucide-react";
 import Badge from "@/components/Badge/Badge";
-import type { EstadoDesignacion } from "../../../types/designacion.types";
 import { ESTADO_DESIGNACION_BADGE } from "../../../utils/designacion.badges";
 import styles from "./DesignacionCardHeader.module.scss";
+import { EstadoDesignacion } from "@/utils/types/enums";
 
 type Props = {
 	cupof: number;

@@ -1,6 +1,6 @@
 import { Hash, User } from "lucide-react";
-import type { DesignacionLicenciaAdministrativaItemDTO } from "@/features/licencias/types/licencia.types";
 import styles from "./DesignacionAdministrativaRow.module.scss";
+import { DesignacionLicenciaAdministrativaItemDTO } from "@/utils/types";
 
 type Props = {
 	designacion: DesignacionLicenciaAdministrativaItemDTO;

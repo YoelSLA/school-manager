@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { crearFranjaHorariaSchema } from "@/utils/schemas/crearfranjaHoraria.schema";
-import { RolEducativo } from "../../types/designacion.types";
+import { RolEducativo } from "@/utils/types/enums";
 
 export const crearDesignacionAdministrativaSchema = z.object({
 	cupof: z.coerce
@@ -16,9 +16,3 @@ export const crearDesignacionAdministrativaSchema = z.object({
 	rolEducativo: z.enum(RolEducativo),
 });
 
-export type DesignacionAdministrativaFormValues = z.infer<
-	typeof crearDesignacionAdministrativaSchema
->;
-
-export type DesignacionAdministrativaCreateDTO =
-	DesignacionAdministrativaFormValues;

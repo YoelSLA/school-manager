@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { asistenciasQueryKeys } from "@/features/asistencias/utils/asistencias.queryKeys";
+import { asistenciasQueryKeys } from "@/utils/queryKeys/asistencias.queryKeys";
 import { cubrirConTitular } from "@/features/designaciones/services/designaciones.services";
-import { designacionesQueryKeys } from "@/features/designaciones/utils/designaciones.queryKeys";
-import { empleadosEducativosQueryKeys } from "@/features/empleadosEducativos/utils/empleadosEducativos.queryKeys";
+import { designacionesQueryKeys } from "@/utils/queryKeys/designaciones.queryKeys";
+import { empleadosEducativosQueryKeys } from "@/utils/queryKeys/empleadosEducativos.queryKeys";
 import {
 	mapAsignacionError,
 	type UserError,
 } from "../errors/asignacionErrorMapper";
-import type { CubrirTitularRequest } from "../types/asignacion.types";
+import { CubrirTitularDTO } from "@/utils/types";
 
 type Props = {
 	designacionId: number;
@@ -24,7 +24,7 @@ export function useCubrirConTitular({
 	const queryClient = useQueryClient();
 
 	const mutation = useMutation({
-		mutationFn: (data: CubrirTitularRequest) =>
+		mutationFn: (data: CubrirTitularDTO) =>
 			cubrirConTitular(designacionId, data),
 
 		onSuccess: (_, { empleadoId }) => {

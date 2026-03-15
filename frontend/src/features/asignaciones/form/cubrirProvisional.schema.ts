@@ -18,7 +18,3 @@ export const cubrirProvisionalSchema = z
 		message: "La fecha de cese no puede ser anterior a la toma de posesión",
 		path: ["fechaCese"],
 	});
-
-export type CubrirProvisionalFormValues = z.infer<
-	typeof cubrirProvisionalSchema
->;

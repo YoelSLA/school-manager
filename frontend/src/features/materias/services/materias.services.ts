@@ -1,14 +1,9 @@
 import { http } from "@/services/axios";
-import type { PageResponse } from "@/utils/types";
-import type {
-	CrearMateriaDTO,
-	MateriaNombreDTO,
-	MateriaResponseDTO,
-} from "../types/materias.types";
+import type { MateriaCreateDTO, MateriaNombreDTO, MateriaResponseDTO, MateriaUpdateDTO, PageResponse } from "@/utils/types";
 
 export async function crearMateria(
 	escuelaId: number,
-	payload: CrearMateriaDTO,
+	payload: MateriaCreateDTO,
 ): Promise<MateriaResponseDTO> {
 	const response = await http.post<MateriaResponseDTO>(
 		`/escuelas/${escuelaId}/materias`,
@@ -21,7 +16,7 @@ export async function crearMateria(
 export async function editMateria(
 	escuelaId: number,
 	materiaId: number,
-	payload: CrearMateriaDTO,
+	payload: MateriaUpdateDTO,
 ): Promise<MateriaResponseDTO> {
 	const response = await http.put<MateriaResponseDTO>(
 		`/escuelas/${escuelaId}/materias/${materiaId}`,

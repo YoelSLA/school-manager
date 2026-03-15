@@ -1,7 +1,7 @@
 import Badge from "@/components/Badge";
-import type { EmpleadoEducativoLicenciaItemDTO } from "@/features/empleadosEducativos/types/empleadosEducativos.types";
 import { ESTADO_LICENCIA_BADGE } from "@/features/licencias/utils/licencia.bagdes";
 import styles from "./LicenciaRow.module.scss";
+import { EmpleadoEducativoLicenciaItemDTO } from "@/utils/types";
 
 type Props = {
 	licencia: EmpleadoEducativoLicenciaItemDTO;

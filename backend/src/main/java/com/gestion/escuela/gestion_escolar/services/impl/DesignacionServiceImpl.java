@@ -22,6 +22,8 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontrado
 import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 import com.gestion.escuela.gestion_escolar.persistence.*;
 import com.gestion.escuela.gestion_escolar.services.DesignacionService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -46,6 +48,9 @@ public class DesignacionServiceImpl implements DesignacionService {
 	private final AsignacionRepository asignacionRepository;
 	private final MateriaRepository materiaRepository;
 	private final CursoRepository cursoRepository;
+
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	/**
 	 * Persiste una designación previamente creada y válida.
@@ -150,6 +155,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 			LocalDate fechaTomaPosesion,
 			TipoCaracteristicaAsignacion caracteristica
 	) {
+
 		Designacion designacion = designacionRepository.findById(designacionId)
 				.orElseThrow(() -> new RecursoNoEncontradoException("designación", designacionId));
 
@@ -162,8 +168,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 			titular.aplicarCaracteristica(crearCaracteristica(caracteristica));
 		}
 
-		designacionRepository.save(designacion);
-		return titular;
+		return asignacionRepository.save(titular);
 	}
 
 	@Override
@@ -321,8 +326,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 	) {
 		Designacion designacion = obtenerPorId(designacionId);
 
-		Optional<Asignacion> activa =
-				designacion.asignacionQueEjerceEn(fecha);
+		Optional<Asignacion> activa = designacion.asignacionQueEjerceEn(fecha);
 
 		return designacion.getAsignaciones().stream()
 
@@ -454,6 +458,26 @@ public class DesignacionServiceImpl implements DesignacionService {
 							escuelaId
 					)
 			);
+		}
+	}
+
+	private void imprimirEstadoEntidad(Object entidad) {
+		boolean managed = entityManager.contains(entidad);
+
+		try {
+			Long id = (Long) entidad.getClass().getMethod("getId").invoke(entidad);
+
+			if (managed) {
+				System.out.println("Estado: MANAGED");
+			} else if (id == null) {
+				System.out.println("Estado: TRANSIENT");
+			} else {
+				System.out.println("Estado: DETACHED");
+			}
+
+		} catch (
+				Exception e) {
+			System.out.println("No se pudo determinar el estado");
 		}
 	}
 

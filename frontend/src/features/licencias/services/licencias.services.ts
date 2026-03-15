@@ -1,18 +1,5 @@
 import { http } from "@/services/axios";
-import type { PageResponse } from "@/utils/types";
-import type { CubrirDesignacionesConSuplente } from "../form/cubrirDesignacionesConSuplente.schema";
-import type {
-	CubrirDesignacionesRequest,
-	LicenciaDesignacion,
-	LicenciaDesignacionDTO,
-	LicenciaDetalle,
-	LicenciaDetalleDTO,
-	LicenciaResumen,
-	LicenciaResumenDTO,
-	LicenciaTimelineItem,
-	LicenciaTimelineItemDTO,
-	RenovarLicenciaDTO,
-} from "../types/licencia.types";
+import type { CubrirDesignacionesConSuplente, LicenciaDesignacion, LicenciaDesignacionDTO, LicenciaDetalle, LicenciaDetalleDTO, LicenciaResumen, LicenciaResumenDTO, LicenciaTimelineItem, LicenciaTimelineItemDTO, PageResponse, RenovarLicenciaDTO } from "@/utils/types";
 
 export const cubrirDesignacionesConSuplente = async (
 	licenciaId: number,

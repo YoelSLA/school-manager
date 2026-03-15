@@ -2,10 +2,6 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import CrearAsignacionModal from "@/features/asignaciones/components/CrearAsignacionModal/CrearAsgnacionModal";
 import EditarAsignacionModal from "@/features/asignaciones/components/EditarAsignacionModal/EditarAsignacionModal";
-import type {
-	AsignacionDetalleDTO,
-	FiltroCargos,
-} from "@/features/asignaciones/types/asignacion.types";
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import { useCargoActivo } from "../../../asignaciones/hooks/useCargoActivo";
 import { useCargosDesignacion } from "../../hooks/useCargosDesignacion";
@@ -15,6 +11,7 @@ import DesignacionCargosHistorial from "./DesignacionCargosHistorial/Designacion
 import styles from "./DesignacionDetallePage.module.scss";
 import DesignacionHeaderInfo from "./DesignacionHeaderInfo/DesignacionHeaderInfo";
 import DesignacionHorarios from "./DesignacionHorarios";
+import { AsignacionDetalleDTO, FiltroCargos } from "@/utils/types";
 
 export default function DesignacionDetallePage() {
 	const { designacionId } = useParams<{ designacionId: string }>();
