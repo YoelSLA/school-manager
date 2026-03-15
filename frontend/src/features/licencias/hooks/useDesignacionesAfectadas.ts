@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
+import { licenciasQueryKeys } from "@/utils/queryKeys/licencias.queryKeys";
 import { getDesignacionesAfectadas } from "../services/licencias.services";
-import { licenciasQueryKeys } from "../utils/licencias.queryKeys";
 
 export const useDesignacionesAfectadas = (licenciaId?: number) => {
 	return useQuery({

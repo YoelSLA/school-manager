@@ -2,14 +2,13 @@ import FormSection from "@/components/FormSection";
 import FormInputField from "@/components/forms/FormInputField";
 import Modal from "@/components/Modal/Modal";
 import { useEditMateriaForm } from "../../form/hooks/useEditMateriaForm";
-import type { EditarMateriaFormValues } from "../../form/materias.form.types";
-import type { MateriaEditDTO } from "../../types/materias.types";
+import { MateriaUpdateDTO } from "@/utils/types";
 
 type Props = {
-	materia: MateriaEditDTO;
+	materia: MateriaUpdateDTO;
 	onClose: () => void;
 	isSubmitting: boolean;
-	onSubmit: (data: EditarMateriaFormValues) => void;
+	onSubmit: (data: MateriaUpdateDTO) => void;
 };
 
 export default function MateriaEditModal({

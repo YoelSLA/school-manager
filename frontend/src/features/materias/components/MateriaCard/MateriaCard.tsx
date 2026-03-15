@@ -1,6 +1,6 @@
 import { Edit, Trash2 } from "lucide-react";
-import type { MateriaResponseDTO } from "../../types/materias.types";
 import styles from "./MateriaCard.module.scss";
+import { MateriaResponseDTO } from "@/utils/types";
 
 type Props = {
 	materia: MateriaResponseDTO;

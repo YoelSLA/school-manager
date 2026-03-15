@@ -1,15 +1,15 @@
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
-import FormActions from "@/components/FormActions"; // 👈 nuevo
-import type { EmpleadoEducativoCreateOutput } from "../../form/empleadoEducativo.form.types";
+import FormActions from "@/components/FormActions";
 import ContactoSection from "./ContactoSection/ContactoSection";
 import DatosPersonalesSection from "./DatosPersonalesSection/DatosPersonalesSection";
 
 import styles from "./EmpleadoEducativoForm.module.scss";
 import IngresoSection from "./IngresoSection/IngresoSection";
+import { EmpleadoEducativoCreateDTO } from "@/utils/types";
 
 type Props = {
-	register: UseFormRegister<EmpleadoEducativoCreateOutput>;
-	errors: FieldErrors<EmpleadoEducativoCreateOutput>;
+	register: UseFormRegister<EmpleadoEducativoCreateDTO>;
+	errors: FieldErrors<EmpleadoEducativoCreateDTO>;
 	isSubmitting: boolean;
 
 	agregarFecha: boolean;
@@ -51,7 +51,6 @@ export default function EmpleadoEducativoCreateForm({
 					/>
 				</div>
 
-				{/* 🔥 Ahora dentro del grid */}
 				<div className={styles.actions}>
 					<FormActions
 						isSubmitting={isSubmitting}

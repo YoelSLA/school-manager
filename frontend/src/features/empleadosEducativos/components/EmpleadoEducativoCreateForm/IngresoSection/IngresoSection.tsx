@@ -2,12 +2,12 @@ import { Calendar, CheckCircle } from "lucide-react";
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
 import FormSection from "@/components/FormSection";
 import FormInputField from "@/components/forms/FormInputField/FormInputField";
-import type { EmpleadoEducativoCreateOutput } from "@/features/empleadosEducativos/form/empleadoEducativo.form.types";
 import styles from "./IngresoSection.module.scss";
+import { EmpleadoEducativoCreateDTO } from "@/utils/types";
 
 type Props = {
-	register: UseFormRegister<EmpleadoEducativoCreateOutput>;
-	errors: FieldErrors<EmpleadoEducativoCreateOutput>;
+	register: UseFormRegister<EmpleadoEducativoCreateDTO>;
+	errors: FieldErrors<EmpleadoEducativoCreateDTO>;
 	agregarFecha: boolean;
 	onToggleAgregarFecha: () => void;
 	usarHoy: boolean;
@@ -23,7 +23,7 @@ export default function IngresoSection({
 	onToggleUsarHoy,
 }: Props) {
 	return (
-		<FormSection title="FECHA DE INGRESO">
+		<FormSection title="FECHA DE INGRESO" >
 			{/* Check principal */}
 			<label className={styles.section__checkbox}>
 				<input

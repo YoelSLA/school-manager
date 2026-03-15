@@ -1,10 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-import type { CursoNombreDTO } from "@/features/cursos/types/cursos.types";
 import type { MateriaNombreDTO } from "@/features/materias/types/materias.types";
-import { Dia } from "@/utils/types";
-import type { DesignacionCursoFormValues } from "../designacion.form.types";
+import { CursoNombreDTO, DesignacionCursoCreateDTO, Dia } from "@/utils/types";
 import { crearDesignacionCursoSchema } from "../schemas/crearDesignacionCurso.schema";
 
 type Props = {
@@ -18,14 +16,26 @@ export function useDesignacionCursoForm({
 	cursos,
 	orientaciones,
 }: Props) {
-	const form = useForm<DesignacionCursoFormValues>({
+	const form = useForm<DesignacionCursoCreateDTO>({
 		resolver: zodResolver(crearDesignacionCursoSchema),
-		defaultValues: DESIGNACION_CURSO_DEFAULTS,
+		defaultValues: {
+			cupof: undefined,
+			materiaId: 1,
+			cursoId: 1,
+			orientacion: "",
+			franjasHorarias: [
+				{
+					dia: Dia.LUNES,
+					horaDesde: "08:00",
+					horaHasta: "12:00",
+				},
+			],
+		},
 	});
 
 	const { setValue, getValues } = form;
 
-	const franjas = useFieldArray<DesignacionCursoFormValues, "franjasHorarias">({
+	const franjas = useFieldArray<DesignacionCursoCreateDTO, "franjasHorarias">({
 		control: form.control,
 		name: "franjasHorarias",
 	});
@@ -65,17 +75,3 @@ export function useDesignacionCursoForm({
 		franjas,
 	};
 }
-
-const DESIGNACION_CURSO_DEFAULTS: DesignacionCursoFormValues = {
-	cupof: undefined,
-	materiaId: 1,
-	cursoId: 1,
-	orientacion: "",
-	franjasHorarias: [
-		{
-			dia: Dia.LUNES,
-			horaDesde: "08:00",
-			horaHasta: "12:00",
-		},
-	],
-};

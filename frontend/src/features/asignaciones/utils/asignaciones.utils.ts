@@ -1,7 +1,5 @@
-import {
-	CaracteristicaAsignacion,
-	type FiltroCargos,
-} from "../types/asignacion.types";
+import { FiltroCargos } from "@/utils/types";
+import { CaracteristicaAsignacion } from "@/utils/types/enums";
 
 export const TIPO_ASIGNACION_OPTIONS = [
 	{ value: "TITULAR", label: "Titular" },
@@ -37,7 +35,7 @@ export const FILTROS_CARGOS: {
 	value: FiltroCargos;
 	label: string;
 }[] = [
-	{ value: "LICENCIA", label: "Licencias" },
-	{ value: "FINALIZADA", label: "Finalizados" },
-	{ value: "BAJA", label: "Bajas" },
-];
+		{ value: "LICENCIA", label: "Licencias" },
+		{ value: "FINALIZADA", label: "Finalizados" },
+		{ value: "BAJA", label: "Bajas" },
+	];

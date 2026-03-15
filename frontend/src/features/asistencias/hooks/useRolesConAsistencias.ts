@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { obtenerRolesConAsistencias } from "../services/asistencias.services";
 import type { RolCountDTO } from "../types/asistencias.types";
-import { asistenciasQueryKeys } from "../utils/asistencias.queryKeys";
+import { asistenciasQueryKeys } from "../../../utils/queryKeys/asistencias.queryKeys";
 
 export function useRolesConAsistencias(fecha: string) {
 	return useQuery<RolCountDTO[]>({

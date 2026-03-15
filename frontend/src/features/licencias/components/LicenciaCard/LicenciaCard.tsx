@@ -4,9 +4,9 @@ import Badge from "@/components/Badge";
 import Card from "@/components/Card/Card";
 import EmpleadoInfo from "@/components/EmpleadoInfo";
 import { formatearFecha } from "@/utils";
-import type { LicenciaResumenDTO } from "../../types/licencia.types";
 import { ESTADO_LICENCIA_BADGE } from "../../utils/licencia.bagdes";
 import styles from "./LicenciaCard.module.scss";
+import { LicenciaResumenDTO } from "@/utils/types";
 
 type Props = {
 	licencia: LicenciaResumenDTO;

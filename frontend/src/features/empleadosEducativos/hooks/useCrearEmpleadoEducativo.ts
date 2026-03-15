@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { EmpleadoEducativoCreateOutput } from "../form/empleadoEducativo.form.types";
 import { crearEmpleadoEducativo } from "../services/empleadosEducativos.services";
-import { empleadosEducativosQueryKeys } from "../utils/empleadosEducativos.queryKeys";
+import { empleadosEducativosQueryKeys } from "../../../utils/queryKeys/empleadosEducativos.queryKeys";
+import { EmpleadoEducativoCreateDTO } from "@/utils/types";
 
 type Variables = {
 	escuelaId: number;
-	data: EmpleadoEducativoCreateOutput;
+	data: EmpleadoEducativoCreateDTO;
 };
 
 export function useCrearEmpleadoEducativo() {

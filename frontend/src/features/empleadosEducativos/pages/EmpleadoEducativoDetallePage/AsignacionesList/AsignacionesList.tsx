@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import type { EmpleadoEducativoAsignacionItemDTO } from "@/features/empleadosEducativos/types/empleadosEducativos.types";
 import EntityList from "../EntityList";
 import styles from "./AsignacionesList.module.scss";
 import AsignacionRow from "./AsignacionRow";
+import { EmpleadoEducativoAsignacionItemDTO } from "@/utils/types";
 
 type Props = {
 	asignaciones: EmpleadoEducativoAsignacionItemDTO[];

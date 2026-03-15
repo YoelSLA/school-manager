@@ -1,16 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { DesignacionAdministrativaCreateDTO } from "../form/designacion.form.types";
 import { actualizarDesignacionAdministrativa } from "../services/designaciones.services";
-import { designacionesQueryKeys } from "../utils/designaciones.queryKeys";
+import { designacionesQueryKeys } from "../../../utils/queryKeys/designaciones.queryKeys";
+import { DesignacionAdministrativaUpdateDTO } from "@/utils/types";
 
-export function useActualizarDesignacionAdministrativa(
-	escuelaId?: number,
-	designacionId?: number,
-) {
+export function useActualizarDesignacionAdministrativa(designacionId?: number) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: (data: DesignacionAdministrativaCreateDTO) => {
+		mutationFn: (data: DesignacionAdministrativaUpdateDTO) => {
 			if (!designacionId) {
 				throw new Error("designacionId requerido para editar designación");
 			}
@@ -19,14 +16,14 @@ export function useActualizarDesignacionAdministrativa(
 		},
 
 		onSuccess: () => {
-			if (!escuelaId || !designacionId) return;
-
-			queryClient.invalidateQueries({
-				queryKey: designacionesQueryKeys.administrativa.lists(),
-			});
+			if (!designacionId) return;
 
 			queryClient.invalidateQueries({
 				queryKey: designacionesQueryKeys.administrativa.detail(designacionId),
+			});
+
+			queryClient.invalidateQueries({
+				queryKey: designacionesQueryKeys.administrativa.lists(),
 			});
 		},
 	});

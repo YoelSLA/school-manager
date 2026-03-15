@@ -2,12 +2,11 @@ import type { UseFormReturn } from "react-hook-form";
 import FormSection from "@/components/FormSection";
 import FormInputField from "@/components/forms/FormInputField/FormInputField";
 
-import type { EmpleadoEducativoEditInput } from "../../form/empleadoEducativo.form.types";
-
 import styles from "./EmpleadoEducativoEditForm.module.scss";
+import { EmpleadoEducativoUpdateDTO } from "@/utils/types";
 
 type Props = {
-	form: UseFormReturn<EmpleadoEducativoEditInput>;
+	form: UseFormReturn<EmpleadoEducativoUpdateDTO>;
 };
 
 export default function EmpleadoEducativoEditForm({ form }: Props) {
@@ -29,7 +28,7 @@ export default function EmpleadoEducativoEditForm({ form }: Props) {
 						inputProps={{ readOnly: true }}
 					/>
 
-					<FormInputField<EmpleadoEducativoEditInput>
+					<FormInputField<EmpleadoEducativoUpdateDTO>
 						label="Fecha de nacimiento *"
 						name="fechaDeNacimiento"
 						type="date"
@@ -37,14 +36,14 @@ export default function EmpleadoEducativoEditForm({ form }: Props) {
 						error={errors.fechaDeNacimiento?.message}
 					/>
 
-					<FormInputField<EmpleadoEducativoEditInput>
+					<FormInputField<EmpleadoEducativoUpdateDTO>
 						label="Apellido *"
 						name="apellido"
 						register={register}
 						error={errors.apellido?.message}
 					/>
 
-					<FormInputField<EmpleadoEducativoEditInput>
+					<FormInputField<EmpleadoEducativoUpdateDTO>
 						label="Nombre *"
 						name="nombre"
 						register={register}
@@ -54,21 +53,21 @@ export default function EmpleadoEducativoEditForm({ form }: Props) {
 
 				{/* CONTACTO */}
 				<FormSection title="Contacto">
-					<FormInputField<EmpleadoEducativoEditInput>
+					<FormInputField<EmpleadoEducativoUpdateDTO>
 						label="Teléfono"
 						name="telefono"
 						register={register}
 						error={errors.telefono?.message}
 					/>
 
-					<FormInputField<EmpleadoEducativoEditInput>
+					<FormInputField<EmpleadoEducativoUpdateDTO>
 						label="Domicilio"
 						name="domicilio"
 						register={register}
 						error={errors.domicilio?.message}
 					/>
 
-					<FormInputField<EmpleadoEducativoEditInput>
+					<FormInputField<EmpleadoEducativoUpdateDTO>
 						label="Email *"
 						name="email"
 						type="email"
@@ -80,7 +79,7 @@ export default function EmpleadoEducativoEditForm({ form }: Props) {
 
 			{/* ================= INFORMACIÓN LABORAL ================= */}
 			<FormSection title="Información laboral">
-				<FormInputField<EmpleadoEducativoEditInput>
+				<FormInputField<EmpleadoEducativoUpdateDTO>
 					label="Fecha de ingreso *"
 					name="fechaDeIngreso"
 					type="date"

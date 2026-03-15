@@ -1,12 +1,12 @@
 import CausaBajaSelectField from "@/components/forms/selects/CausaBajaSelectField";
 import Modal from "@/components/Modal/Modal";
-import type { BajaDefinitivaOutput } from "../../form/empleadoEducativo.form.types";
 import { useBajaDefinitivaForm } from "../../form/hooks/useBajaDefinitivaForm";
+import { BajaDefinitivaDTO } from "@/utils/types";
 
 type Props = {
 	isOpen: boolean;
 	onClose: () => void;
-	onConfirm: (data: BajaDefinitivaOutput) => void;
+	onConfirm: (data: BajaDefinitivaDTO) => void;
 	isSubmitting?: boolean;
 };
 
@@ -27,7 +27,7 @@ export default function BajaDefinitivaModal({
 
 	if (!isOpen) return null;
 
-	const submit = (data: BajaDefinitivaOutput) => {
+	const submit = (data: BajaDefinitivaDTO) => {
 		onConfirm(data);
 		reset();
 	};
@@ -39,11 +39,10 @@ export default function BajaDefinitivaModal({
 				reset();
 				onClose();
 			}}
-			onConfirm={handleSubmit(submit)}
 			confirmLabel="Confirmar baja"
 			isSubmitting={isSubmitting}
 		>
-			<CausaBajaSelectField<BajaDefinitivaOutput>
+			<CausaBajaSelectField<BajaDefinitivaDTO>
 				register={register}
 				name="causa"
 				error={errors.causa?.message}

@@ -1,15 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { asistenciasQueryKeys } from "@/features/asistencias/utils/asistencias.queryKeys";
+import { asistenciasQueryKeys } from "@/utils/queryKeys/asistencias.queryKeys";
 import { cubrirConProvisional } from "@/features/designaciones/services/designaciones.services";
 
-import { designacionesQueryKeys } from "@/features/designaciones/utils/designaciones.queryKeys";
-import { empleadosEducativosQueryKeys } from "@/features/empleadosEducativos/utils/empleadosEducativos.queryKeys";
+import { designacionesQueryKeys } from "@/utils/queryKeys/designaciones.queryKeys";
+import { empleadosEducativosQueryKeys } from "@/utils/queryKeys/empleadosEducativos.queryKeys";
 import {
 	mapAsignacionError,
 	type UserError,
 } from "../errors/asignacionErrorMapper";
-import type { CubrirProvisionalRequest } from "../types/asignacion.types";
+import { CubrirProvisionalDTO } from "@/utils/types";
 
 type Params = {
 	designacionId: number;
@@ -25,7 +25,7 @@ export function useCubrirConProvisional({
 	const queryClient = useQueryClient();
 
 	const mutation = useMutation({
-		mutationFn: (data: CubrirProvisionalRequest) =>
+		mutationFn: (data: CubrirProvisionalDTO) =>
 			cubrirConProvisional(designacionId, data),
 
 		onSuccess: (_, { empleadoId }) => {

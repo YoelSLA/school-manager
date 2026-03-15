@@ -18,4 +18,4 @@ export const crearLicenciaSchema = z.object({
 		.min(1, { message: "Debe indicar al menos una designación afectada" }),
 });
 
-export type CrearLicenciaFormValues = z.infer<typeof crearLicenciaSchema>;
+

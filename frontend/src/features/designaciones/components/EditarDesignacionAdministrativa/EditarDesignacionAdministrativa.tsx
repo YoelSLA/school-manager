@@ -1,12 +1,10 @@
 import { useForm } from "react-hook-form";
-
 import Button from "@/components/Button";
-import type { DesignacionAdministrativaCreateDTO } from "../../form/designacion.form.types";
-import type { DesignacionAdministrativaDetalleDTO } from "../../types/designacion.types";
+import { DesignacionAdministrativaDetalleDTO, DesignacionAdministrativaUpdateDTO } from "@/utils/types";
 
 type Props = {
 	designacion: DesignacionAdministrativaDetalleDTO;
-	onSubmit: (data: DesignacionAdministrativaCreateDTO) => Promise<void>;
+	onSubmit: (data: DesignacionAdministrativaUpdateDTO) => Promise<void>;
 	isSubmitting: boolean;
 };
 
@@ -19,7 +17,7 @@ export default function EditarDesignacionAdministrativa({
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<DesignacionAdministrativaCreateDTO>({
+	} = useForm<DesignacionAdministrativaUpdateDTO>({
 		defaultValues: {
 			cupof: designacion.cupof,
 			rolEducativo: designacion.rolEducativo,

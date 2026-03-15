@@ -1,126 +1,81 @@
-.escuela-card {
-	background: #ffffff;
-	border-radius: 18px;
-	padding: 22px;
-	min-height: 210px;
-
+.escuelaCard {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	gap: 1rem;
 
-	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-
-	transition:
-		transform 0.2s ease,
-		box-shadow 0.2s ease;
-
-	&:hover {
-		transform: translateY(-4px);
-		box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
-	}
-
-	/* ===== HEADER ===== */
-	&__header {
+	&Header {
 		display: flex;
+		align-items: center;
 		justify-content: space-between;
-		align-items: flex-start;
-		gap: 12px;
 	}
 
-	&__title {
-		margin: 0;
-		font-size: 17px;
+	&Title {
+		font-size: 1.1rem;
 		font-weight: 600;
-		color: #0f172a;
-		line-height: 1.25;
+		line-height: 1.2;
 	}
 
-	/* ===== BODY ===== */
-	&__body {
-		margin-top: 14px;
+	&Body {
 		display: flex;
 		flex-direction: column;
-		gap: 10px;
-
-		font-size: 13px;
-		color: #475569;
-
-		p {
-			margin: 0;
-			line-height: 1.4;
-		}
-
-		strong {
-			color: #0f172a;
-			font-weight: 500;
-		}
+		justify-content: space-around;
+		gap: 0.5rem;
+		font-size: 0.9rem;
+		background-color: aliceblue;
 	}
 
-	/* ===== FOOTER ===== */
-	&__footer {
+	&Info {
 		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-top: 18px;
-	}
+		align-items: flex-start;
+		gap: 0.5rem;
 
-	/* ===== BOTÓN ENTRAR ===== */
-	&__enter {
-		background: #16a34a;
-		color: #ffffff;
-		border: none;
-		padding: 8px 18px;
-		border-radius: 999px;
-
-		font-size: 13px;
-		font-weight: 500;
-		cursor: pointer;
-
-		transition:
-			background 0.2s ease,
-			transform 0.1s ease;
-
-		&:hover {
-			background: #15803d;
-		}
-
-		&:active {
-			transform: scale(0.96);
+		svg {
+			flex-shrink: 0;
+			margin-top: 2px;
+			width: 16px;
+			height: 16px;
 		}
 	}
 
-	/* ===== ACTIONS ===== */
-	&__actions {
+	&Footer {
 		display: flex;
-		gap: 8px;
+		justify-content: flex-end;
+		margin-top: 0.5rem;
 	}
 
-	&__icon-btn {
-		background: #f1f5f9;
-		border: none;
-		border-radius: 8px;
-		padding: 6px;
-		font-size: 14px;
-		cursor: pointer;
+	&Actions {
+		display: flex;
+		gap: 0.35rem;
+	}
 
+	&IconBtn {
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		width: 32px;
+		height: 32px;
+		border-radius: 6px;
+		border: none;
+		background: transparent;
+		cursor: pointer;
+		transition: background 0.15s ease, color 0.15s ease;
 
-		transition:
-			background 0.2s ease,
-			transform 0.1s ease;
+		svg {
+			width: 16px;
+			height: 16px;
+		}
 
 		&:hover {
-			background: #e2e8f0;
+			background: var(--color-surface-hover);
 		}
 
-		&:active {
-			transform: scale(0.95);
-		}
+		&Danger {
+			color: var(--color-danger);
 
-		&--danger:hover {
-			background: #fee2e2;
+			&:hover {
+				background: rgba(220, 38, 38, 0.1);
+			}
 		}
 	}
 }

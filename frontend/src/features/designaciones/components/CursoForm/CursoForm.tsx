@@ -8,13 +8,13 @@ import { useDesignacionCursoForm } from "@/features/designaciones/form/hooks/use
 import { useMateriasSelect } from "@/features/materias/hooks/useMateriasSelect";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
-import type { DesignacionCursoFormValues } from "../../form/designacion.form.types";
 import { ORIENTACIONES } from "../../utils/designacion.utils";
 import DesignacionFormLayout from "../DesignacionFormLayout/DesignacionFormLayout";
 import styles from "./CursoForm.module.scss";
+import { DesignacionCursoCreateDTO } from "@/utils/types";
 
 type Props = {
-	onSubmit: (data: DesignacionCursoFormValues) => Promise<void>;
+	onSubmit: (data: DesignacionCursoCreateDTO) => Promise<void>;
 	isSubmitting: boolean;
 };
 
@@ -42,18 +42,18 @@ export default function CursoForm({ onSubmit, isSubmitting }: Props) {
 		orientaciones: ORIENTACIONES.map((o) => o.value),
 	});
 
-	const _onSubmitHandler: SubmitHandler<DesignacionCursoFormValues> = async (
+	const onSubmitHandler: SubmitHandler<DesignacionCursoCreateDTO> = async (
 		data,
 	) => {
 		await onSubmit(data);
 	};
 
 	return (
-		<form onSubmit={handleSubmit(_onSubmitHandler)}>
-			<DesignacionFormLayout<DesignacionCursoFormValues>
+		<form onSubmit={handleSubmit(onSubmitHandler)}>
+			<DesignacionFormLayout<DesignacionCursoCreateDTO>
 				left={
 					<div className={styles.left}>
-						<CupofInputField<DesignacionCursoFormValues>
+						<CupofInputField<DesignacionCursoCreateDTO>
 							register={register}
 							error={errors.cupof?.message}
 						/>

@@ -6,11 +6,11 @@ import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
 import { getTodayArgentinaISO } from "@/utils";
 import EmpleadoEducativoCreateForm from "../../components/EmpleadoEducativoCreateForm";
-import type { EmpleadoEducativoCreateOutput } from "../../form/empleadoEducativo.form.types";
 import { useEmpleadoEducativoCreateForm } from "../../form/hooks/useEmpleadoEducativoCreateForm";
 import { useCrearEmpleadoEducativo } from "../../hooks/useCrearEmpleadoEducativo";
 import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
 import styles from "./EmpleadoEducativoCreatePage.module.scss";
+import { EmpleadoEducativoCreateDTO } from "@/utils/types";
 
 export default function EmpleadoEducativoCreatePage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
@@ -61,7 +61,7 @@ export default function EmpleadoEducativoCreatePage() {
 	/* =====================
 		 SUBMIT
 	===================== */
-	const onSubmit = async (data: EmpleadoEducativoCreateOutput) => {
+	const onSubmit = async (data: EmpleadoEducativoCreateDTO) => {
 		if (!escuelaActiva) {
 			toast.error("No hay escuela seleccionada");
 			return;

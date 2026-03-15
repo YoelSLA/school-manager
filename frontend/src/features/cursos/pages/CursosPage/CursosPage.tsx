@@ -3,16 +3,14 @@ import FilteredSidebar from "@/components/FilteredSidebar/FilteredSidebar";
 import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
 import Pagination from "@/layout/Pagination";
 import SidebarPageLayout from "@/layout/SidebarPageLayout/SidebarPageLayout";
-
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
-import CrearCursoModal from "../../components/CrearCursoModal";
-import type { CrearCursoFormOutput } from "../../form/curso.form.types";
 import { useCrearCurso } from "../../hooks/useCrearCurso";
 import { useCursos } from "../../hooks/useCursos";
-import type { CursoFiltro, CursoResponseDTO } from "../../types/cursos.types";
 import { FILTROS_CURSOS } from "../../utils/cursos.utils";
 import CursosList from "./CursosList";
+import { CursoCreateDTO, CursoFiltro, CursoResponseDTO } from "@/utils/types";
+import CursoCreateModal from "../../components/CursoCreateModal";
 
 export default function CursosPage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
@@ -30,7 +28,6 @@ export default function CursosPage() {
 	const [page, setPage] = useState(0);
 	const pageSize = useDynamicPageSize();
 
-	// Reset cuando cambia filtro o tamaño
 	useEffect(() => {
 		setPage(0);
 	}, []);
@@ -61,7 +58,7 @@ export default function CursosPage() {
 		setIsCrearOpen(true);
 	};
 
-	const handleSubmitCrear = (data: CrearCursoFormOutput) => {
+	const handleSubmitCrear = (data: CursoCreateDTO) => {
 		if (!escuelaActiva) return;
 
 		crearCurso(
@@ -71,7 +68,7 @@ export default function CursosPage() {
 			},
 			{
 				onSuccess: () => {
-					setIsCrearOpen(false); // 👈 cerrar modal acá
+					setIsCrearOpen(false);
 				},
 			},
 		);
@@ -119,7 +116,7 @@ export default function CursosPage() {
 			========================= */}
 
 			{isCrearOpen && (
-				<CrearCursoModal
+				<CursoCreateModal
 					onClose={() => setIsCrearOpen(false)}
 					isSubmitting={isPending}
 					onSubmit={handleSubmitCrear}

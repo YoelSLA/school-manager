@@ -1,7 +1,7 @@
 import ListState from "@/components/ListState";
-import type { CursoResponseDTO } from "@/cursos/types/cursos.types";
 import ScrollableGridListLayout from "@/layout/ScrollableGridListLayout/ScrollableGridListLayout";
 import CursoCard from "../../components/CursoCard/CursoCard";
+import { CursoResponseDTO } from "@/utils/types";
 
 type Props = {
 	cursos: CursoResponseDTO[];

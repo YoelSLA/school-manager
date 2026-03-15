@@ -2,8 +2,8 @@ import { Calendar, Clock, Hash, Star, Timer, Users } from "lucide-react";
 
 import Badge from "@/components/Badge";
 import { ESTADO_ASIGNACION_BADGE } from "@/features/asignaciones/utils/asignacion.badges";
-import type { EmpleadoEducativoAsignacionItemDTO } from "@/features/empleadosEducativos/types/empleadosEducativos.types";
 import styles from "./AsignacionRow.module.scss";
+import { EmpleadoEducativoAsignacionItemDTO } from "@/utils/types";
 
 type Props = {
 	asignacion: EmpleadoEducativoAsignacionItemDTO;

@@ -1,7 +1,7 @@
 import SelectField from "@/components/SelectField";
 import { useCursosNombres } from "@/features/cursos/hooks/useCursosNombres";
 import { useMateriasSelect } from "@/features/materias/hooks/useMateriasSelect";
-import type { CursoFiltersState } from "../../types/designacion.types";
+import { CursoFiltersState } from "@/utils/types";
 
 type Props = {
 	escuelaId?: number;

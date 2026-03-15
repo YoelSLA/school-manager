@@ -5,8 +5,8 @@ import Modal from "@/components/Modal/Modal";
 import "./LicenciaRenovarModal.css";
 import { agruparPorArticulo } from "@/utils";
 import { useRenovarLicencia } from "../../hooks/useRenovarLicencia";
-import type { RenovarLicenciaDTO } from "../../types/licencia.types";
 import { TIPOS_LICENCIA } from "../../utils/tipoLicencia";
+import { RenovarLicenciaDTO } from "@/utils/types";
 
 type Props = {
 	licenciaId: number;
@@ -46,7 +46,6 @@ export default function LicenciaRenovarModal({
 			size="medium"
 			title="Renovar licencia"
 			onCancel={onClose}
-			onConfirm={onConfirm}
 			confirmLabel="Confirmar"
 			isSubmitting={isPending}
 		>

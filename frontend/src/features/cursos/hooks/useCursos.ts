@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import type { PageResponse } from "@/utils/types";
+import type { CursoFiltro, CursoResponseDTO, PageResponse } from "@/utils/types";
 import { obtenerCursos } from "../services/cursos.services";
-import type { CursoFiltro, CursoResponseDTO } from "../types/cursos.types";
-import { cursosQueryKeys } from "../utils/cursos.queryKeys";
+import { cursosQueryKeys } from "../../../utils/queryKeys/cursos.queryKeys";
 
 export function useCursos(
 	escuelaId?: number,

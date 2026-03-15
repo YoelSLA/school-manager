@@ -6,8 +6,8 @@ import Button from "@/components/Button";
 import { ESTADO_DESIGNACION_BADGE } from "@/features/designaciones/utils/designacion.badges";
 import RolEducativoBadge from "@/features/empleadosEducativos/components/RolEducativoBadge";
 import { designacionesPaths } from "@/router/paths";
-import type { DesignacionDetalleDTO } from "../../../types/designacion.types";
 import styles from "./DesignacionHeaderInfo.module.scss";
+import { DesignacionDetalleDTO } from "@/utils/types";
 
 type Props = {
 	designacion: DesignacionDetalleDTO;

@@ -1,10 +1,10 @@
 import Button from "@/components/Button";
 import { useLicenciasNavigation } from "@/features/licencias/hooks/useLicenciasNavigation";
-import type { LicenciaDetalleDTO } from "@/features/licencias/types/licencia.types";
 
 import styles from "./LicenciaHeaderStack.module.scss";
 import LicenciaInfoBox from "./LicenciaInfoBox";
 import LicenciaPersonaBox from "./LicenciaPersonaBox";
+import { LicenciaDetalleDTO } from "@/utils/types";
 
 type Props = {
 	licencia: LicenciaDetalleDTO;

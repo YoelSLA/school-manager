@@ -1,24 +1,22 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import type { z } from "zod";
-import { CaracteristicaAsignacion } from "../types/asignacion.types";
 import { cubrirTitularSchema } from "./cubrirTitular.schema";
-
-export type TitularFormValues = z.infer<typeof cubrirTitularSchema>;
+import { CubrirTitularDTO } from "@/utils/types";
+import { CaracteristicaAsignacion } from "@/utils/types/enums";
 
 type Props = {
-	defaultValues?: Partial<TitularFormValues>;
+	defaultValues?: Partial<CubrirTitularDTO>;
 };
 
 export function useCubrirConTitularForm({ defaultValues }: Props = {}) {
-	const form = useForm<TitularFormValues>({
+	const form = useForm<CubrirTitularDTO>({
 		resolver: zodResolver(cubrirTitularSchema),
 
 		defaultValues: {
 			empleadoId: undefined,
 			fechaTomaPosesion: undefined,
 			caracteristica: CaracteristicaAsignacion.NORMAL,
-			...defaultValues, // 👈 sobrescribe si vienen datos
+			...defaultValues,
 		},
 
 		mode: "onSubmit",

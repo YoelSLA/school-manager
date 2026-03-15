@@ -1,7 +1,7 @@
 import { IdCard, User } from "lucide-react";
 import SituacionRevistaBadge from "@/components/SituacionRevistaBadge/SituacionRevistaBadge";
-import type { SituacionDeRevista } from "@/features/asignaciones/types/asignacion.types";
 import styles from "./DesignacionEmpleado.module.scss";
+import { SituacionDeRevista } from "@/utils/types/enums";
 
 type Props = {
 	empleado?: {

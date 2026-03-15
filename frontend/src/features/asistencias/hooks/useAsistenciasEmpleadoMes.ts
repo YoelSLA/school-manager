@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { obtenerAsistenciasEmpleadoMes } from "../services/asistencias.services";
-import { asistenciasQueryKeys } from "../utils/asistencias.queryKeys";
+import { asistenciasQueryKeys } from "../../../utils/queryKeys/asistencias.queryKeys";
 
 type Options = {
 	enabled?: boolean;

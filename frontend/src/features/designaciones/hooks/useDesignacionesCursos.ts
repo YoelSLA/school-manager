@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { listarDesignacionesCursos } from "../services/designaciones.services";
-import { designacionesQueryKeys } from "../utils/designaciones.queryKeys";
+import { designacionesQueryKeys } from "../../../utils/queryKeys/designaciones.queryKeys";
 
 export type DesignacionCursoFilter = {
 	cursoId?: string;

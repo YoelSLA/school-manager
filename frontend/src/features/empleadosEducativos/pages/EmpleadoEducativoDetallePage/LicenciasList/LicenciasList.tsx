@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import type { EmpleadoEducativoLicenciaItemDTO } from "@/features/empleadosEducativos/types/empleadosEducativos.types";
 import EntityList from "../EntityList";
 import LicenciaItem from "./LicenciaRow";
 import styles from "./LicenciasList.module.scss";
+import { EmpleadoEducativoLicenciaItemDTO } from "@/utils/types";
 
 type Props = {
 	licencias: EmpleadoEducativoLicenciaItemDTO[];

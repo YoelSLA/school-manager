@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { reactivarEmpleado } from "../services/empleadosEducativos.services";
-import { empleadosEducativosQueryKeys } from "../utils/empleadosEducativos.queryKeys";
+import { empleadosEducativosQueryKeys } from "../../../utils/queryKeys/empleadosEducativos.queryKeys";
 
 type Variables = {
 	empleadoId: number;
@@ -15,7 +15,7 @@ export function useReactivarEmpleado() {
 
 		onSuccess: (_, variables) => {
 			/* =========================
-			   INVALIDAR LISTAS
+				 INVALIDAR LISTAS
 			========================= */
 
 			// Invalida todas las listas

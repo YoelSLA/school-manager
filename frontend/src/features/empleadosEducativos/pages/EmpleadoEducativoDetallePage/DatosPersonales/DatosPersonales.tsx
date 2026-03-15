@@ -1,8 +1,8 @@
 import { Calendar, IdCard, Mail, Phone } from "lucide-react";
-import type { EmpleadoEducativoDetalleDTO } from "@/features/empleadosEducativos/types/empleadosEducativos.types";
 import { formatearFecha } from "@/utils";
 import DatoPersonalItem from "./DatoPersonalItem";
 import styles from "./DatosPersonales.module.scss";
+import { EmpleadoEducativoDetalleDTO } from "@/utils/types";
 
 type Props = {
 	empleado: EmpleadoEducativoDetalleDTO;

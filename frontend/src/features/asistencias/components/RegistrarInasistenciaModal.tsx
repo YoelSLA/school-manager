@@ -39,7 +39,6 @@ export default function RegistrarInasistenciaModal({
 		<Modal
 			title="Registrar inasistencia manual"
 			onCancel={handleCancel}
-			onConfirm={handleSubmit(onConfirm)}
 			confirmLabel="Registrar"
 			isSubmitting={isSubmitting}
 		>

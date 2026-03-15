@@ -1,11 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-import type { CursoNombreDTO } from "@/features/cursos/types/cursos.types";
-
-import type { MateriaNombreDTO } from "@/features/materias/types/materias.types";
-import type { DesignacionDetalleDTO } from "../../types/designacion.types";
-import { EditarDesignacionCursoFormValues, editarDesignacionCursoSchema } from "../schemas/editarDesignacionCurso.schema";
+import { editarDesignacionCursoSchema } from "../schemas/editarDesignacionCurso.schema";
+import { CursoNombreDTO, DesignacionCursoUpdateDTO, DesignacionDetalleDTO, MateriaNombreDTO } from "@/utils/types";
 
 type Props = {
 	designacion?: DesignacionDetalleDTO;
@@ -18,14 +15,14 @@ export function useEditarDesignacionCursoForm({
 	materias,
 	cursos,
 }: Props) {
-	const form = useForm<EditarDesignacionCursoFormValues>({
+	const form = useForm<DesignacionCursoUpdateDTO>({
 		resolver: zodResolver(editarDesignacionCursoSchema),
 	});
 
 	const { reset } = form;
 
 	const franjas = useFieldArray<
-		EditarDesignacionCursoFormValues,
+		DesignacionCursoUpdateDTO,
 		"franjasHorarias"
 	>({
 		control: form.control,

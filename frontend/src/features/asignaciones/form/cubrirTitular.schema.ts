@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { requiredFechaISO } from "@/utils/zod/schemas";
-import { CaracteristicaAsignacion } from "../types/asignacion.types";
+import { CaracteristicaAsignacion } from "@/utils/types/enums";
 
 export const cubrirTitularSchema = z.object({
 	empleadoId: z.coerce
@@ -14,7 +14,7 @@ export const cubrirTitularSchema = z.object({
 
 	caracteristica: z.enum(CaracteristicaAsignacion, {
 		message: "La característica es obligatoria",
-	}),
+	}).optional(),
 });
 
-export type CubrirTitularFormValues = z.infer<typeof cubrirTitularSchema>;
+

@@ -1,11 +1,11 @@
 import { User } from "lucide-react";
 import Badge from "@/components/Badge";
 import SituacionRevistaBadge from "@/components/SituacionRevistaBadge/SituacionRevistaBadge";
-import type { AsignacionDetalleDTO } from "@/features/asignaciones/types/asignacion.types";
 import { ESTADO_ASIGNACION_BADGE } from "@/features/asignaciones/utils/asignacion.badges";
 import CargoCardMenu from "../CargoCardMenu";
 import PeriodoCargo from "../PeriodoCargo";
 import styles from "./CargoCard.module.scss";
+import { AsignacionDetalleDTO } from "@/utils/types";
 
 type Props = {
 	cargo: AsignacionDetalleDTO;

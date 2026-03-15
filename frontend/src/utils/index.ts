@@ -1,11 +1,8 @@
 import { matchPath } from "react-router-dom";
-import type {
-	DesignacionFiltro,
-	RolEducativo,
-} from "@/features/designaciones/types/designacion.types";
 import type { TipoLicencia } from "@/features/licencias/utils/tipoLicencia";
 import { routeTitles } from "@/router/titles";
-import { Dia } from "./types";
+import { DesignacionFiltro, Dia } from "./types";
+import { RolEducativo } from "./types/enums";
 
 export function diasRestantes(fechaHasta: string): number {
 	const [year, month, day] = fechaHasta.split("-").map(Number);
@@ -91,9 +88,9 @@ export const FILTROS_DESIGNACIONES: {
 	value: DesignacionFiltro;
 	label: string;
 }[] = [
-	{ value: "ADMIN", label: "Administrativas" },
-	{ value: "CURSO", label: "Cursos" },
-];
+		{ value: "ADMIN", label: "Administrativas" },
+		{ value: "CURSO", label: "Cursos" },
+	];
 
 export function formatLicenciaLabel(codigo: string, descripcion: string) {
 	return `${codigo.padEnd(6, " ")} — ${descripcion}`;

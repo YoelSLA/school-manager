@@ -1,9 +1,6 @@
 import { Clock, type LucideIcon, Repeat, Star } from "lucide-react";
 import type { BadgeVariant } from "@/components/Badge/Badge.types";
-import type {
-	EstadoAsignacion,
-	SituacionDeRevista,
-} from "../types/asignacion.types";
+import { EstadoAsignacion, SituacionDeRevista } from "@/utils/types/enums";
 
 export const ESTADO_ASIGNACION_BADGE = {
 	ACTIVA: "activa",
@@ -21,17 +18,17 @@ export const SITUACION_REVISTA_CONFIG: Record<
 		Icon: LucideIcon;
 	}
 > = {
-	TITULAR: {
+	Titular: {
 		label: "Titular",
 		className: "sr-badge--titular",
 		Icon: Star,
 	},
-	PROVISIONAL: {
+	Provisional: {
 		label: "Provisional",
 		className: "sr-badge--provisional",
 		Icon: Clock,
 	},
-	SUPLENTE: {
+	Suplente: {
 		label: "Suplente",
 		className: "sr-badge--suplente",
 		Icon: Repeat,

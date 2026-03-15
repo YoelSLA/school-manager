@@ -17,3 +17,55 @@
 		transform: rotate(360deg);
 	}
 }
+
+.activeFilters {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 16px;
+}
+
+.filterChip {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+
+	padding: 4px 10px;
+
+	font-size: 13px;
+	font-weight: 500;
+
+	border-radius: 999px;
+
+	border: 1px solid var(--border-color, #d1d5db);
+	background: var(--chip-bg, #f3f4f6);
+	color: var(--text-color, #374151);
+
+	cursor: pointer;
+
+	transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.filterChip:hover {
+	background: #e5e7eb;
+	border-color: #cbd5f5;
+}
+
+.clearFilters {
+	background: none;
+	border: none;
+
+	font-size: 13px;
+	font-weight: 500;
+
+	color: #2563eb;
+
+	cursor: pointer;
+
+	padding: 4px 6px;
+}
+
+.clearFilters:hover {
+	text-decoration: underline;
+}

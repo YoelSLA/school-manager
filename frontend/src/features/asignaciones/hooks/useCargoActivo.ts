@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { obtenerCargoActivo } from "../../designaciones/services/designaciones.services";
-import { designacionesQueryKeys } from "../../designaciones/utils/designaciones.queryKeys";
+import { designacionesQueryKeys } from "../../../utils/queryKeys/designaciones.queryKeys";
 
 export function useCargoActivo(designacionId?: number) {
 	const query = useQuery({

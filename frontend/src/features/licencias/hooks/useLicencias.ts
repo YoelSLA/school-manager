@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getLicenciasPorEscuela } from "../services/licencias.services";
-import { licenciasQueryKeys } from "../utils/licencias.queryKeys";
+import { licenciasQueryKeys } from "@/utils/queryKeys/licencias.queryKeys";
 
 export function useLicencias(
 	escuelaId?: number,

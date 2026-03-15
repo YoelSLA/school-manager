@@ -1,10 +1,10 @@
 import Button from "@/components/Button/Button";
-import type { TipoDesignacion } from "@/features/designaciones/types/designacion.types";
 import styles from "./DesignacionTabs.module.scss";
+import { DesignacionFiltro } from "@/utils/types";
 
 type Props = {
-	value: TipoDesignacion;
-	onChange: (value: TipoDesignacion) => void;
+	value: DesignacionFiltro;
+	onChange: (value: DesignacionFiltro) => void;
 };
 
 export default function DesignacionTabs({ value, onChange }: Props) {

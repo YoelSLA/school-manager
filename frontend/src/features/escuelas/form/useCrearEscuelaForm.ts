@@ -1,13 +1,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { crearEscuelaSchema } from "./crearEscuela.schema";
-import { CREAR_ESCUELA_DEFAULTS } from "./escuela.defaults";
-import type { EscuelaFormInput, EscuelaFormOutput } from "./escuela.form.types";
+import { EscuelaCreateDTO } from "@/utils/types";
 
 export function useCrearEscuelaForm() {
-	const form = useForm<EscuelaFormInput, unknown, EscuelaFormOutput>({
+	const form = useForm<EscuelaCreateDTO>({
 		resolver: zodResolver(crearEscuelaSchema),
-		defaultValues: CREAR_ESCUELA_DEFAULTS,
+		defaultValues: {
+			nombre: "",
+			localidad: "",
+			direccion: "",
+			telefono: "",
+		},
 	});
 
 	return {

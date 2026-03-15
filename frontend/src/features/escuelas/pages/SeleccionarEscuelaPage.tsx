@@ -1,32 +1,34 @@
 import { useState } from "react";
 
-import ConfirmarEliminarModal from "../components/ConfirmarEliminarModal";
-import CrearEscuelaModal from "../components/CrearEscuelaModal";
-import type { EscuelaFormOutput } from "../form/escuela.form.types";
 import { useCrearEscuela } from "../hooks/useCrearEscuela";
-import { useEscuelas } from "../hooks/useEscuelas";
-import type { Escuela } from "../types/escuela.types";
 import { SeleccionarEscuelaEmpty } from "./SeleccionarEscuelaEmpty";
 import { SeleccionarEscuelaGrid } from "./SeleccionarEscuelaGrid";
 import { SeleccionarEscuelaHeader } from "./SeleccionarEscuelaHeader";
 import styles from "./SeleccionarEscuelaPage.module.scss";
+import { EscuelaCreateDTO, EscuelaResponseDTO } from "@/utils/types";
+import { useGetAllEscuelas } from "../hooks/useGetAllEscuelas";
+import { useDeleteEscuela } from "../hooks/useDeleteEscuela";
+import DisableEscuelaModal from "../components/DisableEscuelaModal";
+import CreateEscuelaModal from "../components/CreateEscuelaModal/CreateEscuelaModal";
 
 export default function SeleccionarEscuelaPage() {
-	const { escuelas, isLoading, eliminarEscuela } = useEscuelas();
+	const { escuelas, isLoading } = useGetAllEscuelas();
+	const deleteEscuela = useDeleteEscuela();
 	const { crearEscuela, isLoading: isCreating, error } = useCrearEscuela();
 
 	const [modalCrear, setModalCrear] = useState(false);
-	const [_editar, setEditar] = useState<Escuela | null>(null);
-	const [eliminar, setEliminar] = useState<Escuela | null>(null);
+	const [editar, setEditar] = useState<EscuelaResponseDTO | null>(null);
+	const [eliminar, setEliminar] = useState<EscuelaResponseDTO | null>(null);
 
 	const confirmarEliminar = async () => {
 		if (!eliminar) return;
-		await eliminarEscuela(eliminar.id);
+
+		await deleteEscuela.mutateAsync(eliminar.id);
+
 		setEliminar(null);
 	};
 
-	// 🔥 ESTE ERA EL PASO QUE FALTABA
-	const handleCrearEscuela = async (data: EscuelaFormOutput) => {
+	const handleCrearEscuela = async (data: EscuelaCreateDTO) => {
 		await crearEscuela(data);
 		setModalCrear(false);
 	};
@@ -35,7 +37,7 @@ export default function SeleccionarEscuelaPage() {
 		<div className={styles["seleccionar-escuela"]}>
 			<SeleccionarEscuelaHeader
 				onCrear={() => setModalCrear(true)}
-				onRefresh={() => {}}
+				onRefresh={() => { }}
 				isLoading={isLoading}
 			/>
 
@@ -52,18 +54,20 @@ export default function SeleccionarEscuelaPage() {
 			</div>
 
 			{modalCrear && (
-				<CrearEscuelaModal
+				<CreateEscuelaModal
 					onClose={() => setModalCrear(false)}
-					onSubmit={handleCrearEscuela} // ✅ AHORA SÍ
+					onSubmit={handleCrearEscuela}
 					isSubmitting={isCreating}
 					error={error ? "No se pudo crear la escuela" : null}
 				/>
 			)}
 
 			{eliminar && (
-				<ConfirmarEliminarModal
-					onClose={() => setEliminar(null)}
+				<DisableEscuelaModal
+					open={!!eliminar}
+					onCancel={() => setEliminar(null)}
 					onConfirm={confirmarEliminar}
+					loading={deleteEscuela.isPending}
 				/>
 			)}
 		</div>

@@ -1,10 +1,10 @@
 import Badge from "@/components/Badge";
 import EmpleadoInfo from "@/components/EmpleadoInfo/EmpleadoInfo";
 import SituacionRevistaBadge from "@/components/SituacionRevistaBadge/SituacionRevistaBadge";
-import type { AsignacionDetalleDTO } from "@/features/asignaciones/types/asignacion.types";
 import { ESTADO_ASIGNACION_BADGE } from "@/features/asignaciones/utils/asignacion.badges";
 import { formatearFecha } from "@/utils";
 import styles from "./CargoRow.module.scss";
+import { AsignacionDetalleDTO } from "@/utils/types";
 
 type Props = {
 	cargo: AsignacionDetalleDTO;

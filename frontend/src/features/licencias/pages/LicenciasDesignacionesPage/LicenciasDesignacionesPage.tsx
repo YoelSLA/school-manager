@@ -2,12 +2,12 @@ import { IdCard, User } from "lucide-react";
 import { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import Button from "@/components/Button";
-import type { EmpleadoEducativoMinimoDTO } from "@/features/empleadosEducativos/types/empleadosEducativos.types";
 import { useDesignacionesAfectadas } from "@/features/licencias/hooks/useDesignacionesAfectadas";
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import LicenciaCubrirDesignacionesModal from "../../components/LicenciaCubrirDesignacionesModal/LicenciaCubrirDesignacionesModal";
 import DesignacionesList from "./DesignacionesList/DesignacionesAfectadasList";
 import styles from "./LicenciasDesignacionesPage.module.scss";
+import { EmpleadoEducativoMinimoDTO } from "@/utils/types";
 
 type LocationState = {
 	empleado: EmpleadoEducativoMinimoDTO;

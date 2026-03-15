@@ -1,4 +1,4 @@
-import type { CursoResponseDTO } from "@/cursos/types/cursos.types";
+import { CursoResponseDTO } from "@/utils/types";
 import styles from "./CursoDetalleHeader.module.scss";
 
 type Props = {

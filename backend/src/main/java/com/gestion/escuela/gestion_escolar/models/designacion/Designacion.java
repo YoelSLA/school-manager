@@ -95,8 +95,11 @@ public abstract class Designacion {
 			LocalDate fechaDesde
 	) {
 		PoliticaDeCobertura.validarCubrirConTitular(this, empleado, fechaDesde);
+
 		AsignacionTitular titular = new AsignacionTitular(empleado, this, fechaDesde);
+
 		agregarAsignacion(titular);
+
 		return titular;
 	}
 
@@ -261,10 +264,11 @@ public abstract class Designacion {
 
 	private void agregarAsignacion(Asignacion asignacion) {
 		Validaciones.noNulo(asignacion, "asignación");
-
 		validarNoSuperposicion(asignacion);
 
 		asignaciones.add(asignacion);
+		asignacion.setDesignacion(this);
+
 		asignacion.getEmpleadoEducativo().agregarAsignacion(asignacion);
 	}
 

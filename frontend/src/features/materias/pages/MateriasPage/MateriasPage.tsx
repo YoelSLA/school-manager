@@ -9,13 +9,12 @@ import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
 import CrearMateriaModal from "../../components/MateriaCreateModal";
 import MateriaEditModal from "../../components/MateriaEditModal/MateriaEditModal";
-import type { CrearMateriaFormValues } from "../../form/materias.form.types";
 import { useCrearMateria } from "../../hooks/useCreateMateria";
 import { useDeleteMateria } from "../../hooks/useDeleteMateria";
 import { useMaterias } from "../../hooks/useMaterias";
 import { useEditMateria } from "../../hooks/useUpdateMateria";
-import type { MateriaResponseDTO } from "../../types/materias.types";
 import MateriasList from "./MateriasList";
+import { MateriaCreateDTO, MateriaResponseDTO, MateriaUpdateDTO } from "@/utils/types";
 
 export default function MateriasPage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
@@ -31,7 +30,7 @@ export default function MateriasPage() {
 		escuelaActiva?.id,
 	);
 
-	const handleCreateMateria = (data: CrearMateriaFormValues) => {
+	const handleCreateMateria = (data: MateriaCreateDTO) => {
 		if (!escuelaActiva) return;
 
 		createMateria(data, {
@@ -49,7 +48,7 @@ export default function MateriasPage() {
 		escuelaActiva?.id,
 	);
 
-	const handleEditMateria = (data: CrearMateriaFormValues) => {
+	const handleEditMateria = (data: MateriaUpdateDTO) => {
 		if (!escuelaActiva || !materiaAEditar) return;
 
 		editMateria(

@@ -2,12 +2,12 @@ import FormSection from "@/components/FormSection";
 import FormInputField from "@/components/forms/FormInputField";
 import Modal from "@/components/Modal/Modal";
 import { useMateriaForm } from "../../form/hooks/useCreateMateriaForm";
-import type { CrearMateriaFormValues } from "../../form/materias.form.types";
+import { MateriaCreateDTO } from "@/utils/types";
 
 type Props = {
 	onClose: () => void;
 	isSubmitting: boolean;
-	onSubmit: (data: CrearMateriaFormValues) => void;
+	onSubmit: (data: MateriaCreateDTO) => void;
 };
 
 export default function MateriaCreateModal({

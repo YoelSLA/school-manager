@@ -1,10 +1,10 @@
 import { Card, CardDivider } from "@/components/Card";
 import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
-import type { EstadoDesignacion } from "../../types/designacion.types";
 import styles from "./DesignacionCard.module.scss";
 import DesignacionCardHeader from "./DesignacionCardHeader/DesignacionCardHeader";
 import DesignacionCardHorarios from "./DesignacionCardHorarios";
 import DesignacionEmpleado from "./DesignacionEmpleado";
+import { EstadoDesignacion } from "@/utils/types/enums";
 
 type Props = {
 	designacionId: number;
@@ -27,9 +27,9 @@ export default function DesignacionCard({
 
 	const empleado = cargoActivo?.empleado
 		? {
-				...cargoActivo.empleado,
-				situacionDeRevista: cargoActivo.situacionDeRevista,
-			}
+			...cargoActivo.empleado,
+			situacionDeRevista: cargoActivo.situacionDeRevista,
+		}
 		: undefined;
 
 	const status = estadoDesignacion === "CUBIERTA" ? "success" : "danger";

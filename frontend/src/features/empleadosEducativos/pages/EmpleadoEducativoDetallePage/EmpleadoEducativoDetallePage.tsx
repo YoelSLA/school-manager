@@ -5,7 +5,6 @@ import PageLayout from "@/layout/PageLayout/PageLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
 import BajaDefinitivaModal from "../../components/BajaDefinitivaModal";
-import type { BajaDefinitivaOutput } from "../../form/empleadoEducativo.form.types";
 import { useDarDeBajaDefinitiva } from "../../hooks/useDarDeBajaDefinitiva";
 import { useEmpleadoEducativo } from "../../hooks/useEmpleadoEducativo";
 import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
@@ -15,6 +14,7 @@ import DatosPersonales from "./DatosPersonales/DatosPersonales";
 import styles from "./EmpleadoEducativoDetallePage.module.scss";
 import HeaderEmpleado from "./HeaderEmpleado/HeaderEmpleado";
 import LicenciasList from "./LicenciasList";
+import { BajaDefinitivaDTO } from "@/utils/types";
 
 export default function EmpleadoEducativoDetallePage() {
 	const { empleadoId } = useParams();
@@ -46,17 +46,14 @@ export default function EmpleadoEducativoDetallePage() {
 		}
 	};
 
-	const confirmarBaja = (data: BajaDefinitivaOutput) => {
+	const confirmarBaja = (data: BajaDefinitivaDTO) => {
 		if (!escuelaActiva?.id) return;
 
 		bajaMutation.mutate(
 			{
 				empleadoId: empleado.id,
 				escuelaId: escuelaActiva.id,
-				payload: {
-					...data,
-					fechaBaja: new Date().toISOString().slice(0, 10),
-				},
+				payload: data
 			},
 			{
 				onSuccess: () => {

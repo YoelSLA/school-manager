@@ -1,7 +1,7 @@
 import ListState from "@/components/ListState";
 import ScrollableGridListLayout from "@/layout/ScrollableGridListLayout/ScrollableGridListLayout";
 import EmpleadoEducativoCard from "../../components/EmpleadoEducativoCard";
-import type { EmpleadoEducativoDetalleDTO } from "../../types/empleadosEducativos.types";
+import { EmpleadoEducativoDetalleDTO } from "@/utils/types";
 
 type Props = {
 	empleados: EmpleadoEducativoDetalleDTO[];

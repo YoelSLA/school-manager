@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getLicenciaTimeline } from "../services/licencias.services";
-import { licenciasQueryKeys } from "../utils/licencias.queryKeys";
+import { licenciasQueryKeys } from "@/utils/queryKeys/licencias.queryKeys";
 
 export const useLicenciaTimeline = (licenciaId?: number) => {
 	return useQuery({
