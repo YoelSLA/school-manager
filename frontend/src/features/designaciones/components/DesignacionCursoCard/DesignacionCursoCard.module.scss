@@ -1,0 +1,130 @@
+@use "@/styles/breakpoints" as *;
+
+/* =========================
+   BODY
+========================= */
+
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+/* =========================
+   ITEMS
+========================= */
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.item svg {
+  flex-shrink: 0;
+}
+
+/* =========================
+   COLORES ICONOS
+========================= */
+
+.materia svg {
+  color: #2563eb;
+}
+
+.curso svg {
+  color: #16a34a;
+}
+
+.orientacion svg {
+  color: #7c3aed;
+}
+
+/* =========================
+   MATERIA MULTILINE
+========================= */
+
+.materia {
+  align-items: flex-start;
+}
+
+.materia .value {
+  line-height: 1.2;
+  height: calc(1.2em * 2);
+  overflow: hidden;
+  width: 100%;
+}
+
+/* =========================
+   SMALL (content 88px)
+========================= */
+
+@include desktop-height-small {
+  .body {
+    gap: 2px;
+  }
+
+  .item svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .value {
+    font-size: 13px;
+  }
+
+  .valueEmphasis {
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
+/* =========================
+   MEDIUM (content 76px)
+========================= */
+
+@include desktop-height-medium {
+  .body {
+    gap: 4px;
+  }
+
+  .item svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .value {
+    font-size: 14px;
+  }
+
+  .valueEmphasis {
+    font-size: 15px;
+    font-weight: 600;
+  }
+}
+
+/* =========================
+   LARGE (content 84px)
+========================= */
+
+@include desktop-height-large {
+  .body {
+    gap: 4px;
+  }
+
+  .item svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .value {
+    font-size: 15px;
+  }
+
+  .valueEmphasis {
+    font-size: 16px;
+    font-weight: 600;
+  }
+}

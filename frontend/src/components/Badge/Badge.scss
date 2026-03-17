@@ -1,5 +1,3 @@
-@use "@/styles/breakpoints" as *;
-
 .badge {
 	display: inline-flex;
 	align-items: center;
@@ -20,7 +18,7 @@
 		line-height: 1;
 	}
 
-	/* ================= VARIANTS ================= */
+	/* VARIANTS */
 
 	&--activa {
 		background: var(--estado-activa);
@@ -56,41 +54,5 @@
 	&--inactiva {
 		background: var(--estado-inactiva);
 		color: var(--estado-inactiva-text);
-	}
-}
-
-/* =========================
-   DESKTOP HEIGHT LARGE
-========================= */
-
-@include desktop-height-large {
-	.badge {
-		font-size: 13px;
-		padding: 6px 14px;
-		gap: 8px;
-	}
-}
-
-/* =========================
-   DESKTOP HEIGHT MEDIUM
-========================= */
-
-@include desktop-height-medium {
-	.badge {
-		font-size: 11px;
-		padding: 3px 8px;
-		gap: 5px;
-	}
-}
-
-/* =========================
-   DESKTOP HEIGHT SMALL
-========================= */
-
-@include desktop-height-small {
-	.badge {
-		font-size: 10px;
-		padding: 2px 6px;
-		gap: 4px;
 	}
 }

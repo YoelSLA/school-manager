@@ -1,24 +1,37 @@
 import { RefreshCw } from "lucide-react";
 import { useState } from "react";
+
 import Button from "@/components/Button/Button";
+import ListState from "@/components/ListState";
 import SortBuilder from "@/components/EmpleadoSortDropdown";
 import FilteredSidebar from "@/components/FilteredSidebar/FilteredSidebar";
+
 import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
+
 import Pagination from "@/layout/Pagination";
+import ScrollableGridListLayout from "@/layout/ScrollableGridListLayout/ScrollableGridListLayout";
 import SidebarPageLayout from "@/layout/SidebarPageLayout/SidebarPageLayout";
-import type { EmpleadoEducativoFiltro, SortState } from "@/utils/types";
+
 import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
 import { useEmpleadosEducativos } from "../../hooks/useEmpleadosEducativos";
+
 import { FILTROS_EMPLEADOS } from "../../utils/empleadosEducativos.utils";
-import EmpleadosEducativosList from "./EmpleadosEducativosList";
+
+import EmpleadoEducativoCard from "../../components/EmpleadoEducativoCard";
+
+import type {
+	EmpleadoEducativoFiltro,
+	EmpleadoEducativoDetalleDTO,
+	SortState,
+} from "@/utils/types";
+
 import styles from "./EmpleadosEducativosPage.module.scss";
 
 export default function EmpleadosEducativosPage() {
 	const [filtro, setFiltro] = useState<EmpleadoEducativoFiltro>("TODOS");
-
 	const [sort, setSort] = useState<SortState>({});
-
 	const [page, setPage] = useState(0);
+
 	const pageSize = useDynamicPageSize();
 
 	const { data, isLoading, refetch, isFetching } = useEmpleadosEducativos(
@@ -29,6 +42,9 @@ export default function EmpleadosEducativosPage() {
 	);
 
 	const empleadoNav = useEmpleadoNavigation();
+
+	const empleados = data?.content ?? [];
+	const totalPages = data?.totalPages ?? 0;
 
 	const handleSortChange = (newSort: SortState) => {
 		setSort(newSort);
@@ -44,9 +60,6 @@ export default function EmpleadosEducativosPage() {
 		setPage(0);
 		refetch();
 	};
-
-	const empleados = data?.content ?? [];
-	const totalPages = data?.totalPages ?? 0;
 
 	return (
 		<SidebarPageLayout
@@ -81,11 +94,21 @@ export default function EmpleadosEducativosPage() {
 				<Pagination page={page} totalPages={totalPages} onChange={setPage} />
 			}
 		>
-			<EmpleadosEducativosList
-				empleados={empleados}
-				isLoading={isLoading}
-				onVerDetalle={empleadoNav.verDetalle}
-			/>
+			{isLoading ? (
+				<ListState>Cargando empleados educativos…</ListState>
+			) : empleados.length === 0 ? (
+				<ListState>No hay empleados para el filtro seleccionado.</ListState>
+			) : (
+				<ScrollableGridListLayout>
+					{empleados.map((empleado: EmpleadoEducativoDetalleDTO) => (
+						<EmpleadoEducativoCard
+							key={empleado.id}
+							empleado={empleado}
+							onVerDetalle={empleadoNav.verDetalle}
+						/>
+					))}
+				</ScrollableGridListLayout>
+			)}
 		</SidebarPageLayout>
 	);
 }

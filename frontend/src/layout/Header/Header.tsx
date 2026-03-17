@@ -10,29 +10,29 @@ export default function Header() {
 	const escuela = escuelaRaw ? JSON.parse(escuelaRaw) : null;
 
 	return (
-		<header className={styles["app-header"]}>
+		<header className={styles.appHeader}>
 			{/* LEFT */}
-			<div className={styles["app-header__left"]}>
-				<div className={styles["app-header__logo"]}>Gestión Escolar</div>
+			<div className={styles.appHeader__left}>
+				<div className={styles.appHeader__logo}>Gestión Escolar</div>
+
 				<Button
 					variant="secondary"
 					size="sm"
 					onClick={() => navigate("/seleccionar-escuela")}
-					className={styles["app-header__school-button"]}
+					className={styles.appHeader__schoolButton}
 				>
 					🏫 {escuela ? escuela.nombre : "Seleccionar escuela"}
 				</Button>
 			</div>
 
 			{/* NAV */}
-			<nav className={styles["app-header__nav"]}>
+			<nav className={styles.appHeader__nav}>
 				{NAV_ITEMS.map((item) => (
 					<NavLink
 						key={item.to}
 						to={item.to}
 						className={({ isActive }) =>
-							`${styles["app-header__link"]} ${
-								isActive ? styles["app-header__link--active"] : ""
+							`${styles.appHeader__link} ${isActive ? styles.appHeader__linkActive : ""
 							}`
 						}
 					>
@@ -40,15 +40,6 @@ export default function Header() {
 					</NavLink>
 				))}
 			</nav>
-
-			{/* ACTIONS (cuando las habilites) */}
-			{/*
-      <div className={styles["app-header__actions"]}>
-        <Button variant="ghost" size="icon">⚙️</Button>
-        <Button variant="ghost" size="icon">🔔</Button>
-        <div className={styles["app-header__avatar"]}>N</div>
-      </div>
-      */}
 		</header>
 	);
 }

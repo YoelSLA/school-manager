@@ -36,22 +36,22 @@
 	   SIZES (BASE = MEDIUM)
 	====================== */
 
-	&.btnSm {
-		padding: 8px 12px;
+	.btnSm {
+		height: 28px;
+		padding: 0 12px;
 		font-size: 0.85rem;
 	}
 
-	&.btnMd {
-		padding: 10px 16px;
+	.btnMd {
+		height: 32px;
+		padding: 0 16px;
 		font-size: 0.9rem;
 	}
 
-	&.btnIcon {
-		padding: 0;
+	.btnIcon {
 		width: 32px;
 		height: 32px;
-		border-radius: 8px;
-		font-size: 14px;
+		padding: 0;
 	}
 
 	/* ======================
@@ -175,12 +175,14 @@
 		border-radius: 12px;
 
 		&.btnSm {
-			padding: 6px 10px;
+			height: 28px;
+			padding: 0 10px;
 			font-size: 0.8rem;
 		}
 
 		&.btnMd {
-			padding: 8px 14px;
+			height: 32px;
+			padding: 0 14px;
 			font-size: 0.85rem;
 		}
 
@@ -201,12 +203,14 @@
 		border-radius: 24px;
 
 		&.btnSm {
-			padding: 10px 14px;
+			height: 32px;
+			padding: 0 14px;
 			font-size: 0.9rem;
 		}
 
 		&.btnMd {
-			padding: 12px 20px;
+			height: 36px;
+			padding: 0 20px;
 			font-size: 1rem;
 		}
 

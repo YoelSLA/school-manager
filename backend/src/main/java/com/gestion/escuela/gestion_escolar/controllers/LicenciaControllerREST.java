@@ -79,5 +79,11 @@ public class LicenciaControllerREST {
 				.toList();
 	}
 
+	@DeleteMapping("/{licenciaId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void eliminarLicencia(@PathVariable Long licenciaId) {
+		licenciaService.eliminarLicencia(licenciaId);
+	}
+
 }
 

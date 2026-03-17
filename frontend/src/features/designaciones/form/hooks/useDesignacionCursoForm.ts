@@ -1,9 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-import type { MateriaNombreDTO } from "@/features/materias/types/materias.types";
-import { CursoNombreDTO, DesignacionCursoCreateDTO, Dia } from "@/utils/types";
+import type { CursoNombreDTO, DesignacionCursoCreateDTO, MateriaNombreDTO } from "@/utils/types";
 import { crearDesignacionCursoSchema } from "../schemas/crearDesignacionCurso.schema";
+import { Dia } from "@/utils/types/enums";
 
 type Props = {
 	materias?: MateriaNombreDTO[];

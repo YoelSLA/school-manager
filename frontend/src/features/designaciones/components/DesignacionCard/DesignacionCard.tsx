@@ -1,10 +1,11 @@
-import { Card, CardDivider } from "@/components/Card";
+import { Card } from "@/components/Card";
 import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
 import styles from "./DesignacionCard.module.scss";
-import DesignacionCardHeader from "./DesignacionCardHeader/DesignacionCardHeader";
-import DesignacionCardHorarios from "./DesignacionCardHorarios";
-import DesignacionEmpleado from "./DesignacionEmpleado";
-import { EstadoDesignacion } from "@/utils/types/enums";
+import type { EstadoDesignacion } from "@/utils/types/enums";
+import { Clock, Tag, } from "lucide-react";
+import EmpleadoInfo from "@/components/EmpleadoInfo";
+import BadgeEstadoDesignacion from "@/components/BagdeEstadoDesignacion";
+import BadgeSituacionRevista from "@/components/BadgeSituacionRevista/BadgeSituacionRevista";
 
 type Props = {
 	designacionId: number;
@@ -34,38 +35,54 @@ export default function DesignacionCard({
 
 	const status = estadoDesignacion === "CUBIERTA" ? "success" : "danger";
 
+	const franjasLabel =
+		franjasCount === 1 ? "1 franja" : `${franjasCount} franjas`;
+
 	return (
-		<Card
-			clickable
-			status={status}
-			className={styles.card}
-			onClick={onVerDetalle}
-		>
-			{/* HEADER */}
-			<div className={styles.sectionHeader}>
-				<DesignacionCardHeader
-					cupof={cupof}
-					estadoDesignacion={estadoDesignacion}
-				/>
-			</div>
+		<Card clickable status={status} onClick={onVerDetalle}>
+			<div className={styles.layout}>
+				{/* ================= HEADER ================= */}
 
-			<CardDivider />
+				<header className={styles.header}>
+					<div className={styles.cupof}>
+						<Tag size={18} />
+						<span>#{cupof}</span>
+					</div>
 
-			{/* EMPLEADO */}
-			<div className={styles.sectionEmpleado}>
-				<DesignacionEmpleado empleado={empleado} />
-			</div>
+					<BadgeEstadoDesignacion value={estadoDesignacion} />
+				</header>
 
-			<CardDivider />
+				{/* ================= EMPLEADO ================= */}
 
-			{/* CONTENIDO ESPECÍFICO (ADMIN / CURSO) */}
-			<div className={styles.sectionContent}>{children}</div>
+				<div className={styles.sectionEmpleado}>
+					<div className={styles.persona}>
+						{empleado && (
+							<div className={styles.badgeWrapper}>
+								<BadgeSituacionRevista
+									value={empleado.situacionDeRevista}
+								/>
+							</div>
+						)}
 
-			<CardDivider />
+						<EmpleadoInfo empleado={empleado} />
+					</div>
+				</div>
 
-			{/* HORARIOS */}
-			<div className={styles.sectionHorarios}>
-				<DesignacionCardHorarios franjasCount={franjasCount} />
+				{/* ================= CONTENT ================= */}
+
+				<div className={styles.sectionContent}>{children}</div>
+
+				{/* ================= HORARIOS ================= */}
+
+				<div className={styles.sectionHorarios}>
+					<div className={styles.horarios}>
+						<Clock className={styles.horariosIcon} />
+
+						<span className={styles.horariosText}>
+							Carga horaria · {franjasLabel}
+						</span>
+					</div>
+				</div>
 			</div>
 		</Card>
 	);

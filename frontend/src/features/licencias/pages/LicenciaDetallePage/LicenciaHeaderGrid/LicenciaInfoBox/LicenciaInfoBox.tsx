@@ -1,10 +1,8 @@
 import { Calendar, Clock, FileText, Hash } from "lucide-react";
-import Badge from "@/components/Badge";
-import { ESTADO_LICENCIA_BADGE } from "@/features/licencias/utils/licencia.bagdes";
-import { diasRestantes, formatPeriodo } from "@/utils";
-
 import styles from "./LicenciaInfoBox.module.scss";
-import { LicenciaDetalleDTO } from "@/utils/types";
+import type { LicenciaDetalleDTO } from "@/utils/types";
+import BadgeEstadoLicencia from "@/components/BagdeEstadoLicencia";
+import { diasRestantes, formatPeriodo } from "@/utils";
 
 type Props = {
 	licencia: LicenciaDetalleDTO;
@@ -31,9 +29,7 @@ export default function LicenciaInfoBox({ licencia }: Props) {
 					</div>
 				</div>
 
-				<Badge variant={ESTADO_LICENCIA_BADGE[licencia.estadoLicencia]}>
-					{licencia.estadoLicencia}
-				</Badge>
+				<BadgeEstadoLicencia value={licencia.estadoLicencia} />
 			</header>
 
 			{/* =====================

@@ -3,7 +3,7 @@ import FilterPillGroup from "@/components/FilterPillGroup/FilterPillGroup";
 import { FILTROS_CARGOS } from "@/features/asignaciones/utils/asignaciones.utils";
 import CargoRow from "./CargoRow";
 import styles from "./DesignacionCargosHistorial.module.scss";
-import { AsignacionDetalleDTO, FiltroCargos } from "@/utils/types";
+import type { AsignacionDetalleDTO, FiltroCargos } from "@/utils/types";
 
 const MENSAJES: Record<FiltroCargos, string> = {
 	LICENCIA: "No hay cargos por licencia",

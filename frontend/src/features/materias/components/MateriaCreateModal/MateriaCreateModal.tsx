@@ -2,7 +2,7 @@ import FormSection from "@/components/FormSection";
 import FormInputField from "@/components/forms/FormInputField";
 import Modal from "@/components/Modal/Modal";
 import { useMateriaForm } from "../../form/hooks/useCreateMateriaForm";
-import { MateriaCreateDTO } from "@/utils/types";
+import type { MateriaCreateDTO } from "@/utils/types";
 
 type Props = {
 	onClose: () => void;

@@ -1,4 +1,4 @@
-import { FiltroCargos } from "@/utils/types";
+import type { FiltroCargos } from "@/utils/types";
 import { CaracteristicaAsignacion } from "@/utils/types/enums";
 
 export const TIPO_ASIGNACION_OPTIONS = [

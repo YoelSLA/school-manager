@@ -1,9 +1,8 @@
 import { Calendar, Clock, Hash, Star, Timer, Users } from "lucide-react";
 
-import Badge from "@/components/Badge";
-import { ESTADO_ASIGNACION_BADGE } from "@/features/asignaciones/utils/asignacion.badges";
 import styles from "./AsignacionRow.module.scss";
-import { EmpleadoEducativoAsignacionItemDTO } from "@/utils/types";
+import type { EmpleadoEducativoAsignacionItemDTO } from "@/utils/types";
+import BadgeEstadoAsignacion from "@/components/BagdeEstadoAsignacion";
 
 type Props = {
 	asignacion: EmpleadoEducativoAsignacionItemDTO;
@@ -53,11 +52,7 @@ export default function AsignacionRow({ asignacion }: Props) {
 			</div>
 
 			{/* ESTADO */}
-			<div className={styles.estado}>
-				<Badge variant={ESTADO_ASIGNACION_BADGE[estadoAsignacion]}>
-					{estadoAsignacion}
-				</Badge>
-			</div>
+			<BadgeEstadoAsignacion value={estadoAsignacion} />
 
 			{/* PERÍODO */}
 			<div className={styles.periodo}>

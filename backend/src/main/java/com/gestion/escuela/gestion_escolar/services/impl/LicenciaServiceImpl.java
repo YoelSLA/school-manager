@@ -79,6 +79,14 @@ public class LicenciaServiceImpl implements LicenciaService {
 		return licencia.cadenaCompleta();
 	}
 
+	@Transactional
+	public void eliminarLicencia(Long licenciaId) {
+		Licencia licencia = licenciaRepository.findById(licenciaId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("licencia", licenciaId));
+
+		licenciaRepository.delete(licencia);
+	}
+
 
 }
 

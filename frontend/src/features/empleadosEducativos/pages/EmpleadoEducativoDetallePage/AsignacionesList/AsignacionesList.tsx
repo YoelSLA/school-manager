@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import EntityList from "../EntityList";
 import styles from "./AsignacionesList.module.scss";
 import AsignacionRow from "./AsignacionRow";
-import { EmpleadoEducativoAsignacionItemDTO } from "@/utils/types";
+import type { EmpleadoEducativoAsignacionItemDTO } from "@/utils/types";
 
 type Props = {
 	asignaciones: EmpleadoEducativoAsignacionItemDTO[];

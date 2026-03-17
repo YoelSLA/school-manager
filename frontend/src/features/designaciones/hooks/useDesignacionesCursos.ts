@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
+import { designacionesQueryKeys } from "@/utils/queryKeys/designaciones.queryKeys";
 import { listarDesignacionesCursos } from "../services/designaciones.services";
-import { designacionesQueryKeys } from "../../../utils/queryKeys/designaciones.queryKeys";
 
 export type DesignacionCursoFilter = {
 	cursoId?: string;
@@ -20,7 +20,7 @@ export function useDesignacionesCursos(
 	filter?: DesignacionCursoFilter,
 	options?: Options,
 ) {
-	const enabled = escuelaId != null && (options?.enabled ?? true);
+	const enabled = Boolean(escuelaId) && (options?.enabled ?? true);
 
 	return useQuery({
 		queryKey:
@@ -38,6 +38,7 @@ export function useDesignacionesCursos(
 
 		placeholderData: (previousData) => previousData,
 
-		staleTime: 0,
+		staleTime: 1000 * 60 * 5,
+		refetchOnWindowFocus: false,
 	});
 }

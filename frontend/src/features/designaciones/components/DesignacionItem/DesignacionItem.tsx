@@ -1,8 +1,7 @@
 import { BookOpen, Briefcase, GraduationCap, Hash } from "lucide-react";
-import Badge from "@/components/Badge";
-import { ESTADO_DESIGNACION_BADGE } from "@/features/designaciones/utils/designacion.badges";
 import styles from "./DesignacionItem.module.scss";
-import { LicenciaDesignacionDTO } from "@/utils/types";
+import type { LicenciaDesignacionDTO } from "@/utils/types";
+import BadgeEstadoDesignacion from "@/components/BagdeEstadoDesignacion";
 
 type Props = {
 	designacion: LicenciaDesignacionDTO;
@@ -16,7 +15,6 @@ export default function DesignacionItem({
 	onToggle,
 }: Props) {
 	const estaCubierta = designacion.estado === "CUBIERTA";
-	const { estado } = designacion;
 
 	return (
 		<label
@@ -37,7 +35,8 @@ export default function DesignacionItem({
 						<span>{designacion.rolEducativo}</span>
 					</div>
 
-					<Badge variant={ESTADO_DESIGNACION_BADGE[estado]}>{estado}</Badge>
+					<BadgeEstadoDesignacion value={designacion.estado} />
+
 				</div>
 
 				<div className={styles.designacionItem__cupof}>

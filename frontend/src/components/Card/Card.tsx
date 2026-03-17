@@ -2,12 +2,15 @@ import type { CSSProperties, KeyboardEvent, ReactNode } from "react";
 import styles from "./Card.module.scss";
 
 export type CardStatus = "success" | "warning" | "danger" | "info";
+export type CardPadding = "sm" | "md" | "lg";
 
 type Props = {
 	children: ReactNode;
 	className?: string;
 
 	status?: CardStatus;
+	padding?: CardPadding;
+
 	muted?: boolean;
 	elevated?: boolean;
 	clickable?: boolean;
@@ -21,6 +24,7 @@ export default function Card({
 	children,
 	className,
 	status,
+	padding = "md",
 	muted = false,
 	elevated = false,
 	clickable = false,
@@ -35,6 +39,7 @@ export default function Card({
 	const cardClassName = [
 		styles.card,
 		status && styles[`card--${status}`],
+		padding && styles[`card--padding-${padding}`],
 		muted && styles["card--muted"],
 		elevated && styles["card--elevated"],
 		clickable && styles["card--clickable"],

@@ -10,8 +10,7 @@ import { CARACTERISTICA_ASIGNACION_OPTIONS } from "@/features/asignaciones/utils
 
 import styles from "./AsignacionModalBase.module.scss";
 
-import { EmpleadoEducativoMinimoDTO } from "@/features/empleadosEducativos/types/empleadosEducativos.types";
-import { CubrirProvisionalDTO, CubrirTitularDTO } from "@/utils/types";
+import type { CubrirProvisionalDTO, CubrirTitularDTO, EmpleadoEducativoMinimoDTO } from "@/utils/types";
 
 type Props = {
 	title: string;

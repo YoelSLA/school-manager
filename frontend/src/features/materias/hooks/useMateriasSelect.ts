@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { obtenerMateriasNombres } from "../services/materias.services";
-import { MateriaNombreDTO } from "@/utils/types";
+import type { MateriaNombreDTO } from "@/utils/types";
 import { materiasQueryKeys } from "@/utils/queryKeys/materias.queryKeys";
 
 export function useMateriasSelect(escuelaId?: number) {

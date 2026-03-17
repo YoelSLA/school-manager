@@ -1,7 +1,7 @@
 import Button from "@/components/Button";
 import { formatearFecha } from "@/utils";
 import styles from "./LicenciaTimelineItem.module.scss";
-import { LicenciaTimelineItemDTO } from "@/utils/types";
+import type { LicenciaTimelineItemDTO } from "@/utils/types";
 
 type Props = {
 	item: LicenciaTimelineItemDTO;
