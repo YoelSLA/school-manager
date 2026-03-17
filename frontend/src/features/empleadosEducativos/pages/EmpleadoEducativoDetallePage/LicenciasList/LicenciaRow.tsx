@@ -1,7 +1,7 @@
-import Badge from "@/components/Badge";
-import { ESTADO_LICENCIA_BADGE } from "@/features/licencias/utils/licencia.bagdes";
+
+import BadgeEstadoLicencia from "@/components/BagdeEstadoLicencia";
 import styles from "./LicenciaRow.module.scss";
-import { EmpleadoEducativoLicenciaItemDTO } from "@/utils/types";
+import type { EmpleadoEducativoLicenciaItemDTO } from "@/utils/types";
 
 type Props = {
 	licencia: EmpleadoEducativoLicenciaItemDTO;
@@ -17,9 +17,8 @@ export default function LicenciaRow({ licencia }: Props) {
 					{normativa.codigo} · {normativa.articulo}
 				</span>
 
-				<Badge variant={ESTADO_LICENCIA_BADGE[estadoLicencia]}>
-					{estadoLicencia}
-				</Badge>
+				<BadgeEstadoLicencia value={estadoLicencia} />
+
 			</header>
 
 			<footer className={styles["licencia-row__footer"]}>

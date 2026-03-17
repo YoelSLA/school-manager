@@ -1,5 +1,5 @@
 import { RefreshCw } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import Button from "@/components/Button";
@@ -26,16 +26,8 @@ import { useDesignacionesNavigation } from "../../hooks/useDesignacionesNavigati
 
 import DesignacionesList from "./DesignacionesList";
 import styles from "./DesignacionesPage.module.scss";
+import type { CursoFiltersState, DesignacionFiltro } from "@/utils/types";
 
-import {
-	CursoFiltersState,
-	DesignacionFiltro,
-} from "@/utils/types";
-
-type ActiveFilter = {
-	key: keyof CursoFiltersState;
-	label: string;
-};
 
 export default function DesignacionesPage() {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -66,33 +58,24 @@ export default function DesignacionesPage() {
 	const [openFilters, setOpenFilters] = useState(false);
 
 	/* =========================
-		 HELPERS
+		 URL PARAM HELPER
 	========================= */
 
-	const updateParams = (params: Record<string, string | undefined>) => {
-		const newParams = new URLSearchParams(searchParams);
+	const updateParams = useCallback(
+		(params: Record<string, string | undefined>) => {
+			setSearchParams((prev) => {
+				const next = new URLSearchParams(prev);
 
-		Object.entries(params).forEach(([key, value]) => {
-			if (value) {
-				newParams.set(key, value);
-			} else {
-				newParams.delete(key);
-			}
-		});
+				Object.entries(params).forEach(([key, value]) => {
+					if (value) next.set(key, value);
+					else next.delete(key);
+				});
 
-		setSearchParams(newParams);
-	};
-
-	/* =========================
-		 RESET PAGE WHEN FILTER CHANGES
-	========================= */
-
-	useEffect(() => {
-		updateParams({
-			tipo: filtro,
-			page: "0",
-		});
-	}, [filtro, pageSize]);
+				return next;
+			});
+		},
+		[setSearchParams]
+	);
 
 	/* =========================
 		 QUERIES
@@ -147,12 +130,13 @@ export default function DesignacionesPage() {
 	========================= */
 
 	useEffect(() => {
-		if (page >= totalPages && totalPages > 0) {
-			updateParams({
-				page: (totalPages - 1).toString(),
-			});
-		}
-	}, [totalPages]);
+		if (totalPages === 0) return;
+		if (page < totalPages) return;
+
+		updateParams({
+			page: String(totalPages - 1),
+		});
+	}, [page, totalPages, updateParams]);
 
 	/* =========================
 		 ACTIONS
@@ -161,18 +145,12 @@ export default function DesignacionesPage() {
 	const handleRefresh = () => {
 		updateParams({ page: "0" });
 
-		if (filtro === "ADMIN") {
-			refetchAdmin();
-		} else {
-			refetchCursos();
-		}
+		if (filtro === "ADMIN") refetchAdmin();
+		else refetchCursos();
 	};
 
-	const handlePageChange = (newPage: number) => {
-		updateParams({
-			page: newPage.toString(),
-		});
-	};
+	const handlePageChange = (newPage: number) =>
+		updateParams({ page: String(newPage) });
 
 	/* =========================
 		 APPLY FILTERS
@@ -182,57 +160,13 @@ export default function DesignacionesPage() {
 		updateParams({
 			tipo: "CURSO",
 			page: "0",
-			cursoId: draftCursoFilters.cursoId,
-			materiaId: draftCursoFilters.materiaId,
-			orientacion: draftCursoFilters.orientacion,
-			estado: draftCursoFilters.estado,
+			...draftCursoFilters,
 		});
 
 		setOpenFilters(false);
 	};
 
-	/* =========================
-		 ACTIVE FILTERS
-	========================= */
-
-	const activeCursoFilters: ActiveFilter[] = [];
-
-	if (cursoFilters.cursoId) {
-		activeCursoFilters.push({
-			key: "cursoId",
-			label: `Curso ${cursoFilters.cursoId}`,
-		});
-	}
-
-	if (cursoFilters.materiaId) {
-		activeCursoFilters.push({
-			key: "materiaId",
-			label: `Materia ${cursoFilters.materiaId}`,
-		});
-	}
-
-	if (cursoFilters.orientacion) {
-		activeCursoFilters.push({
-			key: "orientacion",
-			label: `Orientación ${cursoFilters.orientacion}`,
-		});
-	}
-
-	if (cursoFilters.estado) {
-		activeCursoFilters.push({
-			key: "estado",
-			label: `Estado ${cursoFilters.estado}`,
-		});
-	}
-
-	const removeFilter = (key: keyof CursoFiltersState) => {
-		updateParams({
-			[key]: undefined,
-			page: "0",
-		});
-	};
-
-	const clearFilters = () => {
+	const clearFilters = () =>
 		updateParams({
 			cursoId: undefined,
 			materiaId: undefined,
@@ -240,11 +174,10 @@ export default function DesignacionesPage() {
 			estado: undefined,
 			page: "0",
 		});
-	};
 
 	/* =========================
-		 RENDER
-	========================= */
+	 RENDER
+========================= */
 
 	return (
 		<SidebarPageLayout
@@ -258,36 +191,34 @@ export default function DesignacionesPage() {
 					navigation={navigation}
 				/>
 			}
+			filters={
+				filtro === "CURSO" ? (
+					<div className={styles.filtersContainer}>
+						<CursoFilters
+							escuelaId={escuelaActiva?.id}
+							filters={cursoFilters}
+							onChange={(newFilters) =>
+								updateParams({
+									...newFilters,
+									page: "0",
+								})
+							}
+						/>
+
+						<Button variant="ghost" onClick={clearFilters}>
+							Limpiar
+						</Button>
+					</div>
+				) : undefined
+			}
 			pagination={
-				<Pagination
+				< Pagination
 					page={page}
 					totalPages={totalPages}
 					onChange={handlePageChange}
 				/>
 			}
 		>
-			{/* Active filters */}
-			{filtro === "CURSO" && activeCursoFilters.length > 0 && (
-				<div className={styles.activeFilters}>
-					{activeCursoFilters.map((filter) => (
-						<button
-							key={filter.key}
-							className={styles.filterChip}
-							onClick={() => removeFilter(filter.key)}
-						>
-							{filter.label} ✕
-						</button>
-					))}
-
-					<button
-						className={styles.clearFilters}
-						onClick={clearFilters}
-					>
-						Limpiar filtros
-					</button>
-				</div>
-			)}
-
 			{filtro === "ADMIN" ? (
 				<DesignacionesList
 					filtro="ADMIN"
@@ -306,25 +237,27 @@ export default function DesignacionesPage() {
 				/>
 			)}
 
-			{openFilters && (
-				<FiltersModal
-					open={openFilters}
-					onClose={() => setOpenFilters(false)}
-					onClear={() => setDraftCursoFilters({})}
-					onApply={applyFilters}
-				>
-					{filtro === "CURSO" ? (
-						<CursoFilters
-							escuelaId={escuelaActiva?.id}
-							filters={draftCursoFilters}
-							onChange={setDraftCursoFilters}
-						/>
-					) : (
-						<AdminFilters />
-					)}
-				</FiltersModal>
-			)}
-		</SidebarPageLayout>
+			{
+				openFilters && (
+					<FiltersModal
+						open={openFilters}
+						onClose={() => setOpenFilters(false)}
+						onClear={() => setDraftCursoFilters({})}
+						onApply={applyFilters}
+					>
+						{filtro === "CURSO" ? (
+							<CursoFilters
+								escuelaId={escuelaActiva?.id}
+								filters={draftCursoFilters}
+								onChange={setDraftCursoFilters}
+							/>
+						) : (
+							<AdminFilters />
+						)}
+					</FiltersModal>
+				)
+			}
+		</SidebarPageLayout >
 	);
 }
 
@@ -340,7 +273,6 @@ type DesignacionesHeaderProps = {
 function DesignacionesHeader({
 	filtro,
 	updateParams,
-	setOpenFilters,
 	handleRefresh,
 	isFetching,
 	navigation,
@@ -353,23 +285,16 @@ function DesignacionesHeader({
 				<FilterPillGroup
 					items={FILTROS_DESIGNACIONES}
 					value={filtro}
-					onChange={(value) => {
+					onChange={(value) =>
 						updateParams({
 							tipo: value,
 							page: "0",
-						});
-					}}
+						})
+					}
 				/>
 			}
 			actions={
 				<>
-					<Button
-						variant="secondary"
-						onClick={() => setOpenFilters(true)}
-					>
-						Filtros
-					</Button>
-
 					<Button
 						variant="secondary"
 						onClick={handleRefresh}

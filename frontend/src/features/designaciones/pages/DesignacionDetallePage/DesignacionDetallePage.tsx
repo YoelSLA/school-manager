@@ -11,7 +11,7 @@ import DesignacionCargosHistorial from "./DesignacionCargosHistorial/Designacion
 import styles from "./DesignacionDetallePage.module.scss";
 import DesignacionHeaderInfo from "./DesignacionHeaderInfo/DesignacionHeaderInfo";
 import DesignacionHorarios from "./DesignacionHorarios";
-import { AsignacionDetalleDTO, FiltroCargos } from "@/utils/types";
+import type { AsignacionDetalleDTO, FiltroCargos } from "@/utils/types";
 
 export default function DesignacionDetallePage() {
 	const { designacionId } = useParams<{ designacionId: string }>();

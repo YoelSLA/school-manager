@@ -1,5 +1,9 @@
 @use "@/styles/breakpoints" as *;
 
+/* =========================
+   PAGE
+========================= */
+
 .page {
 	display: flex;
 	flex-direction: column;
@@ -7,6 +11,10 @@
 	height: 100%;
 	padding: 16px;
 }
+
+/* =========================
+   HEADER EMPLEADO
+========================= */
 
 .header {
 	display: flex;
@@ -17,9 +25,6 @@
 	border-radius: 16px;
 
 	background: linear-gradient(135deg, #ffffff 0%, #eef2ff 100%);
-
-	border: none;
-
 	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
 
 	&__main {
@@ -59,6 +64,10 @@
 	}
 }
 
+/* =========================
+   NAV / TITLE
+========================= */
+
 .back {
 	display: inline-flex;
 	align-items: center;
@@ -77,26 +86,73 @@
 	font-weight: 600;
 }
 
+/* =========================
+   CONTAINER
+========================= */
+
 .container {
 	display: flex;
 	flex-direction: column;
 	flex: 1;
-	min-height: 0; // 🔥 clave para que overflow funcione
+	min-height: 0;
 }
 
-/* Lista scrolleable */
-.container > :first-child {
+/* =========================
+   DESIGNACIONES LIST
+========================= */
+
+.designacionesList {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	padding-right: 4px;
+
 	flex: 1;
 	overflow-y: auto;
 	min-height: 0;
+
+	scroll-behavior: smooth;
+
+	&::-webkit-scrollbar {
+		width: 6px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: #d1d5db;
+		border-radius: 10px;
+	}
+
+	&__empty {
+		padding: 24px;
+		text-align: center;
+		color: #6b7280;
+		font-size: 14px;
+
+		border: 1px dashed #d1d5db;
+		border-radius: 14px;
+		background-color: #f9fafb;
+	}
 }
+
+/* =========================
+   ACTIONS
+========================= */
 
 .actions {
 	display: flex;
 	justify-content: flex-end;
 }
 
+/* =========================
+   BREAKPOINTS
+========================= */
+
 @include desktop-height-small {
+	.page {
+		gap: 12px;
+		padding: 8px;
+	}
+
 	.header {
 		padding: 16px 18px;
 
@@ -106,9 +162,13 @@
 		}
 	}
 
-	.page {
-		gap: 12px;
-		padding: 8px;
+	.designacionesList {
+		gap: 8px;
+
+		&__empty {
+			padding: 16px;
+			font-size: 13px;
+		}
 	}
 
 	.actions {
@@ -117,6 +177,11 @@
 }
 
 @include desktop-height-large {
+	.page {
+		gap: 28px;
+		padding: 24px;
+	}
+
 	.header {
 		padding: 26px 32px;
 
@@ -126,9 +191,14 @@
 		}
 	}
 
-	.page {
-		gap: 28px;
-		padding: 24px;
+	.designacionesList {
+		gap: 18px;
+
+		&__empty {
+			padding: 32px;
+			font-size: 15px;
+			border-radius: 16px;
+		}
 	}
 
 	.actions {

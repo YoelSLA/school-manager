@@ -1,10 +1,10 @@
-import Badge from "@/components/Badge";
+
 import EmpleadoInfo from "@/components/EmpleadoInfo/EmpleadoInfo";
-import SituacionRevistaBadge from "@/components/SituacionRevistaBadge/SituacionRevistaBadge";
-import { ESTADO_ASIGNACION_BADGE } from "@/features/asignaciones/utils/asignacion.badges";
+import SituacionRevistaBadge from "@/components/BadgeSituacionRevista/BadgeSituacionRevista";
 import { formatearFecha } from "@/utils";
 import styles from "./CargoRow.module.scss";
-import { AsignacionDetalleDTO } from "@/utils/types";
+import type { AsignacionDetalleDTO } from "@/utils/types";
+import BadgeEstadoAsignacion from "@/components/BagdeEstadoAsignacion";
 
 type Props = {
 	cargo: AsignacionDetalleDTO;
@@ -41,10 +41,7 @@ export default function CargoRow({ cargo }: Props) {
 					<span>{fechaHasta ? formatearFecha(fechaHasta) : "—"}</span>
 				</div>
 
-				{/* Estado */}
-				<Badge variant={ESTADO_ASIGNACION_BADGE[estadoAsignacion]}>
-					{estadoAsignacion}
-				</Badge>
+				<BadgeEstadoAsignacion value={estadoAsignacion} />
 			</div>
 
 			{/* Línea secundaria solo si BAJA */}

@@ -1,95 +1,258 @@
 @use "@/styles/breakpoints" as *;
 
-.card {
-	display: flex;
-	flex-direction: column;
+/* =================================
+   LAYOUT GRID
+================================= */
+
+.layout {
+	display: grid;
+
+	grid-template-rows:
+		var(--header-h) var(--docente-h) var(--content-h) var(--footer-h);
+
+	row-gap: var(--gap);
+	padding: var(--padding-y) 0;
+
 	height: 100%;
 }
 
-/* =========================
-   BASE (fallback)
-========================= */
+/* =================================
+   SECTIONS
+================================= */
 
-.sectionHeader {
+.header,
+.sectionEmpleado,
+.sectionContent,
+.sectionHorarios {
 	display: flex;
 	align-items: center;
-}
-
-.sectionEmpleado {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	width: 100%;
 }
 
 .sectionContent {
-	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
 
 .sectionHorarios {
+	justify-content: center;
+}
+
+/* =================================
+   HEADER
+================================= */
+
+.header {
+	justify-content: space-between;
+}
+
+.cupof {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+
+	font-weight: 600;
+	color: #111827;
+
+	svg {
+		color: #9ca3af;
+	}
+}
+
+/* =================================
+   PERSONA
+================================= */
+
+.persona {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.badgeWrapper {
+	display: flex;
+}
+
+.info {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	height: auto;
+	gap: 4px;
 }
 
-/* =========================
+.line {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.nombre {
+	font-weight: 500;
+}
+
+.cuil {
+	font-size: 0.85rem;
+	color: var(--text-muted);
+}
+
+/* =================================
+   HORARIOS
+================================= */
+
+.horarios {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+
+	width: fit-content;
+	margin: 0 auto;
+
+	font-weight: 500;
+
+	color: #6b7280;
+	background: #f3f4f6;
+
+	border-radius: 999px;
+	line-height: 1;
+
+	&__text {
+		white-space: nowrap;
+	}
+
+	&__icon {
+		flex-shrink: 0;
+	}
+}
+
+/* =================================
    SMALL HEIGHT
-========================= */
+================================= */
 
 @include desktop-height-small {
-	.card {
-		.sectionHeader {
-			height: 36px;
-		}
 
-		.sectionEmpleado {
-			height: 45px;
-		}
+	.layout {
+		--padding-y: 8px;
+		--gap: 8px;
 
-		.sectionContent {
-			height: 100px;
+		--header-h: 32px;
+		--docente-h: 36px;
+		--content-h: 88px;
+		--footer-h: 24px;
+	}
+
+	.cupof {
+		font-size: 13px;
+
+		svg {
+			width: 14px;
+			height: 14px;
 		}
+	}
+
+	.nombre {
+		font-size: 12px;
+	}
+
+	.cuil {
+		font-size: 11px;
+	}
+
+	.horarios {
+		padding: 2px 8px;
+		font-size: 12px;
+	}
+
+	.horarios__icon {
+		width: 4px;
+		height: 4px;
 	}
 }
 
-/* =========================
+/* =================================
    MEDIUM HEIGHT
-========================= */
+================================= */
 
 @include desktop-height-medium {
-	.card {
-		.sectionHeader {
-			height: 40px;
-		}
 
-		.sectionEmpleado {
-			height: 56px;
-		}
+	.layout {
+		--padding-y: 12px;
+		--gap: 12px;
 
-		.sectionContent {
-			height: 120px;
+		--header-h: 36px;
+		--docente-h: 40px;
+		--content-h: 76px;
+		--footer-h: 28px;
+	}
+
+	.cupof {
+		font-size: 14px;
+
+		svg {
+			width: 16px;
+			height: 16px;
 		}
+	}
+
+	.nombre {
+		font-size: 13px;
+	}
+
+	.cuil {
+		font-size: 12px;
+	}
+
+	.horarios {
+		padding: 3px 10px;
+		font-size: 13px;
+	}
+
+	.horarios__icon {
+		width: 12px;
+		height: 12px;
 	}
 }
 
-/* =========================
+/* =================================
    LARGE HEIGHT
-========================= */
+================================= */
 
 @include desktop-height-large {
-	.card {
-		.sectionHeader {
-			height: 48px;
-		}
 
-		.sectionEmpleado {
-			height: 64px;
-		}
+	.layout {
+		--padding-y: 16px;
+		--gap: 16px;
 
-		.sectionContent {
-			height: 140px;
+		--header-h: 40px;
+		--docente-h: 44px;
+		--content-h: 84px;
+		--footer-h: 32px;
+	}
+
+	.cupof {
+		font-size: 15px;
+
+		svg {
+			width: 18px;
+			height: 18px;
 		}
+	}
+
+	.nombre {
+		font-size: 14px;
+	}
+
+	.cuil {
+		font-size: 13px;
+	}
+
+	.horarios {
+		padding: 4px 12px;
+		font-size: 14px;
+	}
+
+	.horarios__icon {
+		width: 12px;
+		height: 12px;
 	}
 }

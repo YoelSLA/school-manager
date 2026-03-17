@@ -1,13 +1,11 @@
 import { BookOpen, Compass, GraduationCap, Pencil } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import Badge from "@/components/Badge";
 import Button from "@/components/Button";
-
-import { ESTADO_DESIGNACION_BADGE } from "@/features/designaciones/utils/designacion.badges";
 import RolEducativoBadge from "@/features/empleadosEducativos/components/RolEducativoBadge";
 import { designacionesPaths } from "@/router/paths";
 import styles from "./DesignacionHeaderInfo.module.scss";
-import { DesignacionDetalleDTO } from "@/utils/types";
+import type { DesignacionDetalleDTO } from "@/utils/types";
+import BadgeEstadoDesignacion from "@/components/BagdeEstadoDesignacion";
 
 type Props = {
 	designacion: DesignacionDetalleDTO;
@@ -67,9 +65,7 @@ export default function DesignacionHeaderInfo({ designacion }: Props) {
 				)}
 
 				<div className={styles["designacion-header-info__actions"]}>
-					<Badge variant={ESTADO_DESIGNACION_BADGE[estadoDesignacion]}>
-						{estadoDesignacion}
-					</Badge>
+					<BadgeEstadoDesignacion value={estadoDesignacion} />
 
 					<Button variant="secondary" size="sm" onClick={handleEditar}>
 						<Pencil size={16} />

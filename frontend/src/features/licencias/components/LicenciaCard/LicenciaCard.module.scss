@@ -1,41 +1,65 @@
-/* =========================
-   CARD
-========================= */
+@use "@/styles/breakpoints" as *;
+
+/* =================================
+   LAYOUT GRID
+================================= */
 
 .card {
-	min-height: 260px;
+	display: grid;
+
+	grid-template-rows:
+		var(--header-h) var(--empleado-h) var(--fechas-h) var(--footer-h);
+
+	row-gap: var(--gap);
+	padding: var(--padding-y) 0;
+
+	height: 100%;
 	max-width: 340px;
 }
 
-/* =========================
+/* =================================
+   SECTIONS
+================================= */
+
+.header,
+.empleado,
+.fechas,
+.footer {
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+.header {
+	justify-content: space-between;
+}
+
+.empleado {
+	justify-content: center;
+}
+
+.fechas {
+	flex-direction: column;
+	justify-content: center;
+	gap: 10px;
+}
+
+.footer {
+	justify-content: flex-end;
+}
+
+/* =================================
    DIVIDER
-========================= */
+================================= */
 
 .divider {
 	height: 1px;
 	background: #e5e7eb;
-	margin: 10px 0;
 }
 
-.empleado {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-/* =========================
-   HEADER
-========================= */
-
-.header {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-}
-
-/* =========================
-   CODIGO / TIPO
-========================= */
+/* =================================
+   CODIGO
+================================= */
 
 .tipoPill {
 	background: #e5e7eb;
@@ -49,15 +73,9 @@
 	letter-spacing: 0.5px;
 }
 
-/* =========================
+/* =================================
    FECHAS
-========================= */
-
-.fechas {
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
-}
+================================= */
 
 .fechaItem {
 	display: flex;
@@ -85,13 +103,103 @@
 }
 
 .fechaItem:nth-child(1) .icon {
-	color: #2563eb; // inicio
+	color: #2563eb;
 }
 
 .fechaItem:nth-child(2) .icon {
-	color: #16a34a; // fin
+	color: #16a34a;
 }
 
 .fechaItem:nth-child(3) .icon {
-	color: #f59e0b; // duración
+	color: #f59e0b;
+}
+
+/* =================================
+   SMALL HEIGHT
+================================= */
+
+@include desktop-height-small {
+
+	.card {
+		--padding-y: 8px;
+		--gap: 8px;
+
+		--header-h: 32px;
+		--empleado-h: 36px;
+		--fechas-h: 96px;
+		--footer-h: 24px;
+	}
+
+	.label {
+		font-size: 10px;
+	}
+
+	.valor {
+		font-size: 12px;
+	}
+
+	.icon {
+		width: 14px;
+		height: 14px;
+	}
+}
+
+/* =================================
+   MEDIUM HEIGHT
+================================= */
+
+@include desktop-height-medium {
+
+	.card {
+		--padding-y: 12px;
+		--gap: 12px;
+
+		--header-h: 36px;
+		--empleado-h: 40px;
+		--fechas-h: 110px;
+		--footer-h: 28px;
+	}
+
+	.label {
+		font-size: 11px;
+	}
+
+	.valor {
+		font-size: 13px;
+	}
+
+	.icon {
+		width: 16px;
+		height: 16px;
+	}
+}
+
+/* =================================
+   LARGE HEIGHT
+================================= */
+
+@include desktop-height-large {
+
+	.card {
+		--padding-y: 16px;
+		--gap: 16px;
+
+		--header-h: 40px;
+		--empleado-h: 44px;
+		--fechas-h: 120px;
+		--footer-h: 32px;
+	}
+
+	.label {
+		font-size: 12px;
+	}
+
+	.valor {
+		font-size: 14px;
+	}
+
+	.icon {
+		width: 16px;
+		height: 16px;
+	}
 }

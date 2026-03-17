@@ -1,8 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
-import { DesignacionAdministrativaCreateDTO, Dia } from "@/utils/types";
 import { crearDesignacionAdministrativaSchema } from "../schemas/crearDesignacionAdministrativa.schema";
-import { RolEducativo } from "@/utils/types/enums";
+import { Dia, RolEducativo } from "@/utils/types/enums";
+import type { DesignacionAdministrativaCreateDTO } from "@/utils/types";
 
 export function useDesignacionAdministrativaForm() {
 	const form = useForm<DesignacionAdministrativaCreateDTO>({

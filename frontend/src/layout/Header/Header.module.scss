@@ -1,7 +1,9 @@
 @use "@/styles/breakpoints" as *;
 
-.app-header {
-	height: 56px; // base 1366x680
+.appHeader {
+	height: 56px;
+	flex-shrink: 0;
+	box-sizing: border-box;
 
 	display: flex;
 	align-items: center;
@@ -24,6 +26,7 @@
 	&__logo {
 		font-weight: 600;
 		font-size: 14px;
+
 		padding: 4px 10px;
 		border-radius: 999px;
 
@@ -31,7 +34,7 @@
 		background: rgba(255, 255, 255, 0.15);
 	}
 
-	&__school-button {
+	&__schoolButton {
 		height: 30px;
 		padding: 0 10px;
 
@@ -60,6 +63,7 @@
 
 	&__nav {
 		display: flex;
+		align-items: center;
 		gap: 4px;
 
 		padding: 4px;
@@ -69,6 +73,9 @@
 	}
 
 	&__link {
+		display: flex;
+		align-items: center;
+
 		padding: 6px 12px;
 		border-radius: 999px;
 
@@ -77,23 +84,27 @@
 		text-decoration: none;
 
 		color: var(--menu-text-muted);
-		transition: all 0.2s ease;
+
+		transition: background 0.2s ease, color 0.2s ease;
 
 		&:hover {
 			background: rgba(255, 255, 255, 0.15);
 			color: var(--text-inverse);
 		}
+	}
 
-		&--active {
-			background: var(--primary-700);
-			color: var(--text-inverse);
-		}
+	&__linkActive {
+		background: var(--primary-700);
+		color: var(--text-inverse);
 	}
 }
 
+/* ======================================================
+   HEIGHT BREAKPOINTS
+====================================================== */
+
 @include desktop-height-medium {
-	.app-header {
-		height: 60px;
+	.appHeader {
 		padding: 0 16px;
 
 		&__logo {
@@ -101,7 +112,7 @@
 			padding: 6px 14px;
 		}
 
-		&__school-button {
+		&__schoolButton {
 			height: 34px;
 			font-size: 13px;
 		}
@@ -114,15 +125,14 @@
 }
 
 @include desktop-height-large {
-	.app-header {
-		height: 72px;
+	.appHeader {
 		padding: 0 24px;
 
 		&__logo {
 			font-size: 16px;
 		}
 
-		&__school-button {
+		&__schoolButton {
 			height: 40px;
 			font-size: 14px;
 		}

@@ -1,22 +1,24 @@
-import { cubrirProvisionalSchema } from "@/features/asignaciones/form/cubrirProvisional.schema";
-import { cubrirTitularSchema } from "@/features/asignaciones/form/cubrirTitular.schema";
-import { editarProvisionalSchema } from "@/features/asignaciones/form/editarProvisional.schema";
-import { editarTitularSchema } from "@/features/asignaciones/form/editarTitular.schema";
+import type { cubrirProvisionalSchema } from "@/features/asignaciones/form/cubrirProvisional.schema";
+import type { cubrirTitularSchema } from "@/features/asignaciones/form/cubrirTitular.schema";
+import type { editarProvisionalSchema } from "@/features/asignaciones/form/editarProvisional.schema";
+import type { editarTitularSchema } from "@/features/asignaciones/form/editarTitular.schema";
 import type { Params } from "react-router-dom";
-import z from "zod";
-import { EstadoAsignacion, EstadoDesignacion, EstadoLicencia, RolEducativo, SituacionDeRevista } from "./enums";
-import { crearCursoSchema } from "@/features/cursos/form/crearCurso.schema";
-import { crearDesignacionAdministrativaSchema } from "@/features/designaciones/form/schemas/crearDesignacionAdministrativa.schema";
-import { crearDesignacionCursoSchema } from "@/features/designaciones/form/schemas/crearDesignacionCurso.schema";
-import { editarDesignacionAdministrativaSchema } from "@/features/designaciones/form/schemas/editarDesignacionAdministrativa.schema";
-import { editarDesignacionCursoSchema } from "@/features/designaciones/form/schemas/editarDesignacionCurso.schema";
-import { crearEmpleadoEducativoSchema } from "@/features/empleadosEducativos/form/schemas/crearEmpleadoEducativo.schema";
-import { editarEmpleadoEducativoSchema } from "@/features/empleadosEducativos/form/schemas/editarEmpleadoEducativo.schema";
-import { darBajaEmpleadoEducativo } from "@/features/empleadosEducativos/form/schemas/darBajaEmpleadoEducativo.schema";
-import { crearEscuelaSchema } from "@/features/escuelas/form/crearEscuela.schema";
-import { crearLicenciaSchema } from "@/features/licencias/form/crearLicencia.schema";
-import { cubrirDesignacionesConSuplenteSchema } from "@/features/licencias/form/cubrirDesignacionesConSuplente.schema";
-import { crearMateriaSchema } from "@/features/materias/form/schemas/crearMateria.schema";
+import type z from "zod";
+import type { Dia, EstadoAsignacion, EstadoDesignacion, EstadoLicencia, RolEducativo, SituacionDeRevista } from "./enums";
+import type { crearCursoSchema } from "@/features/cursos/form/crearCurso.schema";
+import type { crearDesignacionAdministrativaSchema } from "@/features/designaciones/form/schemas/crearDesignacionAdministrativa.schema";
+import type { crearDesignacionCursoSchema } from "@/features/designaciones/form/schemas/crearDesignacionCurso.schema";
+import type { editarDesignacionAdministrativaSchema } from "@/features/designaciones/form/schemas/editarDesignacionAdministrativa.schema";
+import type { editarDesignacionCursoSchema } from "@/features/designaciones/form/schemas/editarDesignacionCurso.schema";
+import type { crearEmpleadoEducativoSchema } from "@/features/empleadosEducativos/form/schemas/crearEmpleadoEducativo.schema";
+import type { editarEmpleadoEducativoSchema } from "@/features/empleadosEducativos/form/schemas/editarEmpleadoEducativo.schema";
+import type { darBajaEmpleadoEducativo } from "@/features/empleadosEducativos/form/schemas/darBajaEmpleadoEducativo.schema";
+import type { crearEscuelaSchema } from "@/features/escuelas/form/crearEscuela.schema";
+import type { crearLicenciaSchema } from "@/features/licencias/form/crearLicencia.schema";
+import type { cubrirDesignacionesConSuplenteSchema } from "@/features/licencias/form/cubrirDesignacionesConSuplente.schema";
+import type { crearMateriaSchema } from "@/features/materias/form/schemas/crearMateria.schema";
+import type { BadgeVariant } from "@/components/Badge/Badge.types";
+import type { LucideIcon } from "lucide-react";
 
 // -------------------------------------------------------------------
 // ASIGNACION
@@ -473,11 +475,9 @@ export type FormWithFranjas = {
   franjasHorarias: FranjaHoraria[];
 };
 
-export enum Dia {
-  LUNES = "Lunes",
-  MARTES = "Martes",
-  MIERCOLES = "Miércoles",
-  JUEVES = "Jueves",
-  VIERNES = "Viernes",
-}
+export type BadgeConfig = {
+  label: string;
+  variant: BadgeVariant;
+  icon?: LucideIcon;
+};
 

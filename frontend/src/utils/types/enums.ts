@@ -42,3 +42,11 @@ export enum EstadoLicencia {
   DESCUBIERTA = "DESCUBIERTA",
   INACTIVA = "INACTIVA",
 }
+
+export enum Dia {
+  LUNES = "Lunes",
+  MARTES = "Martes",
+  MIERCOLES = "Miércoles",
+  JUEVES = "Jueves",
+  VIERNES = "Viernes",
+}

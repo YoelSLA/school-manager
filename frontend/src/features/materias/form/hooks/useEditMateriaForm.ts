@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { MateriaUpdateDTO } from "@/utils/types";
+import type { MateriaUpdateDTO } from "@/utils/types";
 import { editarMateriaSchema } from "../schemas/editarMateria.schema";
 
 type Props = {

@@ -29,5 +29,7 @@ public interface LicenciaService {
 	Set<Designacion> obtenerDesignacionesAfectadas(Long licenciaId);
 
 	List<Licencia> obtenerTimeline(Long licenciaId);
+
+	void eliminarLicencia(Long licenciaId);
 }
 

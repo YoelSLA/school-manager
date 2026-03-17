@@ -5,11 +5,18 @@ import { BADGE_ICONS } from "./Bagde.icons";
 type Props = {
 	variant: BadgeVariant;
 	children: React.ReactNode;
+	icon?: React.ElementType;
 	showIcon?: boolean;
 };
 
-export default function Badge({ variant, children, showIcon = true }: Props) {
-	const Icon = BADGE_ICONS[variant];
+export default function Badge({
+	variant,
+	children,
+	icon: CustomIcon,
+	showIcon = true,
+}: Props) {
+	const DefaultIcon = BADGE_ICONS[variant];
+	const Icon = CustomIcon ?? DefaultIcon;
 
 	return (
 		<span className={`badge badge--${variant}`}>

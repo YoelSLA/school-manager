@@ -1,12 +1,9 @@
-import Badge from "@/components/Badge";
+
 import Button from "@/components/Button";
 import RolPill from "@/components/RolPill";
-import {
-	ESTADO_EMPLEADO_BADGE,
-	getEstadoEmpleadoKey,
-} from "@/features/empleadosEducativos/utils/empleadosEducativos.bagdes";
 import styles from "./HeaderEmpleado.module.scss";
-import { EmpleadoEducativoDetalleDTO } from "@/utils/types";
+import type { EmpleadoEducativoDetalleDTO } from "@/utils/types";
+import BadgeEstadoEmpleado from "@/components/BagdeEstadoEmpleado";
 
 type Props = {
 	empleado: EmpleadoEducativoDetalleDTO;
@@ -21,8 +18,6 @@ export default function HeaderEmpleado({
 }: Props) {
 	const nombreOrdenado = `${empleado.apellido}, ${empleado.nombre}`;
 
-	const estadoKey = getEstadoEmpleadoKey(empleado.activo);
-
 	const esActivo = empleado.activo;
 
 	return (
@@ -33,7 +28,7 @@ export default function HeaderEmpleado({
 						{nombreOrdenado}
 					</h1>
 
-					<Badge variant={ESTADO_EMPLEADO_BADGE[estadoKey]}>{estadoKey}</Badge>
+					<BadgeEstadoEmpleado activo={empleado.activo} />
 				</div>
 
 				<div className={styles["header-empleado__badges"]}>

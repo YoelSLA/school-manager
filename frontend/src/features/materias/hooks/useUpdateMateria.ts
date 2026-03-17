@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editMateria } from "../services/materias.services";
-import { MateriaUpdateDTO } from "@/utils/types";
+import type { MateriaUpdateDTO } from "@/utils/types";
 import { materiasQueryKeys } from "@/utils/queryKeys/materias.queryKeys";
 
 type EditarMateriaParams = {

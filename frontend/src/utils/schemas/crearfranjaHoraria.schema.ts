@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Dia } from "../types";
+import { Dia } from "../types/enums";
 
 export const crearFranjaHorariaSchema = z
 	.object({

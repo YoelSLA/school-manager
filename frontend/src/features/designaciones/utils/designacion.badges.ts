@@ -1,12 +1,3 @@
-import type { BadgeVariant } from "@/components/Badge/Badge.types";
-import { EstadoDesignacion } from "@/utils/types/enums";
-
-export const ESTADO_DESIGNACION_BADGE = {
-	CUBIERTA: "cubierta",
-	LICENCIA: "licencia",
-	VACANTE: "vacante",
-} as const satisfies Record<EstadoDesignacion, BadgeVariant>;
-
 export const rolLabels: Record<string, string> = {
 	DIRECCION: "Dirección",
 	VICEDIRECCION: "Vicedirección",

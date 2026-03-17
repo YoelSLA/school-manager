@@ -1,5 +1,17 @@
 import { http } from "@/services/axios";
-import type { CubrirDesignacionesConSuplente, LicenciaDesignacion, LicenciaDesignacionDTO, LicenciaDetalle, LicenciaDetalleDTO, LicenciaResumen, LicenciaResumenDTO, LicenciaTimelineItem, LicenciaTimelineItemDTO, PageResponse, RenovarLicenciaDTO } from "@/utils/types";
+import type {
+	CubrirDesignacionesConSuplente,
+	LicenciaDesignacion,
+	LicenciaDesignacionDTO,
+	LicenciaDetalle,
+	LicenciaDetalleDTO,
+	LicenciaResumen,
+	LicenciaResumenDTO,
+	LicenciaTimelineItem,
+	LicenciaTimelineItemDTO,
+	PageResponse,
+	RenovarLicenciaDTO,
+} from "@/utils/types";
 
 export const cubrirDesignacionesConSuplente = async (
 	licenciaId: number,
@@ -18,9 +30,7 @@ export const renovarLicencia = async (
 export const getLicenciaDetalle = async (
 	licenciaId: number,
 ): Promise<LicenciaDetalle> => {
-	const { data } = await http.get<LicenciaDetalleDTO>(
-		`/licencias/${licenciaId}`,
-	);
+	const { data } = await http.get<LicenciaDetalleDTO>(`/licencias/${licenciaId}`);
 	return data;
 };
 
@@ -57,4 +67,8 @@ export const getLicenciaTimeline = async (
 	);
 
 	return data;
+};
+
+export const deleteLicencia = async (licenciaId: number): Promise<void> => {
+	await http.delete(`/licencias/${licenciaId}`);
 };

@@ -1,7 +1,10 @@
 import SelectField from "@/components/SelectField";
 import { useCursosNombres } from "@/features/cursos/hooks/useCursosNombres";
 import { useMateriasSelect } from "@/features/materias/hooks/useMateriasSelect";
-import { CursoFiltersState } from "@/utils/types";
+import type { CursoFiltersState } from "@/utils/types";
+
+import styles from "./CursoFilters.module.scss";
+import { BookOpen, CheckCircle, GraduationCap } from "lucide-react";
 
 type Props = {
 	escuelaId?: number;
@@ -23,44 +26,54 @@ export default function CursoFilters({ escuelaId, filters, onChange }: Props) {
 	};
 
 	return (
-		<>
+		<div className={styles.filtersRow}>
 			<SelectField
-				label="Materia"
+				icon={<BookOpen size={14} color="#2563EB" />}
 				value={filters.materiaId}
-				onChange={(value) => updateFilter("materiaId", value || undefined)}
+				onChange={(v) => updateFilter("materiaId", v || undefined)}
+				onClear={() => updateFilter("materiaId", undefined)}
 			>
-				<option value="">Todas</option>
+				<option value="">
+					Materia: Todas
+				</option>
 
 				{materias.map((m) => (
 					<option key={m.id} value={m.id}>
-						{m.nombre}
+						Materia: {m.nombre}
 					</option>
 				))}
 			</SelectField>
 
 			<SelectField
-				label="Curso"
+				icon={<GraduationCap size={14} color="#7C3AED" />}
 				value={filters.cursoId}
-				onChange={(value) => updateFilter("cursoId", value || undefined)}
+				onChange={(v) => updateFilter("cursoId", v || undefined)}
+				onClear={() => updateFilter("cursoId", undefined)}
 			>
-				<option value="">Todos</option>
+				<option value="">
+					Curso: Todos
+				</option>
 
 				{cursos.map((c) => (
 					<option key={c.id} value={c.id}>
-						{c.division}
+						Curso: {c.division}
 					</option>
 				))}
 			</SelectField>
 
 			<SelectField
-				label="Estado"
+				icon={<CheckCircle size={14} color="#16A34A" />}
 				value={filters.estado}
-				onChange={(value) => updateFilter("estado", value || undefined)}
+				onChange={(v) => updateFilter("estado", v || undefined)}
+				onClear={() => updateFilter("estado", undefined)}
 			>
-				<option value="">Todos</option>
-				<option value="CUBIERTA">Cubierta</option>
-				<option value="VACANTE">Vacante</option>
+				<option value="">
+					Estado: Todos
+				</option>
+
+				<option value="CUBIERTA">Estado: Cubierta</option>
+				<option value="VACANTE">Estado: Vacante</option>
 			</SelectField>
-		</>
+		</div>
 	);
 }

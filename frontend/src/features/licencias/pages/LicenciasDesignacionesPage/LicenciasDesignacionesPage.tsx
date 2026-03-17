@@ -5,9 +5,11 @@ import Button from "@/components/Button";
 import { useDesignacionesAfectadas } from "@/features/licencias/hooks/useDesignacionesAfectadas";
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import LicenciaCubrirDesignacionesModal from "../../components/LicenciaCubrirDesignacionesModal/LicenciaCubrirDesignacionesModal";
-import DesignacionesList from "./DesignacionesList/DesignacionesAfectadasList";
+import DesignacionItem from "@/features/designaciones/components/DesignacionItem/DesignacionItem";
+
 import styles from "./LicenciasDesignacionesPage.module.scss";
-import { EmpleadoEducativoMinimoDTO } from "@/utils/types";
+
+import type { EmpleadoEducativoMinimoDTO } from "@/utils/types";
 
 type LocationState = {
 	empleado: EmpleadoEducativoMinimoDTO;
@@ -42,7 +44,7 @@ export default function LicenciasDesignacionesPage() {
 	return (
 		<PageLayout>
 			<div className={styles.page}>
-				{/* 🔹 Header empleado */}
+				{/* Header empleado */}
 				{empleado && (
 					<div className={styles.header}>
 						<div className={styles.header__main}>
@@ -63,19 +65,30 @@ export default function LicenciasDesignacionesPage() {
 					</div>
 				)}
 
-				{/* Estados */}
 				{isLoading && <p>Cargando...</p>}
 				{isError && <p>Error al cargar designaciones</p>}
 
-				{/* Contenido */}
 				{!isLoading && !isError && (
 					<section className={styles.container}>
-						<DesignacionesList
-							designaciones={designaciones}
-							seleccionadas={seleccionadas}
-							onToggle={toggleDesignacion}
-						/>
+						{/* LISTA */}
+						<div className={styles.designacionesList}>
+							{designaciones.length === 0 ? (
+								<p className={styles.designacionesList__empty}>
+									No hay designaciones afectadas
+								</p>
+							) : (
+								designaciones.map((d) => (
+									<DesignacionItem
+										key={d.designacionId}
+										designacion={d}
+										checked={seleccionadas.includes(d.designacionId)}
+										onToggle={toggleDesignacion}
+									/>
+								))
+							)}
+						</div>
 
+						{/* ACCIONES */}
 						<div className={styles.actions}>
 							<Button
 								variant="primary"

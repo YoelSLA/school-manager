@@ -2,7 +2,7 @@ import ListState from "@/components/ListState";
 import ScrollableGridListLayout from "@/layout/ScrollableGridListLayout/ScrollableGridListLayout";
 import DesignacionAdministrativaCard from "../../components/DesignacionAdministrativaCard";
 import DesignacionCursoCard from "../../components/DesignacionCursoCard";
-import { DesignacionAdministrativaResumenDTO, DesignacionCursoResumenDTO } from "@/utils/types";
+import type { DesignacionAdministrativaResumenDTO, DesignacionCursoResumenDTO } from "@/utils/types";
 
 /* ===============================
 	 PROPS (DISCRIMINATED UNION)
@@ -28,39 +28,40 @@ type Props =
 ================================ */
 
 export default function DesignacionesList(props: Props) {
-	const { designaciones, filtro, isLoading, isError, onVerDetalle } = props;
-
-	if (isLoading) {
+	if (props.isLoading) {
 		return <ListState>Cargando designaciones…</ListState>;
 	}
 
-	if (isError) {
+	if (props.isError) {
 		return <ListState>No se pudieron cargar las designaciones</ListState>;
 	}
 
-	if (designaciones.length === 0) {
+	if (props.designaciones.length === 0) {
 		return (
-			<ListState>No hay designaciones para el filtro seleccionado.</ListState>
+			<ListState>
+				No hay designaciones para el filtro seleccionado.
+			</ListState>
 		);
 	}
 
 	return (
 		<ScrollableGridListLayout>
-			{filtro === "ADMIN"
-				? designaciones.map((d) => (
+			{props.filtro === "ADMIN"
+				? props.designaciones.map((d) => (
 					<DesignacionAdministrativaCard
 						key={d.id}
 						designacion={d}
-						onVerDetalle={onVerDetalle}
+						onVerDetalle={props.onVerDetalle}
 					/>
 				))
-				: designaciones.map((d) => (
+				: props.designaciones.map((d) => (
 					<DesignacionCursoCard
 						key={d.id}
 						designacion={d}
-						onVerDetalle={onVerDetalle}
+						onVerDetalle={props.onVerDetalle}
 					/>
 				))}
 		</ScrollableGridListLayout>
 	);
 }
+
