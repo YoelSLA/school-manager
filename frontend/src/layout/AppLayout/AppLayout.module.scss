@@ -17,6 +17,8 @@
 
 	/* 🎨 VISUAL */
 	background: var(--bg-page);
+	padding: 8px;
+	gap: 8px;
 
 	/* 🧪 DEBUG */
 	@include debug.debug(orange);

@@ -2,6 +2,7 @@ import { useState } from "react";
 import ConfirmModal from "@/components/ConfirmModal";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
+
 import { useLicencias } from "../../hooks/useLicencias";
 import { useLicenciasNavigation } from "../../hooks/useLicenciasNavigation";
 import LicenciaCard from "../../components/LicenciaCard";
