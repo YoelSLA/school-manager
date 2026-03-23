@@ -2,13 +2,14 @@
 @use "@/styles/_debug.mixins" as debug;
 
 /* ======================================================
-   SIDEBAR PAGE LAYOUT
+   SIDEBAR PAGE LAYOUT (SIMPLIFIED)
 ====================================================== */
 
-.sidebarPage {
+.layout {
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
+	flex: 1;
+	min-height: 0;
 	overflow: hidden;
 	gap: 8px;
 
@@ -17,58 +18,42 @@
 	/* ================= SIDEBAR ================= */
 
 	&__sidebar {
-		height: 48px;
+		flex-shrink: 0;
+
 		@include debug.debug(black);
 	}
 
-	/* ================= FILTERS ================= */
+	/* ================= CONTENT ================= */
 
-	&__filters {
-		height: 40px;
-		flex-shrink: 0;
-		display: flex;
-		align-items: center;
-
-		@include debug.debug(gold);
-	}
-
-	/* ================= BODY ================= */
-
-	&__body {
+	&__content {
 		flex: 1;
+		min-width: 0;
 		min-height: 0;
+		display: flex;
+		flex-direction: column;
 		overflow: hidden;
 
 		@include debug.debug(aqua);
-	}
 
-	/* ================= PAGINATION ================= */
-
-	&__pagination {
-		height: 32px;
-		flex-shrink: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-
-		@include debug.debug(lightsteelblue);
 	}
 }
 
+/* ================= RESPONSIVE GAP ================= */
+
 @include desktop-height-small {
-	.sidebarPage {
+	.layout {
 		gap: 4px;
 	}
 }
 
 @include desktop-height-medium {
-	.sidebarPage {
+	.layout {
 		gap: 8px;
 	}
 }
 
 @include desktop-height-large {
-	.sidebarPage {
+	.layout {
 		gap: 16px;
 	}
 }

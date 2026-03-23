@@ -8,7 +8,8 @@ import DesignacionesSelector from "../../components/LicenciaForm/DesignacionesSe
 import { useLicenciaForm } from "../../form/useLicenciaForm";
 import { useCrearLicencia } from "../../hooks/useCrearLicencia";
 import styles from "./LicenciaCreatePage.module.scss";
-import { LicenciaCreateDTO } from "@/utils/types";
+import type { LicenciaCreateDTO } from "@/utils/types";
+import Breadcrumbs from "@/layout/Breadcrumbs";
 
 export default function LicenciaCreatePage() {
 	const { crearLicencia, isLoading, error } = useCrearLicencia();
@@ -33,7 +34,7 @@ export default function LicenciaCreatePage() {
 			tipoLicencia: data.tipoLicencia,
 			periodo: {
 				fechaDesde: data.periodo.fechaDesde,
-				fechaHasta: data.periodo.fechaHasta ?? null,
+				fechaHasta: data.periodo.fechaHasta ?? undefined,
 			},
 			descripcion: data.descripcion,
 			designacionesIds: data.designacionesIds,
@@ -50,7 +51,9 @@ export default function LicenciaCreatePage() {
 	};
 
 	return (
-		<PageLayout>
+		<PageLayout
+			breadcrumbs={<Breadcrumbs />}
+		>
 			<FormProvider {...form}>
 				<form
 					onSubmit={form.handleSubmit(handleSubmit)}

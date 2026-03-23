@@ -1,4 +1,4 @@
-import { http } from "@/services/axios";
+import { http } from "@/axiosTemplate";
 import type { AsignacionDetalleDTO, CubrirProvisionalDTO, CubrirTitularDTO, DesignacionAdministrativaCreateDTO, DesignacionAdministrativaResumenDTO, DesignacionCursoCreateDTO, DesignacionCursoDetalleDTO, DesignacionCursoFilter, DesignacionCursoResumenDTO, DesignacionDetalleDTO, EditarAsignacionDTO, EstadoCargo, PageResponse } from "@/utils/types";
 
 /* ======================

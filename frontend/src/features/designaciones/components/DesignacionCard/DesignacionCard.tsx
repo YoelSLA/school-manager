@@ -43,7 +43,7 @@ export default function DesignacionCard({
 			<div className={styles.layout}>
 				{/* ================= HEADER ================= */}
 
-				<header className={styles.header}>
+				<header className={styles.sectionHeader}>
 					<div className={styles.cupof}>
 						<Tag size={18} />
 						<span>#{cupof}</span>

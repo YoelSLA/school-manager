@@ -1,7 +1,7 @@
 import styles from "./CursoHorarioGrid.module.scss";
 
 /* =========================
-   CONSTANTES FIJAS
+	 CONSTANTES FIJAS
 ========================= */
 
 const DIAS = ["LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES"] as const;
@@ -9,7 +9,7 @@ const DIAS = ["LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES"] as const;
 type DiaSemana = (typeof DIAS)[number];
 
 /* =========================
-   TIPOS
+	 TIPOS
 ========================= */
 
 type Clase = {
@@ -26,7 +26,7 @@ export type ModuloHorario = {
 };
 
 /* =========================
-   GRILLA FIJA (NO CAMBIA)
+	 GRILLA FIJA (NO CAMBIA)
 ========================= */
 
 const MODULOS_BASE: Omit<ModuloHorario, "clases">[] = [
@@ -39,7 +39,7 @@ const MODULOS_BASE: Omit<ModuloHorario, "clases">[] = [
 ];
 
 /* =========================
-   MOCK DINÁMICO (DESPUÉS BACKEND)
+	 MOCK DINÁMICO (DESPUÉS BACKEND)
 ========================= */
 
 const CLASES_MOCK: {
@@ -47,30 +47,30 @@ const CLASES_MOCK: {
 	dia: DiaSemana;
 	clase: Clase;
 }[] = [
-	{
-		modulo: 1,
-		dia: "LUNES",
-		clase: {
-			id: 2467776,
-			materia: "Inglés",
-			docente: "Soplan, María José",
-			estado: "SUPLENTE",
+		{
+			modulo: 1,
+			dia: "LUNES",
+			clase: {
+				id: 2467776,
+				materia: "Inglés",
+				docente: "Soplan, María José",
+				estado: "SUPLENTE",
+			},
 		},
-	},
-	{
-		modulo: 1,
-		dia: "MARTES",
-		clase: {
-			id: 2467778,
-			materia: "Ciencias Naturales",
-			docente: "Ferreyra, Carolina Natasha",
-			estado: "SUPLENTE",
+		{
+			modulo: 1,
+			dia: "MARTES",
+			clase: {
+				id: 2467778,
+				materia: "Ciencias Naturales",
+				docente: "Ferreyra, Carolina Natasha",
+				estado: "SUPLENTE",
+			},
 		},
-	},
-];
+	];
 
 /* =========================
-   NORMALIZACIÓN
+	 NORMALIZACIÓN
 ========================= */
 
 function construirHorario(): ModuloHorario[] {
@@ -89,7 +89,7 @@ function construirHorario(): ModuloHorario[] {
 }
 
 /* =========================
-   COMPONENTE
+	 COMPONENTE
 ========================= */
 
 export default function CursoHorarioGrid() {

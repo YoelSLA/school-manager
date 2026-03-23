@@ -12,6 +12,7 @@ import styles from "./DesignacionDetallePage.module.scss";
 import DesignacionHeaderInfo from "./DesignacionHeaderInfo/DesignacionHeaderInfo";
 import DesignacionHorarios from "./DesignacionHorarios";
 import type { AsignacionDetalleDTO, FiltroCargos } from "@/utils/types";
+import Breadcrumbs from "@/layout/Breadcrumbs";
 
 export default function DesignacionDetallePage() {
 	const { designacionId } = useParams<{ designacionId: string }>();
@@ -47,7 +48,9 @@ export default function DesignacionDetallePage() {
 	if (!designacion) return <p>Designación no encontrada</p>;
 
 	return (
-		<PageLayout>
+		<PageLayout
+			breadcrumbs={<Breadcrumbs />}
+		>
 			<div className={styles.page}>
 				{/* HEADER */}
 				<div className={styles.header}>

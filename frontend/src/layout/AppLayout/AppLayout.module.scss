@@ -2,43 +2,67 @@
 @use "@/styles/_debug.mixins" as debug;
 
 .appLayout {
+	/* 🧩 VARIABLES */
+	--layout-padding: 8px;
+	--layout-gap: 8px;
+
+	/* 🏗️ LAYOUT */
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
-	background: var(--bg-page);
-	padding: 8px;
-	gap: 8px;
 
+	/* 📦 BOX MODEL */
+	padding: var(--layout-padding);
+	gap: var(--layout-gap);
+
+	/* 🎨 VISUAL */
+	background: var(--bg-page);
+
+	/* 🧪 DEBUG */
 	@include debug.debug(orange);
 
+	/* 🧱 HEADER */
+	&__header {
+		flex-shrink: 0;
+		// @include debug.debug(black);
+	}
+
+	/* 🧱 CONTENT */
 	&__content {
+		/* 🏗️ layout */
 		flex: 1;
-		min-height: 0;
-		overflow: auto;
 		display: flex;
 		flex-direction: column;
 
-		@include debug.debug(darkgreen);
+		/* 📦 box model */
+		min-height: 0;
+
+		/* ⚙️ behavior */
+		overflow: auto;
+
+		// @include debug.debug(darkgreen);
 	}
 }
 
+/* 📱 BREAKPOINTS */
+
 @include desktop-height-small {
 	.appLayout {
-		padding: 4px;
-		gap: 4px;
+		--layout-padding: 4px;
+		--layout-gap: 4px;
 	}
 }
 
 @include desktop-height-medium {
 	.appLayout {
-		padding: 8px;
-		gap: 8px;
+		--layout-padding: 8px;
+		--layout-gap: 8px;
 	}
 }
 
 @include desktop-height-large {
 	.appLayout {
-		padding: 16px;
-		gap: 16px;
+		--layout-padding: 16px;
+		--layout-gap: 16px;
 	}
 }

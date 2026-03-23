@@ -1,7 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import UpdateModal from "@/components/UpdateModal/UpdateModal";
 import SeleccionarEscuelaPage from "@/features/escuelas/pages";
-import { useUpdater } from "@/hooks/useAdapter";
 import AppLayout from "@/layout/AppLayout/AppLayout";
 import { AcademicoRoutes } from "./academico.routes";
 import { AsistenciasRoutes } from "./asistencias.routes";
@@ -10,29 +8,23 @@ import { EmpleadosEducativosRoutes } from "./empleadosEducativos.routes";
 import { LicenciasRoutes } from "./licencias.routes";
 import RutaProtegida from "./RutaProtegida";
 
+import UpdateBanner from "@/rerender/UpdateBanner";
+import { useUpdater } from "@/rerender/useUpdater";
+
 export default function AppRouter() {
-	const { updateAvailable, progress, downloaded, restartApp } = useUpdater();
+	const { updateAvailable } = useUpdater();
 
 	return (
 		<>
-			{/* 🔥 MODAL GLOBAL */}
-			{updateAvailable && (
-				<UpdateModal
-					progress={progress}
-					downloaded={downloaded}
-					onRestart={restartApp}
-				/>
-			)}
+			{/* 🔥 UI GLOBAL */}
+			{updateAvailable && <UpdateBanner />}
 
-			{/* 🌍 ROUTES */}
 			<Routes>
-				{/* Público */}
 				<Route
 					path="/seleccionar-escuela"
 					element={<SeleccionarEscuelaPage />}
 				/>
 
-				{/* App protegida */}
 				<Route
 					path="/"
 					element={

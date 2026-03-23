@@ -193,6 +193,30 @@
 	}
 }
 
+@include desktop-height-medium {
+	.btn {
+		gap: 8px;
+		border-radius: 16px;
+
+		&.btnSm {
+			height: 28px;
+			padding: 0 10px;
+			font-size: 0.8rem;
+		}
+
+		&.btnMd {
+			height: 32px;
+			padding: 0 14px;
+			font-size: 0.85rem;
+		}
+
+		.spinner {
+			width: 14px;
+			height: 14px;
+		}
+	}
+}
+
 /* ======================================================
    📏 DESKTOP HEIGHT LARGE
 ====================================================== */

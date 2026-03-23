@@ -1,0 +1,53 @@
+@use "@/styles/breakpoints" as *;
+
+.container {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.grid {
+  flex: 1;
+  min-height: 0;
+
+  display: grid;
+
+  gap: 16px;
+  overflow: auto;
+}
+
+.state {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ================= BREAKPOINTS ================= */
+
+@include desktop-height-small {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 230px;
+  }
+}
+
+@include desktop-height-medium {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 250px;
+  }
+}
+
+@include desktop-height-large {
+  .grid {
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: 290px;
+  }
+}

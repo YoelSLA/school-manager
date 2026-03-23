@@ -11,7 +11,8 @@ import { useCrearDesignacionAdministrativa } from "../../hooks/useCrearDesignaci
 import { useCrearDesignacionCurso } from "../../hooks/useCrearDesignacionCurso";
 import styles from "./DesignacionCreatePage.module.scss";
 import DesignacionTabs from "./DesignacionTabs/DesignacionTabs";
-import { DesignacionAdministrativaCreateDTO, DesignacionCursoCreateDTO, DesignacionFiltro } from "@/utils/types";
+import type { DesignacionAdministrativaCreateDTO, DesignacionCursoCreateDTO, DesignacionFiltro } from "@/utils/types";
+import Breadcrumbs from "@/layout/Breadcrumbs";
 
 export default function DesignacionCreatePage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
@@ -82,7 +83,9 @@ export default function DesignacionCreatePage() {
 	};
 
 	return (
-		<PageLayout>
+		<PageLayout
+			breadcrumbs={<Breadcrumbs />}
+		>
 			<section className={styles["designacion-create"]}>
 				<div className={styles["designacion-create__tabs"]}>
 					<DesignacionTabs value={tipo} onChange={setTipo} />

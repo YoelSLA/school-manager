@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { crearPeriodoSchema } from "@/utils/schemas/crearPeriodo.schema";
+import { crearPeriodoSchema } from "@/utils/zod/crearPeriodo.schema";
 
 export const crearLicenciaSchema = z.object({
 	tipoLicencia: z

@@ -1,0 +1,81 @@
+@use "@/styles/breakpoints" as *;
+
+/* ======================================================
+   SIDEBAR
+====================================================== */
+
+.sidebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 48px;
+  padding: 0 12px;
+  gap: 12px;
+
+  background-color: var(--bg-sidebar);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  box-sizing: border-box;
+
+  /* ================= LEFT ================= */
+
+  &__left {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.1;
+    gap: 2px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  &__subtitle {
+    margin: 0;
+    font-size: 0.7rem;
+    font-weight: 500;
+    opacity: 0.8;
+    white-space: nowrap;
+  }
+
+  /* ================= CENTER ================= */
+
+  &__center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex: 1;
+  }
+
+  /* ================= RIGHT ================= */
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  &__spin {
+    animation: spin 1s linear infinite;
+  }
+}

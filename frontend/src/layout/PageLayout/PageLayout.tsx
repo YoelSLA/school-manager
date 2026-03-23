@@ -1,18 +1,25 @@
-import Breadcrumbs from "@/layout/Breadcrumbs/Breadcrumbs";
+import type { ReactNode } from "react";
 import styles from "./PageLayout.module.scss";
 
 type Props = {
-	children: React.ReactNode;
+	breadcrumbs?: ReactNode;
+	children: ReactNode;
 };
 
-export default function PageLayout({ children }: Props) {
+export default function PageLayout({ breadcrumbs, children }: Props) {
 	return (
-		<div className={styles["page-layout"]}>
-			<div className={styles["page-layout__breadcrumb"]}>
-				<Breadcrumbs />
-			</div>
+		<section className={styles.pageLayout}>
 
-			<div className={styles["page-layout__content"]}>{children}</div>
-		</div>
+			{breadcrumbs && (
+				<div className={styles.pageLayout__breadcrumbs}>
+					{breadcrumbs}
+				</div>
+			)}
+
+			<main className={styles.pageLayout__content}>
+				{children}
+			</main>
+
+		</section>
 	);
 }

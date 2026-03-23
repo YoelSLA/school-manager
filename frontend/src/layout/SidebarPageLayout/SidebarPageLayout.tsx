@@ -2,30 +2,26 @@ import type { ReactNode } from "react";
 import styles from "./SidebarPageLayout.module.scss";
 
 type Props = {
-	sidebar: ReactNode;
-	children: ReactNode;
-	filters?: ReactNode;
-	pagination?: ReactNode;
+	sidebar?: ReactNode;
+	content: ReactNode;
 };
 
 export default function SidebarPageLayout({
 	sidebar,
-	filters,
-	children,
-	pagination,
+	content,
 }: Props) {
 	return (
-		<section className={styles.sidebarPage}>
-			<aside className={styles.sidebarPage__sidebar}>{sidebar}</aside>
+		<section className={styles.layout}>
 
-			{filters && (
-				<div className={styles.sidebarPage__filters}>{filters}</div>
+			{sidebar && (
+				<aside className={styles.layout__sidebar}>
+					{sidebar}
+				</aside>
 			)}
 
-			<div className={styles.sidebarPage__body}>{children}</div>
-
-
-			<div className={styles.sidebarPage__pagination}>{pagination}</div>
+			<main className={styles.layout__content}>
+				{content}
+			</main>
 
 		</section>
 	);

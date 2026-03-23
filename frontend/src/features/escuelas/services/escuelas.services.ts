@@ -1,5 +1,5 @@
-import { http } from "@/services/axios";
-import { EscuelaCreateDTO, EscuelaResponseDTO, EscuelaUpdateDTO } from "@/utils/types";
+import { http } from "@/axiosTemplate";
+import type { EscuelaCreateDTO, EscuelaResponseDTO, EscuelaUpdateDTO } from "@/utils/types";
 
 export const crearEscuela = async (data: EscuelaCreateDTO): Promise<EscuelaResponseDTO> => {
 	const { data: escuela } = await http.post<EscuelaResponseDTO>("/escuelas", data);

@@ -1,4 +1,4 @@
-import { DesignacionAdministrativaResumenDTO } from "@/utils/types";
+import type { DesignacionAdministrativaResumenDTO } from "@/utils/types";
 import DesignacionCard from "../DesignacionCard";
 import RolEducativoPill from "../RolEducativoPill";
 

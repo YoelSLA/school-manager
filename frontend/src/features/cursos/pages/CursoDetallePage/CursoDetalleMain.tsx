@@ -1,4 +1,4 @@
-import { CursoResponseDTO } from "@/utils/types";
+import type { CursoResponseDTO } from "@/utils/types";
 import styles from "./CursoDetalleMain.module.scss";
 import CursoHorarioGrid, { type ModuloHorario } from "./CursoHorarioGrid";
 

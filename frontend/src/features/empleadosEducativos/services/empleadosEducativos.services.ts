@@ -1,7 +1,7 @@
 import qs from "qs";
 import type { DesignacionLicenciaItemDTO, LicenciaCreateDTO } from "@/features/licencias/types/licencia.types";
-import { http } from "@/services/axios";
-import type { BajaDefinitivaDTO, CausaBaja, EmpleadoEducativoCreateDTO, EmpleadoEducativoDetalleDTO, EmpleadoEducativoFiltro, EmpleadoEducativoMinimoDTO, EmpleadoEducativoUpdateDTO, PageResponse, SortState } from "@/utils/types";
+import { http } from "@/axiosTemplate";
+import type { BajaDefinitivaDTO, EmpleadoEducativoCreateDTO, EmpleadoEducativoDetalleDTO, EmpleadoEducativoFiltro, EmpleadoEducativoMinimoDTO, EmpleadoEducativoUpdateDTO, PageResponse, SortState } from "@/utils/types";
 import { buildSortQuery } from "../utils/empleadosEducativos.utils";
 
 export const crearEmpleadoEducativo = async (

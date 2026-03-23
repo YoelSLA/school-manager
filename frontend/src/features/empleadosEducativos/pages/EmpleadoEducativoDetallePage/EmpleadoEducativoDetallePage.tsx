@@ -14,7 +14,8 @@ import DatosPersonales from "./DatosPersonales/DatosPersonales";
 import styles from "./EmpleadoEducativoDetallePage.module.scss";
 import HeaderEmpleado from "./HeaderEmpleado/HeaderEmpleado";
 import LicenciasList from "./LicenciasList";
-import { BajaDefinitivaDTO } from "@/utils/types";
+import type { BajaDefinitivaDTO } from "@/utils/types";
+import Breadcrumbs from "@/layout/Breadcrumbs";
 
 export default function EmpleadoEducativoDetallePage() {
 	const { empleadoId } = useParams();
@@ -84,7 +85,9 @@ export default function EmpleadoEducativoDetallePage() {
 	========================= */
 
 	return (
-		<PageLayout>
+		<PageLayout
+			breadcrumbs={<Breadcrumbs />}
+		>
 			<div className={styles.page}>
 				<HeaderEmpleado
 					empleado={empleado}

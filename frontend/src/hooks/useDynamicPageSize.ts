@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 
-export function useDynamicPageSize() {
-	const [pageSize, setPageSize] = useState(8);
+export function useDynamicPageSize(
+	small: number = 8,
+	large: number = 10
+) {
+	const [pageSize, setPageSize] = useState(small);
 
 	useEffect(() => {
 		const updatePageSize = () => {
 			const width = window.innerWidth;
 			const height = window.innerHeight;
 
-			// 1920 x ~980
 			if (width >= 1680 && height >= 900) {
-				setPageSize(10);
+				setPageSize(large);
 			} else {
-				setPageSize(8);
+				setPageSize(small);
 			}
 		};
 
@@ -20,7 +22,7 @@ export function useDynamicPageSize() {
 		window.addEventListener("resize", updatePageSize);
 
 		return () => window.removeEventListener("resize", updatePageSize);
-	}, []);
+	}, [small, large]);
 
 	return pageSize;
 }
