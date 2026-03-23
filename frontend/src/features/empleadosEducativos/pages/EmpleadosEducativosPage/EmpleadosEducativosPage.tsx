@@ -1,114 +1,103 @@
-import { RefreshCw } from "lucide-react";
+
 import { useState } from "react";
-
-import Button from "@/components/Button/Button";
-import ListState from "@/components/ListState";
 import SortBuilder from "@/components/EmpleadoSortDropdown";
-import FilteredSidebar from "@/components/FilteredSidebar/FilteredSidebar";
-
-import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
-
 import Pagination from "@/layout/Pagination";
-import ScrollableGridListLayout from "@/layout/ScrollableGridListLayout/ScrollableGridListLayout";
 import SidebarPageLayout from "@/layout/SidebarPageLayout/SidebarPageLayout";
-
+import GridListState from "@/layout/GridListState";
 import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
 import { useEmpleadosEducativos } from "../../hooks/useEmpleadosEducativos";
 
 import { FILTROS_EMPLEADOS } from "../../utils/empleadosEducativos.utils";
-
 import EmpleadoEducativoCard from "../../components/EmpleadoEducativoCard";
-
+import { usePagination } from "@/hooks/usePagination";
 import type {
 	EmpleadoEducativoFiltro,
-	EmpleadoEducativoDetalleDTO,
 	SortState,
 } from "@/utils/types";
-
-import styles from "./EmpleadosEducativosPage.module.scss";
+import Sidebar from "@/layout/Sidebar";
+import FilterPillGroup from "@/components/FilterPillGroup";
+import ListPageLayout from "@/layout/ListPageLayout";
 
 export default function EmpleadosEducativosPage() {
-	const [filtro, setFiltro] = useState<EmpleadoEducativoFiltro>("TODOS");
+	const [filtro, setFiltro] =
+		useState<EmpleadoEducativoFiltro>("TODOS");
 	const [sort, setSort] = useState<SortState>({});
-	const [page, setPage] = useState(0);
 
-	const pageSize = useDynamicPageSize();
-
-	const { data, isLoading, refetch, isFetching } = useEmpleadosEducativos(
+	const { page, setPage, pageSize } = usePagination([
 		filtro,
-		page,
-		pageSize,
 		sort,
-	);
+	]);
+
+	const { data, isLoading, refetch, isFetching } =
+		useEmpleadosEducativos(filtro, page, pageSize, sort);
 
 	const empleadoNav = useEmpleadoNavigation();
 
 	const empleados = data?.content ?? [];
 	const totalPages = data?.totalPages ?? 0;
 
+	/* =========================
+			 HANDLERS
+	========================= */
+
 	const handleSortChange = (newSort: SortState) => {
 		setSort(newSort);
-		setPage(0);
 	};
 
 	const handleFiltroChange = (newFiltro: EmpleadoEducativoFiltro) => {
 		setFiltro(newFiltro);
-		setPage(0);
-	};
-
-	const handleRefresh = () => {
-		setPage(0);
-		refetch();
 	};
 
 	return (
 		<SidebarPageLayout
 			sidebar={
-				<FilteredSidebar
+				<Sidebar
 					title="Empleados educativos"
 					subtitle="Listado del personal de la escuela"
-					filtros={FILTROS_EMPLEADOS}
-					value={filtro}
-					onChange={handleFiltroChange}
-					actionLabel="+ Nuevo empleado"
-					onAction={empleadoNav.crear}
-					controls={<SortBuilder value={sort} onChange={handleSortChange} />}
-					extraActions={
-						<Button
-							variant="secondary"
-							onClick={handleRefresh}
-							disabled={isFetching}
-						>
-							<span className={styles.refreshContent}>
-								<RefreshCw
-									size={16}
-									className={isFetching ? styles.spin : ""}
+
+					filters={
+						<FilterPillGroup
+							items={FILTROS_EMPLEADOS}
+							value={filtro}
+							onChange={handleFiltroChange}
+						/>
+					}
+
+					controls={
+						<SortBuilder value={sort} onChange={handleSortChange} />
+					}
+					onRefresh={refetch}
+					isFetching={isFetching}
+					onCreate={empleadoNav.crear}
+					createLabel="Nuevo empleado"
+				/>
+			}
+			content={
+				<ListPageLayout
+					content={
+						<GridListState
+							isLoading={isLoading}
+							items={empleados}
+							loadingMessage="Cargando empleados educativos…"
+							emptyMessage="No hay empleados para el filtro seleccionado."
+							getKey={(empleado) => empleado.id}
+							renderItem={(empleado) => (
+								<EmpleadoEducativoCard
+									empleado={empleado}
+									onVerDetalle={empleadoNav.verDetalle}
 								/>
-								<span>Actualizar</span>
-							</span>
-						</Button>
+							)}
+						/>
+					}
+					pagination={
+						<Pagination
+							page={page}
+							totalPages={totalPages}
+							onChange={setPage}
+						/>
 					}
 				/>
 			}
-			pagination={
-				<Pagination page={page} totalPages={totalPages} onChange={setPage} />
-			}
-		>
-			{isLoading ? (
-				<ListState>Cargando empleados educativos…</ListState>
-			) : empleados.length === 0 ? (
-				<ListState>No hay empleados para el filtro seleccionado.</ListState>
-			) : (
-				<ScrollableGridListLayout>
-					{empleados.map((empleado: EmpleadoEducativoDetalleDTO) => (
-						<EmpleadoEducativoCard
-							key={empleado.id}
-							empleado={empleado}
-							onVerDetalle={empleadoNav.verDetalle}
-						/>
-					))}
-				</ScrollableGridListLayout>
-			)}
-		</SidebarPageLayout>
+		/>
 	);
 }

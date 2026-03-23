@@ -1,17 +1,10 @@
 import { z } from "zod";
-
-const emptyToUndefined = (value: unknown) => (value === "" ? undefined : value);
+import { optionalFechaISO, requiredFechaISO } from "./schemas";
 
 export const crearPeriodoSchema = z
 	.object({
-		fechaDesde: z.preprocess(
-			emptyToUndefined,
-			z.iso.date({
-				message: "La fecha desde es obligatoria",
-			}),
-		),
-
-		fechaHasta: z.preprocess(emptyToUndefined, z.iso.date().optional()),
+		fechaDesde: requiredFechaISO("La fecha desde es obligatoria"),
+		fechaHasta: optionalFechaISO(),
 	})
 	.refine(
 		(data) =>

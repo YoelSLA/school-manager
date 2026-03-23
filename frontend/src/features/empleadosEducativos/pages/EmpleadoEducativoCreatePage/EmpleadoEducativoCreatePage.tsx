@@ -10,7 +10,8 @@ import { useEmpleadoEducativoCreateForm } from "../../form/hooks/useEmpleadoEduc
 import { useCrearEmpleadoEducativo } from "../../hooks/useCrearEmpleadoEducativo";
 import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
 import styles from "./EmpleadoEducativoCreatePage.module.scss";
-import { EmpleadoEducativoCreateDTO } from "@/utils/types";
+import type { EmpleadoEducativoCreateDTO } from "@/utils/types";
+import Breadcrumbs from "@/layout/Breadcrumbs";
 
 export default function EmpleadoEducativoCreatePage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
@@ -106,7 +107,9 @@ export default function EmpleadoEducativoCreatePage() {
 	};
 
 	return (
-		<PageLayout>
+		<PageLayout
+			breadcrumbs={<Breadcrumbs />}
+		>
 			<div className={styles.page}>
 				<div className={styles.container}>
 					<EmpleadoEducativoCreateForm

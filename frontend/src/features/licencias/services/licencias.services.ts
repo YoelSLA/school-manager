@@ -1,4 +1,4 @@
-import { http } from "@/services/axios";
+import { http } from "@/axiosTemplate";
 import type {
 	CubrirDesignacionesConSuplente,
 	LicenciaDesignacion,

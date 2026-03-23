@@ -2,14 +2,13 @@ import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import { designacionesPaths } from "@/router/paths";
-import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
-import { useAppSelector } from "@/store/hooks";
 import EditarDesignacionAdministrativa from "../../components/EditarDesignacionAdministrativa/EditarDesignacionAdministrativa";
 import EditarDesignacionCurso from "../../components/EditarDesignacionCurso/EditarDesignacionCurso";
 import { useActualizarDesignacionAdministrativa } from "../../hooks/useActualizarDesignacionAdministrativa";
 import { useActualizarDesignacionCurso } from "../../hooks/useActualizarDesignacionCurso";
 import useDesignacionDetalle from "../../hooks/useDesignacionDetalle";
 import styles from "./DesignacionEditPage.module.scss";
+import Breadcrumbs from "@/layout/Breadcrumbs";
 
 export default function DesignacionEditPage() {
 	const { designacionId } = useParams<{ designacionId: string }>();
@@ -66,7 +65,9 @@ export default function DesignacionEditPage() {
 	}
 
 	return (
-		<PageLayout>
+		<PageLayout
+			breadcrumbs={<Breadcrumbs />}
+		>
 			<div className={styles["designacion-edit"]}>
 				<div className={styles["designacion-edit__form"]}>
 					{content}

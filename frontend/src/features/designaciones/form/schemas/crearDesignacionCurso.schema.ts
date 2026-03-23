@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { crearFranjaHorariaSchema } from "@/utils/schemas/crearfranjaHoraria.schema";
+import { crearFranjaHorariaSchema } from "@/utils/zod/crearfranjaHoraria.schema";
 
 export const crearDesignacionCursoSchema = z.object({
 	cupof: z.coerce

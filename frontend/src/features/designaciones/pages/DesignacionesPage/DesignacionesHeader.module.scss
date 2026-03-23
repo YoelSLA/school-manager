@@ -1,0 +1,18 @@
+.content {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  line-height: 1; // 🔥 evita desalineaciones raras
+}
+
+.spin {
+  animation: spin 0.8s linear infinite;
+  will-change: transform; // 🔥 micro-optimización
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

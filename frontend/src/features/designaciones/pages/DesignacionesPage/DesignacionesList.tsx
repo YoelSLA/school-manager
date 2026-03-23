@@ -1,12 +1,10 @@
-import ListState from "@/components/ListState";
-import ScrollableGridListLayout from "@/layout/ScrollableGridListLayout/ScrollableGridListLayout";
+import GridListState from "@/layout/GridListState";
+import type {
+	DesignacionAdministrativaResumenDTO,
+	DesignacionCursoResumenDTO,
+} from "@/utils/types";
 import DesignacionAdministrativaCard from "../../components/DesignacionAdministrativaCard";
 import DesignacionCursoCard from "../../components/DesignacionCursoCard";
-import type { DesignacionAdministrativaResumenDTO, DesignacionCursoResumenDTO } from "@/utils/types";
-
-/* ===============================
-	 PROPS (DISCRIMINATED UNION)
-================================ */
 
 type Props =
 	| {
@@ -14,54 +12,52 @@ type Props =
 		filtro: "ADMIN";
 		isLoading: boolean;
 		isError: boolean;
-		onVerDetalle: (designacion: DesignacionAdministrativaResumenDTO) => void;
+		onVerDetalle: (d: DesignacionAdministrativaResumenDTO) => void;
 	}
 	| {
 		designaciones: DesignacionCursoResumenDTO[];
 		filtro: "CURSO";
 		isLoading: boolean;
 		isError: boolean;
-		onVerDetalle: (designacion: DesignacionCursoResumenDTO) => void;
+		onVerDetalle: (d: DesignacionCursoResumenDTO) => void;
 	};
-/* ===============================
-	 COMPONENT
-================================ */
 
 export default function DesignacionesList(props: Props) {
-	if (props.isLoading) {
-		return <ListState>Cargando designaciones…</ListState>;
-	}
-
-	if (props.isError) {
-		return <ListState>No se pudieron cargar las designaciones</ListState>;
-	}
-
-	if (props.designaciones.length === 0) {
+	if (props.filtro === "ADMIN") {
 		return (
-			<ListState>
-				No hay designaciones para el filtro seleccionado.
-			</ListState>
+			<GridListState
+				isLoading={props.isLoading}
+				isError={props.isError}
+				items={props.designaciones}
+				loadingMessage="Cargando designaciones…"
+				emptyMessage="No hay designaciones para el filtro seleccionado."
+				errorMessage="No se pudieron cargar las designaciones"
+				getKey={(d) => d.id}
+				renderItem={(d) => (
+					<DesignacionAdministrativaCard
+						designacion={d}
+						onVerDetalle={props.onVerDetalle}
+					/>
+				)}
+			/>
 		);
 	}
 
 	return (
-		<ScrollableGridListLayout>
-			{props.filtro === "ADMIN"
-				? props.designaciones.map((d) => (
-					<DesignacionAdministrativaCard
-						key={d.id}
-						designacion={d}
-						onVerDetalle={props.onVerDetalle}
-					/>
-				))
-				: props.designaciones.map((d) => (
-					<DesignacionCursoCard
-						key={d.id}
-						designacion={d}
-						onVerDetalle={props.onVerDetalle}
-					/>
-				))}
-		</ScrollableGridListLayout>
+		<GridListState
+			isLoading={props.isLoading}
+			isError={props.isError}
+			items={props.designaciones}
+			loadingMessage="Cargando designaciones…"
+			emptyMessage="No hay designaciones para el filtro seleccionado."
+			errorMessage="No se pudieron cargar las designaciones"
+			getKey={(d) => d.id}
+			renderItem={(d) => (
+				<DesignacionCursoCard
+					designacion={d}
+					onVerDetalle={props.onVerDetalle}
+				/>
+			)}
+		/>
 	);
 }
-

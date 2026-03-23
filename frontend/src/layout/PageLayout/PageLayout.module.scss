@@ -1,58 +1,62 @@
 @use "@/styles/breakpoints" as *;
 @use "@/styles/_debug.mixins" as debug;
 
-.page-layout {
+.pageLayout {
+	/* 🧩 VARIABLES */
+	--page-gap: 8px;
+
+	/* 🏗️ LAYOUT */
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	padding-top: 0;
-	gap: 8px;
 
+	/* 📦 BOX MODEL */
+	gap: var(--page-gap);
+
+	/* 🧪 DEBUG */
 	@include debug.debug(aqua);
 
-	&__breadcrumb {
+	/* 🧱 BREADCRUMBS */
+	&__breadcrumbs {
+		/* 🏗️ layout */
 		flex-shrink: 0;
 
+		/* 🧪 debug */
 		@include debug.debug(coral);
 	}
 
+	/* 🧱 CONTENT */
 	&__content {
+		/* 🏗️ layout */
 		flex: 1;
-		min-height: 0;
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
 
+		/* 📦 box model */
+		min-height: 0;
+		gap: var(--page-gap);
+
+		/* 🧪 debug */
 		@include debug.debug(lightcoral);
 	}
 }
 
-@include desktop-height-small {
-	.page-layout {
-		gap: 4px;
-	}
+/* 📱 BREAKPOINTS */
 
-	.page-layout__content {
-		gap: 4px;
+@include desktop-height-small {
+	.pageLayout {
+		--page-gap: 4px;
 	}
 }
 
 @include desktop-height-medium {
-	.page-layout {
-		gap: 8px;
-	}
-
-	.page-layout__content {
-		gap: 8px;
+	.pageLayout {
+		--page-gap: 8px;
 	}
 }
 
 @include desktop-height-large {
-	.page-layout {
-		gap: 12px;
-	}
-
-	.page-layout__content {
-		gap: 12px;
+	.pageLayout {
+		--page-gap: 12px;
 	}
 }

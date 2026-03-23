@@ -1,20 +1,19 @@
 @use "@/styles/breakpoints" as *;
 
-/* ======================================================
-   BASE (medium)
-====================================================== */
-
 .pagination {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	gap: 12px;
+	gap: 16px;
 
-	/* ================= NAV (‹ ›) ================= */
+	height: 32px;
+	padding: 0 4px;
+
+	/* ================= NAV ================= */
 
 	&__nav {
+		width: 32px;
 		height: 32px;
-		min-width: 32px;
 
 		display: flex;
 		align-items: center;
@@ -25,9 +24,7 @@
 		background: var(--bg-card);
 
 		cursor: pointer;
-		transition:
-			background 0.2s ease,
-			border-color 0.2s ease;
+		transition: all 0.2s ease;
 
 		&:hover:not(:disabled) {
 			background: var(--primary-50);
@@ -36,20 +33,22 @@
 
 		&:disabled {
 			opacity: 0.4;
-			cursor: not-allowed;
 		}
 	}
 
-	/* ================= NUMBERS ================= */
+	/* ================= PAGES ================= */
 
 	&__pages {
 		display: flex;
-		gap: 8px;
+		justify-content: center;
+		align-items: center;
+		gap: 4px;
+		height: 100%;
 	}
 
 	&__page {
+		width: 32px;
 		height: 32px;
-		min-width: 32px;
 
 		display: flex;
 		align-items: center;
@@ -57,7 +56,6 @@
 
 		border-radius: 8px;
 		border: 1px solid transparent;
-		background: transparent;
 
 		font-size: 13px;
 		font-weight: 500;
@@ -74,62 +72,13 @@
 			background: var(--primary-600);
 			color: white;
 			border-color: var(--primary-600);
-			cursor: default;
+
+			/* 🔥 mejora visual */
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 
 			&:hover {
 				background: var(--primary-600);
-				border-color: var(--primary-600);
 			}
-		}
-	}
-}
-
-/* ======================================================
-   📏 DESKTOP HEIGHT SMALL
-====================================================== */
-
-@include desktop-height-small {
-	.pagination {
-		gap: 8px;
-
-		&__nav {
-			height: 28px;
-			min-width: 28px;
-		}
-
-		&__pages {
-			gap: 4px;
-		}
-
-		&__page {
-			height: 28px;
-			min-width: 28px;
-			font-size: 12px;
-		}
-	}
-}
-
-/* ======================================================
-   📏 DESKTOP HEIGHT LARGE
-====================================================== */
-
-@include desktop-height-large {
-	.pagination {
-		gap: 16px;
-
-		&__nav {
-			height: 36px;
-			min-width: 36px;
-		}
-
-		&__pages {
-			gap: 12px;
-		}
-
-		&__page {
-			height: 36px;
-			min-width: 36px;
-			font-size: 14px;
 		}
 	}
 }

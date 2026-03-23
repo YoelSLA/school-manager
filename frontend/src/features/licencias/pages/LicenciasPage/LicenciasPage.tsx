@@ -1,42 +1,36 @@
-import { useEffect, useState } from "react";
-import Button from "@/components/Button";
+import { useState } from "react";
 import ConfirmModal from "@/components/ConfirmModal";
-import ListState from "@/components/ListState";
-import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
-import Pagination from "@/layout/Pagination";
-import ScrollableGridListLayout from "@/layout/ScrollableGridListLayout/ScrollableGridListLayout";
-import SidebarPageLayout from "@/layout/SidebarPageLayout/SidebarPageLayout";
-import SidebarSectionLayout from "@/layout/SidebarSectionLayout/SidebarSectionLayout";
-
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
 
 import { useLicencias } from "../../hooks/useLicencias";
 import { useLicenciasNavigation } from "../../hooks/useLicenciasNavigation";
 import LicenciaCard from "../../components/LicenciaCard";
-
 import type { LicenciaResumenDTO } from "@/utils/types";
 import useDeleteLicencia from "../../hooks/useDeleteLicencia";
+import SidebarPageLayout from "@/layout/SidebarPageLayout";
+import GridListState from "@/layout/GridListState";
+import Pagination from "@/layout/Pagination";
+import { usePagination } from "@/hooks/usePagination";
+import ListPageLayout from "@/layout/ListPageLayout";
+import Sidebar from "@/layout/Sidebar";
 
 export default function LicenciasPage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 	const licenciasNav = useLicenciasNavigation();
 
-	const [page, setPage] = useState(0);
-	const pageSize = useDynamicPageSize();
+	const { page, setPage, pageSize } = usePagination([
+		escuelaActiva?.id,
+	]);
 
 	const [licenciaAEliminar, setLicenciaAEliminar] =
 		useState<LicenciaResumenDTO | null>(null);
-
-	useEffect(() => {
-		setPage(0);
-	}, []);
 
 	/* =========================
 		 QUERY
 	========================= */
 
-	const { data, isLoading, isError, refetch } = useLicencias(
+	const { data, isLoading, isError, refetch, isFetching } = useLicencias(
 		escuelaActiva?.id,
 		page,
 		pageSize,
@@ -49,7 +43,8 @@ export default function LicenciasPage() {
 		 DELETE
 	========================= */
 
-	const { mutate: deleteLicencia, isPending: isDeleting } = useDeleteLicencia();
+	const { mutate: deleteLicencia, isPending: isDeleting } =
+		useDeleteLicencia();
 
 	const handleConfirmDelete = () => {
 		if (!licenciaAEliminar) return;
@@ -63,50 +58,45 @@ export default function LicenciasPage() {
 		<>
 			<SidebarPageLayout
 				sidebar={
-					<SidebarSectionLayout
+					<Sidebar
 						title="Licencias"
 						subtitle="Gestión de licencias del personal educativo"
-						actions={
-							<Button onClick={licenciasNav.crear}>
-								+ Nueva licencia
-							</Button>
+						onRefresh={refetch}
+						isFetching={isFetching}
+						onCreate={licenciasNav.crear}
+						createLabel="Nueva licencia"
+					/>
+				}
+				content={
+					<ListPageLayout
+						content={
+							<GridListState
+								isLoading={isLoading}
+								isError={isError}
+								items={licencias}
+								loadingMessage="Cargando licencias…"
+								emptyMessage="No hay licencias para el filtro seleccionado"
+								errorMessage="No se pudieron cargar las licencias"
+								getKey={(l) => l.id}
+								renderItem={(l) => (
+									<LicenciaCard
+										licencia={l}
+										onVerDetalle={licenciasNav.verDetalle}
+										onDelete={() => setLicenciaAEliminar(l)}
+									/>
+								)}
+							/>
+						}
+						pagination={
+							<Pagination
+								page={page}
+								totalPages={totalPages}
+								onChange={setPage}
+							/>
 						}
 					/>
 				}
-				pagination={
-					totalPages > 1 ? (
-						<Pagination
-							page={page}
-							totalPages={totalPages}
-							onChange={setPage}
-						/>
-					) : undefined
-				}
-			>
-				{isLoading ? (
-					<ListState>Cargando licencias…</ListState>
-				) : isError ? (
-					<div>
-						<p>No se pudieron cargar las licencias</p>
-						<Button size="sm" onClick={() => refetch()}>
-							Reintentar
-						</Button>
-					</div>
-				) : licencias.length === 0 ? (
-					<ListState>No hay licencias para mostrar</ListState>
-				) : (
-					<ScrollableGridListLayout>
-						{licencias.map((licencia) => (
-							<LicenciaCard
-								key={licencia.id}
-								licencia={licencia}
-								onVerDetalle={licenciasNav.verDetalle}
-								onDelete={() => setLicenciaAEliminar(licencia)}
-							/>
-						))}
-					</ScrollableGridListLayout>
-				)}
-			</SidebarPageLayout>
+			/>
 
 			{/* DELETE */}
 			{licenciaAEliminar && (

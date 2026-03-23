@@ -1,33 +1,34 @@
-import { useEffect, useState } from "react";
-import Button from "@/components/Button";
-import ConfirmModal from "@/components/ConfirmModal";
-import ListState from "@/components/ListState";
-import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
-import Pagination from "@/layout/Pagination";
-import ScrollableGridListLayout from "@/layout/ScrollableGridListLayout/ScrollableGridListLayout";
-import SidebarPageLayout from "@/layout/SidebarPageLayout/SidebarPageLayout";
-import SidebarSectionLayout from "@/layout/SidebarSectionLayout/SidebarSectionLayout";
-
-import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
-import { useAppSelector } from "@/store/hooks";
-
+import { useState } from "react";
+import ConfirmModal from "@/components/ConfirmModal"; "@/layout/SidebarSectate";
 import CrearMateriaModal from "../components/MateriaCreateModal";
 import MateriaEditModal from "../components/MateriaEditModal/MateriaEditModal";
-import MateriaCard from "../components/MateriaCard";
-
 import { useCrearMateria } from "../hooks/useCreateMateria";
-import { useMaterias } from "../hooks/useMaterias";
-import { useEditMateria } from "../hooks/useUpdateMateria";
+import useDeleteMateria from "../hooks/useDeleteMateria";
+
+import { usePagination } from "@/hooks/usePagination";
 
 import type {
 	MateriaCreateDTO,
 	MateriaResponseDTO,
 	MateriaUpdateDTO,
 } from "@/utils/types";
-import useDeleteMateria from "../hooks/useDeleteMateria";
+import SidebarPageLayout from "@/layout/SidebarPageLayout";
+import ListPageLayout from "@/layout/ListPageLayout";
+import GridListState from "@/layout/GridListState";
+import { useMaterias } from "../hooks/useMaterias";
+import { useAppSelector } from "@/store/hooks";
+import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
+import { useEditMateria } from "../hooks/useUpdateMateria";
+import MateriaCard from "../components/MateriaCard";
+import Pagination from "@/layout/Pagination";
+import Sidebar from "@/layout/Sidebar";
 
 export default function MateriasPage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
+
+	const { page, setPage, pageSize } = usePagination([
+		escuelaActiva?.id,
+	]);
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [materiaAEditar, setMateriaAEditar] =
@@ -35,25 +36,18 @@ export default function MateriasPage() {
 	const [materiaAEliminar, setMateriaAEliminar] =
 		useState<MateriaResponseDTO | null>(null);
 
-	const [page, setPage] = useState(0);
-	const pageSize = useDynamicPageSize();
-
-	useEffect(() => {
-		setPage(0);
-	}, []);
-
 	/* =========================
-		 QUERIES
+			 QUERY
 	========================= */
 
-	const { data, isLoading } = useMaterias(escuelaActiva?.id, page, pageSize);
+	const { data, isLoading, isError, refetch, isFetching } = useMaterias(
+		escuelaActiva?.id,
+		page,
+		pageSize,
+	);
 
 	const materias = data?.content ?? [];
 	const totalPages = data?.totalPages ?? 0;
-
-	/* =========================
-		 CREATE
-	========================= */
 
 	const { mutate: createMateria, isPending } = useCrearMateria(
 		escuelaActiva?.id,
@@ -68,7 +62,7 @@ export default function MateriasPage() {
 	};
 
 	/* =========================
-		 EDIT
+			 EDIT
 	========================= */
 
 	const { mutate: editMateria, isPending: isEditing } = useEditMateria(
@@ -85,7 +79,7 @@ export default function MateriasPage() {
 	};
 
 	/* =========================
-		 DELETE
+			 DELETE
 	========================= */
 
 	const { mutate: deleteMateria, isPending: isDeleting } = useDeleteMateria(
@@ -104,39 +98,45 @@ export default function MateriasPage() {
 		<>
 			<SidebarPageLayout
 				sidebar={
-					<SidebarSectionLayout
+					<Sidebar
 						title="Materias"
 						subtitle="Listado de materias de la escuela"
-						actions={
-							<Button onClick={() => setIsModalOpen(true)}>
-								+ Nueva materia
-							</Button>
+						onRefresh={refetch}
+						isFetching={isFetching}
+						onCreate={() => setIsModalOpen(true)}
+						createLabel="Nueva materia"
+					/>
+				}
+				content={
+					<ListPageLayout
+						content={
+							<GridListState
+								isLoading={isLoading}
+								isError={isError}
+								items={materias}
+								loadingMessage="Cargando materias…"
+								emptyMessage="No hay materias para el filtro seleccionado"
+								errorMessage="No se pudieron cargar las materias"
+								getKey={(m) => m.id}
+								renderItem={(m) => (
+									<MateriaCard
+										materia={m}
+										onEdit={() => setMateriaAEditar(m)}
+										onDelete={() => setMateriaAEliminar(m)}
+									/>
+								)}
+							/>
+						}
+						pagination={
+							<Pagination
+								page={page}
+								totalPages={totalPages}
+								onChange={setPage}
+							/>
 						}
 					/>
 				}
-				pagination={
-					totalPages > 1 ? (
-						<Pagination page={page} totalPages={totalPages} onChange={setPage} />
-					) : undefined
-				}
-			>
-				{isLoading ? (
-					<ListState>Cargando materias…</ListState>
-				) : materias.length === 0 ? (
-					<ListState>No hay materias cargadas.</ListState>
-				) : (
-					<ScrollableGridListLayout>
-						{materias.map((materia) => (
-							<MateriaCard
-								key={materia.id}
-								materia={materia}
-								onEdit={() => setMateriaAEditar(materia)}
-								onDelete={() => setMateriaAEliminar(materia)}
-							/>
-						))}
-					</ScrollableGridListLayout>
-				)}
-			</SidebarPageLayout>
+			/>
 
 			{/* CREATE */}
 			{isModalOpen && escuelaActiva && (

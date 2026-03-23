@@ -79,7 +79,7 @@ export default function AsistenciasPage() {
 
 	const [query, setQuery] = useState("");
 	const [page, setPage] = useState(0);
-	const pageSize = useDynamicPageSize();
+	const pageSize = useDynamicPageSize(9, 12);
 
 	// 🔥 Reset page cuando cambian filtros
 	useEffect(() => {
