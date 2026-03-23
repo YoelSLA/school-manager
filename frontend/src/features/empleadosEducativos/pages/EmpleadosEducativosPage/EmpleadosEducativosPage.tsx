@@ -6,6 +6,7 @@ import SidebarPageLayout from "@/layout/SidebarPageLayout/SidebarPageLayout";
 import GridListState from "@/layout/GridListState";
 import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
 import { useEmpleadosEducativos } from "../../hooks/useEmpleadosEducativos";
+
 import { FILTROS_EMPLEADOS } from "../../utils/empleadosEducativos.utils";
 import EmpleadoEducativoCard from "../../components/EmpleadoEducativoCard";
 import { usePagination } from "@/hooks/usePagination";
