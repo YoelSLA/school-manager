@@ -84,7 +84,7 @@ export default function CursosPage() {
 	========================= */
 
 	const handleVerDetalle = (_curso: CursoResponseDTO) => {
-		// na_handleVerDetalle
+		// navegación futura
 	};
 
 	/* =========================
