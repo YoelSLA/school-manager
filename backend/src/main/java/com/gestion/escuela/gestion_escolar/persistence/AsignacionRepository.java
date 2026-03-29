@@ -3,6 +3,7 @@ package com.gestion.escuela.gestion_escolar.persistence;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -38,7 +39,21 @@ public interface AsignacionRepository extends JpaRepository<Asignacion, Long> {
 	List<RolCantidadProjection> contarEmpleadosPorRolVigente(
 			@Param("fecha") LocalDate fecha
 	);
-	
+
 	Optional<Asignacion> findByIdAndDesignacionId(Long id, Long designacionId);
+
+	@Modifying
+	@Query("""
+			    delete from Asignacion a
+			    where type(a) = AsignacionSuplente
+			      and a.designacion.id in :designacionesIds
+			      and a.periodo.fechaDesde = :fechaDesde
+			      and a.periodo.fechaHasta = :fechaHasta
+			""")
+	void eliminarSuplenciasDeLicencia(
+			@Param("designacionesIds") List<Long> designacionesIds,
+			@Param("fechaDesde") LocalDate fechaDesde,
+			@Param("fechaHasta") LocalDate fechaHasta
+	);
 
 }

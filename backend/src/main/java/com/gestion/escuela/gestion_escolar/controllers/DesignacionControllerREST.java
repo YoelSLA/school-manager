@@ -44,8 +44,6 @@ public class DesignacionControllerREST {
 				dto.caracteristica()
 		);
 
-		System.out.println("Asignacion ID: " + asignacion.getId());
-
 		return AsignacionMapper.toDetalle(asignacion);
 	}
 

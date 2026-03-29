@@ -7,8 +7,8 @@ export interface TipoLicencia {
 
 export const TIPOS_LICENCIA: TipoLicencia[] = [
 	/* ===============================
-     ARTÍCULO 114 – ENFERMEDAD
-  =============================== */
+		 ARTÍCULO 114 – ENFERMEDAD
+	=============================== */
 	{
 		enumValue: "L_A1",
 		articulo: "Artículo 114",
@@ -37,8 +37,8 @@ export const TIPOS_LICENCIA: TipoLicencia[] = [
 	},
 
 	/* ===============================
-     ARTÍCULO 114 – MATRIMONIO
-  =============================== */
+		 ARTÍCULO 114 – MATRIMONIO
+	=============================== */
 	{
 		enumValue: "L_B1",
 		articulo: "Artículo 114",
@@ -59,8 +59,8 @@ export const TIPOS_LICENCIA: TipoLicencia[] = [
 	},
 
 	/* ===============================
-     ARTÍCULO 114 – MATERNIDAD
-  =============================== */
+		 ARTÍCULO 114 – MATERNIDAD
+	=============================== */
 	{
 		enumValue: "L_114D",
 		articulo: "Artículo 114",
@@ -76,8 +76,8 @@ export const TIPOS_LICENCIA: TipoLicencia[] = [
 	},
 
 	/* ===============================
-     ARTÍCULO 114 – FAMILIAR ENFERMO
-  =============================== */
+		 ARTÍCULO 114 – FAMILIAR ENFERMO
+	=============================== */
 	{
 		enumValue: "L_114F1",
 		articulo: "Artículo 114",
@@ -105,8 +105,8 @@ export const TIPOS_LICENCIA: TipoLicencia[] = [
 	},
 
 	/* ===============================
-     ARTÍCULO 114 – VARIAS
-  =============================== */
+		 ARTÍCULO 114 – VARIAS
+	=============================== */
 	{
 		enumValue: "L_114G",
 		articulo: "Artículo 114",
@@ -145,8 +145,8 @@ export const TIPOS_LICENCIA: TipoLicencia[] = [
 	},
 
 	/* ===============================
-     ARTÍCULO 114 – EXÁMENES
-  =============================== */
+		 ARTÍCULO 114 – EXÁMENES
+	=============================== */
 	{
 		enumValue: "L_114LL11",
 		articulo: "Artículo 114",
@@ -191,8 +191,8 @@ export const TIPOS_LICENCIA: TipoLicencia[] = [
 	},
 
 	/* ===============================
-     ARTÍCULO 114 – CITACIONES
-  =============================== */
+		 ARTÍCULO 114 – CITACIONES
+	=============================== */
 	{
 		enumValue: "L_114M",
 		articulo: "Artículo 114",
@@ -213,8 +213,8 @@ export const TIPOS_LICENCIA: TipoLicencia[] = [
 	},
 
 	/* ===============================
-     ARTÍCULO 114 – ESPECIALES
-  =============================== */
+		 ARTÍCULO 114 – ESPECIALES
+	=============================== */
 	{
 		enumValue: "L_114N",
 		articulo: "Artículo 114",
@@ -229,8 +229,8 @@ export const TIPOS_LICENCIA: TipoLicencia[] = [
 	},
 
 	/* ===============================
-     ARTÍCULO 114 – CAUSAS PARTICULARES
-  =============================== */
+		 ARTÍCULO 114 – CAUSAS PARTICULARES
+	=============================== */
 	{
 		enumValue: "L_114O1",
 		articulo: "Artículo 114",
@@ -263,8 +263,8 @@ export const TIPOS_LICENCIA: TipoLicencia[] = [
 	},
 
 	/* ===============================
-     ARTÍCULO 115
-  =============================== */
+		 ARTÍCULO 115
+	=============================== */
 	{
 		enumValue: "L_115A1",
 		articulo: "Artículo 115",
@@ -331,5 +331,19 @@ export const TIPOS_LICENCIA: TipoLicencia[] = [
 		codigo: "115E3",
 		descripcion:
 			"Licencia por desempeño de cargos electivos o de representación política mientras dure la función.",
+	},
+	{
+		enumValue: "L_10579RT",
+		articulo: "Artículo 121",
+		codigo: "10579RT",
+		descripcion:
+			"Licencia para personal docente.",
+	},
+	{
+		enumValue: "L_10430RT",
+		articulo: "Artículo 49",
+		codigo: "10430RT",
+		descripcion:
+			"Licencia para personal auxiliar.",
 	},
 ];

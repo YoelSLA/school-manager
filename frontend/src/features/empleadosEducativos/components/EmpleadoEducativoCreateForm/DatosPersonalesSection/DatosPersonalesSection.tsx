@@ -3,8 +3,8 @@ import type { FieldErrors, UseFormRegister } from "react-hook-form";
 import FormSection from "@/components/FormSection";
 
 import styles from "@/components/FormSection/FormSection.module.scss";
-import FormInputField from "@/components/forms/FormInputField/FormInputField";
-import { EmpleadoEducativoCreateDTO } from "@/utils/types";
+import type { EmpleadoEducativoCreateDTO } from "@/utils/types";
+import FormInputFieldRHF from "@/components/forms/FormInputField";
 
 type Props = {
 	register: UseFormRegister<EmpleadoEducativoCreateDTO>;
@@ -12,55 +12,59 @@ type Props = {
 };
 
 export default function DatosPersonalesSection({ register, errors }: Props) {
+
+	console.log("ERRORES EN DATOS PERSONALES SECTION", errors);
+	console.log("REGISTER EN DATOS PERSONALES SECTION", register);
+
 	return (
 		<FormSection title="DATOS PERSONALES" layout="column">
-			<FormInputField
+			<FormInputFieldRHF
+				name="cuil"
+				register={register}
+				error={errors.cuil?.message}
 				label={
 					<>
 						<IdCard size={14} />
 						CUIL <span className={styles.required}>*</span>
 					</>
 				}
-				name="cuil"
-				register={register}
-				error={errors.cuil?.message}
 			/>
 
-			<FormInputField
+			<FormInputFieldRHF
+				name="fechaDeNacimiento"
+				type="date"
+				register={register}
+				error={errors.fechaDeNacimiento?.message}
 				label={
 					<>
 						<Calendar size={14} />
 						Fecha de nacimiento <span className={styles.required}>*</span>
 					</>
 				}
-				name="fechaDeNacimiento"
-				type="date"
-				register={register}
-				error={errors.fechaDeNacimiento?.message}
 			/>
 
-			<FormInputField
+			<FormInputFieldRHF
+				name="nombre"
+				register={register}
+				error={errors.nombre?.message}
 				label={
 					<>
 						<User size={14} />
 						Nombre <span className={styles.required}>*</span>
 					</>
 				}
-				name="nombre"
-				register={register}
-				error={errors.nombre?.message}
 			/>
 
-			<FormInputField
+			<FormInputFieldRHF
+				name="apellido"
+				register={register}
+				error={errors.apellido?.message}
 				label={
 					<>
 						<UserRound size={14} />
 						Apellido <span className={styles.required}>*</span>
 					</>
 				}
-				name="apellido"
-				register={register}
-				error={errors.apellido?.message}
 			/>
 		</FormSection>
 	);

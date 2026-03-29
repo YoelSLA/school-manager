@@ -8,38 +8,37 @@ import type {
 
 import styles from "./FormInputField.module.scss";
 
-type Props<T extends FieldValues = FieldValues> = {
+type Props<T extends FieldValues> = {
 	label: React.ReactNode;
-	name?: Path<T>;
+	name: Path<T>;
+	register: UseFormRegister<T>;
+
 	type?: string;
-
-	// RHF
-	register?: UseFormRegister<T>;
 	registerOptions?: RegisterOptions<T>;
-
-	// normal input
-	value?: string;
-	onChange?: React.ChangeEventHandler<HTMLInputElement>;
 
 	error?: string;
 	inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 };
 
-export default function FormInputField<T extends FieldValues>({
+export default function FormInputFieldRHF<T extends FieldValues>({
 	label,
 	name,
-	type = "text",
 	register,
+	type = "text",
 	registerOptions,
-	value,
-	onChange,
 	error,
 	inputProps,
 }: Props<T>) {
-	const fieldId = name ? String(name) : inputProps?.id;
+	const fieldId = String(name);
 	const isReadOnly = inputProps?.readOnly;
 
-	const registerProps = register && name ? register(name, registerOptions) : {};
+	// ✅ destructuramos correctamente register
+	const {
+		onChange,
+		onBlur,
+		ref,
+		name: fieldName,
+	} = register(name, registerOptions);
 
 	return (
 		<div
@@ -57,14 +56,21 @@ export default function FormInputField<T extends FieldValues>({
 
 			<input
 				id={fieldId}
+				name={fieldName}
 				type={type}
+				ref={ref}
 				className={styles["form-field__input"]}
 				aria-invalid={!!error}
 				aria-describedby={error ? `${fieldId}-error` : undefined}
-				value={value}
-				onChange={onChange}
-				{...registerProps}
-				{...inputProps}
+				onChange={(e) => {
+					console.log("⌨️ ON CHANGE:", name, e.target.value);
+					onChange(e);
+				}}
+				onBlur={(e) => {
+					console.log("👆 ON BLUR:", name);
+					onBlur(e);
+				}}
+				{...inputProps} // 👈 al final para no romper RHF
 			/>
 
 			{error && (

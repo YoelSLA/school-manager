@@ -1,4 +1,4 @@
-import type { AsignacionDetalleDTO } from "@/features/asignaciones/types/asignacion.types";
+import type { AsignacionDetalleDTO } from "@/utils/types";
 import CargoCard from "./CargoCard";
 import styles from "./DesignacionCargoActivo.module.scss";
 
@@ -15,8 +15,6 @@ export default function DesignacionCargoActivo({
 }: Props) {
 	return (
 		<section className={styles.root}>
-			<h3 className={styles.title}>CARGO ACTIVO</h3>
-
 			{isLoading && <p className={styles.loading}>Cargando cargo activo…</p>}
 
 			{!isLoading && !cargo && (
