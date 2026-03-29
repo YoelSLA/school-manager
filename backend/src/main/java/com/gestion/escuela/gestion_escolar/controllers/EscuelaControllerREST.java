@@ -7,7 +7,6 @@ import com.gestion.escuela.gestion_escolar.mappers.AsistenciaMapper;
 import com.gestion.escuela.gestion_escolar.mappers.EscuelaMapper;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.services.AsistenciaService;
-import com.gestion.escuela.gestion_escolar.services.EmpleadoEducativoService;
 import com.gestion.escuela.gestion_escolar.services.EscuelaService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -29,7 +28,6 @@ import java.util.List;
 public class EscuelaControllerREST {
 
 	private final EscuelaService escuelaService;
-	private final EmpleadoEducativoService empleadoEducativoService;
 	private final AsistenciaService asistenciaService;
 
 	@PostMapping

@@ -16,23 +16,23 @@ export default function CargoCardMenu({ onEditar }: Props) {
 
 	return (
 		<div className={styles.menuWrapper}>
-			<button className={styles.menuButton} onClick={() => setOpen(!open)}>
+			<button type="button" className={styles.menuButton} onClick={() => setOpen(!open)}>
 				<MoreVertical size={18} />
 			</button>
 
 			{open && (
 				<div className={styles.menu}>
-					<button onClick={handleEditar}>
+					<button type="button" onClick={handleEditar}>
 						<Pencil size={16} />
 						Editar
 					</button>
 
-					<button disabled>
+					<button type="button" disabled>
 						<UserMinus size={16} />
 						Dar de baja
 					</button>
 
-					<button className={styles.danger} disabled>
+					<button type="button" className={styles.danger} disabled>
 						<Trash2 size={16} />
 						Eliminar
 					</button>

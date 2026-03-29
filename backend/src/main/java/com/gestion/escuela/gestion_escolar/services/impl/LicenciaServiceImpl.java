@@ -4,6 +4,7 @@ import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
+import com.gestion.escuela.gestion_escolar.persistence.AsignacionRepository;
 import com.gestion.escuela.gestion_escolar.persistence.EscuelaRepository;
 import com.gestion.escuela.gestion_escolar.persistence.LicenciaRepository;
 import com.gestion.escuela.gestion_escolar.services.LicenciaService;
@@ -24,6 +25,7 @@ public class LicenciaServiceImpl implements LicenciaService {
 
 	private final LicenciaRepository licenciaRepository;
 	private final EscuelaRepository escuelaRepository;
+	private final AsignacionRepository asignacionRepository;
 
 	public Licencia obtenerPorId(Long id) {
 		return licenciaRepository.findById(id).orElseThrow(() -> new RecursoNoEncontradoException("licencia", id));
@@ -83,6 +85,18 @@ public class LicenciaServiceImpl implements LicenciaService {
 	public void eliminarLicencia(Long licenciaId) {
 		Licencia licencia = licenciaRepository.findById(licenciaId)
 				.orElseThrow(() -> new RecursoNoEncontradoException("licencia", licenciaId));
+
+		List<Long> designacionesIds = licencia.getDesignaciones().stream()
+				.map(Designacion::getId)
+				.toList();
+
+		asignacionRepository.eliminarSuplenciasDeLicencia(
+				designacionesIds,
+				licencia.getPeriodo().getFechaDesde(),
+				licencia.getPeriodo().getFechaHasta()
+		);
+
+		licencia.limpiarDesignaciones();
 
 		licenciaRepository.delete(licencia);
 	}

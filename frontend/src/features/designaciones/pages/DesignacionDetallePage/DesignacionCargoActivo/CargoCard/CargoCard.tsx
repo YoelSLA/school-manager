@@ -38,7 +38,6 @@ export default function CargoCard({ cargo, onEditar }: Props) {
 			<div className={styles.badges}>
 				<BadgeSituacionRevista value={situacionDeRevista} />
 				<BadgeEstadoAsignacion value={estadoAsignacion} />
-				{estadoAsignacion}
 			</div>
 		</div >
 	);
