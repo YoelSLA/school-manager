@@ -126,7 +126,7 @@ class DesignacionAdministrativaTest {
 
 			LocalDate fechaTomaPosesion = LocalDate.of(2004, Month.JULY, 21);
 
-			auxiliar2330001.cubrirConTitular(leguizamonMarina, fechaTomaPosesion);
+			auxiliar2330001.cubrirConTitular(leguizamonMarina, fechaTomaPosesion, 1);
 
 			assertEquals(EstadoDesignacion.CUBIERTA, auxiliar2330001.getEstadoEn(fechaTomaPosesion));
 		}
@@ -137,11 +137,11 @@ class DesignacionAdministrativaTest {
 
 			LocalDate fecha = LocalDate.of(2024, 3, 1);
 
-			auxiliar2330001.cubrirConTitular(leguizamonMarina, fecha);
+			auxiliar2330001.cubrirConTitular(leguizamonMarina, fecha, 1);
 
 			assertThrows(
 					DesignacionYaTieneTitularException.class,
-					() -> auxiliar2330001.cubrirConTitular(vallejosValeria, fecha)
+					() -> auxiliar2330001.cubrirConTitular(vallejosValeria, fecha, 1)
 			);
 		}
 	}
@@ -158,7 +158,7 @@ class DesignacionAdministrativaTest {
 			LocalDate fechaCese = LocalDate.of(2018, Month.FEBRUARY, 28);
 			Periodo periodo = new Periodo(fechaTomaPosesion, fechaCese);
 
-			direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo);
+			direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo, 1);
 
 			assertEquals(EstadoDesignacion.CUBIERTA, direccion2467830.getEstadoEn(fechaTomaPosesion));
 		}
@@ -173,13 +173,13 @@ class DesignacionAdministrativaTest {
 			LocalDate fechaCese = LocalDate.of(2018, Month.FEBRUARY, 28);
 			Periodo periodo = new Periodo(fechaTomaPosesion2, fechaCese);
 
-			direccion2467830.cubrirConTitular(leguizamonMarina, fechaTomaPosesion);
+			direccion2467830.cubrirConTitular(leguizamonMarina, fechaTomaPosesion, 1);
 
 			assertThrows(
 					DesignacionYaCubiertaException.class,
 					() -> direccion2467830.cubrirConProvisionalManual(
 							giardinoNoraRosa,
-							periodo
+							periodo, 1
 					)
 			);
 		}
@@ -193,7 +193,7 @@ class DesignacionAdministrativaTest {
 			AsignacionProvisional asignacion =
 					direccion2467830.cubrirConProvisionalAutomatico(
 							giardinoNoraRosa,
-							inicio
+							inicio, 1
 					);
 
 
@@ -208,14 +208,14 @@ class DesignacionAdministrativaTest {
 
 			direccion2467830.cubrirConTitular(
 					leguizamonMarina,
-					inicio
+					inicio, 1
 			);
 
 			assertThrows(
 					DesignacionYaCubiertaException.class,
 					() -> direccion2467830.cubrirConProvisionalAutomatico(
 							giardinoNoraRosa,
-							inicio
+							inicio, 1
 					)
 			);
 		}
@@ -230,7 +230,7 @@ class DesignacionAdministrativaTest {
 		void titularEnLicencia() {
 
 			LocalDate fechaTomaPosesion = LocalDate.of(2004, Month.JULY, 21);
-			auxiliar2330001.cubrirConTitular(leguizamonMarina, fechaTomaPosesion);
+			auxiliar2330001.cubrirConTitular(leguizamonMarina, fechaTomaPosesion, 1);
 
 			LocalDate fechaInicio = LocalDate.of(2025, Month.FEBRUARY, 24);
 			LocalDate fechaFin = LocalDate.of(2026, Month.FEBRUARY, 4);
@@ -305,10 +305,10 @@ class DesignacionAdministrativaTest {
 			LocalDate fechaFin = LocalDate.of(2018, Month.FEBRUARY, 28);
 			Periodo periodo = new Periodo(fechaInicio, fechaFin);
 
-			AsignacionProvisional anterior = direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo);
+			AsignacionProvisional anterior = direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo, 1);
 
 			// Act
-			AsignacionProvisional renovada = direccion2467830.renovarProvisionalAutomatica(anterior);
+			AsignacionProvisional renovada = direccion2467830.renovarProvisionalAutomatica(anterior, 1);
 
 			// Assert
 			assertNotNull(renovada);
@@ -327,12 +327,12 @@ class DesignacionAdministrativaTest {
 			LocalDate fechaFin = LocalDate.of(2018, Month.FEBRUARY, 28);
 			Periodo periodo = new Periodo(fechaInicio, fechaFin);
 
-			AsignacionProvisional anterior = direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo);
+			AsignacionProvisional anterior = direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo, 1);
 
 			LocalDate nuevaFechaFin = LocalDate.of(2018, Month.DECEMBER, 31);
 
 			// Act
-			AsignacionProvisional renovada = direccion2467830.renovarProvisionalDesdeMarzo(anterior, nuevaFechaFin);
+			AsignacionProvisional renovada = direccion2467830.renovarProvisionalDesdeMarzo(anterior, nuevaFechaFin, 1);
 
 			// Assert
 			assertNotNull(renovada);
@@ -352,7 +352,7 @@ class DesignacionAdministrativaTest {
 			Periodo periodo = new Periodo(fechaInicio, fechaFin);
 
 			AsignacionProvisional anterior =
-					direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo);
+					direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo, 1);
 
 			Periodo nuevoPeriodo = new Periodo(
 					LocalDate.of(2018, Month.MARCH, 1),
@@ -360,7 +360,7 @@ class DesignacionAdministrativaTest {
 			);
 
 			// Act
-			AsignacionProvisional renovada = direccion2467830.renovarProvisionalManual(anterior, nuevoPeriodo);
+			AsignacionProvisional renovada = direccion2467830.renovarProvisionalManual(anterior, nuevoPeriodo, 1);
 
 			// Assert
 			assertNotNull(renovada);
@@ -541,7 +541,7 @@ class DesignacionAdministrativaTest {
 			AsignacionTitular titular =
 					auxiliar2330001.cubrirConTitular(
 							leguizamonMarina,
-							fechaTomaPosesion
+							fechaTomaPosesion, 1
 					);
 
 			assertEquals(EstadoDesignacion.CUBIERTA, auxiliar2330001.getEstadoEn(fechaTomaPosesion));
@@ -566,7 +566,7 @@ class DesignacionAdministrativaTest {
 			LocalDate fechaCese = LocalDate.of(2018, Month.FEBRUARY, 28);
 			Periodo periodo = new Periodo(fechaTomaPosesion, fechaCese);
 
-			AsignacionProvisional provisional = direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo);
+			AsignacionProvisional provisional = direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo, 1);
 
 			assertEquals(EstadoDesignacion.CUBIERTA, direccion2467830.getEstadoEn(fechaTomaPosesion));
 			assertEquals(EstadoAsignacion.ACTIVA, provisional.getEstadoEn(fechaTomaPosesion));
@@ -589,7 +589,7 @@ class DesignacionAdministrativaTest {
 			AsignacionTitular titular =
 					auxiliar2330001.cubrirConTitular(
 							leguizamonMarina,
-							LocalDate.of(2004, Month.JULY, 21)
+							LocalDate.of(2004, Month.JULY, 21), 1
 					);
 
 			// Act & Assert
