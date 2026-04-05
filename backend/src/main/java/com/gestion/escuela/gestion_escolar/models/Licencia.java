@@ -202,4 +202,10 @@ public class Licencia {
 			throw new RangoFechasInvalidoException(this.periodo.getFechaDesde(), fecha);
 		}
 	}
+
+	public void limpiarDesignaciones() {
+		this.designaciones.clear();
+	}
+
+
 }

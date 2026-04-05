@@ -24,7 +24,7 @@
 	/* 🧱 HEADER */
 	&__header {
 		flex-shrink: 0;
-		// @include debug.debug(black);
+		@include debug.debug(black);
 	}
 
 	/* 🧱 CONTENT */
@@ -40,7 +40,7 @@
 		/* ⚙️ behavior */
 		overflow: auto;
 
-		// @include debug.debug(darkgreen);
+		@include debug.debug(darkgreen);
 	}
 }
 

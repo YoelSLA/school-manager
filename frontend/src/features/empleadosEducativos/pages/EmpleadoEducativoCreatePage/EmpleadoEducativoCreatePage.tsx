@@ -1,40 +1,85 @@
 import type { AxiosError } from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+	crearEmpleadoEducativoSchema,
+	type EmpleadoEducativoCreateDTO,
+} from "../../form/schemas/crearEmpleadoEducativo.schema";
+
 import PageLayout from "@/layout/PageLayout/PageLayout";
+import Breadcrumbs from "@/layout/Breadcrumbs";
+
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
+
 import { getTodayArgentinaISO } from "@/utils";
-import EmpleadoEducativoCreateForm from "../../components/EmpleadoEducativoCreateForm";
-import { useEmpleadoEducativoCreateForm } from "../../form/hooks/useEmpleadoEducativoCreateForm";
+
 import { useCrearEmpleadoEducativo } from "../../hooks/useCrearEmpleadoEducativo";
 import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
+
+import FormActions from "@/components/FormActions";
+
 import styles from "./EmpleadoEducativoCreatePage.module.scss";
-import type { EmpleadoEducativoCreateDTO } from "@/utils/types";
-import Breadcrumbs from "@/layout/Breadcrumbs";
+import DatosPersonalesSection from "../../components/EmpleadoEducativoCreateForm/DatosPersonalesSection";
+import ContactoSection from "../../components/EmpleadoEducativoCreateForm/ContactoSection";
+import IngresoSection from "../../components/EmpleadoEducativoCreateForm/IngresoSection";
 
 export default function EmpleadoEducativoCreatePage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 	const crearEmpleado = useCrearEmpleadoEducativo();
 	const empleadoNav = useEmpleadoNavigation();
+
 	const hoy = getTodayArgentinaISO();
+
 	const [agregarFecha, setAgregarFecha] = useState(false);
 	const [usarHoy, setUsarHoy] = useState(false);
 
+	/* =====================
+		 FORM DIRECTO (SIN HOOK)
+	===================== */
+
 	const {
-		form: {
-			register,
-			handleSubmit,
-			setValue,
-			setError,
-			reset,
-			formState: { errors, isSubmitting },
+		register,
+		handleSubmit,
+		setValue,
+		setError,
+		reset,
+		watch,
+		formState: { errors, isSubmitting },
+	} = useForm<EmpleadoEducativoCreateDTO>({
+		resolver: zodResolver(crearEmpleadoEducativoSchema),
+		defaultValues: {
+			cuil: "",
+			nombre: "",
+			apellido: "",
+			domicilio: undefined,
+			telefono: undefined,
+			email: "",
+			fechaDeNacimiento: "",
+			fechaDeIngreso: undefined, // 💥 CLAVE
 		},
-	} = useEmpleadoEducativoCreateForm();
+		mode: "onSubmit",
+		criteriaMode: "all",
+		shouldFocusError: true,
+	});
+
+	console.log("👀 WATCH:", watch());
 
 	/* =====================
-		 TOGGLE AGREGAR FECHA
+		 DEBUG
 	===================== */
+
+	useEffect(() => {
+		console.log("🧠 ERRORS EN PAGE:", errors);
+	}, [errors]);
+
+	/* =====================
+		 TOGGLES
+	===================== */
+
 	const toggleAgregarFecha = () => {
 		setAgregarFecha((prev) => {
 			const nuevo = !prev;
@@ -48,9 +93,6 @@ export default function EmpleadoEducativoCreatePage() {
 		});
 	};
 
-	/* =====================
-		 TOGGLE USAR HOY
-	===================== */
 	const toggleUsarHoy = () => {
 		setUsarHoy((prev) => {
 			const nuevo = !prev;
@@ -62,7 +104,11 @@ export default function EmpleadoEducativoCreatePage() {
 	/* =====================
 		 SUBMIT
 	===================== */
-	const onSubmit = async (data: EmpleadoEducativoCreateDTO) => {
+
+	const _onSubmit = async (data: EmpleadoEducativoCreateDTO) => {
+		console.log("🔥 onSubmit ejecutado");
+		console.log("📦 data:", data);
+
 		if (!escuelaActiva) {
 			toast.error("No hay escuela seleccionada");
 			return;
@@ -77,7 +123,6 @@ export default function EmpleadoEducativoCreatePage() {
 			toast.success("Personal educativo creado correctamente");
 			empleadoNav.listar();
 
-			// Reset limpio
 			reset({
 				cuil: "",
 				nombre: "",
@@ -99,6 +144,7 @@ export default function EmpleadoEducativoCreatePage() {
 					type: "manual",
 					message: "Ese CUIL ya está registrado",
 				});
+
 				toast.error("Ese CUIL ya está registrado");
 			} else {
 				toast.error("Error al crear el personal educativo");
@@ -106,22 +152,61 @@ export default function EmpleadoEducativoCreatePage() {
 		}
 	};
 
+	/* =====================
+		 RENDER
+	===================== */
+
 	return (
-		<PageLayout
-			breadcrumbs={<Breadcrumbs />}
-		>
+		<PageLayout breadcrumbs={<Breadcrumbs />}>
 			<div className={styles.page}>
 				<div className={styles.container}>
-					<EmpleadoEducativoCreateForm
-						register={register}
-						errors={errors}
-						isSubmitting={isSubmitting}
-						agregarFecha={agregarFecha}
-						onToggleAgregarFecha={toggleAgregarFecha}
-						usarHoy={usarHoy}
-						onToggleUsarHoy={toggleUsarHoy}
-						onSubmit={handleSubmit(onSubmit)}
-					/>
+					<form
+						className={styles.form}
+						onSubmit={(e) => {
+							console.log("🚨 SUBMIT HTML DISPARADO");
+							return handleSubmit(
+								(data) => {
+									console.log("✅ RHF SUBMIT OK", data);
+								},
+								(errors) => {
+									console.log("❌ RHF VALIDATION ERRORS", errors);
+								}
+							)(e);
+						}}
+					>
+						<div className={styles.grid}>
+							<div className={styles.datos}>
+								<DatosPersonalesSection
+									register={register}
+									errors={errors}
+								/>
+							</div>
+
+							<div className={styles.rightColumn}>
+								<ContactoSection
+									register={register}
+									errors={errors}
+								/>
+
+								<IngresoSection
+									register={register}
+									errors={errors}
+									agregarFecha={agregarFecha}
+									onToggleAgregarFecha={toggleAgregarFecha}
+									usarHoy={usarHoy}
+									onToggleUsarHoy={toggleUsarHoy}
+								/>
+							</div>
+
+							<div className={styles.actions}>
+								<FormActions
+									isSubmitting={isSubmitting}
+									label="Guardar"
+									align="right"
+								/>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</PageLayout>

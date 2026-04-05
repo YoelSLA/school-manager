@@ -5,11 +5,11 @@ import lombok.Getter;
 @Getter
 public enum TipoLicencia {
 
-	L_A1("Artículo 114", "A1", "Licencia ordinaria por enfermedad"),
-	L_A2("Artículo 114", "A2", "Licencia extraordinaria por enfermedad"),
-	L_A22("Artículo 114", "A22", "Licencia extraordinaria por enfermedad para docentes titulares con más de 5 años de antiguedad"),
-	L_A2211("Artículo 114", "A2211", "Licencia extraordinaria por enfermedad prolongada para docentes titulares o provisionales cubriendo hasta 365 dias con 100% de haberes para tratamientos complejos o postquirúrgicos"),
-	L_B1("Artículo 114", "B1", "Licencia por examen medico prematrimonial"),
+	L_A1("Artículo 114", "A1", "Licencia ordinaria por enfermedad."),
+	L_A2("Artículo 114", "A2", "Licencia extraordinaria por enfermedad."),
+	L_A22("Artículo 114", "A22", "Licencia extraordinaria por enfermedad para docentes titulares con más de 5 años de antiguedad."),
+	L_A2211("Artículo 114", "A2211", "Licencia extraordinaria por enfermedad prolongada para docentes titulares o provisionales cubriendo hasta 365 dias con 100% de haberes para tratamientos complejos o postquirúrgicos."),
+	L_B1("Artículo 114", "B1", "Licencia por examen medico prematrimonial."),
 	L_B2("Artículo 114", "B2", "Licencia por matrimonio otorgado 12 dias corridos."),
 	L_114C("Artículo 114", "114C", "Licencia por matrimonio otorgado a suplentes contando 6 dias habiles contados a partir del casamiento."),
 	L_114D("Artículo 114", "114D", "Licencia por embarazo y maternidad para docentes, otorga 135 días con goce integro de haberes a partir del septimo y medio de gestación."),
@@ -50,8 +50,11 @@ public enum TipoLicencia {
 	L_115C("Artículo 1145", "115C", "Licencia por actividad de interes publico del Estado."),
 	L_115D1("Artículo 115", "115D1", "Licencia por desempeño de cargos de mayor jerarquia."),
 	L_115E1("Artículo 115", "115E1", "Licencia por desempeño de cargos electivos, con excepcion del cargo del consejero escolar."),
-	L_115E2("Artículo 115", "115E2", "Licencia por desempeño de cargos electivos o de representación politica, sin goce de haberes a quienes resulten electos para ocupar cargos de conducción en los partidos politicos"),
-	L_115E3("Artículo 115", "115E3", "Licencia por desempeño de cargos electivos o de representación politica, se considera licencia sin goce de haberes por el termino desempeño que dependa de un funcionario politico.");
+	L_115E2("Artículo 115", "115E2", "Licencia por desempeño de cargos electivos o de representación politica, sin goce de haberes a quienes resulten electos para ocupar cargos de conducción en los partidos politicos."),
+	L_115E3("Artículo 115", "115E3", "Licencia por desempeño de cargos electivos o de representación politica, se considera licencia sin goce de haberes por el termino desempeño que dependa de un funcionario politico."),
+	L_ART(null, "ART", "Licencia por cobertura de accidentes laborales o enfermadades prosesionales."),
+	L_10579RT("Artículo 121", "10579RT", "Licencia para personal docente."),
+	L_10430RT("Artículo 49", "10430RT", "Licencia para personal auxiliar.");
 
 	private final String articulo;
 	private final String codigo;

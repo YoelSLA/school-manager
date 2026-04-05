@@ -15,6 +15,7 @@ import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.services.EmpleadoEducativoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/empleadosEducativos")
 @RequiredArgsConstructor
@@ -36,6 +38,9 @@ public class EmpleadoEducativoControllerREST {
 			@Valid @RequestBody LicenciaCreateDTO dto
 	) {
 
+		log.info("Creando licencia para empleado {}", empleadoId);
+		log.debug("DTO recibido: {}", dto);
+
 		Licencia licencia = empleadoEducativoService.crearLicencia(
 				empleadoId,
 				dto.tipoLicencia(),
@@ -43,6 +48,8 @@ public class EmpleadoEducativoControllerREST {
 				dto.descripcion(),
 				dto.designacionesIds()
 		);
+
+		log.info("Licencia {} creada correctamente", licencia.getId());
 
 		return LicenciaMapper.toDetalle(licencia);
 	}

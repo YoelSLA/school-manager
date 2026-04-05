@@ -277,15 +277,6 @@ public class DesignacionServiceImpl implements DesignacionService {
 			Pageable pageable
 	) {
 
-		System.out.println("===== DEBUG DESIGNACIONES =====");
-		System.out.println("EscuelaId: " + escuelaId);
-		System.out.println("CursoId filtro: " + filter.cursoId());
-		System.out.println("MateriaId filtro: " + filter.materiaId());
-		System.out.println("Orientacion filtro: " + filter.orientacion());
-		System.out.println("Estado filtro: " + filter.estado());
-		System.out.println("Page: " + pageable.getPageNumber());
-		System.out.println("Size: " + pageable.getPageSize());
-
 		if (!escuelaRepository.existsById(escuelaId)) {
 			throw new RecursoNoEncontradoException("escuela", escuelaId);
 		}
@@ -297,18 +288,6 @@ public class DesignacionServiceImpl implements DesignacionService {
 				filter.orientacion()
 		);
 
-		System.out.println("TOTAL TRAIDOS DE DB: " + lista.size());
-
-		lista.forEach(d ->
-				System.out.println(
-						"ID: " + d.getId()
-								+ " | CUPOF: " + d.getCupof()
-								+ " | CURSO: " + (d.getCurso() != null ? d.getCurso().anioDivision() : "null")
-								+ " | MATERIA: " + (d.getMateria() != null ? d.getMateria().getNombre() : "null")
-								+ " | ESTADO: " + d.getEstadoEn(LocalDate.now())
-				)
-		);
-
 		if (filter.estado() != null) {
 
 			LocalDate hoy = LocalDate.now();
@@ -316,31 +295,13 @@ public class DesignacionServiceImpl implements DesignacionService {
 			lista = lista.stream()
 					.filter(d -> d.getEstadoEn(hoy) == filter.estado())
 					.toList();
-
-			System.out.println("TOTAL DESPUES DE FILTRAR ESTADO: " + lista.size());
 		}
 
 		int start = (int) pageable.getOffset();
 		int end = Math.min(start + pageable.getPageSize(), lista.size());
 
-		System.out.println("Offset: " + start);
-		System.out.println("End: " + end);
-
 		List<DesignacionCurso> pageContent =
 				start <= end ? lista.subList(start, end) : List.of();
-
-		System.out.println("ELEMENTOS EN ESTA PAGINA: " + pageContent.size());
-
-		pageContent.forEach(d ->
-				System.out.println(
-						"PAGE -> ID: " + d.getId()
-								+ " | CURSO: " + (d.getCurso() != null ? d.getCurso().anioDivision() : "null")
-								+ " | MATERIA: " + (d.getMateria() != null ? d.getMateria().getNombre() : "null")
-								+ " | ESTADO: " + d.getEstadoEn(LocalDate.now())
-				)
-		);
-
-		System.out.println("===== FIN DEBUG =====");
 
 		return new PageImpl<>(pageContent, pageable, lista.size());
 	}

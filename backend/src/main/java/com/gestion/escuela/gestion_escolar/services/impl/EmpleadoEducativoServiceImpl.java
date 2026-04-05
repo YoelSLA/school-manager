@@ -15,6 +15,7 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo.E
 import com.gestion.escuela.gestion_escolar.persistence.*;
 import com.gestion.escuela.gestion_escolar.services.EmpleadoEducativoService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -88,17 +90,34 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 			Set<Long> designacionIds
 	) {
 
+		log.info("Creando licencia para empleado {}", empleadoId);
+		log.debug(
+				"Datos licencia -> tipo: {}, periodo: {} a {}, descripcion: {}, designacionesIds: {}",
+				tipo,
+				periodo.getFechaDesde(),
+				periodo.getFechaHasta(),
+				descripcion,
+				designacionIds
+		);
+
 		EmpleadoEducativo empleado = obtenerPorId(empleadoId);
+
+		log.debug("Empleado encontrado: {}", empleado.getId());
 
 		Set<Designacion> designaciones = new HashSet<>(designacionRepository.findAllById(designacionIds));
 
+		log.debug("Se encontraron {} designaciones", designaciones.size());
+
 		Licencia licencia = empleado.crearLicencia(tipo, periodo, descripcion, designaciones);
+
+		log.debug("Licencia creada en memoria");
 
 		licenciaRepository.save(licencia);
 
+		log.info("Licencia {} guardada correctamente", licencia.getId());
+
 		return licencia;
 	}
-
 
 	@Override
 	public void darDeBajaDefinitiva(
