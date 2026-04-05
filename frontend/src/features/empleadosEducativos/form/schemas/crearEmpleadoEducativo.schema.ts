@@ -6,6 +6,7 @@ import { z } from "zod";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const cuilRegex = /^\d{2}-\d{8}-\d{1}$/;
+const soloLetrasRegex = /^[\p{L}\s]+$/u;
 
 /* =========================
 	 Helpers
@@ -90,7 +91,7 @@ export const optionalFechaISO = () =>
 		});
 
 /* =========================
-	 Schema compuesto
+	 Base schema SIN refine
 ========================= */
 
 export const crearEmpleadoEducativoSchema = z

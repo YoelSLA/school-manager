@@ -55,4 +55,66 @@
 		background: var(--estado-inactiva);
 		color: var(--estado-inactiva-text);
 	}
+
+	/* ROLES EDUCATIVOS */
+
+	&--auxiliar {
+		background: #eef2ff;
+		color: #4338ca;
+	}
+
+	&--bibliotecario {
+		background: #ecfeff;
+		color: #155e75;
+	}
+
+	&--cambioDeFuncion {
+		background: #fff7ed;
+		color: #c2410c;
+	}
+
+	&--direccion {
+		background: #fef2f2;
+		color: #b91c1c;
+	}
+
+	&--medioApoyoTecnicoProfesional {
+		background: #faf5ff;
+		color: #7e22ce;
+	}
+
+	&--vicedireccion {
+		background: #fdf4ff;
+		color: #a21caf;
+	}
+
+	&--secretaria {
+		background: #f0fdf4;
+		color: #15803d;
+	}
+
+	&--orientacionEducacional {
+		background: #eff6ff;
+		color: #1d4ed8;
+	}
+
+	&--orientacionSocial {
+		background: #ecfccb;
+		color: #3f6212;
+	}
+
+	&--preceptoria {
+		background: #fefce8;
+		color: #a16207;
+	}
+
+	&--docente {
+		background: #dcfce7;
+		color: #166534;
+	}
+
+	&--recalificacionLaboralDefinitiva {
+		background: #f3f4f6;
+		color: #4b5563;
+	}
 }

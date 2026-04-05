@@ -165,10 +165,6 @@
 	}
 }
 
-/* ======================================================
-   📏 DESKTOP HEIGHT SMALL
-====================================================== */
-
 @include desktop-height-small {
 	.btn {
 		gap: 6px;
@@ -193,9 +189,30 @@
 	}
 }
 
-/* ======================================================
-   📏 DESKTOP HEIGHT LARGE
-====================================================== */
+
+@include desktop-height-medium {
+	.btn {
+		gap: 6px;
+		border-radius: 12px;
+
+		&.btnSm {
+			height: 28px;
+			padding: 0 10px;
+			font-size: 0.8rem;
+		}
+
+		&.btnMd {
+			height: 32px;
+			padding: 0 14px;
+			font-size: 0.85rem;
+		}
+
+		.spinner {
+			width: 14px;
+			height: 14px;
+		}
+	}
+}
 
 @include desktop-height-large {
 	.btn {

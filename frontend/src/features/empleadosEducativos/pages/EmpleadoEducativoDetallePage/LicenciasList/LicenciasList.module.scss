@@ -1,5 +1,60 @@
 .licencias {
-	padding: 16px;
-	border-radius: 12px;
-	background: #f8fafc;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-height: 0;
+	background: #E6E6FA;
+	border-radius: 16px;
+}
+
+.licencias__header {
+	flex-shrink: 0;
+	padding-bottom: 12px;
+}
+
+.licencias__title {
+	margin: 0;
+
+	font-size: 18px;
+	font-weight: 700;
+	text-align: center;
+}
+
+.licencias__content {
+	flex: 1;
+	min-height: 0;
+	overflow-y: auto;
+
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+
+	padding-right: 4px;
+}
+
+.licencias__empty {
+	display: flex;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+
+	color: #6b7280;
+	font-style: italic;
+}
+
+.licencias__footer {
+	display: flex;
+	justify-content: center;
+}
+
+.licencias__viewAll {
+	padding: 10px 16px;
+	border: none;
+	border-radius: 999px;
+
+	background: #ede9fe;
+	color: #6d28d9;
+
+	font-weight: 600;
+	cursor: pointer;
 }

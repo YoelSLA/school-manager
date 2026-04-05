@@ -50,6 +50,27 @@ export type EditarAsignacionDTO = {
   fechaCese?: string | null;
 };
 
+export type CargoDesignacionDTO =
+  | CargoDesignacionCursoDTO
+  | CargoDesignacionAdministrativaDTO;
+
+export type CargoDesignacionCursoDTO = {
+  tipo: "CURSO";
+  id: number;
+  cupof: number;
+  estadoDesignacion: EstadoDesignacion;
+  materia: string;
+  curso: string;
+  orientacion: string;
+};
+
+export type CargoDesignacionAdministrativaDTO = {
+  tipo: "ADMINISTRATIVA";
+  id: number;
+  cupof: number;
+  rolEducativo: RolEducativo;
+  estadoDesignacion: EstadoDesignacion;
+};
 
 // -------------------------------------------------------------------
 // CURSO
@@ -205,7 +226,7 @@ export type EmpleadoEducativoAsignacionItemDTO = {
   causaBaja: string;
   estadoAsignacion: EstadoAsignacion;
   cupof: number;
-  tipoDesignacion: string;
+  designacion: CargoDesignacionDTO;
 };
 
 export type EmpleadoEducativoLicenciaItemDTO = {

@@ -24,10 +24,6 @@ import static com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevist
 @Getter
 public abstract class Asignacion {
 
-	// =========================
-	// 🔹 CAMPOS
-	// =========================
-
 	@ManyToOne(optional = false)
 	protected EmpleadoEducativo empleadoEducativo;
 
@@ -43,6 +39,9 @@ public abstract class Asignacion {
 	@Embedded
 	private BajaAsignacion bajaAsignacion;
 
+	@Column(nullable = false)
+	private Integer secuencia;
+
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "caracteristica_id")
 	private CaracteristicaAsignacion caracteristica;
@@ -53,9 +52,10 @@ public abstract class Asignacion {
 	public Asignacion(
 			EmpleadoEducativo empleadoEducativo,
 			Designacion designacion,
-			Periodo periodo
+			Periodo periodo,
+			Integer secuencia
 	) {
-		validarCrearAsignacion(empleadoEducativo, designacion, periodo);
+		validarCrearAsignacion(empleadoEducativo, designacion, periodo, secuencia);
 		this.empleadoEducativo = empleadoEducativo;
 		this.designacion = designacion;
 		this.periodo = periodo;
@@ -159,16 +159,6 @@ public abstract class Asignacion {
 		this.caracteristica = nueva;
 	}
 
-	private void validarCrearAsignacion(
-			EmpleadoEducativo empleadoEducativo,
-			Designacion designacion,
-			Periodo periodo
-	) {
-		Validaciones.noNulo(empleadoEducativo, "empleado educativo");
-		Validaciones.noNulo(designacion, "designacion");
-		Validaciones.noNulo(periodo, "periodo");
-	}
-
 	@Override
 	public String toString() {
 		return getClass().getSimpleName() + "{ " +
@@ -197,18 +187,32 @@ public abstract class Asignacion {
 	public void actualizar(
 			EmpleadoEducativo empleado,
 			LocalDate fechaTomaPosesion,
-			LocalDate fechaCese
+			LocalDate fechaCese,
+			Integer secuencia
 	) {
 
 		Validaciones.noNulo(empleado, "empleado educativo");
 		Validaciones.noNulo(fechaTomaPosesion, "fecha de toma de posesión");
+		Validaciones.noNulo(secuencia, "secuencia");
 
 		this.empleadoEducativo = empleado;
+		this.secuencia = secuencia;
 		this.periodo = new Periodo(fechaTomaPosesion, fechaCese);
 	}
 
 	public void setDesignacion(Designacion designacion) {
 		Validaciones.noNulo(designacion, "designacion");
 		this.designacion = designacion;
+	}
+
+	private void validarCrearAsignacion(
+			EmpleadoEducativo empleadoEducativo,
+			Designacion designacion,
+			Periodo periodo,
+			Integer secuencia) {
+		Validaciones.noNulo(empleadoEducativo, "empleado educativo");
+		Validaciones.noNulo(designacion, "designacion");
+		Validaciones.noNulo(periodo, "periodo");
+		Validaciones.noNulo(secuencia, "secuencia");
 	}
 }

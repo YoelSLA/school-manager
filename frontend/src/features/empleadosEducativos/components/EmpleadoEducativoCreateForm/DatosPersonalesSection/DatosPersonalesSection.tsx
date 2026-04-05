@@ -13,9 +13,6 @@ type Props = {
 
 export default function DatosPersonalesSection({ register, errors }: Props) {
 
-	console.log("ERRORES EN DATOS PERSONALES SECTION", errors);
-	console.log("REGISTER EN DATOS PERSONALES SECTION", register);
-
 	return (
 		<FormSection title="DATOS PERSONALES" layout="column">
 			<FormInputFieldRHF

@@ -19,7 +19,7 @@
             spring-boot-starter-parent
         </artifactId>
         <version>
-            3.3.4
+            3.5.11
         </version>
         <relativePath/>
     </parent>
@@ -51,7 +51,7 @@
     <!-- ===================== -->
     <properties>
         <java.version>
-            17
+            21
         </java.version>
     </properties>
 
@@ -139,7 +139,7 @@
             </scope>
         </dependency>
 
-        <!-- Flyway (Database migrations) -->
+        <!-- Flyway -->
         <dependency>
             <groupId>
                 org.flywaydb
@@ -148,7 +148,7 @@
                 flyway-core
             </artifactId>
             <version>
-                10.20.0
+                10.22.0
             </version>
         </dependency>
 
@@ -163,6 +163,19 @@
 
         <dependency>
             <groupId>
+                org.flywaydb
+            </groupId>
+            <artifactId>
+                flyway-database-postgresql
+            </artifactId>
+            <version>
+                10.22.0
+            </version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>
                 io.rest-assured
             </groupId>
             <artifactId>
@@ -171,18 +184,6 @@
             <scope>
                 test
             </scope>
-        </dependency>
-
-        <dependency>
-            <groupId>
-                org.flywaydb
-            </groupId>
-            <artifactId>
-                flyway-database-postgresql
-            </artifactId>
-            <version>
-                10.20.0
-            </version>
         </dependency>
 
         <!-- Jackson Java Time -->
@@ -204,7 +205,7 @@
                 lombok
             </artifactId>
             <version>
-                1.18.32
+                1.18.38
             </version>
             <scope>
                 provided
@@ -240,15 +241,14 @@
                     maven-compiler-plugin
                 </artifactId>
                 <version>
-                    3.11.0
+                    3.14.0
                 </version>
+
                 <configuration>
-                    <source>
-                        17
-                    </source>
-                    <target>
-                        17
-                    </target>
+                    <release>
+                        21
+                    </release>
+
                     <annotationProcessorPaths>
                         <path>
                             <groupId>
@@ -258,7 +258,7 @@
                                 lombok
                             </artifactId>
                             <version>
-                                1.18.32
+                                1.18.38
                             </version>
                         </path>
                     </annotationProcessorPaths>

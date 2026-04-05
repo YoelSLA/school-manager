@@ -41,7 +41,8 @@ public class DesignacionControllerREST {
 				designacionId,
 				dto.empleadoId(),
 				dto.fechaTomaPosesion(),
-				dto.caracteristica()
+				dto.caracteristica(),
+				dto.secuencia()
 		);
 
 		return AsignacionMapper.toDetalle(asignacion);
@@ -57,7 +58,9 @@ public class DesignacionControllerREST {
 						designacionId,
 						dto.empleadoId(),
 						dto.fechaTomaPosesion(),
-						dto.fechaCese()
+						dto.fechaCese(),
+						dto.secuencia()
+
 				)
 		);
 	}
@@ -166,7 +169,8 @@ public class DesignacionControllerREST {
 						asignacionId,
 						dto.empleadoId(),
 						dto.fechaTomaPosesion(),
-						dto.fechaCese()
+						dto.fechaCese(),
+						dto.secuencia()
 				)
 		);
 	}

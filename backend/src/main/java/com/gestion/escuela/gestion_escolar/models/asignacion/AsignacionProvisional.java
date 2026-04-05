@@ -17,9 +17,10 @@ public class AsignacionProvisional extends Asignacion {
 	public AsignacionProvisional(
 			EmpleadoEducativo empleado,
 			Designacion designacion,
-			Periodo periodo
+			Periodo periodo,
+			Integer secuencia
 	) {
-		super(empleado, designacion, periodo);
+		super(empleado, designacion, periodo, secuencia);
 	}
 
 	@Override

@@ -32,21 +32,24 @@ public interface DesignacionService {
 			Long designacionId,
 			Long empleadoId,
 			LocalDate fechaTomaPosesion,
-			TipoCaracteristicaAsignacion caracteristica
+			TipoCaracteristicaAsignacion caracteristica,
+			Integer secuencia
 	);
 
 	AsignacionProvisional cubrirConProvisional(
 			Long designacionId,
 			Long empleadoId,
 			LocalDate fechaInicio,
-			LocalDate fechaFin
+			LocalDate fechaFin,
+			Integer secuencia
 	);
 
 	void cubrirConSuplentes(
 			Long licenciaId,
 			Long suplenteId,
 			List<Long> designacionIds,
-			LocalDate fechaInicio
+			LocalDate fechaInicio,
+			Integer secuencia
 	);
 
 	Page<DesignacionCurso> obtenerDesignacionesCursoPorEscuela(
@@ -72,6 +75,6 @@ public interface DesignacionService {
 
 	void actualizarDesignacionAdministrativa(Long designacionId, Integer cupof, RolEducativo rolEducativo, Set<FranjaHoraria> franjaHorarias);
 
-	Asignacion editarAsignacion(Long designacionId, Long asignacionId, Long aLong, LocalDate localDate, LocalDate localDate1);
+	Asignacion editarAsignacion(Long designacionId, Long asignacionId, Long aLong, LocalDate localDate, LocalDate localDate1, Integer secuencia);
 }
 

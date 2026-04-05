@@ -16,6 +16,7 @@ import HeaderEmpleado from "./HeaderEmpleado/HeaderEmpleado";
 import LicenciasList from "./LicenciasList";
 import type { BajaDefinitivaDTO } from "@/utils/types";
 import Breadcrumbs from "@/layout/Breadcrumbs";
+import EmpleadoBottomBar from "./EmpleadoBottomBar/EmpleadoBottomBar";
 
 export default function EmpleadoEducativoDetallePage() {
 	const { empleadoId } = useParams();
@@ -85,9 +86,7 @@ export default function EmpleadoEducativoDetallePage() {
 	========================= */
 
 	return (
-		<PageLayout
-			breadcrumbs={<Breadcrumbs />}
-		>
+		<PageLayout breadcrumbs={<Breadcrumbs />}>
 			<div className={styles.page}>
 				<HeaderEmpleado
 					empleado={empleado}
@@ -107,6 +106,13 @@ export default function EmpleadoEducativoDetallePage() {
 						</div>
 					</div>
 				</div>
+				<EmpleadoBottomBar
+					activo={empleado.activo}
+					onCrearCargo={() => empleadoNav.crearCargo?.(empleado)}
+					onCrearLicencia={() => empleadoNav.crearLicencia?.(empleado)}
+					onEditar={() => empleadoNav.editar(empleado)}
+					onToggleActivo={handleToggleActivo}
+				/>
 			</div>
 
 			{/* ================= MODALS ================= */}

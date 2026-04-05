@@ -12,7 +12,9 @@ public record EditarAsignacionDTO(
 		@NotNull(message = "La fecha de toma de posesión es obligatoria")
 		LocalDate fechaTomaPosesion,
 
-		LocalDate fechaCese
+		LocalDate fechaCese,
+
+		Integer secuencia
 
 ) {
 }

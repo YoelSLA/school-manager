@@ -1,28 +1,108 @@
-import { useNavigate } from "react-router-dom";
-import EntityList from "../EntityList";
+import { useMemo, useState } from "react";
 import styles from "./AsignacionesList.module.scss";
-import AsignacionRow from "./AsignacionRow";
 import type { EmpleadoEducativoAsignacionItemDTO } from "@/utils/types";
+import AsignacionRow from "@/features/asignaciones/components/AsignacionRow";
 
 type Props = {
 	asignaciones: EmpleadoEducativoAsignacionItemDTO[];
 };
 
+type Tab = "DOCENTE" | "ADMINISTRATIVO";
+
 export default function AsignacionesList({ asignaciones }: Props) {
-	const navigate = useNavigate();
+
+	console.log("Asignaciones recibidas en AsignacionesList:", asignaciones); // Debugging log 
+
+
+	const [activeTab, setActiveTab] = useState<Tab>("DOCENTE");
+
+	const asignacionesDocentes = useMemo(
+		() =>
+			asignaciones.filter(
+				(a) => a.designacion.tipo === "CURSO"
+			),
+		[asignaciones]
+	);
+
+	const asignacionesAdministrativas = useMemo(
+		() =>
+			asignaciones.filter(
+				(a) => a.designacion.tipo === "ADMINISTRATIVA"
+			),
+		[asignaciones]
+	);
+
+	const visibleAsignaciones =
+		activeTab === "DOCENTE"
+			? asignacionesDocentes
+			: asignacionesAdministrativas;
 
 	return (
-		<div className={styles.asignaciones}>
-			<EntityList
-				title="CARGOS"
-				items={asignaciones}
-				emptyText="No registra cargos"
-				renderItem={(asignacion) => (
-					<AsignacionRow key={asignacion.id} asignacion={asignacion} />
+		<section className={styles.asignaciones}>
+			<header className={styles.asignaciones__header}>
+				<h3 className={styles.asignaciones__title}>CARGOS</h3>
+
+				<div className={styles.asignaciones__tabs}>
+					<button
+						type="button"
+						className={`${styles.asignaciones__tab} ${activeTab === "DOCENTE"
+							? styles["asignaciones__tab--active"]
+							: ""
+							}`}
+						onClick={() => setActiveTab("DOCENTE")}
+					>
+						Docentes ({asignacionesDocentes.length})
+					</button>
+
+					<button
+						type="button"
+						className={`${styles.asignaciones__tab} ${activeTab === "ADMINISTRATIVO"
+							? styles["asignaciones__tab--active"]
+							: ""
+							}`}
+						onClick={() => setActiveTab("ADMINISTRATIVO")}
+					>
+						Administrativos ({asignacionesAdministrativas.length})
+					</button>
+				</div>
+			</header>
+
+			<div className={styles.asignaciones__content}>
+				{visibleAsignaciones.length === 0 ? (
+					<p className={styles.asignaciones__empty}>
+						{activeTab === "DOCENTE"
+							? "No registra cargos docentes"
+							: "No registra cargos administrativos"}
+					</p>
+				) : (
+					visibleAsignaciones.map((asignacion) => (
+						<AsignacionRow
+							key={asignacion.id}
+							asignacion={asignacion}
+						/>
+					))
 				)}
-				onViewAll={() => navigate("/empleadoEducativo/123/cargos")}
-				viewAllLabel="Ver todos los cargos"
-			/>
-		</div>
+			</div>
+
+			{/* {visibleAsignaciones.length > 0 && (
+				<footer className={styles.asignaciones__footer}>
+					<button
+						type="button"
+						className={styles.asignaciones__viewAll}
+						onClick={() =>
+							navigate(
+								activeTab === "DOCENTE"
+									? "/empleadoEducativo/123/cargos/docentes"
+									: "/empleadoEducativo/123/cargos/administrativos"
+							)
+						}
+					>
+						{activeTab === "DOCENTE"
+							? "Ver todos los cargos docentes"
+							: "Ver todos los cargos administrativos"}
+					</button>
+				</footer>
+			)} */}
+		</section>
 	);
 }

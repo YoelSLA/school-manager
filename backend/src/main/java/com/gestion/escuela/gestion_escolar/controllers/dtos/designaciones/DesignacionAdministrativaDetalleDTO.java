@@ -16,5 +16,7 @@ public record DesignacionAdministrativaDetalleDTO(
 		List<FranjaHorariaMinimoDTO> franjasHorarias,
 		String tipo
 ) implements DesignacionDetalleDTO {
+
 }
+
 

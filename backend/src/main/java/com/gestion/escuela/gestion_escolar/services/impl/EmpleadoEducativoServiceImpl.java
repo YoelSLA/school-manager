@@ -9,6 +9,7 @@ import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.DiaDeSemana;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
+import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoDuplicadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo.EmpleadoEducativoDuplicadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo.EmpleadoNoPerteneceAEscuelaException;
@@ -47,10 +48,12 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 				empleado.getCuil(),
 				escuelaId
 		)) {
-			throw new EmpleadoEducativoDuplicadoException(
-					"CUIL",
-					empleado.getCuil(),
-					escuela.getNombre()
+			throw new RecursoDuplicadoException(
+					String.format(
+							"Ya existe un empleado con CUIL '%s' en la escuela %s",
+							empleado.getCuil(),
+							escuela.getNombre()
+					)
 			);
 		}
 
@@ -58,10 +61,12 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 				empleado.getEmail(),
 				escuelaId
 		)) {
-			throw new EmpleadoEducativoDuplicadoException(
-					"email",
-					empleado.getEmail(),
-					escuela.getNombre()
+			throw new RecursoDuplicadoException(
+					String.format(
+							"Ya existe un empleado con email '%s' en la escuela %s",
+							empleado.getEmail(),
+							escuela.getNombre()
+					)
 			);
 		}
 

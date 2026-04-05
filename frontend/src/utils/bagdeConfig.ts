@@ -1,9 +1,10 @@
 import { Clock, Repeat, Star } from "lucide-react";
-import type {
-  EstadoAsignacion,
-  EstadoDesignacion,
-  SituacionDeRevista,
-  EstadoLicencia,
+import {
+  type EstadoAsignacion,
+  type EstadoDesignacion,
+  type SituacionDeRevista,
+  type EstadoLicencia,
+  RolEducativo,
 } from "./types/enums";
 import type { BadgeConfig } from "./types";
 
@@ -136,5 +137,71 @@ export const SITUACION_REVISTA_CONFIG: Record<
     label: "Suplente",
     variant: "pendiente",
     icon: Repeat,
+  },
+};
+
+/* =========================
+        ROL EDUCATIVO
+========================= */
+
+export const ROL_EDUCATIVO_CONFIG: Record<RolEducativo, BadgeConfig> = {
+  [RolEducativo.AUXILIAR]: {
+    label: RolEducativo.AUXILIAR,
+    variant: "auxiliar",
+  },
+
+  [RolEducativo.BIBLIOTECARIO]: {
+    label: RolEducativo.BIBLIOTECARIO,
+    variant: "bibliotecario",
+  },
+
+  [RolEducativo.CAMBIO_DE_FUNCION]: {
+    label: RolEducativo.CAMBIO_DE_FUNCION,
+    variant: "cambioDeFuncion",
+  },
+
+  [RolEducativo.DIRECCION]: {
+    label: RolEducativo.DIRECCION,
+    variant: "direccion",
+  },
+
+  [RolEducativo.ENCARGO_DE_MEDIO_DE_APOYO_TECNICO_PROFESIONAL]: {
+    label: RolEducativo.ENCARGO_DE_MEDIO_DE_APOYO_TECNICO_PROFESIONAL,
+    variant: "medioApoyoTecnicoProfesional",
+  },
+
+  [RolEducativo.VICEDIRECCION]: {
+    label: RolEducativo.VICEDIRECCION,
+    variant: "vicedireccion",
+  },
+
+  [RolEducativo.SECRETARIA]: {
+    label: RolEducativo.SECRETARIA,
+    variant: "secretaria",
+  },
+
+  [RolEducativo.ORIENTACION_EDUCACIONAL]: {
+    label: RolEducativo.ORIENTACION_EDUCACIONAL,
+    variant: "orientacionEducacional",
+  },
+
+  [RolEducativo.ORIENTACION_SOCIAL]: {
+    label: RolEducativo.ORIENTACION_SOCIAL,
+    variant: "orientacionSocial",
+  },
+
+  [RolEducativo.PRECEPTORIA]: {
+    label: RolEducativo.PRECEPTORIA,
+    variant: "preceptoria",
+  },
+
+  [RolEducativo.DOCENTE]: {
+    label: RolEducativo.DOCENTE,
+    variant: "docente",
+  },
+
+  [RolEducativo.RECALIFICACION_LABORAL_DEFINITIVA]: {
+    label: RolEducativo.RECALIFICACION_LABORAL_DEFINITIVA,
+    variant: "recalificacionLaboralDefinitiva",
   },
 };

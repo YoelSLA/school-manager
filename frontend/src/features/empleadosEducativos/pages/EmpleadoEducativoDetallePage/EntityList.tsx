@@ -26,30 +26,35 @@ export default function EntityList<T>({
 	const hasMore = typeof maxItems === "number" && items.length > maxItems;
 
 	return (
-		<section className={styles.entityList}>
+		<>
 			<header className={styles.entityList__header}>
 				<h3 className={styles.entityList__title}>{title}</h3>
 			</header>
+			<section className={styles.entityList}>
 
-			<div className={styles.entityList__content}>
-				{items.length === 0 ? (
-					<p className={styles.entityList__empty}>{emptyText}</p>
-				) : (
-					visibleItems.map(renderItem)
+
+				<div className={styles.entityList__content}>
+					{items.length === 0 ? (
+						<p className={styles.entityList__empty}>{emptyText}</p>
+					) : (
+						visibleItems.map(renderItem)
+					)}
+				</div>
+
+				{hasMore && onViewAll && (
+					<footer className={styles.entityList__footer}>
+						<button
+							type="button"
+							className={styles.entityList__viewAll}
+							onClick={onViewAll}
+						>
+							{viewAllLabel}
+						</button>
+					</footer>
 				)}
-			</div>
+			</section>
+		</>
 
-			{hasMore && onViewAll && (
-				<footer className={styles.entityList__footer}>
-					<button
-						type="button"
-						className={styles.entityList__viewAll}
-						onClick={onViewAll}
-					>
-						{viewAllLabel}
-					</button>
-				</footer>
-			)}
-		</section>
+
 	);
 }
