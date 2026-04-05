@@ -32,7 +32,8 @@ public class LicenciaControllerREST {
 				licenciaId,
 				dto.empleadoId(),
 				dto.designacionesIds(),
-				dto.fechaTomaPosesion()
+				dto.fechaTomaPosesion(),
+				dto.secuencia()
 		);
 	}
 

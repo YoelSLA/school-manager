@@ -1,0 +1,2 @@
+ALTER TABLE asignacion
+    ADD COLUMN secuencia INTEGER NOT NULL DEFAULT 1;

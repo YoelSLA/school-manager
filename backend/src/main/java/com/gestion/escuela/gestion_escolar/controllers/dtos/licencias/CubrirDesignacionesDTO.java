@@ -15,6 +15,8 @@ public record CubrirDesignacionesDTO(
 		List<Long> designacionesIds,
 
 		@NotNull(message = "Debe indicar la fecha de toma de posesión para la suplencia")
-		LocalDate fechaTomaPosesion
+		LocalDate fechaTomaPosesion,
+
+		Integer secuencia
 ) {
 }

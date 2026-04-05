@@ -1,11 +1,17 @@
 package com.gestion.escuela.gestion_escolar.mappers;
 
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.CargoDesignacionAdministrativaDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.CargoDesignacionCursoDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.CargoDesignacionDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.*;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaNormativaDTO;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
+import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
+import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
+import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 
@@ -131,8 +137,33 @@ public class EmpleadoEducativoMapper {
 				a.getFechaBaja(),
 				a.getCausaBaja(),
 				a.getEstadoEn(HOY),
-				a.getDesignacion().getCupof(),
-				a.getDesignacion().getClass().getSimpleName()
+				toCargoDesignacionDTO(a.getDesignacion())
+		);
+	}
+
+	private static CargoDesignacionDTO toCargoDesignacionDTO(Designacion d) {
+		if (d instanceof DesignacionCurso curso) {
+			return new CargoDesignacionCursoDTO(
+					curso.getId(),
+					curso.getCupof(),
+					curso.getEstadoEn(LocalDate.now()),
+					curso.getMateria().getNombre(),
+					curso.getCurso().toString(),
+					curso.getOrientacion()
+			);
+		}
+
+		if (d instanceof DesignacionAdministrativa administrativa) {
+			return new CargoDesignacionAdministrativaDTO(
+					administrativa.getId(),
+					administrativa.getCupof(),
+					administrativa.getRolEducativo(),
+					administrativa.getEstadoEn(LocalDate.now())
+			);
+		}
+
+		throw new IllegalArgumentException(
+				"Tipo de designación no soportado: " + d.getClass().getSimpleName()
 		);
 	}
 

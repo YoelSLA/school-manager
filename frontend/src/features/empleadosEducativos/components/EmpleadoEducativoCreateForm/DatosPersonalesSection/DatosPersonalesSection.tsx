@@ -11,11 +11,10 @@ type Props = {
 	errors: FieldErrors<EmpleadoEducativoCreateDTO>;
 };
 
-export default function DatosPersonalesSection({ register, errors }: Props) {
-
-	console.log("ERRORES EN DATOS PERSONALES SECTION", errors);
-	console.log("REGISTER EN DATOS PERSONALES SECTION", register);
-
+export default function DatosPersonalesSection({
+	register,
+	errors,
+}: Props) {
 	return (
 		<FormSection title="DATOS PERSONALES" layout="column">
 			<FormInputFieldRHF

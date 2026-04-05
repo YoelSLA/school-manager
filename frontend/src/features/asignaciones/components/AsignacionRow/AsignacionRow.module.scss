@@ -1,0 +1,152 @@
+/* ===============================
+   ROW BASE
+================================ */
+
+.row {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+
+	padding: 12px 14px;
+	border-radius: 14px;
+	border: 1px solid transparent;
+
+	min-width: 0;
+	background: #faf5ff;
+	border: 1px solid #e9d5ff;
+}
+
+/* ===============================
+   VARIANTES
+================================ */
+
+
+
+/* ===============================
+   HEADER
+================================ */
+
+.header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 12px;
+
+	min-width: 0;
+}
+
+.titulo {
+	flex: 1;
+	min-width: 0;
+
+	font-size: 15px;
+	font-weight: 700;
+	line-height: 1.2;
+	color: #111827;
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.estado {
+	display: flex;
+	align-items: flex-start;
+	flex-shrink: 0;
+}
+
+/* ===============================
+   SUBTÍTULO
+================================ */
+
+.subtitulo {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 6px;
+
+	font-size: 13px;
+	line-height: 1.3;
+	color: #4b5563;
+}
+
+.cupof {
+	font-weight: 600;
+	color: #374151;
+	white-space: nowrap;
+}
+
+.separator {
+	color: #9ca3af;
+}
+
+/* ===============================
+   FOOTER
+================================ */
+
+.footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+
+/* ===============================
+   PERÍODO
+================================ */
+
+.periodo {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 6px;
+
+	font-size: 12px;
+	line-height: 1.2;
+	color: #374151;
+}
+
+.periodo svg {
+	width: 14px;
+	height: 14px;
+	flex-shrink: 0;
+	color: #6b7280;
+}
+
+.actual {
+	font-weight: 600;
+	color: #047857;
+}
+
+.duracion {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+
+	margin-left: 4px;
+	color: #6b7280;
+	font-weight: 500;
+}
+
+/* ===============================
+   MOBILE
+================================ */
+
+@media (max-width: 640px) {
+	.header {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 8px;
+	}
+
+	.estado {
+		align-self: flex-start;
+	}
+
+	.footer {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+	}
+}

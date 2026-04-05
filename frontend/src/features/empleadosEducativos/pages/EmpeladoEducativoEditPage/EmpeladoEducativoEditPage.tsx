@@ -11,6 +11,7 @@ import { useEmpleadoEducativo } from "../../hooks/useEmpleadoEducativo";
 import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
 import styles from "./EmpleadoEducativoEditPage.module.scss";
 import { EmpleadoEducativoUpdateDTO } from "@/utils/types";
+import Breadcrumbs from "@/layout/Breadcrumbs";
 
 export default function EmpleadoEducativoEditPage() {
 	const { empleadoId } = useParams();
@@ -100,30 +101,34 @@ export default function EmpleadoEducativoEditPage() {
 	}
 
 	return (
-		<PageLayout>
-			<div className={styles.page}>
-				<form onSubmit={form.handleSubmit(onSubmit)}>
-					{/* ================= FORM BODY ================= */}
-					<EmpleadoEducativoFormEditar form={form} />
+		<PageLayout
+			breadcrumbs={<Breadcrumbs />}
+			children={
+				<div className={styles.page}>
+					<form onSubmit={form.handleSubmit(onSubmit)}>
+						{/* ================= FORM BODY ================= */}
+						<EmpleadoEducativoFormEditar form={form} />
 
-					{/* ================= ACTIONS ================= */}
+						{/* ================= ACTIONS ================= */}
 
-					<div className={styles.actions}>
-						<Button type="button" variant="danger" onClick={handleCancel}>
-							Cancelar
-						</Button>
+						<div className={styles.actions}>
+							<Button type="button" variant="danger" onClick={handleCancel}>
+								Cancelar
+							</Button>
 
-						<Button
-							type="submit"
-							variant="primary"
-							loading={editarMutation.isPending}
-							disabled={editarMutation.isPending}
-						>
-							Guardar cambios
-						</Button>
-					</div>
-				</form>
-			</div>
+							<Button
+								type="submit"
+								variant="primary"
+								loading={editarMutation.isPending}
+								disabled={editarMutation.isPending}
+							>
+								Guardar cambios
+							</Button>
+						</div>
+					</form>
+				</div>
+			}
+		>
 		</PageLayout>
 	);
 }

@@ -21,9 +21,10 @@ public class AsignacionTitular extends Asignacion {
 	public AsignacionTitular(
 			EmpleadoEducativo empleado,
 			Designacion designacion,
-			LocalDate fechaTomaPosesion
+			LocalDate fechaTomaPosesion,
+			Integer secuencia
 	) {
-		super(empleado, designacion, new Periodo(fechaTomaPosesion, null));
+		super(empleado, designacion, new Periodo(fechaTomaPosesion, null), secuencia);
 	}
 
 

@@ -1,31 +1,26 @@
 import type { AxiosError } from "axios";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-	crearEmpleadoEducativoSchema,
-	type EmpleadoEducativoCreateDTO,
+	crearEmpleadoEducativoSchema
 } from "../../form/schemas/crearEmpleadoEducativo.schema";
-
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import Breadcrumbs from "@/layout/Breadcrumbs";
-
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
-
 import { getTodayArgentinaISO } from "@/utils";
-
 import { useCrearEmpleadoEducativo } from "../../hooks/useCrearEmpleadoEducativo";
 import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
-
 import FormActions from "@/components/FormActions";
-
 import styles from "./EmpleadoEducativoCreatePage.module.scss";
 import DatosPersonalesSection from "../../components/EmpleadoEducativoCreateForm/DatosPersonalesSection";
 import ContactoSection from "../../components/EmpleadoEducativoCreateForm/ContactoSection";
 import IngresoSection from "../../components/EmpleadoEducativoCreateForm/IngresoSection";
+import Button from "@/components/Button/Button";
+import Modal from "@/components/Modal/Modal";
+import { EmpleadoEducativoCreateDTO } from "@/utils/types";
 
 export default function EmpleadoEducativoCreatePage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
@@ -36,6 +31,17 @@ export default function EmpleadoEducativoCreatePage() {
 
 	const [agregarFecha, setAgregarFecha] = useState(false);
 	const [usarHoy, setUsarHoy] = useState(false);
+	const [resultModal, setResultModal] = useState<{
+		open: boolean;
+		success: boolean;
+		title: string;
+		description: string;
+	}>({
+		open: false,
+		success: true,
+		title: "",
+		description: "",
+	});
 
 	/* =====================
 		 FORM DIRECTO (SIN HOOK)
@@ -59,22 +65,11 @@ export default function EmpleadoEducativoCreatePage() {
 			telefono: undefined,
 			email: "",
 			fechaDeNacimiento: "",
-			fechaDeIngreso: undefined, // 💥 CLAVE
+			fechaDeIngreso: undefined,
 		},
 		mode: "onSubmit",
-		criteriaMode: "all",
 		shouldFocusError: true,
 	});
-
-	console.log("👀 WATCH:", watch());
-
-	/* =====================
-		 DEBUG
-	===================== */
-
-	useEffect(() => {
-		console.log("🧠 ERRORS EN PAGE:", errors);
-	}, [errors]);
 
 	/* =====================
 		 TOGGLES
@@ -105,9 +100,7 @@ export default function EmpleadoEducativoCreatePage() {
 		 SUBMIT
 	===================== */
 
-	const _onSubmit = async (data: EmpleadoEducativoCreateDTO) => {
-		console.log("🔥 onSubmit ejecutado");
-		console.log("📦 data:", data);
+	const onSubmit = async (data: EmpleadoEducativoCreateDTO) => {
 
 		if (!escuelaActiva) {
 			toast.error("No hay escuela seleccionada");
@@ -119,9 +112,6 @@ export default function EmpleadoEducativoCreatePage() {
 				escuelaId: escuelaActiva.id,
 				data,
 			});
-
-			toast.success("Personal educativo creado correctamente");
-			empleadoNav.listar();
 
 			reset({
 				cuil: "",
@@ -136,19 +126,40 @@ export default function EmpleadoEducativoCreatePage() {
 
 			setAgregarFecha(false);
 			setUsarHoy(false);
-		} catch (error: unknown) {
-			const axiosError = error as AxiosError;
 
-			if (axiosError.response?.status === 409) {
+			setResultModal({
+				open: true,
+				success: true,
+				title: "Empleado educativo creado",
+				description: "Se ha creado el empleado educativo correctamente.",
+			});
+		} catch (error: unknown) {
+			const axiosError = error as AxiosError<{
+				message?: string;
+			}>;
+
+			const message = axiosError.response?.data?.message ?? "";
+
+			if (message.toLowerCase().includes("cuil")) {
 				setError("cuil", {
 					type: "manual",
-					message: "Ese CUIL ya está registrado",
+					message: "El CUIL ya está registrado.",
 				});
-
-				toast.error("Ese CUIL ya está registrado");
-			} else {
-				toast.error("Error al crear el personal educativo");
 			}
+
+			if (message.toLowerCase().includes("email")) {
+				setError("email", {
+					type: "manual",
+					message: "El email ya está registrado",
+				});
+			}
+
+			setResultModal({
+				open: true,
+				success: false,
+				title: "Error al crear empleado educativo",
+				description: message,
+			});
 		}
 	};
 
@@ -162,17 +173,7 @@ export default function EmpleadoEducativoCreatePage() {
 				<div className={styles.container}>
 					<form
 						className={styles.form}
-						onSubmit={(e) => {
-							console.log("🚨 SUBMIT HTML DISPARADO");
-							return handleSubmit(
-								(data) => {
-									console.log("✅ RHF SUBMIT OK", data);
-								},
-								(errors) => {
-									console.log("❌ RHF VALIDATION ERRORS", errors);
-								}
-							)(e);
-						}}
+						onSubmit={handleSubmit(onSubmit)}
 					>
 						<div className={styles.grid}>
 							<div className={styles.datos}>
@@ -200,7 +201,7 @@ export default function EmpleadoEducativoCreatePage() {
 
 							<div className={styles.actions}>
 								<FormActions
-									isSubmitting={isSubmitting}
+									isSubmitting={isSubmitting && Object.keys(errors).length === 0}
 									label="Guardar"
 									align="right"
 								/>
@@ -209,6 +210,42 @@ export default function EmpleadoEducativoCreatePage() {
 					</form>
 				</div>
 			</div>
+
+			{resultModal.open && (
+				<Modal
+					title={resultModal.title}
+					variant={resultModal.success ? "success" : "error"}
+					onCancel={() => {
+						setResultModal((prev) => ({ ...prev, open: false }));
+
+						if (resultModal.success) {
+							empleadoNav.listar();
+						}
+					}}
+					showConfirm={false}
+					showCancel={false}
+					size="small"
+				>
+					<div className={styles.resultModalContent}>
+						<p className={styles.resultModalDescription}>
+							{resultModal.description}
+						</p>
+
+						<Button
+							variant={resultModal.success ? "primary" : "danger"}
+							onClick={() => {
+								setResultModal((prev) => ({ ...prev, open: false }));
+
+								if (resultModal.success) {
+									empleadoNav.listar();
+								}
+							}}
+						>
+							Aceptar
+						</Button>
+					</div>
+				</Modal>
+			)}
 		</PageLayout>
 	);
 }

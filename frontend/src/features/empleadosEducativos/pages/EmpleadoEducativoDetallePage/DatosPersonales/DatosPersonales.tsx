@@ -1,4 +1,4 @@
-import { Calendar, IdCard, Mail, Phone } from "lucide-react";
+import { Calendar, IdCard, LocationEdit, Mail, Phone } from "lucide-react";
 import { formatearFecha } from "@/utils";
 import DatoPersonalItem from "./DatoPersonalItem";
 import styles from "./DatosPersonales.module.scss";
@@ -9,6 +9,7 @@ type Props = {
 };
 
 export default function DatosPersonales({ empleado }: Props) {
+
 	const DATOS = [
 		{
 			icon: IdCard,
@@ -24,6 +25,11 @@ export default function DatosPersonales({ empleado }: Props) {
 			icon: Phone,
 			label: "Teléfono",
 			value: empleado.telefono,
+		},
+		{
+			icon: LocationEdit,
+			label: "Domicilio",
+			value: empleado.domicilio,
 		},
 		{
 			icon: Mail,

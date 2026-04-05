@@ -92,11 +92,12 @@ public abstract class Designacion {
 
 	public AsignacionTitular cubrirConTitular(
 			EmpleadoEducativo empleado,
-			LocalDate fechaDesde
+			LocalDate fechaDesde,
+			Integer secuencia
 	) {
 		PoliticaDeCobertura.validarCubrirConTitular(this, empleado, fechaDesde);
 
-		AsignacionTitular titular = new AsignacionTitular(empleado, this, fechaDesde);
+		AsignacionTitular titular = new AsignacionTitular(empleado, this, fechaDesde, secuencia);
 
 		agregarAsignacion(titular);
 
@@ -105,7 +106,8 @@ public abstract class Designacion {
 
 	public AsignacionProvisional cubrirConProvisionalAutomatico(
 			EmpleadoEducativo empleado,
-			LocalDate fechaInicio
+			LocalDate fechaInicio,
+			Integer secuencia
 	) {
 		LocalDate fechaHasta = ultimoDiaHabilDeFebreroSiguiente(fechaInicio);
 		Periodo periodo = new Periodo(fechaInicio, fechaHasta);
@@ -113,19 +115,20 @@ public abstract class Designacion {
 		PoliticaDeCobertura.validarCubrirConProvisionalAutomatico(this, empleado, fechaInicio, periodo);
 
 
-		AsignacionProvisional asignacion = new AsignacionProvisional(empleado, this, periodo);
+		AsignacionProvisional asignacion = new AsignacionProvisional(empleado, this, periodo, secuencia);
 		agregarAsignacion(asignacion);
 		return asignacion;
 	}
 
 	public AsignacionProvisional cubrirConProvisionalManual(
 			EmpleadoEducativo empleado,
-			Periodo periodo
+			Periodo periodo,
+			Integer secuencia
 	) {
 
 		PoliticaDeCobertura.validarCubrirConProvisionalManual(this, empleado, periodo);
 
-		AsignacionProvisional asignacion = new AsignacionProvisional(empleado, this, periodo);
+		AsignacionProvisional asignacion = new AsignacionProvisional(empleado, this, periodo, secuencia);
 		agregarAsignacion(asignacion);
 		return asignacion;
 	}
@@ -133,7 +136,8 @@ public abstract class Designacion {
 	public AsignacionSuplente cubrirConSuplente(
 			Licencia licencia,
 			EmpleadoEducativo suplente,
-			LocalDate fechaInicio
+			LocalDate fechaInicio,
+			Integer secuencia
 	) {
 
 		PoliticaDeCobertura.validarCubrirConSuplente(this, licencia, suplente, fechaInicio);
@@ -141,7 +145,7 @@ public abstract class Designacion {
 		LocalDate fechaFin = licencia.getPeriodo().getFechaHasta();
 		Periodo periodo = new Periodo(fechaInicio, fechaFin);
 
-		AsignacionSuplente asignacionSuplente = new AsignacionSuplente(suplente, this, periodo);
+		AsignacionSuplente asignacionSuplente = new AsignacionSuplente(suplente, this, periodo, secuencia);
 
 		agregarAsignacion(asignacionSuplente);
 
@@ -149,7 +153,8 @@ public abstract class Designacion {
 	}
 
 	public AsignacionProvisional renovarProvisionalAutomatica(
-			AsignacionProvisional anterior
+			AsignacionProvisional anterior,
+			Integer secuencia
 	) {
 
 		Validaciones.noNulo(anterior, "asignación anterior");
@@ -163,7 +168,7 @@ public abstract class Designacion {
 
 		validarReglaCicloLectivo(nuevoPeriodo);
 
-		AsignacionProvisional nueva = new AsignacionProvisional(anterior.getEmpleadoEducativo(), this, nuevoPeriodo);
+		AsignacionProvisional nueva = new AsignacionProvisional(anterior.getEmpleadoEducativo(), this, nuevoPeriodo, secuencia);
 
 		agregarAsignacion(nueva);
 
@@ -172,7 +177,8 @@ public abstract class Designacion {
 
 	public AsignacionProvisional renovarProvisionalDesdeMarzo(
 			AsignacionProvisional asignacionAnterior,
-			LocalDate fechaHasta
+			LocalDate fechaHasta,
+			Integer secuencia
 	) {
 
 		PoliticaDeRenovacion.validarRenovarProvisionalDesdeMarzo(asignacionAnterior, fechaHasta);
@@ -190,7 +196,7 @@ public abstract class Designacion {
 		PoliticaDeRenovacion.validarReglaCicloLectivo(nuevoPeriodo);
 
 		AsignacionProvisional nueva =
-				new AsignacionProvisional(asignacionAnterior.getEmpleadoEducativo(), this, nuevoPeriodo);
+				new AsignacionProvisional(asignacionAnterior.getEmpleadoEducativo(), this, nuevoPeriodo, secuencia);
 
 		agregarAsignacion(nueva);
 
@@ -199,12 +205,13 @@ public abstract class Designacion {
 
 	public AsignacionProvisional renovarProvisionalManual(
 			AsignacionProvisional anterior,
-			Periodo nuevoPeriodo
+			Periodo nuevoPeriodo,
+			Integer secuencia
 	) {
 		PoliticaDeRenovacion.validarRenovarProvisionalManual(anterior, nuevoPeriodo);
 
 		AsignacionProvisional nueva =
-				new AsignacionProvisional(anterior.getEmpleadoEducativo(), this, nuevoPeriodo);
+				new AsignacionProvisional(anterior.getEmpleadoEducativo(), this, nuevoPeriodo, secuencia);
 
 		agregarAsignacion(nueva);
 
@@ -240,7 +247,7 @@ public abstract class Designacion {
 		buscarSuplenteQueEjerceEn(fechaBaja)
 				.ifPresent(suplente -> {
 					LocalDate inicioProvisional = fechaBaja.plusDays(1);
-					suplente.convertirseEnProvisional(inicioProvisional);
+					suplente.convertirseEnProvisional(inicioProvisional, suplente.getSecuencia());
 				});
 	}
 

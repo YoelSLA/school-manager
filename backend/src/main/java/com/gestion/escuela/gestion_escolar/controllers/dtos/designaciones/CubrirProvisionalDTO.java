@@ -13,7 +13,9 @@ public record CubrirProvisionalDTO(
 		LocalDate fechaTomaPosesion,
 
 		@NotNull(message = "La fecha de cese es obligatoria")
-		LocalDate fechaCese
+		LocalDate fechaCese,
+
+		Integer secuencia
 
 ) {
 }

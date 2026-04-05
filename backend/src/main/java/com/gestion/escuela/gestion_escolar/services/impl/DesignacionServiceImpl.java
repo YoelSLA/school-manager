@@ -154,7 +154,8 @@ public class DesignacionServiceImpl implements DesignacionService {
 			Long designacionId,
 			Long empleadoId,
 			LocalDate fechaTomaPosesion,
-			TipoCaracteristicaAsignacion caracteristica
+			TipoCaracteristicaAsignacion caracteristica,
+			Integer secuencia
 	) {
 
 		Designacion designacion = designacionRepository.findById(designacionId)
@@ -163,7 +164,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 		EmpleadoEducativo empleado = empleadoEducativoRepository.findById(empleadoId)
 				.orElseThrow(() -> new RecursoNoEncontradoException("empleado educativo", empleadoId));
 
-		AsignacionTitular titular = designacion.cubrirConTitular(empleado, fechaTomaPosesion);
+		AsignacionTitular titular = designacion.cubrirConTitular(empleado, fechaTomaPosesion, secuencia);
 
 		if (caracteristica != null) {
 			titular.aplicarCaracteristica(crearCaracteristica(caracteristica));
@@ -177,7 +178,8 @@ public class DesignacionServiceImpl implements DesignacionService {
 			Long designacionId,
 			Long empleadoId,
 			LocalDate fechaDesde,
-			LocalDate fechaHasta
+			LocalDate fechaHasta,
+			Integer secuencia
 	) {
 
 		Designacion designacion = designacionRepository.findById(designacionId)
@@ -196,7 +198,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 
 		Periodo periodo = new Periodo(fechaDesde, fechaHasta);
 
-		AsignacionProvisional asignacion = designacion.cubrirConProvisionalManual(empleado, periodo);
+		AsignacionProvisional asignacion = designacion.cubrirConProvisionalManual(empleado, periodo, secuencia);
 
 		designacionRepository.save(designacion);
 
@@ -208,7 +210,8 @@ public class DesignacionServiceImpl implements DesignacionService {
 			Long licenciaId,
 			Long suplenteId,
 			List<Long> designacionIds,
-			LocalDate fechaTomaPosesion
+			LocalDate fechaTomaPosesion,
+			Integer secuencia
 	) {
 
 		Validaciones.noNulo(fechaTomaPosesion, "fecha toma posesión");
@@ -230,14 +233,16 @@ public class DesignacionServiceImpl implements DesignacionService {
 				d.cubrirConSuplente(
 						licencia,
 						suplente,
-						fechaTomaPosesion
+						fechaTomaPosesion,
+						secuencia
 				)
 		);
 	}
 
 	public AsignacionSuplente renovarCobertura(
 			Long asignacionId,
-			LocalDate nuevaFechaFin
+			LocalDate nuevaFechaFin,
+			Integer secuencia
 	) {
 
 		Asignacion actual = asignacionRepository.findById(asignacionId)
@@ -266,7 +271,9 @@ public class DesignacionServiceImpl implements DesignacionService {
 		return new AsignacionSuplente(
 				actual.getEmpleadoEducativo(),
 				actual.getDesignacion(),
-				nuevoPeriodo
+				nuevoPeriodo,
+				secuencia
+
 		);
 	}
 
@@ -420,7 +427,8 @@ public class DesignacionServiceImpl implements DesignacionService {
 			Long asignacionId,
 			Long empleadoId,
 			LocalDate fechaTomaPosesion,
-			LocalDate fechaCese
+			LocalDate fechaCese,
+			Integer secuencia
 	) {
 
 		EmpleadoEducativo empleado = empleadoEducativoRepository.findById(empleadoId)
@@ -436,7 +444,8 @@ public class DesignacionServiceImpl implements DesignacionService {
 		asignacion.actualizar(
 				empleado,
 				fechaTomaPosesion,
-				fechaCese
+				fechaCese,
+				secuencia
 		);
 
 		return asignacionRepository.save(asignacion);

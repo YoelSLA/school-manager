@@ -13,7 +13,9 @@ public record CubrirTitularDTO(
 		@NotNull(message = "La fecha de toma de posesión es obligatoria")
 		LocalDate fechaTomaPosesion,
 
-		TipoCaracteristicaAsignacion caracteristica
+		TipoCaracteristicaAsignacion caracteristica,
+
+		Integer secuencia
 
 ) {
 }

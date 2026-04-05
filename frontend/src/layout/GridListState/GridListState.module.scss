@@ -18,6 +18,12 @@
   overflow: auto;
 }
 
+
+.grid>div {
+  width: 100%;
+  min-width: 0;
+}
+
 .state {
   flex: 1;
   min-height: 0;
