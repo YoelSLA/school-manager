@@ -39,7 +39,7 @@ class AsignacionProvisionalTest {
 		asignacion = new AsignacionProvisional(
 				empleado,
 				designacion,
-				periodo
+				periodo, 1
 		);
 	}
 
@@ -75,7 +75,7 @@ class AsignacionProvisionalTest {
 			// Forzamos característica usando subclase testable
 			class Testable extends AsignacionProvisional {
 				public Testable(EmpleadoEducativo e, Designacion d, Periodo p) {
-					super(e, d, p);
+					super(e, d, p, 1);
 				}
 
 				public void setCar(CaracteristicaAsignacion c) {
@@ -456,7 +456,7 @@ class AsignacionProvisionalTest {
 					Designacion d,
 					Periodo p
 			) {
-				super(e, d, p);
+				super(e, d, p, 1);
 			}
 
 			public void forzarCaracteristica(CaracteristicaAsignacion c) {

@@ -641,7 +641,7 @@ class EmpleadoEducativoTest {
 			LocalDate fechaTomaPosesion = LocalDate.of(2017, Month.JUNE, 7);
 			LocalDate fechaCese = LocalDate.of(2018, Month.FEBRUARY, 28);
 			Periodo periodoProvisional = new Periodo(fechaTomaPosesion, fechaCese);
-			AsignacionProvisional provisional = direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodoProvisional);
+			AsignacionProvisional provisional = direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodoProvisional, 1);
 
 			assertEquals(CUBIERTA, direccion2467830.getEstadoEn(fechaTomaPosesion));
 			assertEquals(ACTIVA, provisional.getEstadoEn(fechaTomaPosesion));
@@ -806,9 +806,9 @@ class EmpleadoEducativoTest {
 
 			LocalDate fechaTomaPosesion = LocalDate.of(1998, Month.MARCH, 1);
 
-			AsignacionTitular asignacionTitular1 = designacion2467775.cubrirConTitular(giardinoNoraRosa, fechaTomaPosesion);
-			AsignacionTitular asignacionTitular2 = designacion2467791.cubrirConTitular(giardinoNoraRosa, fechaTomaPosesion);
-			AsignacionTitular asignacionTitular3 = designacion2467811.cubrirConTitular(giardinoNoraRosa, fechaTomaPosesion);
+			AsignacionTitular asignacionTitular1 = designacion2467775.cubrirConTitular(giardinoNoraRosa, fechaTomaPosesion, 1);
+			AsignacionTitular asignacionTitular2 = designacion2467791.cubrirConTitular(giardinoNoraRosa, fechaTomaPosesion, 1);
+			AsignacionTitular asignacionTitular3 = designacion2467811.cubrirConTitular(giardinoNoraRosa, fechaTomaPosesion, 1);
 
 			assertEquals(CUBIERTA, designacion2467775.getEstadoEn(fechaTomaPosesion));
 			assertEquals(CUBIERTA, designacion2467791.getEstadoEn(fechaTomaPosesion));
