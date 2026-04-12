@@ -326,6 +326,7 @@ export interface LicenciaDesignacionBaseDTO {
   cupof: number;
   estado: EstadoDesignacion;
   rolEducativo: RolEducativo;
+  asignacionActiva: AsignacionDetalleDTO | null;
 }
 
 export interface LicenciaDesignacionAdministrativaDTO

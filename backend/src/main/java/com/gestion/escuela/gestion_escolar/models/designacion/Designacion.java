@@ -90,6 +90,36 @@ public abstract class Designacion {
 		this.escuela = escuela;
 	}
 
+	public void notificarBajaDefinitivaDe(
+			Asignacion asignacion,
+			LocalDate fechaBaja
+	) {
+
+		Validaciones.noNulo(asignacion, "asignación");
+		Validaciones.noNulo(fechaBaja, "fecha baja");
+
+		if (!asignacion.puedeGenerarVacanteDefinitiva()) {
+			return;
+		}
+
+		buscarSuplenteQueEjerceEn(fechaBaja)
+				.ifPresent(suplente -> {
+					LocalDate inicioProvisional = fechaBaja.plusDays(1);
+					suplente.convertirseEnProvisional(inicioProvisional, suplente.getSecuencia());
+				});
+	}
+
+	public void reemplazarFranjas(Set<FranjaHoraria> nuevasFranjas) {
+		this.franjasHorarias.clear();
+		this.franjasHorarias.addAll(nuevasFranjas);
+	}
+
+	public void eliminarAsignacion(Asignacion asignacion) {
+		asignaciones.remove(asignacion);
+		asignacion.getEmpleadoEducativo().getAsignaciones().remove(asignacion);
+		asignacion.setDesignacion(null);
+	}
+
 	public AsignacionTitular cubrirConTitular(
 			EmpleadoEducativo empleado,
 			LocalDate fechaDesde,
@@ -227,28 +257,14 @@ public abstract class Designacion {
 				.findFirst();
 	}
 
-	@Transient
-	public EstadoDesignacion getEstadoEn(LocalDate fecha) {
-		return EstadoDesignacion.desde(asignacionQueEjerceEn(fecha).isPresent());
+	public EmpleadoEducativo getEmpleadoActivoEn(LocalDate fecha) {
+		return asignacionQueEjerceEn(fecha)
+				.map(Asignacion::getEmpleadoEducativo)
+				.orElse(null);
 	}
 
-	public void notificarBajaDefinitivaDe(
-			Asignacion asignacion,
-			LocalDate fechaBaja
-	) {
-
-		Validaciones.noNulo(asignacion, "asignación");
-		Validaciones.noNulo(fechaBaja, "fecha baja");
-
-		if (!asignacion.puedeGenerarVacanteDefinitiva()) {
-			return;
-		}
-
-		buscarSuplenteQueEjerceEn(fechaBaja)
-				.ifPresent(suplente -> {
-					LocalDate inicioProvisional = fechaBaja.plusDays(1);
-					suplente.convertirseEnProvisional(inicioProvisional, suplente.getSecuencia());
-				});
+	public boolean tieneTitularActivo(LocalDate fecha) {
+		return asignaciones.stream().anyMatch(a -> a.esTitular() && a.estaEjerciendoEn(fecha));
 	}
 
 	public boolean trabajaElDia(LocalDate fecha) {
@@ -259,6 +275,46 @@ public abstract class Designacion {
 		DiaDeSemana diaEnum = DiaDeSemana.from(fecha);
 
 		return franjasHorarias.stream().anyMatch(f -> f.getDia().equals(diaEnum));
+	}
+
+	public boolean tieneVacantePorLicenciaEn(LocalDate fecha) {
+		return asignaciones.stream().anyMatch(a -> a.estaEnLicenciaEn(fecha));
+	}
+
+	public boolean estaCubiertaEn(LocalDate fecha) {
+		return asignaciones.stream()
+				.anyMatch(a -> a.estaEjerciendoEn(fecha));
+	}
+
+	public boolean tieneAsignacionQueSeSuperponeCon(Periodo periodo) {
+		return this.asignaciones.stream()
+				.anyMatch(a -> a.seSuperponeCon(periodo));
+	}
+
+	public Optional<Asignacion> getAsignacionActivaEn(LocalDate fecha) {
+		if (fecha == null) {
+			return Optional.empty();
+		}
+
+		return asignaciones.stream()
+				.filter(a -> a.estaActivaEn(fecha))
+				.findFirst();
+	}
+
+	@Transient
+	public EstadoDesignacion getEstadoEn(LocalDate fecha) {
+		return EstadoDesignacion.desde(asignacionQueEjerceEn(fecha).isPresent());
+	}
+
+	@Override
+	public String toString() {
+		return getClass().getSimpleName() + "{ " +
+				"id = " + id +
+				", cupof = " + cupof +
+				", escuela  = " + (escuela != null ? escuela : null) +
+				", rolEducativo = " + rolEducativo +
+				", asignaciones = " + asignaciones.size() +
+				" }";
 	}
 
 	private Optional<AsignacionSuplente> buscarSuplenteQueEjerceEn(LocalDate fecha) {
@@ -290,21 +346,6 @@ public abstract class Designacion {
 		}
 	}
 
-	public boolean tieneTitularActivo(LocalDate fecha) {
-		return asignaciones.stream().anyMatch(a -> a.esTitular() && a.estaEjerciendoEn(fecha));
-	}
-
-	@Override
-	public String toString() {
-		return getClass().getSimpleName() + "{ " +
-				"id = " + id +
-				", cupof = " + cupof +
-				", escuela  = " + (escuela != null ? escuela : null) +
-				", rolEducativo = " + rolEducativo +
-				", asignaciones = " + asignaciones.size() +
-				" }";
-	}
-
 	private LocalDate ultimoDiaHabilDeFebreroSiguiente(LocalDate fechaInicio) {
 
 		Validaciones.noNulo(fechaInicio, "fecha inicio");
@@ -326,20 +367,6 @@ public abstract class Designacion {
 		return day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY;
 	}
 
-	public boolean tieneVacantePorLicenciaEn(LocalDate fecha) {
-		return asignaciones.stream().anyMatch(a -> a.estaEnLicenciaEn(fecha));
-	}
-
-	public boolean estaCubiertaEn(LocalDate fecha) {
-		return asignaciones.stream()
-				.anyMatch(a -> a.estaEjerciendoEn(fecha));
-	}
-
-	public boolean tieneAsignacionQueSeSuperponeCon(Periodo periodo) {
-		return this.asignaciones.stream()
-				.anyMatch(a -> a.seSuperponeCon(periodo));
-	}
-
 	protected void actualizarCupof(Integer cupof) {
 		Validaciones.noNulo(cupof, "cupof");
 		this.cupof = cupof;
@@ -350,8 +377,4 @@ public abstract class Designacion {
 		this.rolEducativo = rolEducativo;
 	}
 
-	public void reemplazarFranjas(Set<FranjaHoraria> nuevasFranjas) {
-		this.franjasHorarias.clear();
-		this.franjasHorarias.addAll(nuevasFranjas);
-	}
 }

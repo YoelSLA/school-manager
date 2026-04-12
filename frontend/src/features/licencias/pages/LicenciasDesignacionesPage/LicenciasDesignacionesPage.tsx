@@ -81,8 +81,12 @@ export default function LicenciasDesignacionesPage() {
 									<DesignacionItem
 										key={d.designacionId}
 										designacion={d}
-										checked={seleccionadas.includes(d.designacionId)}
-										onToggle={toggleDesignacion}
+										selected={seleccionadas.includes(d.designacionId)}
+										onSelect={toggleDesignacion}
+										onCambiarCobertura={(designacionId) => {
+											setSeleccionadas([designacionId]);
+											setModalOpen(true);
+										}}
 									/>
 								))
 							)}

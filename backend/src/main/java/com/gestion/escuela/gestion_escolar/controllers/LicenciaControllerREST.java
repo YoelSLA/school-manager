@@ -80,6 +80,18 @@ public class LicenciaControllerREST {
 				.toList();
 	}
 
+	@DeleteMapping("/{licenciaId}/coberturas/{designacionId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void eliminarCobertura(
+			@PathVariable Long licenciaId,
+			@PathVariable Long designacionId
+	) {
+		designacionService.eliminarCoberturaDeLicencia(
+				licenciaId,
+				designacionId
+		);
+	}
+
 	@DeleteMapping("/{licenciaId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void eliminarLicencia(@PathVariable Long licenciaId) {

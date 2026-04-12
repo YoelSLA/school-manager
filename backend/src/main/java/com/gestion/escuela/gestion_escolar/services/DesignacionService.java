@@ -76,5 +76,7 @@ public interface DesignacionService {
 	void actualizarDesignacionAdministrativa(Long designacionId, Integer cupof, RolEducativo rolEducativo, Set<FranjaHoraria> franjaHorarias);
 
 	Asignacion editarAsignacion(Long designacionId, Long asignacionId, Long aLong, LocalDate localDate, LocalDate localDate1, Integer secuencia);
+
+	void eliminarCoberturaDeLicencia(Long licenciaId, Long designacionId);
 }
 
