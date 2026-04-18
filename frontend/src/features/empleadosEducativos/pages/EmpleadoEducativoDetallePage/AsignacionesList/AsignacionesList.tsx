@@ -11,9 +11,6 @@ type Tab = "DOCENTE" | "ADMINISTRATIVO";
 
 export default function AsignacionesList({ asignaciones }: Props) {
 
-	console.log("Asignaciones recibidas en AsignacionesList:", asignaciones); // Debugging log 
-
-
 	const [activeTab, setActiveTab] = useState<Tab>("DOCENTE");
 
 	const asignacionesDocentes = useMemo(

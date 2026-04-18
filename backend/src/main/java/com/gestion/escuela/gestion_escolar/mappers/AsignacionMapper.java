@@ -6,7 +6,7 @@ import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import java.time.LocalDate;
 
 public class AsignacionMapper {
-	
+
 	public static AsignacionDetalleDTO toDetalle(Asignacion a) {
 		return new AsignacionDetalleDTO(
 				a.getId(),
@@ -15,7 +15,8 @@ public class AsignacionMapper {
 				a.getSituacionDeRevista(),
 				a.getFechaBaja(),
 				a.getCausaBaja(),
-				a.getEstadoEn(LocalDate.now())
+				a.getEstadoEn(LocalDate.now()),
+				a.getSecuencia()
 		);
 	}
 

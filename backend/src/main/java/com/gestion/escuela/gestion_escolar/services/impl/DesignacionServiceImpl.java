@@ -20,6 +20,8 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalido
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoDuplicadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
+import com.gestion.escuela.gestion_escolar.models.exceptions.licencia.CoberturaNoEncontradaException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.licencia.CoberturaNoPerteneceALicenciaException;
 import com.gestion.escuela.gestion_escolar.persistence.*;
 import com.gestion.escuela.gestion_escolar.services.DesignacionService;
 import jakarta.persistence.EntityManager;
@@ -451,6 +453,36 @@ public class DesignacionServiceImpl implements DesignacionService {
 		return asignacionRepository.save(asignacion);
 	}
 
+	public void cambiarCobertura(
+			Long licenciaId,
+			Long designacionId,
+			Long nuevoEmpleadoId,
+			LocalDate fechaTomaPosesion,
+			Integer secuencia
+	) {
+
+		Licencia licencia = licenciaRepository.findById(licenciaId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("licencia", licenciaId));
+
+		Designacion designacion = designacionRepository.findById(designacionId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("designacion", designacionId));
+
+		LocalDate fechaLicencia = licencia.getPeriodo().getFechaDesde();
+
+		if (!licencia.afectaA(designacion, fechaLicencia)) {
+			throw new CoberturaNoPerteneceALicenciaException(licencia, designacion);
+		}
+
+		EmpleadoEducativo nuevoSuplente = empleadoEducativoRepository.findById(nuevoEmpleadoId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("empleado", nuevoEmpleadoId));
+
+		AsignacionSuplente suplencia = designacion.getSuplenciaActivaEn(fechaLicencia)
+				.orElseThrow(() -> new CoberturaNoEncontradaException(designacion));
+
+		suplencia.actualizar(nuevoSuplente, fechaTomaPosesion, secuencia);
+
+		designacionRepository.save(designacion);
+	}
 
 	private CaracteristicaAsignacion crearCaracteristica(
 			TipoCaracteristicaAsignacion tipo

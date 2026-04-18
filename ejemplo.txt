@@ -1,0 +1,10 @@
+LicenciaDesignacionCursoDTO
+		Long designacionId,
+		Integer cupof,
+		EstadoDesignacion estado,
+		RolEducativo rolEducativo,
+		String materia,
+		String curso,
+		String orientacion
+
+

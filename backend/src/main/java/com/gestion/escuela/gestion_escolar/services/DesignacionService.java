@@ -63,7 +63,10 @@ public interface DesignacionService {
 			Pageable pageable
 	);
 
-	Optional<Asignacion> obtenerCargoActivo(Long designacionId, LocalDate referencia);
+	Optional<Asignacion> obtenerCargoActivo(
+			Long designacionId,
+			LocalDate referencia
+	);
 
 	List<Asignacion> obtenerOtrosCargos(
 			Long designacionId,
@@ -71,10 +74,36 @@ public interface DesignacionService {
 			LocalDate fecha
 	);
 
-	void actualizarDesignacionCurso(Long designacionId, Integer cupof, Long cursoId, Long materiaId, String orientacion, Set<FranjaHoraria> franjasHorarias);
+	void actualizarDesignacionCurso(
+			Long designacionId,
+			Integer cupof,
+			Long cursoId,
+			Long materiaId,
+			String orientacion,
+			Set<FranjaHoraria> franjasHorarias
+	);
 
-	void actualizarDesignacionAdministrativa(Long designacionId, Integer cupof, RolEducativo rolEducativo, Set<FranjaHoraria> franjaHorarias);
+	void actualizarDesignacionAdministrativa(
+			Long designacionId,
+			Integer cupof,
+			RolEducativo rolEducativo,
+			Set<FranjaHoraria> franjaHorarias
+	);
 
-	Asignacion editarAsignacion(Long designacionId, Long asignacionId, Long aLong, LocalDate localDate, LocalDate localDate1, Integer secuencia);
+	Asignacion editarAsignacion(
+			Long designacionId,
+			Long asignacionId,
+			Long empleadoId,
+			LocalDate fechaTomaPosesion,
+			LocalDate fechaCese,
+			Integer secuencia);
+
+	void cambiarCobertura(
+			Long licenciaId,
+			Long designacionId,
+			Long nuevoEmpleadoId,
+			LocalDate fechaTomaPosesion,
+			Integer secuencia
+	);
 }
 

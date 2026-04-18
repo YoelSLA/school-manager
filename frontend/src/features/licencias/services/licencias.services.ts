@@ -12,12 +12,24 @@ import type {
 	PageResponse,
 	RenovarLicenciaDTO,
 } from "@/utils/types";
+import { CambiarCoberturaDTO } from "../form/cambiarCobertura.schema";
 
 export const cubrirDesignacionesConSuplente = async (
 	licenciaId: number,
 	body: CubrirDesignacionesConSuplente,
 ): Promise<void> => {
 	await http.post(`/licencias/${licenciaId}/coberturas`, body);
+};
+
+export const cambiarCobertura = async (
+	licenciaId: number,
+	designacionId: number,
+	body: CambiarCoberturaDTO,
+): Promise<void> => {
+	await http.put(
+		`/licencias/${licenciaId}/coberturas/${designacionId}`,
+		body,
+	);
 };
 
 export const renovarLicencia = async (
