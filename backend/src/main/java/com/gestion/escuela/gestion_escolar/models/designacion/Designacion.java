@@ -102,7 +102,7 @@ public abstract class Designacion {
 			return;
 		}
 
-		buscarSuplenteQueEjerceEn(fechaBaja)
+		getSuplenciaActivaEn(fechaBaja)
 				.ifPresent(suplente -> {
 					LocalDate inicioProvisional = fechaBaja.plusDays(1);
 					suplente.convertirseEnProvisional(inicioProvisional, suplente.getSecuencia());
@@ -117,7 +117,6 @@ public abstract class Designacion {
 	public void eliminarAsignacion(Asignacion asignacion) {
 		asignaciones.remove(asignacion);
 		asignacion.getEmpleadoEducativo().getAsignaciones().remove(asignacion);
-		asignacion.setDesignacion(null);
 	}
 
 	public AsignacionTitular cubrirConTitular(
@@ -317,7 +316,7 @@ public abstract class Designacion {
 				" }";
 	}
 
-	private Optional<AsignacionSuplente> buscarSuplenteQueEjerceEn(LocalDate fecha) {
+	public Optional<AsignacionSuplente> getSuplenciaActivaEn(LocalDate fecha) {
 		return asignaciones.stream()
 				.filter(AsignacionSuplente.class::isInstance)
 				.map(AsignacionSuplente.class::cast)

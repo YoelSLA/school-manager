@@ -20,7 +20,6 @@ export default function LicenciaDetallePage() {
 
 	const { licencia, isLoading, isError } = useLicenciaDetalle(licenciaIdNumber);
 
-	// 🔹 Nuevo hook independiente
 	const {
 		data: timeline = [],
 		isLoading: timelineLoading,

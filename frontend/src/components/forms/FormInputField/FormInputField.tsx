@@ -32,7 +32,6 @@ export default function FormInputFieldRHF<T extends FieldValues>({
 	const fieldId = String(name);
 	const isReadOnly = inputProps?.readOnly;
 
-	// ⚠️ Guardamos TODO el objeto de register
 	const registration = register(name, registerOptions);
 
 	return (
@@ -56,21 +55,15 @@ export default function FormInputFieldRHF<T extends FieldValues>({
 				aria-invalid={!!error}
 				aria-describedby={error ? `${fieldId}-error` : undefined}
 				{...registration}
+				{...inputProps}
 				onChange={(e) => {
-					console.log("⌨️ ON CHANGE:", name, e.target.value);
 					registration.onChange(e);
-
-					// si además vino un onChange custom en inputProps
 					inputProps?.onChange?.(e);
 				}}
 				onBlur={(e) => {
-					console.log("👆 ON BLUR:", name);
 					registration.onBlur(e);
-
-					// si además vino un onBlur custom en inputProps
 					inputProps?.onBlur?.(e);
 				}}
-				{...inputProps}
 			/>
 
 			{error && (

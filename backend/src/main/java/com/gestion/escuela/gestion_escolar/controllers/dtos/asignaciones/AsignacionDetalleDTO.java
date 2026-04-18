@@ -15,6 +15,7 @@ public record AsignacionDetalleDTO(
 		SituacionDeRevista situacionDeRevista,
 		LocalDate fechaBaja,
 		CausaBaja causaBaja,
-		EstadoAsignacion estadoAsignacion
+		EstadoAsignacion estadoAsignacion,
+		Integer secuencia
 ) {
 }

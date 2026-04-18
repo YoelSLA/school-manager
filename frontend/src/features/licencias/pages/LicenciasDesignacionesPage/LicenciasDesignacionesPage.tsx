@@ -1,27 +1,30 @@
-import { IdCard, User } from "lucide-react";
 import { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import Button from "@/components/Button";
-import { useDesignacionesAfectadas } from "@/features/licencias/hooks/useDesignacionesAfectadas";
 import PageLayout from "@/layout/PageLayout/PageLayout";
-import LicenciaCubrirDesignacionesModal from "../../components/LicenciaCubrirDesignacionesModal/LicenciaCubrirDesignacionesModal";
+import Breadcrumbs from "@/layout/Breadcrumbs";
 import DesignacionItem from "@/features/designaciones/components/DesignacionItem/DesignacionItem";
-
+import { useDesignacionesAfectadas } from "@/features/licencias/hooks/useDesignacionesAfectadas";
+import LicenciaCubrirDesignacionesModal from "../../components/LicenciaCubrirDesignacionesModal/LicenciaCubrirDesignacionesModal";
+import LicenciaCambiarCoberturaModal from "../../components/LicenciaCambiarCoberturaModal/LicenciaCambiarCoberturaModal";
+import LicenciasDesignacionesHeader from "./LicenciasDesignacionesHeader/LicenciasDesignacionesHeader";
 import styles from "./LicenciasDesignacionesPage.module.scss";
-
-import type { EmpleadoEducativoMinimoDTO } from "@/utils/types";
-
-type LocationState = {
-	empleado: EmpleadoEducativoMinimoDTO;
-};
+import type { CoberturaSeleccionada, LocationState } from "@/utils/types";
 
 export default function LicenciasDesignacionesPage() {
 	const { licenciaId } = useParams();
 	const location = useLocation();
-	const [modalOpen, setModalOpen] = useState(false);
 
 	const id = licenciaId ? Number(licenciaId) : undefined;
-	const empleado = (location.state as LocationState | undefined)?.empleado;
+	const state = location.state as LocationState | undefined;
+
+	const empleado = state?.empleado;
+	const licencia = state?.licencia;
+
+	const [seleccionadas, setSeleccionadas] = useState<number[]>([]);
+	const [cubrirModalOpen, setCubrirModalOpen] = useState(false);
+	const [cambiarCobertura, setCambiarCobertura] =
+		useState<CoberturaSeleccionada | null>(null);
 
 	const {
 		data: designaciones = [],
@@ -29,76 +32,97 @@ export default function LicenciasDesignacionesPage() {
 		isError,
 	} = useDesignacionesAfectadas(id);
 
-	const [seleccionadas, setSeleccionadas] = useState<number[]>([]);
-
-	function toggleDesignacion(id: number) {
-		setSeleccionadas((prev) =>
-			prev.includes(id) ? prev.filter((d) => d !== id) : [...prev, id],
+	if (!id || !empleado || !licencia) {
+		return (
+			<PageLayout>
+				<div className={styles.page}>
+					<Breadcrumbs />
+					<p>No se pudo cargar la información de la licencia.</p>
+				</div>
+			</PageLayout>
 		);
 	}
 
-	function handleCubrir() {
-		setModalOpen(true);
+	function toggleDesignacion(designacionId: number) {
+		setSeleccionadas((prev) =>
+			prev.includes(designacionId)
+				? prev.filter((selectedId) => selectedId !== designacionId)
+				: [...prev, designacionId],
+		);
 	}
+
+	function handleCambiarCobertura(
+		designacion: (typeof designaciones)[number],
+	) {
+		const asignacionActiva = designacion.asignacionActiva;
+
+		if (!asignacionActiva) {
+			return;
+		}
+
+		setCambiarCobertura({
+			designacionId: designacion.designacionId,
+			secuencia: asignacionActiva.secuencia,
+			empleado: asignacionActiva.empleado,
+			fechaTomaPosesion: asignacionActiva.periodo.fechaDesde,
+		});
+	}
+
+	function handleCubrirSuccess() {
+		setSeleccionadas([]);
+		setCubrirModalOpen(false);
+	}
+
+	function handleCambiarCoberturaSuccess() {
+		setCambiarCobertura(null);
+	}
+
+	const haySeleccionadas = seleccionadas.length > 0;
 
 	return (
 		<PageLayout>
 			<div className={styles.page}>
-				{/* Header empleado */}
-				{empleado && (
-					<div className={styles.header}>
-						<div className={styles.header__main}>
-							<User size={18} className={styles.header__icon} />
+				<Breadcrumbs />
 
-							<div className={styles.header__identity}>
-								<span className={styles.header__apellido}>
-									{empleado.apellido}
-								</span>
-								<span className={styles.header__nombre}>{empleado.nombre}</span>
-							</div>
-						</div>
-
-						<div className={styles.header__cuil}>
-							<IdCard size={16} />
-							<span>{empleado.cuil}</span>
-						</div>
-					</div>
-				)}
+				<LicenciasDesignacionesHeader
+					empleado={empleado}
+					licencia={licencia}
+				/>
 
 				{isLoading && <p>Cargando...</p>}
+
 				{isError && <p>Error al cargar designaciones</p>}
 
 				{!isLoading && !isError && (
 					<section className={styles.container}>
-						{/* LISTA */}
 						<div className={styles.designacionesList}>
 							{designaciones.length === 0 ? (
 								<p className={styles.designacionesList__empty}>
 									No hay designaciones afectadas
 								</p>
 							) : (
-								designaciones.map((d) => (
+								designaciones.map((designacion) => (
 									<DesignacionItem
-										key={d.designacionId}
-										designacion={d}
-										selected={seleccionadas.includes(d.designacionId)}
+										key={designacion.designacionId}
+										designacion={designacion}
+										selected={seleccionadas.includes(
+											designacion.designacionId,
+										)}
 										onSelect={toggleDesignacion}
-										onCambiarCobertura={(designacionId) => {
-											setSeleccionadas([designacionId]);
-											setModalOpen(true);
-										}}
+										onCambiarCobertura={() =>
+											handleCambiarCobertura(designacion)
+										}
 									/>
 								))
 							)}
 						</div>
 
-						{/* ACCIONES */}
 						<div className={styles.actions}>
 							<Button
 								variant="primary"
 								size="sm"
-								disabled={seleccionadas.length === 0}
-								onClick={handleCubrir}
+								disabled={!haySeleccionadas}
+								onClick={() => setCubrirModalOpen(true)}
 							>
 								Cubrir seleccionadas ({seleccionadas.length})
 							</Button>
@@ -107,15 +131,24 @@ export default function LicenciasDesignacionesPage() {
 				)}
 			</div>
 
-			{modalOpen && id && (
+			{cubrirModalOpen && (
 				<LicenciaCubrirDesignacionesModal
 					licenciaId={id}
 					designacionIds={seleccionadas}
-					onClose={() => setModalOpen(false)}
-					onSuccess={() => {
-						setSeleccionadas([]);
-						setModalOpen(false);
-					}}
+					onClose={() => setCubrirModalOpen(false)}
+					onSuccess={handleCubrirSuccess}
+				/>
+			)}
+
+			{cambiarCobertura && (
+				<LicenciaCambiarCoberturaModal
+					licenciaId={id}
+					designacionId={cambiarCobertura.designacionId}
+					secuencia={cambiarCobertura.secuencia}
+					empleadoInicial={cambiarCobertura.empleado}
+					fechaInicial={cambiarCobertura.fechaTomaPosesion}
+					onClose={() => setCambiarCobertura(null)}
+					onSuccess={handleCambiarCoberturaSuccess}
 				/>
 			)}
 		</PageLayout>

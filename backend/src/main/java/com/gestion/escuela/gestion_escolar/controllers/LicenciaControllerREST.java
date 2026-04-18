@@ -37,6 +37,28 @@ public class LicenciaControllerREST {
 		);
 	}
 
+	@PutMapping("/{licenciaId}/coberturas/{designacionId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void cambiarCobertura(
+			@PathVariable Long licenciaId,
+			@PathVariable Long designacionId,
+			@RequestBody @Valid CambiarCoberturaDTO dto
+	) {
+		designacionService.cambiarCobertura(
+				licenciaId,
+				designacionId,
+				dto.empleadoId(),
+				dto.fechaTomaPosesion(),
+				dto.secuencia()
+		);
+	}
+
+	@DeleteMapping("/{licenciaId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void eliminarLicencia(@PathVariable Long licenciaId) {
+		licenciaService.eliminarLicencia(licenciaId);
+	}
+
 	@PostMapping("/{licenciaId}/renovaciones")
 	public ResponseEntity<LicenciaDetalleDTO> renovarLicencia(
 			@PathVariable Long licenciaId,
@@ -80,23 +102,6 @@ public class LicenciaControllerREST {
 				.toList();
 	}
 
-	@DeleteMapping("/{licenciaId}/coberturas/{designacionId}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void eliminarCobertura(
-			@PathVariable Long licenciaId,
-			@PathVariable Long designacionId
-	) {
-		designacionService.eliminarCoberturaDeLicencia(
-				licenciaId,
-				designacionId
-		);
-	}
-
-	@DeleteMapping("/{licenciaId}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void eliminarLicencia(@PathVariable Long licenciaId) {
-		licenciaService.eliminarLicencia(licenciaId);
-	}
 
 }
 

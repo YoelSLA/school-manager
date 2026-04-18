@@ -20,12 +20,13 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalido
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoDuplicadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
+import com.gestion.escuela.gestion_escolar.models.exceptions.licencia.CoberturaNoEncontradaException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.licencia.CoberturaNoPerteneceALicenciaException;
 import com.gestion.escuela.gestion_escolar.persistence.*;
 import com.gestion.escuela.gestion_escolar.services.DesignacionService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -452,33 +453,36 @@ public class DesignacionServiceImpl implements DesignacionService {
 		return asignacionRepository.save(asignacion);
 	}
 
-	public void eliminarCoberturaDeLicencia(Long licenciaId, Long designacionId) {
-		Licencia licencia = licenciaRepository.findById(licenciaId).orElseThrow(() -> new RecursoNoEncontradoException("licencia", licenciaId));
+	public void cambiarCobertura(
+			Long licenciaId,
+			Long designacionId,
+			Long nuevoEmpleadoId,
+			LocalDate fechaTomaPosesion,
+			Integer secuencia
+	) {
 
-		Designacion designacion = designacionRepository.findById(designacionId).orElseThrow(() -> new RecursoNoEncontradoException("designacion", designacionId));
+		Licencia licencia = licenciaRepository.findById(licenciaId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("licencia", licenciaId));
 
-		Asignacion asignacion = designacion.getAsignacionActivaEn(licencia.getPeriodo().getFechaDesde())
-				.orElseThrow(() -> new RecursoNoEncontradoException(
-						"No existe una cobertura para esa designación", null
-				));
+		Designacion designacion = designacionRepository.findById(designacionId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("designacion", designacionId));
 
+		LocalDate fechaLicencia = licencia.getPeriodo().getFechaDesde();
 
-
-		if (!(asignacion instanceof AsignacionSuplente suplente)) {
-			throw new BadRequestException("La asignación activa no es una suplencia");
+		if (!licencia.afectaA(designacion, fechaLicencia)) {
+			throw new CoberturaNoPerteneceALicenciaException(licencia, designacion);
 		}
 
-		if (!suplente.correspondeALicencia(licencia)) {
-			throw new BadRequestException(
-					"La cobertura no pertenece a la licencia indicada"
-			);
-		}
+		EmpleadoEducativo nuevoSuplente = empleadoEducativoRepository.findById(nuevoEmpleadoId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("empleado", nuevoEmpleadoId));
 
-		designacion.eliminarAsignacion(suplente);
+		AsignacionSuplente suplencia = designacion.getSuplenciaActivaEn(fechaLicencia)
+				.orElseThrow(() -> new CoberturaNoEncontradaException(designacion));
+
+		suplencia.actualizar(nuevoSuplente, fechaTomaPosesion, secuencia);
 
 		designacionRepository.save(designacion);
 	}
-
 
 	private CaracteristicaAsignacion crearCaracteristica(
 			TipoCaracteristicaAsignacion tipo

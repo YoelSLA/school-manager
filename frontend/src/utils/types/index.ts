@@ -40,6 +40,7 @@ export type AsignacionDetalleDTO = {
   fechaBaja: string;
   causaBaja: string;
   estadoAsignacion: EstadoAsignacion;
+  secuencia: number;
 };
 
 export type FiltroCargos = "LICENCIA" | "FINALIZADA" | "BAJA";
@@ -505,3 +506,14 @@ export type BadgeConfig = {
 
 // -------------------------------------------------------------------
 
+export type LocationState = {
+  empleado: EmpleadoEducativoMinimoDTO;
+  licencia: LicenciaDetalleDTO
+};
+
+export type CoberturaSeleccionada = {
+  designacionId: number;
+  secuencia: number;
+  empleado: EmpleadoEducativoMinimoDTO | null;
+  fechaTomaPosesion: string;
+};
