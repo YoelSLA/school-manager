@@ -1,5 +1,6 @@
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
+import Breadcrumbs from "@/layout/Breadcrumbs";
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import { designacionesPaths } from "@/router/paths";
 import EditarDesignacionAdministrativa from "../../components/EditarDesignacionAdministrativa/EditarDesignacionAdministrativa";
@@ -8,7 +9,6 @@ import { useActualizarDesignacionAdministrativa } from "../../hooks/useActualiza
 import { useActualizarDesignacionCurso } from "../../hooks/useActualizarDesignacionCurso";
 import useDesignacionDetalle from "../../hooks/useDesignacionDetalle";
 import styles from "./DesignacionEditPage.module.scss";
-import Breadcrumbs from "@/layout/Breadcrumbs";
 
 export default function DesignacionEditPage() {
 	const { designacionId } = useParams<{ designacionId: string }>();
@@ -18,9 +18,7 @@ export default function DesignacionEditPage() {
 
 	const { designacion, isLoading } = useDesignacionDetalle(id);
 
-	const editarCurso = useActualizarDesignacionCurso(
-		id
-	);
+	const editarCurso = useActualizarDesignacionCurso(id);
 
 	const editarAdministrativa = useActualizarDesignacionAdministrativa(id);
 
@@ -65,13 +63,9 @@ export default function DesignacionEditPage() {
 	}
 
 	return (
-		<PageLayout
-			breadcrumbs={<Breadcrumbs />}
-		>
+		<PageLayout breadcrumbs={<Breadcrumbs />}>
 			<div className={styles["designacion-edit"]}>
-				<div className={styles["designacion-edit__form"]}>
-					{content}
-				</div>
+				<div className={styles["designacion-edit__form"]}>{content}</div>
 			</div>
 		</PageLayout>
 	);

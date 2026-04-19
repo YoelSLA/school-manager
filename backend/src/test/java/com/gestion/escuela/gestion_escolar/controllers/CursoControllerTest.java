@@ -79,7 +79,7 @@ class CursoControllerTest {
 				eq(1L),
 				argThat(lista ->
 						lista.size() == 2 &&
-								lista.get(0).getGrado().equals(1) &&
+								lista.getFirst().getGrado().equals(1) &&
 								lista.get(1).getGrado().equals(2)
 				)
 		);

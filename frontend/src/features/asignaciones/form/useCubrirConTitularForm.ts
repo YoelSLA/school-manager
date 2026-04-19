@@ -1,8 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { cubrirTitularSchema } from "./cubrirTitular.schema";
-import { CubrirTitularDTO } from "@/utils/types";
+import type { CubrirTitularDTO } from "@/utils/types";
 import { CaracteristicaAsignacion } from "@/utils/types/enums";
+import { cubrirTitularSchema } from "./cubrirTitular.schema";
 
 type Props = {
 	defaultValues?: Partial<CubrirTitularDTO>;

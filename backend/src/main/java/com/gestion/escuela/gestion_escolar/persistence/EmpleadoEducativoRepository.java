@@ -53,7 +53,8 @@ public interface EmpleadoEducativoRepository extends JpaRepository<EmpleadoEduca
 					join e.asignaciones a
 					join a.designacion d
 					where
-					    a.periodo.fechaDesde <= :fecha
+					    e.escuela.id = :escuelaId
+					and a.periodo.fechaDesde <= :fecha
 					and (a.periodo.fechaHasta is null or a.periodo.fechaHasta >= :fecha)
 					and (
 					    :roles is null
@@ -72,7 +73,8 @@ public interface EmpleadoEducativoRepository extends JpaRepository<EmpleadoEduca
 					join e.asignaciones a
 					join a.designacion d
 					where
-					    a.periodo.fechaDesde <= :fecha
+					    e.escuela.id = :escuelaId
+					and a.periodo.fechaDesde <= :fecha
 					and (a.periodo.fechaHasta is null or a.periodo.fechaHasta >= :fecha)
 					and (
 					    :roles is null
@@ -87,6 +89,7 @@ public interface EmpleadoEducativoRepository extends JpaRepository<EmpleadoEduca
 					"""
 	)
 	Page<EmpleadoEducativo> buscarEmpleadosConRolVigente(
+			@Param("escuelaId") Long escuelaId,
 			@Param("fecha") LocalDate fecha,
 			@Param("roles") List<RolEducativo> roles,
 			@Param("query") String query,

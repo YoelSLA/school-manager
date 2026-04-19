@@ -1,1 +1,1 @@
-export { default } from "./AsignacionAdministrativaRow"
+export { default } from "./AsignacionAdministrativaRow";

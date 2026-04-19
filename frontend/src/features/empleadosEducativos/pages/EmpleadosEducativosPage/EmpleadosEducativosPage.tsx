@@ -1,35 +1,30 @@
-
 import { useState } from "react";
 import SortBuilder from "@/components/EmpleadoSortDropdown";
-import Pagination from "@/layout/Pagination";
-import SidebarPageLayout from "@/layout/SidebarPageLayout/SidebarPageLayout";
+import FilterPillGroup from "@/components/FilterPillGroup";
+import { usePagination } from "@/hooks/usePagination";
 import GridListState from "@/layout/GridListState";
+import ListPageLayout from "@/layout/ListPageLayout";
+import Pagination from "@/layout/Pagination";
+import Sidebar from "@/layout/Sidebar";
+import SidebarPageLayout from "@/layout/SidebarPageLayout/SidebarPageLayout";
+import type { EmpleadoEducativoFiltro, SortState } from "@/utils/types";
+import EmpleadoEducativoCard from "../../components/EmpleadoEducativoCard";
 import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
 import { useEmpleadosEducativos } from "../../hooks/useEmpleadosEducativos";
-
 import { FILTROS_EMPLEADOS } from "../../utils/empleadosEducativos.utils";
-import EmpleadoEducativoCard from "../../components/EmpleadoEducativoCard";
-import { usePagination } from "@/hooks/usePagination";
-import type {
-	EmpleadoEducativoFiltro,
-	SortState,
-} from "@/utils/types";
-import Sidebar from "@/layout/Sidebar";
-import FilterPillGroup from "@/components/FilterPillGroup";
-import ListPageLayout from "@/layout/ListPageLayout";
 
 export default function EmpleadosEducativosPage() {
-	const [filtro, setFiltro] =
-		useState<EmpleadoEducativoFiltro>("TODOS");
+	const [filtro, setFiltro] = useState<EmpleadoEducativoFiltro>("TODOS");
 	const [sort, setSort] = useState<SortState>({});
 
-	const { page, setPage, pageSize } = usePagination([
-		filtro,
-		sort,
-	]);
+	const { page, setPage, pageSize } = usePagination([filtro, sort]);
 
-	const { data, isLoading, refetch, isFetching } =
-		useEmpleadosEducativos(filtro, page, pageSize, sort);
+	const { data, isLoading, refetch, isFetching } = useEmpleadosEducativos(
+		filtro,
+		page,
+		pageSize,
+		sort,
+	);
 
 	const empleadoNav = useEmpleadoNavigation();
 
@@ -54,7 +49,6 @@ export default function EmpleadosEducativosPage() {
 				<Sidebar
 					title="Empleados educativos"
 					subtitle="Listado del personal de la escuela"
-
 					filters={
 						<FilterPillGroup
 							items={FILTROS_EMPLEADOS}
@@ -62,10 +56,7 @@ export default function EmpleadosEducativosPage() {
 							onChange={handleFiltroChange}
 						/>
 					}
-
-					controls={
-						<SortBuilder value={sort} onChange={handleSortChange} />
-					}
+					controls={<SortBuilder value={sort} onChange={handleSortChange} />}
 					onRefresh={refetch}
 					isFetching={isFetching}
 					onCreate={empleadoNav.crear}

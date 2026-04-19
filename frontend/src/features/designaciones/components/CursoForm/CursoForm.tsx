@@ -8,10 +8,10 @@ import { useDesignacionCursoForm } from "@/features/designaciones/form/hooks/use
 import { useMateriasSelect } from "@/features/materias/hooks/useMateriasSelect";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
+import type { DesignacionCursoCreateDTO } from "@/utils/types";
 import { ORIENTACIONES } from "../../utils/designacion.utils";
 import DesignacionFormLayout from "../DesignacionFormLayout/DesignacionFormLayout";
 import styles from "./CursoForm.module.scss";
-import { DesignacionCursoCreateDTO } from "@/utils/types";
 
 type Props = {
 	onSubmit: (data: DesignacionCursoCreateDTO) => Promise<void>;

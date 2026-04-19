@@ -1,6 +1,6 @@
 import { IdCard, User } from "lucide-react";
-import styles from "./EmpleadoCardHeader.module.scss";
 import BadgeEstadoEmpleado from "@/components/BagdeEstadoEmpleado";
+import styles from "./EmpleadoCardHeader.module.scss";
 
 type Props = {
 	apellido: string;

@@ -1,11 +1,11 @@
-import { Card } from "@/components/Card";
-import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
-import styles from "./DesignacionCard.module.scss";
-import type { EstadoDesignacion } from "@/utils/types/enums";
-import { Clock, Tag, } from "lucide-react";
-import EmpleadoInfo from "@/components/EmpleadoInfo";
-import BadgeEstadoDesignacion from "@/components/BagdeEstadoDesignacion";
+import { Clock, Tag } from "lucide-react";
 import BadgeSituacionRevista from "@/components/BadgeSituacionRevista/BadgeSituacionRevista";
+import BadgeEstadoDesignacion from "@/components/BagdeEstadoDesignacion";
+import { Card } from "@/components/Card";
+import EmpleadoInfo from "@/components/EmpleadoInfo";
+import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
+import type { EstadoDesignacion } from "@/utils/types/enums";
+import styles from "./DesignacionCard.module.scss";
 
 type Props = {
 	designacionId: number;
@@ -28,9 +28,9 @@ export default function DesignacionCard({
 
 	const empleado = cargoActivo?.empleado
 		? {
-			...cargoActivo.empleado,
-			situacionDeRevista: cargoActivo.situacionDeRevista,
-		}
+				...cargoActivo.empleado,
+				situacionDeRevista: cargoActivo.situacionDeRevista,
+			}
 		: undefined;
 
 	const status = estadoDesignacion === "CUBIERTA" ? "success" : "danger";
@@ -58,9 +58,7 @@ export default function DesignacionCard({
 					<div className={styles.persona}>
 						{empleado && (
 							<div className={styles.badgeWrapper}>
-								<BadgeSituacionRevista
-									value={empleado.situacionDeRevista}
-								/>
+								<BadgeSituacionRevista value={empleado.situacionDeRevista} />
 							</div>
 						)}
 

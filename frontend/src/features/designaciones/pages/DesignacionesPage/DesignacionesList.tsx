@@ -8,19 +8,19 @@ import DesignacionCursoCard from "../../components/DesignacionCursoCard";
 
 type Props =
 	| {
-		designaciones: DesignacionAdministrativaResumenDTO[];
-		filtro: "ADMIN";
-		isLoading: boolean;
-		isError: boolean;
-		onVerDetalle: (d: DesignacionAdministrativaResumenDTO) => void;
-	}
+			designaciones: DesignacionAdministrativaResumenDTO[];
+			filtro: "ADMIN";
+			isLoading: boolean;
+			isError: boolean;
+			onVerDetalle: (d: DesignacionAdministrativaResumenDTO) => void;
+	  }
 	| {
-		designaciones: DesignacionCursoResumenDTO[];
-		filtro: "CURSO";
-		isLoading: boolean;
-		isError: boolean;
-		onVerDetalle: (d: DesignacionCursoResumenDTO) => void;
-	};
+			designaciones: DesignacionCursoResumenDTO[];
+			filtro: "CURSO";
+			isLoading: boolean;
+			isError: boolean;
+			onVerDetalle: (d: DesignacionCursoResumenDTO) => void;
+	  };
 
 export default function DesignacionesList(props: Props) {
 	if (props.filtro === "ADMIN") {

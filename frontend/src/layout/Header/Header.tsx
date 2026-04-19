@@ -32,7 +32,8 @@ export default function Header() {
 						key={item.to}
 						to={item.to}
 						className={({ isActive }) =>
-							`${styles.appHeader__link} ${isActive ? styles.appHeader__linkActive : ""
+							`${styles.appHeader__link} ${
+								isActive ? styles.appHeader__linkActive : ""
 							}`
 						}
 					>

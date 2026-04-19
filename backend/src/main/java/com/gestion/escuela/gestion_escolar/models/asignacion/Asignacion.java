@@ -191,13 +191,28 @@ public abstract class Asignacion {
 			Integer secuencia
 	) {
 
+		Validaciones.noNulo(fechaCese, "fecha de cese");
+
+		this.actualizar(empleado, fechaTomaPosesion, secuencia);
+		this.periodo = new Periodo(fechaTomaPosesion, fechaCese);
+	}
+
+	public void actualizar(
+			EmpleadoEducativo empleado,
+			LocalDate fechaTomaPosesion,
+			Integer secuencia
+	) {
+
 		Validaciones.noNulo(empleado, "empleado educativo");
 		Validaciones.noNulo(fechaTomaPosesion, "fecha de toma de posesión");
 		Validaciones.noNulo(secuencia, "secuencia");
 
 		this.empleadoEducativo = empleado;
 		this.secuencia = secuencia;
-		this.periodo = new Periodo(fechaTomaPosesion, fechaCese);
+		this.periodo = new Periodo(
+				fechaTomaPosesion,
+				this.periodo.getFechaHasta()
+		);
 	}
 
 	public void setDesignacion(Designacion designacion) {

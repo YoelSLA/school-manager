@@ -1,1 +1,1 @@
-export { default } from "./BagdeEstadoEmpleado"
+export { default } from "./BagdeEstadoEmpleado";

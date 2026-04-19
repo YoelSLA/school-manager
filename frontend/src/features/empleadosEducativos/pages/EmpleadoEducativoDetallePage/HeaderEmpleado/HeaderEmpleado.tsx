@@ -1,7 +1,7 @@
-import styles from "./HeaderEmpleado.module.scss";
-import type { EmpleadoEducativoDetalleDTO } from "@/utils/types";
-import BadgeEstadoEmpleado from "@/components/BagdeEstadoEmpleado";
 import BadgeRolEducativo from "@/components/BadgeRolEducativo";
+import BadgeEstadoEmpleado from "@/components/BagdeEstadoEmpleado";
+import type { EmpleadoEducativoDetalleDTO } from "@/utils/types";
+import styles from "./HeaderEmpleado.module.scss";
 
 type Props = {
 	empleado: EmpleadoEducativoDetalleDTO;
@@ -9,9 +9,7 @@ type Props = {
 	onToggleActivo?: () => void;
 };
 
-export default function HeaderEmpleado({
-	empleado,
-}: Props) {
+export default function HeaderEmpleado({ empleado }: Props) {
 	const nombreOrdenado = `${empleado.apellido}, ${empleado.nombre}`;
 
 	return (
@@ -24,16 +22,12 @@ export default function HeaderEmpleado({
 
 					<BadgeEstadoEmpleado activo={empleado.activo} />
 				</div>
-
-
 			</div>
 			<div className={styles["header-empleado__badges"]}>
 				{empleado.rolesVigentes.map((rol) => (
 					<BadgeRolEducativo key={rol} value={rol} />
 				))}
 			</div>
-
-
 		</header>
 	);
 }

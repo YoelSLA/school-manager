@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { crearMateria } from "../services/materias.services";
-import type { MateriaCreateDTO } from "@/utils/types";
 import { materiasQueryKeys } from "@/utils/queryKeys/materias.queryKeys";
+import type { MateriaCreateDTO } from "@/utils/types";
+import { crearMateria } from "../services/materias.services";
 
 export function useCrearMateria(escuelaId?: number) {
 	const queryClient = useQueryClient();

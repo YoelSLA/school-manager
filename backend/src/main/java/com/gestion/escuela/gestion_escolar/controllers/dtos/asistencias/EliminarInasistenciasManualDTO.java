@@ -13,17 +13,9 @@ public record EliminarInasistenciasManualDTO(
 		@Positive(message = "El empleadoId debe ser positivo")
 		Long empleadoId,
 
-		@NotNull(message = "El año es obligatorio")
-		@Positive(message = "El año debe ser válido")
-		Integer anio,
-
-		@NotNull(message = "El mes es obligatorio")
-		@Positive(message = "El mes debe ser válido")
-		Integer mes,
-
 		@NotNull(message = "Las fechas son obligatorias")
 		@NotEmpty(message = "Debe indicar al menos una fecha")
 		List<@NotNull(message = "La fecha no puede ser nula") LocalDate> fechas
-		
+
 ) {
 }

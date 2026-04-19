@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import type { CrearCursoDTO } from "@/utils/types";
 import { crearCursoSchema } from "./crearCurso.schema";
-import { CrearCursoDTO } from "@/utils/types";
 
 export function useCrearCursoForm() {
 	const form = useForm<CrearCursoDTO>({

@@ -7,11 +7,11 @@
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
-		"moduleResolution": "node",
+		"moduleResolution": "bundler",
+		"rootDir": "src",
 		"outDir": "dist",
-		"baseUrl": "src",
 		"paths": {
-			"@/*": ["*"]
+			"@/*": ["./src/*"]
 		}
 	},
 	"include": ["src"]

@@ -17,5 +17,3 @@ export const crearLicenciaSchema = z.object({
 		.array(z.coerce.number())
 		.min(1, { message: "Debe indicar al menos una designación afectada" }),
 });
-
-

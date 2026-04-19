@@ -2,17 +2,21 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorModal from "@/components/ErrorModal";
+import Breadcrumbs from "@/layout/Breadcrumbs";
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
+import type {
+	DesignacionAdministrativaCreateDTO,
+	DesignacionCursoCreateDTO,
+	DesignacionFiltro,
+} from "@/utils/types";
 import AdministrativaForm from "../../components/AdministrativaForm/AdministrativaForm";
 import CursoForm from "../../components/CursoForm/CursoForm";
 import { useCrearDesignacionAdministrativa } from "../../hooks/useCrearDesignacionAdministrativa";
 import { useCrearDesignacionCurso } from "../../hooks/useCrearDesignacionCurso";
 import styles from "./DesignacionCreatePage.module.scss";
 import DesignacionTabs from "./DesignacionTabs/DesignacionTabs";
-import type { DesignacionAdministrativaCreateDTO, DesignacionCursoCreateDTO, DesignacionFiltro } from "@/utils/types";
-import Breadcrumbs from "@/layout/Breadcrumbs";
 
 export default function DesignacionCreatePage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
@@ -83,9 +87,7 @@ export default function DesignacionCreatePage() {
 	};
 
 	return (
-		<PageLayout
-			breadcrumbs={<Breadcrumbs />}
-		>
+		<PageLayout breadcrumbs={<Breadcrumbs />}>
 			<section className={styles["designacion-create"]}>
 				<div className={styles["designacion-create__tabs"]}>
 					<DesignacionTabs value={tipo} onChange={setTipo} />

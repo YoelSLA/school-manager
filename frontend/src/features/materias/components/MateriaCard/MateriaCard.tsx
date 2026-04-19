@@ -1,7 +1,7 @@
 import { Edit, Trash2 } from "lucide-react";
+import { Card } from "@/components/Card";
 import type { MateriaResponseDTO } from "@/utils/types";
 import styles from "./MateriaCard.module.scss";
-import { Card } from "@/components/Card";
 
 type Props = {
 	materia: MateriaResponseDTO;
@@ -13,7 +13,6 @@ export default function MateriaCard({ materia, onEdit, onDelete }: Props) {
 	return (
 		<Card className={styles.card} padding="md" elevated largeRadius>
 			<div className={styles.layout}>
-
 				{/* MATERIA */}
 				<header className={styles.header}>
 					<h3 className={styles.title}>{materia.nombre}</h3>
@@ -21,9 +20,7 @@ export default function MateriaCard({ materia, onEdit, onDelete }: Props) {
 
 				{/* ABREVIATURA */}
 				<div className={styles.sectionAbreviatura}>
-					<span className={styles.abreviatura}>
-						{materia.abreviatura}
-					</span>
+					<span className={styles.abreviatura}>{materia.abreviatura}</span>
 				</div>
 
 				{/* MODULOS */}
@@ -34,7 +31,6 @@ export default function MateriaCard({ materia, onEdit, onDelete }: Props) {
 				{/* FOOTER */}
 				<footer className={styles.footer}>
 					<div /> {/* spacer */}
-
 					<div className={styles.actions}>
 						<button
 							type="button"

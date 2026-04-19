@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { registrarInasistenciasManual } from "../services/asistencias.services";
-import type { RegistrarInasistenciasManualDTO } from "../types/asistencias.types";
+import type { RegistrarInasistenciasManualDTO } from "@/utils/types";
 import { asistenciasQueryKeys } from "../../../utils/queryKeys/asistencias.queryKeys";
+import { registrarInasistenciasManual } from "../services/asistencias.services";
 
 export function useRegistrarInasistenciasManual(
 	escuelaId: number | undefined,
@@ -12,7 +12,13 @@ export function useRegistrarInasistenciasManual(
 	const queryClient = useQueryClient();
 
 	return useMutation<void, unknown, RegistrarInasistenciasManualDTO>({
-		mutationFn: registrarInasistenciasManual,
+		mutationFn: async (payload) => {
+			if (!escuelaId) {
+				throw new Error("escuelaId es requerido");
+			}
+
+			return registrarInasistenciasManual(escuelaId, payload);
+		},
 
 		onSuccess: () => {
 			if (!escuelaId) return;

@@ -12,7 +12,11 @@ import java.time.LocalDate;
 @Table(
 		name = "asistencia",
 		uniqueConstraints = {
-				@UniqueConstraint(columnNames = {"empleado_educativo_id", "escuela_id", "fecha"})
+				@UniqueConstraint(columnNames = {
+						"empleado_educativo_id",
+						"escuela_id",
+						"fecha"
+				})
 		}
 )
 @Getter
@@ -57,31 +61,25 @@ public class Asistencia {
 		Validaciones.noNulo(fecha, "fecha");
 		Validaciones.noNulo(estadoAsistencia, "estado asistencia");
 
+		if (estadoAsistencia != EstadoAsistencia.AUSENTE) {
+			throw new IllegalStateException(
+					"Solo se persisten asistencias AUSENTE"
+			);
+		}
+
 		this.escuela = empleadoEducativo.getEscuela();
 		this.empleadoEducativo = empleadoEducativo;
 		this.fecha = fecha;
 		this.estadoAsistencia = estadoAsistencia;
 		this.tipoLicencia = tipoLicencia;
 		this.observacion = observacion;
-
-		validarInvariantes();
 	}
-
-	public boolean esJustificada() {
-		return tipoLicencia != null;
-	}
-
-	public boolean esInjustificada() {
-		return estadoAsistencia == EstadoAsistencia.AUSENTE
-				&& tipoLicencia == null;
-	}
-
+	
 	public void actualizarManual(
 			TipoLicencia tipoLicencia,
 			String observacion
 	) {
 
-		// 🔹 Solo tiene sentido si es AUSENTE
 		if (this.estadoAsistencia != EstadoAsistencia.AUSENTE) {
 			throw new IllegalStateException(
 					"Solo se puede actualizar una asistencia AUSENTE"
@@ -90,16 +88,5 @@ public class Asistencia {
 
 		this.tipoLicencia = tipoLicencia;
 		this.observacion = observacion;
-
-		validarInvariantes();
-	}
-
-	private void validarInvariantes() {
-
-		if (estadoAsistencia == EstadoAsistencia.PRESENTE && tipoLicencia != null) {
-			throw new IllegalStateException(
-					"Una asistencia PRESENTE no puede tener tipo de licencia"
-			);
-		}
 	}
 }

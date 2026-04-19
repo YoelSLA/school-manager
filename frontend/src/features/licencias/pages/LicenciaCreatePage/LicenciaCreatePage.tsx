@@ -2,14 +2,14 @@ import { useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
 import { useDesignacionesActivas } from "@/features/empleadosEducativos/hooks/useDesignacionesActivas";
+import Breadcrumbs from "@/layout/Breadcrumbs";
 import PageLayout from "@/layout/PageLayout/PageLayout";
+import type { LicenciaCreateDTO } from "@/utils/types";
 import LicenciaDatosSection from "../../components/LicenciaForm";
 import DesignacionesSelector from "../../components/LicenciaForm/DesignacionesSelector";
 import { useLicenciaForm } from "../../form/useLicenciaForm";
 import { useCrearLicencia } from "../../hooks/useCrearLicencia";
 import styles from "./LicenciaCreatePage.module.scss";
-import type { LicenciaCreateDTO } from "@/utils/types";
-import Breadcrumbs from "@/layout/Breadcrumbs";
 
 export default function LicenciaCreatePage() {
 	const { crearLicencia, isLoading, error } = useCrearLicencia();
@@ -51,9 +51,7 @@ export default function LicenciaCreatePage() {
 	};
 
 	return (
-		<PageLayout
-			breadcrumbs={<Breadcrumbs />}
-		>
+		<PageLayout breadcrumbs={<Breadcrumbs />}>
 			<FormProvider {...form}>
 				<form
 					onSubmit={form.handleSubmit(handleSubmit)}

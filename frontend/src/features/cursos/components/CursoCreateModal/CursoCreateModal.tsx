@@ -1,10 +1,10 @@
-import Modal from "@/components/Modal/Modal";
 import FormSection from "@/components/FormSection";
+import FormInputField from "@/components/forms/FormInputField";
 import FormSelectField from "@/components/forms/FormSelectField/FormSelectField";
+import Modal from "@/components/Modal/Modal";
+import type { CursoCreateDTO } from "@/utils/types";
 import { useCrearCursoForm } from "../../form/useCrearCursoForm";
 import { TURNO_OPTIONS } from "../../utils/cursos.utils";
-import FormInputField from "@/components/forms/FormInputField";
-import { CursoCreateDTO } from "@/utils/types";
 
 type Props = {
 	onClose: () => void;
@@ -17,13 +17,12 @@ export default function CursoCreateModal({
 	isSubmitting,
 	onSubmit,
 }: Props) {
-
 	const {
 		form: {
 			register,
 			handleSubmit,
 			formState: { errors },
-		}
+		},
 	} = useCrearCursoForm();
 
 	return (

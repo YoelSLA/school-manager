@@ -1,6 +1,9 @@
 package com.gestion.escuela.gestion_escolar.services.impl;
 
-import com.gestion.escuela.gestion_escolar.models.*;
+import com.gestion.escuela.gestion_escolar.models.Asistencia;
+import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
+import com.gestion.escuela.gestion_escolar.models.EstadoAsistenciaDia;
+import com.gestion.escuela.gestion_escolar.models.RolCantidad;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsistencia;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
@@ -8,6 +11,7 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontrado
 import com.gestion.escuela.gestion_escolar.persistence.AsignacionRepository;
 import com.gestion.escuela.gestion_escolar.persistence.AsistenciaRepository;
 import com.gestion.escuela.gestion_escolar.persistence.EmpleadoEducativoRepository;
+import com.gestion.escuela.gestion_escolar.persistence.RolCantidadProjection;
 import com.gestion.escuela.gestion_escolar.services.AsistenciaService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -31,12 +35,6 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Asistencia> asistenciasDe(Long empleadoId) {
-		return asistenciaRepository.findByEmpleadoEducativoId(empleadoId);
-	}
-
-	@Override
-	@Transactional(readOnly = true)
 	public List<EstadoAsistenciaDia> obtenerEstadoMensual(
 			Long escuelaId,
 			Long empleadoId,
@@ -51,39 +49,44 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 		LocalDate inicio = mes.atDay(1);
 		LocalDate fin = mes.atEndOfMonth();
 
-		List<Asistencia> manuales = asistenciaRepository
+		Map<LocalDate, Asistencia> manualesPorFecha = asistenciaRepository
 				.findByEmpleadoEducativoIdAndEscuelaIdAndFechaBetween(
-						escuelaId,
 						empleadoId,
+						escuelaId,
 						inicio,
 						fin
-				);
-
-		Map<LocalDate, Asistencia> manualesPorFecha =
-				manuales.stream()
-						.collect(Collectors.toMap(
-								Asistencia::getFecha,
-								a -> a
-						));
-
-		List<LocalDate> fechasQueDebeAsistir = diasQueDebeAsistir(empleado, mes);
-
-		return fechasQueDebeAsistir
+				)
 				.stream()
-				.map(f -> construirEstadoDia(empleado, f, manualesPorFecha))
+				.collect(Collectors.toMap(
+						Asistencia::getFecha,
+						asistencia -> asistencia
+				));
+
+		return empleado.diasQueDebeAsistir(mes)
+				.stream()
+				.map(fecha -> empleado.estadoAsistenciaEn(
+						fecha,
+						manualesPorFecha
+				))
 				.toList();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<RolCantidad> contarEmpleadosPorRolVigente(LocalDate fecha) {
+	public List<RolCantidad> contarEmpleadosPorRolVigente(
+			Long escuelaId,
+			LocalDate fecha
+	) {
 
-		var raw = asignacionRepository.contarEmpleadosPorRolVigente(fecha);
+		List<RolCantidadProjection> conteos =
+				asignacionRepository.contarEmpleadosPorRolVigente(
+						escuelaId,
+						fecha
+				);
 
-		// EnumMap es ideal para enums (más eficiente que HashMap)
 		Map<RolEducativo, Integer> conteo = new EnumMap<>(RolEducativo.class);
 
-		raw.forEach(p ->
+		conteos.forEach(p ->
 				conteo.put(
 						p.getRol(),
 						p.getCantidad().intValue()
@@ -101,17 +104,21 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 
 	@Override
 	public Page<EmpleadoEducativo> buscarEmpleados(
+			Long escuelaId,
 			LocalDate fecha,
 			List<RolEducativo> roles,
 			String query,
 			Pageable pageable
 	) {
 
-		List<RolEducativo> rolesFiltro = (roles == null || roles.isEmpty()) ? null : roles;
+		List<RolEducativo> rolesFiltro =
+				(roles == null || roles.isEmpty()) ? null : roles;
 
-		String queryFiltro = (query == null || query.isBlank()) ? null : query;
+		String queryFiltro =
+				(query == null || query.isBlank()) ? null : query;
 
 		return empleadoEducativoRepository.buscarEmpleadosConRolVigente(
+				escuelaId,
 				fecha,
 				rolesFiltro,
 				queryFiltro,
@@ -122,6 +129,7 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 	@Override
 	@Transactional
 	public void registrarInasistenciasManuales(
+			Long escuelaId,
 			EmpleadoEducativo empleado,
 			List<LocalDate> fechas,
 			TipoLicencia tipoLicencia,
@@ -132,47 +140,35 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 			return;
 		}
 
-		// 🔹 1. Traer todas las asistencias manuales existentes en una sola query
 		List<Asistencia> existentes = asistenciaRepository
-				.findByEmpleadoEducativoIdAndFechaIn(empleado.getId(), fechas);
+				.findByEmpleadoEducativoIdAndEscuelaIdAndFechaIn(
+						empleado.getId(),
+						escuelaId,
+						fechas
+				);
 
-		Map<LocalDate, Asistencia> existentesPorFecha =
-				existentes.stream()
-						.collect(Collectors.toMap(
-								Asistencia::getFecha,
-								a -> a
-						));
+		Map<LocalDate, Asistencia> existentesPorFecha = existentes.stream()
+				.collect(Collectors.toMap(
+						Asistencia::getFecha,
+						asistencia -> asistencia
+				));
 
 		List<Asistencia> aGuardar = new ArrayList<>();
 
 		for (LocalDate fecha : fechas) {
 
-			// 🔹 2. No permitir registrar manual si hay licencia activa
-			if (empleado.licenciaActivaEn(fecha).isPresent()) {
-				throw new IllegalStateException(
-						"No se puede registrar inasistencia manual el " + fecha +
-								" porque existe una licencia activa"
-				);
-			}
-
 			Asistencia existente = existentesPorFecha.get(fecha);
 
 			if (existente != null) {
-				// ✅ Actualizar manual existente
-				existente.actualizarManual(tipoLicencia, observacion);
-				aGuardar.add(existente);
-
-			} else {
-				// ✅ Crear nueva asistencia manual
-				Asistencia nueva = new Asistencia(
-						empleado,
-						fecha,
-						EstadoAsistencia.AUSENTE,
+				existente.actualizarManual(
 						tipoLicencia,
 						observacion
 				);
+				aGuardar.add(existente);
 
-				aGuardar.add(nueva);
+			} else {
+				Asistencia a = new Asistencia(empleado, fecha, EstadoAsistencia.AUSENTE, tipoLicencia, observacion);
+				aGuardar.add(a);
 			}
 		}
 
@@ -180,71 +176,24 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 	}
 
 	@Override
-	public void eliminarInasistenciasManual(Long empleadoId, List<LocalDate> fechas) {
+	public void eliminarInasistenciasManual(
+			Long escuelaId,
+			Long empleadoId,
+			List<LocalDate> fechas) {
 
 		if (fechas == null || fechas.isEmpty()) {
 			return;
 		}
 
-		List<Asistencia> asistencias = asistenciaRepository.findByEmpleadoEducativoIdAndFechaIn(empleadoId, fechas);
+		List<Asistencia> asistencias = asistenciaRepository.findByEmpleadoEducativoIdAndEscuelaIdAndFechaIn(empleadoId, escuelaId, fechas);
 
 		for (Asistencia asistencia : asistencias) {
 
-			// 🔹 Solo se pueden eliminar AUSENTES manuales
 			if (asistencia.getEstadoAsistencia() != EstadoAsistencia.AUSENTE) {
 				throw new IllegalStateException("No se puede eliminar una asistencia que no sea AUSENTE");
 			}
 		}
 		asistenciaRepository.deleteAll(asistencias);
-	}
-
-	/**
-	 * Construye el estado real del empleado en una fecha específica
-	 * Reglas:
-	 * 1️⃣ Si existe asistencia manual persistida → se usa esa.
-	 * 2️⃣ Si no hay manual pero hay licencia activa → AUSENTE por licencia.
-	 * 3️⃣ Si no hay nada → PRESENTE.
-	 */
-	private EstadoAsistenciaDia construirEstadoDia(
-			EmpleadoEducativo empleado,
-			LocalDate fecha,
-			Map<LocalDate, Asistencia> manualesPorFecha
-	) {
-
-		// 🔹 Caso 1: asistencia manual
-		Asistencia manual = manualesPorFecha.get(fecha);
-		if (manual != null) {
-			return EstadoAsistenciaDia.manual(manual);
-		}
-
-		// 🔹 Caso 2: licencia activa
-		Optional<Licencia> licenciaActiva = empleado.licenciaActivaEn(fecha);
-
-		return licenciaActiva.map(licencia -> EstadoAsistenciaDia.porLicencia(
-				fecha,
-				licencia
-		)).orElseGet(() -> EstadoAsistenciaDia.presente(fecha));
-
-	}
-
-	public List<LocalDate> diasQueDebeAsistir(
-			EmpleadoEducativo empleado,
-			YearMonth yearMonth
-	) {
-
-		LocalDate inicio = yearMonth.atDay(1);
-		LocalDate fin = yearMonth.atEndOfMonth();
-
-		List<LocalDate> resultado = new ArrayList<>();
-
-		inicio.datesUntil(fin.plusDays(1))
-				.forEach(fecha -> {
-					if (empleado.debeAsistirEn(fecha)) {
-						resultado.add(fecha);
-					}
-				});
-
-		return resultado;
 	}
 
 }

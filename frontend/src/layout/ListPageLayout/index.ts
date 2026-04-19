@@ -1,1 +1,1 @@
-export { default } from "./ListPageLayout"
+export { default } from "./ListPageLayout";

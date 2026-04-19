@@ -6,7 +6,6 @@ import { z } from "zod";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const cuilRegex = /^\d{2}-\d{8}-\d{1}$/;
-const soloLetrasRegex = /^[\p{L}\s]+$/u;
 
 /* =========================
 	 Helpers
@@ -18,8 +17,7 @@ const capitalizarNombre = (valor: string) =>
 		.toLowerCase()
 		.replace(/\b\p{L}/gu, (c) => c.toUpperCase());
 
-const requiredString = (message: string) =>
-	z.string().trim().min(1, message);
+const requiredString = (message: string) => z.string().trim().min(1, message);
 
 const optionalString = () =>
 	z
@@ -31,10 +29,6 @@ const optionalString = () =>
 /* =========================
 	 Fechas (string desde input date)
 ========================= */
-
-const _isValidISODate = (val: string) =>
-	/^\d{4}-\d{2}-\d{2}$/.test(val) &&
-	!Number.isNaN(new Date(val).getTime());
 
 export const requiredFechaISO = (message: string) =>
 	z

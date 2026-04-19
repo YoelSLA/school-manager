@@ -29,6 +29,9 @@ export const asistenciasPaths = {
 	base: "/asistencias",
 
 	detail: (empleadoId: number | string) => `/asistencias/${empleadoId}`,
+
+	month: (empleadoId: number | string, anio: number, mes: number) =>
+		`/asistencias/${empleadoId}/${anio}/${mes}`,
 };
 
 /* ======================================================

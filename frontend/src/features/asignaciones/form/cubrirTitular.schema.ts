@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { requiredFechaISO } from "@/utils/zod/schemas";
 import { CaracteristicaAsignacion } from "@/utils/types/enums";
+import { requiredFechaISO } from "@/utils/zod/schemas";
 
 export const cubrirTitularSchema = z.object({
 	empleadoId: z.coerce
@@ -12,9 +12,9 @@ export const cubrirTitularSchema = z.object({
 		"La fecha de toma de posesión es obligatoria",
 	),
 
-	caracteristica: z.enum(CaracteristicaAsignacion, {
-		message: "La característica es obligatoria",
-	}).optional(),
+	caracteristica: z
+		.enum(CaracteristicaAsignacion, {
+			message: "La característica es obligatoria",
+		})
+		.optional(),
 });
-
-

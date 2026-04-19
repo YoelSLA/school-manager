@@ -1,10 +1,10 @@
 import { useState } from "react";
+import type { CubrirProvisionalDTO, CubrirTitularDTO } from "@/utils/types";
 import { useCubrirConProvisionalForm } from "../../form/useCubrirConProvisionalForm";
 import { useCubrirConTitularForm } from "../../form/useCubrirConTitularForm";
 import { useCubrirConProvisional } from "../../hooks/useCubrirConProvisional";
 import { useCubrirConTitular } from "../../hooks/useCubrirConTitular";
 import AsignacionModalBase from "../AsignacionModalBase/AsignacionModalBase";
-import { CubrirProvisionalDTO, CubrirTitularDTO } from "@/utils/types";
 
 type Props = {
 	designacionId: number;

@@ -4,9 +4,9 @@ import FormSelectField from "@/components/forms/FormSelectField/FormSelectField"
 import Modal from "@/components/Modal/Modal";
 import "./LicenciaRenovarModal.css";
 import { agruparPorArticulo } from "@/utils";
+import type { RenovarLicenciaDTO } from "@/utils/types";
 import { useRenovarLicencia } from "../../hooks/useRenovarLicencia";
 import { TIPOS_LICENCIA } from "../../utils/tipoLicencia";
-import { RenovarLicenciaDTO } from "@/utils/types";
 
 type Props = {
 	licenciaId: number;

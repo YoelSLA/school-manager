@@ -1,27 +1,24 @@
 import { useState } from "react";
 import ConfirmModal from "@/components/ConfirmModal";
+import { usePagination } from "@/hooks/usePagination";
+import GridListState from "@/layout/GridListState";
+import ListPageLayout from "@/layout/ListPageLayout";
+import Pagination from "@/layout/Pagination";
+import Sidebar from "@/layout/Sidebar";
+import SidebarPageLayout from "@/layout/SidebarPageLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
-
+import type { LicenciaResumenDTO } from "@/utils/types";
+import LicenciaCard from "../../components/LicenciaCard";
+import useDeleteLicencia from "../../hooks/useDeleteLicencia";
 import { useLicencias } from "../../hooks/useLicencias";
 import { useLicenciasNavigation } from "../../hooks/useLicenciasNavigation";
-import LicenciaCard from "../../components/LicenciaCard";
-import type { LicenciaResumenDTO } from "@/utils/types";
-import useDeleteLicencia from "../../hooks/useDeleteLicencia";
-import SidebarPageLayout from "@/layout/SidebarPageLayout";
-import GridListState from "@/layout/GridListState";
-import Pagination from "@/layout/Pagination";
-import { usePagination } from "@/hooks/usePagination";
-import ListPageLayout from "@/layout/ListPageLayout";
-import Sidebar from "@/layout/Sidebar";
 
 export default function LicenciasPage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 	const licenciasNav = useLicenciasNavigation();
 
-	const { page, setPage, pageSize } = usePagination([
-		escuelaActiva?.id,
-	]);
+	const { page, setPage, pageSize } = usePagination([escuelaActiva?.id]);
 
 	const [licenciaAEliminar, setLicenciaAEliminar] =
 		useState<LicenciaResumenDTO | null>(null);
@@ -43,8 +40,7 @@ export default function LicenciasPage() {
 		 DELETE
 	========================= */
 
-	const { mutate: deleteLicencia, isPending: isDeleting } =
-		useDeleteLicencia();
+	const { mutate: deleteLicencia, isPending: isDeleting } = useDeleteLicencia();
 
 	const handleConfirmDelete = () => {
 		if (!licenciaAEliminar) return;

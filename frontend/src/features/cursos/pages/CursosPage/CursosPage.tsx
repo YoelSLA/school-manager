@@ -1,27 +1,24 @@
 import { useEffect, useState } from "react";
+import FilterPillGroup from "@/components/FilterPillGroup";
 import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
+import GridListState from "@/layout/GridListState";
+import ListPageLayout from "@/layout/ListPageLayout";
 import Pagination from "@/layout/Pagination";
+import Sidebar from "@/layout/Sidebar";
 import SidebarPageLayout from "@/layout/SidebarPageLayout/SidebarPageLayout";
-
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
-
-import { useCrearCurso } from "../../hooks/useCrearCurso";
-import { useCursos } from "../../hooks/useCursos";
-import { FILTROS_CURSOS } from "../../utils/cursos.utils";
-
-import CursoCreateModal from "../../components/CursoCreateModal";
 
 import type {
 	CursoCreateDTO,
 	CursoFiltro,
 	CursoResponseDTO,
 } from "@/utils/types";
-import ListPageLayout from "@/layout/ListPageLayout";
-import GridListState from "@/layout/GridListState";
 import CursoCard from "../../components/CursoCard";
-import FilterPillGroup from "@/components/FilterPillGroup";
-import Sidebar from "@/layout/Sidebar";
+import CursoCreateModal from "../../components/CursoCreateModal";
+import { useCrearCurso } from "../../hooks/useCrearCurso";
+import { useCursos } from "../../hooks/useCursos";
+import { FILTROS_CURSOS } from "../../utils/cursos.utils";
 
 export default function CursosPage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
@@ -123,10 +120,7 @@ export default function CursosPage() {
 								errorMessage="No se pudieron cargar los cursos"
 								getKey={(c) => c.id}
 								renderItem={(c) => (
-									<CursoCard
-										curso={c}
-										onVerDetalle={handleVerDetalle}
-									/>
+									<CursoCard curso={c} onVerDetalle={handleVerDetalle} />
 								)}
 							/>
 						}

@@ -6,10 +6,13 @@ import { useCursosNombres } from "@/features/cursos/hooks/useCursosNombres";
 import { useMateriasSelect } from "@/features/materias/hooks/useMateriasSelect";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
+import type {
+	DesignacionCursoDetalleDTO,
+	DesignacionCursoUpdateDTO,
+} from "@/utils/types";
 import { useEditarDesignacionCursoForm } from "../../form/hooks/useEditDesignacionCursoForm";
 import styles from "../CursoForm/CursoForm.module.scss";
 import DesignacionFormLayout from "../DesignacionFormLayout/DesignacionFormLayout";
-import { DesignacionCursoDetalleDTO, DesignacionCursoUpdateDTO } from "@/utils/types";
 
 type Props = {
 	designacion: DesignacionCursoDetalleDTO;

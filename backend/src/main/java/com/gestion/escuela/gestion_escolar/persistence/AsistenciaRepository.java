@@ -11,14 +11,14 @@ import java.util.List;
 public interface AsistenciaRepository extends JpaRepository<Asistencia, Long> {
 
 	List<Asistencia> findByEmpleadoEducativoId(Long empleadoId);
-
-	List<Asistencia> findByEmpleadoEducativoIdAndFechaIn(Long empleadoId, List<LocalDate> fechas);
-
+	
 	List<Asistencia> findByEmpleadoEducativoIdAndEscuelaIdAndFechaBetween(
 			Long empleadoId,
 			Long escuelaId,
 			LocalDate desde,
 			LocalDate hasta
 	);
+
+	List<Asistencia> findByEmpleadoEducativoIdAndEscuelaIdAndFechaIn(Long id, Long escuelaId, List<LocalDate> fechas);
 }
 

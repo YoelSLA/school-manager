@@ -4,7 +4,7 @@ import { useLocation, useParams } from "react-router-dom";
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
-import RegistrarInasistenciaModal from "../../components/RegistrarInasistenciaModal";
+import RegistrarInasistenciaModal from "../../components/RegistrarInasistenciaModal/RegistrarInasistenciaModal";
 import { useAsistenciasEmpleadoMes } from "../../hooks/useAsistenciasEmpleadoMes";
 import { useEliminarInasistenciasManual } from "../../hooks/useEliminarInasistenciasManual";
 import { useRegistrarInasistenciasManual } from "../../hooks/useRegistrarInasistenciasManual";

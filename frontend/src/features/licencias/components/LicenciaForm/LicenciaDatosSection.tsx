@@ -4,8 +4,8 @@ import FormSection from "@/components/FormSection";
 import DescripcionField from "@/components/forms/inputs/DescripcionInputField";
 import FechaField from "@/components/forms/inputs/FechaInputField";
 import TipoLicenciaSelect from "@/features/licencias/components/TipoLicenciaSelect/TipoLicenciaSelect";
+import type { LicenciaCreateDTO } from "@/utils/types";
 import styles from "./LicenciaDatosSection.module.scss";
-import { LicenciaCreateDTO } from "@/utils/types";
 
 type Props = {
 	form: UseFormReturn<LicenciaCreateDTO>;

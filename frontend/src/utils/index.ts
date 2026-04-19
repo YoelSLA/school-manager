@@ -88,9 +88,9 @@ export const FILTROS_DESIGNACIONES: {
 	value: DesignacionFiltro;
 	label: string;
 }[] = [
-		{ value: "ADMIN", label: "Administrativas" },
-		{ value: "CURSO", label: "Cursos" },
-	];
+	{ value: "ADMIN", label: "Administrativas" },
+	{ value: "CURSO", label: "Cursos" },
+];
 
 export function formatLicenciaLabel(codigo: string, descripcion: string) {
 	return `${codigo.padEnd(6, " ")} — ${descripcion}`;

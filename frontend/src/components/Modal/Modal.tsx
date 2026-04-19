@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
 import { AlertTriangle, CheckCircle2 } from "lucide-react";
+import type { ReactNode } from "react";
 
 import Button from "@/components/Button";
 import styles from "./Modal.module.scss";
@@ -35,7 +35,11 @@ export default function Modal({
 				: null;
 
 	return (
+		// biome-ignore lint/a11y/noStaticElementInteractions: <explanation>
+		// biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
 		<div className={styles.modalBackdrop} onClick={onCancel}>
+			{/** biome-ignore lint/a11y/noStaticElementInteractions: <explanation> */}
+			{/** biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
 			<div
 				className={`${styles.modal} ${styles[size]} ${styles[variant]}`}
 				onClick={(e) => e.stopPropagation()}

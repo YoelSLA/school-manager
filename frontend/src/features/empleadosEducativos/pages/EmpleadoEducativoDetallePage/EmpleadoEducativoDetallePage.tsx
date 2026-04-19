@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import ConfirmModal from "@/components/ConfirmModal";
+import Breadcrumbs from "@/layout/Breadcrumbs";
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
+import type { BajaDefinitivaDTO } from "@/utils/types";
 import BajaDefinitivaModal from "../../components/BajaDefinitivaModal";
 import { useDarDeBajaDefinitiva } from "../../hooks/useDarDeBajaDefinitiva";
 import { useEmpleadoEducativo } from "../../hooks/useEmpleadoEducativo";
@@ -11,12 +13,10 @@ import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
 import { useReactivarEmpleado } from "../../hooks/useReactivarEmpleado";
 import AsignacionesList from "./AsignacionesList";
 import DatosPersonales from "./DatosPersonales/DatosPersonales";
+import EmpleadoBottomBar from "./EmpleadoBottomBar/EmpleadoBottomBar";
 import styles from "./EmpleadoEducativoDetallePage.module.scss";
 import HeaderEmpleado from "./HeaderEmpleado/HeaderEmpleado";
 import LicenciasList from "./LicenciasList";
-import type { BajaDefinitivaDTO } from "@/utils/types";
-import Breadcrumbs from "@/layout/Breadcrumbs";
-import EmpleadoBottomBar from "./EmpleadoBottomBar/EmpleadoBottomBar";
 
 export default function EmpleadoEducativoDetallePage() {
 	const { empleadoId } = useParams();
@@ -55,7 +55,7 @@ export default function EmpleadoEducativoDetallePage() {
 			{
 				empleadoId: empleado.id,
 				escuelaId: escuelaActiva.id,
-				payload: data
+				payload: data,
 			},
 			{
 				onSuccess: () => {

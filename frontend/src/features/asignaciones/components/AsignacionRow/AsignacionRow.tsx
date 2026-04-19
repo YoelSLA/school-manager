@@ -4,9 +4,8 @@ import type {
 	CargoDesignacionCursoDTO,
 	EmpleadoEducativoAsignacionItemDTO,
 } from "@/utils/types";
-import AsignacionCursoRow from "../AsignacionCursoRow";
 import AsignacionAdministrativaRow from "../AsignacionAdministrativaRow";
-
+import AsignacionCursoRow from "../AsignacionCursoRow";
 
 type AsignacionCurso = EmpleadoEducativoAsignacionItemDTO & {
 	designacion: CargoDesignacionCursoDTO;
@@ -17,13 +16,13 @@ type AsignacionAdministrativa = EmpleadoEducativoAsignacionItemDTO & {
 };
 
 function isCurso(
-	asignacion: EmpleadoEducativoAsignacionItemDTO
+	asignacion: EmpleadoEducativoAsignacionItemDTO,
 ): asignacion is AsignacionCurso {
 	return asignacion.designacion.tipo === "CURSO";
 }
 
 function isAdministrativa(
-	asignacion: EmpleadoEducativoAsignacionItemDTO
+	asignacion: EmpleadoEducativoAsignacionItemDTO,
 ): asignacion is AsignacionAdministrativa {
 	return asignacion.designacion.tipo === "ADMINISTRATIVA";
 }

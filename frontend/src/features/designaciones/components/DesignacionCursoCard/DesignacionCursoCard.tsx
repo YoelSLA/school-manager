@@ -40,9 +40,7 @@ export default function DesignacionCursoCard({
 				<div className={`${styles.item} ${styles.orientacion}`}>
 					<Compass />
 
-					<span className={styles.value}>
-						{designacion.orientacion}
-					</span>
+					<span className={styles.value}>{designacion.orientacion}</span>
 				</div>
 			</div>
 		</DesignacionCard>

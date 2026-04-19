@@ -1,7 +1,9 @@
 package com.gestion.escuela.gestion_escolar.mappers;
 
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.*;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
+import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
@@ -66,16 +68,24 @@ public class LicenciaMapper {
 
 	public static LicenciaDesignacionDTO toDesignacionDTO(Designacion d) {
 
+		Asignacion asignacion = d.getAsignacionActivaEn(HOY).orElse(null);
+
+		AsignacionDetalleDTO asignacionActiva =
+				asignacion != null
+						? AsignacionMapper.toDetalle(asignacion)
+						: null;
+
 		if (d instanceof DesignacionAdministrativa da) {
 			return new LicenciaDesignacionAdministrativaDTO(
 					da.getId(),
 					da.getCupof(),
 					da.getEstadoEn(HOY),
-					da.getRolEducativo()
-			);
+					da.getRolEducativo(),
+					asignacionActiva);
 		}
 
 		if (d instanceof DesignacionCurso dc) {
+			assert asignacionActiva != null;
 			return new LicenciaDesignacionCursoDTO(
 					dc.getId(),
 					dc.getCupof(),
@@ -83,8 +93,8 @@ public class LicenciaMapper {
 					dc.getRolEducativo(),
 					dc.getMateria().getNombre(),
 					dc.getCurso().anioDivision(),
-					dc.getOrientacion()
-			);
+					dc.getOrientacion(),
+					asignacionActiva);
 		}
 
 		throw new IllegalStateException(

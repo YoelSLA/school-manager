@@ -7,6 +7,9 @@
 	height: 100%;
 	display: grid;
 	gap: 8px;
+
+	/* fallback */
+	grid-auto-rows: 110px;
 }
 
 /* =========================
@@ -18,6 +21,9 @@
 		@include debug.debug(blue);
 
 		grid-template-columns: repeat(3, 1fr);
+
+		/* 3 filas visibles aprox */
+		grid-auto-rows: 130px;
 	}
 }
 
@@ -30,6 +36,8 @@
 		@include debug.debug(green);
 
 		grid-template-columns: repeat(3, 1fr);
+
+		grid-auto-rows: 160px;
 	}
 }
 
@@ -42,6 +50,8 @@
 		@include debug.debug(purple);
 
 		grid-template-columns: repeat(4, 1fr);
+
+		grid-auto-rows: 230px;
 	}
 }
 
@@ -53,7 +63,15 @@
 	@include debug.debug(orange);
 
 	grid-column: 1 / -1;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	min-height: 100%;
+
 	padding: 32px;
+
 	text-align: center;
 	font-size: 14px;
 	color: #6b7280;

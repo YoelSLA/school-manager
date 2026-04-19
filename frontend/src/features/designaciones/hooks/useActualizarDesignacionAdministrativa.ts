@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { actualizarDesignacionAdministrativa } from "../services/designaciones.services";
+import type { DesignacionAdministrativaUpdateDTO } from "@/utils/types";
 import { designacionesQueryKeys } from "../../../utils/queryKeys/designaciones.queryKeys";
-import { DesignacionAdministrativaUpdateDTO } from "@/utils/types";
+import { actualizarDesignacionAdministrativa } from "../services/designaciones.services";
 
 export function useActualizarDesignacionAdministrativa(designacionId?: number) {
 	const queryClient = useQueryClient();

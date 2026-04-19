@@ -1,4 +1,4 @@
-import { LicenciaTimelineItemDTO } from "@/utils/types";
+import type { LicenciaTimelineItemDTO } from "@/utils/types";
 import LicenciaTimelineItem from "./LicenciaTimelineItem";
 import styles from "./LicenciaTimelineList.module.scss";
 

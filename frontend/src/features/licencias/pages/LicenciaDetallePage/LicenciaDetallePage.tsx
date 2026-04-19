@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import Breadcrumbs from "@/layout/Breadcrumbs";
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import LicenciaRenovarModal from "../../components/LicenciaRenovarModal";
 import { useLicenciaDetalle } from "../../hooks/useLicenciaDetalle";
 import { useLicenciasNavigation } from "../../hooks/useLicenciasNavigation";
 import { useLicenciaTimeline } from "../../hooks/useLicenciaTimeline";
-
 import styles from "./LicenciaDetallePage.module.scss";
 import LicenciaHeaderStack from "./LicenciaHeaderGrid";
 import LicenciaTimelineBox from "./LicenciaTimelineBox";
-import Breadcrumbs from "@/layout/Breadcrumbs";
 
 export default function LicenciaDetallePage() {
 	const { licenciaId } = useParams<{ licenciaId: string }>();
@@ -20,7 +19,6 @@ export default function LicenciaDetallePage() {
 
 	const { licencia, isLoading, isError } = useLicenciaDetalle(licenciaIdNumber);
 
-	// 🔹 Nuevo hook independiente
 	const {
 		data: timeline = [],
 		isLoading: timelineLoading,
@@ -33,9 +31,7 @@ export default function LicenciaDetallePage() {
 		return <div className="page-error">Licencia no encontrada</div>;
 
 	return (
-		<PageLayout
-			breadcrumbs={<Breadcrumbs />}
-		>
+		<PageLayout breadcrumbs={<Breadcrumbs />}>
 			<div className={styles.page}>
 				<div className={styles.top}>
 					<div className={styles.header}>

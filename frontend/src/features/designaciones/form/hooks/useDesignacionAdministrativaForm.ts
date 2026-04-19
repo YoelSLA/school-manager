@@ -1,8 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
-import { crearDesignacionAdministrativaSchema } from "../schemas/crearDesignacionAdministrativa.schema";
-import { Dia, RolEducativo } from "@/utils/types/enums";
 import type { DesignacionAdministrativaCreateDTO } from "@/utils/types";
+import { Dia, RolEducativo } from "@/utils/types/enums";
+import { crearDesignacionAdministrativaSchema } from "../schemas/crearDesignacionAdministrativa.schema";
 
 export function useDesignacionAdministrativaForm() {
 	const form = useForm<DesignacionAdministrativaCreateDTO>({
@@ -33,4 +33,3 @@ export function useDesignacionAdministrativaForm() {
 		franjas,
 	};
 }
-

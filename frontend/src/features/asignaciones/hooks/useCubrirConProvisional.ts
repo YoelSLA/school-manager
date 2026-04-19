@@ -1,15 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { asistenciasQueryKeys } from "@/utils/queryKeys/asistencias.queryKeys";
 import { cubrirConProvisional } from "@/features/designaciones/services/designaciones.services";
+import { asistenciasQueryKeys } from "@/utils/queryKeys/asistencias.queryKeys";
 
 import { designacionesQueryKeys } from "@/utils/queryKeys/designaciones.queryKeys";
 import { empleadosEducativosQueryKeys } from "@/utils/queryKeys/empleadosEducativos.queryKeys";
+import type { CubrirProvisionalDTO } from "@/utils/types";
 import {
 	mapAsignacionError,
 	type UserError,
 } from "../errors/asignacionErrorMapper";
-import { CubrirProvisionalDTO } from "@/utils/types";
 
 type Params = {
 	designacionId: number;

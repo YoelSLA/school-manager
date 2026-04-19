@@ -16,9 +16,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.time.YearMonth;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -233,52 +232,28 @@ public class EmpleadoEducativo {
 				.anyMatch(l -> l.afectaA(designacion, fecha));
 	}
 
-	public boolean debeAsistirEn(LocalDate fecha) {
+	public List<LocalDate> diasQueDebeAsistir(YearMonth yearMonth) {
 
-		if (fecha == null) {
-			return false;
-		}
+		LocalDate inicio = yearMonth.atDay(1);
+		LocalDate fin = yearMonth.atEndOfMonth();
 
-		DiaDeSemana dia;
-		try {
-			dia = DiaDeSemana.from(fecha);
-		} catch (
-				Exception e) {
-			return false;
-		}
-
-		Set<DiaDeSemana> diasBloqueados = diasQueNoTrabajaPorLicencia(fecha);
-
-		for (Asignacion a : asignaciones) {
-
-			boolean licencia = a.estaEnLicenciaEn(fecha);
-
-			if (!licencia) {
-				continue;
-			}
-
-			boolean trabajaEseDia = a.getDesignacion().trabajaElDia(fecha);
-			boolean bloqueado = diasBloqueados.contains(dia);
-
-			if (trabajaEseDia && bloqueado) {
-				return true;
-			}
-		}
-
-		return false;
+		return inicio.datesUntil(fin.plusDays(1))
+				.filter(this::debeAsistirEn)
+				.toList();
 	}
 
-	public Set<DiaDeSemana> diasQueNoTrabajaPorLicencia(LocalDate fecha) {
+	public EstadoAsistenciaDia estadoAsistenciaEn(
+			LocalDate fecha,
+			Map<LocalDate, Asistencia> manualesPorFecha
+	) {
 
-		return licenciaActivaEn(fecha)
-				.map(l ->
-						l.getDesignaciones()
-								.stream()
-								.flatMap(d -> d.getFranjasHorarias().stream())
-								.map(FranjaHoraria::getDia)
-								.collect(Collectors.toSet())
-				)
-				.orElseGet(Set::of);
+		Asistencia manual = manualesPorFecha.get(fecha);
+
+		if (manual != null) {
+			return EstadoAsistenciaDia.manual(manual);
+		}
+
+		return EstadoAsistenciaDia.presente(fecha);
 	}
 
 	private Set<Asignacion> asignacionesAfectadasPorBaja(LocalDate fecha) {
@@ -286,6 +261,17 @@ public class EmpleadoEducativo {
 		resultado.addAll(asignacionesActivasEn(fecha));
 		resultado.addAll(asignacionesEnLicenciaEn(fecha));
 		return resultado;
+	}
+
+	private boolean debeAsistirEn(LocalDate fecha) {
+
+		if (fecha == null) {
+			return false;
+		}
+
+		return asignaciones.stream()
+				.map(Asignacion::getDesignacion)
+				.anyMatch(designacion -> designacion.trabajaElDia(fecha));
 	}
 
 	private void validarDatosBasicos(
@@ -338,5 +324,6 @@ public class EmpleadoEducativo {
 			throw new DesignacionNoActivaDelEmpleadoException(designaciones);
 		}
 	}
+
 
 }

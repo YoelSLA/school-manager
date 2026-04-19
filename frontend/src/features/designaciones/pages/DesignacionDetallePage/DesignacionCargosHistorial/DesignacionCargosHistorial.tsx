@@ -1,9 +1,9 @@
 import Button from "@/components/Button";
 import FilterPillGroup from "@/components/FilterPillGroup/FilterPillGroup";
 import { FILTROS_CARGOS } from "@/features/asignaciones/utils/asignaciones.utils";
+import type { AsignacionDetalleDTO, FiltroCargos } from "@/utils/types";
 import CargoRow from "./CargoRow";
 import styles from "./DesignacionCargosHistorial.module.scss";
-import type { AsignacionDetalleDTO, FiltroCargos } from "@/utils/types";
 
 const MENSAJES: Record<FiltroCargos, string> = {
 	LICENCIA: "No hay cargos por licencia",

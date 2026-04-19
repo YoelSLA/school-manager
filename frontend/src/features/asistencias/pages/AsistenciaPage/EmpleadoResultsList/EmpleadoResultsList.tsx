@@ -1,5 +1,5 @@
-import type { EmpleadoAsistenciaDTO } from "@/features/asistencias/types/asistencias.types";
-import EmpleadoAsistenciaCard from "./EmpleadoAsistenciaCard";
+import type { EmpleadoAsistenciaDTO } from "@/utils/types";
+import EmpleadoAsistenciaCard from "../../../components/EmpleadoAsistenciaCard/EmpleadoAsistenciaCard";
 import styles from "./EmpleadoResultsList.module.scss";
 
 type Props = {
