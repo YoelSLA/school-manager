@@ -1,9 +1,7 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencias.AsistenciaDiaDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.escuelas.EscuelaCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.escuelas.EscuelaResumenDTO;
-import com.gestion.escuela.gestion_escolar.mappers.AsistenciaMapper;
 import com.gestion.escuela.gestion_escolar.mappers.EscuelaMapper;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.services.AsistenciaService;
@@ -15,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.YearMonth;
 import java.util.List;
 
 @RestController
@@ -48,28 +45,6 @@ public class EscuelaControllerREST {
 	public EscuelaResumenDTO obtenerDetalle(@PathVariable Long escuelaId) {
 		return EscuelaMapper.toResponse(escuelaService.obtenerPorId(escuelaId));
 	}
-
-	@GetMapping("/{escuelaId}/empleados/{empleadoId}/asistencias")
-	public List<AsistenciaDiaDTO> obtenerAsistenciasDelMes(
-			@PathVariable Long escuelaId,
-			@PathVariable Long empleadoId,
-			@RequestParam int anio,
-			@RequestParam int mes
-	) {
-
-		YearMonth yearMonth = YearMonth.of(anio, mes);
-
-		return asistenciaService
-				.obtenerEstadoMensual(
-						escuelaId,
-						empleadoId,
-						yearMonth
-				)
-				.stream()
-				.map(AsistenciaMapper::toDiaDTO)
-				.toList();
-	}
-
 
 }
 

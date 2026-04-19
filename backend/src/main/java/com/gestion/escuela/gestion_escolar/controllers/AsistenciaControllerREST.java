@@ -1,10 +1,8 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
 import com.gestion.escuela.gestion_escolar.controllers.dtos.PageResponse;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencias.EliminarInasistenciasManualDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencias.EmpleadoAsistenciaDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencias.RegistrarInasistenciasManualDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencias.RolCount;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencias.*;
+import com.gestion.escuela.gestion_escolar.mappers.AsistenciaMapper;
 import com.gestion.escuela.gestion_escolar.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
@@ -21,10 +19,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/asistencias")
+@RequestMapping("/api/escuelas/{escuelaId}/asistencias")
 @RequiredArgsConstructor
 public class AsistenciaControllerREST {
 
@@ -33,28 +32,37 @@ public class AsistenciaControllerREST {
 
 	@PostMapping("/manual")
 	public ResponseEntity<Void> registrarInasistenciasManual(
+			@PathVariable Long escuelaId,
 			@Valid @RequestBody RegistrarInasistenciasManualDTO request
 	) {
-		EmpleadoEducativo empleado = empleadoEducativoService.obtenerPorId(request.empleadoId());
+
+		EmpleadoEducativo empleado = empleadoEducativoService.obtenerPorId(
+				request.empleadoId()
+		);
+
 		asistenciaService.registrarInasistenciasManuales(
+				escuelaId,
 				empleado,
 				request.fechas(),
-				request.tipoLicencia(),   // ⬅️ obligatorio, nunca null
+				request.tipoLicencia(),
 				request.observacion()
 		);
 
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
-
 	@GetMapping("/roles")
 	public List<RolCount> obtenerRolesVigentes(
+			@PathVariable Long escuelaId,
 			@RequestParam("fecha")
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 			LocalDate fecha
 	) {
 
-		return asistenciaService.contarEmpleadosPorRolVigente(fecha)
+		return asistenciaService.contarEmpleadosPorRolVigente(
+						escuelaId,
+						fecha
+				)
 				.stream()
 				.map(r -> new RolCount(
 						r.rol(),
@@ -62,19 +70,19 @@ public class AsistenciaControllerREST {
 						r.cantidad()
 				))
 				.toList();
-
 	}
 
 	@GetMapping("/empleados")
 	public PageResponse<EmpleadoAsistenciaDTO> buscarEmpleados(
+			@PathVariable Long escuelaId,
 			@RequestParam LocalDate fecha,
 			@RequestParam(required = false) List<RolEducativo> roles,
 			@RequestParam(required = false) String q,
 			Pageable pageable
 	) {
 
-		int MAX_SIZE = 20;
-		int pageSize = Math.min(pageable.getPageSize(), MAX_SIZE);
+		int maxSize = 20;
+		int pageSize = Math.min(pageable.getPageSize(), maxSize);
 
 		Pageable limitedPageable = PageRequest.of(
 				pageable.getPageNumber(),
@@ -82,31 +90,51 @@ public class AsistenciaControllerREST {
 				pageable.getSort()
 		);
 
-		Page<EmpleadoEducativo> empleados =
-				asistenciaService.buscarEmpleados(
-						fecha,
-						roles,
-						q,
-						limitedPageable
-				);
+		Page<EmpleadoEducativo> empleados = asistenciaService.buscarEmpleados(
+				escuelaId,
+				fecha,
+				roles,
+				q,
+				limitedPageable
+		);
 
 		return PageMapper.toPageResponse(
 				empleados,
-				e -> EmpleadoAsistenciaDTO.from(e, fecha)
+				empleado -> EmpleadoAsistenciaDTO.from(empleado, fecha)
 		);
 	}
-
 
 	@DeleteMapping("/manual")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void eliminarInasistenciasManual(
-			@Valid @RequestBody EliminarInasistenciasManualDTO request
+			@PathVariable Long escuelaId,
+			@Valid @RequestBody EliminarInasistenciasManualDTO dto
 	) {
+
 		asistenciaService.eliminarInasistenciasManual(
-				request.empleadoId(),
-				request.fechas()
+				escuelaId,
+				dto.empleadoId(),
+				dto.fechas()
 		);
 	}
 
-}
+	@GetMapping("/empleados/{empleadoId}")
+	public List<AsistenciaDiaDTO> obtenerAsistenciasDelMes(
+			@PathVariable Long escuelaId,
+			@PathVariable Long empleadoId,
+			@RequestParam int anio,
+			@RequestParam int mes
+	) {
 
+		YearMonth yearMonth = YearMonth.of(anio, mes);
+
+		return asistenciaService.obtenerEstadoMensual(
+						escuelaId,
+						empleadoId,
+						yearMonth
+				)
+				.stream()
+				.map(AsistenciaMapper::toDiaDTO)
+				.toList();
+	}
+}

@@ -1,6 +1,5 @@
 package com.gestion.escuela.gestion_escolar.services;
 
-import com.gestion.escuela.gestion_escolar.models.Asistencia;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.EstadoAsistenciaDia;
 import com.gestion.escuela.gestion_escolar.models.RolCantidad;
@@ -17,9 +16,6 @@ import java.util.List;
 public interface AsistenciaService {
 
 	@Transactional(readOnly = true)
-	List<Asistencia> asistenciasDe(Long empleadoId);
-
-	@Transactional(readOnly = true)
 	List<EstadoAsistenciaDia> obtenerEstadoMensual(
 			Long escuelaId,
 			Long empleadoId,
@@ -27,10 +23,12 @@ public interface AsistenciaService {
 	);
 
 	List<RolCantidad> contarEmpleadosPorRolVigente(
+			Long escuelaId,
 			LocalDate fecha
 	);
 
 	Page<EmpleadoEducativo> buscarEmpleados(
+			Long escuelaId,
 			LocalDate fecha,
 			List<RolEducativo> roles,
 			String query,
@@ -38,13 +36,18 @@ public interface AsistenciaService {
 	);
 
 	void registrarInasistenciasManuales(
+			Long escuelaId,
 			EmpleadoEducativo empleado,
 			List<LocalDate> fechas,
 			TipoLicencia tipoLicencia,
 			String observacion
 	);
 
-	void eliminarInasistenciasManual(Long empleadoId, List<LocalDate> fechas);
+	void eliminarInasistenciasManual(
+			Long escuelaId,
+			Long empleadoId,
+			List<LocalDate> fechas
+	);
 
 
 }

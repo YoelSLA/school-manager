@@ -4,7 +4,7 @@ import FormSelectField from "@/components/forms/FormSelectField/FormSelectField"
 import { useCrearCursoForm } from "../../form/useCrearCursoForm";
 import { TURNO_OPTIONS } from "../../utils/cursos.utils";
 import FormInputField from "@/components/forms/FormInputField";
-import { CursoCreateDTO } from "@/utils/types";
+import type { CursoCreateDTO } from "@/utils/types";
 
 type Props = {
 	onClose: () => void;

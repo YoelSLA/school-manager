@@ -38,9 +38,6 @@ public class EmpleadoEducativoControllerREST {
 			@Valid @RequestBody LicenciaCreateDTO dto
 	) {
 
-		log.info("Creando licencia para empleado {}", empleadoId);
-		log.debug("DTO recibido: {}", dto);
-
 		Licencia licencia = empleadoEducativoService.crearLicencia(
 				empleadoId,
 				dto.tipoLicencia(),
@@ -48,8 +45,6 @@ public class EmpleadoEducativoControllerREST {
 				dto.descripcion(),
 				dto.designacionesIds()
 		);
-
-		log.info("Licencia {} creada correctamente", licencia.getId());
 
 		return LicenciaMapper.toDetalle(licencia);
 	}

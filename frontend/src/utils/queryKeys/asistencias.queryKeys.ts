@@ -1,8 +1,17 @@
 export const asistenciasQueryKeys = {
 	all: ["asistencias"] as const,
 
-	rolesConAsistencias: (fecha: string) =>
-		[...asistenciasQueryKeys.all, "roles", fecha] as const,
+	rolesConAsistencias: (
+		escuelaId: number,
+		fecha: string,
+	) =>
+		[
+			...asistenciasQueryKeys.all,
+			"escuela",
+			escuelaId,
+			"roles",
+			fecha,
+		] as const,
 
 	porEmpleadoMes: (
 		escuelaId: number,
@@ -21,6 +30,7 @@ export const asistenciasQueryKeys = {
 		] as const,
 
 	empleadosPorFecha: (
+		escuelaId: number,
 		fecha: string,
 		roles: string[],
 		query: string,
@@ -29,9 +39,11 @@ export const asistenciasQueryKeys = {
 	) =>
 		[
 			...asistenciasQueryKeys.all,
+			"escuela",
+			escuelaId,
 			"empleados",
 			fecha,
-			[...roles].sort(), // 🔥 estabilidad
+			[...roles].sort(),
 			query,
 			page,
 			size,

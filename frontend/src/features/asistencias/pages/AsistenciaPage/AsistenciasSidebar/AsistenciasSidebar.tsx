@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
-import type { RolEducativo } from "@/features/designaciones/types/designacion.types";
 import styles from "./AsistenciasSidebar.module.scss";
+import type { RolEducativo } from "@/utils/types/enums";
 
 export type RolItem = {
 	id: RolEducativo;

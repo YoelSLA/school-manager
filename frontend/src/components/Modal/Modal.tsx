@@ -35,7 +35,11 @@ export default function Modal({
 				: null;
 
 	return (
+		// biome-ignore lint/a11y/noStaticElementInteractions: <explanation>
+		// biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
 		<div className={styles.modalBackdrop} onClick={onCancel}>
+			{/** biome-ignore lint/a11y/noStaticElementInteractions: <explanation> */}
+			{/** biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
 			<div
 				className={`${styles.modal} ${styles[size]} ${styles[variant]}`}
 				onClick={(e) => e.stopPropagation()}

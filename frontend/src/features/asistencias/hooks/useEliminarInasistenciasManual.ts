@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { asistenciasQueryKeys } from "@/utils/queryKeys/asistencias.queryKeys";
 import { eliminarInasistenciasManual } from "../services/asistencias.services";
 
 export function useEliminarInasistenciasManual(
@@ -15,9 +16,15 @@ export function useEliminarInasistenciasManual(
 				empleadoId,
 				fechas,
 			}),
+
 		onSuccess: () => {
 			queryClient.invalidateQueries({
-				queryKey: ["asistencias", empleadoId, anio, mes],
+				queryKey: asistenciasQueryKeys.porEmpleadoMes(
+					escuelaId,
+					empleadoId,
+					anio,
+					mes,
+				),
 			});
 		},
 	});

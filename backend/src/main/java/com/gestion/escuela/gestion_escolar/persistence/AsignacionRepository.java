@@ -28,15 +28,17 @@ public interface AsignacionRepository extends JpaRepository<Asignacion, Long> {
 	);
 
 	@Query("""
-			    select d.rolEducativo as rol,
-			           count(distinct a.empleadoEducativo.id) as cantidad
-			    from Asignacion a
-			    join a.designacion d
-			    where a.periodo.fechaDesde <= :fecha
-			      and (a.periodo.fechaHasta is null or a.periodo.fechaHasta >= :fecha)
-			    group by d.rolEducativo
+			select d.rolEducativo as rol,
+			       count(distinct a.empleadoEducativo.id) as cantidad
+			from Asignacion a
+			join a.designacion d
+			where a.empleadoEducativo.escuela.id = :escuelaId
+			  and a.periodo.fechaDesde <= :fecha
+			  and (a.periodo.fechaHasta is null or a.periodo.fechaHasta >= :fecha)
+			group by d.rolEducativo
 			""")
 	List<RolCantidadProjection> contarEmpleadosPorRolVigente(
+			@Param("escuelaId") Long escuelaId,
 			@Param("fecha") LocalDate fecha
 	);
 

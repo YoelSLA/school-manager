@@ -1,5 +1,5 @@
-import { optionalFechaISO, requiredFechaISO } from "@/utils/zod/schemas";
 import { z } from "zod";
+import { optionalFechaISO, requiredFechaISO } from "@/utils/zod/schemas";
 
 /* =========================
 	 Regex

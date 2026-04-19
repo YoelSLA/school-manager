@@ -1,0 +1,171 @@
+@use "@/styles/breakpoints" as *;
+
+.card {
+	height: 100%;
+	min-height: 0;
+
+	background: #fff;
+	border: 1px solid #dbe4f0;
+	border-radius: 18px;
+
+	box-shadow:
+		0 2px 8px rgba(15, 23, 42, 0.06),
+		0 1px 2px rgba(15, 23, 42, 0.04);
+
+	transition:
+		transform 0.18s ease,
+		box-shadow 0.18s ease,
+		border-color 0.18s ease;
+}
+
+.card__button {
+	all: unset;
+	box-sizing: border-box;
+
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	grid-template-rows: 1fr auto;
+
+	width: 100%;
+	height: 100%;
+
+	cursor: pointer;
+	border-radius: 18px;
+}
+
+.card__button> :first-child {
+	grid-column: 1;
+	grid-row: 1;
+
+	min-width: 0;
+	align-self: start;
+}
+
+.card__roles {
+	grid-column: 1;
+	grid-row: 2;
+
+	display: flex;
+	flex-wrap: wrap;
+	align-self: end;
+}
+
+.card__faltas {
+	grid-column: 2;
+	grid-row: 1 / span 2;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	border-left: 1px solid #e5edf7;
+}
+
+/* =========================
+   DESKTOP CHICO -> cards de 130px
+========================= */
+
+@include desktop-width-small {
+	.card__button {
+		padding: 12px 14px;
+		column-gap: 12px;
+		row-gap: 6px;
+	}
+
+	.card__roles {
+		gap: 4px;
+	}
+
+	.card__faltas {
+		width: 62px;
+		min-width: 62px;
+		padding-left: 10px;
+	}
+
+	.card__faltasLabel {
+		font-size: 0.62rem;
+	}
+
+	.card__faltasValue {
+		font-size: 1.6rem;
+		line-height: 1;
+	}
+
+	.card__faltasText {
+		margin-top: 2px;
+		font-size: 0.72rem;
+	}
+}
+
+/* =========================
+   DESKTOP MEDIO -> cards de 160px
+========================= */
+
+@include desktop-width-medium {
+	.card__button {
+		padding: 16px 18px;
+		column-gap: 18px;
+		row-gap: 10px;
+	}
+
+	.card__roles {
+		gap: 6px;
+	}
+
+	.card__faltas {
+		width: 78px;
+		min-width: 78px;
+		padding-left: 14px;
+	}
+
+	.card__faltasLabel {
+		font-size: 0.72rem;
+	}
+
+	.card__faltasValue {
+		font-size: 2.1rem;
+		line-height: 1;
+	}
+
+	.card__faltasText {
+		margin-top: 4px;
+		font-size: 0.8rem;
+	}
+}
+
+/* =========================
+   DESKTOP GRANDE -> cards de 230px
+========================= */
+
+@include desktop-width-large {
+	.card__button {
+		padding: 22px 24px;
+		column-gap: 24px;
+		row-gap: 14px;
+	}
+
+	.card__roles {
+		gap: 8px;
+	}
+
+	.card__faltas {
+		width: 92px;
+		min-width: 92px;
+		padding-left: 18px;
+	}
+
+	.card__faltasLabel {
+		font-size: 0.8rem;
+	}
+
+	.card__faltasValue {
+		font-size: 2.8rem;
+		line-height: 1;
+	}
+
+	.card__faltasText {
+		margin-top: 6px;
+		font-size: 0.92rem;
+	}
+}

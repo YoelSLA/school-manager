@@ -1,23 +1,63 @@
+import { useLocation, useParams } from "react-router-dom";
 import PageLayout from "@/layout/PageLayout/PageLayout";
+
 import styles from "./AsistenciaEmpleadoProfilePage.module.scss";
 import AsistenciaHeader from "./AsistenciaHeader";
 import AsistenciaKpiGrid from "./AsistenciaKpiGrid";
-import AsistenciaMonthlyChart from "./AsistenciaMonthlyChart";
 import AsistenciaRecentList from "./AsistenciaRecentList";
-import AsistenciaTypeChart from "./AsistenciaTypeChart";
+import AsistenciaQuickSummary from "./AsistenciaQuickSummary";
+import Breadcrumbs from "@/layout/Breadcrumbs";
+
+type NavigationState = {
+	dynamicLabels?: Record<string, string>;
+	empleado: {
+		nombre: string;
+		apellido: string;
+		cuil: string;
+		roles: string[];
+	};
+};
 
 export default function EmpleadoAsistenciasProfilePage() {
+	const { empleadoId } = useParams();
+
+	const location = useLocation();
+	const state = location.state as NavigationState | null;
+
+	const empleado = state?.empleado;
+
+	if (!empleado || !empleadoId) {
+		return (
+			<PageLayout>
+				<div>No se pudo recuperar la información del empleado.</div>
+			</PageLayout>
+		);
+	}
+
 	return (
 		<PageLayout>
+			<Breadcrumbs />
 			<div className={styles.page}>
-				<AsistenciaHeader />
-				<AsistenciaKpiGrid />
-				<AsistenciaMonthlyChart />
+				<header className={styles.page__header}>
+					<AsistenciaHeader
+						empleadoId={empleadoId}
+						empleado={empleado}
+					/>
+				</header>
 
-				<div className={styles.secondary}>
-					<AsistenciaTypeChart />
-					<AsistenciaRecentList />
-				</div>
+				<section className={styles.page__kpis}>
+					<AsistenciaKpiGrid empleadoId={empleadoId} />
+				</section>
+
+				<section className={styles.page__secondary}>
+					<div className={styles.page__summary}>
+						<AsistenciaQuickSummary empleadoId={empleadoId} />
+					</div>
+
+					<div className={styles.page__recent}>
+						<AsistenciaRecentList empleadoId={empleadoId} />
+					</div>
+				</section>
 			</div>
 		</PageLayout>
 	);
