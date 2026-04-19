@@ -1,25 +1,25 @@
 import { create } from "zustand";
 
 export type Status =
-  | "idle"
-  | "checking"
-  | "available"
-  | "downloading"
-  | "downloaded"
-  | "error";
+	| "idle"
+	| "checking"
+	| "available"
+	| "downloading"
+	| "downloaded"
+	| "error";
 
 type Store = {
-  status: Status;
-  progress: number;
-  version?: string;
-  notes?: string;
+	status: Status;
+	progress: number;
+	version?: string;
+	notes?: string;
 
-  setStateFromMain: (data: Partial<Store>) => void;
+	setStateFromMain: (data: Partial<Store>) => void;
 };
 
 export const useUpdaterStore = create<Store>((set) => ({
-  status: "idle",
-  progress: 0,
+	status: "idle",
+	progress: 0,
 
-  setStateFromMain: (data) => set(data),
+	setStateFromMain: (data) => set(data),
 }));

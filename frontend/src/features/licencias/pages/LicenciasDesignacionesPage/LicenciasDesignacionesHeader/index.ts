@@ -1,1 +1,1 @@
-export { default } from "./LicenciasDesignacionesHeader"
+export { default } from "./LicenciasDesignacionesHeader";

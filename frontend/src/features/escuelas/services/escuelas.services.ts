@@ -1,8 +1,17 @@
 import { http } from "@/axiosTemplate";
-import type { EscuelaCreateDTO, EscuelaResponseDTO, EscuelaUpdateDTO } from "@/utils/types";
+import type {
+	EscuelaCreateDTO,
+	EscuelaResponseDTO,
+	EscuelaUpdateDTO,
+} from "@/utils/types";
 
-export const crearEscuela = async (data: EscuelaCreateDTO): Promise<EscuelaResponseDTO> => {
-	const { data: escuela } = await http.post<EscuelaResponseDTO>("/escuelas", data);
+export const crearEscuela = async (
+	data: EscuelaCreateDTO,
+): Promise<EscuelaResponseDTO> => {
+	const { data: escuela } = await http.post<EscuelaResponseDTO>(
+		"/escuelas",
+		data,
+	);
 	return escuela;
 };
 
@@ -15,7 +24,10 @@ export const actualizarEscuela = async (
 	id: number,
 	data: EscuelaUpdateDTO,
 ): Promise<EscuelaResponseDTO> => {
-	const { data: escuela } = await http.put<EscuelaResponseDTO>(`/escuelas/${id}`, data);
+	const { data: escuela } = await http.put<EscuelaResponseDTO>(
+		`/escuelas/${id}`,
+		data,
+	);
 	return escuela;
 };
 

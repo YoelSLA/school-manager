@@ -13,7 +13,6 @@ const items = [
 
 export default function AsistenciaRecentList({ empleadoId }: Props) {
 	// TODO: reemplazar por hook real usando empleadoId
-	console.log(empleadoId);
 
 	return (
 		<section className={styles.card}>
@@ -33,10 +32,7 @@ export default function AsistenciaRecentList({ empleadoId }: Props) {
 							<span className={styles.item__type}>{item.tipo}</span>
 						</div>
 
-						<button
-							type="button"
-							className={styles.item__button}
-						>
+						<button type="button" className={styles.item__button}>
 							Ver
 						</button>
 					</li>

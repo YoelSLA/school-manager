@@ -1,5 +1,11 @@
 import { http } from "@/axiosTemplate";
-import type { CursoCreateDTO, CursoFiltro, CursoNombreDTO, CursoResponseDTO, PageResponse } from "@/utils/types";
+import type {
+	CursoCreateDTO,
+	CursoFiltro,
+	CursoNombreDTO,
+	CursoResponseDTO,
+	PageResponse,
+} from "@/utils/types";
 
 export async function obtenerCursos(
 	escuelaId: number,

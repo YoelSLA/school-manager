@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function useDynamicPageSize(
-	small: number = 8,
-	large: number = 10
-) {
+export function useDynamicPageSize(small: number = 8, large: number = 10) {
 	const [pageSize, setPageSize] = useState(small);
 
 	useEffect(() => {

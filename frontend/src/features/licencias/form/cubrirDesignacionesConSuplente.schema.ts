@@ -14,5 +14,3 @@ export const cubrirDesignacionesConSuplenteSchema = z.object({
 		"La fecha de toma de posesión es obligatoria",
 	),
 });
-
-

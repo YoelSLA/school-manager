@@ -3,18 +3,15 @@ import type { FieldErrors, UseFormRegister } from "react-hook-form";
 import FormSection from "@/components/FormSection";
 
 import styles from "@/components/FormSection/FormSection.module.scss";
-import type { EmpleadoEducativoCreateDTO } from "@/utils/types";
 import FormInputFieldRHF from "@/components/forms/FormInputField";
+import type { EmpleadoEducativoCreateDTO } from "@/utils/types";
 
 type Props = {
 	register: UseFormRegister<EmpleadoEducativoCreateDTO>;
 	errors: FieldErrors<EmpleadoEducativoCreateDTO>;
 };
 
-export default function DatosPersonalesSection({
-	register,
-	errors,
-}: Props) {
+export default function DatosPersonalesSection({ register, errors }: Props) {
 	return (
 		<FormSection title="DATOS PERSONALES" layout="column">
 			<FormInputFieldRHF

@@ -12,10 +12,7 @@ export async function registrarInasistenciasManual(
 	escuelaId: number,
 	payload: RegistrarInasistenciasManualDTO,
 ): Promise<void> {
-	await http.post(
-		`/escuelas/${escuelaId}/asistencias/manual`,
-		payload,
-	);
+	await http.post(`/escuelas/${escuelaId}/asistencias/manual`, payload);
 }
 
 export async function obtenerAsistenciasEmpleadoMes(

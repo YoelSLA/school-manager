@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editarAsignacion } from "@/features/designaciones/services/designaciones.services";
 import { designacionesQueryKeys } from "@/utils/queryKeys/designaciones.queryKeys";
-import { EditarAsignacionDTO } from "@/utils/types";
+import type { EditarAsignacionDTO } from "@/utils/types";
 
 type Props = {
 	designacionId: number;

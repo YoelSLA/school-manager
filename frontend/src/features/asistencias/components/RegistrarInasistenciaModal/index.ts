@@ -1,1 +1,1 @@
-export { default } from "./RegistrarInasistenciaModal"
+export { default } from "./RegistrarInasistenciaModal";

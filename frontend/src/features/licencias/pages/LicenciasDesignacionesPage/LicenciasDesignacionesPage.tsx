@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import Button from "@/components/Button";
-import PageLayout from "@/layout/PageLayout/PageLayout";
-import Breadcrumbs from "@/layout/Breadcrumbs";
 import DesignacionItem from "@/features/designaciones/components/DesignacionItem/DesignacionItem";
 import { useDesignacionesAfectadas } from "@/features/licencias/hooks/useDesignacionesAfectadas";
-import LicenciaCubrirDesignacionesModal from "../../components/LicenciaCubrirDesignacionesModal/LicenciaCubrirDesignacionesModal";
+import Breadcrumbs from "@/layout/Breadcrumbs";
+import PageLayout from "@/layout/PageLayout/PageLayout";
+import type { CoberturaSeleccionada, LocationState } from "@/utils/types";
 import LicenciaCambiarCoberturaModal from "../../components/LicenciaCambiarCoberturaModal/LicenciaCambiarCoberturaModal";
+import LicenciaCubrirDesignacionesModal from "../../components/LicenciaCubrirDesignacionesModal/LicenciaCubrirDesignacionesModal";
 import LicenciasDesignacionesHeader from "./LicenciasDesignacionesHeader/LicenciasDesignacionesHeader";
 import styles from "./LicenciasDesignacionesPage.module.scss";
-import type { CoberturaSeleccionada, LocationState } from "@/utils/types";
 
 export default function LicenciasDesignacionesPage() {
 	const { licenciaId } = useParams();
@@ -51,9 +51,7 @@ export default function LicenciasDesignacionesPage() {
 		);
 	}
 
-	function handleCambiarCobertura(
-		designacion: (typeof designaciones)[number],
-	) {
+	function handleCambiarCobertura(designacion: (typeof designaciones)[number]) {
 		const asignacionActiva = designacion.asignacionActiva;
 
 		if (!asignacionActiva) {
@@ -84,10 +82,7 @@ export default function LicenciasDesignacionesPage() {
 			<div className={styles.page}>
 				<Breadcrumbs />
 
-				<LicenciasDesignacionesHeader
-					empleado={empleado}
-					licencia={licencia}
-				/>
+				<LicenciasDesignacionesHeader empleado={empleado} licencia={licencia} />
 
 				{isLoading && <p>Cargando...</p>}
 
@@ -105,9 +100,7 @@ export default function LicenciasDesignacionesPage() {
 									<DesignacionItem
 										key={designacion.designacionId}
 										designacion={designacion}
-										selected={seleccionadas.includes(
-											designacion.designacionId,
-										)}
+										selected={seleccionadas.includes(designacion.designacionId)}
 										onSelect={toggleDesignacion}
 										onCambiarCobertura={() =>
 											handleCambiarCobertura(designacion)

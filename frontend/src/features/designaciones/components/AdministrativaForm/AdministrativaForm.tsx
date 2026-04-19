@@ -1,9 +1,9 @@
 import CupofInputField from "@/components/forms/inputs/CupofInputField/CupofInputField";
 import { useDesignacionAdministrativaForm } from "@/features/designaciones/form/hooks/useDesignacionAdministrativaForm";
+import type { DesignacionAdministrativaCreateDTO } from "@/utils/types";
 import RolEducativoSelectField from "../../../../components/forms/selects/RolEducativoSelectField/RolEducativoSelectField";
 import DesignacionFormLayout from "../DesignacionFormLayout/DesignacionFormLayout";
 import styles from "./AdministrativaForm.module.scss";
-import { DesignacionAdministrativaCreateDTO } from "@/utils/types";
 
 type Props = {
 	onSubmit: (data: DesignacionAdministrativaCreateDTO) => Promise<void>;

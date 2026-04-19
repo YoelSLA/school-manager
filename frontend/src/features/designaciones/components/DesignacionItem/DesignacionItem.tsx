@@ -1,8 +1,8 @@
 import type { KeyboardEvent } from "react";
-import styles from "./DesignacionItem.module.scss";
 import type { LicenciaDesignacionDTO } from "@/utils/types";
-import DesignacionInfoCard from "./DesignacionInfoCard";
 import CoberturaCard from "./CoberturaCard";
+import DesignacionInfoCard from "./DesignacionInfoCard";
+import styles from "./DesignacionItem.module.scss";
 
 type Props = {
 	designacion: LicenciaDesignacionDTO;
@@ -39,14 +39,8 @@ export default function DesignacionItem({
 		<div
 			className={`
         ${styles.designacionItem}
-        ${selected && !estaCubierta
-					? styles["designacionItem--selected"]
-					: ""
-				}
-        ${estaCubierta
-					? styles["designacionItem--disabled"]
-					: ""
-				}
+        ${selected && !estaCubierta ? styles["designacionItem--selected"] : ""}
+        ${estaCubierta ? styles["designacionItem--disabled"] : ""}
       `}
 			role="button"
 			tabIndex={estaCubierta ? -1 : 0}

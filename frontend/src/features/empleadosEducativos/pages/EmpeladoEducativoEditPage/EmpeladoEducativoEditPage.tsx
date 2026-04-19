@@ -1,17 +1,17 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "@/components/Button";
+import Breadcrumbs from "@/layout/Breadcrumbs";
 import PageLayout from "@/layout/PageLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
+import type { EmpleadoEducativoUpdateDTO } from "@/utils/types";
 import EmpleadoEducativoFormEditar from "../../components/EmpleadoEducativoEditForm/EmpleadoEducativoEditForm";
 import { useEmpleadoEducativoEditForm } from "../../form/hooks/useEmpleadoEducativoEditForm";
 import { useEditarEmpleadoEducativo } from "../../hooks/useEditarEmpleadoEducativo";
 import { useEmpleadoEducativo } from "../../hooks/useEmpleadoEducativo";
 import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
 import styles from "./EmpleadoEducativoEditPage.module.scss";
-import { EmpleadoEducativoUpdateDTO } from "@/utils/types";
-import Breadcrumbs from "@/layout/Breadcrumbs";
 
 export default function EmpleadoEducativoEditPage() {
 	const { empleadoId } = useParams();
@@ -128,7 +128,6 @@ export default function EmpleadoEducativoEditPage() {
 					</form>
 				</div>
 			}
-		>
-		</PageLayout>
+		></PageLayout>
 	);
 }

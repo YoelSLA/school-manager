@@ -1,7 +1,7 @@
 import CausaBajaSelectField from "@/components/forms/selects/CausaBajaSelectField";
 import Modal from "@/components/Modal/Modal";
+import type { BajaDefinitivaDTO } from "@/utils/types";
 import { useBajaDefinitivaForm } from "../../form/hooks/useBajaDefinitivaForm";
-import { BajaDefinitivaDTO } from "@/utils/types";
 
 type Props = {
 	isOpen: boolean;
@@ -20,14 +20,13 @@ export default function BajaDefinitivaModal({
 
 	const {
 		register,
-		handleSubmit,
 		formState: { errors },
 		reset,
 	} = form;
 
 	if (!isOpen) return null;
 
-	const submit = (data: BajaDefinitivaDTO) => {
+	const _submit = (data: BajaDefinitivaDTO) => {
 		onConfirm(data);
 		reset();
 	};

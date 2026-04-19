@@ -1,6 +1,6 @@
 import Button from "@/components/Button/Button";
+import type { DesignacionFiltro } from "@/utils/types";
 import styles from "./DesignacionTabs.module.scss";
-import { DesignacionFiltro } from "@/utils/types";
 
 type Props = {
 	value: DesignacionFiltro;

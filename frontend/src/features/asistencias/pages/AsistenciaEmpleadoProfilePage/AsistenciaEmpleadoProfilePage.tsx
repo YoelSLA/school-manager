@@ -1,12 +1,11 @@
 import { useLocation, useParams } from "react-router-dom";
+import Breadcrumbs from "@/layout/Breadcrumbs";
 import PageLayout from "@/layout/PageLayout/PageLayout";
-
 import styles from "./AsistenciaEmpleadoProfilePage.module.scss";
 import AsistenciaHeader from "./AsistenciaHeader";
 import AsistenciaKpiGrid from "./AsistenciaKpiGrid";
-import AsistenciaRecentList from "./AsistenciaRecentList";
 import AsistenciaQuickSummary from "./AsistenciaQuickSummary";
-import Breadcrumbs from "@/layout/Breadcrumbs";
+import AsistenciaRecentList from "./AsistenciaRecentList";
 
 type NavigationState = {
 	dynamicLabels?: Record<string, string>;
@@ -39,10 +38,7 @@ export default function EmpleadoAsistenciasProfilePage() {
 			<Breadcrumbs />
 			<div className={styles.page}>
 				<header className={styles.page__header}>
-					<AsistenciaHeader
-						empleadoId={empleadoId}
-						empleado={empleado}
-					/>
+					<AsistenciaHeader empleadoId={empleadoId} empleado={empleado} />
 				</header>
 
 				<section className={styles.page__kpis}>

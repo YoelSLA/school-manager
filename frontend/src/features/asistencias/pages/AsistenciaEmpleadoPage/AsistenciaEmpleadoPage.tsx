@@ -14,7 +14,6 @@ import SidebarContexto from "./SidebarContexto/SidebarContexto";
 import SidebarTiempo from "./SidebarTiempo";
 
 export default function AsistenciaDetallePage() {
-
 	const { empleadoId } = useParams<{ empleadoId: string }>();
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 	const location = useLocation();

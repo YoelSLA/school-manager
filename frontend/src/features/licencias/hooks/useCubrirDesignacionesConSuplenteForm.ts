@@ -1,9 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useCubrirDesignacionesConSuplente } from "./useCubrirDesignacionesConSuplente";
-import { CubrirDesignacionesConSuplente, EmpleadoEducativoMinimoDTO } from "@/utils/types";
+import type {
+	CubrirDesignacionesConSuplente,
+	EmpleadoEducativoMinimoDTO,
+} from "@/utils/types";
 import { cubrirDesignacionesConSuplenteSchema } from "../form/cubrirDesignacionesConSuplente.schema";
+import { useCubrirDesignacionesConSuplente } from "./useCubrirDesignacionesConSuplente";
 
 type Props = {
 	licenciaId: number;

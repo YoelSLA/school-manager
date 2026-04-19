@@ -1,7 +1,7 @@
 import type { UseFormRegister } from "react-hook-form";
 import FormSelectField from "@/components/forms/FormSelectField/FormSelectField";
 import { ORIENTACIONES } from "@/features/designaciones/utils/designacion.utils";
-import { DesignacionCursoCreateDTO } from "@/utils/types";
+import type { DesignacionCursoCreateDTO } from "@/utils/types";
 
 type Props = {
 	register: UseFormRegister<DesignacionCursoCreateDTO>;

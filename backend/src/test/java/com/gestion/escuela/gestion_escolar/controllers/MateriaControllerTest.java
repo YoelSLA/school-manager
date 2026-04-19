@@ -79,7 +79,7 @@ public class MateriaControllerTest {
 				eq(1L),
 				argThat(lista ->
 						lista.size() == 2 &&
-								lista.get(0).getNombre().equals("Matemática") &&
+								lista.getFirst().getNombre().equals("Matemática") &&
 								lista.get(1).getNombre().equals("Lengua")
 				)
 		);

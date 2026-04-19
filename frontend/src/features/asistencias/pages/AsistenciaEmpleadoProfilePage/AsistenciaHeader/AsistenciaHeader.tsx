@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import RolPill from "@/components/RolPill";
-import { asistenciasPaths } from "@/router/paths";
 import { rolLabels } from "@/features/designaciones/utils/designacion.badges";
+import { asistenciasPaths } from "@/router/paths";
 
 import styles from "./AsistenciaHeader.module.scss";
 
@@ -15,10 +15,7 @@ type Props = {
 	};
 };
 
-export default function AsistenciaHeader({
-	empleadoId,
-	empleado,
-}: Props) {
+export default function AsistenciaHeader({ empleadoId, empleado }: Props) {
 	const navigate = useNavigate();
 
 	const now = new Date();
@@ -41,9 +38,7 @@ export default function AsistenciaHeader({
 						{empleado.apellido}, {empleado.nombre}
 					</h2>
 
-					<span className={styles.header__cuil}>
-						CUIL: {empleado.cuil}
-					</span>
+					<span className={styles.header__cuil}>CUIL: {empleado.cuil}</span>
 				</div>
 
 				<div className={styles.header__roles}>

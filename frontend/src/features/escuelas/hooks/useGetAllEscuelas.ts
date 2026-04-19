@@ -1,10 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import { getEscuelas } from "../services/escuelas.services";
-import { EscuelaResponseDTO } from "@/utils/types";
 import { escuelasQueryKeys } from "@/utils/queryKeys/escuelas.queryKeys";
+import type { EscuelaResponseDTO } from "@/utils/types";
+import { getEscuelas } from "../services/escuelas.services";
 
 export function useGetAllEscuelas() {
-	const { data = [], isLoading, refetch } = useQuery<EscuelaResponseDTO[]>({
+	const {
+		data = [],
+		isLoading,
+		refetch,
+	} = useQuery<EscuelaResponseDTO[]>({
 		queryKey: escuelasQueryKeys.lists(),
 		queryFn: getEscuelas,
 	});

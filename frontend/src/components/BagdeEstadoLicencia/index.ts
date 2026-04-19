@@ -1,1 +1,1 @@
-export { default } from "./BagdeEstadoLicencia"
+export { default } from "./BagdeEstadoLicencia";

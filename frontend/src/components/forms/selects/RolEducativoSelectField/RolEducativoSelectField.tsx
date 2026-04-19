@@ -1,7 +1,7 @@
 import type { UseFormRegister } from "react-hook-form";
 import FormSelectField from "@/components/forms/FormSelectField/FormSelectField";
 import { ROL_EDUCATIVO_LABELS } from "@/features/designaciones/utils/designacion.utils";
-import { DesignacionAdministrativaCreateDTO } from "@/utils/types";
+import type { DesignacionAdministrativaCreateDTO } from "@/utils/types";
 import { RolEducativo } from "@/utils/types/enums";
 
 type Props = {

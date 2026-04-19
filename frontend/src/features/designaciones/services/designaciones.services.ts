@@ -1,5 +1,19 @@
 import { http } from "@/axiosTemplate";
-import type { AsignacionDetalleDTO, CubrirProvisionalDTO, CubrirTitularDTO, DesignacionAdministrativaCreateDTO, DesignacionAdministrativaResumenDTO, DesignacionCursoCreateDTO, DesignacionCursoDetalleDTO, DesignacionCursoFilter, DesignacionCursoResumenDTO, DesignacionDetalleDTO, EditarAsignacionDTO, EstadoCargo, PageResponse } from "@/utils/types";
+import type {
+	AsignacionDetalleDTO,
+	CubrirProvisionalDTO,
+	CubrirTitularDTO,
+	DesignacionAdministrativaCreateDTO,
+	DesignacionAdministrativaResumenDTO,
+	DesignacionCursoCreateDTO,
+	DesignacionCursoDetalleDTO,
+	DesignacionCursoFilter,
+	DesignacionCursoResumenDTO,
+	DesignacionDetalleDTO,
+	EditarAsignacionDTO,
+	EstadoCargo,
+	PageResponse,
+} from "@/utils/types";
 
 /* ======================
 	 Crear
@@ -122,12 +136,8 @@ export const cubrirConTitular = async (
 	designacionId: number,
 	payload: CubrirTitularDTO,
 ): Promise<void> => {
-	await http.post(
-		`/designaciones/${designacionId}/cubrir/titular`,
-		payload,
-	);
+	await http.post(`/designaciones/${designacionId}/cubrir/titular`, payload);
 };
-
 
 export const cubrirConProvisional = async (
 	designacionId: number,

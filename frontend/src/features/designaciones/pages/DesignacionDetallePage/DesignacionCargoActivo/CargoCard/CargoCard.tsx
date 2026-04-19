@@ -1,10 +1,10 @@
 import { User } from "lucide-react";
+import BadgeSituacionRevista from "@/components/BadgeSituacionRevista/BadgeSituacionRevista";
+import BadgeEstadoAsignacion from "@/components/BagdeEstadoAsignacion";
+import type { AsignacionDetalleDTO } from "@/utils/types";
 import CargoCardMenu from "../CargoCardMenu";
 import PeriodoCargo from "../PeriodoCargo";
 import styles from "./CargoCard.module.scss";
-import type { AsignacionDetalleDTO } from "@/utils/types";
-import BadgeEstadoAsignacion from "@/components/BagdeEstadoAsignacion";
-import BadgeSituacionRevista from "@/components/BadgeSituacionRevista/BadgeSituacionRevista";
 
 type Props = {
 	cargo: AsignacionDetalleDTO;
@@ -39,6 +39,6 @@ export default function CargoCard({ cargo, onEditar }: Props) {
 				<BadgeSituacionRevista value={situacionDeRevista} />
 				<BadgeEstadoAsignacion value={estadoAsignacion} />
 			</div>
-		</div >
+		</div>
 	);
 }

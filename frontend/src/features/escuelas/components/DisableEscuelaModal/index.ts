@@ -1,1 +1,1 @@
-export { default } from "./DisableEscuelaModal"
+export { default } from "./DisableEscuelaModal";

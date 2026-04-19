@@ -6,7 +6,7 @@ import {
 	ordenarCursos,
 	TURNO_LABELS,
 } from "@/features/cursos/utils/cursos.utils";
-import { CursoNombreDTO, DesignacionCursoCreateDTO } from "@/utils/types";
+import type { CursoNombreDTO, DesignacionCursoCreateDTO } from "@/utils/types";
 
 type Props = {
 	register: UseFormRegister<DesignacionCursoCreateDTO>;

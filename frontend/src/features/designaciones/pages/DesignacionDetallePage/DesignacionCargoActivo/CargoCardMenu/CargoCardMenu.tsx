@@ -16,7 +16,11 @@ export default function CargoCardMenu({ onEditar }: Props) {
 
 	return (
 		<div className={styles.menuWrapper}>
-			<button type="button" className={styles.menuButton} onClick={() => setOpen(!open)}>
+			<button
+				type="button"
+				className={styles.menuButton}
+				onClick={() => setOpen(!open)}
+			>
 				<MoreVertical size={18} />
 			</button>
 

@@ -19,8 +19,7 @@ const capitalizarNombre = (valor: string) =>
 		.toLowerCase()
 		.replace(/\b\p{L}/gu, (c) => c.toUpperCase());
 
-const requiredString = (message: string) =>
-	z.string().trim().min(1, message);
+const requiredString = (message: string) => z.string().trim().min(1, message);
 
 const optionalString = () =>
 	z
@@ -28,7 +27,6 @@ const optionalString = () =>
 		.trim()
 		.transform((v) => (v === "" ? undefined : v))
 		.optional();
-
 
 const requiredNombre = (message: string) =>
 	z
@@ -47,7 +45,7 @@ const requiredNombre = (message: string) =>
 export const empleadoEducativoBaseSchema = z.object({
 	cuil: requiredString("El CUIL es obligatorio").regex(
 		cuilRegex,
-		"El CUIL debe tener el formato XX-XXXXXXXX-X"
+		"El CUIL debe tener el formato XX-XXXXXXXX-X",
 	),
 
 	nombre: requiredNombre("El nombre es obligatorio"),
@@ -60,12 +58,10 @@ export const empleadoEducativoBaseSchema = z.object({
 
 	email: requiredString("El email es obligatorio").regex(
 		emailRegex,
-		"El email no tiene un formato válido"
+		"El email no tiene un formato válido",
 	),
 
-	fechaDeNacimiento: requiredFechaISO(
-		"La fecha de nacimiento es obligatoria"
-	),
+	fechaDeNacimiento: requiredFechaISO("La fecha de nacimiento es obligatoria"),
 
 	fechaDeIngreso: optionalFechaISO(),
 });
@@ -74,15 +70,14 @@ export const empleadoEducativoBaseSchema = z.object({
 	 Crear
 ========================= */
 
-export const crearEmpleadoEducativoSchema =
-	empleadoEducativoBaseSchema.refine(
-		(data) => {
-			if (!data.fechaDeIngreso || !data.fechaDeNacimiento) return true;
-			return data.fechaDeIngreso >= data.fechaDeNacimiento;
-		},
-		{
-			message:
-				"La fecha de ingreso no puede ser anterior a la fecha de nacimiento",
-			path: ["fechaDeIngreso"],
-		}
-	);
+export const crearEmpleadoEducativoSchema = empleadoEducativoBaseSchema.refine(
+	(data) => {
+		if (!data.fechaDeIngreso || !data.fechaDeNacimiento) return true;
+		return data.fechaDeIngreso >= data.fechaDeNacimiento;
+	},
+	{
+		message:
+			"La fecha de ingreso no puede ser anterior a la fecha de nacimiento",
+		path: ["fechaDeIngreso"],
+	},
+);

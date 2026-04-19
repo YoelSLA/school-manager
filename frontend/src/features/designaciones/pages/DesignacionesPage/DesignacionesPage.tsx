@@ -1,18 +1,18 @@
 import { useCallback, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
+import ListPageLayout from "@/layout/ListPageLayout";
+import Pagination from "@/layout/Pagination";
+import SidebarPageLayout from "@/layout/SidebarPageLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
+import type { CursoFiltersState, DesignacionFiltro } from "@/utils/types";
 import { useDesignacionesAdministrativas } from "../../hooks/useDesignacionesAdministrativas";
 import { useDesignacionesCursos } from "../../hooks/useDesignacionesCursos";
-import DesignacionesFilters from "./DesignacionesFilters";
-import SidebarPageLayout from "@/layout/SidebarPageLayout";
-import Pagination from "@/layout/Pagination";
-import DesignacionesContent from "./DesignacionesContent";
-import ListPageLayout from "@/layout/ListPageLayout";
-import DesignacionesHeader from "./DesignacionesHeader";
 import { useDesignacionesNavigation } from "../../hooks/useDesignacionesNavigation";
-import type { CursoFiltersState, DesignacionFiltro } from "@/utils/types";
+import DesignacionesContent from "./DesignacionesContent";
+import DesignacionesFilters from "./DesignacionesFilters";
+import DesignacionesHeader from "./DesignacionesHeader";
 
 export default function DesignacionesPage() {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -25,8 +25,7 @@ export default function DesignacionesPage() {
 			 PARAMS FROM URL
 	========================= */
 
-	const filtro =
-		(searchParams.get("tipo") as DesignacionFiltro) ?? "ADMIN";
+	const filtro = (searchParams.get("tipo") as DesignacionFiltro) ?? "ADMIN";
 
 	const page = Number(searchParams.get("page") ?? 0);
 
@@ -56,7 +55,7 @@ export default function DesignacionesPage() {
 				return next;
 			});
 		},
-		[setSearchParams]
+		[setSearchParams],
 	);
 
 	/* =========================
@@ -67,7 +66,7 @@ export default function DesignacionesPage() {
 		escuelaActiva?.id,
 		page,
 		pageSize,
-		{ enabled: isAdmin }
+		{ enabled: isAdmin },
 	);
 
 	const cursoQuery = useDesignacionesCursos(
@@ -75,7 +74,7 @@ export default function DesignacionesPage() {
 		page,
 		pageSize,
 		cursoFilters,
-		{ enabled: !isAdmin }
+		{ enabled: !isAdmin },
 	);
 
 	/* =========================
@@ -83,8 +82,8 @@ export default function DesignacionesPage() {
 	========================= */
 
 	const totalPages = isAdmin
-		? adminQuery.data?.totalPages ?? 0
-		: cursoQuery.data?.totalPages ?? 0;
+		? (adminQuery.data?.totalPages ?? 0)
+		: (cursoQuery.data?.totalPages ?? 0);
 
 	useEffect(() => {
 		if (page >= totalPages && totalPages > 0) {
@@ -116,11 +115,7 @@ export default function DesignacionesPage() {
 					filtro={filtro}
 					updateParams={updateParams}
 					handleRefresh={handleRefresh}
-					isFetching={
-						isAdmin
-							? adminQuery.isFetching
-							: cursoQuery.isFetching
-					}
+					isFetching={isAdmin ? adminQuery.isFetching : cursoQuery.isFetching}
 					navigation={navigation}
 				/>
 			}

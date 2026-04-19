@@ -1,8 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
+import type {
+	CursoNombreDTO,
+	DesignacionCursoUpdateDTO,
+	DesignacionDetalleDTO,
+	MateriaNombreDTO,
+} from "@/utils/types";
 import { editarDesignacionCursoSchema } from "../schemas/editarDesignacionCurso.schema";
-import { CursoNombreDTO, DesignacionCursoUpdateDTO, DesignacionDetalleDTO, MateriaNombreDTO } from "@/utils/types";
 
 type Props = {
 	designacion?: DesignacionDetalleDTO;
@@ -21,10 +26,7 @@ export function useEditarDesignacionCursoForm({
 
 	const { reset } = form;
 
-	const franjas = useFieldArray<
-		DesignacionCursoUpdateDTO,
-		"franjasHorarias"
-	>({
+	const franjas = useFieldArray<DesignacionCursoUpdateDTO, "franjasHorarias">({
 		control: form.control,
 		name: "franjasHorarias",
 	});

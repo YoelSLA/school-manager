@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
-import styles from "./AsignacionesList.module.scss";
-import type { EmpleadoEducativoAsignacionItemDTO } from "@/utils/types";
 import AsignacionRow from "@/features/asignaciones/components/AsignacionRow";
+import type { EmpleadoEducativoAsignacionItemDTO } from "@/utils/types";
+import styles from "./AsignacionesList.module.scss";
 
 type Props = {
 	asignaciones: EmpleadoEducativoAsignacionItemDTO[];
@@ -10,23 +10,16 @@ type Props = {
 type Tab = "DOCENTE" | "ADMINISTRATIVO";
 
 export default function AsignacionesList({ asignaciones }: Props) {
-
 	const [activeTab, setActiveTab] = useState<Tab>("DOCENTE");
 
 	const asignacionesDocentes = useMemo(
-		() =>
-			asignaciones.filter(
-				(a) => a.designacion.tipo === "CURSO"
-			),
-		[asignaciones]
+		() => asignaciones.filter((a) => a.designacion.tipo === "CURSO"),
+		[asignaciones],
 	);
 
 	const asignacionesAdministrativas = useMemo(
-		() =>
-			asignaciones.filter(
-				(a) => a.designacion.tipo === "ADMINISTRATIVA"
-			),
-		[asignaciones]
+		() => asignaciones.filter((a) => a.designacion.tipo === "ADMINISTRATIVA"),
+		[asignaciones],
 	);
 
 	const visibleAsignaciones =
@@ -42,10 +35,9 @@ export default function AsignacionesList({ asignaciones }: Props) {
 				<div className={styles.asignaciones__tabs}>
 					<button
 						type="button"
-						className={`${styles.asignaciones__tab} ${activeTab === "DOCENTE"
-							? styles["asignaciones__tab--active"]
-							: ""
-							}`}
+						className={`${styles.asignaciones__tab} ${
+							activeTab === "DOCENTE" ? styles["asignaciones__tab--active"] : ""
+						}`}
 						onClick={() => setActiveTab("DOCENTE")}
 					>
 						Docentes ({asignacionesDocentes.length})
@@ -53,10 +45,11 @@ export default function AsignacionesList({ asignaciones }: Props) {
 
 					<button
 						type="button"
-						className={`${styles.asignaciones__tab} ${activeTab === "ADMINISTRATIVO"
-							? styles["asignaciones__tab--active"]
-							: ""
-							}`}
+						className={`${styles.asignaciones__tab} ${
+							activeTab === "ADMINISTRATIVO"
+								? styles["asignaciones__tab--active"]
+								: ""
+						}`}
 						onClick={() => setActiveTab("ADMINISTRATIVO")}
 					>
 						Administrativos ({asignacionesAdministrativas.length})
@@ -73,10 +66,7 @@ export default function AsignacionesList({ asignaciones }: Props) {
 					</p>
 				) : (
 					visibleAsignaciones.map((asignacion) => (
-						<AsignacionRow
-							key={asignacion.id}
-							asignacion={asignacion}
-						/>
+						<AsignacionRow key={asignacion.id} asignacion={asignacion} />
 					))
 				)}
 			</div>

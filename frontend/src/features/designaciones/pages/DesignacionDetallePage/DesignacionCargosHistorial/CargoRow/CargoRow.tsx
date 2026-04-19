@@ -1,10 +1,9 @@
-
-import EmpleadoInfo from "@/components/EmpleadoInfo/EmpleadoInfo";
 import SituacionRevistaBadge from "@/components/BadgeSituacionRevista/BadgeSituacionRevista";
-import { formatearFecha } from "@/utils";
-import styles from "./CargoRow.module.scss";
-import type { AsignacionDetalleDTO } from "@/utils/types";
 import BadgeEstadoAsignacion from "@/components/BagdeEstadoAsignacion";
+import EmpleadoInfo from "@/components/EmpleadoInfo/EmpleadoInfo";
+import { formatearFecha } from "@/utils";
+import type { AsignacionDetalleDTO } from "@/utils/types";
+import styles from "./CargoRow.module.scss";
 
 type Props = {
 	cargo: AsignacionDetalleDTO;

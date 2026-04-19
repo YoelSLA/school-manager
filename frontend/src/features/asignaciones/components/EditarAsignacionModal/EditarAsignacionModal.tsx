@@ -1,10 +1,10 @@
 import { useState } from "react";
+import type { AsignacionDetalleDTO, EditarAsignacionDTO } from "@/utils/types";
+import { CaracteristicaAsignacion } from "@/utils/types/enums";
 import { useCubrirConProvisionalForm } from "../../form/useCubrirConProvisionalForm";
 import { useCubrirConTitularForm } from "../../form/useCubrirConTitularForm";
 import { useEditarAsignacion } from "../../hooks/useEditarAsignacion";
 import AsignacionModalBase from "../AsignacionModalBase/AsignacionModalBase";
-import { AsignacionDetalleDTO, EditarAsignacionDTO } from "@/utils/types";
-import { CaracteristicaAsignacion } from "@/utils/types/enums";
 
 type Props = {
 	asignacion: AsignacionDetalleDTO;
