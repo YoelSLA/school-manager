@@ -56,9 +56,11 @@ public abstract class Asignacion {
 			Integer secuencia
 	) {
 		validarCrearAsignacion(empleadoEducativo, designacion, periodo, secuencia);
+
 		this.empleadoEducativo = empleadoEducativo;
 		this.designacion = designacion;
 		this.periodo = periodo;
+		this.secuencia = secuencia;
 	}
 
 	public void finalizarPorBajaDefinitiva(CausaBaja causaBaja, LocalDate fechaBaja) {

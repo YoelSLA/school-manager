@@ -16,8 +16,6 @@ export default function RolEducativoSelectField({
 	disabled = false,
 }: Props) {
 
-	console.log("RolEducativo values:", Object.values(RolEducativo));
-	console.log("ROL_EDUCATIVO_LABELS:", ROL_EDUCATIVO_LABELS);
 	return (
 		<FormSelectField<DesignacionAdministrativaFormValues>
 			label="Rol educativo"

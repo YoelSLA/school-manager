@@ -27,7 +27,6 @@ public class LicenciaControllerREST {
 			@PathVariable Long licenciaId,
 			@RequestBody @Valid CubrirDesignacionesDTO dto
 	) {
-
 		designacionService.cubrirConSuplentes(
 				licenciaId,
 				dto.empleadoId(),
@@ -35,6 +34,7 @@ public class LicenciaControllerREST {
 				dto.fechaTomaPosesion(),
 				dto.secuencia()
 		);
+
 	}
 
 	@PutMapping("/{licenciaId}/coberturas/{designacionId}")

@@ -4,7 +4,7 @@ import Modal from "@/components/Modal";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
 import type { EmpleadoEducativoMinimoDTO } from "@/utils/types";
 import { useCambiarCoberturaForm } from "../../hooks/useCambiarCoberturaForm";
-import styles from "./LicenciaCambiarCoberturaModal.module.scss";
+import styles from "../LicenciaCoberturaModal.module.scss";
 
 type Props = {
 	licenciaId: number;
@@ -59,7 +59,7 @@ export default function LicenciaCambiarCoberturaModal({
 						<div className={styles.selector}>
 							<EmpleadoSelector
 								defaultEmpleado={empleadoInicial}
-								onChange={(empleado) => setEmpleado(empleado)}
+								onChange={setEmpleado}
 							/>
 						</div>
 
