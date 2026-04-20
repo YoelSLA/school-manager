@@ -1,11 +1,11 @@
 import type { UseFormRegister } from "react-hook-form";
 import FormSelectField from "@/components/forms/FormSelectField/FormSelectField";
 import { ROL_EDUCATIVO_LABELS } from "@/features/designaciones/utils/designacion.utils";
-import type { DesignacionAdministrativaCreateDTO } from "@/utils/types";
+import type { DesignacionAdministrativaFormValues } from "@/utils/types";
 import { RolEducativo } from "@/utils/types/enums";
 
 type Props = {
-	register: UseFormRegister<DesignacionAdministrativaCreateDTO>;
+	register: UseFormRegister<DesignacionAdministrativaFormValues>;
 	error?: string;
 	disabled?: boolean;
 };
@@ -15,8 +15,11 @@ export default function RolEducativoSelectField({
 	error,
 	disabled = false,
 }: Props) {
+
+	console.log("RolEducativo values:", Object.values(RolEducativo));
+	console.log("ROL_EDUCATIVO_LABELS:", ROL_EDUCATIVO_LABELS);
 	return (
-		<FormSelectField
+		<FormSelectField<DesignacionAdministrativaFormValues>
 			label="Rol educativo"
 			name="rolEducativo"
 			register={register}
@@ -28,9 +31,11 @@ export default function RolEducativoSelectField({
 		>
 			{Object.values(RolEducativo)
 				.sort((a, b) =>
-					ROL_EDUCATIVO_LABELS[a].localeCompare(ROL_EDUCATIVO_LABELS[b], "es", {
-						sensitivity: "base",
-					}),
+					ROL_EDUCATIVO_LABELS[a].localeCompare(
+						ROL_EDUCATIVO_LABELS[b],
+						"es",
+						{ sensitivity: "base" },
+					),
 				)
 				.map((rol) => (
 					<option key={rol} value={rol}>

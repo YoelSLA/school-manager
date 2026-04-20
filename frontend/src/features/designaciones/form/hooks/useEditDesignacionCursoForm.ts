@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import type {
 	CursoNombreDTO,
+	DesignacionCursoFormValues,
 	DesignacionCursoUpdateDTO,
 	DesignacionDetalleDTO,
 	MateriaNombreDTO,
@@ -20,23 +21,26 @@ export function useEditarDesignacionCursoForm({
 	materias,
 	cursos,
 }: Props) {
-	const form = useForm<DesignacionCursoUpdateDTO>({
+	const form = useForm<
+		DesignacionCursoFormValues,
+		undefined,
+		DesignacionCursoUpdateDTO
+	>({
 		resolver: zodResolver(editarDesignacionCursoSchema),
 	});
 
 	const { reset } = form;
 
-	const franjas = useFieldArray<DesignacionCursoUpdateDTO, "franjasHorarias">({
+	const franjas = useFieldArray<
+		DesignacionCursoFormValues,
+		"franjasHorarias"
+	>({
 		control: form.control,
 		name: "franjasHorarias",
 	});
 
 	useEffect(() => {
-		if (!designacion) {
-			return;
-		}
-
-		if (designacion.tipo !== "CURSO") {
+		if (!designacion || designacion.tipo !== "CURSO") {
 			return;
 		}
 
@@ -52,18 +56,13 @@ export function useEditarDesignacionCursoForm({
 			(c) => c.division === designacion.curso,
 		);
 
-		const materiaId = materiaEncontrada?.id;
-		const cursoId = cursoEncontrado?.id;
-
-		const dataReset = {
+		reset({
 			cupof: designacion.cupof,
-			materiaId,
-			cursoId,
+			materiaId: materiaEncontrada?.id,
+			cursoId: cursoEncontrado?.id,
 			orientacion: designacion.orientacion ?? "",
 			franjasHorarias: designacion.franjasHorarias ?? [],
-		};
-
-		reset(dataReset);
+		});
 	}, [designacion, materias, cursos, reset]);
 
 	return {

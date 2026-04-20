@@ -1,8 +1,8 @@
-import CupofInputField from "@/components/forms/inputs/CupofInputField/CupofInputField";
+import CupofAdministrativaInputField from "@/components/forms/inputs/CupofAdministrativaInputField";
+import RolEducativoSelectField from "@/components/forms/selects/RolEducativoSelectField";
 import { useDesignacionAdministrativaForm } from "@/features/designaciones/form/hooks/useDesignacionAdministrativaForm";
 import type { DesignacionAdministrativaCreateDTO } from "@/utils/types";
-import RolEducativoSelectField from "../../../../components/forms/selects/RolEducativoSelectField/RolEducativoSelectField";
-import DesignacionFormLayout from "../DesignacionFormLayout/DesignacionFormLayout";
+import DesignacionAdministrativaFormLayout from "../DesignacionAdministrativaFormLayout";
 import styles from "./AdministrativaForm.module.scss";
 
 type Props = {
@@ -10,7 +10,10 @@ type Props = {
 	isSubmitting: boolean;
 };
 
-export default function AdministrativaForm({ onSubmit, isSubmitting }: Props) {
+export default function AdministrativaForm({
+	onSubmit,
+	isSubmitting,
+}: Props) {
 	const {
 		form: {
 			register,
@@ -22,10 +25,10 @@ export default function AdministrativaForm({ onSubmit, isSubmitting }: Props) {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<DesignacionFormLayout<DesignacionAdministrativaCreateDTO>
+			<DesignacionAdministrativaFormLayout
 				left={
 					<div className={styles.left}>
-						<CupofInputField<DesignacionAdministrativaCreateDTO>
+						<CupofAdministrativaInputField
 							register={register}
 							error={errors.cupof?.message}
 						/>

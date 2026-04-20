@@ -1,5 +1,5 @@
 @use "@/styles/breakpoints" as *;
-@use "../FranjasHorariasBox/FranjasHorariasList/FranjaHorariaRow/FranjaHorariaRow.module.scss" as franjaRow;
+@use "./FranjaHorariaRow.module.scss" as franjaRow;
 
 /* config */
 $gap-small: 2px;
@@ -18,7 +18,7 @@ $list-padding-y: 16px;
 
 /* helper */
 @function list-height($row, $rows, $gap) {
-  @return ($row * $rows)+($gap * ($rows - 1))+$list-padding-y;
+	@return ($row * $rows)+($gap * ($rows - 1))+$list-padding-y;
 }
 
 /* =====================

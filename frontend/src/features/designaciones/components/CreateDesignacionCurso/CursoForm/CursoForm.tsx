@@ -1,37 +1,31 @@
-import CupofInputField from "@/components/forms/inputs/CupofInputField";
+
 import CursoSelectField from "@/components/forms/selects/CursoSelectField";
 import MateriaSelectField from "@/components/forms/selects/MateriaSelectField";
 import OrientacionSelectField from "@/components/forms/selects/OrientacionSelectField";
 import { useCursosNombres } from "@/features/cursos/hooks/useCursosNombres";
+import { useDesignacionCursoForm } from "@/features/designaciones/form/hooks/useDesignacionCursoForm";
 import { useMateriasSelect } from "@/features/materias/hooks/useMateriasSelect";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
-import type {
-	DesignacionCursoDetalleDTO,
-	DesignacionCursoUpdateDTO,
-} from "@/utils/types";
-import { useEditarDesignacionCursoForm } from "../../form/hooks/useEditDesignacionCursoForm";
-import styles from "../CursoForm/CursoForm.module.scss";
-import DesignacionFormLayout from "../DesignacionFormLayout/DesignacionFormLayout";
+import type { DesignacionCursoCreateDTO } from "@/utils/types";
+import { ORIENTACIONES } from "../../../utils/designacion.utils";
+import styles from "./CursoForm.module.scss";
+import DesignacionCursoFormLayout from "../DesignacionCursoFormLayout";
+import CupofCursoInputField from "@/components/forms/inputs/CupofCursoInputField";
 
 type Props = {
-	designacion: DesignacionCursoDetalleDTO;
-	onSubmit: (data: DesignacionCursoUpdateDTO) => Promise<void>;
+	onSubmit: (data: DesignacionCursoCreateDTO) => Promise<void>;
 	isSubmitting: boolean;
 };
 
-export default function EditarDesignacionCurso({
-	designacion,
-	onSubmit,
-	isSubmitting,
-}: Props) {
+export default function CursoForm({ onSubmit, isSubmitting }: Props) {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 
-	const { cursos, isLoading: isLoadingCursos } = useCursosNombres(
+	const { materias, isLoading: isLoadingMaterias } = useMateriasSelect(
 		escuelaActiva?.id,
 	);
 
-	const { materias, isLoading: isLoadingMaterias } = useMateriasSelect(
+	const { cursos, isLoading: isLoadingCursos } = useCursosNombres(
 		escuelaActiva?.id,
 	);
 
@@ -42,26 +36,18 @@ export default function EditarDesignacionCurso({
 			formState: { errors },
 		},
 		franjas: { fields, append, remove },
-	} = useEditarDesignacionCursoForm({
-		designacion,
+	} = useDesignacionCursoForm({
 		materias,
 		cursos,
+		orientaciones: ORIENTACIONES.map((o) => o.value),
 	});
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			{/* HEADER */}
-			<div className={styles.header}>
-				<h1 className={styles.title}>Editar designación</h1>
-				<p className={styles.subtitle}>
-					Modificá los datos de la designación del curso
-				</p>
-			</div>
-
-			<DesignacionFormLayout<DesignacionCursoUpdateDTO>
+			<DesignacionCursoFormLayout
 				left={
 					<div className={styles.left}>
-						<CupofInputField<DesignacionCursoUpdateDTO>
+						<CupofCursoInputField
 							register={register}
 							error={errors.cupof?.message}
 						/>

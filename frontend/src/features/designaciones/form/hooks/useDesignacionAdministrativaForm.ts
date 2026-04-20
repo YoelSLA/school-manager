@@ -1,11 +1,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
-import type { DesignacionAdministrativaCreateDTO } from "@/utils/types";
+import type {
+	DesignacionAdministrativaCreateDTO,
+	DesignacionAdministrativaFormValues,
+} from "@/utils/types";
 import { Dia, RolEducativo } from "@/utils/types/enums";
 import { crearDesignacionAdministrativaSchema } from "../schemas/crearDesignacionAdministrativa.schema";
 
 export function useDesignacionAdministrativaForm() {
-	const form = useForm<DesignacionAdministrativaCreateDTO>({
+	const form = useForm<
+		DesignacionAdministrativaFormValues,
+		undefined,
+		DesignacionAdministrativaCreateDTO
+	>({
 		resolver: zodResolver(crearDesignacionAdministrativaSchema),
 		defaultValues: {
 			cupof: undefined,
@@ -21,7 +28,7 @@ export function useDesignacionAdministrativaForm() {
 	});
 
 	const franjas = useFieldArray<
-		DesignacionAdministrativaCreateDTO,
+		DesignacionAdministrativaFormValues,
 		"franjasHorarias"
 	>({
 		control: form.control,
