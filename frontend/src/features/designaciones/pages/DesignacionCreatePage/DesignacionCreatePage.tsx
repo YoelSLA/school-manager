@@ -11,8 +11,8 @@ import type {
 	DesignacionCursoCreateDTO,
 	DesignacionFiltro,
 } from "@/utils/types";
-import AdministrativaForm from "../../components/AdministrativaForm/AdministrativaForm";
-import CursoForm from "../../components/CursoForm/CursoForm";
+import AdministrativaForm from "../../components/CreateDesignacionAdministrativa/AdministrativaForm/AdministrativaForm";
+import CursoForm from "../../components/CreateDesignacionCurso/CursoForm/CursoForm";
 import { useCrearDesignacionAdministrativa } from "../../hooks/useCrearDesignacionAdministrativa";
 import { useCrearDesignacionCurso } from "../../hooks/useCrearDesignacionCurso";
 import styles from "./DesignacionCreatePage.module.scss";

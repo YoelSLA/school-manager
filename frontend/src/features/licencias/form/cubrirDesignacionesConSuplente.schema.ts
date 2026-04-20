@@ -10,6 +10,10 @@ export const cubrirDesignacionesConSuplenteSchema = z.object({
 		.array(z.coerce.number())
 		.min(1, { message: "Debe indicar al menos una designación a cubrir" }),
 
+	secuencia: z.coerce.number().min(1, {
+		message: "La secuencia debe ser mayor o igual a 1",
+	}),
+
 	fechaTomaPosesion: requiredFechaISO(
 		"La fecha de toma de posesión es obligatoria",
 	),

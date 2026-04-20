@@ -36,7 +36,7 @@ export default function CargoRow({ cargo }: Props) {
 				{/* Período */}
 				<div className={styles.periodo}>
 					<span>{formatearFecha(fechaDesde)}</span>
-					<span className={styles.arrow}>→</span>
+					<span className={styles.arrow}>➡️</span>
 					<span>{fechaHasta ? formatearFecha(fechaHasta) : "—"}</span>
 				</div>
 

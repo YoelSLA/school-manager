@@ -1,0 +1,52 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.description {
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1.5;
+  color: #475569;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.selector {
+  width: 100%;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 16px;
+  align-items: start;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.secuencia {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fecha {
+  width: 100%;
+}
+
+.error {
+  margin: 0;
+
+  font-size: 12px;
+  font-weight: 500;
+  color: #dc2626;
+}

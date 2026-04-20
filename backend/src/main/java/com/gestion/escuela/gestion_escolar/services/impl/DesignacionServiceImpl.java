@@ -24,8 +24,6 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.licencia.CoberturaN
 import com.gestion.escuela.gestion_escolar.models.exceptions.licencia.CoberturaNoPerteneceALicenciaException;
 import com.gestion.escuela.gestion_escolar.persistence.*;
 import com.gestion.escuela.gestion_escolar.services.DesignacionService;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -51,9 +49,6 @@ public class DesignacionServiceImpl implements DesignacionService {
 	private final AsignacionRepository asignacionRepository;
 	private final MateriaRepository materiaRepository;
 	private final CursoRepository cursoRepository;
-
-	@PersistenceContext
-	private EntityManager entityManager;
 
 	/**
 	 * Persiste una designación previamente creada y válida.
@@ -81,7 +76,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 
 		Validaciones.noVacio(designaciones, "designaciones");
 
-		Escuela escuela = designaciones.get(0).getEscuela();
+		Escuela escuela = designaciones.getFirst().getEscuela();
 		Long escuelaId = escuela.getId();
 		String nombreEscuela = escuela.getNombre();
 
@@ -114,7 +109,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 
 		if (!existentes.isEmpty()) {
 
-			Integer cupofDuplicado = existentes.get(0).getCupof();
+			Integer cupofDuplicado = existentes.getFirst().getCupof();
 
 			throw new RecursoDuplicadoException(
 					String.format(
@@ -231,14 +226,14 @@ public class DesignacionServiceImpl implements DesignacionService {
 
 		List<Designacion> designaciones = obtenerDesignaciones(designacionIds);
 
-		designaciones.forEach(d ->
-				d.cubrirConSuplente(
-						licencia,
-						suplente,
-						fechaTomaPosesion,
-						secuencia
-				)
-		);
+		for (Designacion d : designaciones) {
+			d.cubrirConSuplente(
+					licencia,
+					suplente,
+					fechaTomaPosesion,
+					secuencia
+			);
+		}
 	}
 
 	public AsignacionSuplente renovarCobertura(
@@ -513,27 +508,5 @@ public class DesignacionServiceImpl implements DesignacionService {
 			);
 		}
 	}
-
-	private void imprimirEstadoEntidad(Object entidad) {
-		boolean managed = entityManager.contains(entidad);
-
-		try {
-			Long id = (Long) entidad.getClass().getMethod("getId").invoke(entidad);
-
-			if (managed) {
-				System.out.println("Estado: MANAGED");
-			} else if (id == null) {
-				System.out.println("Estado: TRANSIENT");
-			} else {
-				System.out.println("Estado: DETACHED");
-			}
-
-		} catch (
-				Exception e) {
-			System.out.println("No se pudo determinar el estado");
-		}
-	}
-
-
 }
 

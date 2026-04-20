@@ -15,3 +15,4 @@ export const crearDesignacionAdministrativaSchema = z.object({
 
 	rolEducativo: z.enum(RolEducativo),
 });
+

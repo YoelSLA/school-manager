@@ -1,8 +1,10 @@
+// LicenciaCubrirDesignacionesModal.tsx
 import FechaField from "@/components/forms/inputs/FechaInputField";
+import NumberField from "@/components/forms/inputs/NumberFieldInput";
 import Modal from "@/components/Modal";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
 import { useCubrirDesignacionesForm } from "../../hooks/useCubrirDesignacionesConSuplenteForm";
-import styles from "./LicenciaCubrirDesignacionesModal.module.scss";
+import styles from "../LicenciaCoberturaModal.module.scss";
 
 type Props = {
 	licenciaId: number;
@@ -51,14 +53,30 @@ export default function LicenciaCubrirDesignacionesModal({
 							/>
 						</div>
 
-						<div className={styles.fecha}>
-							<FechaField
-								register={register}
-								name="fechaTomaPosesion"
-								label="Fecha de toma de posesión"
-								error={errors.fechaTomaPosesion?.message}
-							/>
+						<div className={styles.row}>
+							<div className={styles.secuencia}>
+								<NumberField
+									register={register}
+									name="secuencia"
+									label="Secuencia"
+									min={1}
+									error={errors.secuencia?.message}
+								/>
+							</div>
+
+							<div className={styles.fecha}>
+								<FechaField
+									register={register}
+									name="fechaTomaPosesion"
+									label="Fecha de toma de posesión"
+									error={errors.fechaTomaPosesion?.message}
+								/>
+							</div>
 						</div>
+
+						{errors.root && (
+							<p className={styles.error}>{errors.root.message}</p>
+						)}
 					</div>
 				</div>
 			</Modal>
