@@ -1,1 +1,1 @@
-export { default } from "./EmpleadoBottomBar"
+export { default } from "./EmpleadoBottomBar";

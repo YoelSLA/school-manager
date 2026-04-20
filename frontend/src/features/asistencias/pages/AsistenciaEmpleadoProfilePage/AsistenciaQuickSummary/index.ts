@@ -1,1 +1,1 @@
-export { default } from "./AsistenciaQuickSummary"
+export { default } from "./AsistenciaQuickSummary";

@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { designacionesQueryKeys } from "@/utils/queryKeys/designaciones.queryKeys";
 import { crearLicencia } from "@/features/empleadosEducativos/services/empleadosEducativos.services";
+import { designacionesQueryKeys } from "@/utils/queryKeys/designaciones.queryKeys";
 import { empleadosEducativosQueryKeys } from "@/utils/queryKeys/empleadosEducativos.queryKeys";
-import { LicenciaCreateDTO } from "@/utils/types";
 import { licenciasQueryKeys } from "@/utils/queryKeys/licencias.queryKeys";
+import type { LicenciaCreateDTO } from "@/utils/types";
 
 type Variables = {
 	empleadoId: number;

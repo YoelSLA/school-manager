@@ -336,14 +336,12 @@ export const TIPOS_LICENCIA: TipoLicencia[] = [
 		enumValue: "L_10579RT",
 		articulo: "Artículo 121",
 		codigo: "10579RT",
-		descripcion:
-			"Licencia para personal docente.",
+		descripcion: "Licencia para personal docente.",
 	},
 	{
 		enumValue: "L_10430RT",
 		articulo: "Artículo 49",
 		codigo: "10430RT",
-		descripcion:
-			"Licencia para personal auxiliar.",
+		descripcion: "Licencia para personal auxiliar.",
 	},
 ];

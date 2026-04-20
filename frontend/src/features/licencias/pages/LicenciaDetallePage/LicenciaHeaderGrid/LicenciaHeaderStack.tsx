@@ -1,10 +1,9 @@
 import Button from "@/components/Button";
 import { useLicenciasNavigation } from "@/features/licencias/hooks/useLicenciasNavigation";
-
+import type { LicenciaDetalleDTO } from "@/utils/types";
 import styles from "./LicenciaHeaderStack.module.scss";
 import LicenciaInfoBox from "./LicenciaInfoBox";
 import LicenciaPersonaBox from "./LicenciaPersonaBox";
-import type { LicenciaDetalleDTO } from "@/utils/types";
 
 type Props = {
 	licencia: LicenciaDetalleDTO;
@@ -29,11 +28,9 @@ export default function LicenciaHeaderStack({ licencia }: Props) {
 						licenciasNav.verDesignaciones(
 							licencia.id,
 							licencia.empleado,
-							licencia
-						)
-					}
-
-					}
+							licencia,
+						);
+					}}
 				>
 					Ver designaciones afectadas
 				</Button>

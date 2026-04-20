@@ -1,18 +1,18 @@
 import { useUpdaterStore } from "./store";
 
 export function useUpdater() {
-  const store = useUpdaterStore();
+	const store = useUpdaterStore();
 
-  const updateAvailable =
-    store.status === "available" || store.status === "downloading";
+	const updateAvailable =
+		store.status === "available" || store.status === "downloading";
 
-  const downloaded = store.status === "downloaded";
+	const downloaded = store.status === "downloaded";
 
-  return {
-    ...store,
-    updateAvailable,
-    downloaded,
-    startDownload: () => window.updater?.startDownload(),
-    restartApp: () => window.updater?.restartApp(),
-  };
+	return {
+		...store,
+		updateAvailable,
+		downloaded,
+		startDownload: () => window.updater?.startDownload(),
+		restartApp: () => window.updater?.restartApp(),
+	};
 }

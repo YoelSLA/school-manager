@@ -6,7 +6,6 @@ type Props = {
 
 export default function AsistenciaKpiGrid({ empleadoId }: Props) {
 	// después vas a reemplazar esto por el hook real usando empleadoId
-	console.log(empleadoId);
 
 	const kpis = [
 		{

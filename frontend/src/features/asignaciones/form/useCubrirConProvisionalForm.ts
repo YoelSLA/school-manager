@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import type { CubrirProvisionalDTO } from "@/utils/types";
 import { cubrirProvisionalSchema } from "./cubrirProvisional.schema";
-import { CubrirProvisionalDTO } from "@/utils/types";
 
 export function useCubrirConProvisionalForm() {
 	const form = useForm<CubrirProvisionalDTO>({

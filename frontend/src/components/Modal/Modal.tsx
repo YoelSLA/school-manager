@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
 import { AlertTriangle, CheckCircle2 } from "lucide-react";
+import type { ReactNode } from "react";
 
 import Button from "@/components/Button";
 import styles from "./Modal.module.scss";

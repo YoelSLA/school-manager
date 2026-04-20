@@ -1,15 +1,14 @@
 import { useState } from "react";
-
+import type { EscuelaCreateDTO, EscuelaResponseDTO } from "@/utils/types";
+import CreateEscuelaModal from "../components/CreateEscuelaModal/CreateEscuelaModal";
+import DisableEscuelaModal from "../components/DisableEscuelaModal";
 import { useCrearEscuela } from "../hooks/useCrearEscuela";
+import { useDeleteEscuela } from "../hooks/useDeleteEscuela";
+import { useGetAllEscuelas } from "../hooks/useGetAllEscuelas";
 import { SeleccionarEscuelaEmpty } from "./SeleccionarEscuelaEmpty";
 import { SeleccionarEscuelaGrid } from "./SeleccionarEscuelaGrid";
 import { SeleccionarEscuelaHeader } from "./SeleccionarEscuelaHeader";
 import styles from "./SeleccionarEscuelaPage.module.scss";
-import { EscuelaCreateDTO, EscuelaResponseDTO } from "@/utils/types";
-import { useGetAllEscuelas } from "../hooks/useGetAllEscuelas";
-import { useDeleteEscuela } from "../hooks/useDeleteEscuela";
-import DisableEscuelaModal from "../components/DisableEscuelaModal";
-import CreateEscuelaModal from "../components/CreateEscuelaModal/CreateEscuelaModal";
 
 export default function SeleccionarEscuelaPage() {
 	const { escuelas, isLoading } = useGetAllEscuelas();
@@ -37,7 +36,7 @@ export default function SeleccionarEscuelaPage() {
 		<div className={styles["seleccionar-escuela"]}>
 			<SeleccionarEscuelaHeader
 				onCrear={() => setModalCrear(true)}
-				onRefresh={() => { }}
+				onRefresh={() => {}}
 				isLoading={isLoading}
 			/>
 

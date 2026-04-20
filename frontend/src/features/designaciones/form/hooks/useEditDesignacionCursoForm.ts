@@ -1,8 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
+import type {
+	CursoNombreDTO,
+	DesignacionCursoFormValues,
+	DesignacionCursoUpdateDTO,
+	DesignacionDetalleDTO,
+	MateriaNombreDTO,
+} from "@/utils/types";
 import { editarDesignacionCursoSchema } from "../schemas/editarDesignacionCurso.schema";
-import { CursoNombreDTO, DesignacionCursoUpdateDTO, DesignacionDetalleDTO, MateriaNombreDTO } from "@/utils/types";
 
 type Props = {
 	designacion?: DesignacionDetalleDTO;
@@ -15,14 +21,18 @@ export function useEditarDesignacionCursoForm({
 	materias,
 	cursos,
 }: Props) {
-	const form = useForm<DesignacionCursoUpdateDTO>({
+	const form = useForm<
+		DesignacionCursoFormValues,
+		undefined,
+		DesignacionCursoUpdateDTO
+	>({
 		resolver: zodResolver(editarDesignacionCursoSchema),
 	});
 
 	const { reset } = form;
 
 	const franjas = useFieldArray<
-		DesignacionCursoUpdateDTO,
+		DesignacionCursoFormValues,
 		"franjasHorarias"
 	>({
 		control: form.control,
@@ -30,11 +40,7 @@ export function useEditarDesignacionCursoForm({
 	});
 
 	useEffect(() => {
-		if (!designacion) {
-			return;
-		}
-
-		if (designacion.tipo !== "CURSO") {
+		if (!designacion || designacion.tipo !== "CURSO") {
 			return;
 		}
 
@@ -50,18 +56,13 @@ export function useEditarDesignacionCursoForm({
 			(c) => c.division === designacion.curso,
 		);
 
-		const materiaId = materiaEncontrada?.id;
-		const cursoId = cursoEncontrado?.id;
-
-		const dataReset = {
+		reset({
 			cupof: designacion.cupof,
-			materiaId,
-			cursoId,
+			materiaId: materiaEncontrada?.id,
+			cursoId: cursoEncontrado?.id,
 			orientacion: designacion.orientacion ?? "",
 			franjasHorarias: designacion.franjasHorarias ?? [],
-		};
-
-		reset(dataReset);
+		});
 	}, [designacion, materias, cursos, reset]);
 
 	return {

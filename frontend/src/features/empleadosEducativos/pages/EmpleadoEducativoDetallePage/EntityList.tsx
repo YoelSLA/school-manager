@@ -31,8 +31,6 @@ export default function EntityList<T>({
 				<h3 className={styles.entityList__title}>{title}</h3>
 			</header>
 			<section className={styles.entityList}>
-
-
 				<div className={styles.entityList__content}>
 					{items.length === 0 ? (
 						<p className={styles.entityList__empty}>{emptyText}</p>
@@ -54,7 +52,5 @@ export default function EntityList<T>({
 				)}
 			</section>
 		</>
-
-
 	);
 }

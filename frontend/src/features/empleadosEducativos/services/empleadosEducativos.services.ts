@@ -1,7 +1,19 @@
 import qs from "qs";
-import type { DesignacionLicenciaItemDTO, LicenciaCreateDTO } from "@/features/licencias/types/licencia.types";
 import { http } from "@/axiosTemplate";
-import type { BajaDefinitivaDTO, EmpleadoEducativoCreateDTO, EmpleadoEducativoDetalleDTO, EmpleadoEducativoFiltro, EmpleadoEducativoMinimoDTO, EmpleadoEducativoUpdateDTO, PageResponse, SortState } from "@/utils/types";
+import type {
+	DesignacionLicenciaItemDTO,
+	LicenciaCreateDTO,
+} from "@/features/licencias/types/licencia.types";
+import type {
+	BajaDefinitivaDTO,
+	EmpleadoEducativoCreateDTO,
+	EmpleadoEducativoDetalleDTO,
+	EmpleadoEducativoFiltro,
+	EmpleadoEducativoMinimoDTO,
+	EmpleadoEducativoUpdateDTO,
+	PageResponse,
+	SortState,
+} from "@/utils/types";
 import { buildSortQuery } from "../utils/empleadosEducativos.utils";
 
 export const crearEmpleadoEducativo = async (
@@ -83,7 +95,7 @@ export const getEmpleadoEducativoById = async (
 
 export const darDeBajaDefinitiva = async (
 	empleadoId: number,
-	payload: BajaDefinitivaDTO
+	payload: BajaDefinitivaDTO,
 ): Promise<void> => {
 	await http.post(
 		`/empleadosEducativos/${empleadoId}/baja-definitiva`,

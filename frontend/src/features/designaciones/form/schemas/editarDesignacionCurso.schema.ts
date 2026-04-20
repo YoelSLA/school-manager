@@ -26,4 +26,3 @@ export const editarDesignacionCursoSchema = z.object({
 		.string()
 		.min(1, { message: "Debe seleccionar una orientación" }),
 });
-

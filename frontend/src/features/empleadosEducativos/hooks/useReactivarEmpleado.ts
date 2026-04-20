@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { reactivarEmpleado } from "../services/empleadosEducativos.services";
 import { empleadosEducativosQueryKeys } from "../../../utils/queryKeys/empleadosEducativos.queryKeys";
+import { reactivarEmpleado } from "../services/empleadosEducativos.services";
 
 type Variables = {
 	empleadoId: number;

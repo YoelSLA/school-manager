@@ -1,4 +1,4 @@
-import { CursoFiltro } from "../types";
+import type { CursoFiltro } from "../types";
 
 export const cursosQueryKeys = {
 	all: ["cursos"] as const,

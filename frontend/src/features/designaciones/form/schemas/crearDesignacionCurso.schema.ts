@@ -26,4 +26,3 @@ export const crearDesignacionCursoSchema = z.object({
 		.string()
 		.min(1, { message: "Debe seleccionar una orientación" }),
 });
-

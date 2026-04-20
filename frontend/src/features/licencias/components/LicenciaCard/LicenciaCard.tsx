@@ -1,11 +1,11 @@
 import { Calendar, Flag, Hourglass, Trash2 } from "lucide-react";
-import Card from "@/components/Card/Card";
+import BadgeEstadoLicencia from "@/components/BagdeEstadoLicencia";
 import Button from "@/components/Button/Button";
+import Card from "@/components/Card/Card";
 import EmpleadoInfo from "@/components/EmpleadoInfo";
 import { formatearFecha } from "@/utils";
-import styles from "./LicenciaCard.module.scss";
 import type { LicenciaResumenDTO } from "@/utils/types";
-import BadgeEstadoLicencia from "@/components/BagdeEstadoLicencia";
+import styles from "./LicenciaCard.module.scss";
 
 type Props = {
 	licencia: LicenciaResumenDTO;
@@ -13,7 +13,11 @@ type Props = {
 	onDelete?: () => void;
 };
 
-export default function LicenciaCard({ licencia, onVerDetalle, onDelete }: Props) {
+export default function LicenciaCard({
+	licencia,
+	onVerDetalle,
+	onDelete,
+}: Props) {
 	const { fechaDesde, fechaHasta, dias } = licencia.periodo;
 
 	const status = licencia.estadoLicencia === "CUBIERTA" ? "success" : "danger";

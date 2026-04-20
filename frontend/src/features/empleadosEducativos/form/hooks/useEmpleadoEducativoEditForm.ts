@@ -15,7 +15,7 @@ export function useEmpleadoEducativoEditForm() {
 			email: "",
 			fechaDeNacimiento: "",
 			fechaDeIngreso: "",
-		}
+		},
 	});
 
 	return {

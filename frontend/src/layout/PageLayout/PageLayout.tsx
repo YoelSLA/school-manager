@@ -9,17 +9,11 @@ type Props = {
 export default function PageLayout({ breadcrumbs, children }: Props) {
 	return (
 		<section className={styles.pageLayout}>
-
 			{breadcrumbs && (
-				<div className={styles.pageLayout__breadcrumbs}>
-					{breadcrumbs}
-				</div>
+				<div className={styles.pageLayout__breadcrumbs}>{breadcrumbs}</div>
 			)}
 
-			<main className={styles.pageLayout__content}>
-				{children}
-			</main>
-
+			<main className={styles.pageLayout__content}>{children}</main>
 		</section>
 	);
 }

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { crearEscuela } from "../services/escuelas.services";
 import { escuelasQueryKeys } from "@/utils/queryKeys/escuelas.queryKeys";
+import { crearEscuela } from "../services/escuelas.services";
 
 export function useCrearEscuela() {
 	const queryClient = useQueryClient();

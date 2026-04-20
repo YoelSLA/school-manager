@@ -1,1 +1,1 @@
-export { default } from "./BadgeSituacionRevista"
+export { default } from "./BadgeSituacionRevista";

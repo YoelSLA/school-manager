@@ -1,4 +1,3 @@
-
 import type { EmpleadoAsistenciaDTO } from "@/utils/types";
 import EmpleadoAsistenciaCard from "../../../components/EmpleadoAsistenciaCard/EmpleadoAsistenciaCard";
 import styles from "./EmpleadoResultsList.module.scss";

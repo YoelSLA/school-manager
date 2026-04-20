@@ -47,27 +47,27 @@ const CLASES_MOCK: {
 	dia: DiaSemana;
 	clase: Clase;
 }[] = [
-		{
-			modulo: 1,
-			dia: "LUNES",
-			clase: {
-				id: 2467776,
-				materia: "Inglés",
-				docente: "Soplan, María José",
-				estado: "SUPLENTE",
-			},
+	{
+		modulo: 1,
+		dia: "LUNES",
+		clase: {
+			id: 2467776,
+			materia: "Inglés",
+			docente: "Soplan, María José",
+			estado: "SUPLENTE",
 		},
-		{
-			modulo: 1,
-			dia: "MARTES",
-			clase: {
-				id: 2467778,
-				materia: "Ciencias Naturales",
-				docente: "Ferreyra, Carolina Natasha",
-				estado: "SUPLENTE",
-			},
+	},
+	{
+		modulo: 1,
+		dia: "MARTES",
+		clase: {
+			id: 2467778,
+			materia: "Ciencias Naturales",
+			docente: "Ferreyra, Carolina Natasha",
+			estado: "SUPLENTE",
 		},
-	];
+	},
+];
 
 /* =========================
 	 NORMALIZACIÓN

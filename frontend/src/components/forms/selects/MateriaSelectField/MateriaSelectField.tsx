@@ -1,9 +1,12 @@
 import type { UseFormRegister } from "react-hook-form";
 import FormSelectField from "@/components/forms/FormSelectField/FormSelectField";
-import { DesignacionCursoCreateDTO, MateriaNombreDTO } from "@/utils/types";
+import type {
+	DesignacionCursoFormValues,
+	MateriaNombreDTO,
+} from "@/utils/types";
 
 type Props = {
-	register: UseFormRegister<DesignacionCursoCreateDTO>;
+	register: UseFormRegister<DesignacionCursoFormValues>;
 	materias: MateriaNombreDTO[];
 	isLoading?: boolean;
 	error?: string;
@@ -16,7 +19,7 @@ export default function MateriaSelectField({
 	error,
 }: Props) {
 	return (
-		<FormSelectField
+		<FormSelectField<DesignacionCursoFormValues>
 			label="Materia"
 			name="materiaId"
 			register={register}

@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { requiredFechaISO } from "@/utils/zod/schemas";
 import { CaracteristicaAsignacion } from "@/utils/types/enums";
+import { requiredFechaISO } from "@/utils/zod/schemas";
 
 export const editarTitularSchema = z.object({
 	empleadoId: z.coerce
@@ -16,5 +16,3 @@ export const editarTitularSchema = z.object({
 		message: "La característica es obligatoria",
 	}),
 });
-
-

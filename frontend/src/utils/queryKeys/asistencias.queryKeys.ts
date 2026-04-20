@@ -1,10 +1,7 @@
 export const asistenciasQueryKeys = {
 	all: ["asistencias"] as const,
 
-	rolesConAsistencias: (
-		escuelaId: number,
-		fecha: string,
-	) =>
+	rolesConAsistencias: (escuelaId: number, fecha: string) =>
 		[
 			...asistenciasQueryKeys.all,
 			"escuela",

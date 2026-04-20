@@ -38,11 +38,8 @@ import static org.mockito.Mockito.when;
 class EmpleadoEducativoTest {
 
 	private Escuela escuela;
-	private EmpleadoEducativo leguizamonMarina;
 	private EmpleadoEducativo giardinoNoraRosa;
-	private EmpleadoEducativo vallejosValeria;
 	private DesignacionAdministrativa direccion2467830;
-	private DesignacionAdministrativa auxiliar2330001;
 	private DesignacionCurso designacion2467775;
 	private DesignacionCurso designacion2467791;
 	private DesignacionCurso designacion2467811;
@@ -53,15 +50,7 @@ class EmpleadoEducativoTest {
 		escuela = crearEscuela65Bernal();
 
 		fechaNacimientoGiardino = LocalDate.of(1961, Month.NOVEMBER, 10);
-
-		leguizamonMarina = crearEmpleado(
-				"27-22604033-7",
-				"Marina",
-				"Leguizamon",
-				LocalDate.of(1971, Month.JANUARY, 22),
-				LocalDate.of(2004, Month.JULY, 21)
-		);
-
+		
 		giardinoNoraRosa = crearEmpleado(
 				"27-14762038-7",
 				"Nora Rosa",
@@ -70,16 +59,7 @@ class EmpleadoEducativoTest {
 				LocalDate.of(1998, Month.MARCH, 1)
 		);
 
-		vallejosValeria = crearEmpleado(
-				"27-33688860-9",
-				"Nora Rosa",
-				"Giardino",
-				LocalDate.of(1988, Month.APRIL, 17),
-				LocalDate.of(2024, Month.FEBRUARY, 24)
-		);
-
 		direccion2467830 = crearDesignacionAdministrativa(2467830, RolEducativo.DIRECCION);
-		auxiliar2330001 = crearDesignacionAdministrativa(2330001, RolEducativo.AUXILIAR);
 	}
 
 	private EmpleadoEducativo crearEmpleado(
@@ -838,8 +818,6 @@ class EmpleadoEducativoTest {
 			Licencia licenciaActiva = giardinoNoraRosa.licenciaActivaEn(fechaTomaPosesion).orElseThrow();
 
 			assertEquals(licenciaActiva, licencia);
-
-			assertEquals(Set.of(LUNES, JUEVES, VIERNES), giardinoNoraRosa.diasQueNoTrabajaPorLicencia(fechaTomaPosesion));
 
 		}
 

@@ -18,5 +18,3 @@ export const editarProvisionalSchema = z
 		message: "La fecha de cese no puede ser anterior a la toma de posesión",
 		path: ["fechaCese"],
 	});
-
-

@@ -15,5 +15,3 @@ export const crearCursoSchema = z.object({
 		.int({ message: "Debe ser un número entero" })
 		.min(1, { message: "Debe ser mayor o igual a 1" }),
 });
-
-

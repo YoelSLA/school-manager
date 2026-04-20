@@ -14,11 +14,12 @@ export default function FormSection({
 	title,
 	children,
 	layout = "grid",
-	grow = false
+	grow = false,
 }: Props) {
 	return (
-		<section className={`${styles.section} ${grow ? styles["section--grow"] : ""
-			}`}>
+		<section
+			className={`${styles.section} ${grow ? styles["section--grow"] : ""}`}
+		>
 			{title?.trim() && (
 				<>
 					<h3 className={styles.section__title}>{title}</h3>
@@ -27,8 +28,9 @@ export default function FormSection({
 			)}
 
 			<div
-				className={`${styles.section__content} ${layout === "column" ? styles["section__content--column"] : ""
-					}`}
+				className={`${styles.section__content} ${
+					layout === "column" ? styles["section__content--column"] : ""
+				}`}
 			>
 				{children}
 			</div>

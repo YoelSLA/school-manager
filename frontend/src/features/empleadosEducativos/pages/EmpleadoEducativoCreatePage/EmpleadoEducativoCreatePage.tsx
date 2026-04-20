@@ -1,26 +1,25 @@
-import type { AxiosError } from "axios";
-import { useState, useEffect } from "react";
-import toast from "react-hot-toast";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-	crearEmpleadoEducativoSchema
-} from "../../form/schemas/crearEmpleadoEducativo.schema";
-import PageLayout from "@/layout/PageLayout/PageLayout";
+import type { AxiosError } from "axios";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import Button from "@/components/Button/Button";
+import FormActions from "@/components/FormActions";
+import Modal from "@/components/Modal/Modal";
 import Breadcrumbs from "@/layout/Breadcrumbs";
+import PageLayout from "@/layout/PageLayout/PageLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
+
 import { getTodayArgentinaISO } from "@/utils";
+import type { EmpleadoEducativoCreateDTO } from "@/utils/types";
+import ContactoSection from "../../components/EmpleadoEducativoCreateForm/ContactoSection";
+import DatosPersonalesSection from "../../components/EmpleadoEducativoCreateForm/DatosPersonalesSection";
+import IngresoSection from "../../components/EmpleadoEducativoCreateForm/IngresoSection";
+import { crearEmpleadoEducativoSchema } from "../../form/schemas/crearEmpleadoEducativo.schema";
 import { useCrearEmpleadoEducativo } from "../../hooks/useCrearEmpleadoEducativo";
 import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
-import FormActions from "@/components/FormActions";
 import styles from "./EmpleadoEducativoCreatePage.module.scss";
-import DatosPersonalesSection from "../../components/EmpleadoEducativoCreateForm/DatosPersonalesSection";
-import ContactoSection from "../../components/EmpleadoEducativoCreateForm/ContactoSection";
-import IngresoSection from "../../components/EmpleadoEducativoCreateForm/IngresoSection";
-import Button from "@/components/Button/Button";
-import Modal from "@/components/Modal/Modal";
-import { EmpleadoEducativoCreateDTO } from "@/utils/types";
 
 export default function EmpleadoEducativoCreatePage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
@@ -31,17 +30,6 @@ export default function EmpleadoEducativoCreatePage() {
 
 	const [agregarFecha, setAgregarFecha] = useState(false);
 	const [usarHoy, setUsarHoy] = useState(false);
-	const [resultModal, setResultModal] = useState<{
-		open: boolean;
-		success: boolean;
-		title: string;
-		description: string;
-	}>({
-		open: false,
-		success: true,
-		title: "",
-		description: "",
-	});
 
 	/* =====================
 		 FORM DIRECTO (SIN HOOK)
@@ -68,7 +56,20 @@ export default function EmpleadoEducativoCreatePage() {
 			fechaDeIngreso: undefined,
 		},
 		mode: "onSubmit",
+		criteriaMode: "all",
 		shouldFocusError: true,
+	});
+
+	const [resultModal, setResultModal] = useState<{
+		open: boolean;
+		success: boolean;
+		title: string;
+		description: string;
+	}>({
+		open: false,
+		success: true,
+		title: "",
+		description: "",
 	});
 
 	/* =====================
@@ -101,7 +102,6 @@ export default function EmpleadoEducativoCreatePage() {
 	===================== */
 
 	const onSubmit = async (data: EmpleadoEducativoCreateDTO) => {
-
 		if (!escuelaActiva) {
 			toast.error("No hay escuela seleccionada");
 			return;
@@ -171,23 +171,14 @@ export default function EmpleadoEducativoCreatePage() {
 		<PageLayout breadcrumbs={<Breadcrumbs />}>
 			<div className={styles.page}>
 				<div className={styles.container}>
-					<form
-						className={styles.form}
-						onSubmit={handleSubmit(onSubmit)}
-					>
+					<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 						<div className={styles.grid}>
 							<div className={styles.datos}>
-								<DatosPersonalesSection
-									register={register}
-									errors={errors}
-								/>
+								<DatosPersonalesSection register={register} errors={errors} />
 							</div>
 
 							<div className={styles.rightColumn}>
-								<ContactoSection
-									register={register}
-									errors={errors}
-								/>
+								<ContactoSection register={register} errors={errors} />
 
 								<IngresoSection
 									register={register}
@@ -201,7 +192,9 @@ export default function EmpleadoEducativoCreatePage() {
 
 							<div className={styles.actions}>
 								<FormActions
-									isSubmitting={isSubmitting && Object.keys(errors).length === 0}
+									isSubmitting={
+										isSubmitting && Object.keys(errors).length === 0
+									}
 									label="Guardar"
 									align="right"
 								/>

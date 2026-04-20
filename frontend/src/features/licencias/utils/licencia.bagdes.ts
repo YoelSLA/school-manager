@@ -1,5 +1,5 @@
 import type { BadgeVariant } from "@/components/Badge/Badge.types";
-import { EstadoLicencia } from "@/utils/types";
+import type { EstadoLicencia } from "@/utils/types";
 
 export const ESTADO_LICENCIA_BADGE = {
 	CUBIERTA: "cubierta",

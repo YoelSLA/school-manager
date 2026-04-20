@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { listarDesignacionesAdministrativas } from "../services/designaciones.services";
 import { designacionesQueryKeys } from "../../../utils/queryKeys/designaciones.queryKeys";
+import { listarDesignacionesAdministrativas } from "../services/designaciones.services";
 
 type Options = {
 	enabled?: boolean;

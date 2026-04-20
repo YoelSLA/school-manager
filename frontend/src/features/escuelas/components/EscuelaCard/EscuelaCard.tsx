@@ -1,13 +1,10 @@
+import { MapPin, Pencil, Phone, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Card from "@/components/Card/Card";
 import { setEscuelaActiva } from "@/store/escuela/escuelaSlice";
 import { useAppDispatch } from "@/store/hooks";
-
-import Card from "@/components/Card/Card";
-
-import { Pencil, Trash2, MapPin, Phone } from "lucide-react";
-
+import type { EscuelaResponseDTO } from "@/utils/types";
 import styles from "./EscuelaCard.module.scss";
-import { EscuelaResponseDTO } from "@/utils/types";
 
 type Props = {
 	escuela: EscuelaResponseDTO;
@@ -39,24 +36,21 @@ export default function EscuelaCard({ escuela, onEditar, onEliminar }: Props) {
 				<p className={styles.escuelaCardInfo}>
 					<MapPin size={16} />
 					<span>
-						<strong>Localidad:</strong>{" "}
-						{escuela.localidad ?? "No informado"}
+						<strong>Localidad:</strong> {escuela.localidad ?? "No informado"}
 					</span>
 				</p>
 
 				<p className={styles.escuelaCardInfo}>
 					<MapPin size={16} />
 					<span>
-						<strong>Dirección:</strong>{" "}
-						{escuela.direccion ?? "No informado"}
+						<strong>Dirección:</strong> {escuela.direccion ?? "No informado"}
 					</span>
 				</p>
 
 				<p className={styles.escuelaCardInfo}>
 					<Phone size={16} />
 					<span>
-						<strong>Teléfono:</strong>{" "}
-						{escuela.telefono ?? "No informado"}
+						<strong>Teléfono:</strong> {escuela.telefono ?? "No informado"}
 					</span>
 				</p>
 			</div>

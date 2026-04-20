@@ -1,8 +1,8 @@
 import { ArrowRight, Clock } from "lucide-react";
 import { formatearHora } from "@/utils";
 import type { FranjaHorariaMinimoDTO } from "@/utils/types";
-import styles from "./HorarioDia.module.scss";
 import type { Dia } from "@/utils/types/enums";
+import styles from "./HorarioDia.module.scss";
 
 type Props = {
 	dia: Dia;

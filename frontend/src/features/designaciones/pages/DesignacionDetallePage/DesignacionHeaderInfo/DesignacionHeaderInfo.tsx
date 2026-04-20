@@ -1,11 +1,11 @@
 import { BookOpen, Compass, GraduationCap, Pencil } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import BadgeEstadoDesignacion from "@/components/BagdeEstadoDesignacion";
 import Button from "@/components/Button";
 import RolEducativoBadge from "@/features/empleadosEducativos/components/RolEducativoBadge";
 import { designacionesPaths } from "@/router/paths";
-import styles from "./DesignacionHeaderInfo.module.scss";
 import type { DesignacionDetalleDTO } from "@/utils/types";
-import BadgeEstadoDesignacion from "@/components/BagdeEstadoDesignacion";
+import styles from "./DesignacionHeaderInfo.module.scss";
 
 type Props = {
 	designacion: DesignacionDetalleDTO;

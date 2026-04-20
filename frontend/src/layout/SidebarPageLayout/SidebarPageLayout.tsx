@@ -6,23 +6,12 @@ type Props = {
 	content: ReactNode;
 };
 
-export default function SidebarPageLayout({
-	sidebar,
-	content,
-}: Props) {
+export default function SidebarPageLayout({ sidebar, content }: Props) {
 	return (
 		<section className={styles.layout}>
+			{sidebar && <aside className={styles.layout__sidebar}>{sidebar}</aside>}
 
-			{sidebar && (
-				<aside className={styles.layout__sidebar}>
-					{sidebar}
-				</aside>
-			)}
-
-			<main className={styles.layout__content}>
-				{content}
-			</main>
-
+			<main className={styles.layout__content}>{content}</main>
 		</section>
 	);
 }

@@ -1,34 +1,32 @@
 import { useState } from "react";
-import ConfirmModal from "@/components/ConfirmModal"; "@/layout/SidebarSectate";
-import CrearMateriaModal from "../components/MateriaCreateModal";
-import MateriaEditModal from "../components/MateriaEditModal/MateriaEditModal";
-import { useCrearMateria } from "../hooks/useCreateMateria";
-import useDeleteMateria from "../hooks/useDeleteMateria";
+import ConfirmModal from "@/components/ConfirmModal";
+("@/layout/SidebarSectate");
 
 import { usePagination } from "@/hooks/usePagination";
-
+import GridListState from "@/layout/GridListState";
+import ListPageLayout from "@/layout/ListPageLayout";
+import Pagination from "@/layout/Pagination";
+import Sidebar from "@/layout/Sidebar";
+import SidebarPageLayout from "@/layout/SidebarPageLayout";
+import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
+import { useAppSelector } from "@/store/hooks";
 import type {
 	MateriaCreateDTO,
 	MateriaResponseDTO,
 	MateriaUpdateDTO,
 } from "@/utils/types";
-import SidebarPageLayout from "@/layout/SidebarPageLayout";
-import ListPageLayout from "@/layout/ListPageLayout";
-import GridListState from "@/layout/GridListState";
-import { useMaterias } from "../hooks/useMaterias";
-import { useAppSelector } from "@/store/hooks";
-import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
-import { useEditMateria } from "../hooks/useUpdateMateria";
 import MateriaCard from "../components/MateriaCard";
-import Pagination from "@/layout/Pagination";
-import Sidebar from "@/layout/Sidebar";
+import CrearMateriaModal from "../components/MateriaCreateModal";
+import MateriaEditModal from "../components/MateriaEditModal/MateriaEditModal";
+import { useCrearMateria } from "../hooks/useCreateMateria";
+import useDeleteMateria from "../hooks/useDeleteMateria";
+import { useMaterias } from "../hooks/useMaterias";
+import { useEditMateria } from "../hooks/useUpdateMateria";
 
 export default function MateriasPage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 
-	const { page, setPage, pageSize } = usePagination([
-		escuelaActiva?.id,
-	]);
+	const { page, setPage, pageSize } = usePagination([escuelaActiva?.id]);
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [materiaAEditar, setMateriaAEditar] =

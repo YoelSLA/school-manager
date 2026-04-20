@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import type { EmpleadoAsistenciaDTO, PageResponse } from "@/utils/types";
-import { obtenerEmpleadosAsistencias } from "../services/asistencias.services";
 import { asistenciasQueryKeys } from "../../../utils/queryKeys/asistencias.queryKeys";
+import { obtenerEmpleadosAsistencias } from "../services/asistencias.services";
 
 type Params = {
 	escuelaId: number;

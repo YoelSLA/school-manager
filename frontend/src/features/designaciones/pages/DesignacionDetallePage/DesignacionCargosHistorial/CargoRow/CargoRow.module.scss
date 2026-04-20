@@ -1,7 +1,6 @@
 @use "@/styles/_debug.mixins" as debug;
 
 .row {
-	@include debug.debug(red);
 
 	display: flex;
 	flex-direction: column;
@@ -10,6 +9,8 @@
 	padding: 10px 12px;
 	border-bottom: 1px solid #e5e7eb;
 	transition: background-color 0.15s ease;
+	background-color: white;
+	border-radius: 20px;
 
 	&:hover {
 		background-color: #f9fafb;

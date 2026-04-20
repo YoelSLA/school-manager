@@ -10,10 +10,7 @@ type Props = {
 	onSelect: (empleado: EmpleadoAsistenciaDTO) => void;
 };
 
-export default function EmpleadoAsistenciaCard({
-	empleado,
-	onSelect,
-}: Props) {
+export default function EmpleadoAsistenciaCard({ empleado, onSelect }: Props) {
 	return (
 		<article className={styles.card}>
 			<button

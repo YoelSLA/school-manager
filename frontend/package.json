@@ -1,7 +1,7 @@
 {
 	"name": "frontend",
-	"version": "1.2.4",
-	"main": "electron/main.js",
+	"version": "1.2.6",
+	"main": "electron/main.cjs",
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",

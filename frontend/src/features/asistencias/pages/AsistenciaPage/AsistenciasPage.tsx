@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
 import Pagination from "@/layout/Pagination";
+import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
+import { useAppSelector } from "@/store/hooks";
 import { useAsistenciaNavigation } from "../../hooks/useAsistenciaNavigation";
 import { useEmpleadosAsistencias } from "../../hooks/useEmpleadosAsistencias";
 import { useRolesConAsistencias } from "../../hooks/useRolesConAsistencias";
+import styles from "./AsistenciasPage.module.scss";
 import AsistenciasSidebar from "./AsistenciasSidebar";
 import type { RolItem } from "./AsistenciasSidebar/AsistenciasSidebar";
 import EmpleadoResultsList from "./EmpleadoResultsList";
 import EmpleadoSearchBar from "./EmpleadoSearchBar";
-import styles from "./AsistenciasPage.module.scss";
-import { useAppSelector } from "@/store/hooks";
-import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 
 function todayISO(): string {
 	return new Date().toISOString().slice(0, 10);
@@ -20,7 +20,6 @@ export default function AsistenciasPage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 	const fecha = todayISO();
 	const asistenciaNav = useAsistenciaNavigation();
-
 
 	const {
 		data: rolesData = [],
@@ -125,11 +124,7 @@ export default function AsistenciasPage() {
 				</div>
 
 				<div className={styles.pagination}>
-					<Pagination
-						page={page}
-						totalPages={totalPages}
-						onChange={setPage}
-					/>
+					<Pagination page={page} totalPages={totalPages} onChange={setPage} />
 				</div>
 			</main>
 		</section>

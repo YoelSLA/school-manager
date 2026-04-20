@@ -32,7 +32,12 @@ export default function FormInputFieldRHF<T extends FieldValues>({
 	const fieldId = String(name);
 	const isReadOnly = inputProps?.readOnly;
 
-	const registration = register(name, registerOptions);
+	const {
+		onChange,
+		onBlur,
+		ref,
+		name: fieldName,
+	} = register(name, registerOptions);
 
 	return (
 		<div
@@ -50,20 +55,15 @@ export default function FormInputFieldRHF<T extends FieldValues>({
 
 			<input
 				id={fieldId}
+				name={fieldName}
 				type={type}
+				ref={ref}
 				className={styles["form-field__input"]}
 				aria-invalid={!!error}
 				aria-describedby={error ? `${fieldId}-error` : undefined}
-				{...registration}
+				onChange={(e) => { onChange(e) }}
+				onBlur={(e) => { onBlur(e) }}
 				{...inputProps}
-				onChange={(e) => {
-					registration.onChange(e);
-					inputProps?.onChange?.(e);
-				}}
-				onBlur={(e) => {
-					registration.onBlur(e);
-					inputProps?.onBlur?.(e);
-				}}
 			/>
 
 			{error && (

@@ -1,9 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useCubrirDesignacionesConSuplente } from "./useCubrirDesignacionesConSuplente";
-import { CubrirDesignacionesConSuplente, EmpleadoEducativoMinimoDTO } from "@/utils/types";
+import type { z } from "zod";
+import type { EmpleadoEducativoMinimoDTO } from "@/utils/types";
 import { cubrirDesignacionesConSuplenteSchema } from "../form/cubrirDesignacionesConSuplente.schema";
+import { useCubrirDesignacionesConSuplente } from "./useCubrirDesignacionesConSuplente";
 
 type Props = {
 	licenciaId: number;
@@ -20,16 +21,18 @@ export function useCubrirDesignacionesForm({
 		null,
 	);
 
-	const form = useForm<
-		Pick<CubrirDesignacionesConSuplente, "fechaTomaPosesion">
-	>({
-		resolver: zodResolver(
-			cubrirDesignacionesConSuplenteSchema.pick({
-				fechaTomaPosesion: true,
-			}),
-		),
+	const formSchema = cubrirDesignacionesConSuplenteSchema.pick({
+		fechaTomaPosesion: true,
+		secuencia: true,
+	});
+
+	type FormValues = z.input<typeof formSchema>;
+
+	const form = useForm<FormValues>({
+		resolver: zodResolver(formSchema),
 		defaultValues: {
 			fechaTomaPosesion: "",
+			secuencia: 1,
 		},
 	});
 
@@ -48,6 +51,7 @@ export function useCubrirDesignacionesForm({
 			body: {
 				empleadoId: suplente.id,
 				designacionesIds: designacionIds,
+				secuencia: Number(data.secuencia),
 				fechaTomaPosesion: data.fechaTomaPosesion,
 			},
 		});

@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import PageLayout from "@/layout/PageLayout/PageLayout";
+import type { CursoResponseDTO } from "@/utils/types";
 import CursoDetalleHeader from "./CursoDetalleHeader";
 import CursoDetalleMain from "./CursoDetalleMain";
 import styles from "./CursoDetallePage.module.scss";
-import type { CursoResponseDTO } from "@/utils/types";
 
 export default function CursoDetallePage() {
 	const { cursoId } = useParams<{ cursoId: string }>();

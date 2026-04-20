@@ -1,8 +1,8 @@
 import { CalendarRange, FileText, Timer } from "lucide-react";
 
 import BadgeEstadoLicencia from "@/components/BagdeEstadoLicencia";
-import styles from "./LicenciaRow.module.scss";
 import type { EmpleadoEducativoLicenciaItemDTO } from "@/utils/types";
+import styles from "./LicenciaRow.module.scss";
 
 type Props = {
 	licencia: EmpleadoEducativoLicenciaItemDTO;
@@ -50,10 +50,7 @@ export default function LicenciaRow({ licencia }: Props) {
 						<Timer size={14} />
 						<span>{periodo.dias} días</span>
 					</div>
-
 				</div>
-
-
 			</div>
 		</article>
 	);
