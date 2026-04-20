@@ -15,7 +15,6 @@ export default function AppRouter() {
 
 	return (
 		<>
-			{/* 🔥 UI GLOBAL */}
 			{updateAvailable && <UpdateBanner />}
 
 			<Routes>

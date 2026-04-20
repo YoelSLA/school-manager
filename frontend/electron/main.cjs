@@ -1,6 +1,10 @@
 const { app, ipcMain, globalShortcut } = require("electron");
-const { createWindow, getMainWindow } = require("./windowManager");
-const { setupAutoUpdater, startDownload, restartApp } = require("./updater");
+const { createWindow, getMainWindow } = require("./windowManager.cjs");
+const {
+	setupAutoUpdater,
+	startDownload,
+	restartApp,
+} = require("./updater.cjs");
 
 const isDev = !app.isPackaged;
 
