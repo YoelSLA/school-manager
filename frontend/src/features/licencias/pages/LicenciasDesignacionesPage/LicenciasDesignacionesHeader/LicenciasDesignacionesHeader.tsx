@@ -6,6 +6,7 @@ import type {
 	LicenciaDetalleDTO,
 } from "@/utils/types";
 import styles from "./LicenciaDesignacionesHeader.module.scss";
+import InfoCard from "@/features/licencias/components/InfoCard";
 
 type Props = {
 	empleado: EmpleadoEducativoMinimoDTO;
@@ -23,44 +24,31 @@ export default function LicenciaDesignacionesHeader({
 			</div>
 
 			<div className={styles.cardsContainer}>
-				<section className={styles.card}>
-					<div className={styles.cardHeader}>
-						<User size={16} />
-						<span>Empleado</span>
-					</div>
-
+				<InfoCard icon={<User size={16} />} title="Empleado">
 					<div className={styles.mainValue}>
 						{empleado.apellido}, {empleado.nombre}
 					</div>
 
 					<div className={styles.secondaryValue}>{empleado.cuil}</div>
-				</section>
+				</InfoCard>
 
-				<section className={styles.card}>
-					<div className={styles.cardHeader}>
-						<FileText size={14} />
-						<span>Licencia</span>
-					</div>
-
+				<InfoCard icon={<FileText size={14} />} title="Licencia">
 					<div className={styles.licenciaTop}>
 						<span className={styles.article}>
 							{licencia.normativa.articulo}
 						</span>
 
-						<span className={styles.code}>{licencia.normativa.codigo}</span>
+						<span className={styles.code}>
+							{licencia.normativa.codigo}
+						</span>
 					</div>
 
 					<div className={styles.description}>
 						{licencia.normativa.descripcion}
 					</div>
-				</section>
+				</InfoCard>
 
-				<section className={styles.card}>
-					<div className={styles.cardHeader}>
-						<CalendarDays size={14} />
-						<span>Período</span>
-					</div>
-
+				<InfoCard icon={<CalendarDays size={14} />} title="Período">
 					<div className={styles.periodInline}>
 						<span>{formatearFecha(licencia.periodo.fechaDesde)}</span>
 						<span className={styles.arrow}>➡️</span>
@@ -70,7 +58,7 @@ export default function LicenciaDesignacionesHeader({
 							({licencia.periodo.dias} días)
 						</span>
 					</div>
-				</section>
+				</InfoCard>
 			</div>
 		</header>
 	);

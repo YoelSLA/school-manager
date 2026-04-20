@@ -19,6 +19,9 @@ export const ROL_EDUCATIVO_LABELS: Record<RolEducativo, string> = {
 	[RolEducativo.AUXILIAR]: "Auxiliar",
 	[RolEducativo.ENCARGO_DE_MEDIO_DE_APOYO_TECNICO_PROFESIONAL]:
 		"Encargo de medio de apoyo técnico profesional",
+	[RolEducativo.CAMBIO_DE_FUNCION]: "Cambio de función",
+	[RolEducativo.RECALIFICACION_LABORAL_DEFINITIVA]:
+		"Recalificación laboral definitiva",
 };
 
 export const ORIENTACIONES = [

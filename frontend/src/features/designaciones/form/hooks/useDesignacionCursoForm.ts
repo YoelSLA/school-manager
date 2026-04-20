@@ -4,6 +4,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import type {
 	CursoNombreDTO,
 	DesignacionCursoCreateDTO,
+	DesignacionCursoFormValues,
 	MateriaNombreDTO,
 } from "@/utils/types";
 import { Dia } from "@/utils/types/enums";
@@ -20,12 +21,16 @@ export function useDesignacionCursoForm({
 	cursos,
 	orientaciones,
 }: Props) {
-	const form = useForm<DesignacionCursoCreateDTO>({
+	const form = useForm<
+		DesignacionCursoFormValues,
+		undefined,
+		DesignacionCursoCreateDTO
+	>({
 		resolver: zodResolver(crearDesignacionCursoSchema),
 		defaultValues: {
 			cupof: undefined,
-			materiaId: 1,
-			cursoId: 1,
+			materiaId: undefined,
+			cursoId: undefined,
 			orientacion: "",
 			franjasHorarias: [
 				{
@@ -39,7 +44,10 @@ export function useDesignacionCursoForm({
 
 	const { setValue, getValues } = form;
 
-	const franjas = useFieldArray<DesignacionCursoCreateDTO, "franjasHorarias">({
+	const franjas = useFieldArray<
+		DesignacionCursoFormValues,
+		"franjasHorarias"
+	>({
 		control: form.control,
 		name: "franjasHorarias",
 	});

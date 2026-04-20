@@ -1,15 +1,17 @@
 import { useMemo } from "react";
 import type { UseFormRegister } from "react-hook-form";
-
 import FormSelectField from "@/components/forms/FormSelectField/FormSelectField";
 import {
 	ordenarCursos,
 	TURNO_LABELS,
 } from "@/features/cursos/utils/cursos.utils";
-import type { CursoNombreDTO, DesignacionCursoCreateDTO } from "@/utils/types";
+import type {
+	CursoNombreDTO,
+	DesignacionCursoFormValues,
+} from "@/utils/types";
 
 type Props = {
-	register: UseFormRegister<DesignacionCursoCreateDTO>;
+	register: UseFormRegister<DesignacionCursoFormValues>;
 	cursos: CursoNombreDTO[];
 	isLoading?: boolean;
 	error?: string;
@@ -27,9 +29,9 @@ export default function CursoSelectField({
 	}, [cursos, isLoading]);
 
 	return (
-		<FormSelectField
+		<FormSelectField<DesignacionCursoFormValues>
 			label="Curso"
-			name={"cursoId"}
+			name="cursoId"
 			register={register}
 			disabled={isLoading}
 			error={error}

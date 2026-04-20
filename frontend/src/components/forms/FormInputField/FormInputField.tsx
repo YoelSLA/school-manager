@@ -32,7 +32,6 @@ export default function FormInputFieldRHF<T extends FieldValues>({
 	const fieldId = String(name);
 	const isReadOnly = inputProps?.readOnly;
 
-	// ✅ destructuramos correctamente register
 	const {
 		onChange,
 		onBlur,
@@ -62,15 +61,9 @@ export default function FormInputFieldRHF<T extends FieldValues>({
 				className={styles["form-field__input"]}
 				aria-invalid={!!error}
 				aria-describedby={error ? `${fieldId}-error` : undefined}
-				onChange={(e) => {
-					console.log("⌨️ ON CHANGE:", name, e.target.value);
-					onChange(e);
-				}}
-				onBlur={(e) => {
-					console.log("👆 ON BLUR:", name);
-					onBlur(e);
-				}}
-				{...inputProps} // 👈 al final para no romper RHF
+				onChange={(e) => { onChange(e) }}
+				onBlur={(e) => { onBlur(e) }}
+				{...inputProps}
 			/>
 
 			{error && (

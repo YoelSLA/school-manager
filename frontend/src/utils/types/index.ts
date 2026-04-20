@@ -163,8 +163,17 @@ export type CursoNombreDTO = {
 // DESIGNACION
 // -------------------------------------------------------------------
 
+
+export type DesignacionAdministrativaFormValues = z.input<
+	typeof crearDesignacionAdministrativaSchema
+>;
+
 export type DesignacionAdministrativaCreateDTO = z.infer<
 	typeof crearDesignacionAdministrativaSchema
+>;
+
+export type DesignacionCursoFormValues = z.input<
+	typeof crearDesignacionCursoSchema
 >;
 
 export type DesignacionCursoCreateDTO = z.infer<
