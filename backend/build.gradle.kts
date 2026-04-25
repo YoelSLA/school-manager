@@ -94,3 +94,16 @@ tasks.test {
         }
     }
 }
+
+tasks.bootJar {
+    enabled =
+        true
+    archiveFileName.set(
+        "app.jar"
+    )
+}
+
+tasks.jar {
+    enabled =
+        false
+}
