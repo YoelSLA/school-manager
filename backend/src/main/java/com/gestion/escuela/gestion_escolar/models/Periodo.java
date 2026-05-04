@@ -4,6 +4,7 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioExc
 import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 import com.gestion.escuela.gestion_escolar.models.exceptions.periodo.PeriodoAbiertoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.periodo.PeriodoYaCerradoException;
 import jakarta.persistence.Embeddable;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

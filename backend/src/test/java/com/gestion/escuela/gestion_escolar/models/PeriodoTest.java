@@ -3,6 +3,7 @@ package com.gestion.escuela.gestion_escolar.models;
 import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.periodo.PeriodoAbiertoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.periodo.PeriodoYaCerradoException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -459,6 +460,38 @@ class PeriodoTest {
 			assertThat(periodoAbierto.getFechaHasta()).isNull();
 			assertThat(cerrado.getFechaHasta()).isNotNull();
 		}
+
+		}
+
+		@Test
+		@DisplayName("No se puede cerrar un período con una fecha anterior al inicio")
+		void fallaSiFechaCierreEsAnteriorAlInicio() {
+			// Arrange
+			LocalDate desde = LocalDate.of(2025, MARCH, 10);
+			LocalDate fechaCierre = LocalDate.of(2025, MARCH, 1);
+			Periodo periodoAbierto = abierto(desde);
+
+			// Act + Assert
+			assertThatThrownBy(() -> periodoAbierto.cerrarEn(fechaCierre))
+					.isInstanceOf(RangoFechasInvalidoException.class);
+		}
+
+		@Test
+		@DisplayName("Cerrar un período no modifica el período original")
+		void cerrarNoModificaElOriginal() {
+			// Arrange
+			LocalDate desde = LocalDate.of(2025, MARCH, 1);
+			Periodo periodoAbierto = abierto(desde);
+
+			// Act
+			Periodo cerrado = periodoAbierto.cerrarEn(LocalDate.of(2025, MARCH, 10));
+
+			// Assert
+			assertThat(periodoAbierto.getFechaHasta()).isNull();
+			assertThat(cerrado.getFechaHasta()).isNotNull();
+		}
+
+
 
 	}
 
