@@ -17,6 +17,7 @@ import com.gestion.escuela.gestion_escolar.services.DesignacionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +34,7 @@ public class DesignacionControllerREST {
 	private final DesignacionService designacionService;
 
 	@PostMapping("/{designacionId}/cubrir/titular")
+	@ResponseStatus(HttpStatus.CREATED)
 	public AsignacionDetalleDTO cubrirConTitular(
 			@PathVariable Long designacionId,
 			@Valid @RequestBody CubrirTitularDTO dto
@@ -49,23 +51,24 @@ public class DesignacionControllerREST {
 	}
 
 	@PostMapping("/{designacionId}/cubrir/provisional")
+	@ResponseStatus(HttpStatus.CREATED)
 	public AsignacionDetalleDTO cubrirConProvisional(
 			@PathVariable Long designacionId,
 			@Valid @RequestBody CubrirProvisionalDTO dto
 	) {
-		return AsignacionMapper.toDetalle(
-				designacionService.cubrirConProvisional(
-						designacionId,
-						dto.empleadoId(),
-						dto.fechaTomaPosesion(),
-						dto.fechaCese(),
-						dto.secuencia()
-
-				)
+		Asignacion asignacion = designacionService.cubrirConProvisional(
+				designacionId,
+				dto.empleadoId(),
+				dto.fechaTomaPosesion(),
+				dto.fechaCese(),
+				dto.secuencia()
 		);
+
+		return AsignacionMapper.toDetalle(asignacion);
 	}
 
 	@GetMapping("/{designacionId}")
+	@ResponseStatus(HttpStatus.OK)
 	public DesignacionDetalleDTO obtenerDetalle(@PathVariable Long designacionId) {
 		Designacion designacion = designacionService.obtenerPorId(designacionId);
 		return DesignacionMapper.toDetalle(designacion);
@@ -73,27 +76,21 @@ public class DesignacionControllerREST {
 
 	@GetMapping("/{designacionId}/cargo-activo")
 	public ResponseEntity<AsignacionDetalleDTO> obtenerCargoActivo(
-			@PathVariable Long designacionId,
-			@RequestParam(required = false)
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-			LocalDate fecha
+			@PathVariable Long designacionId
 	) {
-		LocalDate referencia = fecha != null ? fecha : LocalDate.now();
-
 		return designacionService
-				.obtenerCargoActivo(designacionId, referencia)
+				.obtenerCargoActivo(designacionId)
 				.map(AsignacionMapper::toDetalle)
 				.map(ResponseEntity::ok)
 				.orElseGet(() -> ResponseEntity.noContent().build());
 	}
 
 	@GetMapping("/{designacionId}/cargos")
+	@ResponseStatus(HttpStatus.OK)
 	public List<AsignacionDetalleDTO> obtenerOtrosCargos(
 			@PathVariable Long designacionId,
 			@RequestParam(required = false) EstadoAsignacion estado,
-			@RequestParam(required = false)
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-			LocalDate fecha
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha
 	) {
 		LocalDate referencia = fecha != null ? fecha : LocalDate.now();
 
@@ -105,7 +102,8 @@ public class DesignacionControllerREST {
 	}
 
 	@PutMapping("/{designacionId}/curso")
-	public ResponseEntity<Void> actualizarDesignacionCurso(
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void actualizarDesignacionCurso(
 			@PathVariable Long designacionId,
 			@Valid @RequestBody DesignacionCursoUpdateDTO dto
 	) {
@@ -127,12 +125,11 @@ public class DesignacionControllerREST {
 				dto.orientacion(),
 				franjas
 		);
-
-		return ResponseEntity.noContent().build();
 	}
 
 	@PutMapping("/{designacionId}/administrativa")
-	public ResponseEntity<Void> actualizarDesignacionAdministrativa(
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void actualizarDesignacionAdministrativa(
 			@PathVariable Long designacionId,
 			@Valid @RequestBody DesignacionAdministrativaUpdateDTO dto
 	) {
@@ -152,27 +149,34 @@ public class DesignacionControllerREST {
 				dto.rolEducativo(),
 				franjas
 		);
-
-		return ResponseEntity.noContent().build();
 	}
 
 	@PutMapping("/{designacionId}/asignaciones/{asignacionId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public AsignacionDetalleDTO editarAsignacion(
 			@PathVariable Long designacionId,
 			@PathVariable Long asignacionId,
 			@Valid @RequestBody EditarAsignacionDTO dto
 	) {
-
-		return AsignacionMapper.toDetalle(
-				designacionService.editarAsignacion(
-						designacionId,
-						asignacionId,
-						dto.empleadoId(),
-						dto.fechaTomaPosesion(),
-						dto.fechaCese(),
-						dto.secuencia()
-				)
+		Asignacion asignacion = designacionService.editarAsignacion(
+				designacionId,
+				asignacionId,
+				dto.empleadoId(),
+				dto.fechaTomaPosesion(),
+				dto.fechaCese(),
+				dto.secuencia()
 		);
+
+		return AsignacionMapper.toDetalle(asignacion);
+	}
+
+	@DeleteMapping("/{designacionId}/asignaciones/{asignacionId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void eliminarAsignacion(
+			@PathVariable Long designacionId,
+			@PathVariable Long asignacionId
+	) {
+		designacionService.eliminarAsignacion(designacionId, asignacionId);
 	}
 
 

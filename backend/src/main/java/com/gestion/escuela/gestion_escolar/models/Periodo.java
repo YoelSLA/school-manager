@@ -1,8 +1,10 @@
 package com.gestion.escuela.gestion_escolar.models;
 
+import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 import com.gestion.escuela.gestion_escolar.models.exceptions.periodo.PeriodoAbiertoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.periodo.PeriodoYaCerradoException;
 import jakarta.persistence.Embeddable;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -56,14 +58,6 @@ public class Periodo {
 		return contiene(fecha);
 	}
 
-	public boolean finalizaEn(LocalDate fecha) {
-		return fechaHasta != null && fechaHasta.equals(fecha);
-	}
-
-	public boolean comienzaEn(LocalDate fecha) {
-		return fechaDesde.equals(fecha);
-	}
-
 	public int dias() {
 
 		if (fechaHasta == null) {
@@ -75,17 +69,13 @@ public class Periodo {
 		return (int) dias;
 	}
 
-	public int diasHasta(LocalDate fecha) {
-		if (!contiene(fecha)) {
-			throw new IllegalArgumentException("La fecha no pertenece al período");
-		}
-
-		return (int) ChronoUnit.DAYS.between(fechaDesde, fecha) + 1;
-	}
-
 	public Periodo cerrarEn(LocalDate fechaCierre) {
 		if (fechaCierre == null) {
-			throw new IllegalArgumentException("fechaCierre no puede ser null");
+			throw new CampoObligatorioException("fechaCierre");
+		}
+
+		if (this.esCerrado()) {
+			throw new PeriodoYaCerradoException();
 		}
 
 		if (fechaCierre.isBefore(fechaDesde)) {
@@ -93,25 +83,6 @@ public class Periodo {
 		}
 
 		return new Periodo(this.fechaDesde, fechaCierre);
-	}
-
-	public Periodo intersectarCon(Periodo otro) {
-		if (!seSuperponeCon(otro)) {
-			return null;
-		}
-
-		LocalDate nuevoDesde = fechaDesde.isAfter(otro.fechaDesde)
-				? fechaDesde
-				: otro.fechaDesde;
-
-		LocalDate finThis = fechaHasta != null ? fechaHasta : LocalDate.MAX;
-		LocalDate finOtro = otro.fechaHasta != null ? otro.fechaHasta : LocalDate.MAX;
-
-		LocalDate nuevoHasta = finThis.isBefore(finOtro) ? finThis : finOtro;
-
-		return nuevoHasta.equals(LocalDate.MAX)
-				? new Periodo(nuevoDesde, null)
-				: new Periodo(nuevoDesde, nuevoHasta);
 	}
 
 	@Override

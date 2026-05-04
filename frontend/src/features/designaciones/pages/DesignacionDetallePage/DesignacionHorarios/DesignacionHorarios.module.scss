@@ -1,6 +1,34 @@
-.designacion-horarios {
+/* contenedor */
+
+.root {
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
-	padding: 8px;
+}
+
+/* 🔥 TITULO CON LINEA */
+
+.title {
+	font-size: 13px;
+	font-weight: 600;
+	color: #6b7280;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+
+	padding-bottom: 5px;
+	border-bottom: 1px solid #000000;
+}
+
+/* GRID */
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 10px;
+
+	background: transparent;
+	height: 100%;
+
+	align-items: stretch;
 }

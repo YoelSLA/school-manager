@@ -10,7 +10,8 @@ import type {
 	DesignacionCursoFilter,
 	DesignacionCursoResumenDTO,
 	DesignacionDetalleDTO,
-	EditarAsignacionDTO,
+	EditarProvisionalDTO,
+	EditarTitularDTO,
 	EstadoCargo,
 	PageResponse,
 } from "@/utils/types";
@@ -60,10 +61,18 @@ export async function listarDesignacionesAdministrativas(
 	page: number = 0,
 	size: number = 10,
 ): Promise<PageResponse<DesignacionAdministrativaResumenDTO>> {
+	console.log("➡️ ADMIN REQUEST PARAMS:", { escuelaId, page, size });
+
 	const { data } = await http.get<
 		PageResponse<DesignacionAdministrativaResumenDTO>
 	>(`/escuelas/${escuelaId}/designaciones/administrativas`, {
 		params: { page, size },
+	});
+
+	console.log("⬅️ ADMIN RESPONSE:", {
+		page: data.page,          // 👈 importante
+		totalPages: data.totalPages,
+		contentIds: data.content?.map((d) => d.id),
 	});
 
 	return data;
@@ -75,6 +84,8 @@ export async function listarDesignacionesCursos(
 	size: number = 10,
 	filter?: DesignacionCursoFilter,
 ): Promise<PageResponse<DesignacionCursoResumenDTO>> {
+	console.log("➡️ CURSOS REQUEST PARAMS:", { escuelaId, page, size, filter });
+
 	const { data } = await http.get<PageResponse<DesignacionCursoResumenDTO>>(
 		`/escuelas/${escuelaId}/designaciones/cursos`,
 		{
@@ -85,6 +96,12 @@ export async function listarDesignacionesCursos(
 			},
 		},
 	);
+
+	console.log("⬅️ CURSOS RESPONSE:", {
+		page: data.page,
+		totalPages: data.totalPages,
+		contentIds: data.content?.map((d) => d.id),
+	});
 
 	return data;
 }
@@ -153,15 +170,37 @@ export const cubrirConProvisional = async (
 	Editar asignación
 ====================== */
 
-export async function editarAsignacion(
+export function actualizarAsignacionTitular(
 	designacionId: number,
 	asignacionId: number,
-	payload: EditarAsignacionDTO,
-): Promise<void> {
-	await http.put(
+	payload: EditarTitularDTO
+) {
+	return http.put(
 		`/designaciones/${designacionId}/asignaciones/${asignacionId}`,
-		payload,
+		payload
 	);
+}
+
+export function actualizarAsignacionProvisional(
+	designacionId: number,
+	asignacionId: number,
+	payload: EditarProvisionalDTO
+) {
+	return http.put(
+		`/designaciones/${designacionId}/asignaciones/${asignacionId}`,
+		payload
+	);
+}
+
+/* ======================
+	Editar asignación
+====================== */
+
+export function eliminarAsignacion(
+	designacionId: number,
+	asignacionId: number,
+) {
+	return http.delete(`/designaciones/${designacionId}/asignaciones/${asignacionId}`);
 }
 
 /* ======================

@@ -10,8 +10,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
 
 @DisplayName("Tests de Materia")
@@ -34,134 +34,102 @@ class MateriaTest {
 	@DisplayName("Creación de Materia")
 	class Creacion {
 
-		@ParameterizedTest(name = "Debe fallar con nombre = ''{0}''")
+		@ParameterizedTest(name = "Nombre inválido: ''{0}''")
 		@NullAndEmptySource
 		@ValueSource(strings = {" "})
-		@DisplayName("Debe fallar si el nombre es null, vacío o solo espacios")
+		@DisplayName("No se puede crear una materia sin nombre válido.")
 		void fallaSiNombreInvalido(String nombreInvalido) {
-			assertThrows(
-					CampoObligatorioException.class,
-					() -> new Materia(
-							nombreInvalido,
-							"CNT",
-							4
-					)
-			);
+			assertThatThrownBy(() -> new Materia(nombreInvalido, "CNT", 4))
+					.isInstanceOf(CampoObligatorioException.class)
+					.hasMessageContaining("nombre");
 		}
 
-		@ParameterizedTest(name = "Debe fallar con abreviatura = ''{0}''")
+		@ParameterizedTest(name = "Abreviatura inválida: ''{0}''")
 		@NullAndEmptySource
 		@ValueSource(strings = {" "})
-		@DisplayName("Debe fallar si el abreviatura es null, vacío o solo espacios")
+		@DisplayName("No se puede crear una materia sin abreviatura válida.")
 		void fallaSiAbreviaturaInvalida(String abreviaturaInvalida) {
-			assertThrows(
-					CampoObligatorioException.class,
-					() -> new Materia(
-							"Ciencias Naturales",
-							abreviaturaInvalida,
-							4
-					)
-			);
+			assertThatThrownBy(() -> new Materia("Ciencias Naturales", abreviaturaInvalida, 4))
+					.isInstanceOf(CampoObligatorioException.class)
+					.hasMessageContaining("abreviatura");
 		}
 
-		@ParameterizedTest(name = "Debe fallar con cantidadDeModulos = {0}")
+		@ParameterizedTest(name = "Cantidad inválida: {0}")
 		@ValueSource(ints = {0, -1})
-		@DisplayName("Debe fallar si la cantidad de módulos es 0 o negativa")
-		void fallaSiCantidadDeModulosEsInvalida(int cantidadInvalida) {
-
-			assertThrows(
-					CantidadModulosInvalidaException.class,
-					() -> new Materia(
-							"Ciencias Naturales",
-							"CNT",
-							cantidadInvalida
-					)
-			);
+		@DisplayName("No se puede crear una materia con cantidad de módulos inválida")
+		void fallaSiCantidadInvalida(int cantidad) {
+			assertThatThrownBy(() -> new Materia("Ciencias Naturales", "CNT", cantidad))
+					.isInstanceOf(CantidadModulosInvalidaException.class);
 		}
 
-
 		@Test
-		@DisplayName("Debe crear una materia válida correctamente")
+		@DisplayName("Se crea una materia válida correctamente")
 		void creaMateriaValida() {
+			Materia materia = new Materia("Ciencias Naturales", "CNT", 4);
 
-			Materia materia = new Materia(
-					"Ciencias Naturales",
-					"CNT",
-					4
-			);
-
-			assertEquals("Ciencias Naturales", materia.getNombre());
-			assertEquals("CNT", materia.getAbreviatura());
-			assertEquals(4, materia.getCantidadModulos());
+			assertThat(materia)
+					.extracting(Materia::getNombre, Materia::getAbreviatura, Materia::getCantidadModulos)
+					.containsExactly("Ciencias Naturales", "CNT", 4);
 		}
 
 	}
 
 	@Nested
-	@DisplayName("actualizar")
-	class ActualizarTest {
+	@DisplayName("Actualización de materia")
+	class Actualizar {
 
 		@Test
-		@DisplayName("Debe actualizar correctamente los datos de la materia")
+		@DisplayName("Se actualizan correctamente los datos de la materia.")
 		void actualizaCorrectamente() {
+			Materia materia = new Materia("Ciencias Naturales", "CNT", 4);
 
-			String nuevoNombre = "Matemática Aplicada";
-			String nuevaAbreviatura = "MATA";
-			Integer nuevaCantidad = 6;
+			materia.actualizar("Matemática Aplicada", "MATA", 6);
 
-			materia.actualizar(nuevoNombre, nuevaAbreviatura, nuevaCantidad);
-
-			assertEquals(nuevoNombre, materia.getNombre());
-			assertEquals(nuevaAbreviatura, materia.getAbreviatura());
-			assertEquals(nuevaCantidad, materia.getCantidadModulos());
+			assertThat(materia)
+					.extracting(Materia::getNombre, Materia::getAbreviatura, Materia::getCantidadModulos)
+					.containsExactly("Matemática Aplicada", "MATA", 6);
 		}
 	}
 
 	@Nested
-	@DisplayName("setEscuela")
-	class SetEscuelaTest {
+	@DisplayName("Asignación de escuela")
+	class SetEscuela {
 
 		@Test
-		@DisplayName("Debe asignar la escuela correctamente")
-		void asignaEscuelaCorrectamente() {
+		@DisplayName("Se asigna correctamente la escuela")
+		void asignaEscuela() {
 
 			materia.setEscuela(escuela);
 
-			assertEquals(escuela, materia.getEscuela());
+			assertThat(materia.getEscuela()).isEqualTo(escuela);
 		}
 
 		@Test
-		@DisplayName("Debe fallar si la escuela es null")
-		void fallaSiEscuelaEsNull() {
+		@DisplayName("No se puede asignar una escuela null")
+		void fallaSiEscuelaNull() {
 
-			assertThrows(
-					CampoObligatorioException.class,
-					() -> materia.setEscuela(null)
-			);
+			assertThatThrownBy(() -> materia.setEscuela(null)).isInstanceOf(CampoObligatorioException.class);
 		}
 	}
 
 	@Nested
-	@DisplayName("toString")
+	@DisplayName("Representación textual")
 	class ToStringTest {
 
 		@Test
-		@DisplayName("Debe mostrar 'módulo' en singular cuando la cantidad es 1")
-		void muestraModuloEnSingular() {
+		@DisplayName("Muestra 'módulo' en singular cuando la cantidad es 1.")
+		void muestraSingular() {
 			Materia materia = new Materia("Matemática", "MAT", 1);
 
-			String esperado = "Matemática (MAT) - 1 módulo";
-
-			assertEquals(esperado, materia.toString());
+			assertThat(materia.toString()).isEqualTo("Matemática (MAT) - 1 módulo");
 		}
 
 		@Test
-		@DisplayName("Debe mostrar 'módulos' en plural cuando la cantidad es mayor a 1")
-		void muestraModulosEnPlural() {
+		@DisplayName("Muestra 'módulos' en plural cuando la cantidad es mayor a 1.")
+		void muestraPlural() {
+			Materia materia = new Materia("Ciencias Naturales", "CNT", 4);
 
-			String esperado = "Ciencias Naturales (CNT) - 4 módulos";
-
-			assertEquals(esperado, materia.toString());
+			assertThat(materia.toString()).isEqualTo("Ciencias Naturales (CNT) - 4 módulos");
 		}
 	}
 

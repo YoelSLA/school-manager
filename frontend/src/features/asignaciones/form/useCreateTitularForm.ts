@@ -1,19 +1,24 @@
+import type { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { CubrirTitularDTO } from "@/utils/types";
 import { CaracteristicaAsignacion } from "@/utils/types/enums";
-import { cubrirTitularSchema } from "./cubrirTitular.schema";
+import { createTitularSchema } from "./createTitular.schema";
 
 type Props = {
 	defaultValues?: Partial<CubrirTitularDTO>;
 };
 
-export function useCubrirConTitularForm({ defaultValues }: Props = {}) {
-	const form = useForm<CubrirTitularDTO>({
-		resolver: zodResolver(cubrirTitularSchema),
+type FormInput = z.input<typeof createTitularSchema>;
+type FormOutput = z.output<typeof createTitularSchema>;
+
+export function useCreateTitularForm({ defaultValues }: Props = {}) {
+	const form = useForm<FormInput, any, FormOutput>({
+		resolver: zodResolver(createTitularSchema),
 
 		defaultValues: {
 			empleadoId: undefined,
+			secuencia: 1,
 			fechaTomaPosesion: undefined,
 			caracteristica: CaracteristicaAsignacion.NORMAL,
 			...defaultValues,

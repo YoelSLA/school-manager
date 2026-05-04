@@ -6,36 +6,36 @@ import styles from "./HorarioDia.module.scss";
 
 type Props = {
 	dia: Dia;
-	franjas: FranjaHorariaMinimoDTO[];
+	franjas?: FranjaHorariaMinimoDTO[];
 };
 
-export default function HorarioDia({ dia, franjas }: Props) {
+export default function HorarioDia({ dia, franjas = [] }: Props) {
 	return (
-		<section className={styles["horario-dia"]}>
-			<header className={styles["horario-dia__header"]}>
-				<span className={styles["horario-dia__nombre"]}>{dia}</span>
-			</header>
+		<div className={styles.col}>
+			{/* HEADER */}
+			<div className={styles.header}>{dia}</div>
 
-			<div className={styles["horario-dia__rangos"]}>
-				{franjas.map((f) => (
-					<div
-						key={`${dia}-${f.horaDesde}-${f.horaHasta}`}
-						className={styles["horario-dia__rango"]}
-					>
-						<Clock size={14} />
+			{/* BODY */}
+			<div className={styles.body}>
+				{franjas.length > 0 ? (
+					franjas.map((f) => (
+						<div
+							key={`${dia}-${f.horaDesde}-${f.horaHasta}`}
+							className={styles.rango}
+						>
+							<Clock size={14} />
 
-						<span className={styles["horario-dia__hora"]}>
-							{formatearHora(f.horaDesde)}
-						</span>
+							<span>{formatearHora(f.horaDesde)}</span>
 
-						<ArrowRight size={14} className={styles["horario-dia__arrow"]} />
+							<ArrowRight size={14} />
 
-						<span className={styles["horario-dia__hora"]}>
-							{formatearHora(f.horaHasta)}
-						</span>
-					</div>
-				))}
+							<span>{formatearHora(f.horaHasta)}</span>
+						</div>
+					))
+				) : (
+					<span className={styles.empty}>Sin horario</span>
+				)}
 			</div>
-		</section>
+		</div>
 	);
 }

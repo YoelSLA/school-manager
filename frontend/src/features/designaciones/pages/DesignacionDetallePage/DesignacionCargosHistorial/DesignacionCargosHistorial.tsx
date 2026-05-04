@@ -16,7 +16,7 @@ type Props = {
 	isLoading?: boolean;
 	filtro: FiltroCargos;
 	onChangeFiltro: (f: FiltroCargos) => void;
-	onNuevoCargo: () => void;
+	onNuevoCargo: (tipo: "TITULAR" | "PROVISIONAL") => void;
 };
 
 export default function DesignacionCargosHistorial({
@@ -28,6 +28,9 @@ export default function DesignacionCargosHistorial({
 }: Props) {
 	return (
 		<section className={styles.root}>
+			{/* 🔥 TITULO */}
+			<h3 className={styles.title}>HISTORIAL DE CARGOS</h3>
+
 			{/* HEADER */}
 			<div className={styles.header}>
 				<FilterPillGroup<FiltroCargos>
@@ -39,8 +42,17 @@ export default function DesignacionCargosHistorial({
 				<Button
 					variant="primary"
 					size="sm"
-					onClick={onNuevoCargo}
 					className={styles.create}
+					dropdownItems={[
+						{
+							label: "Titular",
+							onClick: () => onNuevoCargo("TITULAR"),
+						},
+						{
+							label: "Provisional",
+							onClick: () => onNuevoCargo("PROVISIONAL"),
+						},
+					]}
 				>
 					Nuevo cargo
 				</Button>
@@ -48,7 +60,9 @@ export default function DesignacionCargosHistorial({
 
 			{/* CONTENT */}
 			<div className={styles.content}>
-				{isLoading && <p className={styles.loading}>Cargando cargos…</p>}
+				{isLoading && (
+					<p className={styles.loading}>Cargando cargos…</p>
+				)}
 
 				{!isLoading && cargos.length === 0 && (
 					<p className={styles.empty}>{MENSAJES[filtro]}</p>

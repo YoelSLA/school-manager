@@ -17,7 +17,7 @@ type Params = {
 	onClose: () => void;
 };
 
-export function useCubrirConProvisional({
+export function useCreateProvisional({
 	designacionId,
 	onSuccess,
 	onClose,

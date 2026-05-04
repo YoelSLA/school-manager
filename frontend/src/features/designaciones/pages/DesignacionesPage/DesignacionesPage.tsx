@@ -65,25 +65,23 @@ export default function DesignacionesPage() {
 	const adminQuery = useDesignacionesAdministrativas(
 		escuelaActiva?.id,
 		page,
-		pageSize,
-		{ enabled: isAdmin },
+		pageSize
 	);
 
 	const cursoQuery = useDesignacionesCursos(
 		escuelaActiva?.id,
 		page,
 		pageSize,
-		cursoFilters,
-		{ enabled: !isAdmin },
+		cursoFilters
 	);
+
+	const query = isAdmin ? adminQuery : cursoQuery;
 
 	/* =========================
 			 FIX PAGE
 	========================= */
 
-	const totalPages = isAdmin
-		? (adminQuery.data?.totalPages ?? 0)
-		: (cursoQuery.data?.totalPages ?? 0);
+	const totalPages = query.data?.totalPages ?? 0;
 
 	useEffect(() => {
 		if (page >= totalPages && totalPages > 0) {
@@ -97,8 +95,7 @@ export default function DesignacionesPage() {
 
 	const handleRefresh = () => {
 		updateParams({ page: "0" });
-		if (isAdmin) adminQuery.refetch();
-		else cursoQuery.refetch();
+		query.refetch();
 	};
 
 	const handlePageChange = (newPage: number) =>
@@ -115,7 +112,7 @@ export default function DesignacionesPage() {
 					filtro={filtro}
 					updateParams={updateParams}
 					handleRefresh={handleRefresh}
-					isFetching={isAdmin ? adminQuery.isFetching : cursoQuery.isFetching}
+					isFetching={query.isFetching}
 					navigation={navigation}
 				/>
 			}

@@ -10,6 +10,22 @@
 }
 
 /* ==============================
+   🔥 TITLE
+================================ */
+
+.title {
+	font-size: 13px;
+	font-weight: 600;
+	color: #6b7280;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+
+	padding-bottom: 5px;
+	border-bottom: 1px solid #000000;
+}
+
+/* ==============================
    HEADER
 ================================ */
 
@@ -23,6 +39,9 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+
+	background: #fff; // 👈 clave para sticky limpio
+	padding: 6px 0;
 }
 
 /* ==============================
@@ -62,10 +81,12 @@
 .loading,
 .empty {
 	@include debug.debug(orange);
+
 	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
 	font-size: 16px;
 	color: #6b7280;
 }
