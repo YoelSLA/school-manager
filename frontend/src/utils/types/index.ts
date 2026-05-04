@@ -2,10 +2,10 @@ import type { LucideIcon } from "lucide-react";
 import type { Params } from "react-router-dom";
 import type z from "zod";
 import type { BadgeVariant } from "@/components/Badge/Badge.types";
-import type { cubrirProvisionalSchema } from "@/features/asignaciones/form/cubrirProvisional.schema";
-import type { cubrirTitularSchema } from "@/features/asignaciones/form/cubrirTitular.schema";
-import type { editarProvisionalSchema } from "@/features/asignaciones/form/editarProvisional.schema";
-import type { editarTitularSchema } from "@/features/asignaciones/form/editarTitular.schema";
+import type { createProvisionalSchema } from "@/features/asignaciones/form/createProvisional.schema";
+import type { createTitularSchema } from "@/features/asignaciones/form/createTitular.schema";
+import type { updateProvisionalSchema } from "@/features/asignaciones/form/updateProvisional.schema";
+import type { updateTitularSchema } from "@/features/asignaciones/form/updateTitular.schema";
 import type { crearCursoSchema } from "@/features/cursos/form/crearCurso.schema";
 import type { crearDesignacionAdministrativaSchema } from "@/features/designaciones/form/schemas/crearDesignacionAdministrativa.schema";
 import type { crearDesignacionCursoSchema } from "@/features/designaciones/form/schemas/crearDesignacionCurso.schema";
@@ -31,13 +31,13 @@ import type {
 // ASIGNACION
 // -------------------------------------------------------------------
 
-export type CubrirTitularDTO = z.infer<typeof cubrirTitularSchema>;
+export type CubrirTitularDTO = z.infer<typeof createTitularSchema>;
 
-export type CubrirProvisionalDTO = z.infer<typeof cubrirProvisionalSchema>;
+export type CubrirProvisionalDTO = z.infer<typeof createProvisionalSchema>;
 
-export type EditarTitularDTO = z.infer<typeof editarTitularSchema>;
+export type EditarTitularDTO = z.infer<typeof updateTitularSchema>;
 
-export type EditarProvisionalDTO = z.infer<typeof editarProvisionalSchema>;
+export type EditarProvisionalDTO = z.infer<typeof updateProvisionalSchema>;
 
 export type AsignacionDetalleDTO = {
 	id: number;

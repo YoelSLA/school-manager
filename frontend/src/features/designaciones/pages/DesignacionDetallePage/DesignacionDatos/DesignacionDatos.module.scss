@@ -1,0 +1,76 @@
+/* =====================
+   ROOT
+===================== */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+}
+
+/* =====================
+   TITLE
+===================== */
+
+.title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  padding-bottom: 5px;
+  border-bottom: 1px solid #000000;
+}
+
+/* =====================
+   CARD
+===================== */
+
+.datos {
+
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+}
+
+/* =====================
+   CONTENT
+===================== */
+
+.content {
+  padding: 12px;
+}
+
+/* =====================
+   BADGES (CENTRADOS)
+===================== */
+
+.center {
+  display: flex;
+  flex-direction: column; // 👈 uno debajo del otro
+  align-items: center; // 👈 centrados
+  gap: 10px;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 6px 12px;
+  border-radius: 999px;
+
+  background: #f1f5f9;
+  border: 1px solid #e5e7eb;
+
+  font-size: 13px;
+  color: #111827;
+
+  width: fit-content;
+
+  svg {
+    color: #64748b;
+  }
+}

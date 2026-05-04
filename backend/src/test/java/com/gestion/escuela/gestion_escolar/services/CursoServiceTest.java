@@ -22,7 +22,7 @@ import static com.gestion.escuela.gestion_escolar.models.enums.Turno.TARDE;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
-class CursoServiceTest extends AbstractIntegrationTest {
+class  CursoServiceTest extends AbstractIntegrationTest {
 
 	@Autowired
 	private EscuelaService escuelaService;

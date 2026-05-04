@@ -194,7 +194,6 @@ public abstract class Asignacion {
 	) {
 
 		Validaciones.noNulo(fechaCese, "fecha de cese");
-
 		this.actualizar(empleado, fechaTomaPosesion, secuencia);
 		this.periodo = new Periodo(fechaTomaPosesion, fechaCese);
 	}

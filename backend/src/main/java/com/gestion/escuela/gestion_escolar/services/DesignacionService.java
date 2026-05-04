@@ -63,10 +63,7 @@ public interface DesignacionService {
 			Pageable pageable
 	);
 
-	Optional<Asignacion> obtenerCargoActivo(
-			Long designacionId,
-			LocalDate referencia
-	);
+	Optional<Asignacion> obtenerCargoActivo(Long designacionId);
 
 	List<Asignacion> obtenerOtrosCargos(
 			Long designacionId,
@@ -105,5 +102,7 @@ public interface DesignacionService {
 			LocalDate fechaTomaPosesion,
 			Integer secuencia
 	);
+
+	void eliminarAsignacion(Long designacionId, Long asignacionId);
 }
 

@@ -16,7 +16,7 @@ type Props = {
 	onClose: () => void;
 };
 
-export function useCubrirConTitular({
+export function useCreateTitular({
 	designacionId,
 	onSuccess,
 	onClose,

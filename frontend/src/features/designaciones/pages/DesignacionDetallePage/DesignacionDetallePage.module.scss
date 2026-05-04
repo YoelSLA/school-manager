@@ -7,15 +7,8 @@
 	flex-direction: column;
 	flex: 1;
 	min-height: 0;
-	gap: 8px;
-}
-
-/* =====================
-   HEADER
-===================== */
-
-.header {
-	flex-shrink: 0;
+	gap: 4px;
+	background-color: red;
 }
 
 /* =====================
@@ -32,29 +25,39 @@
 }
 
 /* =====================
-   CARGO ACTIVO (COMPACTO)
-===================== */
-
-.cargoActivo {
-	background-color: #d9d9d9;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-}
-
-/* =====================
-   GRID PRINCIPAL
+   GRID PRINCIPAL (NUEVO)
 ===================== */
 
 .content {
 	display: grid;
-	grid-template-columns: 300px 1fr;
-	gap: 12px;
+
+	grid-template-columns: 0.4fr 1fr;
+	grid-template-rows: auto 1fr auto;
+
+	grid-template-areas:
+		"cargo horarios"
+		"datos historial"
+		"botones historial";
+
+	gap: 8px;
 
 	flex: 1;
 	min-height: 0;
+}
+
+/* =====================
+   CARGO ACTIVO
+===================== */
+
+.cargoActivo {
+	grid-area: cargo;
+
+	background-color: #d9d9d9;
+	border-radius: 20px;
+	padding: 12px;
+
+	display: flex;
+	align-items: center;
 }
 
 /* =====================
@@ -62,12 +65,55 @@
 ===================== */
 
 .horarios {
+	grid-area: horarios;
+
 	background-color: #d9d9d9;
 	border-radius: 20px;
-	padding: 8px;
+	padding: 12px;
 
 	overflow-y: auto;
 	min-height: 0;
+}
+
+/* =====================
+   DATOS DESIGNACION
+===================== */
+
+.datos {
+	grid-area: datos;
+
+	background-color: #d9d9d9;
+	border-radius: 20px;
+	padding: 12px;
+	height: 100%;
+
+}
+
+.botonesSection {
+	grid-area: botones;
+
+	background-color: #d9d9d9;
+	border-radius: 20px;
+	padding: 12px;
+	height: 100%;
+
+}
+
+.title {
+	font-size: 13px;
+	font-weight: 600;
+	color: #6b7280;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+
+	padding-bottom: 5px;
+	border-bottom: 1px solid #000000;
+}
+
+.botones {
+	display: flex;
+	justify-content: flex-start;
 }
 
 /* =====================
@@ -75,9 +121,11 @@
 ===================== */
 
 .historial {
+	grid-area: historial;
+
 	background-color: #d9d9d9;
 	border-radius: 20px;
-	padding: 8px;
+	padding: 12px;
 
 	display: flex;
 	flex-direction: column;

@@ -325,13 +325,10 @@ public class DesignacionServiceImpl implements DesignacionService {
 
 
 	@Override
-	public Optional<Asignacion> obtenerCargoActivo(
-			Long designacionId,
-			LocalDate fecha
-	) {
+	public Optional<Asignacion> obtenerCargoActivo(Long designacionId) {
 		Designacion designacion = obtenerPorId(designacionId);
 
-		return designacion.asignacionQueEjerceEn(fecha);
+		return designacion.asignacionQueEjerceEn(LocalDate.now());
 	}
 
 	@Override
@@ -346,10 +343,10 @@ public class DesignacionServiceImpl implements DesignacionService {
 
 		return designacion.getAsignaciones().stream()
 
-				// 1️⃣ excluir la que ejerce
+				// 1️ excluir la que ejerce
 				.filter(a -> activa.isEmpty() || !a.equals(activa.get()))
 
-				// 2️⃣ filtrar por estado DERIVADO
+				// 2️ filtrar por estado DERIVADO
 				.filter(a -> estado == null || a.getEstadoEn(fecha) == estado)
 
 				.toList();
@@ -406,16 +403,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 				designacion.getId()
 		);
 
-    /* ======================
-       ACTUALIZAR CAMPOS
-    ====================== */
-
 		designacion.actualizar(cupof, rolEducativo);
-
-    /* ======================
-       ACTUALIZAR FRANJAS
-    ====================== */
-
 		designacion.reemplazarFranjas(franjasHorarias);
 	}
 
@@ -475,6 +463,20 @@ public class DesignacionServiceImpl implements DesignacionService {
 				.orElseThrow(() -> new CoberturaNoEncontradaException(designacion));
 
 		suplencia.actualizar(nuevoSuplente, fechaTomaPosesion, secuencia);
+
+		designacionRepository.save(designacion);
+	}
+
+	@Override
+	public void eliminarAsignacion(Long designacionId, Long asignacionId) {
+
+		Asignacion asignacion = asignacionRepository
+				.findByIdAndDesignacionId(asignacionId, designacionId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("asignacion", asignacionId));
+
+		Designacion designacion = this.obtenerPorId(designacionId);
+
+		designacion.eliminarAsignacion(asignacion);
 
 		designacionRepository.save(designacion);
 	}

@@ -2,34 +2,39 @@ import { useQuery } from "@tanstack/react-query";
 import { designacionesQueryKeys } from "../../../utils/queryKeys/designaciones.queryKeys";
 import { listarDesignacionesAdministrativas } from "../services/designaciones.services";
 
-type Options = {
-	enabled?: boolean;
-};
-
 export function useDesignacionesAdministrativas(
 	escuelaId?: number,
 	page: number = 0,
 	size: number = 10,
-	options?: Options,
 ) {
-	const enabled = escuelaId != null && (options?.enabled ?? true);
+	const enabled = Boolean(escuelaId);
+
+	const queryKey =
+		escuelaId != null
+			? designacionesQueryKeys.administrativa.byEscuela(
+				escuelaId,
+				page,
+				size,
+			)
+			: designacionesQueryKeys.administrativa.lists();
 
 	return useQuery({
-		queryKey:
-			escuelaId != null
-				? designacionesQueryKeys.administrativa.byEscuela(escuelaId, page, size)
-				: designacionesQueryKeys.administrativa.lists(),
+		queryKey,
 
-		queryFn: () => {
+		queryFn: async () => {
 			if (escuelaId == null) throw new Error("escuelaId es requerido");
 
-			return listarDesignacionesAdministrativas(escuelaId, page, size);
+			return listarDesignacionesAdministrativas(
+				escuelaId,
+				page,
+				size,
+			);
 		},
 
 		enabled,
 
-		placeholderData: (previousData) => previousData,
-
-		staleTime: 0,
+		placeholderData: (prev) => prev,
+		staleTime: 1000 * 60 * 5,
+		refetchOnWindowFocus: false,
 	});
 }

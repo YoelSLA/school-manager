@@ -49,11 +49,17 @@ export const designacionesQueryKeys = {
 	administrativa: {
 		lists: () => [...designacionesQueryKeys.lists(), "administrativa"] as const,
 
-		byEscuela: (escuelaId: number, _page: number = 0, _sizee: number = 10) =>
+		byEscuela: (
+			escuelaId: number,
+			page: number = 0,
+			size: number = 10
+		) =>
 			[
 				...designacionesQueryKeys.administrativa.lists(),
 				"escuela",
 				escuelaId,
+				page,
+				size,
 			] as const,
 
 		detail: (designacionId: number) =>

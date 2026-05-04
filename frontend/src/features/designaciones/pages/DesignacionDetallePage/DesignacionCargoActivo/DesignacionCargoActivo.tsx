@@ -4,17 +4,22 @@ import styles from "./DesignacionCargoActivo.module.scss";
 
 type Props = {
 	cargo: AsignacionDetalleDTO | null;
+	designacionId: number,
 	isLoading?: boolean;
 	onEditar?: (cargo: AsignacionDetalleDTO) => void;
 };
 
 export default function DesignacionCargoActivo({
 	cargo,
+	designacionId,
 	isLoading = false,
 	onEditar,
 }: Props) {
 	return (
 		<section className={styles.root}>
+			{/* 🔥 TITULO */}
+			<h3 className={styles.title}>CARGO ACTIVO</h3>
+
 			{isLoading && <p className={styles.loading}>Cargando cargo activo…</p>}
 
 			{!isLoading && !cargo && (
@@ -24,7 +29,11 @@ export default function DesignacionCargoActivo({
 			)}
 
 			{!isLoading && cargo && (
-				<CargoCard cargo={cargo} onEditar={() => onEditar?.(cargo)} />
+				<CargoCard
+					cargo={cargo}
+					designacionId={designacionId}
+					onEditar={() => onEditar?.(cargo)}
+				/>
 			)}
 		</section>
 	);

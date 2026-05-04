@@ -1,0 +1,121 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px
+}
+
+/* ======================
+   SECCIONES
+====================== */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sectionTitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b7280;
+}
+
+/* ======================
+   CARDS POR SECCIÓN
+====================== */
+
+.sectionCard {
+  border-radius: 12px;
+  padding: 8px;
+  border: 1px solid;
+  transition: all 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.sectionHeader {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+}
+
+.sectionEmpleado {
+  background: #ecfdf5;
+  border-color: #bbf7d0;
+}
+
+.sectionDatos {
+  background: #fffbeb;
+  border-color: #fde68a;
+}
+
+/* ======================
+   GRID CAMPOS
+====================== */
+
+.row {
+  display: grid;
+  grid-template-columns: 120px 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ======================
+   CAMPOS
+====================== */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* SECUENCIA */
+.secuencia {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  padding: 8px;
+  border-radius: 8px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+/* FECHAS */
+.fecha {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  padding: 8px;
+  border-radius: 8px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+/* ======================
+   SELECTOR
+====================== */
+
+.selector {
+  width: 100%;
+}
+
+/* ======================
+   ERROR
+====================== */
+
+.error {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #dc2626;
+}
