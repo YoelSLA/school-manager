@@ -14,7 +14,7 @@ export const editarEmpleadoEducativoSchema = empleadoEducativoBaseSchema
 			message:
 				"La fecha de ingreso no puede ser anterior a la fecha de nacimiento",
 			path: ["fechaDeIngreso"],
-		}
+		},
 	);
 
 export type EmpleadoEducativoEditDTO = z.infer<

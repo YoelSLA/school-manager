@@ -1,1 +1,1 @@
-export { default } from "./ModalCreateAsignacionProvisional"
+export { default } from "./ModalCreateAsignacionProvisional";

@@ -31,10 +31,7 @@ export function useEditarDesignacionCursoForm({
 
 	const { reset } = form;
 
-	const franjas = useFieldArray<
-		DesignacionCursoFormValues,
-		"franjasHorarias"
-	>({
+	const franjas = useFieldArray<DesignacionCursoFormValues, "franjasHorarias">({
 		control: form.control,
 		name: "franjasHorarias",
 	});

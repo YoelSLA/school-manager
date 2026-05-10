@@ -29,7 +29,7 @@ export default function DesignacionesSelector({
 	if (loading) {
 		return (
 			<div className={styles.selector}>
-				<label className={styles.title}>CARGOS</label>
+				<h3 className={styles.title}>CARGOS</h3>
 				<p className={styles.state}>Cargando designaciones...</p>
 			</div>
 		);
@@ -38,7 +38,7 @@ export default function DesignacionesSelector({
 	if (!designaciones.length) {
 		return (
 			<div className={styles.selector}>
-				<label className={styles.title}>CARGOS</label>
+				<h3 className={styles.title}>CARGOS</h3>
 				<p className={styles.state}>No hay cargos activos.</p>
 			</div>
 		);
@@ -46,7 +46,7 @@ export default function DesignacionesSelector({
 
 	return (
 		<div className={styles.selector}>
-			<label className={styles.title}>CARGOS</label>
+			<h3 className={styles.title}>CARGOS</h3>
 
 			<div className={styles.list}>
 				{designaciones.map((d) => {

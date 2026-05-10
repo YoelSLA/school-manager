@@ -1,12 +1,12 @@
 import { CalendarDays, FileText, User } from "lucide-react";
 import BadgeEstadoLicencia from "@/components/BagdeEstadoLicencia/BagdeEstadoLicencia";
+import InfoCard from "@/features/licencias/components/InfoCard";
 import { formatearFecha } from "@/utils";
 import type {
 	EmpleadoEducativoMinimoDTO,
 	LicenciaDetalleDTO,
 } from "@/utils/types";
 import styles from "./LicenciaDesignacionesHeader.module.scss";
-import InfoCard from "@/features/licencias/components/InfoCard";
 
 type Props = {
 	empleado: EmpleadoEducativoMinimoDTO;
@@ -38,9 +38,7 @@ export default function LicenciaDesignacionesHeader({
 							{licencia.normativa.articulo}
 						</span>
 
-						<span className={styles.code}>
-							{licencia.normativa.codigo}
-						</span>
+						<span className={styles.code}>{licencia.normativa.codigo}</span>
 					</div>
 
 					<div className={styles.description}>

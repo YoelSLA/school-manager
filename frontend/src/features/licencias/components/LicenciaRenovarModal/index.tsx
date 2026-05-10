@@ -33,7 +33,7 @@ export default function LicenciaRenovarModal({
 
 	const { mutateAsync: renovarLicencia, isPending } = useRenovarLicencia();
 
-	const onConfirm = handleSubmit(async (data) => {
+	const _onConfirm = handleSubmit(async (data) => {
 		await renovarLicencia({
 			licenciaId,
 			body: data,

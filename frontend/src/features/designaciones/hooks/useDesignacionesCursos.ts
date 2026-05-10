@@ -13,12 +13,7 @@ export function useDesignacionesCursos(
 
 	const queryKey =
 		escuelaId != null
-			? designacionesQueryKeys.curso.byEscuela(
-				escuelaId,
-				page,
-				size,
-				filter,
-			)
+			? designacionesQueryKeys.curso.byEscuela(escuelaId, page, size, filter)
 			: designacionesQueryKeys.curso.lists();
 
 	return useQuery({
@@ -27,12 +22,7 @@ export function useDesignacionesCursos(
 		queryFn: async () => {
 			if (escuelaId == null) throw new Error("escuelaId es requerido");
 
-			return listarDesignacionesCursos(
-				escuelaId,
-				page,
-				size,
-				filter,
-			);
+			return listarDesignacionesCursos(escuelaId, page, size, filter);
 		},
 
 		enabled,

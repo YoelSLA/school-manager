@@ -61,8 +61,12 @@ export default function FormInputFieldRHF<T extends FieldValues>({
 				className={styles["form-field__input"]}
 				aria-invalid={!!error}
 				aria-describedby={error ? `${fieldId}-error` : undefined}
-				onChange={(e) => { onChange(e) }}
-				onBlur={(e) => { onBlur(e) }}
+				onChange={(e) => {
+					onChange(e);
+				}}
+				onBlur={(e) => {
+					onBlur(e);
+				}}
 				{...inputProps}
 			/>
 

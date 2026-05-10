@@ -63,12 +63,11 @@ export default function Breadcrumbs() {
 		<nav className={styles.breadcrumbs} aria-label="Breadcrumb">
 			{finalItems.map((item, index) => {
 				const isLast = index === finalItems.length - 1;
-				const finalTo = item.to ? `${item.to}${search}` : null;
 
 				return (
 					<span key={item.to ?? item.label} className={styles.item}>
 						{item.to && !isLast ? (
-							<Link to={finalTo!} className={styles.link}>
+							<Link to={`${item.to}${search}`} className={styles.link}>
 								{item.label}
 							</Link>
 						) : (

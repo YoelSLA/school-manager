@@ -70,7 +70,7 @@ export async function listarDesignacionesAdministrativas(
 	});
 
 	console.log("⬅️ ADMIN RESPONSE:", {
-		page: data.page,          // 👈 importante
+		page: data.page, // 👈 importante
 		totalPages: data.totalPages,
 		contentIds: data.content?.map((d) => d.id),
 	});
@@ -173,22 +173,22 @@ export const cubrirConProvisional = async (
 export function actualizarAsignacionTitular(
 	designacionId: number,
 	asignacionId: number,
-	payload: EditarTitularDTO
+	payload: EditarTitularDTO,
 ) {
 	return http.put(
 		`/designaciones/${designacionId}/asignaciones/${asignacionId}`,
-		payload
+		payload,
 	);
 }
 
 export function actualizarAsignacionProvisional(
 	designacionId: number,
 	asignacionId: number,
-	payload: EditarProvisionalDTO
+	payload: EditarProvisionalDTO,
 ) {
 	return http.put(
 		`/designaciones/${designacionId}/asignaciones/${asignacionId}`,
-		payload
+		payload,
 	);
 }
 
@@ -200,7 +200,9 @@ export function eliminarAsignacion(
 	designacionId: number,
 	asignacionId: number,
 ) {
-	return http.delete(`/designaciones/${designacionId}/asignaciones/${asignacionId}`);
+	return http.delete(
+		`/designaciones/${designacionId}/asignaciones/${asignacionId}`,
+	);
 }
 
 /* ======================

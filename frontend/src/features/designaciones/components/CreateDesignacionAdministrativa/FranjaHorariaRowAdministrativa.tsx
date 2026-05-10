@@ -6,55 +6,55 @@ import type { DesignacionAdministrativaFormValues } from "@/utils/types";
 import styles from "../FranjaHorariaRow.module.scss";
 
 type Props = {
-  index: number;
-  register: UseFormRegister<DesignacionAdministrativaFormValues>;
-  onRemove: () => void;
+	index: number;
+	register: UseFormRegister<DesignacionAdministrativaFormValues>;
+	onRemove: () => void;
 };
 
 export default function FranjaHorariaRowAdministrativa({
-  index,
-  register,
-  onRemove,
+	index,
+	register,
+	onRemove,
 }: Props) {
-  return (
-    <div className={styles.row}>
-      <select
-        className={styles.field}
-        {...register(`franjasHorarias.${index}.dia`)}
-      >
-        {DIAS_SEMANA.map((dia) => (
-          <option key={dia} value={dia}>
-            {dia}
-          </option>
-        ))}
-      </select>
+	return (
+		<div className={styles.row}>
+			<select
+				className={styles.field}
+				{...register(`franjasHorarias.${index}.dia`)}
+			>
+				{DIAS_SEMANA.map((dia) => (
+					<option key={dia} value={dia}>
+						{dia}
+					</option>
+				))}
+			</select>
 
-      <div className={styles.timeField}>
-        <Clock size={14} />
-        <input
-          type="time"
-          {...register(`franjasHorarias.${index}.horaDesde`)}
-        />
-      </div>
+			<div className={styles.timeField}>
+				<Clock size={14} />
+				<input
+					type="time"
+					{...register(`franjasHorarias.${index}.horaDesde`)}
+				/>
+			</div>
 
-      <div className={styles.timeField}>
-        <Clock size={14} />
-        <input
-          type="time"
-          {...register(`franjasHorarias.${index}.horaHasta`)}
-        />
-      </div>
+			<div className={styles.timeField}>
+				<Clock size={14} />
+				<input
+					type="time"
+					{...register(`franjasHorarias.${index}.horaHasta`)}
+				/>
+			</div>
 
-      <Button
-        type="button"
-        variant="danger"
-        size="sm"
-        className={styles.remove}
-        onClick={onRemove}
-        aria-label="Eliminar franja horaria"
-      >
-        <Trash2 size={16} />
-      </Button>
-    </div>
-  );
+			<Button
+				type="button"
+				variant="danger"
+				size="sm"
+				className={styles.remove}
+				onClick={onRemove}
+				aria-label="Eliminar franja horaria"
+			>
+				<Trash2 size={16} />
+			</Button>
+		</div>
+	);
 }

@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { AxiosError } from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Button from "@/components/Button/Button";
@@ -41,7 +41,6 @@ export default function EmpleadoEducativoCreatePage() {
 		setValue,
 		setError,
 		reset,
-		watch,
 		formState: { errors, isSubmitting },
 	} = useForm<EmpleadoEducativoCreateDTO>({
 		resolver: zodResolver(crearEmpleadoEducativoSchema),

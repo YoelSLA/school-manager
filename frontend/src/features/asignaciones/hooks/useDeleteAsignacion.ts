@@ -1,55 +1,54 @@
-import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  mapAsignacionError,
-  type UserError,
-} from "../errors/asignacionErrorMapper";
+import axios from "axios";
+import { eliminarAsignacion } from "@/features/designaciones/services/designaciones.services";
 import { asistenciasQueryKeys } from "@/utils/queryKeys/asistencias.queryKeys";
 import { designacionesQueryKeys } from "@/utils/queryKeys/designaciones.queryKeys";
-import { eliminarAsignacion } from "@/features/designaciones/services/designaciones.services";
-
+import {
+	mapAsignacionError,
+	type UserError,
+} from "../errors/asignacionErrorMapper";
 
 type Params = {
-  designacionId: number;
-  onSuccess: () => void;
-  onClose?: () => void;
+	designacionId: number;
+	onSuccess: () => void;
+	onClose?: () => void;
 };
 
 export function useDeleteAsignacion({
-  designacionId,
-  onSuccess,
-  onClose,
+	designacionId,
+	onSuccess,
+	onClose,
 }: Params) {
-  const queryClient = useQueryClient();
+	const queryClient = useQueryClient();
 
-  const mutation = useMutation({
-    mutationFn: (asignacionId: number) =>
-      eliminarAsignacion(designacionId, asignacionId),
+	const mutation = useMutation({
+		mutationFn: (asignacionId: number) =>
+			eliminarAsignacion(designacionId, asignacionId),
 
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: designacionesQueryKeys.all,
-      });
+		onSuccess: () => {
+			queryClient.invalidateQueries({
+				queryKey: designacionesQueryKeys.all,
+			});
 
-      queryClient.invalidateQueries({
-        queryKey: asistenciasQueryKeys.all,
-      });
+			queryClient.invalidateQueries({
+				queryKey: asistenciasQueryKeys.all,
+			});
 
-      onSuccess();
-      onClose?.();
-    },
+			onSuccess();
+			onClose?.();
+		},
 
-    onError: (err) => {
-      if (axios.isAxiosError(err)) {
-        return mapAsignacionError(err.response?.data);
-      }
+		onError: (err) => {
+			if (axios.isAxiosError(err)) {
+				return mapAsignacionError(err.response?.data);
+			}
 
-      return {
-        title: "Error inesperado",
-        message: "Ocurrió un error inesperado. Intentá nuevamente.",
-      } satisfies UserError;
-    },
-  });
+			return {
+				title: "Error inesperado",
+				message: "Ocurrió un error inesperado. Intentá nuevamente.",
+			} satisfies UserError;
+		},
+	});
 
-  return mutation;
+	return mutation;
 }

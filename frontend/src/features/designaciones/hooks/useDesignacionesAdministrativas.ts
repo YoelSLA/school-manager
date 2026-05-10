@@ -11,11 +11,7 @@ export function useDesignacionesAdministrativas(
 
 	const queryKey =
 		escuelaId != null
-			? designacionesQueryKeys.administrativa.byEscuela(
-				escuelaId,
-				page,
-				size,
-			)
+			? designacionesQueryKeys.administrativa.byEscuela(escuelaId, page, size)
 			: designacionesQueryKeys.administrativa.lists();
 
 	return useQuery({
@@ -24,11 +20,7 @@ export function useDesignacionesAdministrativas(
 		queryFn: async () => {
 			if (escuelaId == null) throw new Error("escuelaId es requerido");
 
-			return listarDesignacionesAdministrativas(
-				escuelaId,
-				page,
-				size,
-			);
+			return listarDesignacionesAdministrativas(escuelaId, page, size);
 		},
 
 		enabled,

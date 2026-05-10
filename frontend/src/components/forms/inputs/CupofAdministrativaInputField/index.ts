@@ -1,1 +1,1 @@
-export { default } from "./CupofAdministrativaInputField"
+export { default } from "./CupofAdministrativaInputField";

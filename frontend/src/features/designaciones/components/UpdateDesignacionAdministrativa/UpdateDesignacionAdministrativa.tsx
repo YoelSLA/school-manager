@@ -4,9 +4,9 @@ import type {
 	DesignacionAdministrativaDetalleDTO,
 	DesignacionAdministrativaUpdateDTO,
 } from "@/utils/types";
+import { useEditarDesignacionAdministrativaForm } from "../../form/hooks/useEditDesignacionAdministrativaForm";
 import styles from "../CreateDesignacionAdministrativa/AdministrativaForm/AdministrativaForm.module.scss";
 import DesignacionAdministrativaFormLayout from "../CreateDesignacionAdministrativa/DesignacionAdministrativaFormLayout";
-import { useEditarDesignacionAdministrativaForm } from "../../form/hooks/useEditDesignacionAdministrativaForm";
 
 type Props = {
 	designacion: DesignacionAdministrativaDetalleDTO;

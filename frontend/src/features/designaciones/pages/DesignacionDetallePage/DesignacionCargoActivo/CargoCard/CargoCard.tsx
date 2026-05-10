@@ -1,11 +1,11 @@
-import { MoreVertical, Pencil, Trash2, UserMinus, User } from "lucide-react";
+import { MoreVertical, Pencil, Trash2, User, UserMinus } from "lucide-react";
 import { useState } from "react";
-import { formatearFecha } from "@/utils";
 import BadgeSituacionRevista from "@/components/BadgeSituacionRevista/BadgeSituacionRevista";
 import BadgeEstadoAsignacion from "@/components/BagdeEstadoAsignacion";
+import { useDeleteAsignacion } from "@/features/asignaciones/hooks/useDeleteAsignacion";
+import { formatearFecha } from "@/utils";
 import type { AsignacionDetalleDTO } from "@/utils/types";
 import styles from "./CargoCard.module.scss";
-import { useDeleteAsignacion } from "@/features/asignaciones/hooks/useDeleteAsignacion";
 
 type Props = {
 	cargo: AsignacionDetalleDTO;
@@ -13,25 +13,16 @@ type Props = {
 	onEditar?: (cargo: AsignacionDetalleDTO) => void;
 };
 
-export default function CargoCard({
-	cargo,
-	designacionId,
-	onEditar,
-}: Props) {
+export default function CargoCard({ cargo, designacionId, onEditar }: Props) {
 	const [open, setOpen] = useState(false);
 
 	const eliminarAsignacion = useDeleteAsignacion({
 		designacionId,
-		onSuccess: () => { },
+		onSuccess: () => {},
 	});
 
-	const {
-		empleado,
-		periodo,
-		situacionDeRevista,
-		estadoAsignacion,
-		secuencia,
-	} = cargo;
+	const { empleado, periodo, situacionDeRevista, estadoAsignacion, secuencia } =
+		cargo;
 
 	const esSuplente = situacionDeRevista === "Suplente";
 
@@ -57,14 +48,13 @@ export default function CargoCard({
 						<div className={styles.menu}>
 							<button
 								type="button"
-								onClick={() => handle(() => onEditar?.(cargo))}>
+								onClick={() => handle(() => onEditar?.(cargo))}
+							>
 								<Pencil size={16} />
 								Editar
 							</button>
 
-							<button
-								type="button"
-								onClick={() => handle()}>
+							<button type="button" onClick={() => handle()}>
 								<UserMinus size={16} />
 								Dar de baja
 							</button>
@@ -73,9 +63,7 @@ export default function CargoCard({
 								type="button"
 								className={styles.danger}
 								onClick={() =>
-									handle(() =>
-										eliminarAsignacion.mutate(cargo.id)
-									)
+									handle(() => eliminarAsignacion.mutate(cargo.id))
 								}
 							>
 								<Trash2 size={16} />

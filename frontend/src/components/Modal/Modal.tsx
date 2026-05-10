@@ -1,5 +1,5 @@
 import { AlertTriangle, CheckCircle2 } from "lucide-react";
-import type { ReactNode } from "react";
+import { type ReactNode, useEffect } from "react";
 
 import Button from "@/components/Button";
 import styles from "./Modal.module.scss";
@@ -34,15 +34,28 @@ export default function Modal({
 				? AlertTriangle
 				: null;
 
+	// ✅ Cerrar con ESC
+	useEffect(() => {
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if (e.key === "Escape") {
+				onCancel();
+			}
+		};
+
+		document.addEventListener("keydown", handleKeyDown);
+		return () => document.removeEventListener("keydown", handleKeyDown);
+	}, [onCancel]);
+
 	return (
-		// biome-ignore lint/a11y/noStaticElementInteractions: <explanation>
-		// biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-		<div className={styles.modalBackdrop} onClick={onCancel}>
-			{/** biome-ignore lint/a11y/noStaticElementInteractions: <explanation> */}
-			{/** biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
+		<div className={styles.modalBackdrop} onClick={onCancel} aria-hidden="true">
 			<div
 				className={`${styles.modal} ${styles[size]} ${styles[variant]}`}
 				onClick={(e) => e.stopPropagation()}
+				onKeyDown={(e) => e.stopPropagation()}
+				role="dialog"
+				aria-modal="true"
+				aria-labelledby={title ? "modal-title" : undefined}
+				tabIndex={-1}
 			>
 				{title && (
 					<header className={styles.modalHeader}>
@@ -52,8 +65,9 @@ export default function Modal({
 									<Icon size={20} />
 								</div>
 							)}
-
-							<h2 className={styles.modalTitle}>{title}</h2>
+							<h2 id="modal-title" className={styles.modalTitle}>
+								{title}
+							</h2>
 						</div>
 					</header>
 				)}

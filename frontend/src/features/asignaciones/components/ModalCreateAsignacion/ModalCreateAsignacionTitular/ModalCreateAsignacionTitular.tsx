@@ -2,121 +2,110 @@ import type { z } from "zod";
 import FechaField from "@/components/forms/inputs/FechaInputField";
 import NumberField from "@/components/forms/inputs/NumberFieldInput";
 import Modal from "@/components/Modal";
+import type { createTitularSchema } from "@/features/asignaciones/form/createTitular.schema";
+import { useCreateTitularForm } from "@/features/asignaciones/form/useCreateTitularForm";
+import { useCreateTitular } from "@/features/asignaciones/hooks/useCreateTitular";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
 import type { EmpleadoEducativoMinimoDTO } from "@/utils/types";
 import styles from "../ModalCreateAsignacion.module.scss";
-import { useCreateTitular } from "@/features/asignaciones/hooks/useCreateTitular";
-import { useCreateTitularForm } from "@/features/asignaciones/form/useCreateTitularForm";
-import type { createTitularSchema } from "@/features/asignaciones/form/createTitular.schema";
 
 type Props = {
-  designacionId: number;
-  secuencia: number;
-  empleadoInicial: EmpleadoEducativoMinimoDTO | null;
-  tomaPosesion: string;
-  onClose: () => void;
-  onSuccess: () => void;
+	designacionId: number;
+	secuencia: number;
+	empleadoInicial: EmpleadoEducativoMinimoDTO | null;
+	tomaPosesion: string;
+	onClose: () => void;
+	onSuccess: () => void;
 };
 
 export default function ModalCreateAsignacionTitular({
-  designacionId,
-  secuencia,
-  empleadoInicial,
-  tomaPosesion,
-  onClose,
-  onSuccess,
+	designacionId,
+	secuencia,
+	empleadoInicial,
+	tomaPosesion,
+	onClose,
+	onSuccess,
 }: Props) {
-  const cubrirTitular = useCreateTitular({
-    designacionId,
-    onClose,
-    onSuccess,
-  });
+	const cubrirTitular = useCreateTitular({
+		designacionId,
+		onClose,
+		onSuccess,
+	});
 
-  const titularForm = useCreateTitularForm({
-    defaultValues: {
-      empleadoId: empleadoInicial?.id,
-      fechaTomaPosesion: tomaPosesion,
-      secuencia: secuencia ?? 1,
-    },
-  });
+	const titularForm = useCreateTitularForm({
+		defaultValues: {
+			empleadoId: empleadoInicial?.id,
+			fechaTomaPosesion: tomaPosesion,
+			secuencia: secuencia ?? 1,
+		},
+	});
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    setValue,
-  } = titularForm.form;
+	const {
+		register,
+		formState: { errors },
+		handleSubmit,
+		setValue,
+	} = titularForm.form;
 
-  const handleTitularSubmit = async (
-    data: z.output<typeof createTitularSchema>
-  ) => {
-    if (!data.empleadoId) return;
+	const handleTitularSubmit = async (
+		data: z.output<typeof createTitularSchema>,
+	) => {
+		if (!data.empleadoId) return;
 
-    await cubrirTitular.mutateAsync({
-      empleadoId: data.empleadoId,
-      fechaTomaPosesion: data.fechaTomaPosesion,
-      secuencia: data.secuencia,
-      caracteristica:
-        data.caracteristica === "NORMAL"
-          ? undefined
-          : data.caracteristica,
-    });
-  };
+		await cubrirTitular.mutateAsync({
+			empleadoId: data.empleadoId,
+			fechaTomaPosesion: data.fechaTomaPosesion,
+			secuencia: data.secuencia,
+			caracteristica:
+				data.caracteristica === "NORMAL" ? undefined : data.caracteristica,
+		});
+	};
 
-  return (
-    <form onSubmit={handleSubmit(handleTitularSubmit)}>
-      <Modal
-        title="Crear asignación titular"
-        size="medium"
-        onCancel={onClose}
-        confirmLabel={
-          cubrirTitular.isPending ? "Creando…" : "Confirmar"
-        }
-        isSubmitting={cubrirTitular.isPending}
-      >
-        <div className={styles.body}>
+	return (
+		<form onSubmit={handleSubmit(handleTitularSubmit)}>
+			<Modal
+				title="Crear asignación titular"
+				size="medium"
+				onCancel={onClose}
+				confirmLabel={cubrirTitular.isPending ? "Creando…" : "Confirmar"}
+				isSubmitting={cubrirTitular.isPending}
+			>
+				<div className={styles.body}>
+					{/* EMPLEADO */}
+					<div className={`${styles.sectionCard} ${styles.sectionEmpleado}`}>
+						<EmpleadoSelector
+							defaultEmpleado={empleadoInicial}
+							onChange={(empleado) => setValue("empleadoId", empleado?.id)}
+						/>
+					</div>
 
-          {/* EMPLEADO */}
-          <div className={`${styles.sectionCard} ${styles.sectionEmpleado}`}>
-            <EmpleadoSelector
-              defaultEmpleado={empleadoInicial}
-              onChange={(empleado) =>
-                setValue("empleadoId", empleado?.id)
-              }
-            />
-          </div>
+					{/* DATOS */}
+					<div className={`${styles.sectionCard} ${styles.sectionDatos}`}>
+						<div className={styles.row}>
+							<div className={styles.field}>
+								<NumberField
+									register={register}
+									name="secuencia"
+									label="Secuencia"
+									min={1}
+									error={errors.secuencia?.message}
+								/>
+							</div>
 
-          {/* DATOS */}
-          <div className={`${styles.sectionCard} ${styles.sectionDatos}`}>
-            <div className={styles.row}>
+							<div className={styles.field}>
+								<FechaField
+									register={register}
+									name="fechaTomaPosesion"
+									label="Toma de posesión"
+									error={errors.fechaTomaPosesion?.message}
+								/>
+							</div>
+						</div>
+					</div>
 
-              <div className={styles.field}>
-                <NumberField
-                  register={register}
-                  name="secuencia"
-                  label="Secuencia"
-                  min={1}
-                  error={errors.secuencia?.message}
-                />
-              </div>
-
-              <div className={styles.field}>
-                <FechaField
-                  register={register}
-                  name="fechaTomaPosesion"
-                  label="Toma de posesión"
-                  error={errors.fechaTomaPosesion?.message}
-                />
-              </div>
-
-            </div>
-          </div>
-
-          {errors.root && (
-            <p className={styles.error}>{errors.root.message}</p>
-          )}
-        </div>
-      </Modal>
-    </form>
-  );
+					{errors.root && <p className={styles.error}>{errors.root.message}</p>}
+				</div>
+			</Modal>
+		</form>
+	);
 }

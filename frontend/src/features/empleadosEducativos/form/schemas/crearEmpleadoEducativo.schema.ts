@@ -10,12 +10,13 @@ export const crearEmpleadoEducativoSchema = empleadoEducativoBaseSchema.refine(
 		message:
 			"La fecha de ingreso no puede ser anterior a la fecha de nacimiento",
 		path: ["fechaDeIngreso"],
-	}
+	},
 );
 
 /* =========================
 	 Type automático
 ========================= */
 
-export type EmpleadoEducativoCreateDTO =
-	z.infer<typeof crearEmpleadoEducativoSchema>;
+export type EmpleadoEducativoCreateDTO = z.infer<
+	typeof crearEmpleadoEducativoSchema
+>;
