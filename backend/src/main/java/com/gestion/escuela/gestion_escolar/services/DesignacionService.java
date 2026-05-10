@@ -87,7 +87,7 @@ public interface DesignacionService {
 			Set<FranjaHoraria> franjaHorarias
 	);
 
-	Asignacion editarAsignacion(
+	Asignacion actualizarAsignacion(
 			Long designacionId,
 			Long asignacionId,
 			Long empleadoId,
