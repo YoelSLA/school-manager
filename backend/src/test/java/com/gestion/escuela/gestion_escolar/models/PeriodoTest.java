@@ -3,7 +3,6 @@ package com.gestion.escuela.gestion_escolar.models;
 import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.periodo.PeriodoAbiertoException;
-import com.gestion.escuela.gestion_escolar.models.exceptions.periodo.PeriodoYaCerradoException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -459,19 +458,6 @@ class PeriodoTest {
 			// Assert
 			assertThat(periodoAbierto.getFechaHasta()).isNull();
 			assertThat(cerrado.getFechaHasta()).isNotNull();
-		}
-
-		@Test
-		@DisplayName("No se puede cerrar un período que ya está cerrado")
-		void fallaSiPeriodoYaEstaCerrado() {
-			Periodo periodoCerrado = cerrado(
-					LocalDate.of(2025, MARCH, 1),
-					LocalDate.of(2025, MARCH, 10)
-			);
-
-			assertThatThrownBy(() -> periodoCerrado.cerrarEn(LocalDate.of(2025, MARCH, 20)))
-					.isInstanceOf(PeriodoYaCerradoException.class)
-					.hasMessage("No se puede cerrar un período que ya está cerrado");
 		}
 
 	}

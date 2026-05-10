@@ -74,11 +74,11 @@ public class Periodo {
 			throw new CampoObligatorioException("fechaCierre");
 		}
 
-		if (this.esCerrado()) {
-			throw new PeriodoYaCerradoException();
+		if (fechaCierre.isBefore(fechaDesde)) {
+			throw new RangoFechasInvalidoException(fechaDesde, fechaCierre);
 		}
 
-		if (fechaCierre.isBefore(fechaDesde)) {
+		if (this.fechaHasta != null && fechaCierre.isAfter(this.fechaHasta)) {
 			throw new RangoFechasInvalidoException(fechaDesde, fechaCierre);
 		}
 
