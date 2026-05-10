@@ -153,12 +153,12 @@ public class DesignacionControllerREST {
 
 	@PutMapping("/{designacionId}/asignaciones/{asignacionId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public AsignacionDetalleDTO editarAsignacion(
+	public AsignacionDetalleDTO actualizarAsignacion(
 			@PathVariable Long designacionId,
 			@PathVariable Long asignacionId,
 			@Valid @RequestBody EditarAsignacionDTO dto
 	) {
-		Asignacion asignacion = designacionService.editarAsignacion(
+		Asignacion asignacion = designacionService.actualizarAsignacion(
 				designacionId,
 				asignacionId,
 				dto.empleadoId(),

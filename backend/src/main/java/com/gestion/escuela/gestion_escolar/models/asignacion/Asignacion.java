@@ -15,6 +15,7 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 
+import static com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista.PROVISIONAL;
 import static com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista.TITULAR;
 
 @Entity
@@ -186,14 +187,20 @@ public abstract class Asignacion {
 		return getSituacionDeRevista() == TITULAR;
 	}
 
+	public boolean esProvisomal() {
+		return getSituacionDeRevista() == PROVISIONAL;
+	}
+
 	public void actualizar(
 			EmpleadoEducativo empleado,
 			LocalDate fechaTomaPosesion,
 			LocalDate fechaCese,
 			Integer secuencia
 	) {
+		if(esProvisomal()) {
+			Validaciones.noNulo(fechaCese, "fecha de cese");
+		}
 
-		Validaciones.noNulo(fechaCese, "fecha de cese");
 		this.actualizar(empleado, fechaTomaPosesion, secuencia);
 		this.periodo = new Periodo(fechaTomaPosesion, fechaCese);
 	}

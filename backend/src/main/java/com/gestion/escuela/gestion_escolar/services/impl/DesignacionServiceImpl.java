@@ -407,7 +407,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 		designacion.reemplazarFranjas(franjasHorarias);
 	}
 
-	public Asignacion editarAsignacion(
+	public Asignacion actualizarAsignacion(
 			Long designacionId,
 			Long asignacionId,
 			Long empleadoId,
