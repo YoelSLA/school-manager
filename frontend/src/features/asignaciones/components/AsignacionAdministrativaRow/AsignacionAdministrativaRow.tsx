@@ -1,4 +1,4 @@
-import { Calendar, Hash, Timer } from "lucide-react";
+import { Calendar, Timer } from "lucide-react";
 import BadgeSituacionRevista from "@/components/BadgeSituacionRevista";
 import BadgeEstadoAsignacion from "@/components/BagdeEstadoAsignacion";
 import type {

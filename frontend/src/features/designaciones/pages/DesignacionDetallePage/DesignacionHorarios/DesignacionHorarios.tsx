@@ -9,8 +9,7 @@ type Props = {
 
 export default function DesignacionHorarios({ franjas }: Props) {
 	const franjasOrdenadas = [...franjas].sort((a, b) => {
-		const ordenDia =
-			DIAS_SEMANA.indexOf(a.dia) - DIAS_SEMANA.indexOf(b.dia);
+		const ordenDia = DIAS_SEMANA.indexOf(a.dia) - DIAS_SEMANA.indexOf(b.dia);
 
 		if (ordenDia !== 0) return ordenDia;
 
@@ -32,11 +31,7 @@ export default function DesignacionHorarios({ franjas }: Props) {
 
 			<div className={styles.grid}>
 				{DIAS_SEMANA.map((dia) => (
-					<HorarioDia
-						key={dia}
-						dia={dia}
-						franjas={franjasPorDia[dia] ?? []}
-					/>
+					<HorarioDia key={dia} dia={dia} franjas={franjasPorDia[dia] ?? []} />
 				))}
 			</div>
 		</section>

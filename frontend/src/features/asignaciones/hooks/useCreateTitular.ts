@@ -16,11 +16,7 @@ type Props = {
 	onClose: () => void;
 };
 
-export function useCreateTitular({
-	designacionId,
-	onSuccess,
-	onClose,
-}: Props) {
+export function useCreateTitular({ designacionId, onSuccess, onClose }: Props) {
 	const queryClient = useQueryClient();
 
 	const mutation = useMutation({

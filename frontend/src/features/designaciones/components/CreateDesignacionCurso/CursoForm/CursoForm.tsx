@@ -1,4 +1,4 @@
-
+import CupofCursoInputField from "@/components/forms/inputs/CupofCursoInputField";
 import CursoSelectField from "@/components/forms/selects/CursoSelectField";
 import MateriaSelectField from "@/components/forms/selects/MateriaSelectField";
 import OrientacionSelectField from "@/components/forms/selects/OrientacionSelectField";
@@ -9,9 +9,8 @@ import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
 import type { DesignacionCursoCreateDTO } from "@/utils/types";
 import { ORIENTACIONES } from "../../../utils/designacion.utils";
-import styles from "./CursoForm.module.scss";
 import DesignacionCursoFormLayout from "../DesignacionCursoFormLayout";
-import CupofCursoInputField from "@/components/forms/inputs/CupofCursoInputField";
+import styles from "./CursoForm.module.scss";
 
 type Props = {
 	onSubmit: (data: DesignacionCursoCreateDTO) => Promise<void>;

@@ -19,6 +19,13 @@ export const empleadosEducativosPaths = {
 
 	edit: (empleadoId: number | string) =>
 		`/empleadosEducativos/${empleadoId}/editar`,
+
+	// ✅ NUEVOS
+	crearCargo: (empleadoId: number | string) =>
+		`/empleadosEducativos/${empleadoId}/cargos/crear`,
+
+	crearLicencia: (empleadoId: number | string) =>
+		`/empleadosEducativos/${empleadoId}/licencias/crear`,
 };
 
 /* ======================================================

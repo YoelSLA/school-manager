@@ -25,5 +25,16 @@ export const useEmpleadoNavigation = () => {
 			}),
 
 		crear: () => navigate(empleadosEducativosPaths.create),
+
+		// ✅ NUEVOS
+		crearCargo: (empleado: EmpleadoEducativoDetalleDTO) =>
+			navigate(empleadosEducativosPaths.crearCargo(empleado.id), {
+				state: buildState(empleado),
+			}),
+
+		crearLicencia: (empleado: EmpleadoEducativoDetalleDTO) =>
+			navigate(empleadosEducativosPaths.crearLicencia(empleado.id), {
+				state: buildState(empleado),
+			}),
 	};
 };

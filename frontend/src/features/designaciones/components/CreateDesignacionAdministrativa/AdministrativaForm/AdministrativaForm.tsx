@@ -10,10 +10,7 @@ type Props = {
 	isSubmitting: boolean;
 };
 
-export default function AdministrativaForm({
-	onSubmit,
-	isSubmitting,
-}: Props) {
+export default function AdministrativaForm({ onSubmit, isSubmitting }: Props) {
 	const {
 		form: {
 			register,

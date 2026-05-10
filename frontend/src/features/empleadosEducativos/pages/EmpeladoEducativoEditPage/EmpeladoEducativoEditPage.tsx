@@ -101,33 +101,30 @@ export default function EmpleadoEducativoEditPage() {
 	}
 
 	return (
-		<PageLayout
-			breadcrumbs={<Breadcrumbs />}
-			children={
-				<div className={styles.page}>
-					<form onSubmit={form.handleSubmit(onSubmit)}>
-						{/* ================= FORM BODY ================= */}
-						<EmpleadoEducativoFormEditar form={form} />
+		<PageLayout breadcrumbs={<Breadcrumbs />}>
+			<div className={styles.page}>
+				<form onSubmit={form.handleSubmit(onSubmit)}>
+					{/* ================= FORM BODY ================= */}
+					<EmpleadoEducativoFormEditar form={form} />
 
-						{/* ================= ACTIONS ================= */}
+					{/* ================= ACTIONS ================= */}
 
-						<div className={styles.actions}>
-							<Button type="button" variant="danger" onClick={handleCancel}>
-								Cancelar
-							</Button>
+					<div className={styles.actions}>
+						<Button type="button" variant="danger" onClick={handleCancel}>
+							Cancelar
+						</Button>
 
-							<Button
-								type="submit"
-								variant="primary"
-								loading={editarMutation.isPending}
-								disabled={editarMutation.isPending}
-							>
-								Guardar cambios
-							</Button>
-						</div>
-					</form>
-				</div>
-			}
-		></PageLayout>
+						<Button
+							type="submit"
+							variant="primary"
+							loading={editarMutation.isPending}
+							disabled={editarMutation.isPending}
+						>
+							Guardar cambios
+						</Button>
+					</div>
+				</form>
+			</div>
+		</PageLayout>
 	);
 }

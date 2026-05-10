@@ -4,7 +4,7 @@ import styles from "./DesignacionCargoActivo.module.scss";
 
 type Props = {
 	cargo: AsignacionDetalleDTO | null;
-	designacionId: number,
+	designacionId: number;
 	isLoading?: boolean;
 	onEditar?: (cargo: AsignacionDetalleDTO) => void;
 };

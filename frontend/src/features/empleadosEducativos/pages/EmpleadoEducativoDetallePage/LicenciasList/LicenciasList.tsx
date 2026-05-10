@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default function LicenciasList({ licencias }: Props) {
-	const navigate = useNavigate();
+	const _navigate = useNavigate();
 
 	const licenciasOrdenadas = useMemo(
 		() =>

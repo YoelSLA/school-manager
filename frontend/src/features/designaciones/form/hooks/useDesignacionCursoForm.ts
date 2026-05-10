@@ -44,10 +44,7 @@ export function useDesignacionCursoForm({
 
 	const { setValue, getValues } = form;
 
-	const franjas = useFieldArray<
-		DesignacionCursoFormValues,
-		"franjasHorarias"
-	>({
+	const franjas = useFieldArray<DesignacionCursoFormValues, "franjasHorarias">({
 		control: form.control,
 		name: "franjasHorarias",
 	});

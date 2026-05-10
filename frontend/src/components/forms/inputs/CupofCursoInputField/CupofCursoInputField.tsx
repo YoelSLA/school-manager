@@ -3,22 +3,19 @@ import FormInputField from "@/components/forms/FormInputField";
 import type { DesignacionCursoFormValues } from "@/utils/types";
 
 type Props = {
-  register: UseFormRegister<DesignacionCursoFormValues>;
-  error?: string;
+	register: UseFormRegister<DesignacionCursoFormValues>;
+	error?: string;
 };
 
-export default function CupofCursoInputField({
-  register,
-  error,
-}: Props) {
-  return (
-    <FormInputField<DesignacionCursoFormValues>
-      label="CUPOF"
-      name="cupof"
-      type="number"
-      register={register}
-      error={error}
-      inputProps={{ min: 1 }}
-    />
-  );
+export default function CupofCursoInputField({ register, error }: Props) {
+	return (
+		<FormInputField<DesignacionCursoFormValues>
+			label="CUPOF"
+			name="cupof"
+			type="number"
+			register={register}
+			error={error}
+			inputProps={{ min: 1 }}
+		/>
+	);
 }

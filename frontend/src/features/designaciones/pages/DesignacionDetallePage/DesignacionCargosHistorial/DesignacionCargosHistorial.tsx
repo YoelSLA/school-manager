@@ -60,9 +60,7 @@ export default function DesignacionCargosHistorial({
 
 			{/* CONTENT */}
 			<div className={styles.content}>
-				{isLoading && (
-					<p className={styles.loading}>Cargando cargos…</p>
-				)}
+				{isLoading && <p className={styles.loading}>Cargando cargos…</p>}
 
 				{!isLoading && cargos.length === 0 && (
 					<p className={styles.empty}>{MENSAJES[filtro]}</p>

@@ -12,7 +12,8 @@ public enum RolEducativo {
 	AUXILIAR("Auxiliar"),
 	ENCARGO_DE_MEDIO_DE_APOYO_TECNICO_PROFESIONAL(
 			"Encargo de Medio de Apoyo Técnico Profesional"
-	);
+	),
+	CAMBIO_DE_FUNCION("Cambio de función");
 
 	private final String label;
 

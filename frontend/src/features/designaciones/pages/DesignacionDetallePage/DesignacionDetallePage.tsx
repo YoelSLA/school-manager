@@ -1,24 +1,24 @@
+import { Pencil } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Button from "@/components/Button";
+import ModalCreateAsignacionProvisional from "@/features/asignaciones/components/ModalCreateAsignacion/ModalCreateAsignacionProvisional/ModalCreateAsignacionProvisional";
+import ModalCreateAsignacionTitular from "@/features/asignaciones/components/ModalCreateAsignacion/ModalCreateAsignacionTitular/ModalCreateAsignacionTitular";
+import ModalUpdateAsignacionProvisional from "@/features/asignaciones/components/ModalUpdateAsignacion/ModalUpdateAsignacionProvisional";
+import ModalUpdateAsignacionTitular from "@/features/asignaciones/components/ModalUpdateAsignacion/ModalUpdateAsignacionTitular";
 import Breadcrumbs from "@/layout/Breadcrumbs";
 import PageLayout from "@/layout/PageLayout/PageLayout";
+import { designacionesPaths } from "@/router/paths";
 import type { AsignacionDetalleDTO, FiltroCargos } from "@/utils/types";
 import { useCargoActivo } from "../../../asignaciones/hooks/useCargoActivo";
 import { useCargosDesignacion } from "../../hooks/useCargosDesignacion";
 import useDesignacionDetalle from "../../hooks/useDesignacionDetalle";
 import DesignacionCargoActivo from "./DesignacionCargoActivo/DesignacionCargoActivo";
 import DesignacionCargosHistorial from "./DesignacionCargosHistorial/DesignacionCargosHistorial";
+import DesignacionDatos from "./DesignacionDatos/DesignacionDatos";
 import styles from "./DesignacionDetallePage.module.scss";
 import DesignacionHeaderInfo from "./DesignacionHeaderInfo/DesignacionHeaderInfo";
 import DesignacionHorarios from "./DesignacionHorarios";
-import ModalCreateAsignacionTitular from "@/features/asignaciones/components/ModalCreateAsignacion/ModalCreateAsignacionTitular/ModalCreateAsignacionTitular";
-import ModalCreateAsignacionProvisional from "@/features/asignaciones/components/ModalCreateAsignacion/ModalCreateAsignacionProvisional/ModalCreateAsignacionProvisional";
-import ModalUpdateAsignacionProvisional from "@/features/asignaciones/components/ModalUpdateAsignacion/ModalUpdateAsignacionProvisional";
-import ModalUpdateAsignacionTitular from "@/features/asignaciones/components/ModalUpdateAsignacion/ModalUpdateAsignacionTitular";
-import DesignacionDatos from "./DesignacionDatos/DesignacionDatos";
-import Button from "@/components/Button";
-import { Pencil } from "lucide-react";
-import { designacionesPaths } from "@/router/paths";
 
 export default function DesignacionDetallePage() {
 	const { designacionId } = useParams<{ designacionId: string }>();
@@ -56,7 +56,6 @@ export default function DesignacionDetallePage() {
 		navigate(designacionesPaths.edit(id));
 	};
 
-
 	if (isLoading) return <p>Cargando designación...</p>;
 	if (error) return <p>{error}</p>;
 	if (!designacion) return <p>Designación no encontrada</p>;
@@ -84,7 +83,6 @@ export default function DesignacionDetallePage() {
 						</div>
 						<div className={styles.datos}>
 							<DesignacionDatos designacion={designacion} />
-
 						</div>
 						<div className={styles.botonesSection}>
 							<h3 className={styles.title}>Acciones</h3>

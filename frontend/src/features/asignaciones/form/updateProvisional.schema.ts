@@ -3,7 +3,6 @@ import { requiredFechaISO } from "@/utils/zod/schemas";
 
 export const updateProvisionalSchema = z
 	.object({
-
 		empleadoId: z.coerce
 			.number()
 			.min(1, { message: "Debe seleccionar un empleado" })
@@ -14,12 +13,10 @@ export const updateProvisionalSchema = z
 			.min(1, { message: "La secuencia es obligatoria" }),
 
 		fechaTomaPosesion: requiredFechaISO(
-			"La fecha de toma de posesión es obligatoria"
+			"La fecha de toma de posesión es obligatoria",
 		),
 
-		fechaCese: requiredFechaISO(
-			"La fecha de cese es obligatoria"
-		),
+		fechaCese: requiredFechaISO("La fecha de cese es obligatoria"),
 	})
 	.refine(
 		(data) => {
@@ -28,8 +25,7 @@ export const updateProvisionalSchema = z
 			return data.fechaCese >= data.fechaTomaPosesion;
 		},
 		{
-			message:
-				"La fecha de cese no puede ser anterior a la toma de posesión",
+			message: "La fecha de cese no puede ser anterior a la toma de posesión",
 			path: ["fechaCese"],
-		}
+		},
 	);

@@ -65,14 +65,14 @@ export default function DesignacionesPage() {
 	const adminQuery = useDesignacionesAdministrativas(
 		escuelaActiva?.id,
 		page,
-		pageSize
+		pageSize,
 	);
 
 	const cursoQuery = useDesignacionesCursos(
 		escuelaActiva?.id,
 		page,
 		pageSize,
-		cursoFilters
+		cursoFilters,
 	);
 
 	const query = isAdmin ? adminQuery : cursoQuery;

@@ -16,7 +16,7 @@ export default function SeleccionarEscuelaPage() {
 	const { crearEscuela, isLoading: isCreating, error } = useCrearEscuela();
 
 	const [modalCrear, setModalCrear] = useState(false);
-	const [editar, setEditar] = useState<EscuelaResponseDTO | null>(null);
+	const [, setEditar] = useState<EscuelaResponseDTO | null>(null);
 	const [eliminar, setEliminar] = useState<EscuelaResponseDTO | null>(null);
 
 	const confirmarEliminar = async () => {

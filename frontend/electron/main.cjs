@@ -6,21 +6,17 @@ const {
 	restartApp,
 } = require("./updater.cjs");
 
-const isDev = !app.isPackaged;
-
 app.whenReady().then(() => {
 	createWindow();
 
-	// 🔥 DEV TOOLS
-	if (isDev) {
-		globalShortcut.register("F12", () => {
-			getMainWindow()?.webContents.toggleDevTools();
-		});
+	// 🔥 DEV TOOLS (siempre habilitadas)
+	globalShortcut.register("F12", () => {
+		getMainWindow()?.webContents.toggleDevTools();
+	});
 
-		globalShortcut.register("CommandOrControl+Shift+I", () => {
-			getMainWindow()?.webContents.toggleDevTools();
-		});
-	}
+	globalShortcut.register("CommandOrControl+Shift+I", () => {
+		getMainWindow()?.webContents.toggleDevTools();
+	});
 
 	// 🔄 updater
 	setupAutoUpdater();

@@ -1,1 +1,1 @@
-export { default } from "./ModalUpdateAsignacionTitular"
+export { default } from "./ModalUpdateAsignacionTitular";

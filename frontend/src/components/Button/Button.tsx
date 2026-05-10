@@ -1,5 +1,5 @@
-import { useState } from "react";
 import type { MouseEvent, ReactNode } from "react";
+import { useState } from "react";
 import styles from "./Button.module.scss";
 
 export type ButtonVariant =
@@ -88,7 +88,7 @@ export default function Button({
 
 			{dropdownItems && open && (
 				<div className={styles.dropdown}>
-					{dropdownItems.map(item => (
+					{dropdownItems.map((item) => (
 						<button
 							type="button"
 							key={item.label}

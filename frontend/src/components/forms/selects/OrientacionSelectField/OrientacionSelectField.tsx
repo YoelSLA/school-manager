@@ -8,10 +8,7 @@ type Props = {
 	error?: string;
 };
 
-export default function OrientacionSelectField({
-	register,
-	error,
-}: Props) {
+export default function OrientacionSelectField({ register, error }: Props) {
 	return (
 		<FormSelectField<DesignacionCursoFormValues>
 			label="Orientación"

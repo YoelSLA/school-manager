@@ -15,7 +15,6 @@ export default function RolEducativoSelectField({
 	error,
 	disabled = false,
 }: Props) {
-
 	return (
 		<FormSelectField<DesignacionAdministrativaFormValues>
 			label="Rol educativo"
@@ -29,11 +28,9 @@ export default function RolEducativoSelectField({
 		>
 			{Object.values(RolEducativo)
 				.sort((a, b) =>
-					ROL_EDUCATIVO_LABELS[a].localeCompare(
-						ROL_EDUCATIVO_LABELS[b],
-						"es",
-						{ sensitivity: "base" },
-					),
+					ROL_EDUCATIVO_LABELS[a].localeCompare(ROL_EDUCATIVO_LABELS[b], "es", {
+						sensitivity: "base",
+					}),
 				)
 				.map((rol) => (
 					<option key={rol} value={rol}>

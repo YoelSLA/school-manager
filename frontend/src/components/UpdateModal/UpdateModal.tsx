@@ -33,7 +33,7 @@ export default function UpdateModal({
 					<>
 						<p className={styles.description}>La actualización está lista.</p>
 
-						<button className={styles.button} onClick={onRestart}>
+						<button type="button" className={styles.button} onClick={onRestart}>
 							Reiniciar ahora
 						</button>
 					</>

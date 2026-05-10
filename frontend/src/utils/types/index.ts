@@ -163,7 +163,6 @@ export type CursoNombreDTO = {
 // DESIGNACION
 // -------------------------------------------------------------------
 
-
 export type DesignacionAdministrativaFormValues = z.input<
 	typeof crearDesignacionAdministrativaSchema
 >;

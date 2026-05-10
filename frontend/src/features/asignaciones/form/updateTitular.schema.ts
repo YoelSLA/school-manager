@@ -3,7 +3,6 @@ import { CaracteristicaAsignacion } from "@/utils/types/enums";
 import { requiredFechaISO } from "@/utils/zod/schemas";
 
 export const updateTitularSchema = z.object({
-
 	empleadoId: z.coerce
 		.number()
 		.min(1, { message: "Debe seleccionar un empleado" })
@@ -21,6 +20,5 @@ export const updateTitularSchema = z.object({
 		.enum(CaracteristicaAsignacion, {
 			message: "La característica es obligatoria",
 		})
-		.optional()
-
+		.optional(),
 });
