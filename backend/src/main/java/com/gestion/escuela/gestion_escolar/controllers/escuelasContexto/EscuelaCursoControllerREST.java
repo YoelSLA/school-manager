@@ -5,8 +5,8 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.CursoCreateDT
 import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.CursoNombreDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.CursoResponseDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.CursoUpdateDTO;
-import com.gestion.escuela.gestion_escolar.mappers.CursoMapper;
-import com.gestion.escuela.gestion_escolar.mappers.PageMapper;
+import com.gestion.escuela.gestion_escolar.controllers.mappers.CursoMapper;
+import com.gestion.escuela.gestion_escolar.controllers.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.Curso;
 import com.gestion.escuela.gestion_escolar.models.enums.Turno;
 import com.gestion.escuela.gestion_escolar.services.CursoService;

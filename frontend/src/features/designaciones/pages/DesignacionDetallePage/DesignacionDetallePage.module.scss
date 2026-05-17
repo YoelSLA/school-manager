@@ -8,7 +8,6 @@
 	flex: 1;
 	min-height: 0;
 	gap: 4px;
-	background-color: red;
 }
 
 /* =====================
@@ -52,7 +51,7 @@
 .cargoActivo {
 	grid-area: cargo;
 
-	background-color: #d9d9d9;
+	background-color: #BEDBFF;
 	border-radius: 20px;
 	padding: 12px;
 
@@ -67,7 +66,7 @@
 .horarios {
 	grid-area: horarios;
 
-	background-color: #d9d9d9;
+	background-color: #BEDBFF;
 	border-radius: 20px;
 	padding: 12px;
 
@@ -82,7 +81,7 @@
 .datos {
 	grid-area: datos;
 
-	background-color: #d9d9d9;
+	background-color: #BEDBFF;
 	border-radius: 20px;
 	padding: 12px;
 	height: 100%;
@@ -92,7 +91,7 @@
 .botonesSection {
 	grid-area: botones;
 
-	background-color: #d9d9d9;
+	background-color: #BEDBFF;
 	border-radius: 20px;
 	padding: 12px;
 	height: 100%;
@@ -103,17 +102,21 @@
 	font-size: 13px;
 	font-weight: 600;
 	color: #6b7280;
+
 	text-align: center;
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
 
 	padding-bottom: 5px;
-	border-bottom: 1px solid #000000;
+
+	border-bottom: 1px dotted rgba(0, 0, 0, 0.5);
 }
 
 .botones {
+	padding-top: 8px;
 	display: flex;
 	justify-content: flex-start;
+	gap: 8px;
 }
 
 /* =====================
@@ -123,7 +126,7 @@
 .historial {
 	grid-area: historial;
 
-	background-color: #d9d9d9;
+	background-color: #BEDBFF;
 	border-radius: 20px;
 	padding: 12px;
 

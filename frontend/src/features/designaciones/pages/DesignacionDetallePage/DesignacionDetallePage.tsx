@@ -1,6 +1,3 @@
-import { Pencil } from "lucide-react";
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import Button from "@/components/Button";
 import ModalCreateAsignacionProvisional from "@/features/asignaciones/components/ModalCreateAsignacion/ModalCreateAsignacionProvisional/ModalCreateAsignacionProvisional";
 import ModalCreateAsignacionTitular from "@/features/asignaciones/components/ModalCreateAsignacion/ModalCreateAsignacionTitular/ModalCreateAsignacionTitular";
@@ -10,6 +7,9 @@ import Breadcrumbs from "@/layout/Breadcrumbs";
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import { designacionesPaths } from "@/router/paths";
 import type { AsignacionDetalleDTO, FiltroCargos } from "@/utils/types";
+import { Pencil, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCargoActivo } from "../../../asignaciones/hooks/useCargoActivo";
 import { useCargosDesignacion } from "../../hooks/useCargosDesignacion";
 import useDesignacionDetalle from "../../hooks/useDesignacionDetalle";
@@ -56,6 +56,10 @@ export default function DesignacionDetallePage() {
 		navigate(designacionesPaths.edit(id));
 	};
 
+	const handleEliminar = () => {
+		// TODO: implementar eliminación de designación
+	};
+
 	if (isLoading) return <p>Cargando designación...</p>;
 	if (error) return <p>{error}</p>;
 	if (!designacion) return <p>Designación no encontrada</p>;
@@ -91,6 +95,11 @@ export default function DesignacionDetallePage() {
 								<Button variant="secondary" size="sm" onClick={handleEditar}>
 									<Pencil size={16} />
 									Editar
+								</Button>
+
+								<Button variant="danger" size="sm" onClick={handleEliminar}>
+									<Trash2 size={16} />
+									Eliminar
 								</Button>
 							</div>
 						</div>

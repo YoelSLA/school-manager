@@ -1,20 +1,43 @@
 @use "@/styles/breakpoints" as *;
 
 /* =================================
-   LAYOUT GRID
+   CARD
 ================================= */
 
 .card {
 	display: grid;
 
-	grid-template-rows:
-		var(--header-h) var(--empleado-h) var(--fechas-h) var(--footer-h);
+	grid-template-rows: 1fr var(--footer-h);
 
 	row-gap: var(--gap);
+
 	padding: var(--padding-y) 0;
 
 	height: 100%;
 	max-width: 340px;
+}
+
+/* =================================
+   CONTENT
+================================= */
+
+.content {
+	height: 100%;
+}
+
+/* =================================
+   INFO
+================================= */
+
+.info {
+	display: grid;
+
+	grid-template-rows:
+		var(--header-h) var(--empleado-h) 1fr;
+
+	row-gap: var(--gap);
+
+	height: 100%;
 }
 
 /* =================================
@@ -23,13 +46,13 @@
 
 .header,
 .empleado,
-.fechas,
 .footer {
 	display: flex;
 	width: 100%;
 }
 
 .header {
+	align-items: center;
 	justify-content: space-between;
 }
 
@@ -37,44 +60,36 @@
 	justify-content: center;
 }
 
-.fechas {
-	flex-direction: column;
-	justify-content: center;
-	gap: 10px;
-}
-
 .footer {
 	justify-content: flex-end;
 }
 
 /* =================================
-   DIVIDER
+   DETALLE
 ================================= */
 
-.divider {
-	height: 1px;
-	background: #e5e7eb;
-}
-
-/* =================================
-   CODIGO
-================================= */
-
-.tipoPill {
-	background: #e5e7eb;
-	padding: 4px 12px;
-	border-radius: 999px;
-	font-size: 12px;
-	font-weight: 600;
-}
-
-.codigo {
-	letter-spacing: 0.5px;
+.detalle {
+	display: flex;
+	align-items: stretch;
+	gap: 16px;
 }
 
 /* =================================
    FECHAS
 ================================= */
+
+.fechas {
+	flex: 1;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	border-radius: 20px;
+	padding: 8px;
+
+	gap: 10px;
+	background-color: #e5e7eb;
+}
 
 .fechaItem {
 	display: flex;
@@ -89,17 +104,25 @@
 
 .label {
 	display: block;
+
 	font-size: 11px;
-	color: #6b7280;
 	font-weight: 500;
+
+	color: #6b7280;
 }
 
 .valor {
 	display: block;
+
 	font-size: 14px;
 	font-weight: 600;
+
 	color: #111827;
 }
+
+/* =================================
+   ICON COLORS
+================================= */
 
 .fechaItem:nth-child(1) .icon {
 	color: #2563eb;
@@ -114,19 +137,91 @@
 }
 
 /* =================================
+   DÍAS RESTANTES
+================================= */
+
+.restantes {
+	width: 88px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	padding: 12px 8px;
+
+	border-radius: 20px;
+	background: rgba(0, 0, 0, 0.04);
+	background-color: #e5e7eb;
+}
+
+.restantesNumero {
+	font-size: 32px;
+	font-weight: 800;
+	line-height: 1;
+
+	color: #111827;
+}
+
+.restantesTexto {
+	margin-top: 6px;
+
+	font-size: 11px;
+	font-weight: 500;
+
+	text-align: center;
+
+	color: #6b7280;
+}
+
+/* =================================
+   CÓDIGO
+================================= */
+
+.tipoPill {
+	background: #e5e7eb;
+
+	padding: 4px 12px;
+
+	border-radius: 999px;
+
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.codigo {
+	letter-spacing: 0.5px;
+}
+
+/* =================================
    SMALL HEIGHT
 ================================= */
 
 @include desktop-height-small {
-
 	.card {
 		--padding-y: 8px;
 		--gap: 8px;
 
 		--header-h: 32px;
 		--empleado-h: 36px;
-		--fechas-h: 96px;
 		--footer-h: 24px;
+	}
+
+	.detalle {
+		gap: 12px;
+	}
+
+	.restantes {
+		width: 72px;
+		padding: 8px 6px;
+	}
+
+	.restantesNumero {
+		font-size: 24px;
+	}
+
+	.restantesTexto {
+		font-size: 10px;
 	}
 
 	.label {
@@ -148,15 +243,21 @@
 ================================= */
 
 @include desktop-height-medium {
-
 	.card {
 		--padding-y: 12px;
 		--gap: 12px;
 
 		--header-h: 36px;
 		--empleado-h: 40px;
-		--fechas-h: 110px;
 		--footer-h: 28px;
+	}
+
+	.restantes {
+		width: 80px;
+	}
+
+	.restantesNumero {
+		font-size: 28px;
 	}
 
 	.label {
@@ -178,15 +279,21 @@
 ================================= */
 
 @include desktop-height-large {
-
 	.card {
 		--padding-y: 16px;
 		--gap: 16px;
 
 		--header-h: 40px;
 		--empleado-h: 44px;
-		--fechas-h: 120px;
 		--footer-h: 32px;
+	}
+
+	.restantes {
+		width: 88px;
+	}
+
+	.restantesNumero {
+		font-size: 32px;
 	}
 
 	.label {

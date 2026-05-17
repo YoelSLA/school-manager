@@ -11,6 +11,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Entity
@@ -100,8 +101,12 @@ public class Licencia {
 	@Transient
 	public EstadoLicencia getEstadoEn(LocalDate fecha) {
 
-		if (!periodo.estaVigenteEn(fecha)) {
-			return EstadoLicencia.INACTIVA;
+		if (todaviaNoComenzo(fecha)) {
+			return EstadoLicencia.PENDIENTE;
+		}
+
+		if (estaFinalizada(fecha)) {
+			return EstadoLicencia.FINALIZADA;
 		}
 
 		return estaCubiertaEn(fecha)
@@ -162,6 +167,19 @@ public class Licencia {
 		return Collections.unmodifiableSet(designaciones);
 	}
 
+	public long diasRestantes(LocalDate fecha) {
+
+		if (estaFinalizada(fecha)) {
+			return 0;
+		}
+
+		return ChronoUnit.DAYS.between(
+				fecha,
+				periodo.getFechaHasta()
+		) + 1;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Licencia{" +
@@ -176,6 +194,16 @@ public class Licencia {
 				.map(Designacion::getId)
 				.toList() +
 				'}';
+	}
+
+	public void validarFechaValidaParaCobertura(LocalDate fecha) {
+		if (fecha.isBefore(this.periodo.getFechaDesde())) {
+			throw new RangoFechasInvalidoException(this.periodo.getFechaDesde(), fecha);
+		}
+	}
+
+	public void limpiarDesignaciones() {
+		this.designaciones.clear();
 	}
 
 	private boolean estaCubiertaEn(LocalDate fecha) {
@@ -197,14 +225,13 @@ public class Licencia {
 		return actual;
 	}
 
-	public void validarFechaValidaParaCobertura(LocalDate fecha) {
-		if (fecha.isBefore(this.periodo.getFechaDesde())) {
-			throw new RangoFechasInvalidoException(this.periodo.getFechaDesde(), fecha);
-		}
+	private boolean todaviaNoComenzo(LocalDate fecha) {
+		return fecha.isBefore(periodo.getFechaDesde());
 	}
 
-	public void limpiarDesignaciones() {
-		this.designaciones.clear();
+	private boolean estaFinalizada(LocalDate fecha) {
+		return periodo.getFechaHasta() != null
+				&& fecha.isAfter(periodo.getFechaHasta());
 	}
 
 

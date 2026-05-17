@@ -10,6 +10,7 @@ public record LicenciaResumenDTO(
 		LicenciaNormativaDTO normativa,
 		String descripcion,
 		PeriodoResponseDTO periodo,
-		EstadoLicencia estadoLicencia
+		EstadoLicencia estadoLicencia,
+		Long diasRestantes
 ) {
 }

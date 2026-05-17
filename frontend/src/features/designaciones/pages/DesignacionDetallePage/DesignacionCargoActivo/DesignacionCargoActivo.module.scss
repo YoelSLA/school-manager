@@ -11,12 +11,14 @@
 	font-size: 13px;
 	font-weight: 600;
 	color: #6b7280;
+
 	text-align: center;
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
 
 	padding-bottom: 5px;
-	border-bottom: 1px solid #000000;
+
+	border-bottom: 1px dotted rgba(0, 0, 0, 0.5);
 }
 
 .loading {

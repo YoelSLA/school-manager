@@ -2,8 +2,8 @@ package com.gestion.escuela.gestion_escolar.controllers;
 
 import com.gestion.escuela.gestion_escolar.controllers.dtos.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencias.*;
-import com.gestion.escuela.gestion_escolar.mappers.AsistenciaMapper;
-import com.gestion.escuela.gestion_escolar.mappers.PageMapper;
+import com.gestion.escuela.gestion_escolar.controllers.mappers.AsistenciaMapper;
+import com.gestion.escuela.gestion_escolar.controllers.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.services.AsistenciaService;
