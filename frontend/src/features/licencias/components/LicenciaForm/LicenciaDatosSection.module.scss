@@ -1,13 +1,9 @@
-@use "../../../../styles/debug.mixins" as debug;
-
 .licenciaForm {
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
 
 	height: 100%;
-
-	@include debug.debug(red);
 }
 
 .licenciaFormContent {
@@ -17,7 +13,6 @@
 	flex: 1;
 	min-height: 0;
 
-	@include debug.debug(blue);
 }
 
 .licenciaSection {
@@ -25,7 +20,6 @@
 	display: flex;
 	flex-direction: column;
 
-	@include debug.debug(lime);
 }
 
 .licenciaFormFooter {
@@ -40,7 +34,6 @@
 
 	flex-shrink: 0;
 
-	@include debug.debug(orange);
 	background-color: #fff;
 }
 
@@ -53,5 +46,4 @@
 	padding: 4px 8px;
 	border-radius: 4px;
 
-	@include debug.debug(purple);
 }

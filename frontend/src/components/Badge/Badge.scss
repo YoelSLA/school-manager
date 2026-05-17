@@ -18,16 +18,11 @@
 		line-height: 1;
 	}
 
-	/* VARIANTS */
+	// LICENCIA
 
-	&--activa {
-		background: var(--estado-activa);
-		color: var(--estado-activa-text);
-	}
-
-	&--licencia {
-		background: var(--estado-licencia);
-		color: var(--estado-licencia-text);
+	&--pendiente {
+		background: #fef3c7;
+		color: #92400e;
 	}
 
 	&--cubierta {
@@ -44,6 +39,18 @@
 	&--finalizada {
 		background: var(--estado-finalizada);
 		color: var(--estado-finalizada-text);
+	}
+
+	/* VARIANTS */
+
+	&--activa {
+		background: var(--estado-activa);
+		color: var(--estado-activa-text);
+	}
+
+	&--licencia {
+		background: var(--estado-licencia);
+		color: var(--estado-licencia-text);
 	}
 
 	&--baja {

@@ -1,4 +1,4 @@
-package com.gestion.escuela.gestion_escolar.mappers;
+package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
 import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.*;
@@ -37,7 +37,8 @@ public class LicenciaMapper {
 				normativa,
 				tipo.getDescripcion(),
 				PeriodoMapper.toPeriodoResponse(l),
-				l.getEstadoEn(HOY)
+				l.getEstadoEn(HOY),
+				l.diasRestantes(HOY)
 		);
 	}
 

@@ -1,10 +1,13 @@
-import { useState } from "react";
-import { FormProvider } from "react-hook-form";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
 import { useDesignacionesActivas } from "@/features/empleadosEducativos/hooks/useDesignacionesActivas";
 import Breadcrumbs from "@/layout/Breadcrumbs";
 import PageLayout from "@/layout/PageLayout/PageLayout";
-import type { LicenciaCreateDTO } from "@/utils/types";
+import type {
+	LicenciaCreateDTO,
+	LicenciaCreateFormValues,
+} from "@/utils/types";
+import { useState } from "react";
+import { FormProvider } from "react-hook-form";
 import LicenciaDatosSection from "../../components/LicenciaForm";
 import DesignacionesSelector from "../../components/LicenciaForm/DesignacionesSelector";
 import { useLicenciaForm } from "../../form/useLicenciaForm";
@@ -24,20 +27,15 @@ export default function LicenciaCreatePage() {
 	const { data: designaciones, isLoading: loadingDesignaciones } =
 		useDesignacionesActivas(empleadoId);
 
-	const handleSubmit = async (data: LicenciaCreateDTO) => {
+	const handleSubmit = async (data: LicenciaCreateFormValues) => {
 		if (!empleadoId) {
 			setEmpleadoError("Debe seleccionar un empleado");
 			return;
 		}
 
 		const payload: LicenciaCreateDTO = {
-			tipoLicencia: data.tipoLicencia,
-			periodo: {
-				fechaDesde: data.periodo.fechaDesde,
-				fechaHasta: data.periodo.fechaHasta ?? undefined,
-			},
-			descripcion: data.descripcion,
-			designacionesIds: data.designacionesIds,
+			...data,
+			designacionesIds: data.designacionesIds.map(Number),
 		};
 
 		try {
@@ -66,7 +64,6 @@ export default function LicenciaCreatePage() {
 										setEmpleadoId(empleado?.id ?? null);
 										setEmpleadoError(null);
 
-										// resetear designaciones al cambiar empleado
 										form.setValue("designacionesIds", []);
 									}}
 								/>
@@ -80,7 +77,7 @@ export default function LicenciaCreatePage() {
 								<DesignacionesSelector
 									designaciones={designaciones ?? []}
 									loading={loadingDesignaciones}
-									value={designacionesIds}
+									value={designacionesIds.map(Number)}
 									onChange={(ids) => form.setValue("designacionesIds", ids)}
 								/>
 							</div>

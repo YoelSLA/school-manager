@@ -1,5 +1,5 @@
-import { z } from "zod";
 import { crearPeriodoSchema } from "@/utils/zod/crearPeriodo.schema";
+import { z } from "zod";
 
 export const crearLicenciaSchema = z.object({
 	tipoLicencia: z
@@ -10,10 +10,12 @@ export const crearLicenciaSchema = z.object({
 
 	descripcion: z
 		.string()
-		.max(255, { message: "La descripción no puede superar los 255 caracteres" })
+		.max(255, {
+			message: "La descripción no puede superar los 255 caracteres",
+		})
 		.optional(),
 
-	designacionesIds: z
-		.array(z.coerce.number())
-		.min(1, { message: "Debe indicar al menos una designación afectada" }),
+	designacionesIds: z.array(z.coerce.number()).min(1, {
+		message: "Debe indicar al menos una designación afectada",
+	}),
 });

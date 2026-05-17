@@ -1,14 +1,14 @@
-import type { UseFormReturn } from "react-hook-form";
 import Button from "@/components/Button";
 import FormSection from "@/components/FormSection";
 import DescripcionField from "@/components/forms/inputs/DescripcionInputField";
 import FechaField from "@/components/forms/inputs/FechaInputField";
 import TipoLicenciaSelect from "@/features/licencias/components/TipoLicenciaSelect/TipoLicenciaSelect";
-import type { LicenciaCreateDTO } from "@/utils/types";
+import type { LicenciaCreateFormValues } from "@/utils/types";
+import type { UseFormReturn } from "react-hook-form";
 import styles from "./LicenciaDatosSection.module.scss";
 
 type Props = {
-	form: UseFormReturn<LicenciaCreateDTO>;
+	form: UseFormReturn<LicenciaCreateFormValues>;
 	isSubmitting: boolean;
 	error?: string | null;
 };
@@ -37,14 +37,14 @@ export default function LicenciaDatosSection({
 						<FechaField
 							register={register}
 							name="periodo.fechaDesde"
-							label="Desde"
+							label="FECHA DESDE"
 							error={errors.periodo?.fechaDesde?.message}
 						/>
 
 						<FechaField
 							register={register}
 							name="periodo.fechaHasta"
-							label="Hasta (opcional)"
+							label="FECHA HASTA"
 							error={errors.periodo?.fechaHasta?.message}
 						/>
 

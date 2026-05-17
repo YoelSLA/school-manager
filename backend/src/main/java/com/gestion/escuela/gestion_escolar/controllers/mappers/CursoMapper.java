@@ -1,4 +1,4 @@
-package com.gestion.escuela.gestion_escolar.mappers;
+package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
 import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.CursoCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.CursoNombreDTO;
