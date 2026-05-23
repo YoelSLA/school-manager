@@ -31,11 +31,10 @@ class AsignacionProvisionalTest {
 		empleado = mock(EmpleadoEducativo.class);
 		designacion = mock(Designacion.class);
 
-		periodo = new Periodo(
+		periodo = Periodo.cerrado(
 				LocalDate.of(2025, 3, 1),
-				LocalDate.of(2025, 3, 31)
-		);
-
+				LocalDate.of(2025, 3, 31));
+		
 		asignacion = new AsignacionProvisional(
 				empleado,
 				designacion,

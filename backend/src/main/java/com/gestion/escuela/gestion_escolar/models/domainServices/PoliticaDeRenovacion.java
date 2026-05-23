@@ -1,5 +1,6 @@
-package com.gestion.escuela.gestion_escolar.models;
+package com.gestion.escuela.gestion_escolar.models.domainServices;
 
+import com.gestion.escuela.gestion_escolar.models.Periodo;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionProvisional;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
@@ -47,12 +48,12 @@ public class PoliticaDeRenovacion {
 		LocalDate primeroDeMarzo = LocalDate.of(anio, 3, 1);
 		LocalDate primeroDeMarzoSiguiente = LocalDate.of(anio + 1, 3, 1);
 
-		// 1️⃣ Debe comenzar el 1 de marzo
+		// 1️ Debe comenzar el 1 de marzo
 		if (!desde.equals(primeroDeMarzo)) {
 			throw new IllegalArgumentException("La asignación provisional debe iniciar el 1 de marzo");
 		}
 
-		// 2️⃣ Debe finalizar antes del 1 de marzo siguiente
+		// 2️ Debe finalizar antes del 1 de marzo siguiente
 
 		if (!desde.isBefore(primeroDeMarzoSiguiente)) {
 			throw new IllegalArgumentException("La fecha fin debe ser anterior al 1 de marzo del año siguiente");

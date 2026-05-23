@@ -68,7 +68,7 @@ public class LicenciaMapper {
 
 	public static LicenciaDesignacionDTO toDesignacionDTO(Designacion d) {
 
-		Asignacion asignacion = d.getAsignacionActivaEn(HOY).orElse(null);
+		Asignacion asignacion = d.asignacionQueEjerceEn(HOY).orElse(null);
 
 		AsignacionDetalleDTO asignacionActiva =
 				asignacion != null

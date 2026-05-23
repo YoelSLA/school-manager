@@ -193,9 +193,9 @@ public class DesignacionServiceImpl implements DesignacionService {
 			throw new IllegalArgumentException("La fecha fin no puede ser anterior a la fecha inicio");
 		}
 
-		Periodo periodo = new Periodo(fechaDesde, fechaHasta);
+		Periodo periodoCerrado = Periodo.cerrado(fechaDesde, fechaHasta);
 
-		AsignacionProvisional asignacion = designacion.cubrirConProvisionalManual(empleado, periodo, secuencia);
+		AsignacionProvisional asignacion = designacion.cubrirConProvisionalManual(empleado, periodoCerrado, secuencia);
 
 		designacionRepository.save(designacion);
 
@@ -257,18 +257,15 @@ public class DesignacionServiceImpl implements DesignacionService {
 			throw new RangoFechasInvalidoException(nuevaFechaInicio, nuevaFechaInicio);
 		}
 
-		// 1️⃣ Cerrar actual
-//		actual.finalizar();
+		// 1️ Cerrar actual
+		// actual.finalizar();
 
-		// 2️⃣ Crear nueva
-		Periodo nuevoPeriodo = new Periodo(nuevaFechaInicio, nuevaFechaFin);
-
-		//		actual.getDesignacion().agregarAsignacion(nueva);
+		// actual.getDesignacion().agregarAsignacion(nueva);
 
 		return new AsignacionSuplente(
 				actual.getEmpleadoEducativo(),
 				actual.getDesignacion(),
-				nuevoPeriodo,
+				Periodo.cerrado(nuevaFechaInicio, nuevaFechaFin),
 				secuencia
 
 		);
@@ -381,7 +378,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 
 		designacionCurso.actualizar(cupof, materia, curso, orientacion);
 
-		designacionCurso.reemplazarFranjas(franjasHorarias);
+		designacionCurso.setFranjasHorarias(franjasHorarias);
 	}
 
 	@Override
@@ -404,7 +401,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 		);
 
 		designacion.actualizar(cupof, rolEducativo);
-		designacion.reemplazarFranjas(franjasHorarias);
+		designacion.setFranjasHorarias(franjasHorarias);
 	}
 
 	public Asignacion actualizarAsignacion(

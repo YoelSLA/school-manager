@@ -79,11 +79,6 @@ public abstract class Asignacion {
 		}
 	}
 
-	public void asignarEmpleado(EmpleadoEducativo empleadoEducativo) {
-		Validaciones.noNulo(empleadoEducativo, "empleado educativo");
-		this.empleadoEducativo = empleadoEducativo;
-	}
-
 	public void aplicarCaracteristica(CaracteristicaAsignacion nueva) {
 		throw new UnsupportedOperationException("Solo una asignación TITULAR puede tener característica");
 	}
@@ -187,7 +182,7 @@ public abstract class Asignacion {
 		return getSituacionDeRevista() == TITULAR;
 	}
 
-	public boolean esProvisomal() {
+	public boolean esProvisonal() {
 		return getSituacionDeRevista() == PROVISIONAL;
 	}
 
@@ -197,12 +192,12 @@ public abstract class Asignacion {
 			LocalDate fechaCese,
 			Integer secuencia
 	) {
-		if(esProvisomal()) {
+		if(esProvisonal()) {
 			Validaciones.noNulo(fechaCese, "fecha de cese");
 		}
 
 		this.actualizar(empleado, fechaTomaPosesion, secuencia);
-		this.periodo = new Periodo(fechaTomaPosesion, fechaCese);
+		this.periodo = Periodo.cerrado(fechaTomaPosesion, fechaCese);
 	}
 
 	public void actualizar(
@@ -217,10 +212,7 @@ public abstract class Asignacion {
 
 		this.empleadoEducativo = empleado;
 		this.secuencia = secuencia;
-		this.periodo = new Periodo(
-				fechaTomaPosesion,
-				this.periodo.getFechaHasta()
-		);
+		this.periodo = Periodo.cerrado(fechaTomaPosesion, this.periodo.getFechaHasta());
 	}
 
 	public void setDesignacion(Designacion designacion) {
@@ -237,5 +229,10 @@ public abstract class Asignacion {
 		Validaciones.noNulo(designacion, "designacion");
 		Validaciones.noNulo(periodo, "periodo");
 		Validaciones.noNulo(secuencia, "secuencia");
+	}
+
+	public void setEmpleadoEducativo(EmpleadoEducativo empleado) {
+		Validaciones.noNulo(empleado, "empleado");
+		this.empleadoEducativo = empleado;
 	}
 }

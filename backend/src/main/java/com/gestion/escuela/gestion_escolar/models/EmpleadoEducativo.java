@@ -5,7 +5,6 @@ import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.DiaDeSemana;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
-import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.EmpleadoInactivoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
@@ -139,16 +138,19 @@ public class EmpleadoEducativo {
 		asignacionesAfectadasPorBaja(fechaBaja).forEach(a -> a.finalizarPorBajaDefinitiva(causaBaja, fechaBaja));
 	}
 
-	public void agregarAsignacion(Asignacion asignacion) {
-		if (asignacion == null) {
-			throw new CampoObligatorioException("asignación");
-		}
+	public void agregarAsignacion(
+			Asignacion asignacion
+	) {
 
-		if (!this.equals(asignacion.getEmpleadoEducativo())) {
-			asignacion.asignarEmpleado(this);
-		}
+		Validaciones.noNulo(asignacion, "asignación");
 
 		asignaciones.add(asignacion);
+
+		asignacion.setEmpleadoEducativo(this);
+	}
+
+	public void eliminarAsignacion(Asignacion asignacion) {
+		this.asignaciones.remove(asignacion);
 	}
 
 	public void actualizar(
@@ -324,6 +326,7 @@ public class EmpleadoEducativo {
 			throw new DesignacionNoActivaDelEmpleadoException(designaciones);
 		}
 	}
+
 
 
 }

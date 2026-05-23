@@ -24,6 +24,8 @@ import java.time.Month;
 import java.util.Optional;
 import java.util.Set;
 
+import static com.gestion.escuela.gestion_escolar.models.Periodo.abierto;
+import static com.gestion.escuela.gestion_escolar.models.Periodo.cerrado;
 import static com.gestion.escuela.gestion_escolar.models.enums.DiaDeSemana.*;
 import static com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion.ACTIVA;
 import static com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion.LICENCIA;
@@ -339,11 +341,11 @@ class EmpleadoEducativoTest {
 	@DisplayName("Crear licencia")
 	class CrearLicencia {
 
-		private Periodo periodo;
+		private Periodo periodoCerrado;
 
 		@BeforeEach
 		void setUp() {
-			periodo = new Periodo(
+			periodoCerrado = cerrado(
 					LocalDate.of(2025, 3, 1),
 					LocalDate.of(2025, 3, 10)
 			);
@@ -353,7 +355,7 @@ class EmpleadoEducativoTest {
 		@DisplayName("Debe crear una licencia válida y agregarla al empleado")
 		void creaLicenciaValida() {
 
-			Periodo periodo = new Periodo(
+			Periodo periodo = cerrado(
 					LocalDate.of(2025, 3, 1),
 					LocalDate.of(2025, 3, 10)
 			);
@@ -391,7 +393,7 @@ class EmpleadoEducativoTest {
 					CampoObligatorioException.class,
 					() -> giardinoNoraRosa.crearLicencia(
 							null,
-							periodo,
+							periodoCerrado,
 							"Descanso",
 							Set.of(mock(Designacion.class))
 					)
@@ -422,7 +424,7 @@ class EmpleadoEducativoTest {
 					EmpleadoInactivoException.class,
 					() -> giardinoNoraRosa.crearLicencia(
 							TipoLicencia.L_115D1,
-							periodo,
+							periodoCerrado,
 							"Descanso",
 							Set.of(mock(Designacion.class))
 					)
@@ -433,12 +435,12 @@ class EmpleadoEducativoTest {
 		@DisplayName("Debe fallar si la licencia se superpone con otra existente")
 		void fallaSiLicenciaSuperpuesta() {
 
-			Periodo p1 = new Periodo(
+			Periodo p1 = cerrado(
 					LocalDate.of(2025, 3, 1),
 					LocalDate.of(2025, 3, 10)
 			);
 
-			Periodo p2 = new Periodo(
+			Periodo p2 = cerrado(
 					LocalDate.of(2025, 3, 5),
 					LocalDate.of(2025, 3, 15)
 			);
@@ -477,7 +479,7 @@ class EmpleadoEducativoTest {
 					IllegalArgumentException.class,
 					() -> giardinoNoraRosa.crearLicencia(
 							TipoLicencia.L_115D1,
-							periodo,
+							periodoCerrado,
 							"Descanso",
 							Set.of()
 					)
@@ -492,7 +494,7 @@ class EmpleadoEducativoTest {
 					IllegalArgumentException.class,
 					() -> giardinoNoraRosa.crearLicencia(
 							TipoLicencia.L_115D1,
-							periodo,
+							periodoCerrado,
 							"Descanso",
 							null
 					)
@@ -510,7 +512,7 @@ class EmpleadoEducativoTest {
 					DesignacionNoActivaDelEmpleadoException.class,
 					() -> giardinoNoraRosa.crearLicencia(
 							TipoLicencia.L_115D1,
-							periodo,
+							periodoCerrado,
 							"Descanso",
 							Set.of(designacion)
 					)
@@ -620,7 +622,7 @@ class EmpleadoEducativoTest {
 			// Arrange
 			LocalDate fechaTomaPosesion = LocalDate.of(2017, Month.JUNE, 7);
 			LocalDate fechaCese = LocalDate.of(2018, Month.FEBRUARY, 28);
-			Periodo periodoProvisional = new Periodo(fechaTomaPosesion, fechaCese);
+			Periodo periodoProvisional = cerrado(fechaTomaPosesion, fechaCese);
 			AsignacionProvisional provisional = direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodoProvisional, 1);
 
 			assertEquals(CUBIERTA, direccion2467830.getEstadoEn(fechaTomaPosesion));
@@ -798,7 +800,7 @@ class EmpleadoEducativoTest {
 			assertEquals(ACTIVA, asignacionTitular2.getEstadoEn(fechaTomaPosesion));
 			assertEquals(ACTIVA, asignacionTitular3.getEstadoEn(fechaTomaPosesion));
 
-			Periodo periodoLicencia = new Periodo(fechaTomaPosesion, null);
+			Periodo periodoLicencia = abierto(fechaTomaPosesion);
 
 			Licencia licencia = giardinoNoraRosa.crearLicencia(
 					TipoLicencia.L_115D1,

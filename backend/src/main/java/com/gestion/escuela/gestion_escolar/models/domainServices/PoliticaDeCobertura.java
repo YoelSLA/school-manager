@@ -1,5 +1,8 @@
-package com.gestion.escuela.gestion_escolar.models;
+package com.gestion.escuela.gestion_escolar.models.domainServices;
 
+import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
+import com.gestion.escuela.gestion_escolar.models.Licencia;
+import com.gestion.escuela.gestion_escolar.models.Periodo;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.exceptions.*;
 import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionNoAfectadaPorLicenciaException;
@@ -99,6 +102,7 @@ public class PoliticaDeCobertura {
 			EmpleadoEducativo empleado,
 			Periodo periodo
 	) {
+
 
 		Validaciones.noNulo(empleado, "empleado educativo");
 		Validaciones.noNulo(periodo, "periodo");

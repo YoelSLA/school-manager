@@ -3,6 +3,7 @@ package com.gestion.escuela.gestion_escolar.models;
 import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.periodo.PeriodoAbiertoException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -16,14 +17,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @DisplayName("Tests de Periodo")
 class PeriodoTest {
 
-	private Periodo cerrado(LocalDate desde, LocalDate hasta) {
-		return new Periodo(desde, hasta);
-	}
-
-	private Periodo abierto(LocalDate desde) {
-		return new Periodo(desde, null);
-	}
-
 	@Nested
 	@DisplayName("Creación de período")
 	class Creacion {
@@ -34,7 +27,7 @@ class PeriodoTest {
 			// Arrange
 			LocalDate fechaDesde = LocalDate.of(2025, MARCH, 1);
 			LocalDate fechaHasta = LocalDate.of(2025, MARCH, 31);
-			Periodo periodoCerrado = cerrado(fechaDesde, fechaHasta);
+			Periodo periodoCerrado = Periodo.cerrado(fechaDesde, fechaHasta);
 
 			// Act + Assert
 			assertThat(periodoCerrado)
@@ -47,7 +40,7 @@ class PeriodoTest {
 		void creaPeriodoAbierto() {
 			// Arrange
 			LocalDate fechaDesde = LocalDate.of(2025, MARCH, 1);
-			Periodo periodoAbierto = abierto(fechaDesde);
+			Periodo periodoAbierto = Periodo.abierto(fechaDesde);
 
 			// Act + Assert
 			assertThat(periodoAbierto.getFechaDesde()).isEqualTo(fechaDesde);
@@ -58,8 +51,10 @@ class PeriodoTest {
 		@DisplayName("No se puede crear un período sin fecha de inicio.")
 		void fallaSiFechaDesdeEsNull() {
 
+			LocalDate fechaHasta = LocalDate.of(2025, MARCH, 1);
+
 			// Act + Assert
-			assertThatThrownBy(() -> cerrado(null, LocalDate.of(2025, MARCH, 10)))
+			assertThatThrownBy(() -> Periodo.cerrado(null, fechaHasta))
 					.isInstanceOf(CampoObligatorioException.class)
 					.hasMessageContaining("fechaDesde");
 		}
@@ -70,7 +65,7 @@ class PeriodoTest {
 			LocalDate desde = LocalDate.of(2025, APRIL, 1);
 			LocalDate hasta = LocalDate.of(2025, MARCH, 1);
 
-			assertThatThrownBy(() -> cerrado(desde, hasta))
+			assertThatThrownBy(() -> Periodo.cerrado(desde, hasta))
 					.isInstanceOf(RangoFechasInvalidoException.class)
 					.hasMessageContaining("fechaDesde")
 					.hasMessageContaining("fechaHasta");
@@ -85,7 +80,7 @@ class PeriodoTest {
 		@DisplayName("El período es cerrado cuando tiene fecha de fin")
 		void periodoCerrado() {
 			// Arrange
-			Periodo periodoCerrado = cerrado(
+			Periodo periodoCerrado = Periodo.cerrado(
 					LocalDate.of(2025, MARCH, 1),
 					LocalDate.of(2025, MARCH, 3)
 			);
@@ -99,7 +94,7 @@ class PeriodoTest {
 		@DisplayName("El período es abierto cuando no tiene fecha de fin")
 		void periodoAbierto() {
 			// Arrange
-			Periodo periodoAbierto = abierto(LocalDate.of(2025, MARCH, 1));
+			Periodo periodoAbierto = Periodo.abierto(LocalDate.of(2025, MARCH, 1));
 
 			// Act + Assert
 			assertThat(periodoAbierto.esAbierto()).isTrue();
@@ -111,14 +106,22 @@ class PeriodoTest {
 	@DisplayName("Vigencia del período")
 	class EstaVigenteEn {
 
+		LocalDate y2025m03d01;
+		LocalDate y2025m03d10;
+
+
+		@BeforeEach
+		void setUp() {
+			y2025m03d01 = LocalDate.of(2025, MARCH, 1);
+			y2025m03d10 = LocalDate.of(2025, MARCH, 10);
+		}
+
 		@Test
 		@DisplayName("La fecha está vigente dentro del período cerrado.")
 		void fechaVigenteDentroDelPeriodo() {
 			// Arrange
-			Periodo periodoCerrado = cerrado(
-					LocalDate.of(2025, MARCH, 1),
-					LocalDate.of(2025, MARCH, 10));
-			LocalDate fechaVigente = LocalDate.of(2025, MARCH, 5);
+			Periodo periodoCerrado = Periodo.cerrado(y2025m03d01, y2025m03d10);
+			LocalDate fechaVigente = y2025m03d01.plusDays(4);
 
 			// Act + Assert
 			assertThat(periodoCerrado.estaVigenteEn(fechaVigente)).isTrue();
@@ -128,11 +131,9 @@ class PeriodoTest {
 		@DisplayName("La fecha no esta vigente dentro del período")
 		void fechaNoVigenteFueraDelPeriodo() {
 			// Arrange
-			Periodo periodoCerrado = cerrado(
-					LocalDate.of(2025, MARCH, 1),
-					LocalDate.of(2025, MARCH, 10)
-			);
-			LocalDate fechaVigente = LocalDate.of(2025, MARCH, 11);
+			Periodo periodoCerrado = Periodo.cerrado(y2025m03d01, y2025m03d10);
+
+			LocalDate fechaVigente = y2025m03d10.plusDays(1);
 
 			// Act + Assert
 			assertThat(periodoCerrado.estaVigenteEn(fechaVigente)).isFalse();
@@ -142,7 +143,7 @@ class PeriodoTest {
 		@DisplayName("Una fecha futura es vigente si el período está abierto.")
 		void fechaFuturaVigenteEnPeriodoAbierto() {
 			// Arrange
-			Periodo periodoAbierto = abierto(LocalDate.of(2025, MARCH, 1));
+			Periodo periodoAbierto = Periodo.abierto(y2025m03d01);
 			LocalDate fechaVigente = LocalDate.of(2030, JANUARY, 1);
 
 			// Act + Assert
@@ -153,10 +154,8 @@ class PeriodoTest {
 		@DisplayName("Una fecha anterior al inicio no está vigente en un período cerrado.")
 		void noContieneFechaAntesDelInicio() {
 			// Arrange
-			Periodo periodoCerrado = cerrado(
-					LocalDate.of(2025, MARCH, 2),
-					LocalDate.of(2025, MARCH, 10)
-			);
+			Periodo periodoCerrado = Periodo.cerrado(y2025m03d01.plusDays(1), y2025m03d10);
+
 			LocalDate fechaAnterior = LocalDate.of(2025, MARCH, 1);
 
 			// Act + Assert
@@ -167,32 +166,27 @@ class PeriodoTest {
 		@DisplayName("La fecha de inicio es considerada vigente")
 		void fechaInicioEsVigente() {
 			// Arrange
-			LocalDate fechaDesde = LocalDate.of(2025, MARCH, 1);
-			Periodo periodoCerrado = cerrado(fechaDesde, LocalDate.of(2025, MARCH, 10));
+			Periodo periodoCerrado = Periodo.cerrado(y2025m03d01, y2025m03d10);
 
 			// Act + Assert
-			assertThat(periodoCerrado.estaVigenteEn(fechaDesde)).isTrue();
+			assertThat(periodoCerrado.estaVigenteEn(y2025m03d01)).isTrue();
 		}
 
 		@Test
 		@DisplayName("La fecha de fin es considerada vigente")
 		void fechaFinEsVigente() {
 			// Arrange
-			LocalDate fechaHasta = LocalDate.of(2025, MARCH, 10);
-			Periodo periodoCerrado = new Periodo(LocalDate.of(2025, MARCH, 1), fechaHasta);
+			Periodo periodoCerrado = Periodo.cerrado(y2025m03d01, y2025m03d10);
 
 			// Act + Assert
-			assertThat(periodoCerrado.estaVigenteEn(fechaHasta)).isTrue();
+			assertThat(periodoCerrado.estaVigenteEn(y2025m03d10)).isTrue();
 		}
 
 		@Test
 		@DisplayName("Una fecha null no está vigente en el período")
 		void fechaNullNoEsVigente() {
 			// Arrange
-			Periodo periodo = cerrado(
-					LocalDate.of(2025, MARCH, 1),
-					LocalDate.of(2025, MARCH, 10)
-			);
+			Periodo periodo = Periodo.cerrado(y2025m03d01, y2025m03d10);
 
 			// Act + Assert
 			assertThat(periodo.estaVigenteEn(null)).isFalse();
@@ -208,11 +202,11 @@ class PeriodoTest {
 		@DisplayName("Los períodos se superponen cuando tienen fechas en común.")
 		void seSuperponenCuandoTienenInterseccion() {
 			// Arrange
-			Periodo unPeriodoCerrado = cerrado(
+			Periodo unPeriodoCerrado = Periodo.cerrado(
 					LocalDate.of(2025, MARCH, 1),
 					LocalDate.of(2025, MARCH, 10)
 			);
-			Periodo otroPeriodoCerrado = cerrado(
+			Periodo otroPeriodoCerrado = Periodo.cerrado(
 					LocalDate.of(2025, MARCH, 5),
 					LocalDate.of(2025, MARCH, 15)
 			);
@@ -225,11 +219,11 @@ class PeriodoTest {
 		@DisplayName("Los períodos no se superponen cuando no comparten fechas.")
 		void noSeSuperponen() {
 			// Arrange
-			Periodo unPeriodoCerado = cerrado(
+			Periodo unPeriodoCerado = Periodo.cerrado(
 					LocalDate.of(2025, MARCH, 1),
 					LocalDate.of(2025, MARCH, 10)
 			);
-			Periodo otroPeriodoCerrado = cerrado(
+			Periodo otroPeriodoCerrado = Periodo.cerrado(
 					LocalDate.of(2025, MARCH, 11),
 					LocalDate.of(2025, MARCH, 20)
 			);
@@ -242,11 +236,11 @@ class PeriodoTest {
 		@DisplayName("Los períodos no se superponen cuando uno comienza después del otro.")
 		void noSeSuperponenCuandoUnoEmpiezaDespues() {
 			// Arrange
-			Periodo unPeriodoCerrado = cerrado(
+			Periodo unPeriodoCerrado = Periodo.cerrado(
 					LocalDate.of(2025, MARCH, 20),
 					LocalDate.of(2025, MARCH, 25)
 			);
-			Periodo otroPeriodoCerrado = cerrado(
+			Periodo otroPeriodoCerrado = Periodo.cerrado(
 					LocalDate.of(2025, MARCH, 1),
 					LocalDate.of(2025, MARCH, 10)
 			);
@@ -259,7 +253,7 @@ class PeriodoTest {
 		@DisplayName("Un período no se superpone con null")
 		void noSeSuperponeConNull() {
 			// Arrange
-			Periodo periodoCerrado = cerrado(
+			Periodo periodoCerrado = Periodo.cerrado(
 					LocalDate.of(2025, MARCH, 1),
 					LocalDate.of(2025, MARCH, 10)
 			);
@@ -272,11 +266,11 @@ class PeriodoTest {
 		@DisplayName("Los períodos se superponen cuando coinciden en el límite")
 		void seSuperponenEnElLimite() {
 			// Arrange
-			Periodo unPeriodoCerrado = cerrado(
+			Periodo unPeriodoCerrado = Periodo.cerrado(
 					LocalDate.of(2025, MARCH, 1),
 					LocalDate.of(2025, MARCH, 10)
 			);
-			Periodo otroPeriodoCerrado = cerrado(
+			Periodo otroPeriodoCerrado = Periodo.cerrado(
 					LocalDate.of(2025, MARCH, 10),
 					LocalDate.of(2025, MARCH, 20)
 			);
@@ -289,8 +283,8 @@ class PeriodoTest {
 		@DisplayName("Un período abierto se superpone con uno cerrado")
 		void periodoAbiertoSeSuperponeConCerrado() {
 			// Arrange
-			Periodo periodoAbierto = abierto(LocalDate.of(2025, 3, 1));
-			Periodo periodoCerrado = cerrado(
+			Periodo periodoAbierto = Periodo.abierto(LocalDate.of(2025, 3, 1));
+			Periodo periodoCerrado = Periodo.cerrado(
 					LocalDate.of(2025, MARCH, 5),
 					LocalDate.of(2025, MARCH, 10)
 			);
@@ -303,11 +297,11 @@ class PeriodoTest {
 		@DisplayName("Un período cerrado se superpone con uno abierto")
 		void periodoCerradoSeSuperponeConAbierto() {
 			// Arrange
-			Periodo periodoCerrado = cerrado(
+			Periodo periodoCerrado = Periodo.cerrado(
 					LocalDate.of(2025, MARCH, 5),
 					LocalDate.of(2025, MARCH, 10)
 			);
-			Periodo periodoAbierto = abierto(LocalDate.of(2025, 3, 1));
+			Periodo periodoAbierto = Periodo.abierto(LocalDate.of(2025, 3, 1));
 
 			// Act + Assert
 			assertThat(periodoCerrado.seSuperponeCon(periodoAbierto)).isTrue();
@@ -317,8 +311,8 @@ class PeriodoTest {
 		@DisplayName("Dos períodos abiertos siempre se superponen")
 		void periodosAbiertosSiempreSeSuperponen() {
 			// Arrrange
-			Periodo unPeriodoAbierto = abierto(LocalDate.of(2025, MARCH, 1));
-			Periodo otroPeriodoAbierto = abierto(LocalDate.of(2025, MARCH, 10));
+			Periodo unPeriodoAbierto = Periodo.abierto(LocalDate.of(2025, MARCH, 1));
+			Periodo otroPeriodoAbierto = Periodo.abierto(LocalDate.of(2025, MARCH, 10));
 
 			// Act + Assert
 			assertThat(unPeriodoAbierto.seSuperponeCon(otroPeriodoAbierto)).isTrue();
@@ -334,7 +328,7 @@ class PeriodoTest {
 		@DisplayName("El período cerrado cuenta los días incluyendo ambos extremos.")
 		void calculaDiasIncluyendoExtremos() {
 			// Arrange
-			Periodo periodoCerrado = cerrado(
+			Periodo periodoCerrado = Periodo.cerrado(
 					LocalDate.of(2025, MARCH, 1),
 					LocalDate.of(2025, MARCH, 3)
 			);
@@ -347,7 +341,7 @@ class PeriodoTest {
 		@DisplayName("Un período cerrado de un solo día devuelve 1.")
 		void periodoDeUnDia() {
 			// Arrange
-			Periodo periodoCerrado = cerrado(
+			Periodo periodoCerrado = Periodo.cerrado(
 					LocalDate.of(2025, MARCH, 1),
 					LocalDate.of(2025, MARCH, 1)
 			);
@@ -360,7 +354,7 @@ class PeriodoTest {
 		@DisplayName("No se pueden calcular días en un período abierto")
 		void fallaSiEsPeriodoAbierto() {
 			// Arrange
-			Periodo periodoAbierto = abierto(LocalDate.of(2025, MARCH, 1));
+			Periodo periodoAbierto = Periodo.abierto(LocalDate.of(2025, MARCH, 1));
 
 			// Act + Assert
 			assertThatThrownBy(periodoAbierto::dias)
@@ -377,7 +371,7 @@ class PeriodoTest {
 		@DisplayName("Un período cerrado muestra ambas fechas")
 		void periodoCerradoMuestraFechas() {
 			// Arrange
-			Periodo periodoCerrado = cerrado(
+			Periodo periodoCerrado = Periodo.cerrado(
 					LocalDate.of(2025, MARCH, 1),
 					LocalDate.of(2025, MARCH, 31)
 			);
@@ -391,7 +385,7 @@ class PeriodoTest {
 		@DisplayName("Un período abierto indica que no tiene fin")
 		void periodoAbiertoMuestraAbierto() {
 			// Arrange
-			Periodo periodoAbierto = abierto(LocalDate.of(2025, MARCH, 1));
+			Periodo periodoAbierto = Periodo.abierto(LocalDate.of(2025, MARCH, 1));
 
 			// Act + Assert
 			assertThat(periodoAbierto.toString())
@@ -409,7 +403,7 @@ class PeriodoTest {
 			// Arrange
 			LocalDate desde = LocalDate.of(2025, MARCH, 1);
 			LocalDate fechaCierre = LocalDate.of(2025, MARCH, 10);
-			Periodo periodoAbierto = abierto(desde);
+			Periodo periodoAbierto = Periodo.abierto(desde);
 
 			// Act
 			Periodo periodoCerrado = periodoAbierto.cerrarEn(fechaCierre);
@@ -424,7 +418,7 @@ class PeriodoTest {
 		@DisplayName("No se puede cerrar un período abierto sin fecha de cierre.")
 		void fallaSiFechaCierreEsNull() {
 			// Arrange
-			Periodo periodoAbierto = abierto(LocalDate.of(2025, MARCH, 1));
+			Periodo periodoAbierto = Periodo.abierto(LocalDate.of(2025, MARCH, 1));
 
 			// Act + Assert
 			assertThatThrownBy(() -> periodoAbierto.cerrarEn(null))
@@ -438,7 +432,7 @@ class PeriodoTest {
 			// Arrange
 			LocalDate desde = LocalDate.of(2025, MARCH, 10);
 			LocalDate fechaCierre = LocalDate.of(2025, MARCH, 1);
-			Periodo periodoAbierto = abierto(desde);
+			Periodo periodoAbierto = Periodo.abierto(desde);
 
 			// Act + Assert
 			assertThatThrownBy(() -> periodoAbierto.cerrarEn(fechaCierre))
@@ -450,7 +444,7 @@ class PeriodoTest {
 		void cerrarNoModificaElOriginal() {
 			// Arrange
 			LocalDate desde = LocalDate.of(2025, MARCH, 1);
-			Periodo periodoAbierto = abierto(desde);
+			Periodo periodoAbierto = Periodo.abierto(desde);
 
 			// Act
 			Periodo cerrado = periodoAbierto.cerrarEn(LocalDate.of(2025, MARCH, 10));

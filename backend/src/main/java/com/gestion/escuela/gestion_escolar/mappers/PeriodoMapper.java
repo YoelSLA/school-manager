@@ -29,6 +29,11 @@ public class PeriodoMapper {
 	}
 
 	public static Periodo toEntity(PeriodoCreateDTO dto) {
-		return new Periodo(dto.fechaDesde(), dto.fechaHasta());
+
+		if (dto.fechaHasta() == null) {
+			return Periodo.abierto(dto.fechaDesde());
+		}
+
+		return Periodo.cerrado(dto.fechaDesde(), dto.fechaHasta());
 	}
 }

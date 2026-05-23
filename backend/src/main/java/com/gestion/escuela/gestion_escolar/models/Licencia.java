@@ -132,7 +132,7 @@ public class Licencia {
 		Licencia nueva = new Licencia(
 				this.empleadoEducativo,
 				tipoLicencia,
-				new Periodo(nuevoDesde, nuevoHasta),
+				Periodo.cerrado(nuevoDesde, nuevoHasta),
 				descripcion,
 				this.designaciones
 		);
