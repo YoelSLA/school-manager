@@ -66,6 +66,10 @@ export const ESTADO_ASIGNACION_CONFIG: Record<EstadoAsignacion, BadgeConfig> = {
 ========================= */
 
 export const ESTADO_LICENCIA_CONFIG: Record<EstadoLicencia, BadgeConfig> = {
+	PENDIENTE: {
+		label: "Pendiente",
+		variant: "pendiente",
+	},
 	CUBIERTA: {
 		label: "Cubierta",
 		variant: "cubierta",

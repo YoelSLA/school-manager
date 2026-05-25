@@ -1,10 +1,9 @@
-import { Calendar, Flag, Hourglass, Trash2 } from "lucide-react";
 import BadgeEstadoLicencia from "@/components/BagdeEstadoLicencia";
-import Button from "@/components/Button/Button";
 import Card from "@/components/Card/Card";
 import EmpleadoInfo from "@/components/EmpleadoInfo";
 import { formatearFecha } from "@/utils";
 import type { LicenciaResumenDTO } from "@/utils/types";
+import { Calendar, Flag, Hourglass } from "lucide-react";
 import styles from "./LicenciaCard.module.scss";
 
 type Props = {
@@ -13,14 +12,15 @@ type Props = {
 	onDelete?: () => void;
 };
 
-export default function LicenciaCard({
-	licencia,
-	onVerDetalle,
-	onDelete,
-}: Props) {
+export default function LicenciaCard({ licencia, onVerDetalle }: Props) {
 	const { fechaDesde, fechaHasta, dias } = licencia.periodo;
 
-	const status = licencia.estadoLicencia === "CUBIERTA" ? "success" : "danger";
+	const status =
+		licencia.estadoLicencia === "FINALIZADA"
+			? "info"
+			: licencia.estadoLicencia === "CUBIERTA"
+				? "success"
+				: "danger";
 
 	return (
 		<Card
@@ -32,60 +32,92 @@ export default function LicenciaCard({
 			onClick={() => onVerDetalle(licencia.id)}
 			viewTransitionName={`licencia-${licencia.id}`}
 		>
-			<div className={styles.header}>
-				<div className={styles.tipoPill}>
-					<span className={styles.codigo}>{licencia.normativa.codigo}</span>
-				</div>
+			{/* =================================
+			    CONTENT
+			================================= */}
+			<div className={styles.content}>
+				{/* =================================
+				    INFO
+				================================= */}
+				<div className={styles.info}>
+					{/* =================================
+					    HEADER
+					================================= */}
+					<div className={styles.header}>
+						{/* CÓDIGO */}
+						<div className={styles.tipoPill}>
+							<span className={styles.codigo}>{licencia.normativa.codigo}</span>
+						</div>
 
-				<BadgeEstadoLicencia value={licencia.estadoLicencia} />
-			</div>
+						{/* ESTADO */}
+						<BadgeEstadoLicencia value={licencia.estadoLicencia} />
+					</div>
 
-			<div className={styles.empleado}>
-				<EmpleadoInfo empleado={licencia.empleado} />
-			</div>
+					{/* =================================
+					    EMPLEADO
+					================================= */}
+					<div className={styles.empleado}>
+						<EmpleadoInfo empleado={licencia.empleado} />
+					</div>
 
-			<div className={styles.fechas}>
-				<div className={styles.fechaItem}>
-					<Calendar size={16} className={styles.icon} />
-					<div>
-						<span className={styles.label}>Inicio</span>
-						<span className={styles.valor}>{formatearFecha(fechaDesde)}</span>
+					{/* =================================
+					    DETALLE
+					================================= */}
+					<div className={styles.detalle}>
+						{/* =================================
+						    FECHAS
+						================================= */}
+						<div className={styles.fechas}>
+							{/* FECHA INICIO */}
+							<div className={styles.fechaItem}>
+								<Calendar size={16} className={styles.icon} />
+
+								<div>
+									<span className={styles.label}>Inicio</span>
+
+									<span className={styles.valor}>
+										{formatearFecha(fechaDesde)}
+									</span>
+								</div>
+							</div>
+
+							{/* FECHA FIN */}
+							<div className={styles.fechaItem}>
+								<Flag size={16} className={styles.icon} />
+
+								<div>
+									<span className={styles.label}>Fin</span>
+
+									<span className={styles.valor}>
+										{formatearFecha(fechaHasta)}
+									</span>
+								</div>
+							</div>
+
+							{/* DURACIÓN */}
+							<div className={styles.fechaItem}>
+								<Hourglass size={16} className={styles.icon} />
+
+								<div>
+									<span className={styles.label}>Duración</span>
+
+									<span className={styles.valor}>{dias} días</span>
+								</div>
+							</div>
+						</div>
+
+						{/* =================================
+						    DÍAS RESTANTES
+						================================= */}
+						<div className={styles.restantes}>
+							<span className={styles.restantesNumero}>
+								{licencia.diasRestantes ?? 0}
+							</span>
+
+							<span className={styles.restantesTexto}>días restantes</span>
+						</div>
 					</div>
 				</div>
-
-				<div className={styles.fechaItem}>
-					<Flag size={16} className={styles.icon} />
-					<div>
-						<span className={styles.label}>Fin</span>
-						<span className={styles.valor}>
-							{fechaHasta
-								? formatearFecha(fechaHasta)
-								: "Sin fecha de finalización"}
-						</span>
-					</div>
-				</div>
-
-				<div className={styles.fechaItem}>
-					<Hourglass size={16} className={styles.icon} />
-					<div>
-						<span className={styles.label}>Duración</span>
-						<span className={styles.valor}>{dias ?? "—"} días</span>
-					</div>
-				</div>
-			</div>
-
-			{/* FOOTER */}
-			<div className={styles.footer}>
-				<Button
-					variant="danger"
-					size="sm"
-					onClick={(e) => {
-						e.stopPropagation();
-						onDelete?.();
-					}}
-				>
-					<Trash2 />
-				</Button>
 			</div>
 		</Card>
 	);

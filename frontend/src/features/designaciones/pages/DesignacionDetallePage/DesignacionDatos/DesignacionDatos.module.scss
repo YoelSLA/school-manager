@@ -17,12 +17,14 @@
   font-size: 13px;
   font-weight: 600;
   color: #6b7280;
+
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 
   padding-bottom: 5px;
-  border-bottom: 1px solid #000000;
+
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.5);
 }
 
 /* =====================
@@ -30,8 +32,6 @@
 ===================== */
 
 .datos {
-
-  border: 1px solid #e5e7eb;
   border-radius: 16px;
 }
 
@@ -73,4 +73,17 @@
   svg {
     color: #64748b;
   }
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  color: #6b7280;
 }

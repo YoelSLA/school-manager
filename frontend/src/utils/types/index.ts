@@ -1,6 +1,3 @@
-import type { LucideIcon } from "lucide-react";
-import type { Params } from "react-router-dom";
-import type z from "zod";
 import type { BadgeVariant } from "@/components/Badge/Badge.types";
 import type { createProvisionalSchema } from "@/features/asignaciones/form/createProvisional.schema";
 import type { createTitularSchema } from "@/features/asignaciones/form/createTitular.schema";
@@ -18,6 +15,9 @@ import type { crearEscuelaSchema } from "@/features/escuelas/form/crearEscuela.s
 import type { crearLicenciaSchema } from "@/features/licencias/form/crearLicencia.schema";
 import type { cubrirDesignacionesConSuplenteSchema } from "@/features/licencias/form/cubrirDesignacionesConSuplente.schema";
 import type { crearMateriaSchema } from "@/features/materias/form/schemas/crearMateria.schema";
+import type { LucideIcon } from "lucide-react";
+import type { Params } from "react-router-dom";
+import type z from "zod";
 import type {
 	Dia,
 	EstadoAsignacion,
@@ -349,7 +349,17 @@ export type EscuelaUpdateDTO = z.infer<typeof crearEscuelaSchema>;
 // LICENCIA
 // -------------------------------------------------------------------
 
-export type LicenciaCreateDTO = z.infer<typeof crearLicenciaSchema>;
+export type LicenciaCreateFormValues = z.input<typeof crearLicenciaSchema>;
+
+export type LicenciaCreateDTO = {
+	tipoLicencia: string;
+	periodo: {
+		fechaDesde: string;
+		fechaHasta?: string;
+	};
+	descripcion?: string;
+	designacionesIds: number[];
+};
 
 export type CubrirDesignacionesConSuplente = z.infer<
 	typeof cubrirDesignacionesConSuplenteSchema
@@ -373,6 +383,7 @@ export interface LicenciaResumenDTO {
 	descripcion: string;
 	periodo: PeriodoCerradoDTO;
 	estadoLicencia: EstadoLicencia;
+	diasRestantes: number;
 }
 
 export type TipoPeriodoLicencia = "ORIGINAL" | "RENOVACION";

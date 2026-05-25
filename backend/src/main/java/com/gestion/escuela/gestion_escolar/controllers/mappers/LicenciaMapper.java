@@ -37,7 +37,8 @@ public class LicenciaMapper {
 				normativa,
 				tipo.getDescripcion(),
 				PeriodoMapper.toPeriodoResponse(l),
-				l.getEstadoEn(HOY)
+				l.getEstadoEn(HOY),
+				l.diasRestantes(HOY)
 		);
 	}
 

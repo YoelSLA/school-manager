@@ -1,10 +1,10 @@
+import type { LicenciaCreateFormValues } from "@/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import type { LicenciaCreateDTO } from "@/utils/types";
 import { crearLicenciaSchema } from "./crearLicencia.schema";
 
 export function useLicenciaForm() {
-	const form = useForm<LicenciaCreateDTO>({
+	const form = useForm<LicenciaCreateFormValues>({
 		resolver: zodResolver(crearLicenciaSchema),
 		defaultValues: {
 			tipoLicencia: "L_A1",

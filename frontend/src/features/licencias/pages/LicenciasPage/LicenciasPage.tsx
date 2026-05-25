@@ -1,4 +1,3 @@
-import { useState } from "react";
 import ConfirmModal from "@/components/ConfirmModal";
 import { usePagination } from "@/hooks/usePagination";
 import GridListState from "@/layout/GridListState";
@@ -9,6 +8,7 @@ import SidebarPageLayout from "@/layout/SidebarPageLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
 import type { LicenciaResumenDTO } from "@/utils/types";
+import { useState } from "react";
 import LicenciaCard from "../../components/LicenciaCard";
 import useDeleteLicencia from "../../hooks/useDeleteLicencia";
 import { useLicencias } from "../../hooks/useLicencias";

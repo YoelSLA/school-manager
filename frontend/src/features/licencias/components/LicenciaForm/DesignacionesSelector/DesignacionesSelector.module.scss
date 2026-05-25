@@ -1,16 +1,14 @@
-@use "../../../../../styles/debug.mixins" as debug;
-
 .selector {
 	display: flex;
 	flex-direction: column;
+	border-radius: 20px;
+	padding: 4px;
 
 	height: 100%;
 	min-height: 0;
-	/* MUY IMPORTANTE */
 
 	gap: 10px;
-
-	@include debug.debug(lightblue);
+	background-color: #B8E6FE;
 }
 
 .title {
@@ -21,7 +19,6 @@
 	color: #6b7280;
 	text-align: center;
 
-	@include debug.debug(lightgreen);
 }
 
 .list {
@@ -38,8 +35,6 @@
 	/* Firefox */
 	scrollbar-width: thin;
 	scrollbar-color: #78797f transparent;
-
-	@include debug.debug(black);
 
 	/* Chrome / Edge / Safari */
 
@@ -71,12 +66,10 @@
 	font-size: 14px;
 	color: #6b7280;
 
-	@include debug.debug(cyan);
 }
 
 .error {
 	font-size: 13px;
 	color: #dc2626;
 
-	@include debug.debug(purple);
 }

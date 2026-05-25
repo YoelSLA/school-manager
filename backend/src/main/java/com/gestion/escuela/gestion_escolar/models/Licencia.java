@@ -13,6 +13,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static com.gestion.escuela.gestion_escolar.models.Periodo.cerrado;

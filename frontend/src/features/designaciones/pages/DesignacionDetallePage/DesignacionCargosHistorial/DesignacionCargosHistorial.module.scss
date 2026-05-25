@@ -1,7 +1,4 @@
-@use "@/styles/_debug.mixins" as debug;
-
 .root {
-	@include debug.debug(red);
 
 	display: flex;
 	flex-direction: column;
@@ -17,12 +14,14 @@
 	font-size: 13px;
 	font-weight: 600;
 	color: #6b7280;
+
 	text-align: center;
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
 
 	padding-bottom: 5px;
-	border-bottom: 1px solid #000000;
+
+	border-bottom: 1px dotted rgba(0, 0, 0, 0.5);
 }
 
 /* ==============================
@@ -30,7 +29,6 @@
 ================================ */
 
 .header {
-	@include debug.debug(green);
 
 	position: sticky;
 	top: 0;
@@ -40,7 +38,6 @@
 	align-items: center;
 	justify-content: space-between;
 
-	background: #fff; // 👈 clave para sticky limpio
 	padding: 6px 0;
 }
 
@@ -49,7 +46,6 @@
 ================================ */
 
 .content {
-	@include debug.debug(blue);
 
 	flex: 1;
 	min-height: 0;
@@ -67,7 +63,6 @@
 ================================ */
 
 .list {
-	@include debug.debug(purple);
 
 	display: flex;
 	flex-direction: column;
@@ -80,7 +75,6 @@
 
 .loading,
 .empty {
-	@include debug.debug(orange);
 
 	height: 100%;
 	display: flex;
@@ -96,7 +90,6 @@
 ================================ */
 
 .create {
-	@include debug.debug(yellow);
 
 	flex-shrink: 0;
 }
