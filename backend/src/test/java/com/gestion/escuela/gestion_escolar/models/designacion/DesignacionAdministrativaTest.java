@@ -1,9 +1,6 @@
 package com.gestion.escuela.gestion_escolar.models.designacion;
 
-import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
-import com.gestion.escuela.gestion_escolar.models.Escuela;
-import com.gestion.escuela.gestion_escolar.models.FranjaHoraria;
-import com.gestion.escuela.gestion_escolar.models.Periodo;
+import com.gestion.escuela.gestion_escolar.models.*;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionProvisional;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
 import com.gestion.escuela.gestion_escolar.models.enums.*;
@@ -25,7 +22,7 @@ import static com.gestion.escuela.gestion_escolar.models.Periodo.cerrado;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Tests de Designación Administrativa")
-class DesignacionAdministrativaTest {
+class DesignacionAdministrativaTest extends DomainTestFixture {
 
 	private Escuela escuela;
 	private EmpleadoEducativo leguizamonMarina;
@@ -47,14 +44,6 @@ class DesignacionAdministrativaTest {
 				LocalDate.of(2004, Month.JULY, 21)
 		);
 
-		giardinoNoraRosa = crearEmpleado(
-				"27-14762038-7",
-				"Nora Rosa",
-				"Giardino",
-				LocalDate.of(1961, Month.NOVEMBER, 10),
-				LocalDate.of(1998, Month.MARCH, 1)
-		);
-
 		vallejosValeria = crearEmpleado(
 				"27-33688860-9",
 				"Nora Rosa",
@@ -74,17 +63,16 @@ class DesignacionAdministrativaTest {
 			LocalDate nacimiento,
 			LocalDate ingreso
 	) {
-		return new EmpleadoEducativo(
-				escuela,
-				cuil,
-				nombre,
-				apellido,
-				" ",
-				" ",
-				nacimiento,
-				ingreso,
-				"test@gmail.com"
-		);
+		return EmpleadoEducativo.builder()
+				.escuela(escuela)
+				.cuil(cuil)
+				.nombre(nombre)
+				.apellido(apellido)
+				.fechaDeNacimiento(nacimiento)
+				.fechaDeIngreso(ingreso)
+				.email("test@gmail.com")
+				.build();
+
 	}
 
 	private Escuela crearEscuela65Bernal() {
@@ -417,7 +405,7 @@ class DesignacionAdministrativaTest {
 
 			assertThrows(
 					CampoObligatorioException.class,
-					() -> direccion2467830.asignarEscuela(null)
+					() -> direccion2467830.setEscuela(null)
 			);
 		}
 
@@ -432,7 +420,7 @@ class DesignacionAdministrativaTest {
 					"12345678"
 			);
 
-			direccion2467830.asignarEscuela(nuevaEscuela);
+			direccion2467830.setEscuela(nuevaEscuela);
 
 			assertEquals(nuevaEscuela, direccion2467830.getEscuela());
 		}

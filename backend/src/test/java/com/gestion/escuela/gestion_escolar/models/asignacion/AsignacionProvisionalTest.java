@@ -35,11 +35,12 @@ class AsignacionProvisionalTest {
 				LocalDate.of(2025, 3, 1),
 				LocalDate.of(2025, 3, 31));
 		
-		asignacion = new AsignacionProvisional(
-				empleado,
-				designacion,
-				periodo, 1
-		);
+		asignacion = AsignacionProvisional.builder()
+				.empleadoEducativo(empleado)
+				.designacion(designacion)
+				.periodo(periodo)
+				.build();
+
 	}
 
 	// =====================================================
@@ -471,16 +472,6 @@ class AsignacionProvisionalTest {
 	@Nested
 	@DisplayName("Otros comportamientos")
 	class Otros {
-
-		@Test
-		void asignarEmpleado() {
-
-			EmpleadoEducativo nuevo = mock(EmpleadoEducativo.class);
-
-			asignacion.asignarEmpleado(nuevo);
-
-			assertEquals(nuevo, asignacion.getEmpleadoEducativo());
-		}
 
 		@Test
 		void noGeneraVacanteDefinitiva() {

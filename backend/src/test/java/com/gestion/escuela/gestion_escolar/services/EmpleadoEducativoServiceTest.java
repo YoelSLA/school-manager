@@ -1,86 +1,306 @@
 package com.gestion.escuela.gestion_escolar.services;
 
-import com.gestion.escuela.gestion_escolar.AbstractIntegrationTest;
+import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
+import com.gestion.escuela.gestion_escolar.models.Escuela;
+import com.gestion.escuela.gestion_escolar.models.Licencia;
+import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
+import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
+import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
+import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
+import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoDuplicadoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
-class EmpleadoEducativoServiceTest extends AbstractIntegrationTest {
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
 
-//	@Autowired
-//	private EscuelaService escuelaService;
+import static com.gestion.escuela.gestion_escolar.models.Periodo.cerrado;
+import static java.time.Month.JANUARY;
+import static org.junit.jupiter.api.Assertions.*;
+
+class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
+
+	@Autowired
+	private EscuelaService escuelaService;
+
+	@Autowired
+	private DesignacionService designacionService;
+
+	@Autowired
+	private EmpleadoEducativoService empleadoEducativoService;
+
+	@Autowired
+	private CursoService cursoService;
+
+	@Autowired
+	private MateriaService materiaService;
+
+	private Escuela escuelaP;
+	private EmpleadoEducativo giardinoNoraRosaP;
+	private EmpleadoEducativo billordoTomasaP;
+	private EmpleadoEducativo marchettiRomanP;
+	private DesignacionAdministrativa direccion2467830OP;
+	private DesignacionCurso plg2467775P;
+
+
+	@BeforeEach
+	void setUp() {
+		escuelaP = escuelaService.crear(escuelaN65);
+		giardinoNoraRosaP = empleadoEducativoService.crear(escuelaP.getId(), giardinoNoraRosa);
+		billordoTomasaP = empleadoEducativoService.crear(escuelaP.getId(), billordoTomasa);
+		marchettiRomanP = empleadoEducativoService.crear(escuelaP.getId(), marchettiRoman);
+		direccion2467830OP = designacionService.crear(direccion2467830);
+
+		materiaService.crear(escuelaP.getId(), practicasDelLenguaje);
+		cursoService.crear(escuelaP.getId(), a1g1);
+		plg2467775P = designacionService.crear(plg2467775);
+	}
+
+
+	@Nested
+	class Creacion {
+
+		@Test
+		void seCreaUnEmpleadoEducativoCorrectamente() {
+
+			assertNotNull(giardinoNoraRosaP.getId());
+			assertEquals("Nora Rosa", giardinoNoraRosaP.getNombre());
+			assertEquals(escuelaP.getId(), giardinoNoraRosaP.getEscuela().getId());
+		}
+
+		@Test
+		void noSePuedeCrearUnEmpleadoSiLaEscuelaNoExiste() {
+			assertThrows(RecursoNoEncontradoException.class,
+					() -> empleadoEducativoService.crear(
+							999L,
+							giardinoNoraRosa
+					)
+			);
+		}
+
+		@Test
+		void noSePuedeCrearUnEmpleadoConCuilDuplicadoEnLaMismaEscuela() {
+
+			EmpleadoEducativo duplicado = EmpleadoEducativo.builder()
+					.escuela(escuelaP)
+					.cuil(giardinoNoraRosaP.getCuil())
+					.nombre("Otro")
+					.apellido("Empleado")
+					.fechaDeNacimiento(LocalDate.now())
+					.fechaDeIngreso(LocalDate.now())
+					.email("otro@gmail.com.ar")
+					.build();
+
+			assertThrows(
+					RecursoDuplicadoException.class,
+					() -> empleadoEducativoService.crear(
+							escuelaP.getId(),
+							duplicado
+					)
+			);
+		}
+
+		@Test
+		void noSePuedeCrearUnEmpleadoConEmailDuplicadoEnLaMismaEscuela() {
+
+			EmpleadoEducativo duplicado = EmpleadoEducativo.builder()
+					.escuela(escuelaP)
+					.cuil("20-42341174-1")
+					.nombre("Otro")
+					.apellido("Empleado")
+					.fechaDeNacimiento(LocalDate.now())
+					.fechaDeIngreso(LocalDate.now())
+					.email(giardinoNoraRosaP.getEmail())
+					.build();
+
+			assertThrows(
+					RecursoDuplicadoException.class,
+					() -> empleadoEducativoService.crear(
+							escuelaP.getId(),
+							duplicado
+					)
+			);
+		}
+
+
+
+	}
+
+	@Nested
+	class CreacionBatch {
+		@Test
+		void creaMultiplesEmpleadosCorrectamente() {
+			EmpleadoEducativo unEmpleado = EmpleadoEducativo.builder()
+					.escuela(escuelaP)
+					.cuil("20-11111111-1")
+					.nombre("Juan")
+					.apellido("Perez")
+					.fechaDeNacimiento(LocalDate.now())
+					.fechaDeIngreso(LocalDate.now())
+					.email("juan@gmail.com.ar")
+					.build();
+
+			EmpleadoEducativo otroEmpleado = EmpleadoEducativo.builder()
+					.escuela(escuelaP)
+					.cuil("20-22222222-2")
+					.nombre("Maria")
+					.apellido("Gomez")
+					.fechaDeNacimiento(LocalDate.now())
+					.fechaDeIngreso(LocalDate.now())
+					.email("maria@gmail.com.ar")
+					.build();
+
+			empleadoEducativoService.crearBatch(List.of(unEmpleado, otroEmpleado));
+
+			assertNotNull(unEmpleado.getId());
+			assertNotNull(otroEmpleado.getId());
+		}
+
+		@Test
+		void crearBatchConListaVaciaNoFalla() {
+			assertDoesNotThrow(() -> empleadoEducativoService.crearBatch(List.of()));
+		}
+
+		@Test
+		void noSePuedeCrearBatchConCuilDuplicado() {
+
+			EmpleadoEducativo duplicado = EmpleadoEducativo.builder()
+					.escuela(escuelaP)
+					.cuil(giardinoNoraRosaP.getCuil())
+					.nombre("Otro")
+					.apellido("Empleado")
+					.fechaDeNacimiento(LocalDate.now())
+					.fechaDeIngreso(LocalDate.now())
+					.email("otro@gmail.com.ar")
+					.build();
+
+			assertThrows(
+					RecursoDuplicadoException.class,
+					() -> empleadoEducativoService.crearBatch(List.of(duplicado))
+			);
+		}
+
+		@Test
+		void noSePuedeCrearBatchConEmailDuplicado() {
+
+			EmpleadoEducativo duplicado = EmpleadoEducativo.builder()
+					.escuela(escuelaP)
+					.cuil("20-33333333-3")
+					.nombre("Otro")
+					.apellido("Empleado")
+					.fechaDeNacimiento(LocalDate.now())
+					.fechaDeIngreso(LocalDate.now())
+					.email(giardinoNoraRosaP.getEmail())
+					.build();
+
+			assertThrows(
+					RecursoDuplicadoException.class,
+					() -> empleadoEducativoService.crearBatch(List.of(duplicado))
+			);
+		}
+
+	}
+
+	@Nested
+	class ObtenerPorId {
+
+		@Test
+		void obtieneEmpleadoPorIdCorrectamente() {
+
+			EmpleadoEducativo obtenido = empleadoEducativoService.obtenerPorId(giardinoNoraRosaP.getId());
+
+			assertNotNull(obtenido);
+			assertEquals(giardinoNoraRosaP.getId(), obtenido.getId());
+			assertEquals("Nora Rosa", obtenido.getNombre());
+			assertEquals(escuelaP.getId(), obtenido.getEscuela().getId());
+		}
+
+		@Test
+		void lanzaExcepcionSiElEmpleadoNoExiste() {
+			assertThrows(
+					RecursoNoEncontradoException.class,
+					() -> empleadoEducativoService.obtenerPorId(999L)
+			);
+		}
+
+	}
+
+	@Nested
+	class CrearLicencia {
+
+		@Test
+		void crearLicencia() {
+			// Arrange
+			LocalDate fechaTomaPosesion = LocalDate.of(1998, JANUARY, 1);
+			AsignacionTitular titular = designacionService.cubrirConTitular(
+					plg2467775P.getId(),
+					giardinoNoraRosaP.getId(),
+					fechaTomaPosesion,
+					null,
+					1
+			);
+
+			// Act
+			LocalDate fechaInicio = LocalDate.of(2026, JANUARY, 1);
+			LocalDate fechaFin = LocalDate.of(2026, JANUARY, 15);
+			Licencia licencia = empleadoEducativoService.crearLicencia(
+					giardinoNoraRosaP.getId(),
+					TipoLicencia.L_A1,
+					cerrado(fechaInicio, fechaFin),
+					"Licencia médica",
+					Set.of(plg2467775P.getId())
+			);
+
+			// Assert
+			assertNotNull(licencia.getId());
+			assertEquals(giardinoNoraRosaP.getId(), licencia.getEmpleadoEducativo().getId());
+			assertEquals(TipoLicencia.L_A1, licencia.getTipoLicencia());
+			assertEquals(fechaInicio, licencia.getPeriodo().getFechaDesde());
+			assertEquals(fechaFin, licencia.getPeriodo().getFechaHasta());
+		}
+
+	}
+
+//	@Nested
+//	class DarBajaDefinitiva {
 //
-//	@Autowired
-//	private DesignacionService designacionService;
+//		@Test
+//		void daDeBajaDefinitivaCorrectamente() {
 //
-//	@Autowired
-//	private EmpleadoEducativoService empleadoEducativoService;
+//			LocalDate fechaBaja = LocalDate.of(2026, JANUARY, 15);
 //
-//	private Escuela escuela;
-//	private EmpleadoEducativo juanPerez;
-//	private EmpleadoEducativo mariaLopez;
-//	private EmpleadoEducativo carlosFernandez;
-//	private DesignacionAdministrativa preceptoria;
-//	private DesignacionAdministrativa secretaria;
-//	private DesignacionAdministrativa bibliotecario;
+//			empleadoEducativoService.darDeBajaDefinitiva(
+//					giardinoNoraRosaP.getId(),
+//					fechaBaja,
+//					CausaBaja.JUBILACION
+//			);
 //
-//	/* =========================
-//	   TESTS
-//	========================= */
+//			EmpleadoEducativo actualizado =
+//					empleadoEducativoService.obtenerPorId(
+//							giardinoNoraRosaP.getId()
+//					);
 //
-//	@BeforeEach
-//	void setUp() {
-//		escuela = crearEscuela65Bernal();
-//		juanPerez = crearEmpleadoJuanPerez();
-//		mariaLopez = crearEmpleadoMariaLopez();
-//		carlosFernandez = crearEmpleadoCarlosFernandez();
-//		secretaria = crearDesignacionAdministrativa(2467832, RolEducativo.SECRETARIA);
-//		bibliotecario = crearDesignacionAdministrativa(2467838, RolEducativo.BIBLIOTECARIO);
-//		preceptoria = crearDesignacionAdministrativa(2467833, RolEducativo.PRECEPTORIA);
-//	}
+//			assertTrue(actualizado.estaDadoDeBaja());
 //
-//	@Test
-//	void crearEmpleadoEducativo() {
+//			assertEquals(
+//					fechaBaja,
+//					actualizado.getFechaBaja()
+//			);
 //
-//		assertNotNull(carlosFernandez.getId());
-//		assertEquals("Carlos", carlosFernandez.getNombre());
-//		assertEquals(escuela.getId(), carlosFernandez.getEscuela().getId());
+//			assertEquals(
+//					CausaBaja.JUBILACION,
+//					actualizado.getCausaBaja()
+//			);
+//		}
+//
 //	}
 
-//	@Test
-//	void asignarDesignacionAEmpleado() {
-//
-//		LocalDate fechaTomaPosesion = LocalDate.of(2026, 1, 10);
-//		LocalDate fechaCese = LocalDate.of(2026, 2, 15);
-//		AsignacionNormal asignacionNormal = cubrirConTitular(juanPerez, fechaTomaPosesion, fechaCese);
-//
-//		designacionService.agregarAsignacion(secretaria.getId(), asignacionNormal);
-//
-//		List<Asignacion> activas = juanPerez.asignacionesActivas(fechaTomaPosesion);
-//
-//		assertEquals(1, activas.size());
-//		assertEquals(secretaria.getId(), activas.get(0).getDesignacion().getId());
-//	}
-//
-//	@Test
-//	void crearLicencia() {
-//
-//		// Act
-//		LocalDate fechaInicio = LocalDate.of(2026, 1, 10);
-//		LocalDate fechaFin = LocalDate.of(2026, 1, 15);
-//
-//		Licencia licencia = empleadoEducativoService.crearLicencia(
-//				mariaLopez.getId(),
-//				TipoLicencia.L_A1,
-//				fechaInicio,
-//				fechaFin,
-//				"Licencia médica"
-//		);
-//
-//		// Assert
-//		assertNotNull(licencia.getId());
-//		assertEquals(mariaLopez.getId(), licencia.getEmpleadoEducativo().getId());
-//		assertEquals(TipoLicencia.L_A1, licencia.getTipoLicencia());
-//		assertEquals(LocalDate.of(2026, 1, 10), licencia.getFechaDesde());
-//		assertEquals(LocalDate.of(2026, 1, 15), licencia.getFechaHasta());
-//	}
+
+
 //
 //	@Test
 //	void crearLicenciaCongelaDesignaciones() {

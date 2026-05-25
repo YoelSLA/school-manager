@@ -1,120 +1,177 @@
+$badge-variants: (
+	/* =========================
+	   ESTADOS
+	========================= */
+
+	activa: (bg: #dcfce7,
+		border: #22c55e,
+		text: #166534,
+	),
+
+	licencia: (bg: #e0e7ff,
+		border: #6366f1,
+		text: #4338ca,
+	),
+
+	cubierta: (bg: #e0f2fe,
+		border: #38bdf8,
+		text: #0369a1,
+	),
+
+	descubierta: (bg: #fee2e2,
+		border: #ef4444,
+		text: #b91c1c,
+	),
+
+	vacante: (bg: #fee2e2,
+		border: #ef4444,
+		text: #b91c1c,
+	),
+
+	finalizada: (bg: #f4f4f5,
+		border: #a1a1aa,
+		text: #52525b,
+	),
+
+	baja: (bg: #ffedd5,
+		border: #fb923c,
+		text: #c2410c,
+	),
+
+	no_vigente: (bg: #f3f4f6,
+		border: #9ca3af,
+		text: #6b7280,
+	),
+
+	/* =========================
+	   ROLES EDUCATIVOS
+	========================= */
+
+	auxiliar: (bg: #dbeafe,
+		border: #60a5fa,
+		text: #1d4ed8,
+	),
+
+	bibliotecario: (bg: #cffafe,
+		border: #22d3ee,
+		text: #0e7490,
+	),
+
+	cambioDeFuncion: (bg: #ffedd5,
+		border: #fb923c,
+		text: #c2410c,
+	),
+
+	direccion: (bg: #fee2e2,
+		border: #f87171,
+		text: #b91c1c,
+	),
+
+	medioApoyoTecnicoProfesional: (bg: #f3e8ff,
+		border: #c084fc,
+		text: #7e22ce,
+	),
+
+	vicedireccion: (bg: #fae8ff,
+		border: #e879f9,
+		text: #a21caf,
+	),
+
+	secretaria: (bg: #dcfce7,
+		border: #4ade80,
+		text: #15803d,
+	),
+
+	orientacionEducacional: (bg: #dbeafe,
+		border: #60a5fa,
+		text: #2563eb,
+	),
+
+	orientacionSocial: (bg: #ecfccb,
+		border: #a3e635,
+		text: #4d7c0f,
+	),
+
+	preceptoria: (bg: #fef9c3,
+		border: #facc15,
+		text: #a16207,
+	),
+
+	docente: (bg: #dcfce7,
+		border: #4ade80,
+		text: #166534,
+	),
+
+	recalificacionLaboralDefinitiva: (bg: #f4f4f5,
+		border: #a1a1aa,
+		text: #52525b,
+	),
+);
+
 .badge {
 	display: inline-flex;
 	align-items: center;
+	justify-content: center;
 	gap: 6px;
 
-	padding: 4px 10px;
+	height: 28px;
+	padding-inline: 12px;
+
 	border-radius: 999px;
+	border: 1px solid transparent;
 
 	font-size: 12px;
-	font-weight: 600;
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: 0.2px;
+
 	white-space: nowrap;
+	user-select: none;
+
+	transition:
+		transform 0.15s ease,
+		background-color 0.2s ease,
+		border-color 0.2s ease,
+		box-shadow 0.2s ease;
+
+	&:hover {
+		transform: translateY(-1px);
+	}
 
 	&__icon {
 		flex-shrink: 0;
+		opacity: 0.9;
 	}
 
 	&__label {
 		line-height: 1;
 	}
 
-	/* VARIANTS */
+	@each $name, $colors in $badge-variants {
+		$bg: map-get($colors, bg);
+		$border: map-get($colors, border);
+		$text: map-get($colors, text);
 
-	&--activa {
-		background: var(--estado-activa);
-		color: var(--estado-activa-text);
-	}
+		&--#{$name} {
+			background-color: $bg;
 
-	&--licencia {
-		background: var(--estado-licencia);
-		color: var(--estado-licencia-text);
-	}
+			border-color: rgba($border, 0.55);
 
-	&--cubierta {
-		background: var(--estado-cubierta);
-		color: var(--estado-cubierta-text);
-	}
+			color: $text;
 
-	&--descubierta,
-	&--vacante {
-		background: var(--estado-descubierta);
-		color: var(--estado-descubierta-text);
-	}
+			box-shadow:
+				inset 0 1px 0 rgba(255, 255, 255, 0.5),
+				0 1px 2px rgba(0, 0, 0, 0.06);
 
-	&--finalizada {
-		background: var(--estado-finalizada);
-		color: var(--estado-finalizada-text);
-	}
+			&:hover {
+				background-color: rgba($bg, 0.88);
 
-	&--baja {
-		background: var(--estado-baja);
-		color: var(--estado-baja-text);
-	}
+				border-color: rgba($border, 0.8);
 
-	&--inactiva {
-		background: var(--estado-inactiva);
-		color: var(--estado-inactiva-text);
-	}
-
-	/* ROLES EDUCATIVOS */
-
-	&--auxiliar {
-		background: #eef2ff;
-		color: #4338ca;
-	}
-
-	&--bibliotecario {
-		background: #ecfeff;
-		color: #155e75;
-	}
-
-	&--cambioDeFuncion {
-		background: #fff7ed;
-		color: #c2410c;
-	}
-
-	&--direccion {
-		background: #fef2f2;
-		color: #b91c1c;
-	}
-
-	&--medioApoyoTecnicoProfesional {
-		background: #faf5ff;
-		color: #7e22ce;
-	}
-
-	&--vicedireccion {
-		background: #fdf4ff;
-		color: #a21caf;
-	}
-
-	&--secretaria {
-		background: #f0fdf4;
-		color: #15803d;
-	}
-
-	&--orientacionEducacional {
-		background: #eff6ff;
-		color: #1d4ed8;
-	}
-
-	&--orientacionSocial {
-		background: #ecfccb;
-		color: #3f6212;
-	}
-
-	&--preceptoria {
-		background: #fefce8;
-		color: #a16207;
-	}
-
-	&--docente {
-		background: #dcfce7;
-		color: #166534;
-	}
-
-	&--recalificacionLaboralDefinitiva {
-		background: #f3f4f6;
-		color: #4b5563;
+				box-shadow:
+					inset 0 1px 0 rgba(255, 255, 255, 0.65),
+					0 2px 4px rgba(0, 0, 0, 0.08);
+			}
+		}
 	}
 }

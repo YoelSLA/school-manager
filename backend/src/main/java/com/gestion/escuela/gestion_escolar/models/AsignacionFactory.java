@@ -10,46 +10,49 @@ import java.time.LocalDate;
 public class AsignacionFactory {
 
 	public static AsignacionTitular crearTitular(
-			EmpleadoEducativo empleado,
+			EmpleadoEducativo empleadoEducativo,
 			Designacion designacion,
 			LocalDate fechaTomaPosesion,
 			Integer secuencia
 	) {
-		return new AsignacionTitular(
-				empleado,
-				designacion,
-				fechaTomaPosesion,
-				secuencia
-		);
+		return AsignacionTitular.builder()
+				.empleadoEducativo(empleadoEducativo)
+				.designacion(designacion)
+				.periodo(Periodo.abierto(fechaTomaPosesion))
+				.secuencia(secuencia)
+				.build();
 	}
 
 	public static AsignacionProvisional crearProvisional(
-			EmpleadoEducativo empleado,
+			EmpleadoEducativo empleadoEducativo,
 			Designacion designacion,
 			Periodo periodo,
 			Integer secuencia
 	) {
 
-		return new AsignacionProvisional(
-				empleado,
-				designacion,
-				periodo,
-				secuencia
-		);
+		return AsignacionProvisional.builder()
+				.empleadoEducativo(empleadoEducativo)
+				.designacion(designacion)
+				.periodo(periodo)
+				.secuencia(secuencia)
+				.build();
 	}
 
 	public static AsignacionSuplente crearSuplente(
-			EmpleadoEducativo empleado,
+			EmpleadoEducativo empleadoEducativo,
 			Designacion designacion,
 			Periodo periodo,
+			Licencia licencia,
 			Integer secuencia
 	) {
 
-		return new AsignacionSuplente(
-				empleado,
-				designacion,
-				periodo,
-				secuencia
-		);
+		return AsignacionSuplente.builder()
+				.empleadoEducativo(empleadoEducativo)
+				.designacion(designacion)
+				.periodo(periodo)
+				.licencia(licencia)
+				.secuencia(secuencia)
+				.build();
+
 	}
 }

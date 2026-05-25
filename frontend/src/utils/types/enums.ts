@@ -42,7 +42,7 @@ export enum EstadoAsignacion {
 export enum EstadoLicencia {
 	CUBIERTA = "CUBIERTA",
 	DESCUBIERTA = "DESCUBIERTA",
-	INACTIVA = "INACTIVA",
+	NO_VIGENTE = "NO_VIGENTE",
 }
 
 export enum Dia {

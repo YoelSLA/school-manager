@@ -79,7 +79,7 @@ public class Escuela {
 		if (designacion == null) {
 			throw new IllegalArgumentException("La designación no puede ser null");
 		}
-		designacion.asignarEscuela(this);
+		designacion.setEscuela(this);
 		this.designaciones.add(designacion);
 	}
 

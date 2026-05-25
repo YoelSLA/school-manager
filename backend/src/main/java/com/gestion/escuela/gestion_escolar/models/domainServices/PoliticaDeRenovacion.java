@@ -4,6 +4,7 @@ import com.gestion.escuela.gestion_escolar.models.Periodo;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionProvisional;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.ReglaCicloLectivoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 
 import java.time.LocalDate;
@@ -15,12 +16,10 @@ public class PoliticaDeRenovacion {
 		Validaciones.noNulo(anterior, "asignación anterior");
 		Validaciones.noNulo(nuevoPeriodo, "periodo");
 
-		if (nuevoPeriodo.getFechaDesde()
-				.isBefore(anterior.getPeriodo().getFechaHasta().plusDays(1))) {
-			throw new RangoFechasInvalidoException(
-					anterior.getPeriodo().getFechaHasta().plusDays(1),
-					nuevoPeriodo.getFechaDesde()
-			);
+		LocalDate fechaMinimaInicio = anterior.getPeriodo().getFechaHasta().plusDays(1);
+
+		if (nuevoPeriodo.getFechaDesde().isBefore(fechaMinimaInicio)) {
+			throw new RangoFechasInvalidoException(fechaMinimaInicio, nuevoPeriodo.getFechaDesde());
 		}
 
 		validarReglaCicloLectivo(nuevoPeriodo);
@@ -48,15 +47,14 @@ public class PoliticaDeRenovacion {
 		LocalDate primeroDeMarzo = LocalDate.of(anio, 3, 1);
 		LocalDate primeroDeMarzoSiguiente = LocalDate.of(anio + 1, 3, 1);
 
-		// 1️ Debe comenzar el 1 de marzo
+		// 1️) Debe comenzar el 1 de marzo
 		if (!desde.equals(primeroDeMarzo)) {
-			throw new IllegalArgumentException("La asignación provisional debe iniciar el 1 de marzo");
+			throw new ReglaCicloLectivoException("La asignación provisional debe iniciar el 1 de marzo");
 		}
 
-		// 2️ Debe finalizar antes del 1 de marzo siguiente
-
-		if (!desde.isBefore(primeroDeMarzoSiguiente)) {
-			throw new IllegalArgumentException("La fecha fin debe ser anterior al 1 de marzo del año siguiente");
+		// 2️) Debe finalizar antes del 1 de marzo siguiente
+		if (!hasta.isBefore(primeroDeMarzoSiguiente)) {
+			throw new ReglaCicloLectivoException("La fecha fin debe ser anterior al 1 de marzo del año siguiente");
 		}
 
 	}

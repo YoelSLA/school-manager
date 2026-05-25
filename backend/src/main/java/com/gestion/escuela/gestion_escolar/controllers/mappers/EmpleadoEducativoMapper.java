@@ -1,4 +1,4 @@
-package com.gestion.escuela.gestion_escolar.mappers;
+package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.CargoDesignacionAdministrativaDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.CargoDesignacionCursoDTO;
@@ -84,17 +84,19 @@ public class EmpleadoEducativoMapper {
 	}
 
 	public static EmpleadoEducativo toEntity(EmpleadoEducativoCreateDTO d, Escuela e) {
-		return new EmpleadoEducativo(
-				e,
-				d.cuil(),
-				d.nombre(),
-				d.apellido(),
-				d.domicilio(),
-				d.telefono(),
-				d.fechaDeNacimiento(),
-				d.fechaDeIngreso(),
-				d.email()
-		);
+		return EmpleadoEducativo.builder()
+				.escuela(e)
+				.cuil(d.cuil())
+				.nombre(d.nombre())
+				.apellido(d.apellido())
+				.telefono(d.telefono())
+				.domicilio(d.domicilio())
+				.email(d.email())
+				.fechaDeNacimiento(d.fechaDeNacimiento())
+				.fechaDeIngreso(d.fechaDeIngreso())
+				.build();
+
+
 	}
 
 	public static void actualizarEntidad(

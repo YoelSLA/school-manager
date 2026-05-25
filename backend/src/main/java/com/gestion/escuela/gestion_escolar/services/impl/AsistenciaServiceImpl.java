@@ -71,6 +71,8 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 				.toList();
 	}
 
+
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<RolCantidad> contarEmpleadosPorRolVigente(

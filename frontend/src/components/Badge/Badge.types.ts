@@ -6,6 +6,7 @@ export type BadgeVariant =
 	| "finalizada"
 	| "baja"
 	| "pendiente"
+	| "no_vigente"
 	| "descubierta"
 	| "inactiva"
 	| "auxiliar"

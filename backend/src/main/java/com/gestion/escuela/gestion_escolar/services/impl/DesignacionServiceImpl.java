@@ -147,7 +147,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 	}
 
 	@Override
-	public Asignacion cubrirConTitular(
+	public AsignacionTitular cubrirConTitular(
 			Long designacionId,
 			Long empleadoId,
 			LocalDate fechaTomaPosesion,
@@ -262,13 +262,11 @@ public class DesignacionServiceImpl implements DesignacionService {
 
 		// actual.getDesignacion().agregarAsignacion(nueva);
 
-		return new AsignacionSuplente(
-				actual.getEmpleadoEducativo(),
-				actual.getDesignacion(),
-				Periodo.cerrado(nuevaFechaInicio, nuevaFechaFin),
-				secuencia
-
-		);
+		return AsignacionSuplente.builder()
+				.empleadoEducativo(actual.getEmpleadoEducativo())
+				.designacion(actual.getDesignacion())
+				.periodo(Periodo.cerrado(nuevaFechaInicio, nuevaFechaFin))
+				.build();
 	}
 
 	@Override
@@ -376,8 +374,10 @@ public class DesignacionServiceImpl implements DesignacionService {
 				designacionCurso.getId()
 		);
 
-		designacionCurso.actualizar(cupof, materia, curso, orientacion);
-
+		designacionCurso.setCupof(cupof);
+		designacionCurso.setMateria(materia);
+		designacionCurso.setCurso(curso);
+		designacionCurso.setOrientacion(orientacion);
 		designacionCurso.setFranjasHorarias(franjasHorarias);
 	}
 
@@ -400,7 +400,8 @@ public class DesignacionServiceImpl implements DesignacionService {
 				designacion.getId()
 		);
 
-		designacion.actualizar(cupof, rolEducativo);
+		designacion.setCupof(cupof);
+		designacion.setRolEducativo(rolEducativo);
 		designacion.setFranjasHorarias(franjasHorarias);
 	}
 

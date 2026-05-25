@@ -45,17 +45,17 @@ public class AsistenciaServiceTest extends AbstractIntegrationTest {
 	}
 
 	private EmpleadoEducativo crearEmpleadoJuanPerez() {
-		EmpleadoEducativo empleadoEducativo = new EmpleadoEducativo(
-				escuela,
-				"20-34567891-2",
-				"Juan",
-				"Pérez",
-				"Mitre 1450",
-				"1162347890",
-				LocalDate.of(1982, 6, 18),
-				LocalDate.of(2008, 4, 1),
-				"juan.perez@test.com"
-		);
+		EmpleadoEducativo empleadoEducativo = EmpleadoEducativo.builder()
+				.escuela(escuela)
+				.cuil("20-34567891-2")
+				.nombre("Juan")
+				.apellido("Perez")
+				.domicilio("Mitre 1450")
+				.telefono("1162347890")
+				.fechaDeNacimiento(LocalDate.of(1982, 6, 18))
+				.fechaDeIngreso(LocalDate.of(2008, 4, 1))
+				.email("juan.perez@test.com")
+				.build();
 
 		return empleadoService.crear(escuela.getId(), empleadoEducativo);
 	}

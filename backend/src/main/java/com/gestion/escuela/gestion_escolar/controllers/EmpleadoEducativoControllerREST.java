@@ -5,10 +5,10 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.
 import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.EmpleadoEducativoDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaDetalleDTO;
-import com.gestion.escuela.gestion_escolar.mappers.DesignacionMapper;
-import com.gestion.escuela.gestion_escolar.mappers.EmpleadoEducativoMapper;
-import com.gestion.escuela.gestion_escolar.mappers.LicenciaMapper;
-import com.gestion.escuela.gestion_escolar.mappers.PeriodoMapper;
+import com.gestion.escuela.gestion_escolar.controllers.mappers.DesignacionMapper;
+import com.gestion.escuela.gestion_escolar.controllers.mappers.EmpleadoEducativoMapper;
+import com.gestion.escuela.gestion_escolar.controllers.mappers.LicenciaMapper;
+import com.gestion.escuela.gestion_escolar.controllers.mappers.PeriodoMapper;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;

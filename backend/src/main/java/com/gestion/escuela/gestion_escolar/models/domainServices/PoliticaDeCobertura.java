@@ -69,11 +69,16 @@ public class PoliticaDeCobertura {
 			throw new DesignacionNoAfectadaPorLicenciaException(designacion.getId(), licencia.getId());
 		}
 
-		licencia.validarFechaValidaParaCobertura(fechaInicio);
+		if (fechaInicio.isBefore(licencia.getPeriodo().getFechaDesde())) {
+			throw new RangoFechasInvalidoException(licencia.getPeriodo().getFechaDesde(), fechaInicio);
+		}
 
 		assert designacion != null;
 
 		if (!designacion.tieneVacantePorLicenciaEn(fechaInicio)) {
+
+			boolean vacantePorLicencia = designacion.tieneVacantePorLicenciaEn(fechaInicio);
+
 			throw new DesignacionNoVacantePorLicenciaException(designacion.getId());
 		}
 

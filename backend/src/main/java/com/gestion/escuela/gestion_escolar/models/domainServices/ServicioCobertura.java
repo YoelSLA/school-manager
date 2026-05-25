@@ -34,7 +34,8 @@ public class ServicioCobertura {
 						secuencia
 				);
 
-		return designacion.registrar(asignacion);
+		designacion.agregarAsignacion(asignacion);
+		return asignacion;
 	}
 
 	public static AsignacionProvisional cubrirConProvisionalAutomatico(
@@ -44,29 +45,24 @@ public class ServicioCobertura {
 			Integer secuencia
 	) {
 
-		Periodo periodo =
-				CalendarioEscolar
-						.periodoProvisionalAutomaticoDesde(
-								fechaInicio
-						);
+		Periodo periodo = CalendarioEscolar.periodoProvisionalAutomaticoDesde(fechaInicio);
 
-		PoliticaDeCobertura
-				.validarCubrirConProvisionalAutomatico(
+		PoliticaDeCobertura.validarCubrirConProvisionalAutomatico(
 						designacion,
 						empleado,
 						fechaInicio,
 						periodo
 				);
 
-		AsignacionProvisional asignacion =
-				AsignacionFactory.crearProvisional(
-						empleado,
-						designacion,
-						periodo,
-						secuencia
-				);
+		AsignacionProvisional asignacion = AsignacionFactory.crearProvisional(
+				empleado,
+				designacion,
+				periodo,
+				secuencia
+		);
 
-		return designacion.registrar(asignacion);
+		designacion.agregarAsignacion(asignacion);
+		return asignacion;
 	}
 
 	public static AsignacionProvisional cubrirConProvisionalManual(
@@ -76,22 +72,17 @@ public class ServicioCobertura {
 			Integer secuencia
 	) {
 
-		PoliticaDeCobertura
-				.validarCubrirConProvisionalManual(
-						designacion,
-						empleado,
-						periodo
-				);
+		PoliticaDeCobertura.validarCubrirConProvisionalManual(designacion, empleado, periodo);
 
-		AsignacionProvisional asignacion =
-				AsignacionFactory.crearProvisional(
-						empleado,
-						designacion,
-						periodo,
-						secuencia
-				);
+		AsignacionProvisional asignacion = AsignacionFactory.crearProvisional(
+				empleado,
+				designacion,
+				periodo,
+				secuencia
+		);
 
-		return designacion.registrar(asignacion);
+		designacion.agregarAsignacion(asignacion);
+		return asignacion;
 	}
 
 	public static AsignacionSuplente cubrirConSuplente(
@@ -102,28 +93,19 @@ public class ServicioCobertura {
 			Integer secuencia
 	) {
 
-		PoliticaDeCobertura
-				.validarCubrirConSuplente(
-						designacion,
-						licencia,
-						suplente,
-						fechaInicio
-				);
+		PoliticaDeCobertura.validarCubrirConSuplente(designacion, licencia, suplente, fechaInicio);
 
-		Periodo periodo =
-				Periodo.cerrado(
-						fechaInicio,
-						licencia.getPeriodo().getFechaHasta()
-				);
+		Periodo periodo = Periodo.cerrado(fechaInicio, licencia.getPeriodo().getFechaHasta());
 
-		AsignacionSuplente asignacion =
-				AsignacionFactory.crearSuplente(
-						suplente,
-						designacion,
-						periodo,
-						secuencia
-				);
+		AsignacionSuplente asignacion = AsignacionFactory.crearSuplente(
+				suplente,
+				designacion,
+				periodo,
+				licencia,
+				secuencia
+		);
 
-		return designacion.registrar(asignacion);
+		designacion.agregarAsignacion(asignacion);
+		return asignacion;
 	}
 }

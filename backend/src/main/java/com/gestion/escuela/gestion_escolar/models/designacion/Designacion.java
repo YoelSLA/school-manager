@@ -7,6 +7,7 @@ import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionSuplente;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
 import com.gestion.escuela.gestion_escolar.models.domainServices.ServicioCobertura;
 import com.gestion.escuela.gestion_escolar.models.domainServices.ServicioRenovacion;
+import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.DiaDeSemana;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
@@ -60,12 +61,16 @@ public abstract class Designacion {
 	@Column(nullable = false)
 	private RolEducativo rolEducativo;
 
+	// =========================================================
+	// Constructor
+	// =========================================================
+
 	protected Designacion() {
 		this.asignaciones = new ArrayList<>();
 		this.franjasHorarias = new HashSet<>();
 	}
 
-	protected Designacion(Escuela escuela, Integer cupof, RolEducativo rolEducativo) {
+	public Designacion(Escuela escuela, Integer cupof, RolEducativo rolEducativo) {
 		Validaciones.noNulo(escuela, "escuela");
 		Validaciones.noNulo(cupof, "cupof");
 		Validaciones.noNulo(rolEducativo, "rol educativo");
@@ -77,11 +82,14 @@ public abstract class Designacion {
 		this.franjasHorarias = new HashSet<>();
 	}
 
+	// =========================================================
+	// Gestión de Franjas Horarias
+	// =========================================================
 	public void agregarFranjaHoraria(FranjaHoraria nueva) {
 		Validaciones.noNulo(nueva, "franja horaria");
 
-		boolean haySolapamiento = franjasHorarias.stream().
-				anyMatch(f -> f.seSuperponeCon(nueva));
+		boolean haySolapamiento = franjasHorarias.stream()
+				.anyMatch(f -> f.seSuperponeCon(nueva));
 
 		if (haySolapamiento) {
 			throw new RangoHorarioInvalidoException(nueva.getHoraDesde(), nueva.getHoraHasta());
@@ -90,34 +98,52 @@ public abstract class Designacion {
 		franjasHorarias.add(nueva);
 	}
 
-	public void asignarEscuela(Escuela escuela) {
-		Validaciones.noNulo(escuela, "escuela");
-		this.escuela = escuela;
-	}
-
-	public void notificarBajaDefinitivaDe(
-			Asignacion asignacion,
-			LocalDate fechaBaja
-	) {
-
-		Validaciones.noNulo(asignacion, "asignación");
-		Validaciones.noNulo(fechaBaja, "fecha baja");
-
-		if (!asignacion.puedeGenerarVacanteDefinitiva()) {
-			return;
-		}
-
-		getSuplenciaActivaEn(fechaBaja)
-				.ifPresent(suplente -> {
-					LocalDate inicioProvisional = fechaBaja.plusDays(1);
-					suplente.convertirseEnProvisional(inicioProvisional, suplente.getSecuencia());
-				});
-	}
-
 	public void setFranjasHorarias(Set<FranjaHoraria> nuevasFranjas) {
 		Validaciones.noNulo(nuevasFranjas, "franjas horarias");
 		this.franjasHorarias.clear();
 		nuevasFranjas.forEach(this::agregarFranjaHoraria);
+	}
+
+	public boolean trabajaElDia(LocalDate fecha) {
+
+		if (fecha == null)
+			return false;
+
+		DiaDeSemana diaEnum = DiaDeSemana.from(fecha);
+
+		return franjasHorarias.stream().anyMatch(f -> f.getDia().equals(diaEnum));
+	}
+	// =========================================================
+	// Gestión de Asignaciones
+	// =========================================================
+	public void agregarAsignacion(Asignacion asignacion) {
+
+		// Valida que la asignación no sea null
+		Validaciones.noNulo(asignacion, "asignación");
+
+		// Obtiene la fecha de inicio de la asignación
+		LocalDate fechaInicio = asignacion.getPeriodo().getFechaDesde();
+
+		// Verifica si ya existe una asignación ejerciente para esa misma fecha en esta designación
+		boolean hayAsignacionQueEjerce = asignacionesEjercientesEn(fechaInicio).findAny().isPresent();
+
+		// No se puede cubrir una designación ya cubierta
+		if (hayAsignacionQueEjerce) {
+			throw new DesignacionYaCubiertaException(this);
+		}
+
+		// Evita duplicados en la colección
+		if (!asignaciones.contains(asignacion)) {
+			asignaciones.add(asignacion);
+		}
+
+		// Mantiene sincronizada la relación
+		// Asignacion -> Designacion
+		asignacion.setDesignacion(this);
+
+		// Mantiene sincronizada la relación
+		// EmpleadoEducativo -> Asignacion
+		asignacion.getEmpleadoEducativo().agregarAsignacion(asignacion);
 	}
 
 	public void eliminarAsignacion(Asignacion asignacion) {
@@ -125,6 +151,32 @@ public abstract class Designacion {
 		asignacion.getEmpleadoEducativo().eliminarAsignacion(asignacion);
 	}
 
+	public Optional<Asignacion> asignacionQueEjerceEn(LocalDate fecha) {
+		if (fecha == null)
+			return Optional.empty();
+
+		return asignacionesActivasEn(fecha).findFirst();
+	}
+
+	public Optional<EmpleadoEducativo> getEmpleadoActivoEn(LocalDate fecha) {
+		return asignacionQueEjerceEn(fecha).map(Asignacion::getEmpleadoEducativo);
+	}
+
+	public boolean tieneTitularActivo(LocalDate fecha) {
+		return asignacionesEjercientesEn(fecha).anyMatch(Asignacion::esTitular);
+	}
+
+	public boolean estaCubiertaEn(LocalDate fecha) {
+		return asignacionesEjercientesEn(fecha).findAny().isPresent();
+	}
+
+	public boolean tieneAsignacionQueSeSuperponeCon(Periodo periodo) {
+		return this.asignaciones.stream()
+				.anyMatch(a -> a.seSuperponeCon(periodo));
+	}
+	// =========================================================
+	// Cobertura
+	// =========================================================
 	public AsignacionTitular cubrirConTitular(
 			EmpleadoEducativo empleado,
 			LocalDate fechaDesde,
@@ -159,11 +211,13 @@ public abstract class Designacion {
 	) {
 		return ServicioCobertura.cubrirConSuplente(this, licencia, suplente, fechaInicio, secuencia);
 	}
+	// =========================================================
+	// Renovaciones
+	// =========================================================
 	public AsignacionProvisional renovarProvisionalAutomatica(
 			AsignacionProvisional anterior,
 			Integer secuencia
 	) {
-
 		return ServicioRenovacion
 				.renovarProvisionalAutomatica(
 						this,
@@ -177,7 +231,6 @@ public abstract class Designacion {
 			LocalDate fechaHasta,
 			Integer secuencia
 	) {
-
 		return ServicioRenovacion
 				.renovarProvisionalDesdeMarzo(
 						this,
@@ -192,7 +245,6 @@ public abstract class Designacion {
 			Periodo nuevoPeriodo,
 			Integer secuencia
 	) {
-
 		return ServicioRenovacion
 				.renovarProvisionalManual(
 						this,
@@ -201,43 +253,11 @@ public abstract class Designacion {
 						secuencia
 				);
 	}
-
-	public Optional<Asignacion> asignacionQueEjerceEn(LocalDate fecha) {
-		if (fecha == null)
-			return Optional.empty();
-
-		return asignacionesActivasEn(fecha).findFirst();
-	}
-
-	public Optional<EmpleadoEducativo> getEmpleadoActivoEn(LocalDate fecha) {
-		return asignacionQueEjerceEn(fecha).map(Asignacion::getEmpleadoEducativo);
-	}
-
-	public boolean tieneTitularActivo(LocalDate fecha) {
-		return asignacionesEjercientesEn(fecha).anyMatch(Asignacion::esTitular);
-	}
-
-	public boolean trabajaElDia(LocalDate fecha) {
-
-		if (fecha == null)
-			return false;
-
-		DiaDeSemana diaEnum = DiaDeSemana.from(fecha);
-
-		return franjasHorarias.stream().anyMatch(f -> f.getDia().equals(diaEnum));
-	}
-
+	// =========================================================
+	// Estado y Vigencia
+	// =========================================================
 	public boolean tieneVacantePorLicenciaEn(LocalDate fecha) {
-		return asignacionesActivasEn(fecha).anyMatch(a -> a.estaEnLicenciaEn(fecha));
-	}
-
-	public boolean estaCubiertaEn(LocalDate fecha) {
-		return asignacionesEjercientesEn(fecha).findAny().isPresent();
-	}
-
-	public boolean tieneAsignacionQueSeSuperponeCon(Periodo periodo) {
-		return this.asignaciones.stream()
-				.anyMatch(a -> a.seSuperponeCon(periodo));
+		return asignaciones.stream().anyMatch(a -> a.estaEnLicenciaEn(fecha));
 	}
 
 	@Transient
@@ -245,6 +265,64 @@ public abstract class Designacion {
 		return EstadoDesignacion.desde(asignacionQueEjerceEn(fecha).isPresent());
 	}
 
+	public Optional<AsignacionSuplente> getSuplenciaActivaEn(LocalDate fecha) {
+		return asignacionesActivasEn(fecha)
+				.filter(AsignacionSuplente.class::isInstance)
+				.map(AsignacionSuplente.class::cast)
+				.findFirst();
+	}
+	// =========================================================
+	// Gestión Institucional
+	// =========================================================
+	public void setEscuela(Escuela escuela) {
+		Validaciones.noNulo(escuela, "escuela");
+		this.escuela = escuela;
+	}
+
+	public void setCupof(Integer cupof) {
+		Validaciones.noNulo(cupof, "cupof");
+		this.cupof = cupof;
+	}
+
+	public void setRolEducativo(RolEducativo rolEducativo) {
+		Validaciones.noNulo(rolEducativo, "rol educativo");
+		this.rolEducativo = rolEducativo;
+	}
+	// =========================================================
+	// Notificaciones y Transiciones
+	// =========================================================
+	/**
+	 * Método interno de coordinación utilizado cuando una asignación
+	 * genera una vacante definitiva.
+	 *
+	 * <p>No representa un caso de uso público del dominio y no debe
+	 * invocarse directamente desde servicios, controladores o tests.
+	 *
+	 * <p>La entrada correcta al flujo es:
+	 * {@link Asignacion#finalizarPorBajaDefinitiva(CausaBaja, LocalDate)}
+	 */
+	public void notificarBajaDefinitivaDe(
+			Asignacion asignacion,
+			LocalDate fechaBaja
+	) {
+
+		Validaciones.noNulo(asignacion, "asignación");
+		Validaciones.noNulo(fechaBaja, "fecha baja");
+
+		if (!asignacion.puedeGenerarVacanteDefinitiva()) {
+			return;
+		}
+
+		getSuplenciaActivaEn(fechaBaja)
+				.ifPresent(suplente -> {
+					LocalDate inicioProvisional = fechaBaja.plusDays(1);
+					suplente.convertirseEnProvisional(inicioProvisional, suplente.getSecuencia());
+				});
+	}
+
+	// =========================================================
+	// Infraestructura / Utilitarios
+	// =========================================================
 	@Override
 	public String toString() {
 		return getClass().getSimpleName() + "{ " +
@@ -256,59 +334,15 @@ public abstract class Designacion {
 				" }";
 	}
 
-	public Optional<AsignacionSuplente> getSuplenciaActivaEn(LocalDate fecha) {
-		return asignacionesActivasEn(fecha)
-				.filter(AsignacionSuplente.class::isInstance)
-				.map(AsignacionSuplente.class::cast)
-				.findFirst();
-	}
-
-	public <T extends Asignacion> T registrar(T asignacion) {
-
-		agregarAsignacion(asignacion);
-
-		return asignacion;
-	}
-
-	protected void actualizarCupof(Integer cupof) {
-		Validaciones.noNulo(cupof, "cupof");
-		this.cupof = cupof;
-	}
-
-	protected void actualizarRolEducativo(RolEducativo rolEducativo) {
-		Validaciones.noNulo(rolEducativo, "rol educativo");
-		this.rolEducativo = rolEducativo;
-	}
-
-	private void agregarAsignacion(Asignacion asignacion) {
-
-		Validaciones.noNulo(asignacion, "asignación");
-
-		LocalDate fechaInicio = asignacion.getPeriodo().getFechaDesde();
-
-		boolean hayAsignacionQueEjerce =
-				asignacionesEjercientesEn(fechaInicio).findAny().isPresent();
-
-		if (hayAsignacionQueEjerce) {
-			throw new DesignacionYaCubiertaException(this);
-		}
-
-		if (!asignaciones.contains(asignacion)) {
-			asignaciones.add(asignacion);
-		}
-
-		asignacion.setDesignacion(this);
-	}
-
-	private Stream<Asignacion>
-	asignacionesActivasEn(LocalDate fecha) {
+	private Stream<Asignacion> asignacionesActivasEn(LocalDate fecha) {
 		return asignaciones.stream().filter(a -> a.estaActivaEn(fecha));
 	}
 
-	private Stream<Asignacion>
-	asignacionesEjercientesEn(LocalDate fecha) {
+	private Stream<Asignacion> asignacionesEjercientesEn(LocalDate fecha) {
 
 		return asignaciones.stream().filter(a -> a.estaEjerciendoEn(fecha));
 	}
+
+
 
 }

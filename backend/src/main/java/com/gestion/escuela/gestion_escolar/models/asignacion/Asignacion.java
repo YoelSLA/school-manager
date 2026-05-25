@@ -47,7 +47,8 @@ public abstract class Asignacion {
 	@JoinColumn(name = "caracteristica_id")
 	private CaracteristicaAsignacion caracteristica;
 
-	protected Asignacion() {
+	public Asignacion() {
+		// JPA
 	}
 
 	public Asignacion(
@@ -70,14 +71,17 @@ public abstract class Asignacion {
 			throw new AsignacionYaDadaDeBajaException();
 		}
 
+		boolean generaVacante = this.puedeGenerarVacanteDefinitiva();
+
 		this.darDeBajaEn(fechaBaja);
 
 		this.bajaAsignacion = new BajaAsignacion(fechaBaja, causaBaja);
 
-		if (this.puedeGenerarVacanteDefinitiva()) {
+		if (generaVacante) {
 			designacion.notificarBajaDefinitivaDe(this, fechaBaja);
 		}
 	}
+
 
 	public void aplicarCaracteristica(CaracteristicaAsignacion nueva) {
 		throw new UnsupportedOperationException("Solo una asignación TITULAR puede tener característica");
@@ -172,6 +176,11 @@ public abstract class Asignacion {
 	public boolean seSuperponeCon(Periodo periodo) {
 		return this.periodo.seSuperponeCon(periodo);
 	}
+
+	public boolean seSuperponeCon(Asignacion asignacion) {
+		return this.periodo.seSuperponeCon(asignacion.periodo);
+	}
+
 
 	public boolean estaEjerciendoEn(LocalDate fecha) {
 

@@ -45,16 +45,18 @@ public class DesignacionCurso extends Designacion {
 		return super.toString().replace("}", ", materiaId=" + (materia != null ? materia.getId() : null) + ", cursoId=" + (curso != null ? curso.getId() : null) + ", orientacion='" + getOrientacion() + '\'' + '}');
 	}
 
-	public void actualizar(Integer cupof, Materia materia, Curso curso, String orientacion) {
-
-		Validaciones.noNulo(cupof, "cupof");
-		Validaciones.noNulo(materia, "materia");
+	public void setCurso(Curso curso) {
 		Validaciones.noNulo(curso, "curso");
-		Validaciones.noBlank(orientacion, "orientacion");
-
-		actualizarCupof(cupof);
-		this.materia = materia;
 		this.curso = curso;
+	}
+
+	public void setMateria(Materia materia) {
+		Validaciones.noNulo(materia, "materia");
+		this.materia = materia;
+	}
+
+	public void setOrientacion(String orientacion) {
+		Validaciones.noBlank(orientacion, "orientacion");
 		this.orientacion = orientacion;
 	}
 }

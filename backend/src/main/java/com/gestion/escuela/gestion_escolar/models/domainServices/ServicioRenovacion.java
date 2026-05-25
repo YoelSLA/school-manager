@@ -16,38 +16,23 @@ public class ServicioRenovacion {
 			Integer secuencia
 	) {
 
-		Validaciones.noNulo(
-				anterior,
-				"asignación anterior"
+		Validaciones.noNulo(anterior, "asignación anterior");
+
+		LocalDate desde = CalendarioEscolar.inicioCicloLectivoSiguiente(anterior.getPeriodo().getFechaHasta());
+
+		Periodo nuevoPeriodo = CalendarioEscolar.periodoProvisionalAutomaticoDesde(desde);
+
+		PoliticaDeRenovacion.validarReglaCicloLectivo(nuevoPeriodo);
+
+		AsignacionProvisional asignacion = AsignacionFactory.crearProvisional(
+				anterior.getEmpleadoEducativo(),
+				designacion,
+				nuevoPeriodo,
+				secuencia
 		);
 
-		LocalDate desde =
-				CalendarioEscolar
-						.inicioCicloLectivoSiguiente(
-								anterior.getPeriodo()
-										.getFechaHasta()
-						);
-
-		Periodo nuevoPeriodo =
-				CalendarioEscolar
-						.periodoProvisionalAutomaticoDesde(
-								desde
-						);
-
-		PoliticaDeRenovacion
-				.validarReglaCicloLectivo(
-						nuevoPeriodo
-				);
-
-		AsignacionProvisional asignacion =
-				AsignacionFactory.crearProvisional(
-						anterior.getEmpleadoEducativo(),
-						designacion,
-						nuevoPeriodo,
-						secuencia
-				);
-
-		return designacion.registrar(asignacion);
+		designacion.agregarAsignacion(asignacion);
+		return asignacion;
 	}
 
 	public static AsignacionProvisional renovarProvisionalDesdeMarzo(
@@ -57,40 +42,23 @@ public class ServicioRenovacion {
 			Integer secuencia
 	) {
 
-		PoliticaDeRenovacion
-				.validarRenovarProvisionalDesdeMarzo(
-						asignacionAnterior,
-						fechaHasta
-				);
+		PoliticaDeRenovacion.validarRenovarProvisionalDesdeMarzo(asignacionAnterior, fechaHasta);
 
-		LocalDate desde =
-				CalendarioEscolar
-						.inicioCicloLectivoSiguiente(
-								asignacionAnterior
-										.getPeriodo()
-										.getFechaHasta()
-						);
+		LocalDate desde = CalendarioEscolar.inicioCicloLectivoSiguiente(asignacionAnterior.getPeriodo().getFechaHasta());
 
-		Periodo nuevoPeriodo =
-				Periodo.cerrado(
-						desde,
-						fechaHasta
-				);
+		Periodo nuevoPeriodo = Periodo.cerrado(desde, fechaHasta);
 
-		PoliticaDeRenovacion
-				.validarReglaCicloLectivo(
-						nuevoPeriodo
-				);
+		PoliticaDeRenovacion.validarReglaCicloLectivo(nuevoPeriodo);
 
-		AsignacionProvisional asignacion =
-				AsignacionFactory.crearProvisional(
-						asignacionAnterior.getEmpleadoEducativo(),
-						designacion,
-						nuevoPeriodo,
-						secuencia
-				);
+		AsignacionProvisional asignacion = AsignacionFactory.crearProvisional(
+				asignacionAnterior.getEmpleadoEducativo(),
+				designacion,
+				nuevoPeriodo,
+				secuencia
+		);
 
-		return designacion.registrar(asignacion);
+		designacion.agregarAsignacion(asignacion);
+		return asignacion;
 	}
 
 	public static AsignacionProvisional renovarProvisionalManual(
@@ -100,20 +68,16 @@ public class ServicioRenovacion {
 			Integer secuencia
 	) {
 
-		PoliticaDeRenovacion
-				.validarRenovarProvisionalManual(
-						anterior,
-						nuevoPeriodo
-				);
+		PoliticaDeRenovacion.validarRenovarProvisionalManual(anterior, nuevoPeriodo);
 
-		AsignacionProvisional asignacion =
-				AsignacionFactory.crearProvisional(
-						anterior.getEmpleadoEducativo(),
-						designacion,
-						nuevoPeriodo,
-						secuencia
-				);
+		AsignacionProvisional asignacion = AsignacionFactory.crearProvisional(
+				anterior.getEmpleadoEducativo(),
+				designacion,
+				nuevoPeriodo,
+				secuencia
+		);
 
-		return designacion.registrar(asignacion);
+		designacion.agregarAsignacion(asignacion);
+		return asignacion;
 	}
 }

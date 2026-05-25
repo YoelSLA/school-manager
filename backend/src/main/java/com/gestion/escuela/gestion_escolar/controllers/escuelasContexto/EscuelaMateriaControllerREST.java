@@ -5,8 +5,8 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.MateriaCrea
 import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.MateriaNombreDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.MateriaResponseDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.MateriaUpdateDTO;
-import com.gestion.escuela.gestion_escolar.mappers.MateriaMapper;
-import com.gestion.escuela.gestion_escolar.mappers.PageMapper;
+import com.gestion.escuela.gestion_escolar.controllers.mappers.MateriaMapper;
+import com.gestion.escuela.gestion_escolar.controllers.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.Materia;
 import com.gestion.escuela.gestion_escolar.services.MateriaService;
 import com.gestion.escuela.gestion_escolar.web.PaginationUtils;

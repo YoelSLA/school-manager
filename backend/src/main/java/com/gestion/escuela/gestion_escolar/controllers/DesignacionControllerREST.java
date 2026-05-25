@@ -7,8 +7,8 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.Cubrir
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.administrativas.DesignacionAdministrativaUpdateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.cursos.DesignacionCursoUpdateDTO;
-import com.gestion.escuela.gestion_escolar.mappers.AsignacionMapper;
-import com.gestion.escuela.gestion_escolar.mappers.DesignacionMapper;
+import com.gestion.escuela.gestion_escolar.controllers.mappers.AsignacionMapper;
+import com.gestion.escuela.gestion_escolar.controllers.mappers.DesignacionMapper;
 import com.gestion.escuela.gestion_escolar.models.FranjaHoraria;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;

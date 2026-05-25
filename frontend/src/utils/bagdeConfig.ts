@@ -76,9 +76,9 @@ export const ESTADO_LICENCIA_CONFIG: Record<EstadoLicencia, BadgeConfig> = {
 		variant: "descubierta",
 	},
 
-	INACTIVA: {
-		label: "Inactiva",
-		variant: "inactiva",
+	NO_VIGENTE: {
+		label: "No Vigente",
+		variant: "no_vigente",
 	},
 };
 
