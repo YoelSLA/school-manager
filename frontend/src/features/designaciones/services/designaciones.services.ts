@@ -61,18 +61,11 @@ export async function listarDesignacionesAdministrativas(
 	page: number = 0,
 	size: number = 10,
 ): Promise<PageResponse<DesignacionAdministrativaResumenDTO>> {
-	console.log("➡️ ADMIN REQUEST PARAMS:", { escuelaId, page, size });
 
 	const { data } = await http.get<
 		PageResponse<DesignacionAdministrativaResumenDTO>
 	>(`/escuelas/${escuelaId}/designaciones/administrativas`, {
 		params: { page, size },
-	});
-
-	console.log("⬅️ ADMIN RESPONSE:", {
-		page: data.page, // 👈 importante
-		totalPages: data.totalPages,
-		contentIds: data.content?.map((d) => d.id),
 	});
 
 	return data;
@@ -84,7 +77,6 @@ export async function listarDesignacionesCursos(
 	size: number = 10,
 	filter?: DesignacionCursoFilter,
 ): Promise<PageResponse<DesignacionCursoResumenDTO>> {
-	console.log("➡️ CURSOS REQUEST PARAMS:", { escuelaId, page, size, filter });
 
 	const { data } = await http.get<PageResponse<DesignacionCursoResumenDTO>>(
 		`/escuelas/${escuelaId}/designaciones/cursos`,
@@ -96,12 +88,6 @@ export async function listarDesignacionesCursos(
 			},
 		},
 	);
-
-	console.log("⬅️ CURSOS RESPONSE:", {
-		page: data.page,
-		totalPages: data.totalPages,
-		contentIds: data.content?.map((d) => d.id),
-	});
 
 	return data;
 }

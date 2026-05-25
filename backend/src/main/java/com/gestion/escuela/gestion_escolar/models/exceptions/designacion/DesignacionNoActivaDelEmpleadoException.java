@@ -7,6 +7,19 @@ import java.util.Set;
 public class DesignacionNoActivaDelEmpleadoException extends RuntimeException {
 
 	public DesignacionNoActivaDelEmpleadoException(Set<Designacion> invalidas) {
-		super("Las siguientes designaciones no están activas para el empleado: " + invalidas);
+		super(crearMensaje(invalidas));
+	}
+
+	private static String crearMensaje(Set<Designacion> invalidas) {
+
+		String designaciones = invalidas.stream()
+				.map(d ->
+						"CUPOF " + d.getCupof() +
+								" - " + d.getRolEducativo()
+				)
+				.toList()
+				.toString();
+
+		return "Las siguientes designaciones no están activas: " + designaciones;
 	}
 }

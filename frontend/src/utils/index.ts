@@ -1,8 +1,8 @@
-import { matchPath } from "react-router-dom";
 import type { TipoLicencia } from "@/features/licencias/utils/tipoLicencia";
 import { routeTitles } from "@/router/titles";
+import { matchPath } from "react-router-dom";
 import type { DesignacionFiltro } from "./types";
-import { Dia, type RolEducativo } from "./types/enums";
+import { Dia, RolEducativo } from "./types/enums";
 
 export function diasRestantes(fechaHasta: string): number {
 	const [year, month, day] = fechaHasta.split("-").map(Number);
@@ -34,7 +34,9 @@ export function resolveBreadcrumbs(pathname: string) {
 	return null;
 }
 
-export function formatearFecha(fechaISO: string): string {
+export function formatearFecha(fechaISO?: string | null): string {
+	if (!fechaISO) return "Actualidad";
+
 	const [y, m, d] = fechaISO.split("-").map(Number);
 
 	const meses = [
@@ -74,6 +76,21 @@ export function agruparPorArticulo(tipos: TipoLicencia[]) {
 	}, {});
 }
 
+export const ROL_EDUCATIVO_LABELS: Record<RolEducativo, string> = {
+	DIRECCION: "Dirección",
+	VICEDIRECCION: "Vicedirección",
+	SECRETARIA: "Secretaría",
+	ORIENTACION_EDUCACIONAL: "Orientación Educacional",
+	ORIENTACION_SOCIAL: "Orientación Social",
+	BIBLIOTECARIO: "Bibliotecario",
+	PRECEPTORIA: "Preceptoría",
+	DOCENTE: "Docente",
+	AUXILIAR: "Auxiliar",
+	ENCARGO_DE_MEDIO_DE_APOYO_TECNICO_PROFESIONAL: "Encargado de Medio de Apoyo Técnico Profesional",
+	CAMBIO_DE_FUNCION: "Cambio de Función",
+	RECALIFICACION_LABORAL_DEFINITIVA: "Recalificación Laboral Definitiva",
+};
+
 export const NAV_ITEMS = [
 	{ label: "Dashboard", to: "/dashboard" },
 	{ label: "Empleados Educativos", to: "/empleadosEducativos" },
@@ -95,20 +112,6 @@ export const FILTROS_DESIGNACIONES: {
 export function formatLicenciaLabel(codigo: string, descripcion: string) {
 	return `${codigo.padEnd(6, " ")} — ${descripcion}`;
 }
-
-export const ROL_EDUCATIVO_LABELS: Record<RolEducativo, string> = {
-	DIRECCION: "Dirección",
-	VICEDIRECCION: "Vicedirección",
-	SECRETARIA: "Secretaría",
-	ORIENTACION_EDUCACIONAL: "Orientación Educacional",
-	ORIENTACION_SOCIAL: "Orientación Social",
-	BIBLIOTECARIO: "Bibliotecario",
-	PRECEPTORIA: "Preceptoría",
-	DOCENTE: "Docente",
-	AUXILIAR: "Auxiliar",
-	ENCARGO_DE_MEDIO_DE_APOYO_TECNICO_PROFESIONAL:
-		"Encargado de Medio de Apoyo Técnico Profesional",
-};
 
 const ARG_TZ = "America/Argentina/Buenos_Aires";
 

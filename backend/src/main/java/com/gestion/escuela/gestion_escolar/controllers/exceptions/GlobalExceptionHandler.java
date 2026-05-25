@@ -2,6 +2,7 @@ package com.gestion.escuela.gestion_escolar.controllers.exceptions;
 
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoDuplicadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionNoActivaDelEmpleadoException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -87,6 +88,23 @@ public class GlobalExceptionHandler {
 		);
 
 		return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+	}
+
+	@ExceptionHandler(DesignacionNoActivaDelEmpleadoException.class)
+	public ResponseEntity<ApiError> handleDesignacionNoActiva(
+			DesignacionNoActivaDelEmpleadoException ex,
+			HttpServletRequest request
+	) {
+
+		ApiError error = new ApiError(
+				LocalDateTime.now(),
+				HttpStatus.BAD_REQUEST.value(),
+				HttpStatus.BAD_REQUEST.getReasonPhrase(),
+				ex.getMessage(),
+				request.getRequestURI()
+		);
+
+		return ResponseEntity.badRequest().body(error);
 	}
 
 }

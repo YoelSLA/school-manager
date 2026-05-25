@@ -20,7 +20,7 @@ import java.time.LocalDate;
 		}
 )
 @Getter
-public class Asistencia {
+public class Asistencia extends AuditableEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

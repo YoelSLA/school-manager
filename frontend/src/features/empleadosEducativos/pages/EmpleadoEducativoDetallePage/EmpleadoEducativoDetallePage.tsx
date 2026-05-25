@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
 import ConfirmModal from "@/components/ConfirmModal";
 import Breadcrumbs from "@/layout/Breadcrumbs";
 import PageLayout from "@/layout/PageLayout/PageLayout";
 import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/store/hooks";
 import type { BajaDefinitivaDTO } from "@/utils/types";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import BajaDefinitivaModal from "../../components/BajaDefinitivaModal";
 import { useDarDeBajaDefinitiva } from "../../hooks/useDarDeBajaDefinitiva";
 import { useEmpleadoEducativo } from "../../hooks/useEmpleadoEducativo";
@@ -49,6 +49,7 @@ export default function EmpleadoEducativoDetallePage() {
 	};
 
 	const confirmarBaja = (data: BajaDefinitivaDTO) => {
+
 		if (!escuelaActiva?.id) return;
 
 		bajaMutation.mutate(

@@ -58,8 +58,7 @@ export default function LicenciaDatosSection({
 			</div>
 
 			<footer className={styles.licenciaFormFooter}>
-				{error && <p className={styles.licenciaFormError}>{error}</p>}
-
+		
 				<Button
 					type="submit"
 					variant="primary"

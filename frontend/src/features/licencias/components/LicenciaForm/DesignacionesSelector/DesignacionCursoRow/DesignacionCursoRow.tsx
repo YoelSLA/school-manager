@@ -1,5 +1,16 @@
-import { BookOpen, GraduationCap, Hash, User } from "lucide-react";
+import BadgeSituacionRevista from "@/components/BadgeSituacionRevista";
+import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
+
 import type { DesignacionLicenciaCursoItemDTO } from "@/utils/types";
+
+import {
+	BookOpen,
+	CalendarDays,
+	GraduationCap,
+	Hash,
+	User,
+} from "lucide-react";
+
 import styles from "./DesignacionCursoRow.module.scss";
 
 type Props = {
@@ -13,6 +24,11 @@ export default function DesignacionCursoRow({
 	checked,
 	onToggle,
 }: Props) {
+	const { cargoActivo, isLoading } = useCargoActivo(designacion.id);
+
+	const esTitular =
+		cargoActivo?.situacionDeRevista === "Titular";
+
 	return (
 		<label className={styles.item}>
 			<input
@@ -24,27 +40,67 @@ export default function DesignacionCursoRow({
 			<div className={styles.content}>
 				<div className={styles.top}>
 					<span className={styles.cupof}>
-						<Hash size={16} />
+						<Hash size={15} />
 						{designacion.cupof}
 					</span>
 
 					<span className={styles.rol}>
-						<User size={16} />
+						<User size={15} />
 						{designacion.rolEducativo}
 					</span>
 				</div>
 
 				<div className={styles.bottom}>
-					<span>
-						<BookOpen size={16} />
+					<span className={styles.materia}>
+						<BookOpen size={15} />
 						{designacion.materia.nombre}
 					</span>
 
-					<span>
-						<GraduationCap size={16} />
-						{designacion.curso.division} — {designacion.curso.turno}
+					<span className={styles.curso}>
+						<GraduationCap size={15} />
+						{designacion.curso.division} —{" "}
+						{designacion.curso.turno}
 					</span>
 				</div>
+
+				{isLoading ? (
+					<div className={styles.loading}>
+						Cargando cargo...
+					</div>
+				) : cargoActivo ? (
+					<div className={styles.meta}>
+						<div className={styles.tipo}>
+							<BadgeSituacionRevista
+								value={
+									cargoActivo.situacionDeRevista
+								}
+							/>
+						</div>
+
+						<span className={styles.dot}>•</span>
+
+						<span className={styles.fecha}>
+							<CalendarDays size={14} />
+
+							{esTitular ? (
+								<>
+									Desde{" "}
+									{cargoActivo.periodo.fechaDesde}
+								</>
+							) : (
+								<>
+									{cargoActivo.periodo.fechaDesde}
+									{" → "}
+									{cargoActivo.periodo.fechaHasta}
+								</>
+							)}
+						</span>
+					</div>
+				) : (
+					<div className={styles.empty}>
+						Sin cargo activo
+					</div>
+				)}
 			</div>
 		</label>
 	);

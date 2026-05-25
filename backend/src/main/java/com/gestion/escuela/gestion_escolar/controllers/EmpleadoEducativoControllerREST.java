@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -56,7 +57,7 @@ public class EmpleadoEducativoControllerREST {
 	) {
 		empleadoEducativoService.darDeBajaDefinitiva(
 				empleadoId,
-				dto.fechaBaja(),
+				LocalDate.now(),
 				dto.causa()
 		);
 

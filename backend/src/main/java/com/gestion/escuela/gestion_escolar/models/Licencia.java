@@ -151,6 +151,17 @@ public class Licencia {
 						d.getEstadoEn(fecha) == EstadoDesignacion.CUBIERTA
 				);
 	}
+
+	public long diasRestantes(LocalDate fecha) {
+
+		Validaciones.noNulo(fecha, "fecha");
+
+		if (!estaVigenteEn(fecha)) {
+			return 0;
+		}
+
+		return ChronoUnit.DAYS.between(fecha, periodo.getFechaHasta()) + 1;
+	}
 	// =========================================================
 	// Relaciones con Designaciones
 	// =========================================================
