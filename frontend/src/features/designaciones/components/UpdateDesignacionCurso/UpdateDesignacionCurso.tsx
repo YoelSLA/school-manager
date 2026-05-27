@@ -1,15 +1,15 @@
-import CupofCursoInputField from "@/components/forms/inputs/CupofCursoInputField";
-import CursoSelectField from "@/components/forms/selects/CursoSelectField";
-import MateriaSelectField from "@/components/forms/selects/MateriaSelectField";
-import OrientacionSelectField from "@/components/forms/selects/OrientacionSelectField";
+import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
+import { useAppSelector } from "@/app/store/hooks";
+import CursoSelectField from "@/features/cursos/components/fields/CursoSelectField";
 import { useCursosNombres } from "@/features/cursos/hooks/useCursosNombres";
+import CupofCursoInputField from "@/features/designaciones/components/fields/CupofCursoInputField";
+import OrientacionSelectField from "@/features/designaciones/components/fields/OrientacionSelectField";
+import MateriaSelectField from "@/features/materias/components/fields/MateriaSelectField";
 import { useMateriasSelect } from "@/features/materias/hooks/useMateriasSelect";
-import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
-import { useAppSelector } from "@/store/hooks";
 import type {
 	DesignacionCursoDetalleDTO,
 	DesignacionCursoUpdateDTO,
-} from "@/utils/types";
+} from "@/shared/utils/types";
 import { useEditarDesignacionCursoForm } from "../../form/hooks/useEditDesignacionCursoForm";
 import styles from "../CreateDesignacionCurso/CursoForm/CursoForm.module.scss";
 import DesignacionCursoFormLayout from "../CreateDesignacionCurso/DesignacionCursoFormLayout";

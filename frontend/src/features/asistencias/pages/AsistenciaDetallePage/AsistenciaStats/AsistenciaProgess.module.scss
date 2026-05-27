@@ -1,0 +1,140 @@
+.progressWrapper {
+	display: flex;
+	flex-direction: column;
+
+	gap: 16px;
+}
+
+/* =========================================================
+ * HEADER
+ * =======================================================*/
+
+.caption {
+	font-size: 15px;
+	font-weight: 700;
+
+	color: #0f172a;
+}
+
+/* =========================================================
+ * BAR
+ * =======================================================*/
+
+.progressBar {
+	display: flex;
+
+	overflow: hidden;
+
+	width: 100%;
+	height: 16px;
+
+	border-radius: 999px;
+
+	background-color: #e2e8f0;
+
+	box-shadow: inset 0 1px 2px
+		rgba(15, 23, 42, 0.08);
+}
+
+.progressPresentes {
+	height: 100%;
+
+	background: linear-gradient(
+		90deg,
+		#22c55e 0%,
+		#16a34a 100%
+	);
+
+	transition: width 0.35s ease;
+}
+
+.progressAusentes {
+	height: 100%;
+
+	background: linear-gradient(
+		90deg,
+		#fb7185 0%,
+		#e11d48 100%
+	);
+
+	transition: width 0.35s ease;
+}
+
+/* =========================================================
+ * LEGEND
+ * =======================================================*/
+
+.progressLegend {
+	display: grid;
+
+	grid-template-columns: 1fr 1fr;
+
+	gap: 12px;
+}
+
+.progressItem {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+
+	padding: 12px 14px;
+
+	border-radius: 14px;
+
+	background-color: #f8fafc;
+
+	border: 1px solid #e2e8f0;
+}
+
+.progressDot {
+	width: 12px;
+	height: 12px;
+
+	border-radius: 999px;
+
+	flex-shrink: 0;
+}
+
+.progressDot--presentes {
+	background-color: #22c55e;
+
+	box-shadow: 0 0 0 4px
+		rgba(34, 197, 94, 0.14);
+}
+
+.progressDot--ausentes {
+	background-color: #f43f5e;
+
+	box-shadow: 0 0 0 4px
+		rgba(244, 63, 94, 0.14);
+}
+
+.progressInfo {
+	display: flex;
+	flex-direction: column;
+}
+
+.progressValue {
+	font-size: 18px;
+	font-weight: 800;
+	line-height: 1;
+
+	color: #0f172a;
+}
+
+.progressLabel {
+	font-size: 12px;
+	font-weight: 500;
+
+	color: #64748b;
+}
+
+/* =========================================================
+ * RESPONSIVE
+ * =======================================================*/
+
+@media (max-width: 600px) {
+	.progressLegend {
+		grid-template-columns: 1fr;
+	}
+}

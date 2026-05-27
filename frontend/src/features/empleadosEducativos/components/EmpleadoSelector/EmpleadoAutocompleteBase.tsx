@@ -1,5 +1,5 @@
+import type { EmpleadoEducativoMinimoDTO } from "@/shared/utils/types";
 import { type ReactNode, useEffect, useId, useRef, useState } from "react";
-import type { EmpleadoEducativoMinimoDTO } from "@/utils/types";
 import useDebounce from "../../hooks/useDebounce";
 import useEmpleadoSearch from "../../hooks/useEmpleadoSearch";
 import styles from "./EmpleadoAutocompleteBase.module.scss";
@@ -123,9 +123,8 @@ export default function EmpleadoAutocompleteBase({
 						<li key={e.id} className={styles.item}>
 							<button
 								type="button"
-								className={`${styles.button} ${
-									index === highlightIndex ? styles.active : ""
-								}`}
+								className={`${styles.button} ${index === highlightIndex ? styles.active : ""
+									}`}
 								onMouseDown={(ev) => {
 									ev.preventDefault();
 									handleSelect(e);

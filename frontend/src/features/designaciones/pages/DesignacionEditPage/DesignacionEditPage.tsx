@@ -1,8 +1,8 @@
+import Breadcrumbs from "@/app/layouts/Breadcrumbs";
+import PageLayout from "@/app/layouts/PageLayout/PageLayout";
+import { designacionesPaths } from "@/app/router/paths";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import Breadcrumbs from "@/layout/Breadcrumbs";
-import PageLayout from "@/layout/PageLayout/PageLayout";
-import { designacionesPaths } from "@/router/paths";
 import EditarDesignacionAdministrativa from "../../components/UpdateDesignacionAdministrativa/UpdateDesignacionAdministrativa";
 import EditarDesignacionCurso from "../../components/UpdateDesignacionCurso/UpdateDesignacionCurso";
 import { useActualizarDesignacionAdministrativa } from "../../hooks/useActualizarDesignacionAdministrativa";

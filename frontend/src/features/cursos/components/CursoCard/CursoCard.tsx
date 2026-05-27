@@ -1,5 +1,5 @@
+import type { CursoResponseDTO } from "@/shared/utils/types";
 import { ArrowRight } from "lucide-react";
-import type { CursoResponseDTO } from "@/utils/types";
 import styles from "./CursoCard.module.scss";
 
 type Props = {

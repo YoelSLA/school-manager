@@ -1,5 +1,5 @@
+import type { DesignacionCursoResumenDTO } from "@/shared/utils/types";
 import { BookOpen, Compass, GraduationCap } from "lucide-react";
-import type { DesignacionCursoResumenDTO } from "@/utils/types";
 import DesignacionCard from "../DesignacionCard";
 import styles from "./DesignacionCursoCard.module.scss";
 

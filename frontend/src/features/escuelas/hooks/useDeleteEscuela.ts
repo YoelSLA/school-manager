@@ -1,5 +1,5 @@
+import { escuelasQueryKeys } from "@/shared/utils/queryKeys/escuelas.queryKeys";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { escuelasQueryKeys } from "@/utils/queryKeys/escuelas.queryKeys";
 import { eliminarEscuela } from "../services/escuelas.services";
 
 export function useDeleteEscuela() {

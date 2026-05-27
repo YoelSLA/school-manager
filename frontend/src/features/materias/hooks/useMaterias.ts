@@ -1,6 +1,6 @@
+import { materiasQueryKeys } from "@/shared/utils/queryKeys/materias.queryKeys";
+import type { MateriaResponseDTO, PageResponse } from "@/shared/utils/types";
 import { useQuery } from "@tanstack/react-query";
-import { materiasQueryKeys } from "@/utils/queryKeys/materias.queryKeys";
-import type { MateriaResponseDTO, PageResponse } from "@/utils/types";
 import { obtenerMaterias } from "../services/materias.services";
 
 export function useMaterias(

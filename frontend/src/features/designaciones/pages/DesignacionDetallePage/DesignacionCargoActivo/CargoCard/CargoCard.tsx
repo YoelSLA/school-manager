@@ -1,10 +1,10 @@
+import { useDeleteAsignacion } from "@/features/asignaciones/hooks/useDeleteAsignacion";
+import BadgeSituacionRevista from "@/shared/components/BadgeSituacionRevista/BadgeSituacionRevista";
+import BadgeEstadoAsignacion from "@/shared/components/BagdeEstadoAsignacion";
+import { formatearFecha } from "@/shared/utils";
+import type { AsignacionDetalleDTO } from "@/shared/utils/types";
 import { MoreVertical, Pencil, Trash2, User, UserMinus } from "lucide-react";
 import { useState } from "react";
-import BadgeSituacionRevista from "@/components/BadgeSituacionRevista/BadgeSituacionRevista";
-import BadgeEstadoAsignacion from "@/components/BagdeEstadoAsignacion";
-import { useDeleteAsignacion } from "@/features/asignaciones/hooks/useDeleteAsignacion";
-import { formatearFecha } from "@/utils";
-import type { AsignacionDetalleDTO } from "@/utils/types";
 import styles from "./CargoCard.module.scss";
 
 type Props = {
@@ -18,7 +18,7 @@ export default function CargoCard({ cargo, designacionId, onEditar }: Props) {
 
 	const eliminarAsignacion = useDeleteAsignacion({
 		designacionId,
-		onSuccess: () => {},
+		onSuccess: () => { },
 	});
 
 	const { empleado, periodo, situacionDeRevista, estadoAsignacion, secuencia } =

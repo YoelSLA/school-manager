@@ -1,12 +1,12 @@
 import { http } from "@/axiosTemplate";
 import type {
-	AsistenciaDiaDTO,
-	EliminarInasistenciasManualDTO,
-	EmpleadoAsistenciaDTO,
-	PageResponse,
-	RegistrarInasistenciasManualDTO,
-	RolCountDTO,
-} from "@/utils/types";
+    AsistenciaDiaDTO,
+    EliminarInasistenciasManualDTO,
+    EmpleadoAsistenciaDTO,
+    PageResponse,
+    RegistrarInasistenciasManualDTO,
+    RolCountDTO,
+} from "@/shared/utils/types";
 
 export async function registrarInasistenciasManual(
 	escuelaId: number,

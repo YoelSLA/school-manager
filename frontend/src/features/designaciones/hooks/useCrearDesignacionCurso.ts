@@ -1,6 +1,6 @@
+import type { DesignacionCursoCreateDTO } from "@/shared/utils/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { DesignacionCursoCreateDTO } from "@/utils/types";
-import { designacionesQueryKeys } from "../../../utils/queryKeys/designaciones.queryKeys";
+import { designacionesQueryKeys } from "../../../shared/utils/queryKeys/designaciones.queryKeys";
 import { crearDesignacionCurso } from "../services/designaciones.services";
 
 export function useCrearDesignacionCurso(escuelaId?: number) {

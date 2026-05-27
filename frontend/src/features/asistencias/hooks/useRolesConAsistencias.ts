@@ -1,6 +1,6 @@
+import type { RolCountDTO } from "@/shared/utils/types";
 import { useQuery } from "@tanstack/react-query";
-import type { RolCountDTO } from "@/utils/types";
-import { asistenciasQueryKeys } from "../../../utils/queryKeys/asistencias.queryKeys";
+import { asistenciasQueryKeys } from "../../../shared/utils/queryKeys/asistencias.queryKeys";
 import { obtenerRolesConAsistencias } from "../services/asistencias.services";
 
 export function useRolesConAsistencias(escuelaId: number, fecha: string) {

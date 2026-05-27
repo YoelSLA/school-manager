@@ -1,8 +1,8 @@
+import FormInputFieldRHF from "@/components/FormInputField/FormInputField";
+import FormSection from "@/components/FormSection";
+import type { EmpleadoEducativoCreateDTO } from "@/shared/utils/types";
 import { Calendar, CheckCircle } from "lucide-react";
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
-import FormSection from "@/components/FormSection";
-import FormInputFieldRHF from "@/components/forms/FormInputField/FormInputField";
-import type { EmpleadoEducativoCreateDTO } from "@/utils/types";
 import styles from "./IngresoSection.module.scss";
 
 type Props = {

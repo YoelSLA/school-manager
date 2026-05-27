@@ -1,11 +1,11 @@
-import ConfirmModal from "@/components/ConfirmModal";
-import Breadcrumbs from "@/layout/Breadcrumbs";
-import PageLayout from "@/layout/PageLayout/PageLayout";
-import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
-import { useAppSelector } from "@/store/hooks";
-import type { BajaDefinitivaDTO } from "@/utils/types";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import Breadcrumbs from "@/app/layouts/Breadcrumbs";
+import PageLayout from "@/app/layouts/PageLayout/PageLayout";
+import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
+import { useAppSelector } from "@/app/store/hooks";
+import ConfirmModal from "@/components/ModalConfirm";
+import type { BajaDefinitivaDTO } from "@/shared/utils/types";
 import BajaDefinitivaModal from "../../components/BajaDefinitivaModal";
 import { useDarDeBajaDefinitiva } from "../../hooks/useDarDeBajaDefinitiva";
 import { useEmpleadoEducativo } from "../../hooks/useEmpleadoEducativo";
@@ -49,7 +49,6 @@ export default function EmpleadoEducativoDetallePage() {
 	};
 
 	const confirmarBaja = (data: BajaDefinitivaDTO) => {
-
 		if (!escuelaActiva?.id) return;
 
 		bajaMutation.mutate(

@@ -1,0 +1,66 @@
+.stats {
+	display: flex;
+
+	width: 100%;
+	height: 100%;
+}
+
+.bloque {
+	display: flex;
+	flex-direction: column;
+
+	flex: 1;
+
+	gap: 20px;
+
+	padding: 20px;
+
+	background-color: white;
+
+	border: 1px solid #e5e7eb;
+	border-radius: 20px;
+
+	min-height: 0;
+}
+
+/* =========================================================
+ * HEADER
+ * =======================================================*/
+
+.headerResumen {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.mesSubtitulo {
+	font-size: 14px;
+	font-weight: 500;
+
+	color: #64748b;
+}
+
+/* =========================================================
+ * CONTENT
+ * =======================================================*/
+
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	flex: 1;
+
+	min-height: 0;
+}
+
+/* =========================================================
+ * ACTION
+ * =======================================================*/
+
+.actionWrapper {
+	display: flex;
+	justify-content: center;
+
+	margin-top: auto;
+}

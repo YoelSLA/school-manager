@@ -1,10 +1,10 @@
-import { Calendar, Timer } from "lucide-react";
-import BadgeSituacionRevista from "@/components/BadgeSituacionRevista";
-import BadgeEstadoAsignacion from "@/components/BagdeEstadoAsignacion";
+import BadgeSituacionRevista from "@/shared/components/BadgeSituacionRevista";
+import BadgeEstadoAsignacion from "@/shared/components/BagdeEstadoAsignacion";
 import type {
 	CargoDesignacionAdministrativaDTO,
 	EmpleadoEducativoAsignacionItemDTO,
-} from "@/utils/types";
+} from "@/shared/utils/types";
+import { Calendar, Timer } from "lucide-react";
 
 import styles from "../AsignacionRow/AsignacionRow.module.scss";
 

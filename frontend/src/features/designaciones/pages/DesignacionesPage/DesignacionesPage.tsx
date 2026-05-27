@@ -1,12 +1,15 @@
 import { useCallback, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
-import ListPageLayout from "@/layout/ListPageLayout";
-import Pagination from "@/layout/Pagination";
-import SidebarPageLayout from "@/layout/SidebarPageLayout";
-import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
-import { useAppSelector } from "@/store/hooks";
-import type { CursoFiltersState, DesignacionFiltro } from "@/utils/types";
+import ListPageLayout from "@/app/layouts/ListPageLayout";
+import Pagination from "@/app/layouts/Pagination";
+import SidebarPageLayout from "@/app/layouts/SidebarPageLayout";
+import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
+import { useAppSelector } from "@/app/store/hooks";
+import { useDynamicPageSize } from "@/shared/utils/hooks/useDynamicPageSize";
+import type {
+	CursoFiltersState,
+	DesignacionFiltro,
+} from "@/shared/utils/types";
 import { useDesignacionesAdministrativas } from "../../hooks/useDesignacionesAdministrativas";
 import { useDesignacionesCursos } from "../../hooks/useDesignacionesCursos";
 import { useDesignacionesNavigation } from "../../hooks/useDesignacionesNavigation";

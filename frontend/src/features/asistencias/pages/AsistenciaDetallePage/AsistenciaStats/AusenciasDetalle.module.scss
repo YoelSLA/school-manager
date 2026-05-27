@@ -1,0 +1,112 @@
+.detalleBox {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+
+	padding: 16px;
+
+	background-color: #f8fafc;
+
+	border: 1px solid #e2e8f0;
+	border-radius: 16px;
+}
+
+.detalleTitle {
+	font-size: 14px;
+	font-weight: 700;
+
+	color: #0f172a;
+}
+
+/* =========================================================
+ * LIST
+ * =======================================================*/
+
+.ausentesList {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+
+	padding: 0;
+	margin: 0;
+
+	list-style: none;
+
+	/* =========================================
+	 * SCROLL
+	 * =======================================*/
+
+	max-height: 250px;
+
+	overflow-y: auto;
+
+	padding-right: 4px;
+}
+
+/* =========================================================
+ * SCROLLBAR
+ * =======================================================*/
+
+.ausentesList::-webkit-scrollbar {
+	width: 6px;
+}
+
+.ausentesList::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.ausentesList::-webkit-scrollbar-thumb {
+	background-color: #cbd5e1;
+
+	border-radius: 999px;
+}
+
+.ausentesList::-webkit-scrollbar-thumb:hover {
+	background-color: #94a3b8;
+}
+
+/* =========================================================
+ * ITEM
+ * =======================================================*/
+
+.ausentesList li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	padding: 10px 12px;
+
+	background-color: white;
+
+	border-radius: 12px;
+
+	border: 1px solid #e2e8f0;
+
+	flex-shrink: 0;
+}
+
+.ausentesList li span {
+	font-size: 13px;
+	font-weight: 600;
+
+	color: #334155;
+}
+
+.ausentesList li strong {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	min-width: 28px;
+	height: 28px;
+
+	padding: 0 8px;
+
+	border-radius: 999px;
+
+	font-size: 12px;
+	font-weight: 700;
+
+	background-color: #dbeafe;
+	color: #1d4ed8;
+}

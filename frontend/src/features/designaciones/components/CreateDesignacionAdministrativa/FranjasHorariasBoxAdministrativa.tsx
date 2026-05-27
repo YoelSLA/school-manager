@@ -6,9 +6,9 @@ import type {
 	UseFormRegister,
 } from "react-hook-form";
 import Button from "@/components/Button";
-import ErrorModal from "@/components/ErrorModal";
+import ErrorModal from "@/components/ModalError";
 import { DEFAULT_FRANJA } from "@/features/designaciones/utils/designacion.utils";
-import type { DesignacionAdministrativaFormValues } from "@/utils/types";
+import type { DesignacionAdministrativaFormValues } from "@/shared/utils/types";
 import styles from "../FranjasHorariasBox.module.scss";
 import FranjasHorariasListAdministrativa from "./FranjasHorariasListAdministrativa";
 

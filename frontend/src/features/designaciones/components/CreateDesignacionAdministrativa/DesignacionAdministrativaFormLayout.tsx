@@ -1,11 +1,11 @@
+import Button from "@/components/Button";
+import type { DesignacionAdministrativaFormValues } from "@/shared/utils/types";
 import type {
 	FieldArrayWithId,
 	UseFieldArrayAppend,
 	UseFieldArrayRemove,
 	UseFormRegister,
 } from "react-hook-form";
-import Button from "@/components/Button";
-import type { DesignacionAdministrativaFormValues } from "@/utils/types";
 import styles from "../DesignacionFormLayout.module.scss";
 import FranjasHorariasBoxAdministrativa from "./FranjasHorariasBoxAdministrativa";
 

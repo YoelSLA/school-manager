@@ -3,7 +3,7 @@ import type {
 	CargoDesignacionAdministrativaDTO,
 	CargoDesignacionCursoDTO,
 	EmpleadoEducativoAsignacionItemDTO,
-} from "@/utils/types";
+} from "@/shared/utils/types";
 import AsignacionAdministrativaRow from "../AsignacionAdministrativaRow";
 import AsignacionCursoRow from "../AsignacionCursoRow";
 

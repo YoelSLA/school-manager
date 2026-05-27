@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
 import AsignacionRow from "@/features/asignaciones/components/AsignacionRow";
-import type { EmpleadoEducativoAsignacionItemDTO } from "@/utils/types";
+import type { EmpleadoEducativoAsignacionItemDTO } from "@/shared/utils/types";
+import { useMemo, useState } from "react";
 import styles from "./AsignacionesList.module.scss";
 
 type Props = {
@@ -35,9 +35,8 @@ export default function AsignacionesList({ asignaciones }: Props) {
 				<div className={styles.asignaciones__tabs}>
 					<button
 						type="button"
-						className={`${styles.asignaciones__tab} ${
-							activeTab === "DOCENTE" ? styles["asignaciones__tab--active"] : ""
-						}`}
+						className={`${styles.asignaciones__tab} ${activeTab === "DOCENTE" ? styles["asignaciones__tab--active"] : ""
+							}`}
 						onClick={() => setActiveTab("DOCENTE")}
 					>
 						Docentes ({asignacionesDocentes.length})
@@ -45,11 +44,10 @@ export default function AsignacionesList({ asignaciones }: Props) {
 
 					<button
 						type="button"
-						className={`${styles.asignaciones__tab} ${
-							activeTab === "ADMINISTRATIVO"
+						className={`${styles.asignaciones__tab} ${activeTab === "ADMINISTRATIVO"
 								? styles["asignaciones__tab--active"]
 								: ""
-						}`}
+							}`}
 						onClick={() => setActiveTab("ADMINISTRATIVO")}
 					>
 						Administrativos ({asignacionesAdministrativas.length})

@@ -1,12 +1,12 @@
 import type { z } from "zod";
-import FechaField from "@/components/forms/inputs/FechaInputField";
-import NumberField from "@/components/forms/inputs/NumberFieldInput";
 import Modal from "@/components/Modal";
 import type { createTitularSchema } from "@/features/asignaciones/form/createTitular.schema";
 import { useCreateTitularForm } from "@/features/asignaciones/form/useCreateTitularForm";
 import { useCreateTitular } from "@/features/asignaciones/hooks/useCreateTitular";
+import FechaField from "@/features/designaciones/components/fields/FechaInputField";
+import NumberField from "@/features/designaciones/components/fields/NumberInputField";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
-import type { EmpleadoEducativoMinimoDTO } from "@/utils/types";
+import type { EmpleadoEducativoMinimoDTO } from "@/shared/utils/types";
 import styles from "../ModalCreateAsignacion.module.scss";
 
 type Props = {

@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
+import GridListState from "@/app/layouts/GridListState";
+import ListPageLayout from "@/app/layouts/ListPageLayout";
+import Pagination from "@/app/layouts/Pagination";
+import Sidebar from "@/app/layouts/Sidebar";
+import SidebarPageLayout from "@/app/layouts/SidebarPageLayout/SidebarPageLayout";
+import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
+import { useAppSelector } from "@/app/store/hooks";
 import FilterPillGroup from "@/components/FilterPillGroup";
-import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
-import GridListState from "@/layout/GridListState";
-import ListPageLayout from "@/layout/ListPageLayout";
-import Pagination from "@/layout/Pagination";
-import Sidebar from "@/layout/Sidebar";
-import SidebarPageLayout from "@/layout/SidebarPageLayout/SidebarPageLayout";
-import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
-import { useAppSelector } from "@/store/hooks";
+import { useDynamicPageSize } from "@/shared/utils/hooks/useDynamicPageSize";
+import { useEffect, useState } from "react";
 
 import type {
 	CursoCreateDTO,
 	CursoFiltro,
 	CursoResponseDTO,
-} from "@/utils/types";
+} from "@/shared/utils/types";
 import CursoCard from "../../components/CursoCard";
 import CursoCreateModal from "../../components/CursoCreateModal";
 import { useCrearCurso } from "../../hooks/useCrearCurso";

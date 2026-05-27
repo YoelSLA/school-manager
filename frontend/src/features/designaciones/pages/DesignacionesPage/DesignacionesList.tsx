@@ -1,8 +1,8 @@
-import GridListState from "@/layout/GridListState";
+import GridListState from "@/app/layouts/GridListState";
 import type {
 	DesignacionAdministrativaResumenDTO,
 	DesignacionCursoResumenDTO,
-} from "@/utils/types";
+} from "@/shared/utils/types";
 import DesignacionAdministrativaCard from "../../components/DesignacionAdministrativaCard";
 import DesignacionCursoCard from "../../components/DesignacionCursoCard";
 

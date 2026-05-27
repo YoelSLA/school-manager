@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
-import { formatearFecha } from "@/utils";
-import type { LicenciaDesignacionDTO } from "@/utils/types";
+import { formatearFecha } from "@/shared/utils";
+import type { LicenciaDesignacionDTO } from "@/shared/utils/types";
 import { CalendarDays, User } from "lucide-react";
 import styles from "./CoberturaCard.module.scss";
 

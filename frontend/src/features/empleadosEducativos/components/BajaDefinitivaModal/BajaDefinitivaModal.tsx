@@ -1,6 +1,6 @@
-import CausaBajaSelectField from "@/components/forms/selects/CausaBajaSelectField";
 import Modal from "@/components/Modal/Modal";
-import type { BajaDefinitivaDTO } from "@/utils/types";
+import CausaBajaSelectField from "@/features/empleadosEducativos/components/fields/CausaBajaSelectField";
+import type { BajaDefinitivaDTO } from "@/shared/utils/types";
 import { useBajaDefinitivaForm } from "../../form/hooks/useBajaDefinitivaForm";
 
 type Props = {

@@ -1,23 +1,18 @@
-import ErrorModal from "@/components/ErrorModal";
+import { useState } from "react";
+import { FormProvider } from "react-hook-form";
+import Breadcrumbs from "@/app/layouts/Breadcrumbs";
+import PageLayout from "@/app/layouts/PageLayout/PageLayout";
+import ErrorModal from "@/components/ModalError";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
 import { useDesignacionesActivas } from "@/features/empleadosEducativos/hooks/useDesignacionesActivas";
-import Breadcrumbs from "@/layout/Breadcrumbs";
-import PageLayout from "@/layout/PageLayout/PageLayout";
-
 import type {
 	LicenciaCreateDTO,
 	LicenciaCreateFormValues,
-} from "@/utils/types";
-
-import { useState } from "react";
-import { FormProvider } from "react-hook-form";
-
+} from "@/shared/utils/types";
 import LicenciaDatosSection from "../../components/LicenciaForm";
 import DesignacionesSelector from "../../components/LicenciaForm/DesignacionesSelector";
-
 import { useLicenciaForm } from "../../form/useLicenciaForm";
 import { useCrearLicencia } from "../../hooks/useCrearLicencia";
-
 import styles from "./LicenciaCreatePage.module.scss";
 
 type ErrorState = {
@@ -32,35 +27,25 @@ export default function LicenciaCreatePage() {
 
 	const [empleadoId, setEmpleadoId] = useState<number | null>(null);
 
-	const [empleadoError, setEmpleadoError] =
-		useState<string | null>(null);
+	const [empleadoError, setEmpleadoError] = useState<string | null>(null);
 
-	const [modalError, setModalError] =
-		useState<ErrorState>(null);
+	const [modalError, setModalError] = useState<ErrorState>(null);
 
-	const designacionesIds =
-		form.watch("designacionesIds") ?? [];
+	const designacionesIds = form.watch("designacionesIds") ?? [];
 
-	const {
-		data: designaciones,
-		isLoading: loadingDesignaciones,
-	} = useDesignacionesActivas(empleadoId);
+	const { data: designaciones, isLoading: loadingDesignaciones } =
+		useDesignacionesActivas(empleadoId);
 
-	const handleSubmit = async (
-		data: LicenciaCreateFormValues
-	) => {
+	const handleSubmit = async (data: LicenciaCreateFormValues) => {
 		if (!empleadoId) {
-			setEmpleadoError(
-				"Debe seleccionar un empleado"
-			);
+			setEmpleadoError("Debe seleccionar un empleado");
 
 			return;
 		}
 
 		const payload: LicenciaCreateDTO = {
 			...data,
-			designacionesIds:
-				data.designacionesIds.map(Number),
+			designacionesIds: data.designacionesIds.map(Number),
 		};
 
 		try {
@@ -70,8 +55,7 @@ export default function LicenciaCreatePage() {
 			});
 		} catch (err: any) {
 			const message =
-				err?.response?.data?.message ??
-				"No se pudo crear la licencia";
+				err?.response?.data?.message ?? "No se pudo crear la licencia";
 
 			setModalError({
 				title: "Error al crear licencia",
@@ -90,58 +74,28 @@ export default function LicenciaCreatePage() {
 					<div className={styles.crearLicenciaGrid}>
 						{/* IZQUIERDA */}
 						<aside className={styles.crearLicenciaLeft}>
-							<div
-								className={
-									styles.crearLicenciaEmpleado
-								}
-							>
+							<div className={styles.crearLicenciaEmpleado}>
 								<EmpleadoSelector
 									onChange={(empleado) => {
-										setEmpleadoId(
-											empleado?.id ?? null
-										);
+										setEmpleadoId(empleado?.id ?? null);
 
 										setEmpleadoError(null);
 
-										form.setValue(
-											"designacionesIds",
-											[]
-										);
+										form.setValue("designacionesIds", []);
 									}}
 								/>
 
 								{empleadoError && (
-									<p
-										className={
-											styles.crearLicenciaError
-										}
-									>
-										{empleadoError}
-									</p>
+									<p className={styles.crearLicenciaError}>{empleadoError}</p>
 								)}
 							</div>
 
-							<div
-								className={
-									styles.crearLicenciaDesignaciones
-								}
-							>
+							<div className={styles.crearLicenciaDesignaciones}>
 								<DesignacionesSelector
-									designaciones={
-										designaciones ?? []
-									}
-									loading={
-										loadingDesignaciones
-									}
-									value={designacionesIds.map(
-										Number
-									)}
-									onChange={(ids) =>
-										form.setValue(
-											"designacionesIds",
-											ids
-										)
-									}
+									designaciones={designaciones ?? []}
+									loading={loadingDesignaciones}
+									value={designacionesIds.map(Number)}
+									onChange={(ids) => form.setValue("designacionesIds", ids)}
 								/>
 							</div>
 						</aside>
@@ -151,11 +105,7 @@ export default function LicenciaCreatePage() {
 							<LicenciaDatosSection
 								form={form}
 								isSubmitting={isLoading}
-								error={
-									error
-										? "No se pudo crear la licencia"
-										: null
-								}
+								error={error ? "No se pudo crear la licencia" : null}
 							/>
 						</main>
 					</div>
@@ -163,10 +113,7 @@ export default function LicenciaCreatePage() {
 			</FormProvider>
 
 			{modalError && (
-				<ErrorModal
-					error={modalError}
-					onClose={() => setModalError(null)}
-				/>
+				<ErrorModal error={modalError} onClose={() => setModalError(null)} />
 			)}
 		</PageLayout>
 	);

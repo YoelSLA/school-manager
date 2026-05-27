@@ -1,7 +1,7 @@
 import { CalendarRange, FileText, Timer } from "lucide-react";
 
-import BadgeEstadoLicencia from "@/components/BagdeEstadoLicencia";
-import type { EmpleadoEducativoLicenciaItemDTO } from "@/utils/types";
+import BadgeEstadoLicencia from "@/shared/components/BagdeEstadoLicencia";
+import type { EmpleadoEducativoLicenciaItemDTO } from "@/shared/utils/types";
 import styles from "./LicenciaRow.module.scss";
 
 type Props = {

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { asistenciasQueryKeys } from "@/utils/queryKeys/asistencias.queryKeys";
+import { asistenciasQueryKeys } from "@/shared/utils/queryKeys/asistencias.queryKeys";
 import { eliminarInasistenciasManual } from "../services/asistencias.services";
 
 export function useEliminarInasistenciasManual(

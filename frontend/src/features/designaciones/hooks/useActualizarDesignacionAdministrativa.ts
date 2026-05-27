@@ -1,6 +1,6 @@
+import type { DesignacionAdministrativaUpdateDTO } from "@/shared/utils/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { DesignacionAdministrativaUpdateDTO } from "@/utils/types";
-import { designacionesQueryKeys } from "../../../utils/queryKeys/designaciones.queryKeys";
+import { designacionesQueryKeys } from "../../../shared/utils/queryKeys/designaciones.queryKeys";
 import { actualizarDesignacionAdministrativa } from "../services/designaciones.services";
 
 export function useActualizarDesignacionAdministrativa(designacionId?: number) {

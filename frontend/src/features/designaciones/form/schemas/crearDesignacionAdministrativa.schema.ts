@@ -1,6 +1,6 @@
+import { RolEducativo } from "@/shared/utils/types/enums";
+import { crearFranjaHorariaSchema } from "@/shared/utils/zod/crearfranjaHoraria.schema";
 import { z } from "zod";
-import { RolEducativo } from "@/utils/types/enums";
-import { crearFranjaHorariaSchema } from "@/utils/zod/crearfranjaHoraria.schema";
 
 export const crearDesignacionAdministrativaSchema = z.object({
 	cupof: z.coerce

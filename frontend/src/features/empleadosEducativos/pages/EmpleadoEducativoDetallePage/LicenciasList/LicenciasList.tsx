@@ -1,7 +1,7 @@
+import LicenciaRow from "@/features/licencias/components/LicenciaRow";
+import type { EmpleadoEducativoLicenciaItemDTO } from "@/shared/utils/types";
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import LicenciaRow from "@/features/licencias/components/LicenciaRow";
-import type { EmpleadoEducativoLicenciaItemDTO } from "@/utils/types";
 import styles from "./LicenciasList.module.scss";
 
 type Props = {

@@ -1,6 +1,6 @@
+import type { RegistrarInasistenciasManualDTO } from "@/shared/utils/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { RegistrarInasistenciasManualDTO } from "@/utils/types";
-import { asistenciasQueryKeys } from "../../../utils/queryKeys/asistencias.queryKeys";
+import { asistenciasQueryKeys } from "../../../shared/utils/queryKeys/asistencias.queryKeys";
 import { registrarInasistenciasManual } from "../services/asistencias.services";
 
 export function useRegistrarInasistenciasManual(

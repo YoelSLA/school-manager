@@ -1,11 +1,11 @@
-import { CalendarDays, FileText, User } from "lucide-react";
-import BadgeEstadoLicencia from "@/components/BagdeEstadoLicencia/BagdeEstadoLicencia";
 import InfoCard from "@/features/licencias/components/InfoCard";
-import { formatearFecha } from "@/utils";
+import BadgeEstadoLicencia from "@/shared/components/BagdeEstadoLicencia/BagdeEstadoLicencia";
+import { formatearFecha } from "@/shared/utils";
 import type {
 	EmpleadoEducativoMinimoDTO,
 	LicenciaDetalleDTO,
-} from "@/utils/types";
+} from "@/shared/utils/types";
+import { CalendarDays, FileText, User } from "lucide-react";
 import styles from "./LicenciaDesignacionesHeader.module.scss";
 
 type Props = {

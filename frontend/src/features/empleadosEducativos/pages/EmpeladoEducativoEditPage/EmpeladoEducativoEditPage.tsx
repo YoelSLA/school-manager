@@ -1,11 +1,11 @@
+import Breadcrumbs from "@/app/layouts/Breadcrumbs";
+import PageLayout from "@/app/layouts/PageLayout";
+import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
+import { useAppSelector } from "@/app/store/hooks";
+import Button from "@/components/Button";
+import type { EmpleadoEducativoUpdateDTO } from "@/shared/utils/types";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Button from "@/components/Button";
-import Breadcrumbs from "@/layout/Breadcrumbs";
-import PageLayout from "@/layout/PageLayout";
-import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
-import { useAppSelector } from "@/store/hooks";
-import type { EmpleadoEducativoUpdateDTO } from "@/utils/types";
 import EmpleadoEducativoFormEditar from "../../components/EmpleadoEducativoEditForm/EmpleadoEducativoEditForm";
 import { useEmpleadoEducativoEditForm } from "../../form/hooks/useEmpleadoEducativoEditForm";
 import { useEditarEmpleadoEducativo } from "../../hooks/useEditarEmpleadoEducativo";

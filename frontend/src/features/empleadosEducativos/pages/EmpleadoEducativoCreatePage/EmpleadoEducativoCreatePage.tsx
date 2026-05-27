@@ -1,18 +1,18 @@
+import Breadcrumbs from "@/app/layouts/Breadcrumbs";
+import PageLayout from "@/app/layouts/PageLayout/PageLayout";
+import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
+import { useAppSelector } from "@/app/store/hooks";
+import Button from "@/components/Button/Button";
+import FormActions from "@/components/FormActions";
+import Modal from "@/components/Modal/Modal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { AxiosError } from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import Button from "@/components/Button/Button";
-import FormActions from "@/components/FormActions";
-import Modal from "@/components/Modal/Modal";
-import Breadcrumbs from "@/layout/Breadcrumbs";
-import PageLayout from "@/layout/PageLayout/PageLayout";
-import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
-import { useAppSelector } from "@/store/hooks";
 
-import { getTodayArgentinaISO } from "@/utils";
-import type { EmpleadoEducativoCreateDTO } from "@/utils/types";
+import { getTodayArgentinaISO } from "@/shared/utils";
+import type { EmpleadoEducativoCreateDTO } from "@/shared/utils/types";
 import ContactoSection from "../../components/EmpleadoEducativoCreateForm/ContactoSection";
 import DatosPersonalesSection from "../../components/EmpleadoEducativoCreateForm/DatosPersonalesSection";
 import IngresoSection from "../../components/EmpleadoEducativoCreateForm/IngresoSection";

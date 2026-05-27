@@ -1,4 +1,4 @@
-import type { AsignacionDetalleDTO } from "@/utils/types";
+import type { AsignacionDetalleDTO } from "@/shared/utils/types";
 import CargoCard from "./CargoCard";
 import styles from "./DesignacionCargoActivo.module.scss";
 

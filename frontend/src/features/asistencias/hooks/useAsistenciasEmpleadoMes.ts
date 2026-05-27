@@ -1,5 +1,5 @@
+import { asistenciasQueryKeys } from "@/shared/utils/queryKeys/asistencias.queryKeys";
 import { useQuery } from "@tanstack/react-query";
-import { asistenciasQueryKeys } from "@/utils/queryKeys/asistencias.queryKeys";
 import { obtenerAsistenciasEmpleadoMes } from "../services/asistencias.services";
 
 type Options = {

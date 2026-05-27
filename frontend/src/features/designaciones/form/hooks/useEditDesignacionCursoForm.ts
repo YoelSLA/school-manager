@@ -1,13 +1,13 @@
+import type {
+    CursoNombreDTO,
+    DesignacionCursoFormValues,
+    DesignacionCursoUpdateDTO,
+    DesignacionDetalleDTO,
+    MateriaNombreDTO,
+} from "@/shared/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-import type {
-	CursoNombreDTO,
-	DesignacionCursoFormValues,
-	DesignacionCursoUpdateDTO,
-	DesignacionDetalleDTO,
-	MateriaNombreDTO,
-} from "@/utils/types";
 import { editarDesignacionCursoSchema } from "../schemas/editarDesignacionCurso.schema";
 
 type Props = {

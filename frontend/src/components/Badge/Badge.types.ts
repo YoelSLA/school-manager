@@ -20,4 +20,7 @@ export type BadgeVariant =
 	| "orientacionSocial"
 	| "preceptoria"
 	| "docente"
-	| "recalificacionLaboralDefinitiva";
+	| "recalificacionLaboralDefinitiva"
+	| "titular"
+	| "provisional"
+	| "suplente";

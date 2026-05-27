@@ -1,17 +1,17 @@
 import { http } from "@/axiosTemplate";
 import type {
-	CubrirDesignacionesConSuplente,
-	LicenciaDesignacion,
-	LicenciaDesignacionDTO,
-	LicenciaDetalle,
-	LicenciaDetalleDTO,
-	LicenciaResumen,
-	LicenciaResumenDTO,
-	LicenciaTimelineItem,
-	LicenciaTimelineItemDTO,
-	PageResponse,
-	RenovarLicenciaDTO,
-} from "@/utils/types";
+    CubrirDesignacionesConSuplente,
+    LicenciaDesignacion,
+    LicenciaDesignacionDTO,
+    LicenciaDetalle,
+    LicenciaDetalleDTO,
+    LicenciaResumen,
+    LicenciaResumenDTO,
+    LicenciaTimelineItem,
+    LicenciaTimelineItemDTO,
+    PageResponse,
+    RenovarLicenciaDTO,
+} from "@/shared/utils/types";
 import type { CambiarCoberturaDTO } from "../form/cambiarCobertura.schema";
 
 export const cubrirDesignacionesConSuplente = async (

@@ -1,6 +1,6 @@
+import type { DesignacionAdministrativaCreateDTO } from "@/shared/utils/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { DesignacionAdministrativaCreateDTO } from "@/utils/types";
-import { designacionesQueryKeys } from "../../../utils/queryKeys/designaciones.queryKeys";
+import { designacionesQueryKeys } from "../../../shared/utils/queryKeys/designaciones.queryKeys";
 import { crearDesignacionAdministrativa } from "../services/designaciones.services";
 
 export function useCrearDesignacionAdministrativa(escuelaId?: number) {

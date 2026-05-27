@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { designacionesQueryKeys } from "../../../utils/queryKeys/designaciones.queryKeys";
+import { designacionesQueryKeys } from "../../../shared/utils/queryKeys/designaciones.queryKeys";
 import { listarDesignacionesAdministrativas } from "../services/designaciones.services";
 
 export function useDesignacionesAdministrativas(

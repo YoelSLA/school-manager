@@ -14,7 +14,7 @@ import type {
 	EditarTitularDTO,
 	EstadoCargo,
 	PageResponse,
-} from "@/utils/types";
+} from "@/shared/utils/types";
 
 /* ======================
 	 Crear

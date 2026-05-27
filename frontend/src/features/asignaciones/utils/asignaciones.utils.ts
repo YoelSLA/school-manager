@@ -1,5 +1,5 @@
-import type { FiltroCargos } from "@/utils/types";
-import { CaracteristicaAsignacion } from "@/utils/types/enums";
+import type { FiltroCargos } from "@/shared/utils/types";
+import { CaracteristicaAsignacion } from "@/shared/utils/types/enums";
 
 export const TIPO_ASIGNACION_OPTIONS = [
 	{ value: "TITULAR", label: "Titular" },

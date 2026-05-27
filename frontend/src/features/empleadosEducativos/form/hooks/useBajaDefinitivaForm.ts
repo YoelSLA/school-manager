@@ -1,6 +1,6 @@
+import type { BajaDefinitivaDTO } from "@/shared/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import type { BajaDefinitivaDTO } from "@/utils/types";
 import { darBajaEmpleadoEducativo } from "../schemas/darBajaEmpleadoEducativo.schema";
 
 export function useBajaDefinitivaForm() {

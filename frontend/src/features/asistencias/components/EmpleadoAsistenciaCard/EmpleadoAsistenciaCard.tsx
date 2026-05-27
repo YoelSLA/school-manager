@@ -1,8 +1,7 @@
-import EmpleadoInfo from "@/components/EmpleadoInfo";
-import RolPill from "@/components/RolPill";
-import { rolLabels } from "@/features/designaciones/utils/designacion.badges";
-import type { EmpleadoAsistenciaDTO } from "@/utils/types";
+import EmpleadoInfo from "@/shared/components/EmpleadoInfo";
+import type { EmpleadoAsistenciaDTO } from "@/shared/utils/types";
 
+import BadgeRolEducativo from "@/shared/components/BadgeRolEducativo";
 import styles from "./EmpleadoAsistenciaCard.module.scss";
 
 type Props = {
@@ -22,7 +21,7 @@ export default function EmpleadoAsistenciaCard({ empleado, onSelect }: Props) {
 
 				<section className={styles.card__roles}>
 					{empleado.roles.map((rol) => (
-						<RolPill key={rol}>{rolLabels[rol] ?? rol}</RolPill>
+						<BadgeRolEducativo rolEducativo={rol} />
 					))}
 				</section>
 

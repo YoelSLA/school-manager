@@ -1,5 +1,5 @@
-import BadgeRolEducativo from "@/components/BadgeRolEducativo";
-import type { DesignacionAdministrativaResumenDTO } from "@/utils/types";
+import BadgeRolEducativo from "@/shared/components/BadgeRolEducativo";
+import type { DesignacionAdministrativaResumenDTO } from "@/shared/utils/types";
 import DesignacionCard from "../DesignacionCard";
 
 type Props = {
@@ -19,7 +19,7 @@ export default function DesignacionAdministrativaCard({
 			estadoDesignacion={designacion.estadoDesignacion}
 			onVerDetalle={() => onVerDetalle(designacion)}
 		>
-			<BadgeRolEducativo value={designacion.rolEducativo}/>
+			<BadgeRolEducativo rolEducativo={designacion.rolEducativo} />
 		</DesignacionCard>
 	);
 }

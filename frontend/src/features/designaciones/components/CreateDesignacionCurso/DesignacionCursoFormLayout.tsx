@@ -1,11 +1,11 @@
+import Button from "@/components/Button";
+import type { DesignacionCursoFormValues } from "@/shared/utils/types";
 import type {
 	FieldArrayWithId,
 	UseFieldArrayAppend,
 	UseFieldArrayRemove,
 	UseFormRegister,
 } from "react-hook-form";
-import Button from "@/components/Button";
-import type { DesignacionCursoFormValues } from "@/utils/types";
 import styles from "../DesignacionFormLayout.module.scss";
 import FranjasHorariasBoxCurso from "./FranjasHorariasBoxCurso";
 

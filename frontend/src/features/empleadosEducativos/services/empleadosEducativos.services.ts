@@ -1,4 +1,3 @@
-import qs from "qs";
 import { http } from "@/axiosTemplate";
 import type {
 	DesignacionLicenciaItemDTO,
@@ -13,7 +12,8 @@ import type {
 	EmpleadoEducativoUpdateDTO,
 	PageResponse,
 	SortState,
-} from "@/utils/types";
+} from "@/shared/utils/types";
+import qs from "qs";
 import { buildSortQuery } from "../utils/empleadosEducativos.utils";
 
 export const crearEmpleadoEducativo = async (

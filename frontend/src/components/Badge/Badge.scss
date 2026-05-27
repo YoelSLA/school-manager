@@ -3,42 +3,50 @@ $badge-variants: (
 	   ESTADOS
 	========================= */
 
-	activa: (bg: #dcfce7,
+	activa: (
+		bg: #dcfce7,
 		border: #22c55e,
 		text: #166534,
 	),
 
-	licencia: (bg: #e0e7ff,
+	licencia: (
+		bg: #e0e7ff,
 		border: #6366f1,
 		text: #4338ca,
 	),
 
-	cubierta: (bg: #e0f2fe,
+	cubierta: (
+		bg: #e0f2fe,
 		border: #38bdf8,
 		text: #0369a1,
 	),
 
-	descubierta: (bg: #fee2e2,
+	descubierta: (
+		bg: #fee2e2,
 		border: #ef4444,
 		text: #b91c1c,
 	),
 
-	vacante: (bg: #fee2e2,
+	vacante: (
+		bg: #fee2e2,
 		border: #ef4444,
 		text: #b91c1c,
 	),
 
-	finalizada: (bg: #f4f4f5,
+	finalizada: (
+		bg: #f4f4f5,
 		border: #a1a1aa,
 		text: #52525b,
 	),
 
-	baja: (bg: #ffedd5,
+	baja: (
+		bg: #ffedd5,
 		border: #fb923c,
 		text: #c2410c,
 	),
 
-	no_vigente: (bg: #f3f4f6,
+	no_vigente: (
+		bg: #f3f4f6,
 		border: #9ca3af,
 		text: #6b7280,
 	),
@@ -47,64 +55,98 @@ $badge-variants: (
 	   ROLES EDUCATIVOS
 	========================= */
 
-	auxiliar: (bg: #dbeafe,
+	auxiliar: (
+		bg: #dbeafe,
 		border: #60a5fa,
 		text: #1d4ed8,
 	),
 
-	bibliotecario: (bg: #cffafe,
+	bibliotecario: (
+		bg: #cffafe,
 		border: #22d3ee,
 		text: #0e7490,
 	),
 
-	cambioDeFuncion: (bg: #ffedd5,
+	cambioDeFuncion: (
+		bg: #ffedd5,
 		border: #fb923c,
 		text: #c2410c,
 	),
 
-	direccion: (bg: #fee2e2,
+	direccion: (
+		bg: #fee2e2,
 		border: #f87171,
 		text: #b91c1c,
 	),
 
-	medioApoyoTecnicoProfesional: (bg: #f3e8ff,
+	medioApoyoTecnicoProfesional: (
+		bg: #f3e8ff,
 		border: #c084fc,
 		text: #7e22ce,
 	),
 
-	vicedireccion: (bg: #fae8ff,
+	vicedireccion: (
+		bg: #fae8ff,
 		border: #e879f9,
 		text: #a21caf,
 	),
 
-	secretaria: (bg: #dcfce7,
+	secretaria: (
+		bg: #dcfce7,
 		border: #4ade80,
 		text: #15803d,
 	),
 
-	orientacionEducacional: (bg: #dbeafe,
+	orientacionEducacional: (
+		bg: #dbeafe,
 		border: #60a5fa,
 		text: #2563eb,
 	),
 
-	orientacionSocial: (bg: #ecfccb,
+	orientacionSocial: (
+		bg: #ecfccb,
 		border: #a3e635,
 		text: #4d7c0f,
 	),
 
-	preceptoria: (bg: #fef9c3,
+	preceptoria: (
+		bg: #fef9c3,
 		border: #facc15,
 		text: #a16207,
 	),
 
-	docente: (bg: #dcfce7,
+	docente: (
+		bg: #dcfce7,
 		border: #4ade80,
 		text: #166534,
 	),
 
-	recalificacionLaboralDefinitiva: (bg: #f4f4f5,
+	recalificacionLaboralDefinitiva: (
+		bg: #f4f4f5,
 		border: #a1a1aa,
 		text: #52525b,
+	),
+
+	/* =========================
+	   SITUACIÓN DE REVISTA
+	========================= */
+
+	titular: (
+		bg: #dcfce7,
+		border: #22c55e,
+		text: #166534,
+	),
+
+	provisional: (
+		bg: #fef3c7,
+		border: #f59e0b,
+		text: #b45309,
+	),
+
+	suplente: (
+		bg: #dbeafe,
+		border: #3b82f6,
+		text: #1d4ed8,
 	),
 );
 

@@ -11,15 +11,16 @@ function createWindow() {
 		height: 720,
 		minWidth: 1300,
 		minHeight: 720,
-		autoHideMenuBar: !isDev,
+
+		autoHideMenuBar: true,
+
 		webPreferences: {
 			preload: path.join(__dirname, "preload.cjs"),
 		},
 	});
 
-	if (!isDev) {
-		Menu.setApplicationMenu(null);
-	}
+	// Oculta completamente el menú
+	Menu.setApplicationMenu(null);
 
 	if (isDev) {
 		mainWindow.loadURL("http://localhost:5173");

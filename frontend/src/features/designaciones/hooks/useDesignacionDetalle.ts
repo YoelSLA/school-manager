@@ -1,6 +1,6 @@
+import type { DesignacionDetalleDTO } from "@/shared/utils/types";
 import { useQuery } from "@tanstack/react-query";
-import type { DesignacionDetalleDTO } from "@/utils/types";
-import { designacionesQueryKeys } from "../../../utils/queryKeys/designaciones.queryKeys";
+import { designacionesQueryKeys } from "../../../shared/utils/queryKeys/designaciones.queryKeys";
 import { obtenerDesignacionDetalle } from "../services/designaciones.services";
 
 export default function useDesignacionDetalle(designacionId?: number) {

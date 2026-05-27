@@ -3,7 +3,7 @@ import type {
 	DesignacionAdministrativaResumenDTO,
 	DesignacionCursoResumenDTO,
 	PageResponse,
-} from "@/utils/types";
+} from "@/shared/utils/types";
 import DesignacionesList from "./DesignacionesList";
 
 type Props = {

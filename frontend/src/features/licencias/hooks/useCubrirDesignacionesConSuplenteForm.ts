@@ -1,8 +1,8 @@
+import type { EmpleadoEducativoMinimoDTO } from "@/shared/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import type { EmpleadoEducativoMinimoDTO } from "@/utils/types";
 import { cubrirDesignacionesConSuplenteSchema } from "../form/cubrirDesignacionesConSuplente.schema";
 import { useCubrirDesignacionesConSuplente } from "./useCubrirDesignacionesConSuplente";
 

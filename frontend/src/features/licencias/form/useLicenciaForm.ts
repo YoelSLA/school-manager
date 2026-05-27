@@ -1,4 +1,4 @@
-import type { LicenciaCreateFormValues } from "@/utils/types";
+import type { LicenciaCreateFormValues } from "@/shared/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { crearLicenciaSchema } from "./crearLicencia.schema";

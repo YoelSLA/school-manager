@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
-import type { EmpleadoEducativoMinimoDTO } from "@/utils/types";
+import type { EmpleadoEducativoMinimoDTO } from "@/shared/utils/types";
 
 import { cambiarCoberturaSchema } from "../form/cambiarCobertura.schema";
 import { useCambiarCobertura } from "./useCambiarCobertura";

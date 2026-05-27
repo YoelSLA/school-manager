@@ -1,7 +1,6 @@
-// LicenciaCubrirDesignacionesModal.tsx
-import FechaField from "@/components/forms/inputs/FechaInputField";
-import NumberField from "@/components/forms/inputs/NumberFieldInput";
 import Modal from "@/components/Modal";
+import FechaField from "@/features/designaciones/components/fields/FechaInputField";
+import NumberField from "@/features/designaciones/components/fields/NumberInputField";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
 import { useCubrirDesignacionesForm } from "../../hooks/useCubrirDesignacionesConSuplenteForm";
 import styles from "../LicenciaCoberturaModal.module.scss";

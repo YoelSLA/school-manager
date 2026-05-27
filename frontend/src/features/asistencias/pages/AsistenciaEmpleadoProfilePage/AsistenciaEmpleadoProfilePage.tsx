@@ -1,6 +1,6 @@
+import Breadcrumbs from "@/app/layouts/Breadcrumbs";
+import PageLayout from "@/app/layouts/PageLayout/PageLayout";
 import { useLocation, useParams } from "react-router-dom";
-import Breadcrumbs from "@/layout/Breadcrumbs";
-import PageLayout from "@/layout/PageLayout/PageLayout";
 import styles from "./AsistenciaEmpleadoProfilePage.module.scss";
 import AsistenciaHeader from "./AsistenciaHeader";
 import AsistenciaKpiGrid from "./AsistenciaKpiGrid";

@@ -1,8 +1,8 @@
-import { BookOpen, CheckCircle, GraduationCap } from "lucide-react";
 import SelectField from "@/components/SelectField";
 import { useCursosNombres } from "@/features/cursos/hooks/useCursosNombres";
 import { useMateriasSelect } from "@/features/materias/hooks/useMateriasSelect";
-import type { CursoFiltersState } from "@/utils/types";
+import type { CursoFiltersState } from "@/shared/utils/types";
+import { BookOpen, CheckCircle, GraduationCap } from "lucide-react";
 import styles from "./CursoFilters.module.scss";
 
 type Props = {

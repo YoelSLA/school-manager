@@ -1,6 +1,6 @@
+import { licenciasQueryKeys } from "@/shared/utils/queryKeys/licencias.queryKeys";
+import type { CubrirDesignacionesConSuplente } from "@/shared/utils/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { licenciasQueryKeys } from "@/utils/queryKeys/licencias.queryKeys";
-import type { CubrirDesignacionesConSuplente } from "@/utils/types";
 import { cubrirDesignacionesConSuplente } from "../services/licencias.services";
 
 type Variables = {

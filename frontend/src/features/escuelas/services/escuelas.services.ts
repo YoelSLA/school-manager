@@ -1,9 +1,9 @@
 import { http } from "@/axiosTemplate";
 import type {
-	EscuelaCreateDTO,
-	EscuelaResponseDTO,
-	EscuelaUpdateDTO,
-} from "@/utils/types";
+    EscuelaCreateDTO,
+    EscuelaResponseDTO,
+    EscuelaUpdateDTO,
+} from "@/shared/utils/types";
 
 export const crearEscuela = async (
 	data: EscuelaCreateDTO,

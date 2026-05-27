@@ -1,0 +1,131 @@
+.dayContent {
+	width: 100%;
+	height: 100%;
+}
+
+.dayInner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	width: 100%;
+	height: 100%;
+
+	padding: 10px 6px;
+
+	border-radius: 16px;
+
+	background-color: white;
+
+	border: 1px solid #dbe3ea;
+
+	transition:
+		transform 0.15s ease,
+		box-shadow 0.15s ease,
+		border-color 0.15s ease,
+		background-color 0.15s ease;
+}
+
+.dayInner--laboral {
+	background-color: #dceeff;
+
+	border: 1px solid #93c5fd;
+}
+
+.dayContent:hover .dayInner {
+	transform: translateY(-1px);
+
+	box-shadow: 0 4px 12px
+		rgba(15, 23, 42, 0.08);
+
+	border-color: #cbd5e1;
+}
+
+/* =========================================================
+ * NUMBER
+ * =======================================================*/
+
+.dayNumber {
+	font-size: 28px;
+	font-weight: 700;
+	line-height: 1;
+
+	color: #0f172a;
+}
+
+/* =========================================================
+ * CODE
+ * =======================================================*/
+
+.dayCode {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	min-width: 42px;
+	height: 22px;
+
+	padding: 0 10px;
+
+	border-radius: 999px;
+
+	font-size: 11px;
+	font-weight: 700;
+
+	background-color: #dcfce7;
+	color: #166534;
+}
+
+/* =========================================================
+ * ESTADOS
+ * =======================================================*/
+
+.day--presente .dayCode {
+	background-color: #dcfce7;
+	color: #166534;
+}
+
+.day--ausente .dayCode {
+	background-color: #fee2e2;
+	color: #991b1b;
+}
+
+/* =========================================================
+ * RESPONSIVE
+ * =======================================================*/
+
+@media (max-width: 1200px) {
+	.dayContent {
+		height: 84px;
+	}
+
+	.dayNumber {
+		font-size: 20px;
+	}
+}
+
+@media (max-width: 900px) {
+	.dayContent {
+		height: 70px;
+
+		border-radius: 14px;
+	}
+
+	.dayInner {
+		gap: 6px;
+
+		border-radius: 14px;
+	}
+
+	.dayNumber {
+		font-size: 18px;
+	}
+
+	.dayCode {
+		min-width: 24px;
+		height: 18px;
+
+		font-size: 10px;
+	}
+}

@@ -1,8 +1,8 @@
+import { asistenciasPaths } from "@/app/router/paths";
 import { useNavigate } from "react-router-dom";
-import RolPill from "@/components/RolPill";
-import { rolLabels } from "@/features/designaciones/utils/designacion.badges";
-import { asistenciasPaths } from "@/router/paths";
 
+import BadgeRolEducativo from "@/shared/components/BadgeRolEducativo";
+import { RolEducativo } from "@/shared/utils/types/enums";
 import styles from "./AsistenciaHeader.module.scss";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 		nombre: string;
 		apellido: string;
 		cuil: string;
-		roles: string[];
+		roles: RolEducativo[];
 	};
 };
 
@@ -43,7 +43,7 @@ export default function AsistenciaHeader({ empleadoId, empleado }: Props) {
 
 				<div className={styles.header__roles}>
 					{empleado.roles.map((rol) => (
-						<RolPill key={rol}>{rolLabels[rol] ?? rol}</RolPill>
+						<BadgeRolEducativo rolEducativo={rol} />
 					))}
 				</div>
 			</div>

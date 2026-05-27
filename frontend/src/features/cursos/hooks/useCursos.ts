@@ -1,10 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
 import type {
-	CursoFiltro,
-	CursoResponseDTO,
-	PageResponse,
-} from "@/utils/types";
-import { cursosQueryKeys } from "../../../utils/queryKeys/cursos.queryKeys";
+    CursoFiltro,
+    CursoResponseDTO,
+    PageResponse,
+} from "@/shared/utils/types";
+import { useQuery } from "@tanstack/react-query";
+import { cursosQueryKeys } from "../../../shared/utils/queryKeys/cursos.queryKeys";
 import { obtenerCursos } from "../services/cursos.services";
 
 export function useCursos(

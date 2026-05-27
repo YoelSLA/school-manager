@@ -1,9 +1,9 @@
 import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
-import type { DesignacionLicenciaAdministrativaItemDTO } from "@/utils/types";
+import type { DesignacionLicenciaAdministrativaItemDTO } from "@/shared/utils/types";
 import { CalendarDays, Hash, User } from "lucide-react";
 
-import BadgeSituacionRevista from "@/components/BadgeSituacionRevista";
-import { formatearFecha } from "@/utils";
+import BadgeSituacionRevista from "@/shared/components/BadgeSituacionRevista";
+import { formatearFecha } from "@/shared/utils";
 import styles from "./DesignacionAdministrativaRow.module.scss";
 
 type Props = {
@@ -49,7 +49,7 @@ export default function DesignacionAdministrativaRow({
 				) : cargoActivo ? (
 					<div className={styles.meta}>
 						<span className={styles.tipo}>
-							<BadgeSituacionRevista value={cargoActivo.situacionDeRevista}/>
+							<BadgeSituacionRevista value={cargoActivo.situacionDeRevista} />
 						</span>
 
 						<span className={styles.dot}>•</span>

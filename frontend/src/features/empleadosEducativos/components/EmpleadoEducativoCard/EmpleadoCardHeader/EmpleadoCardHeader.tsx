@@ -1,5 +1,5 @@
+import BadgeEstadoEmpleado from "@/shared/components/BagdeEstadoEmpleado";
 import { IdCard, User } from "lucide-react";
-import BadgeEstadoEmpleado from "@/components/BagdeEstadoEmpleado";
 import styles from "./EmpleadoCardHeader.module.scss";
 
 type Props = {

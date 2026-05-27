@@ -1,10 +1,10 @@
 import type { z } from "zod";
-import FechaField from "@/components/forms/inputs/FechaInputField";
-import NumberField from "@/components/forms/inputs/NumberFieldInput";
 import Modal from "@/components/Modal";
 import type { createProvisionalSchema } from "@/features/asignaciones/form/createProvisional.schema";
 import { useCreateProvisionalForm } from "@/features/asignaciones/form/useCreateProvisionalForm";
 import { useCreateProvisional } from "@/features/asignaciones/hooks/useCreateProvisional";
+import FechaField from "@/features/designaciones/components/fields/FechaInputField";
+import NumberField from "@/features/designaciones/components/fields/NumberInputField";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
 import styles from "../ModalCreateAsignacion.module.scss";
 

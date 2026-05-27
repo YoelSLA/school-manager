@@ -1,6 +1,6 @@
+import type { CrearCursoDTO } from "@/shared/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import type { CrearCursoDTO } from "@/utils/types";
 import { crearCursoSchema } from "./crearCurso.schema";
 
 export function useCrearCursoForm() {

@@ -1,9 +1,9 @@
-import { Home, Mail, Phone } from "lucide-react";
-import type { FieldErrors, UseFormRegister } from "react-hook-form";
+import FormInputFieldRHF from "@/components/FormInputField";
 import FormSection from "@/components/FormSection";
 import styles from "@/components/FormSection/FormSection.module.scss";
-import FormInputFieldRHF from "@/components/forms/FormInputField";
-import type { EmpleadoEducativoCreateDTO } from "@/utils/types";
+import type { EmpleadoEducativoCreateDTO } from "@/shared/utils/types";
+import { Home, Mail, Phone } from "lucide-react";
+import type { FieldErrors, UseFormRegister } from "react-hook-form";
 
 type Props = {
 	register: UseFormRegister<EmpleadoEducativoCreateDTO>;

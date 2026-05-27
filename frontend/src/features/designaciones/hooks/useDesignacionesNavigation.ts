@@ -1,5 +1,5 @@
+import type { DesignacionResumenDTO } from "@/shared/utils/types";
 import { useLocation, useNavigate } from "react-router-dom";
-import type { DesignacionResumenDTO } from "@/utils/types";
 
 export function useDesignacionesNavigation() {
 	const navigate = useNavigate();

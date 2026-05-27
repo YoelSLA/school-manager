@@ -1,11 +1,11 @@
 import { http } from "@/axiosTemplate";
 import type {
-	MateriaCreateDTO,
-	MateriaNombreDTO,
-	MateriaResponseDTO,
-	MateriaUpdateDTO,
-	PageResponse,
-} from "@/utils/types";
+    MateriaCreateDTO,
+    MateriaNombreDTO,
+    MateriaResponseDTO,
+    MateriaUpdateDTO,
+    PageResponse,
+} from "@/shared/utils/types";
 
 export async function crearMateria(
 	escuelaId: number,

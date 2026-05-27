@@ -1,16 +1,16 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ErrorModal from "@/components/ErrorModal";
-import Breadcrumbs from "@/layout/Breadcrumbs";
-import PageLayout from "@/layout/PageLayout/PageLayout";
-import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
-import { useAppSelector } from "@/store/hooks";
+import Breadcrumbs from "@/app/layouts/Breadcrumbs";
+import PageLayout from "@/app/layouts/PageLayout/PageLayout";
+import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
+import { useAppSelector } from "@/app/store/hooks";
+import ErrorModal from "@/components/ModalError";
 import type {
 	DesignacionAdministrativaCreateDTO,
 	DesignacionCursoCreateDTO,
 	DesignacionFiltro,
-} from "@/utils/types";
+} from "@/shared/utils/types";
 import AdministrativaForm from "../../components/CreateDesignacionAdministrativa/AdministrativaForm/AdministrativaForm";
 import CursoForm from "../../components/CreateDesignacionCurso/CursoForm/CursoForm";
 import { useCrearDesignacionAdministrativa } from "../../hooks/useCrearDesignacionAdministrativa";

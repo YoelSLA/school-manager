@@ -1,7 +1,7 @@
-import BadgeSituacionRevista from "@/components/BadgeSituacionRevista";
 import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
+import BadgeSituacionRevista from "@/shared/components/BadgeSituacionRevista";
 
-import type { DesignacionLicenciaCursoItemDTO } from "@/utils/types";
+import type { DesignacionLicenciaCursoItemDTO } from "@/shared/utils/types";
 
 import {
 	BookOpen,

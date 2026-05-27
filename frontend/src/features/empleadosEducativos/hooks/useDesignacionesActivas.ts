@@ -1,4 +1,4 @@
-import { empleadosEducativosQueryKeys } from "@/utils/queryKeys/empleadosEducativos.queryKeys";
+import { empleadosEducativosQueryKeys } from "@/shared/utils/queryKeys/empleadosEducativos.queryKeys";
 import { useQuery } from "@tanstack/react-query";
 import { getDesignacionesActivas } from "../services/empleadosEducativos.services";
 

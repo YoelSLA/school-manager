@@ -1,6 +1,6 @@
+import { escuelasQueryKeys } from "@/shared/utils/queryKeys/escuelas.queryKeys";
+import type { EscuelaResponseDTO } from "@/shared/utils/types";
 import { useQuery } from "@tanstack/react-query";
-import { escuelasQueryKeys } from "@/utils/queryKeys/escuelas.queryKeys";
-import type { EscuelaResponseDTO } from "@/utils/types";
 import { getEscuelas } from "../services/escuelas.services";
 
 export function useGetAllEscuelas() {

@@ -1,7 +1,7 @@
 import type {
-	EmpleadoEducativoMinimoDTO,
-	LicenciaDetalleDTO,
-} from "@/utils/types";
+    EmpleadoEducativoMinimoDTO,
+    LicenciaDetalleDTO,
+} from "@/shared/utils/types";
 import { useNavigate } from "react-router-dom";
 
 export function useLicenciasNavigation() {

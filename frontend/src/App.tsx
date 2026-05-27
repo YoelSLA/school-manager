@@ -1,5 +1,5 @@
-import { useUpdaterSync } from "./rerender/useUpdaterSync";
-import AppRouter from "./router/AppRouter";
+import AppRouter from "./app/router/AppRouter";
+import { useUpdaterSync } from "./infrastructure/useUpdaterSync";
 
 export default function App() {
 	useUpdaterSync();

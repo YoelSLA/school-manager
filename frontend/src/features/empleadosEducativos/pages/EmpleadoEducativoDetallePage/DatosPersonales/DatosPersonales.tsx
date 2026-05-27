@@ -1,6 +1,6 @@
+import { formatearFecha } from "@/shared/utils";
+import type { EmpleadoEducativoDetalleDTO } from "@/shared/utils/types";
 import { Calendar, IdCard, LocationEdit, Mail, Phone } from "lucide-react";
-import { formatearFecha } from "@/utils";
-import type { EmpleadoEducativoDetalleDTO } from "@/utils/types";
 import DatoPersonalItem from "./DatoPersonalItem";
 import styles from "./DatosPersonales.module.scss";
 

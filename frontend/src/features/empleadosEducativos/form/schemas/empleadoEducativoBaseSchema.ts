@@ -1,11 +1,11 @@
-import z from "zod";
 import {
-	capitalizarNombre,
-	optionalFechaISO,
-	optionalString,
-	requiredFechaISO,
-	requiredString,
-} from "@/utils/zod/schemas";
+    capitalizarNombre,
+    optionalFechaISO,
+    optionalString,
+    requiredFechaISO,
+    requiredString,
+} from "@/shared/utils/zod/schemas";
+import z from "zod";
 
 /* =========================
    Regex

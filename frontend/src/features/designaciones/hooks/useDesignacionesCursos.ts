@@ -1,6 +1,6 @@
+import { designacionesQueryKeys } from "@/shared/utils/queryKeys/designaciones.queryKeys";
+import type { DesignacionCursoFilter } from "@/shared/utils/types";
 import { useQuery } from "@tanstack/react-query";
-import { designacionesQueryKeys } from "@/utils/queryKeys/designaciones.queryKeys";
-import type { DesignacionCursoFilter } from "@/utils/types";
 import { listarDesignacionesCursos } from "../services/designaciones.services";
 
 export function useDesignacionesCursos(

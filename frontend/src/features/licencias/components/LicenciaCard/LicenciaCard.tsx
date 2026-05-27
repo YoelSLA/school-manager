@@ -1,8 +1,8 @@
-import BadgeEstadoLicencia from "@/components/BagdeEstadoLicencia";
 import Card from "@/components/Card/Card";
-import EmpleadoInfo from "@/components/EmpleadoInfo";
-import { formatearFecha } from "@/utils";
-import type { LicenciaResumenDTO } from "@/utils/types";
+import BadgeEstadoLicencia from "@/shared/components/BagdeEstadoLicencia";
+import EmpleadoInfo from "@/shared/components/EmpleadoInfo";
+import { formatearFecha } from "@/shared/utils";
+import type { LicenciaResumenDTO } from "@/shared/utils/types";
 import { Calendar, Flag, Hourglass } from "lucide-react";
 import styles from "./LicenciaCard.module.scss";
 
@@ -16,7 +16,7 @@ export default function LicenciaCard({ licencia, onVerDetalle }: Props) {
 	const { fechaDesde, fechaHasta, dias } = licencia.periodo;
 
 	const status =
-		licencia.estadoLicencia === "FINALIZADA"
+		licencia.estadoLicencia === "NO_VIGENTE"
 			? "info"
 			: licencia.estadoLicencia === "CUBIERTA"
 				? "success"

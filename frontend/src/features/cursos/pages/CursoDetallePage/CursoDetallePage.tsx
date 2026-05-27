@@ -1,6 +1,6 @@
+import PageLayout from "@/app/layouts/PageLayout/PageLayout";
+import type { CursoResponseDTO } from "@/shared/utils/types";
 import { useParams } from "react-router-dom";
-import PageLayout from "@/layout/PageLayout/PageLayout";
-import type { CursoResponseDTO } from "@/utils/types";
 import CursoDetalleHeader from "./CursoDetalleHeader";
 import CursoDetalleMain from "./CursoDetalleMain";
 import styles from "./CursoDetallePage.module.scss";
