@@ -1,8 +1,8 @@
 package com.gestion.escuela.gestion_escolar.controllers.escuelasContexto;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.PageResponse;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.administrativas.DesignacionAdministrativaCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.administrativas.DesignacionAdministrativaResumenDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.request.DesignacionAdministrativaCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.response.DesignacionAdministrativaResumenDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.response.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.DesignacionAdministrativaMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.Escuela;

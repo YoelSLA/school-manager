@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
@@ -236,6 +237,11 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 		return empleado.designacionesActivasEn(LocalDate.now());
 	}
 
+	@Override
+	public Optional<Licencia> obtenerLicenciaActiva(Long empleadoId, LocalDate fecha) {
+		EmpleadoEducativo empleado = obtenerPorId(empleadoId);
+		return empleado.licenciaActivaEn(fecha);
+	}
 
 }
 

@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
 import type { CursoFiltersState } from "@/shared/utils/types";
-import CursoFilters from "../../components/CursoFilters";
+import DesignacionCursoFilters from "../../components/DesignacionCurso/DesignacionCursoFilters";
 import styles from "./DesignacionesPage.module.scss";
 
 type Props = {
@@ -20,7 +20,7 @@ export default function DesignacionesFilters({
 
 	return (
 		<div className={styles.filtersContainer}>
-			<CursoFilters
+			<DesignacionCursoFilters
 				escuelaId={escuelaId}
 				filters={filters}
 				onChange={(newFilters) =>

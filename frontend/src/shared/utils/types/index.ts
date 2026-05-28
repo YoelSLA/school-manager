@@ -6,16 +6,17 @@ import type { createTitularSchema } from "@/features/asignaciones/form/createTit
 import type { updateProvisionalSchema } from "@/features/asignaciones/form/updateProvisional.schema";
 import type { updateTitularSchema } from "@/features/asignaciones/form/updateTitular.schema";
 import type { crearCursoSchema } from "@/features/cursos/form/crearCurso.schema";
-import type { crearDesignacionAdministrativaSchema } from "@/features/designaciones/form/schemas/crearDesignacionAdministrativa.schema";
-import type { crearDesignacionCursoSchema } from "@/features/designaciones/form/schemas/crearDesignacionCurso.schema";
-import type { editarDesignacionAdministrativaSchema } from "@/features/designaciones/form/schemas/editarDesignacionAdministrativa.schema";
-import type { editarDesignacionCursoSchema } from "@/features/designaciones/form/schemas/editarDesignacionCurso.schema";
+import type { createDesignacionAdministrativaSchema } from "@/features/designaciones/form/schemas/createDesignacionAdministrativa.schema";
+import type { createDesignacionCursoSchema } from "@/features/designaciones/form/schemas/createDesignacionCurso.schema";
+import type { updateDesignacionAdministrativaSchema } from "@/features/designaciones/form/schemas/updateDesignacionAdministrativa.schema";
+import type { updateDesignacionCursoSchema } from "@/features/designaciones/form/schemas/updateDesignacionCurso.schema";
 import type { crearEmpleadoEducativoSchema } from "@/features/empleadosEducativos/form/schemas/crearEmpleadoEducativo.schema";
 import type { darBajaEmpleadoEducativo } from "@/features/empleadosEducativos/form/schemas/darBajaEmpleadoEducativo.schema";
 import type { editarEmpleadoEducativoSchema } from "@/features/empleadosEducativos/form/schemas/editarEmpleadoEducativo.schema";
 import type { crearEscuelaSchema } from "@/features/escuelas/form/crearEscuela.schema";
 import type { crearLicenciaSchema } from "@/features/licencias/form/crearLicencia.schema";
 import type { cubrirDesignacionesConSuplenteSchema } from "@/features/licencias/form/cubrirDesignacionesConSuplente.schema";
+import type { TipoLicencia } from "@/features/licencias/utils/tipoLicencia";
 import type { crearMateriaSchema } from "@/features/materias/form/schemas/crearMateria.schema";
 import type {
 	Dia,
@@ -30,6 +31,35 @@ import type {
 // ASIGNACION
 // -------------------------------------------------------------------
 
+export type AsignacionEmpleadoEducativoRowDTO =
+	| AsignacionCursoEmpleadoEducativoRowDTO
+	| AsignacionAdministrativaEmpleadoEducativoRowDTO;
+
+export interface BaseEmpleadoEducativoAsignacionRowDTO {
+	id: number;
+	periodo: PeriodoDTO;
+	situacionDeRevista: SituacionDeRevista;
+	estadoAsignacion: EstadoAsignacion;
+	baja: BajaAsignacionDTO | null;
+}
+
+export interface AsignacionCursoEmpleadoEducativoRowDTO
+	extends BaseEmpleadoEducativoAsignacionRowDTO {
+	tipo: "CURSO";
+	designacion: DesignacionCursoAsignacionDTO;
+}
+
+export interface AsignacionAdministrativaEmpleadoEducativoRowDTO
+	extends BaseEmpleadoEducativoAsignacionRowDTO {
+	tipo: "ADMINISTRATIVA";
+	designacion: DesignacionAdministrativaAsignacionDTO;
+}
+
+export interface BajaAsignacionDTO {
+	fecha: string;
+	causa: CausaBaja;
+}
+
 export type CubrirTitularDTO = z.infer<typeof createTitularSchema>;
 
 export type CubrirProvisionalDTO = z.infer<typeof createProvisionalSchema>;
@@ -41,7 +71,7 @@ export type EditarProvisionalDTO = z.infer<typeof updateProvisionalSchema>;
 export type AsignacionDetalleDTO = {
 	id: number;
 	empleado: EmpleadoEducativoMinimoDTO;
-	periodo: PeriodoAbiertoDTO;
+	periodo: PeriodoCerradoDTO;
 	situacionDeRevista: SituacionDeRevista;
 	fechaBaja: string;
 	causaBaja: string;
@@ -161,29 +191,44 @@ export type CursoNombreDTO = {
 // -------------------------------------------------------------------
 // DESIGNACION
 // -------------------------------------------------------------------
+export interface DesignacionAdministrativaAsignacionDTO {
+	id: number;
+	cupof: number;
+	rolEducativo: RolEducativo;
+	estadoDesignacion: EstadoDesignacion;
+}
+
+export interface DesignacionCursoAsignacionDTO {
+	id: number;
+	cupof: number;
+	estadoDesignacion: EstadoDesignacion;
+	materia: string;
+	curso: string;
+	orientacion: string;
+}
 
 export type DesignacionAdministrativaFormValues = z.input<
-	typeof crearDesignacionAdministrativaSchema
+	typeof createDesignacionAdministrativaSchema
 >;
 
 export type DesignacionAdministrativaCreateDTO = z.infer<
-	typeof crearDesignacionAdministrativaSchema
+	typeof createDesignacionAdministrativaSchema
 >;
 
 export type DesignacionCursoFormValues = z.input<
-	typeof crearDesignacionCursoSchema
+	typeof createDesignacionCursoSchema
 >;
 
 export type DesignacionCursoCreateDTO = z.infer<
-	typeof crearDesignacionCursoSchema
+	typeof createDesignacionCursoSchema
 >;
 
 export type DesignacionAdministrativaUpdateDTO = z.infer<
-	typeof editarDesignacionAdministrativaSchema
+	typeof updateDesignacionAdministrativaSchema
 >;
 
 export type DesignacionCursoUpdateDTO = z.infer<
-	typeof editarDesignacionCursoSchema
+	typeof updateDesignacionCursoSchema
 >;
 
 export type DesignacionResumenDTO = {
@@ -371,8 +416,6 @@ export type LicenciaDetalleDTO = {
 	descripcion: string;
 	periodo: PeriodoCerradoDTO;
 	estadoLicencia: EstadoLicencia;
-	designaciones: LicenciaDesignacionDTO[];
-	timeline: LicenciaTimelineItemDTO[];
 };
 
 export interface LicenciaResumenDTO {
@@ -492,12 +535,6 @@ export type FranjaHorariaMinimoDTO = FranjaHorariaBaseDTO;
 
 // -------------------------------------------------------------------
 
-export type PeriodoCerradoDTO = PeriodoDTO & {
-	fechaHasta: string;
-};
-
-// -------------------------------------------------------------------
-
 export type NormativaDTO = {
 	codigo: string;
 	articulo: string;
@@ -512,24 +549,6 @@ export type PageResponse<T> = {
 	totalPages: number;
 	first: boolean;
 	last: boolean;
-};
-
-type PeriodoDTO = {
-	fechaDesde: string;
-	dias: number;
-};
-
-export type PeriodoAbiertoDTO = PeriodoDTO & {
-	fechaHasta: string | null;
-	page: number;
-	size: number;
-	totalElements: number;
-	totalPages: number;
-	first: boolean;
-	last: boolean;
-	hasNext: boolean;
-	hasPrevious: boolean;
-	sort: string | undefined;
 };
 
 export type SortDirection = "asc" | "desc";
@@ -569,3 +588,65 @@ export type CoberturaSeleccionada = {
 	empleado: EmpleadoEducativoMinimoDTO | null;
 	fechaTomaPosesion: string;
 };
+
+export interface EmpleadoEducativoAsignacionesDTO {
+	empleado: EmpleadoEducativoBasicoDTO;
+	asignaciones: AsignacionEmpleadoEducativoRowDTO[];
+	total: number;
+	tieneAsignacionActiva: boolean;
+}
+export interface EmpleadoEducativoLicenciasDTO {
+	empleado: EmpleadoEducativoBasicoDTO;
+	licencias: LicenciaEmpleadoEducativoRowDTO[];
+	total: number;
+	tieneLicenciaActiva: boolean;
+}
+
+export interface EmpleadoEducativoBasicoDTO {
+	id: number;
+	cuil: string;
+	nombre: string;
+	apellido: string;
+	activo: boolean;
+}
+export type PeriodoDTO = PeriodoAbiertoDTO | PeriodoCerradoDTO;
+export interface PeriodoAbiertoDTO {
+	fechaDesde: string;
+}
+export interface PeriodoCerradoDTO {
+	fechaDesde: string;
+	fechaHasta: string;
+	dias: number;
+}
+export interface LicenciaEmpleadoEducativoRowDTO {
+	id: number;
+	tipo: TipoLicencia;
+	periodo: PeriodoCerradoDTO;
+	normativa: LicenciaNormativaDTO;
+	estado: EstadoLicencia;
+	descripcion: string;
+}
+
+export interface LicenciaNormativaDTO {
+	codigo: string;
+	articulo: string;
+	descripcion: string;
+}
+
+export type Tab = "DOCENTE" | "ADMINISTRATIVO";
+
+export interface EmpleadoEducativoLicenciasDTO {
+	empleado: EmpleadoEducativoBasicoDTO;
+	licenciaActiva: LicenciaDetalleDTO | null;
+	historial: LicenciaEmpleadoEducativoRowDTO[];
+	totalHistorial: number;
+}
+
+export interface LicenciaEmpleadoEducativoRowDTO {
+	id: number;
+	tipo: TipoLicencia;
+	periodo: PeriodoCerradoDTO;
+	normativa: LicenciaNormativaDTO;
+	estado: EstadoLicencia;
+	descripcion: string;
+}

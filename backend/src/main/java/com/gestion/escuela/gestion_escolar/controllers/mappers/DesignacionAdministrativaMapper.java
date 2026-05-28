@@ -1,8 +1,8 @@
 package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.administrativas.DesignacionAdministrativaCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.administrativas.DesignacionAdministrativaResumenDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.horarios.FranjaHorariaMinimoDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.request.DesignacionAdministrativaCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.response.DesignacionAdministrativaResumenDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.horarios.response.FranjaHorariaMinimoDTO;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.FranjaHoraria;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;

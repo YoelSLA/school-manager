@@ -1,13 +1,13 @@
 package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.DesignacionLicenciaAdministrativaItemDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.DesignacionLicenciaCursoItemDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.DesignacionLicenciaItemDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionAdministrativaDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionCursoDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.horarios.FranjaHorariaMinimoDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.response.AsignacionDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.response.DesignacionAdministrativaDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.response.DesignacionCursoDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.response.DesignacionDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.horarios.response.FranjaHorariaMinimoDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.response.DesignacionLicenciaAdministrativaItemDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.response.DesignacionLicenciaCursoItemDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.response.DesignacionLicenciaItemDTO;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;

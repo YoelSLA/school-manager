@@ -1,7 +1,7 @@
-import type { EstadoCargo } from "@/shared/utils/types";
 import { useQuery } from "@tanstack/react-query";
+import type { EstadoCargo } from "@/shared/utils/types";
 import { designacionesQueryKeys } from "../../../shared/utils/queryKeys/designaciones.queryKeys";
-import { listarCargosPorDesignacion } from "../services/designaciones.services";
+import { listarCargosPorDesignacion } from "../designaciones.services";
 
 export function useCargosDesignacion(
 	designacionId?: number,

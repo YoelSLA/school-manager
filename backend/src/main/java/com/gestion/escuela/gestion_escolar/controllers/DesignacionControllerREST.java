@@ -1,12 +1,12 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.EditarAsignacionDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.CubrirProvisionalDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.CubrirTitularDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.administrativas.DesignacionAdministrativaUpdateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.cursos.DesignacionCursoUpdateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.request.AsignacionUpdateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.response.AsignacionDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.request.CubrirProvisionalDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.request.CubrirTitularDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.request.DesignacionAdministrativaUpdateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.request.DesignacionCursoUpdateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.response.DesignacionDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.AsignacionMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.DesignacionMapper;
 import com.gestion.escuela.gestion_escolar.models.FranjaHoraria;
@@ -156,7 +156,7 @@ public class DesignacionControllerREST {
 	public AsignacionDetalleDTO actualizarAsignacion(
 			@PathVariable Long designacionId,
 			@PathVariable Long asignacionId,
-			@Valid @RequestBody EditarAsignacionDTO dto
+			@Valid @RequestBody AsignacionUpdateDTO dto
 	) {
 		Asignacion asignacion = designacionService.actualizarAsignacion(
 				designacionId,

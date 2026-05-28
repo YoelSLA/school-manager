@@ -1,6 +1,6 @@
+import { Navigate } from "react-router-dom";
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
-import { Navigate } from "react-router-dom";
 
 type Props = {
 	children: React.ReactNode;

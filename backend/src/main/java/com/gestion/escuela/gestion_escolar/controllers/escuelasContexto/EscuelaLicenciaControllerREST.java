@@ -1,7 +1,7 @@
 package com.gestion.escuela.gestion_escolar.controllers.escuelasContexto;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.PageResponse;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaResumenDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.response.LicenciaResumenDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.response.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.LicenciaMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.Licencia;

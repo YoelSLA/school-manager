@@ -1,9 +1,9 @@
 package com.gestion.escuela.gestion_escolar.controllers.escuelasContexto;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.PageResponse;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionCursoFilterDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.cursos.DesignacionCursoCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.cursos.DesignacionCursoResumenDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.request.DesignacionCursoCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.response.DesignacionCursoFilterDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.response.DesignacionCursoResumenDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.response.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.DesignacionCursoMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.Curso;

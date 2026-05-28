@@ -1,6 +1,6 @@
 package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.PageResponse;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.response.PageResponse;
 import org.springframework.data.domain.Page;
 
 import java.util.function.Function;

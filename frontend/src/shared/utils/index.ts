@@ -1,5 +1,11 @@
 import type { TipoLicencia } from "@/features/licencias/utils/tipoLicencia";
-import type { DesignacionFiltro } from "./types";
+import type {
+	AsignacionAdministrativaEmpleadoEducativoRowDTO,
+	AsignacionCursoEmpleadoEducativoRowDTO,
+	AsignacionEmpleadoEducativoRowDTO,
+	BajaAsignacionDTO,
+	DesignacionFiltro,
+} from "./types";
 import { Dia, type RolEducativo } from "./types/enums";
 
 export function diasRestantes(fechaHasta: string): number {
@@ -175,4 +181,30 @@ export const DIAS_SEMANA: Dia[] = Object.values(Dia);
 
 export function toDateString(date: Date) {
 	return date.toISOString().split("T")[0];
+}
+
+export function esAsignacionCurso(
+	asignacion: AsignacionEmpleadoEducativoRowDTO,
+): asignacion is AsignacionCursoEmpleadoEducativoRowDTO {
+	return asignacion.tipo === "CURSO";
+}
+
+export function esAsignacionAdministrativa(
+	asignacion: AsignacionEmpleadoEducativoRowDTO,
+): asignacion is AsignacionAdministrativaEmpleadoEducativoRowDTO {
+	return asignacion.tipo === "ADMINISTRATIVA";
+}
+
+export function tieneBaja(
+	asignacion: AsignacionEmpleadoEducativoRowDTO,
+): asignacion is AsignacionEmpleadoEducativoRowDTO & {
+	baja: BajaAsignacionDTO;
+} {
+	return asignacion.baja !== null;
+}
+
+export function esAsignacionActiva(
+	asignacion: AsignacionEmpleadoEducativoRowDTO,
+): boolean {
+	return asignacion.baja === null;
 }

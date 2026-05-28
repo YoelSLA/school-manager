@@ -1,7 +1,11 @@
 package com.gestion.escuela.gestion_escolar.controllers.escuelasContexto;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.PageResponse;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.*;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.request.EmpleadoEducativoCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.request.EmpleadoEducativoUpdateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.response.EmpleadoEducativoConRolesDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.response.EmpleadoEducativoDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.response.EmpleadoEducativoResumenDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.response.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.EmpleadoEducativoMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;

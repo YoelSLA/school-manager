@@ -5,6 +5,12 @@ const isDev = !app.isPackaged;
 
 let mainWindow = null;
 
+/*
+	true  = mostrar menú
+	false = ocultar menú
+*/
+const SHOW_MENU = true;
+
 function createWindow() {
 	mainWindow = new BrowserWindow({
 		width: 1366,
@@ -12,15 +18,18 @@ function createWindow() {
 		minWidth: 1300,
 		minHeight: 720,
 
-		autoHideMenuBar: true,
+		// Si es false, oculta automáticamente la barra
+		autoHideMenuBar: !SHOW_MENU,
 
 		webPreferences: {
 			preload: path.join(__dirname, "preload.cjs"),
 		},
 	});
 
-	// Oculta completamente el menú
-	Menu.setApplicationMenu(null);
+	// Mostrar u ocultar menú completamente
+	if (!SHOW_MENU) {
+		Menu.setApplicationMenu(null);
+	}
 
 	if (isDev) {
 		mainWindow.loadURL("http://localhost:5173");

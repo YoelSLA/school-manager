@@ -1,5 +1,5 @@
 import { Route } from "react-router-dom";
-import EmpleadoEducativoEditPage from "@/features/empleadosEducativos/pages/EmpeladoEducativoEditPage/EmpeladoEducativoEditPage";
+import EmpleadoEducativoUpdatePage from "@/features/empleadosEducativos/pages/EmpeladoEducativoUpdatePage";
 import EquipoEducativoCreatePage from "@/features/empleadosEducativos/pages/EmpleadoEducativoCreatePage";
 import EmpleadoEducativoDetallePage from "@/features/empleadosEducativos/pages/EmpleadoEducativoDetallePage/EmpleadoEducativoDetallePage";
 import EmpleadosEducativosPage from "@/features/empleadosEducativos/pages/EmpleadosEducativosPage";
@@ -18,7 +18,7 @@ export function EmpleadosEducativosRoutes() {
 			/>
 			<Route
 				path="empleadosEducativos/:empleadoId/editar"
-				element={<EmpleadoEducativoEditPage />}
+				element={<EmpleadoEducativoUpdatePage />}
 			/>
 		</>
 	);

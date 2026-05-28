@@ -4,7 +4,7 @@ import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
 import type { EmpleadoEducativoFiltro, SortState } from "@/shared/utils/types";
 import { empleadosEducativosQueryKeys } from "../../../shared/utils/queryKeys/empleadosEducativos.queryKeys";
-import { getEmpleadosPorEscuela } from "../services/empleadosEducativos.services";
+import { getEmpleadosPorEscuela } from "../empleadosEducativos.services";
 
 export function useEmpleadosEducativos(
 	estado: EmpleadoEducativoFiltro = "TODOS",
@@ -19,12 +19,12 @@ export function useEmpleadosEducativos(
 		queryKey:
 			escuelaId != null
 				? empleadosEducativosQueryKeys.byEscuela(
-					escuelaId,
-					estado,
-					page,
-					size,
-					sort, // 👈 PASAMOS EL OBJETO
-				)
+						escuelaId,
+						estado,
+						page,
+						size,
+						sort, // 👈 PASAMOS EL OBJETO
+					)
 				: empleadosEducativosQueryKeys.lists(),
 
 		queryFn: () => {

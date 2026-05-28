@@ -1,5 +1,6 @@
 package com.gestion.escuela.gestion_escolar.controllers.exceptions;
 
+import com.gestion.escuela.gestion_escolar.controllers.dtos.response.ApiError;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoDuplicadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionNoActivaDelEmpleadoException;

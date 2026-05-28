@@ -4,7 +4,7 @@ import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
 import type { EmpleadoEducativoMinimoDTO } from "@/shared/utils/types";
 import { empleadosEducativosQueryKeys } from "../../../shared/utils/queryKeys/empleadosEducativos.queryKeys";
-import { buscarEmpleadosPorEscuela } from "../services/empleadosEducativos.services";
+import { buscarEmpleadosPorEscuela } from "../empleadosEducativos.services";
 
 export default function useEmpleadoSearch(search: string) {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);

@@ -1,0 +1,28 @@
+package com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.request;
+
+import com.gestion.escuela.gestion_escolar.controllers.dtos.periodo.request.PeriodoCreateDTO;
+import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+import java.util.Set;
+
+public record LicenciaCreateDTO(
+
+		@NotNull(message = "El período es obligatorio")
+		@Valid
+		PeriodoCreateDTO periodo,
+
+		@NotNull(message = "El tipo de licencia es obligatorio")
+		TipoLicencia tipoLicencia,
+
+		@Size(max = 255, message = "La descripción no puede superar los 255 caracteres")
+		String descripcion,
+
+		@NotEmpty(message = "Debe indicar al menos una designación afectada")
+		Set<Long> designacionesIds
+) {
+}
+

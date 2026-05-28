@@ -1,10 +1,10 @@
 package com.gestion.escuela.gestion_escolar.controllers.escuelasContexto;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.PageResponse;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.MateriaCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.MateriaNombreDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.MateriaResponseDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.MateriaUpdateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.request.MateriaCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.request.MateriaUpdateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.response.MateriaNombreDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.response.MateriaResponseDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.response.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.MateriaMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.Materia;

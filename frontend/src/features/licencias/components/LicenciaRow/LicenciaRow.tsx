@@ -1,11 +1,13 @@
 import { CalendarRange, FileText, Timer } from "lucide-react";
 
 import BadgeEstadoLicencia from "@/shared/components/BagdeEstadoLicencia";
-import type { EmpleadoEducativoLicenciaItemDTO } from "@/shared/utils/types";
+
+import type { LicenciaEmpleadoEducativoRowDTO } from "@/shared/utils/types";
+
 import styles from "./LicenciaRow.module.scss";
 
 type Props = {
-	licencia: EmpleadoEducativoLicenciaItemDTO;
+	licencia: LicenciaEmpleadoEducativoRowDTO;
 };
 
 function formatDate(date: string) {
@@ -17,7 +19,7 @@ function formatDate(date: string) {
 }
 
 export default function LicenciaRow({ licencia }: Props) {
-	const { normativa, periodo, estadoLicencia } = licencia;
+	const { normativa, periodo, estado } = licencia;
 
 	return (
 		<article className={styles.licenciaRow}>
@@ -25,6 +27,7 @@ export default function LicenciaRow({ licencia }: Props) {
 				<div className={styles.licenciaRow__titleBlock}>
 					<div className={styles.licenciaRow__title}>
 						<FileText size={15} />
+
 						<span>
 							{normativa.codigo} · {normativa.articulo}
 						</span>
@@ -32,7 +35,7 @@ export default function LicenciaRow({ licencia }: Props) {
 				</div>
 
 				<div className={styles.licenciaRow__estado}>
-					<BadgeEstadoLicencia value={estadoLicencia} />
+					<BadgeEstadoLicencia value={estado} />
 				</div>
 			</div>
 
@@ -45,9 +48,12 @@ export default function LicenciaRow({ licencia }: Props) {
 					<span className={styles.licenciaRow__separator}>➡️</span>
 
 					<span>{formatDate(periodo.fechaHasta)}</span>
+
 					<span> - </span>
+
 					<div className={styles.licenciaRow__dias}>
 						<Timer size={14} />
+
 						<span>{periodo.dias} días</span>
 					</div>
 				</div>

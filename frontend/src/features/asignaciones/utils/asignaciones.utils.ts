@@ -39,3 +39,10 @@ export const FILTROS_CARGOS: {
 	{ value: "FINALIZADA", label: "Finalizados" },
 	{ value: "BAJA", label: "Bajas" },
 ];
+
+export default function formatEnumLabel(value: string) {
+	return value
+		.toLowerCase()
+		.replaceAll("_", " ")
+		.replace(/\b\w/g, (letter) => letter.toUpperCase());
+}

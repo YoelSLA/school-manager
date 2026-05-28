@@ -1,39 +1,67 @@
 package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.PeriodoCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.PeriodoResponseDTO;
-import com.gestion.escuela.gestion_escolar.models.Licencia;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.periodo.request.PeriodoAbiertoCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.periodo.request.PeriodoCerradoCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.periodo.request.PeriodoCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.periodo.response.PeriodoAbiertoDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.periodo.response.PeriodoCerradoDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.periodo.response.PeriodoDTO;
 import com.gestion.escuela.gestion_escolar.models.Periodo;
-import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
+
+import java.time.LocalDate;
 
 public class PeriodoMapper {
 
-	public static PeriodoResponseDTO toPeriodoResponse(Licencia licencia) {
-
-		Periodo periodo = licencia.getPeriodo();
-
-		return new PeriodoResponseDTO(
+	public static PeriodoDTO toDTO(Periodo periodo) {
+		if (periodo.esAbierto()) {
+			return new PeriodoAbiertoDTO(
+					periodo.getFechaDesde()
+			);
+		}
+		return new PeriodoCerradoDTO(
 				periodo.getFechaDesde(),
 				periodo.getFechaHasta(),
-				periodo.esAbierto() ? null : licencia.dias()
+				periodo.dias()
 		);
 	}
 
-	public static PeriodoResponseDTO toPeriodoResponse(Asignacion asignacion) {
-		Periodo periodo = asignacion.getPeriodo();
-		return new PeriodoResponseDTO(
+	public static PeriodoCerradoDTO toCerradoDTO(Periodo periodo) {
+		if (periodo.esAbierto()) {
+			throw new UnsupportedOperationException(
+					"Se esperaba un período cerrado"
+			);
+		}
+		return new PeriodoCerradoDTO(
 				periodo.getFechaDesde(),
 				periodo.getFechaHasta(),
-				periodo.esAbierto() ? null : periodo.dias()
+				periodo.dias()
 		);
+	}
+
+	public static PeriodoAbiertoDTO toAbiertoDTO(Periodo periodo) {
+		if (!periodo.esAbierto()) {
+			throw new UnsupportedOperationException(
+					"Se esperaba un período abierto"
+			);
+		}
+		return new PeriodoAbiertoDTO(periodo.getFechaDesde());
 	}
 
 	public static Periodo toEntity(PeriodoCreateDTO dto) {
 
-		if (dto.fechaHasta() == null) {
-			return Periodo.abierto(dto.fechaDesde());
-		}
+		return switch (dto) {
 
-		return Periodo.cerrado(dto.fechaDesde(), dto.fechaHasta());
+			case PeriodoAbiertoCreateDTO(
+					LocalDate fechaDesde
+			) -> Periodo.abierto(fechaDesde);
+
+			case PeriodoCerradoCreateDTO(
+					LocalDate fechaDesde,
+					LocalDate fechaHasta
+			) -> Periodo.cerrado(
+					fechaDesde,
+					fechaHasta
+			);
+		};
 	}
 }

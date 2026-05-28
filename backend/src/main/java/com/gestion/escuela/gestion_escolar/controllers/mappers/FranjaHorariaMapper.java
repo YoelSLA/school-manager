@@ -1,7 +1,7 @@
 package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.horarios.FranjaHorariaCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.horarios.FranjaHorariaMinimoDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.horarios.request.FranjaHorariaCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.horarios.response.FranjaHorariaMinimoDTO;
 import com.gestion.escuela.gestion_escolar.models.FranjaHoraria;
 
 public final class FranjaHorariaMapper {

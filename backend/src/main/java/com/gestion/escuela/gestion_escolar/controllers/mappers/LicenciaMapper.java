@@ -1,7 +1,8 @@
 package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.*;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.response.AsignacionDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.response.*;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.periodo.response.PeriodoCerradoDTO;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
@@ -33,10 +34,10 @@ public class LicenciaMapper {
 
 		return new LicenciaResumenDTO(
 				l.getId(),
-				EmpleadoEducativoMapper.toMinimo(l.getEmpleadoEducativo()),
+				EmpleadoEducativoMapper.toBasico(l.getEmpleadoEducativo()),
 				normativa,
 				tipo.getDescripcion(),
-				PeriodoMapper.toPeriodoResponse(l),
+				(PeriodoCerradoDTO) PeriodoMapper.toDTO(l.getPeriodo()),
 				l.getEstadoEn(HOY),
 				l.diasRestantes(HOY)
 		);
@@ -59,10 +60,10 @@ public class LicenciaMapper {
 
 		return new LicenciaDetalleDTO(
 				l.getId(),
-				EmpleadoEducativoMapper.toMinimo(l.getEmpleadoEducativo()),
+				EmpleadoEducativoMapper.toBasico(l.getEmpleadoEducativo()),
 				normativa,
 				l.getDescripcion(),
-				PeriodoMapper.toPeriodoResponse(l),
+				PeriodoMapper.toCerradoDTO(l.getPeriodo()),
 				l.getEstadoEn(HOY)
 		);
 	}
@@ -107,8 +108,25 @@ public class LicenciaMapper {
 		return new LicenciaTimelineItemDTO(
 				l.getId(),
 				l.getLicenciaAnterior() == null ? TipoPeriodoLicencia.ORIGINAL : TipoPeriodoLicencia.RENOVACION,
-				PeriodoMapper.toPeriodoResponse(l)
+				PeriodoMapper.toCerradoDTO(l.getPeriodo())
 
+		);
+	}
+
+	public static LicenciaEmpleadoEducativoRowDTO toLicenciaRow(Licencia l) {
+		TipoLicencia tipo = l.getTipoLicencia();
+		LicenciaNormativaDTO normativaDTO = new LicenciaNormativaDTO(
+				tipo.getCodigo(),
+				tipo.getArticulo(),
+				tipo.getDescripcion()
+		);
+		return new LicenciaEmpleadoEducativoRowDTO(
+				l.getId(),
+				tipo,
+				PeriodoMapper.toCerradoDTO(l.getPeriodo()),
+				normativaDTO,
+				l.getEstadoEn(HOY),
+				l.getDescripcion()
 		);
 	}
 }

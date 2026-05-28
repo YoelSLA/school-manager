@@ -1,7 +1,7 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.escuelas.EscuelaCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.escuelas.EscuelaResumenDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.escuelas.request.EscuelaCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.escuelas.response.EscuelaResumenDTO;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.EscuelaMapper;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.services.AsistenciaService;

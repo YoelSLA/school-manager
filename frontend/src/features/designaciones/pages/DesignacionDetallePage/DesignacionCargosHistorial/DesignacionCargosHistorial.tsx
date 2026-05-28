@@ -1,21 +1,25 @@
-import Button from "@/components/Button";
-import FilterPillGroup from "@/components/FilterPillGroup/FilterPillGroup";
-import { FILTROS_CARGOS } from "@/features/asignaciones/utils/asignaciones.utils";
 import type { AsignacionDetalleDTO, FiltroCargos } from "@/shared/utils/types";
-import CargoRow from "./CargoRow";
 import styles from "./DesignacionCargosHistorial.module.scss";
+import DesignacionCargosHistorialContent from "./DesignacionCargosHistorialContent/DesignacionCargosHistorialContent";
+import DesignacionCargosHistorialHeader from "./DesignacionCargosHistorialHeader/DesignacionCargosHistorialHeader";
 
 const MENSAJES: Record<FiltroCargos, string> = {
 	LICENCIA: "No hay cargos por licencia",
+
 	FINALIZADA: "No hay cargos finalizados",
+
 	BAJA: "No hay cargos dados de baja",
 };
 
 type Props = {
 	cargos: AsignacionDetalleDTO[];
+
 	isLoading?: boolean;
+
 	filtro: FiltroCargos;
+
 	onChangeFiltro: (f: FiltroCargos) => void;
+
 	onNuevoCargo: (tipo: "TITULAR" | "PROVISIONAL") => void;
 };
 
@@ -28,52 +32,17 @@ export default function DesignacionCargosHistorial({
 }: Props) {
 	return (
 		<section className={styles.root}>
-			{/* 🔥 TITULO */}
-			<h3 className={styles.title}>HISTORIAL DE CARGOS</h3>
+			<DesignacionCargosHistorialHeader
+				filtro={filtro}
+				onChangeFiltro={onChangeFiltro}
+				onNuevoCargo={onNuevoCargo}
+			/>
 
-			{/* HEADER */}
-			<div className={styles.header}>
-				<FilterPillGroup<FiltroCargos>
-					items={FILTROS_CARGOS}
-					value={filtro}
-					onChange={onChangeFiltro}
-				/>
-
-				<Button
-					variant="primary"
-					size="sm"
-					className={styles.create}
-					dropdownItems={[
-						{
-							label: "Titular",
-							onClick: () => onNuevoCargo("TITULAR"),
-						},
-						{
-							label: "Provisional",
-							onClick: () => onNuevoCargo("PROVISIONAL"),
-						},
-					]}
-				>
-					Nuevo cargo
-				</Button>
-			</div>
-
-			{/* CONTENT */}
-			<div className={styles.content}>
-				{isLoading && <p className={styles.loading}>Cargando cargos…</p>}
-
-				{!isLoading && cargos.length === 0 && (
-					<p className={styles.empty}>{MENSAJES[filtro]}</p>
-				)}
-
-				{!isLoading && cargos.length > 0 && (
-					<div>
-						{cargos.map((cargo) => (
-							<CargoRow key={cargo.id} cargo={cargo} />
-						))}
-					</div>
-				)}
-			</div>
+			<DesignacionCargosHistorialContent
+				cargos={cargos}
+				isLoading={isLoading}
+				emptyMessage={MENSAJES[filtro]}
+			/>
 		</section>
 	);
 }

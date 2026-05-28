@@ -1,0 +1,190 @@
+.header {
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+.titleSection {
+	display: flex;
+	align-items: center;
+	gap: 0.9rem;
+
+	min-width: 0;
+}
+
+.iconContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 2.75rem;
+	height: 2.75rem;
+
+	flex-shrink: 0;
+
+	border-radius: 0.9rem;
+
+	background: linear-gradient(
+		135deg,
+		rgba(99, 102, 241, 0.14),
+		rgba(139, 92, 246, 0.2)
+	);
+
+	color: #5b21b6;
+
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.5),
+		0 4px 12px rgba(99, 102, 241, 0.15);
+
+	transition:
+		transform 180ms ease,
+		box-shadow 180ms ease;
+
+	:global(svg) {
+		width: 1.1rem;
+		height: 1.1rem;
+	}
+}
+
+.titleContent {
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
+
+	min-width: 0;
+}
+
+.title {
+	font-size: 1rem;
+	font-weight: 700;
+
+	letter-spacing: -0.02em;
+
+	color: #0f172a;
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.label {
+	font-size: 0.72rem;
+	font-weight: 700;
+
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+
+	color: #94a3b8;
+}
+
+.status {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	flex-shrink: 0;
+}
+
+.badges {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+
+	gap: 0.55rem;
+}
+
+.badge,
+.badgeCurso,
+.badgeOrientacion {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+
+	padding: 0.45rem 0.8rem;
+
+	border-radius: 999px;
+
+	font-size: 0.82rem;
+	font-weight: 600;
+
+	backdrop-filter: blur(8px);
+
+	transition:
+		background 180ms ease,
+		transform 180ms ease;
+
+	:global(svg) {
+		width: 0.9rem;
+		height: 0.9rem;
+
+		flex-shrink: 0;
+	}
+}
+
+.badge {
+	border: 1px solid #e2e8f0;
+
+	background: #f8fafc;
+
+	color: #334155;
+
+	&:hover {
+		background: #f1f5f9;
+	}
+}
+
+.badgeCurso {
+	border: 1px solid rgba(99, 102, 241, 0.18);
+
+	background: rgba(99, 102, 241, 0.1);
+
+	color: #4338ca;
+
+	&:hover {
+		background: rgba(99, 102, 241, 0.16);
+	}
+}
+
+.badgeOrientacion {
+	border: 1px solid rgba(16, 185, 129, 0.2);
+
+	background: rgba(16, 185, 129, 0.12);
+
+	color: #047857;
+
+	&:hover {
+		background: rgba(16, 185, 129, 0.18);
+	}
+}
+
+.footer {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+
+	width: 100%;
+}
+
+.footerIcon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 2rem;
+	height: 2rem;
+
+	flex-shrink: 0;
+
+	border-radius: 0.7rem;
+
+	border: 1px solid #e2e8f0;
+
+	background: #f8fafc;
+
+	color: #64748b;
+
+	:global(svg) {
+		width: 0.9rem;
+		height: 0.9rem;
+	}
+}

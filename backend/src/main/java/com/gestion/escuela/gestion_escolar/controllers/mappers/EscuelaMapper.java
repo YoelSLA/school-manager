@@ -1,7 +1,7 @@
 package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.escuelas.EscuelaCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.escuelas.EscuelaResumenDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.escuelas.request.EscuelaCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.escuelas.response.EscuelaResumenDTO;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 
 public class EscuelaMapper {

@@ -1,0 +1,67 @@
+.card {
+	border-radius: 1.4rem;
+
+	padding: 1rem 1.1rem;
+
+	background: rgb(255 255 255 / 72%);
+
+	backdrop-filter: blur(6px);
+
+	border: 1px solid rgb(255 255 255 / 55%);
+
+	box-shadow:
+		0 10px 30px rgb(0 0 0 / 8%),
+		0 2px 8px rgb(0 0 0 / 5%);
+}
+
+.content {
+	display: flex;
+
+	flex-direction: column;
+
+	gap: 0.9rem;
+}
+
+.header {
+	display: flex;
+
+	align-items: center;
+
+	justify-content: space-between;
+
+	gap: 1rem;
+}
+
+.tipoPill {
+	display: inline-flex;
+
+	align-items: center;
+
+	padding: 0.35rem 0.7rem;
+
+	border-radius: 999px;
+
+	background: var(--color-surface-secondary);
+
+	border: 1px solid var(--color-border);
+}
+
+.codigo {
+	font-size: 0.8rem;
+
+	font-weight: 700;
+
+	letter-spacing: 0.03em;
+
+	color: var(--color-text);
+}
+
+.descripcion {
+	font-size: 0.92rem;
+
+	line-height: 1.45;
+
+	color: var(--color-text-secondary);
+
+	margin: 0;
+}

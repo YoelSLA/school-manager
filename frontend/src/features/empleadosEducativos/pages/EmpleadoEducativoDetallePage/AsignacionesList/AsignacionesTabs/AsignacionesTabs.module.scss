@@ -1,0 +1,123 @@
+.tabs {
+	position: relative;
+
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+
+	margin-top: 1rem;
+	padding: 0.35rem;
+
+	border-radius: 1rem;
+
+
+	backdrop-filter: blur(12px);
+
+}
+
+.tab {
+	position: relative;
+
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+
+	min-width: 140px;
+
+	padding: 0.8rem 1rem;
+
+	border: none;
+	border-radius: 0.8rem;
+
+	background: transparent;
+
+	cursor: pointer;
+
+	font-size: 0.95rem;
+	font-weight: 700;
+
+	color: #64748b;
+
+	transition:
+		background 180ms ease,
+		color 180ms ease,
+		transform 180ms ease,
+		box-shadow 180ms ease;
+
+	&:hover {
+		color: #1e1b4b;
+
+		background: rgba(255, 255, 255, 0.55);
+	}
+}
+
+.tabActive {
+	color: #4338ca;
+
+	background: linear-gradient(
+		180deg,
+		rgba(255, 255, 255, 0.96),
+		rgba(248, 250, 252, 0.92)
+	);
+
+	box-shadow:
+		0 2px 10px rgba(99, 102, 241, 0.12),
+		inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+	transform: translateY(-1px);
+
+	&::before {
+		content: "";
+
+		position: absolute;
+
+		left: 0.75rem;
+		right: 0.75rem;
+		bottom: 0;
+
+		height: 3px;
+
+		border-radius: 999px;
+
+		background: linear-gradient(
+			90deg,
+			#6366f1,
+			#8b5cf6
+		);
+	}
+}
+
+.count {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	min-width: 1.5rem;
+	height: 1.5rem;
+
+	padding-inline: 0.45rem;
+
+	border-radius: 999px;
+
+	font-size: 0.78rem;
+	font-weight: 800;
+
+	background: rgba(99, 102, 241, 0.1);
+
+	color: inherit;
+
+	transition:
+		background 180ms ease,
+		transform 180ms ease;
+}
+
+.tabActive .count {
+	background: linear-gradient(
+		135deg,
+		rgba(99, 102, 241, 0.16),
+		rgba(139, 92, 246, 0.18)
+	);
+
+	color: #4338ca;
+}

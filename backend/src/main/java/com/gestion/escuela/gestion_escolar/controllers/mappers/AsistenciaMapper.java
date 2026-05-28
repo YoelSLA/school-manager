@@ -1,6 +1,6 @@
 package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencias.AsistenciaDiaDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencias.response.AsistenciaDiaDTO;
 import com.gestion.escuela.gestion_escolar.models.EstadoAsistenciaDia;
 import com.gestion.escuela.gestion_escolar.models.enums.OrigenAsistencia;
 
