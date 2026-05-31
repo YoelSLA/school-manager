@@ -1,8 +1,3 @@
-import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
-import BadgeSituacionRevista from "@/shared/components/BadgeSituacionRevista";
-
-import type { DesignacionLicenciaCursoItemDTO } from "@/shared/utils/types";
-
 import {
 	BookOpen,
 	CalendarDays,
@@ -10,7 +5,10 @@ import {
 	Hash,
 	User,
 } from "lucide-react";
-
+import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
+import BadgeSituacionRevista from "@/shared/components/BadgeSituacionRevista";
+import { TURNO_LABELS } from "@/shared/utils/enumLabels";
+import type { DesignacionLicenciaCursoItemDTO } from "@/shared/utils/types";
 import styles from "./DesignacionCursoRow.module.scss";
 
 type Props = {
@@ -25,9 +23,6 @@ export default function DesignacionCursoRow({
 	onToggle,
 }: Props) {
 	const { cargoActivo, isLoading } = useCargoActivo(designacion.id);
-
-	const esTitular =
-		cargoActivo?.situacionDeRevista === "Titular";
 
 	return (
 		<label className={styles.item}>
@@ -59,22 +54,16 @@ export default function DesignacionCursoRow({
 					<span className={styles.curso}>
 						<GraduationCap size={15} />
 						{designacion.curso.division} —{" "}
-						{designacion.curso.turno}
+						{TURNO_LABELS[designacion.curso.turno]}
 					</span>
 				</div>
 
 				{isLoading ? (
-					<div className={styles.loading}>
-						Cargando cargo...
-					</div>
+					<div className={styles.loading}>Cargando cargo...</div>
 				) : cargoActivo ? (
 					<div className={styles.meta}>
 						<div className={styles.tipo}>
-							<BadgeSituacionRevista
-								value={
-									cargoActivo.situacionDeRevista
-								}
-							/>
+							<BadgeSituacionRevista value={cargoActivo.situacionDeRevista} />
 						</div>
 
 						<span className={styles.dot}>•</span>
@@ -82,24 +71,19 @@ export default function DesignacionCursoRow({
 						<span className={styles.fecha}>
 							<CalendarDays size={14} />
 
-							{esTitular ? (
-								<>
-									Desde{" "}
-									{cargoActivo.periodo.fechaDesde}
-								</>
-							) : (
+							{cargoActivo.periodo.tipo === "CERRADO" ? (
 								<>
 									{cargoActivo.periodo.fechaDesde}
 									{" → "}
 									{cargoActivo.periodo.fechaHasta}
 								</>
+							) : (
+								<>Desde {cargoActivo.periodo.fechaDesde}</>
 							)}
 						</span>
 					</div>
 				) : (
-					<div className={styles.empty}>
-						Sin cargo activo
-					</div>
+					<div className={styles.empty}>Sin cargo activo</div>
 				)}
 			</div>
 		</label>

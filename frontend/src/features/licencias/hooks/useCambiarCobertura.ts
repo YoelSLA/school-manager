@@ -1,7 +1,7 @@
-import { licenciasQueryKeys } from "@/shared/utils/queryKeys/licencias.queryKeys";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { licenciasQueryKeys } from "@/shared/utils/queryKeys/licencias.queryKeys";
+import { cambiarCobertura } from "../../../services/licencia.service";
 import type { CambiarCoberturaDTO } from "../form/cambiarCobertura.schema";
-import { cambiarCobertura } from "../services/licencias.services";
 
 type Variables = {
 	licenciaId: number;

@@ -1,3 +1,5 @@
+@use "@/styles/breakpoints" as *;
+
 .dayContent {
 	width: 100%;
 	height: 100%;
@@ -12,9 +14,9 @@
 	width: 100%;
 	height: 100%;
 
-	padding: 10px 6px;
+	padding: 6px 4px;
 
-	border-radius: 16px;
+	border-radius: 14px;
 
 	background-color: white;
 
@@ -29,15 +31,13 @@
 
 .dayInner--laboral {
 	background-color: #dceeff;
-
 	border: 1px solid #93c5fd;
 }
 
 .dayContent:hover .dayInner {
 	transform: translateY(-1px);
 
-	box-shadow: 0 4px 12px
-		rgba(15, 23, 42, 0.08);
+	box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
 
 	border-color: #cbd5e1;
 }
@@ -47,7 +47,7 @@
  * =======================================================*/
 
 .dayNumber {
-	font-size: 28px;
+	font-size: 20px;
 	font-weight: 700;
 	line-height: 1;
 
@@ -63,14 +63,14 @@
 	align-items: center;
 	justify-content: center;
 
-	min-width: 42px;
-	height: 22px;
+	min-width: 32px;
+	height: 18px;
 
-	padding: 0 10px;
+	padding: 0 8px;
 
 	border-radius: 999px;
 
-	font-size: 11px;
+	font-size: 10px;
 	font-weight: 700;
 
 	background-color: #dcfce7;
@@ -92,40 +92,43 @@
 }
 
 /* =========================================================
- * RESPONSIVE
+ * DESKTOP SMALL
  * =======================================================*/
 
-@media (max-width: 1200px) {
-	.dayContent {
-		height: 84px;
-	}
-
-	.dayNumber {
-		font-size: 20px;
-	}
-}
-
-@media (max-width: 900px) {
-	.dayContent {
-		height: 70px;
-
-		border-radius: 14px;
-	}
-
+@include desktop-width-small {
 	.dayInner {
-		gap: 6px;
-
-		border-radius: 14px;
+		padding: 4px;
+		border-radius: 12px;
 	}
 
 	.dayNumber {
-		font-size: 18px;
+		font-size: 16px;
 	}
 
 	.dayCode {
-		min-width: 24px;
-		height: 18px;
+		height: 16px;
+		min-width: 28px;
+		font-size: 9px;
+		padding: 0 6px;
+	}
+}
 
-		font-size: 10px;
+/* =========================================================
+ * HEIGHT SMALL
+ * =======================================================*/
+
+@include desktop-height-small {
+	.dayInner {
+		padding: 4px;
+	}
+
+	.dayNumber {
+		font-size: 16px;
+	}
+
+	.dayCode {
+		height: 16px;
+		min-width: 28px;
+		font-size: 9px;
 	}
 }

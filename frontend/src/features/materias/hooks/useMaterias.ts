@@ -1,7 +1,7 @@
+import { useQuery } from "@tanstack/react-query";
 import { materiasQueryKeys } from "@/shared/utils/queryKeys/materias.queryKeys";
 import type { MateriaResponseDTO, PageResponse } from "@/shared/utils/types";
-import { useQuery } from "@tanstack/react-query";
-import { obtenerMaterias } from "../services/materias.services";
+import { obtenerMaterias } from "../../../services/materia.service";
 
 export function useMaterias(
 	escuelaId?: number,

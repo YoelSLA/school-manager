@@ -1,30 +1,38 @@
 import { useNavigate } from "react-router-dom";
-
-type EmpleadoResumen = {
-	id: number | string;
-	nombre: string;
-	apellido: string;
-	cuil: string;
-};
+import { asistenciasPaths } from "@/app/router/paths";
+import type { AsistenciaEmpleadoResumenDTO } from "@/shared/utils/types";
 
 export function useAsistenciasNavigation() {
 	const navigate = useNavigate();
 
+	const buildState = (empleado: AsistenciaEmpleadoResumenDTO) => ({
+		dynamicLabels: {
+			[String(empleado.empleadoBasico.id)]:
+				`${empleado.empleadoBasico.apellido}, ${empleado.empleadoBasico.nombre}`,
+		},
+
+		empleado: {
+			nombre: empleado.empleadoBasico.nombre,
+			apellido: empleado.empleadoBasico.apellido,
+			cuil: empleado.empleadoBasico.cuil,
+			roles: empleado.roles,
+		},
+	});
+
 	return {
-		verAsistenciasEmpleado: (empleado: EmpleadoResumen) => {
-			navigate(`/asistencias/${empleado.id}`, {
-				state: {
-					empleado: {
-						nombre: empleado.nombre,
-						apellido: empleado.apellido,
-						cuil: empleado.cuil,
-					},
-				},
+		verDetalle: (empleado: AsistenciaEmpleadoResumenDTO) => {
+			const today = new Date();
+
+			const anio = today.getFullYear();
+			const mes = today.getMonth() + 1;
+
+			navigate(asistenciasPaths.detail(empleado.empleadoBasico.id, anio, mes), {
+				state: buildState(empleado),
 			});
 		},
 
 		volverAlListado: () => {
-			navigate("/asistencias");
+			navigate(asistenciasPaths.list);
 		},
 	};
 }

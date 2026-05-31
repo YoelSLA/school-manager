@@ -564,7 +564,7 @@ class LicenciaTest extends DomainTestFixture {
 			assertThat(resultado).contains("tipoLicencia");
 			assertThat(resultado).contains("Licencia médica");
 			assertThat(resultado).contains("periodo");
-			assertThat(resultado).contains("designaciones");
+			assertThat(resultado).contains("designacion");
 		}
 	}
 

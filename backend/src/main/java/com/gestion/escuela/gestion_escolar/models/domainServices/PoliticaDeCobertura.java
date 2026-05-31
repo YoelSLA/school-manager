@@ -4,10 +4,15 @@ import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.Periodo;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
-import com.gestion.escuela.gestion_escolar.models.exceptions.*;
+import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionNoAfectadaPorLicenciaException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionNoVacantePorLicenciaException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionYaCubiertaException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionYaTieneTitularException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo.EmpleadoEnLicenciaException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo.EmpleadoInactivoException;
 
 import java.time.LocalDate;
 

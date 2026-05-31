@@ -1,10 +1,10 @@
-import { crearLicencia } from "@/features/empleadosEducativos/services/empleadosEducativos.services";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { crearLicencia } from "@/services/empleadoEducativo.service";
 import { designacionesQueryKeys } from "@/shared/utils/queryKeys/designaciones.queryKeys";
 import { empleadosEducativosQueryKeys } from "@/shared/utils/queryKeys/empleadosEducativos.queryKeys";
 import { licenciasQueryKeys } from "@/shared/utils/queryKeys/licencias.queryKeys";
 import type { LicenciaCreateDTO } from "@/shared/utils/types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 
 type Variables = {
 	empleadoId: number;

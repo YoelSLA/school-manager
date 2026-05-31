@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public interface EmpleadoEducativoService {
@@ -59,4 +60,6 @@ public interface EmpleadoEducativoService {
 	EmpleadoEducativo actualizar(EmpleadoEducativo empleado);
 
 	Set<Designacion> obtenerDesignacionesActivas(Long empleadoId);
+
+	Optional<Licencia> obtenerLicenciaActiva(Long empleadoId, LocalDate fecha);
 }

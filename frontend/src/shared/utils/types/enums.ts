@@ -1,7 +1,7 @@
 export enum SituacionDeRevista {
-	TITULAR = "Titular",
-	PROVISIONAL = "Provisional",
-	SUPLENTE = "Suplente",
+	TITULAR = "TITULAR",
+	PROVISIONAL = "PROVISIONAL",
+	SUPLENTE = "SUPLENTE",
 }
 
 export enum CaracteristicaAsignacion {
@@ -27,7 +27,6 @@ export enum RolEducativo {
 
 export enum EstadoDesignacion {
 	CUBIERTA = "CUBIERTA",
-	LICENCIA = "LICENCIA",
 	VACANTE = "VACANTE",
 }
 
@@ -47,9 +46,29 @@ export enum EstadoLicencia {
 }
 
 export enum Dia {
-	LUNES = "Lunes",
-	MARTES = "Martes",
-	MIERCOLES = "Miércoles",
-	JUEVES = "Jueves",
-	VIERNES = "Viernes",
+	LUNES = "LUNES",
+	MARTES = "MARTES",
+	MIERCOLES = "MIERCOLES",
+	JUEVES = "JUEVES",
+	VIERNES = "VIERNES",
+}
+
+export enum CausaBaja {
+	RENUNCIA = "RENUNCIA",
+	CESE_DE_FUNCIONES = "CESE_DE_FUNCIONES",
+	JUBILACION = "JUBILACION",
+	FALLECIMIENTO = "FALLECIMIENTO",
+	PASE_A_PROVISIONAL = "PASE_A_PROVISIONAL",
+	OTRA = "OTRA",
+}
+
+export enum Turno {
+	MANIANA = "MANIANA",
+	TARDE = "TARDE",
+	VESPERTINO = "VESPERTINO",
+}
+
+export enum TipoPeriodo {
+	ABIERTO = "ABIERTO",
+	CERRADO = "CERRADO",
 }

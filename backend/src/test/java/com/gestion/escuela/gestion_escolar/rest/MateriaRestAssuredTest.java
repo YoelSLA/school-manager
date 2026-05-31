@@ -1,6 +1,9 @@
 package com.gestion.escuela.gestion_escolar.rest;
 
 import com.gestion.escuela.gestion_escolar.AbstractIntegrationTest;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.escuela.request.EscuelaCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.request.MateriaCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.request.MateriaUpdateDTO;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,17 +30,16 @@ class MateriaRestAssuredTest extends AbstractIntegrationTest {
 	@Test
 	void flujoCompletoMateria() {
 
-		long escuelaId =
-				given()
+		EscuelaCreateDTO escuelaDTO = new EscuelaCreateDTO(
+				"Escuela N°66",
+				"Bernal",
+				"Brown 5066",
+				"45674567"
+		);
+
+		long escuelaId = given()
 						.contentType(ContentType.JSON)
-						.body("""
-								    {
-								      "nombre": "Escuela N°66",
-									  "localidad": "Bernal",
-									  "direccion": "Brown 5066",
-									  "telefono": "45674567"
-								    }
-								""")
+						.body(escuelaDTO)
 						.when()
 						.post("/api/escuelas")
 						.then()
@@ -46,16 +48,15 @@ class MateriaRestAssuredTest extends AbstractIntegrationTest {
 						.jsonPath()
 						.getLong("id");
 
-		long materiaId =
-				given()
+		MateriaCreateDTO materiaDTO = new MateriaCreateDTO(
+				"Matemática",
+				"MAT",
+				4
+		);
+
+		long materiaId = given()
 						.contentType(ContentType.JSON)
-						.body("""
-								    {
-								      "nombre": "Matemática",
-								      "abreviatura": "MAT",
-								      "cantidadModulos": 4
-								    }
-								""")
+						.body(materiaDTO)
 						.when()
 						.post("/api/escuelas/" + escuelaId + "/materias")
 						.then()
@@ -64,7 +65,6 @@ class MateriaRestAssuredTest extends AbstractIntegrationTest {
 						.jsonPath().
 						getLong("id");
 
-
 		given()
 				.when()
 				.get("/api/escuelas/" + escuelaId + "/materias")
@@ -72,15 +72,16 @@ class MateriaRestAssuredTest extends AbstractIntegrationTest {
 				.statusCode(200)
 				.body("content.nombre", hasItem("Matemática"));
 
+
+		MateriaUpdateDTO updateDTO = new MateriaUpdateDTO(
+				"Matemática Avanzada",
+				"MAT2",
+				5
+		);
+
 		given()
 				.contentType(ContentType.JSON)
-				.body("""
-						    {
-						      "nombre": "Matemática Avanzada",
-						      "abreviatura": "MAT2",
-						      "cantidadModulos": 5
-						    }
-						""")
+				.body(updateDTO)
 				.when()
 				.put("/api/escuelas/" + escuelaId + "/materias/" + materiaId)
 				.then()

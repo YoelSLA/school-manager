@@ -1,10 +1,10 @@
+import { Clock, Tag } from "lucide-react";
 import { Card } from "@/components/Card";
 import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
 import BadgeSituacionRevista from "@/shared/components/BadgeSituacionRevista/BadgeSituacionRevista";
 import BadgeEstadoDesignacion from "@/shared/components/BagdeEstadoDesignacion";
 import EmpleadoInfo from "@/shared/components/EmpleadoInfo";
 import type { EstadoDesignacion } from "@/shared/utils/types/enums";
-import { Clock, Tag } from "lucide-react";
 import styles from "./DesignacionCard.module.scss";
 
 type Props = {
@@ -28,9 +28,9 @@ export default function DesignacionCard({
 
 	const empleado = cargoActivo?.empleado
 		? {
-			...cargoActivo.empleado,
-			situacionDeRevista: cargoActivo.situacionDeRevista,
-		}
+				...cargoActivo.empleado,
+				situacionDeRevista: cargoActivo.situacionDeRevista,
+			}
 		: undefined;
 
 	const status = estadoDesignacion === "CUBIERTA" ? "success" : "danger";

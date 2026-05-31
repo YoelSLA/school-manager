@@ -1,8 +1,6 @@
 package com.gestion.escuela.gestion_escolar.services;
 
-import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
-import com.gestion.escuela.gestion_escolar.models.EstadoAsistenciaDia;
-import com.gestion.escuela.gestion_escolar.models.RolCantidad;
+import com.gestion.escuela.gestion_escolar.models.*;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 import org.springframework.data.domain.Page;
@@ -16,7 +14,14 @@ import java.util.List;
 public interface AsistenciaService {
 
 	@Transactional(readOnly = true)
-	List<EstadoAsistenciaDia> obtenerEstadoMensual(
+	List<Asistencia> obtenerAsistenciasDelMes(
+			Long escuelaId,
+			Long empleadoId,
+			YearMonth mes
+	);
+
+	@Transactional(readOnly = true)
+	List<EstadoAsistenciaDia> obtenerEstadoAsistenciaMensual(
 			Long escuelaId,
 			Long empleadoId,
 			YearMonth mes
@@ -35,7 +40,17 @@ public interface AsistenciaService {
 			Pageable pageable
 	);
 
-	void registrarInasistenciasManuales(
+	@Transactional
+	void registrarInasistencia(
+			Long escuelaId,
+			Long empleadoId,
+			LocalDate fecha,
+			TipoLicencia tipoLicencia,
+			String observacion
+	);
+
+	@Transactional
+	void registrarInasistencias(
 			Long escuelaId,
 			EmpleadoEducativo empleado,
 			List<LocalDate> fechas,
@@ -43,10 +58,20 @@ public interface AsistenciaService {
 			String observacion
 	);
 
-	void eliminarInasistenciasManual(
+	void eliminarInasistencia(
 			Long escuelaId,
 			Long empleadoId,
-			List<LocalDate> fechas
+			LocalDate fecha
+	);
+
+	void eliminarInasistencias(
+			Long escuelaId,
+			Long empleadoId,
+			List<LocalDate> fechas);
+
+	EmpleadoAsistenciaResumen getResumenAsistenciaEmpleado(
+			EmpleadoEducativo empleado,
+			LocalDate fecha
 	);
 
 

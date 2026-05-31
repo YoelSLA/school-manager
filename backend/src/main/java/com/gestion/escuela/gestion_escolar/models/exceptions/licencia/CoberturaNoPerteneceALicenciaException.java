@@ -2,8 +2,9 @@ package com.gestion.escuela.gestion_escolar.models.exceptions.licencia;
 
 import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
+import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarException;
 
-public class CoberturaNoPerteneceALicenciaException extends RuntimeException {
+public class CoberturaNoPerteneceALicenciaException extends GestionEscolarException {
 
 	public CoberturaNoPerteneceALicenciaException(
 			Licencia licencia,

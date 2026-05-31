@@ -1,9 +1,8 @@
-import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
-import type { DesignacionLicenciaAdministrativaItemDTO } from "@/shared/utils/types";
 import { CalendarDays, Hash, User } from "lucide-react";
-
+import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
 import BadgeSituacionRevista from "@/shared/components/BadgeSituacionRevista";
 import { formatearFecha } from "@/shared/utils";
+import type { DesignacionLicenciaAdministrativaItemDTO } from "@/shared/utils/types";
 import styles from "./DesignacionAdministrativaRow.module.scss";
 
 type Props = {
@@ -19,7 +18,7 @@ export default function DesignacionAdministrativaRow({
 }: Props) {
 	const { cargoActivo, isLoading } = useCargoActivo(designacion.id);
 
-	const esTitular = cargoActivo?.situacionDeRevista === "Titular";
+	const esTitular = cargoActivo?.situacionDeRevista === "TITULAR";
 
 	return (
 		<label className={styles.item}>
@@ -43,9 +42,7 @@ export default function DesignacionAdministrativaRow({
 				</div>
 
 				{isLoading ? (
-					<div className={styles.loading}>
-						Cargando cargo...
-					</div>
+					<div className={styles.loading}>Cargando cargo...</div>
 				) : cargoActivo ? (
 					<div className={styles.meta}>
 						<span className={styles.tipo}>
@@ -58,10 +55,7 @@ export default function DesignacionAdministrativaRow({
 							<CalendarDays size={14} />
 
 							{esTitular ? (
-								<>
-									Desde{" "}
-									{formatearFecha(cargoActivo.periodo.fechaDesde)}
-								</>
+								<>Desde {formatearFecha(cargoActivo.periodo.fechaDesde)}</>
 							) : (
 								<>
 									{formatearFecha(cargoActivo.periodo.fechaDesde)}
@@ -72,9 +66,7 @@ export default function DesignacionAdministrativaRow({
 						</span>
 					</div>
 				) : (
-					<div className={styles.empty}>
-						Sin cargo activo
-					</div>
+					<div className={styles.empty}>Sin cargo activo</div>
 				)}
 			</div>
 		</label>

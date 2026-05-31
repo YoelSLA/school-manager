@@ -1,6 +1,4 @@
-import type { AsistenciaDiaDTO } from "@/shared/utils/types";
-
-export type EstadoVisual = "presente" | "ausente" | null;
+import type { AsistenciaDiaDTO, EstadoVisual } from "@/shared/utils/types";
 
 // --------------------------------------------------------------------------------------------
 export function getCodigoAsistencia(asistencia?: AsistenciaDiaDTO) {

@@ -1,167 +1,331 @@
 package com.gestion.escuela.gestion_escolar.services;
 
 
-import com.gestion.escuela.gestion_escolar.AbstractIntegrationTest;
-import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
-import com.gestion.escuela.gestion_escolar.models.Escuela;
-import com.gestion.escuela.gestion_escolar.models.FranjaHoraria;
+import com.gestion.escuela.gestion_escolar.models.*;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
-import com.gestion.escuela.gestion_escolar.models.enums.DiaDeSemana;
-import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
+import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.YearMonth;
 import java.util.List;
 
-public class AsistenciaServiceTest extends AbstractIntegrationTest {
+import static com.gestion.escuela.gestion_escolar.models.enums.DiaDeSemana.MARTES;
+import static com.gestion.escuela.gestion_escolar.models.enums.EstadoAsistencia.AUSENTE;
+import static com.gestion.escuela.gestion_escolar.models.enums.EstadoAsistencia.PRESENTE;
+import static com.gestion.escuela.gestion_escolar.models.enums.RolEducativo.DIRECCION;
+import static com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia.*;
+import static java.time.Month.MARCH;
+import static java.time.Month.MAY;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-	@Autowired
-	private DesignacionService designacionService;
-
-	@Autowired
-	private EmpleadoEducativoService empleadoService;
+class AsistenciaServiceTest extends DomainServiceFixtureTest {
 
 	@Autowired
 	private EscuelaService escuelaService;
 
 	@Autowired
+	private EmpleadoEducativoService empleadoEducativoService;
+
+	@Autowired
+	private DesignacionService designacionService;
+
+	@Autowired
 	private AsistenciaService asistenciaService;
 
-	private Escuela escuela;
-	private EmpleadoEducativo juanPerez;
-	private DesignacionAdministrativa secretaria;
-	private DesignacionAdministrativa preceptoria;
-
-	private Escuela crearEscuela65Bernal() {
-		escuela = new Escuela(
-				"Escuela N°65",
-				"Bernal",
-				"Brown 5066",
-				"42573309"
-		);
-		return escuelaService.crear(escuela);
-	}
-
-	private EmpleadoEducativo crearEmpleadoJuanPerez() {
-		EmpleadoEducativo empleadoEducativo = EmpleadoEducativo.builder()
-				.escuela(escuela)
-				.cuil("20-34567891-2")
-				.nombre("Juan")
-				.apellido("Perez")
-				.domicilio("Mitre 1450")
-				.telefono("1162347890")
-				.fechaDeNacimiento(LocalDate.of(1982, 6, 18))
-				.fechaDeIngreso(LocalDate.of(2008, 4, 1))
-				.email("juan.perez@test.com")
-				.build();
-
-		return empleadoService.crear(escuela.getId(), empleadoEducativo);
-	}
-
-	private DesignacionAdministrativa crearDesignacionAdministrativa(
-			Integer cupof,
-			RolEducativo rolEducativo,
-			List<FranjaHoraria> franjasHorarias
-	) {
-		DesignacionAdministrativa designacion =
-				new DesignacionAdministrativa(escuela, cupof, rolEducativo);
-
-		franjasHorarias.forEach(designacion::agregarFranjaHoraria);
-
-		return designacionService.crear(designacion);
-	}
-
+	private Escuela pEscuelaN65;
+	private EmpleadoEducativo pGiardinoNoraRosa;
 
 	@BeforeEach
 	void setUp() {
+		pEscuelaN65 = escuelaService.crear(m_escuelaN65);
+		pGiardinoNoraRosa = empleadoEducativoService.crear(pEscuelaN65.getId(), m_giardinoNoraRosa);
 
-		List<FranjaHoraria> franjasHorariasSecretaria = List.of(
-				new FranjaHoraria(DiaDeSemana.LUNES, LocalTime.of(13, 0), LocalTime.of(17, 30)),
-				new FranjaHoraria(DiaDeSemana.MARTES, LocalTime.of(14, 0), LocalTime.of(18, 30)),
-				new FranjaHoraria(DiaDeSemana.MIERCOLES, LocalTime.of(14, 0), LocalTime.of(18, 30)),
-				new FranjaHoraria(DiaDeSemana.JUEVES, LocalTime.of(13, 0), LocalTime.of(17, 30)),
-				new FranjaHoraria(DiaDeSemana.VIERNES, LocalTime.of(7, 30), LocalTime.of(12, 0))
+		FranjaHoraria martes12a18 = new FranjaHoraria(
+				MARTES,
+				LocalTime.of(12,0),
+				LocalTime.of(18,0)
 		);
-		List<FranjaHoraria> franjasHorariasPreceptoria = List.of(
-				new FranjaHoraria(DiaDeSemana.LUNES, LocalTime.of(7, 30), LocalTime.of(12, 0)),
-				new FranjaHoraria(DiaDeSemana.MARTES, LocalTime.of(7, 30), LocalTime.of(12, 0)),
-				new FranjaHoraria(DiaDeSemana.MIERCOLES, LocalTime.of(7, 30), LocalTime.of(12, 0)),
-				new FranjaHoraria(DiaDeSemana.JUEVES, LocalTime.of(7, 30), LocalTime.of(12, 0)),
-				new FranjaHoraria(DiaDeSemana.VIERNES, LocalTime.of(7, 30), LocalTime.of(12, 0))
-		);
+		mDireccion2467830.agregarFranjaHoraria(martes12a18);
 
-		escuela = crearEscuela65Bernal();
-		juanPerez = crearEmpleadoJuanPerez();
-		secretaria = crearDesignacionAdministrativa(2467832, RolEducativo.SECRETARIA, franjasHorariasSecretaria);
-		preceptoria = crearDesignacionAdministrativa(2467833, RolEducativo.PRECEPTORIA, franjasHorariasPreceptoria);
+		DesignacionAdministrativa pDireccion2467830 = designacionService.crear(mDireccion2467830);
+
+		designacionService.cubrirConTitular(
+				pDireccion2467830.getId(),
+				pGiardinoNoraRosa.getId(),
+				LocalDate.of(1998,MARCH, 1),
+				null,
+				1
+				);
 	}
 
-//	@Test
-//	void impactarLicencia_creaAsistenciasEnDiasLaborables() {
-//		// Arrange
-//		LocalDate fechaInicio = LocalDate.of(2026, 1, 5);
-//		LocalDate fechaFin = LocalDate.of(2026, 1, 16);
-//		Periodo periodo = new Periodo(fechaInicio, fechaFin);
-//		Licencia licencia = juanPerez.crearLicencia(TipoLicencia.L_A1, periodo, null);
-//
-//		LocalDate fechaTomaPosesion = LocalDate.of(2026, 1, 2);
-//		AsignacionTitular asignacionTitular1 = secretaria.cubrirConTitular(juanPerez, fechaTomaPosesion);
-//		AsignacionTitular asignacionTitular2 = preceptoria.cubrirConTitular(juanPerez, fechaTomaPosesion);
-//
-//		// sanity check
-//		assertEquals(EstadoAsignacion.LICENCIA, asignacionTitular1.getEstadoEn(fechaInicio));
-//		assertEquals(EstadoAsignacion.LICENCIA, asignacionTitular2.getEstadoEn(fechaInicio));
-//		assertEquals(EstadoDesignacion.LICENCIA, secretaria.getEstadoEn(fechaInicio));
-//		assertEquals(EstadoDesignacion.LICENCIA, preceptoria.getEstadoEn(fechaInicio));
-//
-//		// Act
-//		asistenciaService.impactarLicencia(licencia);
-//
-//		// =======================
-//		// ASSERT
-//		// =======================
-//
-//		List<Asistencia> asistencias = asistenciaService.asistenciasDe(juanPerez.getId());
-//
-//		for (Asistencia a : asistencias) {
-//
-//		}
-//
-//		// 2 semanas → 10 días laborales
-//		assertEquals(10, asistencias.size());
-//
-//		// Me armo un set de fechas reales creadas
-//		Set<LocalDate> fechasAsistidas = asistencias.stream()
-//				.map(Asistencia::getFecha)
-//				.collect(Collectors.toSet());
-//
-//		// Recorro todo el período día por día
-//		for (LocalDate fecha = fechaInicio; !fecha.isAfter(fechaFin); fecha = fecha.plusDays(1)) {
-//
-//			DayOfWeek dayOfWeek = fecha.getDayOfWeek();
-//
-//			if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
-//				// ❌ fines de semana → NO debe haber asistencia
-//				assertFalse(
-//						fechasAsistidas.contains(fecha),
-//						"No debería haber asistencia el " + fecha
-//				);
-//			} else {
-//				// ✅ día laboral → DEBE haber asistencia
-//				assertTrue(
-//						fechasAsistidas.contains(fecha),
-//						"Falta asistencia el " + fecha
-//				);
-//			}
-//		}
-//
-//		// Verificación fina de cada asistencia
-//		asistencias.forEach(a -> {
-//			assertEquals(OrigenAsistencia.LICENCIA, a.getOrigenAsistencia());
-//			assertEquals(licencia.getId(), a.getLicencia().getId());
-//		});
-//	}
+	@Test
+	void obtieneElResumenDeAsistenciaDelEmpleado() {
+
+		LocalDate mayo10 = LocalDate.of(2026, MAY, 10);
+		LocalDate mayo12 = LocalDate.of(2026, MAY, 12);
+		LocalDate mayo15 = LocalDate.of(2026, MAY, 15);
+
+		asistenciaService.registrarInasistencia(
+				pEscuelaN65.getId(),
+				pGiardinoNoraRosa.getId(),
+				mayo10,
+				L_A1,
+				null
+		);
+
+		asistenciaService.registrarInasistencia(
+				pEscuelaN65.getId(),
+				pGiardinoNoraRosa.getId(),
+				mayo12,
+				L_A1,
+				null
+		);
+
+		asistenciaService.registrarInasistencia(
+				pEscuelaN65.getId(),
+				pGiardinoNoraRosa.getId(),
+				mayo15,
+				L_A2,
+				null
+		);
+
+		LocalDate mayo28 = LocalDate.of(2026, MAY, 28);
+		EmpleadoAsistenciaResumen resumen = asistenciaService.getResumenAsistenciaEmpleado(
+				pGiardinoNoraRosa,
+						mayo28
+		);
+
+		assertThat(resumen.faltasUltimoMes()).isEqualTo(3);
+		assertThat(resumen.licenciaMasFrecuente()).isEqualTo(L_A1);
+		assertThat(resumen.rolesActivos()).hasSize(1);
+		assertThat(resumen.rolesActivos()).containsExactly(DIRECCION);
+
+	}
+
+	@Test
+	void obtieneElEstadoMensualDeAsistenciaDelEmpleado() {
+
+		LocalDate fechaInasistencia = LocalDate.of(2026, MAY, 12);
+
+		asistenciaService.registrarInasistencia(
+				pEscuelaN65.getId(),
+				pGiardinoNoraRosa.getId(),
+				fechaInasistencia,
+				L_A1,
+				null
+		);
+
+		List<EstadoAsistenciaDia> estados =
+				asistenciaService.obtenerEstadoAsistenciaMensual(
+						pEscuelaN65.getId(),
+						pGiardinoNoraRosa.getId(),
+						YearMonth.of(2026, MAY)
+				);
+
+		assertThat(estados).hasSize(4);
+
+		EstadoAsistenciaDia mayo5 = estados.get(0);
+		EstadoAsistenciaDia mayo12 = estados.get(1);
+		EstadoAsistenciaDia mayo19 = estados.get(2);
+		EstadoAsistenciaDia mayo26 = estados.get(3);
+
+		assertThat(mayo5.getEstadoAsistencia()).isEqualTo(PRESENTE);
+		assertThat(mayo12.getEstadoAsistencia()).isEqualTo(AUSENTE);
+		assertThat(mayo12.getTipoLicencia()).isEqualTo(L_A1);
+		assertThat(mayo19.getEstadoAsistencia()).isEqualTo(PRESENTE);
+		assertThat(mayo26.getEstadoAsistencia()).isEqualTo(PRESENTE);
+	}
+
+	@Nested
+	class RegistrarAsistencia {
+
+		@Test
+		void seRegistraUnaAsistenciaAlEmpleado() {
+
+			LocalDate fechaInasistencia = LocalDate.of(2026, MAY, 10);
+
+			asistenciaService.registrarInasistencia(
+					pEscuelaN65.getId(),
+					pGiardinoNoraRosa.getId(),
+					fechaInasistencia,
+					L_A1,
+					null
+			);
+
+			List<Asistencia> asistencias =
+					asistenciaService.obtenerAsistenciasDelMes(
+							pEscuelaN65.getId(),
+							pGiardinoNoraRosa.getId(),
+							YearMonth.of(2026, MAY)
+					);
+
+			assertThat(asistencias).hasSize(1);
+			Asistencia asistencia = asistencias.getFirst();
+			assertThat(fechaInasistencia).isEqualTo(asistencia.getFecha());
+			assertThat(asistencia.getEstadoAsistencia()).isEqualTo(AUSENTE);
+			assertThat(asistencia.getTipoLicencia()).isEqualTo(L_A1);
+
+		}
+
+		@Test
+		void actualizaUnaInasistenciaExistente() {
+
+			LocalDate fechaInasistencia = LocalDate.of(2026, MAY, 10);
+			asistenciaService.registrarInasistencia(
+					pEscuelaN65.getId(),
+					pGiardinoNoraRosa.getId(),
+					fechaInasistencia,
+					L_A1,
+					null
+			);
+
+			asistenciaService.registrarInasistencia(
+					pEscuelaN65.getId(),
+					pGiardinoNoraRosa.getId(),
+					fechaInasistencia,
+					L_A22,
+					"Cambio de licencia"
+			);
+
+			List<Asistencia> asistencias =
+					asistenciaService.obtenerAsistenciasDelMes(
+							pEscuelaN65.getId(),
+							pGiardinoNoraRosa.getId(),
+							YearMonth.of(2026, MAY)
+					);
+
+			assertThat(asistencias).hasSize(1);
+
+			Asistencia asistencia = asistencias.getFirst();
+
+			assertThat(asistencia.getTipoLicencia()).isEqualTo(L_A22);
+			assertThat(asistencia.getObservacion()).isEqualTo("Cambio de licencia");
+
+		}
+
+		@Test
+		void registraMultiplesInasistenciasEnDistintasFechas() {
+
+			asistenciaService.registrarInasistencia(
+					pEscuelaN65.getId(),
+					pGiardinoNoraRosa.getId(),
+					LocalDate.of(2026, MAY, 10),
+					L_A1,
+					null
+			);
+
+			asistenciaService.registrarInasistencia(
+					pEscuelaN65.getId(),
+					pGiardinoNoraRosa.getId(),
+					LocalDate.of(2026, MAY, 12),
+					L_A1,
+					null
+			);
+
+			List<Asistencia> asistencias =
+					asistenciaService.obtenerAsistenciasDelMes(
+							pEscuelaN65.getId(),
+							pGiardinoNoraRosa.getId(),
+							YearMonth.of(2026, MAY)
+					);
+
+			assertThat(asistencias).hasSize(2);
+		}
+
+		@Test
+		void registraUnaInasistenciaConObservacion() {
+
+			LocalDate fechaInasistencia = LocalDate.of(2026, MAY, 10);
+
+			asistenciaService.registrarInasistencia(
+					pEscuelaN65.getId(),
+					pGiardinoNoraRosa.getId(),
+					fechaInasistencia,
+					L_A1,
+					"Licencia médica"
+			);
+
+			Asistencia asistencia = asistenciaService.obtenerAsistenciasDelMes(
+							pEscuelaN65.getId(),
+							pGiardinoNoraRosa.getId(),
+							YearMonth.of(2026, MAY))
+							.getFirst();
+
+			assertThat(asistencia.getObservacion()).isEqualTo("Licencia médica");
+		}
+
+		@Test
+		void deberiaLanzarExcepcionCuandoNoExisteEmpleadoEducativo() {
+			Long escuelaId = pEscuelaN65.getId();
+			Long empleadoId = 999L;
+			LocalDate fecha = LocalDate.of(2026, MAY, 10);
+
+			assertThatThrownBy(
+					() -> asistenciaService.registrarInasistencia(
+							escuelaId,
+							empleadoId,
+							fecha,
+							L_A1,
+							null
+					)
+			)
+			.isInstanceOf(RecursoNoEncontradoException.class)
+			.hasMessageContaining("empleado educativo");
+		}
+
+	}
+
+	@Nested
+	class RegistrarInasistencias {
+
+		@Test
+		void noHaceNadaSiLasFechasSonNull() {
+			asistenciaService.registrarInasistencias(
+					pEscuelaN65.getId(),
+					pGiardinoNoraRosa,
+					null,
+					L_A1,
+					null
+			);
+
+			List<Asistencia> asistencias =
+					asistenciaService.obtenerAsistenciasDelMes(
+							pEscuelaN65.getId(),
+							pGiardinoNoraRosa.getId(),
+							YearMonth.of(2026, MAY)
+					);
+
+			assertThat(asistencias).isEmpty();
+		}
+
+		@Test
+		void noHaceNadaSiLaListaDeFechasEstaVacia() {
+
+			asistenciaService.registrarInasistencias(
+					pEscuelaN65.getId(),
+					pGiardinoNoraRosa,
+					List.of(),
+					L_A1,
+					null
+			);
+
+			List<Asistencia> asistencias =
+					asistenciaService.obtenerAsistenciasDelMes(
+							pEscuelaN65.getId(),
+							pGiardinoNoraRosa.getId(),
+							YearMonth.of(2026, MAY)
+					);
+
+			assertThat(asistencias).isEmpty();
+		}
+	}
+
+
 
 }

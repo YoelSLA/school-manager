@@ -15,7 +15,7 @@ class BajaAsignacionTest {
 	void seCreaCorrectamenteConFechaYCausa() {
 		// Arrange
 		LocalDate fecha = LocalDate.of(2026, 1, 10);
-		CausaBaja causa = CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES;
+		CausaBaja causa = CausaBaja.RENUNCIA;
 
 		// Act
 		BajaAsignacion baja = new BajaAsignacion(fecha, causa);
@@ -28,7 +28,7 @@ class BajaAsignacionTest {
 	@Test
 	void noSePuedeCrearSinFecha() {
 		// Arrange
-		CausaBaja causa = CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES;
+		CausaBaja causa = CausaBaja.RENUNCIA;
 
 		// Act
 		assertThrows(EstadoInvalidoException.class, () -> new BajaAsignacion(null, causa));

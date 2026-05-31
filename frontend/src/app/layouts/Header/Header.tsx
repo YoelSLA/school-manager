@@ -1,6 +1,6 @@
+import { NavLink, useNavigate } from "react-router-dom";
 import Button from "@/components/Button";
 import { NAV_ITEMS } from "@/shared/utils";
-import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./Header.module.scss";
 
 export default function Header() {
@@ -32,7 +32,8 @@ export default function Header() {
 						key={item.to}
 						to={item.to}
 						className={({ isActive }) =>
-							`${styles.appHeader__link} ${isActive ? styles.appHeader__linkActive : ""
+							`${styles.appHeader__link} ${
+								isActive ? styles.appHeader__linkActive : ""
 							}`
 						}
 					>

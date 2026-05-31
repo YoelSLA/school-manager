@@ -1,8 +1,8 @@
-import type {
-    EmpleadoEducativoMinimoDTO,
-    LicenciaDetalleDTO,
-} from "@/shared/utils/types";
 import { useNavigate } from "react-router-dom";
+import type {
+	EmpleadoEducativoBasicoDTO,
+	LicenciaDetalleDTO,
+} from "@/shared/utils/types";
 
 export function useLicenciasNavigation() {
 	const navigate = useNavigate();
@@ -38,7 +38,7 @@ export function useLicenciasNavigation() {
 
 		verDesignaciones: (
 			licenciaId: number,
-			empleado: EmpleadoEducativoMinimoDTO,
+			empleado: EmpleadoEducativoBasicoDTO,
 			licencia: LicenciaDetalleDTO,
 		) =>
 			navigate(`/licencias/${licenciaId}/designaciones`, {

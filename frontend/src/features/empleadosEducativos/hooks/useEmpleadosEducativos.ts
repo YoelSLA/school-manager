@@ -3,8 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
 import type { EmpleadoEducativoFiltro, SortState } from "@/shared/utils/types";
+import { getEmpleadosPorEscuela } from "../../../services/empleadoEducativo.service";
 import { empleadosEducativosQueryKeys } from "../../../shared/utils/queryKeys/empleadosEducativos.queryKeys";
-import { getEmpleadosPorEscuela } from "../services/empleadosEducativos.services";
 
 export function useEmpleadosEducativos(
 	estado: EmpleadoEducativoFiltro = "TODOS",
@@ -19,12 +19,12 @@ export function useEmpleadosEducativos(
 		queryKey:
 			escuelaId != null
 				? empleadosEducativosQueryKeys.byEscuela(
-					escuelaId,
-					estado,
-					page,
-					size,
-					sort, // 👈 PASAMOS EL OBJETO
-				)
+						escuelaId,
+						estado,
+						page,
+						size,
+						sort, // 👈 PASAMOS EL OBJETO
+					)
 				: empleadosEducativosQueryKeys.lists(),
 
 		queryFn: () => {

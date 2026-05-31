@@ -1,14 +1,14 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { materiasQueryKeys } from "@/shared/utils/queryKeys/materias.queryKeys";
 import type { MateriaUpdateDTO } from "@/shared/utils/types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { editMateria } from "../services/materias.services";
+import { editMateria } from "../../../services/materia.service";
 
 type EditarMateriaParams = {
 	id: number;
 	data: MateriaUpdateDTO;
 };
 
-export function useEditMateria(escuelaId?: number) {
+export function useUpdateMateria(escuelaId?: number) {
 	const queryClient = useQueryClient();
 
 	return useMutation({

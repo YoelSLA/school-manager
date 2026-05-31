@@ -1,3 +1,5 @@
+import { useState } from "react";
+import type { UseFormReturn } from "react-hook-form";
 import FormInputField from "@/components/FormInputField/FormInputField";
 import FormSelectField from "@/components/FormSelectField";
 import Modal from "@/components/Modal/Modal";
@@ -6,15 +8,13 @@ import { EmpleadoSelector } from "@/features/empleadosEducativos/components/Empl
 import type {
 	CubrirProvisionalDTO,
 	CubrirTitularDTO,
-	EmpleadoEducativoMinimoDTO,
+	EmpleadoEducativoBasicoDTO,
 } from "@/shared/utils/types";
-import { useState } from "react";
-import type { UseFormReturn } from "react-hook-form";
 import styles from "./AsignacionModalBase.module.scss";
 
 type Props = {
 	title: string;
-	defaultEmpleado?: EmpleadoEducativoMinimoDTO | null;
+	defaultEmpleado?: EmpleadoEducativoBasicoDTO | null;
 
 	tipoAsignacion: "TITULAR" | "PROVISIONAL";
 	setTipoAsignacion: (tipo: "TITULAR" | "PROVISIONAL") => void;
@@ -50,13 +50,13 @@ export default function AsignacionModalBase({
 			onSubmit={
 				tipoAsignacion === "TITULAR"
 					? titularForm.handleSubmit((data) => {
-						if (!empleadoId) return;
-						onTitularSubmit({ ...data, empleadoId });
-					})
+							if (!empleadoId) return;
+							onTitularSubmit({ ...data, empleadoId });
+						})
 					: provisionalForm.handleSubmit((data) => {
-						if (!empleadoId) return;
-						onProvisionalSubmit({ ...data, empleadoId });
-					})
+							if (!empleadoId) return;
+							onProvisionalSubmit({ ...data, empleadoId });
+						})
 			}
 		>
 			<Modal size="large" title={title} onCancel={onClose}>

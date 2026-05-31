@@ -2,7 +2,7 @@ package com.gestion.escuela.gestion_escolar.models.caracteristicaAsignacion;
 
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
-import com.gestion.escuela.gestion_escolar.models.exceptions.DominioException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarException;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
@@ -13,8 +13,8 @@ public class CambioDeFuncion extends CaracteristicaAsignacion {
 	@Override
 	public void validarAplicacion(Asignacion asignacion) {
 		if (!(asignacion instanceof AsignacionTitular)) {
-			throw new DominioException(
-					"El cambio de función solo aplica a asignaciones titulares"
+			throw new GestionEscolarException(
+					"El cambio de función solo aplica a asignacion titulares"
 			);
 		}
 	}

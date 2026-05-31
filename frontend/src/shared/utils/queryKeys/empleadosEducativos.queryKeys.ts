@@ -8,6 +8,15 @@ export const empleadosEducativosQueryKeys = {
 	detail: (empleadoId?: number) =>
 		[...empleadosEducativosQueryKeys.all, "detail", empleadoId] as const,
 
+	asignaciones: (empleadoId: number) =>
+		[
+			...empleadosEducativosQueryKeys.detail(empleadoId),
+			"asignaciones",
+		] as const,
+
+	licencias: (empleadoId: number) =>
+		[...empleadosEducativosQueryKeys.detail(empleadoId), "licencias"] as const,
+
 	designacionesActivas: (empleadoId: number) =>
 		[
 			...empleadosEducativosQueryKeys.detail(empleadoId),

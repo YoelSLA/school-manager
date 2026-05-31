@@ -11,7 +11,6 @@ import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoDuplicadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
-import com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo.EmpleadoEducativoDuplicadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo.EmpleadoNoPerteneceAEscuelaException;
 import com.gestion.escuela.gestion_escolar.persistence.*;
 import com.gestion.escuela.gestion_escolar.services.EmpleadoEducativoService;
@@ -25,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
@@ -206,10 +206,12 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 				escuelaId,
 				empleadoId
 		)) {
-			throw new EmpleadoEducativoDuplicadoException(
-					"CUIL",
-					empleado.getCuil(),
-					escuela.getNombre()
+			throw new RecursoDuplicadoException(
+					String.format(
+							"Ya existe un empleado con CUIL '%s' en la escuela '%s'.",
+							empleado.getCuil(),
+							escuela.getNombre()
+					)
 			);
 		}
 
@@ -218,10 +220,12 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 				escuelaId,
 				empleadoId
 		)) {
-			throw new EmpleadoEducativoDuplicadoException(
-					"email",
-					empleado.getEmail(),
-					escuela.getNombre()
+			throw new RecursoDuplicadoException(
+					String.format(
+							"Ya existe un empleado con email '%s' en la escuela '%s'.",
+							empleado.getEmail(),
+							escuela.getNombre()
+					)
 			);
 		}
 
@@ -236,6 +240,11 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 		return empleado.designacionesActivasEn(LocalDate.now());
 	}
 
+	@Override
+	public Optional<Licencia> obtenerLicenciaActiva(Long empleadoId, LocalDate fecha) {
+		EmpleadoEducativo empleado = obtenerPorId(empleadoId);
+		return empleado.licenciaActivaEn(fecha);
+	}
 
 }
 

@@ -1,6 +1,11 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.*;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.request.CambiarCoberturaDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.request.CubrirDesignacionesDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.request.RenovarLicenciaDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.response.LicenciaDesignacionDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.response.LicenciaDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.response.LicenciaTimelineItemDTO;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.LicenciaMapper;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.services.DesignacionService;

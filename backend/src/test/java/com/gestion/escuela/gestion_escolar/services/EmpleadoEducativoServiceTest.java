@@ -39,25 +39,24 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 	@Autowired
 	private MateriaService materiaService;
 
-	private Escuela escuelaP;
-	private EmpleadoEducativo giardinoNoraRosaP;
-	private EmpleadoEducativo billordoTomasaP;
-	private EmpleadoEducativo marchettiRomanP;
-	private DesignacionAdministrativa direccion2467830OP;
-	private DesignacionCurso plg2467775P;
+	private Escuela p_escuelaN65;
+	private EmpleadoEducativo pGardinoNoraRosa;
+	private DesignacionAdministrativa pDireccion2467830O;
+	private DesignacionCurso p_plg2467775;
 
 
 	@BeforeEach
 	void setUp() {
-		escuelaP = escuelaService.crear(escuelaN65);
-		giardinoNoraRosaP = empleadoEducativoService.crear(escuelaP.getId(), giardinoNoraRosa);
-		billordoTomasaP = empleadoEducativoService.crear(escuelaP.getId(), billordoTomasa);
-		marchettiRomanP = empleadoEducativoService.crear(escuelaP.getId(), marchettiRoman);
-		direccion2467830OP = designacionService.crear(direccion2467830);
+		p_escuelaN65 = escuelaService.crear(m_escuelaN65);
+		pGardinoNoraRosa = empleadoEducativoService.crear(p_escuelaN65.getId(), m_giardinoNoraRosa);
+		EmpleadoEducativo pbillordoTomasa = empleadoEducativoService.crear(p_escuelaN65.getId(), m_billordoTomasa);
+		EmpleadoEducativo pMarchettiRoman = empleadoEducativoService.crear(p_escuelaN65.getId(), m_marchettiRoman);
 
-		materiaService.crear(escuelaP.getId(), practicasDelLenguaje);
-		cursoService.crear(escuelaP.getId(), a1g1);
-		plg2467775P = designacionService.crear(plg2467775);
+		pDireccion2467830O = designacionService.crear(mDireccion2467830);
+
+		materiaService.crear(p_escuelaN65.getId(), m_practicasDelLenguaje);
+		cursoService.crear(p_escuelaN65.getId(), m_a1g1);
+		p_plg2467775 = designacionService.crear(m_plg2467775);
 	}
 
 
@@ -67,9 +66,9 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 		@Test
 		void seCreaUnEmpleadoEducativoCorrectamente() {
 
-			assertNotNull(giardinoNoraRosaP.getId());
-			assertEquals("Nora Rosa", giardinoNoraRosaP.getNombre());
-			assertEquals(escuelaP.getId(), giardinoNoraRosaP.getEscuela().getId());
+			assertNotNull(pGardinoNoraRosa.getId());
+			assertEquals("Nora Rosa", pGardinoNoraRosa.getNombre());
+			assertEquals(p_escuelaN65.getId(), pGardinoNoraRosa.getEscuela().getId());
 		}
 
 		@Test
@@ -77,17 +76,16 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 			assertThrows(RecursoNoEncontradoException.class,
 					() -> empleadoEducativoService.crear(
 							999L,
-							giardinoNoraRosa
+							pGardinoNoraRosa
 					)
 			);
 		}
 
 		@Test
 		void noSePuedeCrearUnEmpleadoConCuilDuplicadoEnLaMismaEscuela() {
-
 			EmpleadoEducativo duplicado = EmpleadoEducativo.builder()
-					.escuela(escuelaP)
-					.cuil(giardinoNoraRosaP.getCuil())
+					.escuela(p_escuelaN65)
+					.cuil(pGardinoNoraRosa.getCuil())
 					.nombre("Otro")
 					.apellido("Empleado")
 					.fechaDeNacimiento(LocalDate.now())
@@ -98,7 +96,7 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 			assertThrows(
 					RecursoDuplicadoException.class,
 					() -> empleadoEducativoService.crear(
-							escuelaP.getId(),
+							p_escuelaN65.getId(),
 							duplicado
 					)
 			);
@@ -106,28 +104,24 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 
 		@Test
 		void noSePuedeCrearUnEmpleadoConEmailDuplicadoEnLaMismaEscuela() {
-
 			EmpleadoEducativo duplicado = EmpleadoEducativo.builder()
-					.escuela(escuelaP)
+					.escuela(p_escuelaN65)
 					.cuil("20-42341174-1")
 					.nombre("Otro")
 					.apellido("Empleado")
 					.fechaDeNacimiento(LocalDate.now())
 					.fechaDeIngreso(LocalDate.now())
-					.email(giardinoNoraRosaP.getEmail())
+					.email(pGardinoNoraRosa.getEmail())
 					.build();
 
 			assertThrows(
 					RecursoDuplicadoException.class,
 					() -> empleadoEducativoService.crear(
-							escuelaP.getId(),
+							p_escuelaN65.getId(),
 							duplicado
 					)
 			);
 		}
-
-
-
 	}
 
 	@Nested
@@ -135,7 +129,7 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 		@Test
 		void creaMultiplesEmpleadosCorrectamente() {
 			EmpleadoEducativo unEmpleado = EmpleadoEducativo.builder()
-					.escuela(escuelaP)
+					.escuela(p_escuelaN65)
 					.cuil("20-11111111-1")
 					.nombre("Juan")
 					.apellido("Perez")
@@ -145,7 +139,7 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 					.build();
 
 			EmpleadoEducativo otroEmpleado = EmpleadoEducativo.builder()
-					.escuela(escuelaP)
+					.escuela(p_escuelaN65)
 					.cuil("20-22222222-2")
 					.nombre("Maria")
 					.apellido("Gomez")
@@ -169,8 +163,8 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 		void noSePuedeCrearBatchConCuilDuplicado() {
 
 			EmpleadoEducativo duplicado = EmpleadoEducativo.builder()
-					.escuela(escuelaP)
-					.cuil(giardinoNoraRosaP.getCuil())
+					.escuela(p_escuelaN65)
+					.cuil(pGardinoNoraRosa.getCuil())
 					.nombre("Otro")
 					.apellido("Empleado")
 					.fechaDeNacimiento(LocalDate.now())
@@ -188,13 +182,13 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 		void noSePuedeCrearBatchConEmailDuplicado() {
 
 			EmpleadoEducativo duplicado = EmpleadoEducativo.builder()
-					.escuela(escuelaP)
+					.escuela(p_escuelaN65)
 					.cuil("20-33333333-3")
 					.nombre("Otro")
 					.apellido("Empleado")
 					.fechaDeNacimiento(LocalDate.now())
 					.fechaDeIngreso(LocalDate.now())
-					.email(giardinoNoraRosaP.getEmail())
+					.email(pGardinoNoraRosa.getEmail())
 					.build();
 
 			assertThrows(
@@ -211,12 +205,12 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 		@Test
 		void obtieneEmpleadoPorIdCorrectamente() {
 
-			EmpleadoEducativo obtenido = empleadoEducativoService.obtenerPorId(giardinoNoraRosaP.getId());
+			EmpleadoEducativo obtenido = empleadoEducativoService.obtenerPorId(pGardinoNoraRosa.getId());
 
 			assertNotNull(obtenido);
-			assertEquals(giardinoNoraRosaP.getId(), obtenido.getId());
+			assertEquals(pGardinoNoraRosa.getId(), obtenido.getId());
 			assertEquals("Nora Rosa", obtenido.getNombre());
-			assertEquals(escuelaP.getId(), obtenido.getEscuela().getId());
+			assertEquals(p_escuelaN65.getId(), obtenido.getEscuela().getId());
 		}
 
 		@Test
@@ -237,8 +231,8 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 			// Arrange
 			LocalDate fechaTomaPosesion = LocalDate.of(1998, JANUARY, 1);
 			AsignacionTitular titular = designacionService.cubrirConTitular(
-					plg2467775P.getId(),
-					giardinoNoraRosaP.getId(),
+					p_plg2467775.getId(),
+					pGardinoNoraRosa.getId(),
 					fechaTomaPosesion,
 					null,
 					1
@@ -248,16 +242,16 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 			LocalDate fechaInicio = LocalDate.of(2026, JANUARY, 1);
 			LocalDate fechaFin = LocalDate.of(2026, JANUARY, 15);
 			Licencia licencia = empleadoEducativoService.crearLicencia(
-					giardinoNoraRosaP.getId(),
+					pGardinoNoraRosa.getId(),
 					TipoLicencia.L_A1,
 					cerrado(fechaInicio, fechaFin),
 					"Licencia médica",
-					Set.of(plg2467775P.getId())
+					Set.of(p_plg2467775.getId())
 			);
 
 			// Assert
 			assertNotNull(licencia.getId());
-			assertEquals(giardinoNoraRosaP.getId(), licencia.getEmpleadoEducativo().getId());
+			assertEquals(pGardinoNoraRosa.getId(), licencia.getEmpleadoEducativo().getId());
 			assertEquals(TipoLicencia.L_A1, licencia.getTipoLicencia());
 			assertEquals(fechaInicio, licencia.getPeriodo().getFechaDesde());
 			assertEquals(fechaFin, licencia.getPeriodo().getFechaHasta());
@@ -274,14 +268,14 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 //			LocalDate fechaBaja = LocalDate.of(2026, JANUARY, 15);
 //
 //			empleadoEducativoService.darDeBajaDefinitiva(
-//					giardinoNoraRosaP.getId(),
+//					pGardinoNoraRosa.getId(),
 //					fechaBaja,
 //					CausaBaja.JUBILACION
 //			);
 //
 //			EmpleadoEducativo actualizado =
 //					empleadoEducativoService.obtenerPorId(
-//							giardinoNoraRosaP.getId()
+//							pGardinoNoraRosa.getId()
 //					);
 //
 //			assertTrue(actualizado.estaDadoDeBaja());
@@ -392,7 +386,7 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 //		empleadoEducativoService.darDeBajaDefinitiva(mariaLopez.getId(), fechaBaja, CausaBaja.RENUNCIA);
 //
 //		// Assert
-//		// no hay asignaciones, no hay nada que dar de baja
+//		// no hay asignacion, no hay nada que dar de baja
 //		assertTrue(mariaLopez.getAsignaciones().isEmpty());
 //	}
 //

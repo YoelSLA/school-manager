@@ -1,10 +1,11 @@
 package com.gestion.escuela.gestion_escolar.models.exceptions.designacion;
 
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
+import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarException;
 
 import java.util.Set;
 
-public class DesignacionNoActivaDelEmpleadoException extends RuntimeException {
+public class DesignacionNoActivaDelEmpleadoException extends GestionEscolarException {
 
 	public DesignacionNoActivaDelEmpleadoException(Set<Designacion> invalidas) {
 		super(crearMensaje(invalidas));
@@ -20,6 +21,6 @@ public class DesignacionNoActivaDelEmpleadoException extends RuntimeException {
 				.toList()
 				.toString();
 
-		return "Las siguientes designaciones no están activas: " + designaciones;
+		return "Las siguientes designacion no están activas: " + designaciones;
 	}
 }

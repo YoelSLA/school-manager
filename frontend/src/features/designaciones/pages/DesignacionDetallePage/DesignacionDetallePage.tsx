@@ -1,19 +1,9 @@
 import Breadcrumbs from "@/app/layouts/Breadcrumbs";
 import PageLayout from "@/app/layouts/PageLayout/PageLayout";
-import { designacionesPaths } from "@/app/router/paths";
-import Button from "@/components/Button";
-import ModalCreateAsignacionProvisional from "@/features/asignaciones/components/ModalCreateAsignacion/ModalCreateAsignacionProvisional/ModalCreateAsignacionProvisional";
-import ModalCreateAsignacionTitular from "@/features/asignaciones/components/ModalCreateAsignacion/ModalCreateAsignacionTitular/ModalCreateAsignacionTitular";
-import ModalUpdateAsignacionProvisional from "@/features/asignaciones/components/ModalUpdateAsignacion/ModalUpdateAsignacionProvisional";
-import ModalUpdateAsignacionTitular from "@/features/asignaciones/components/ModalUpdateAsignacion/ModalUpdateAsignacionTitular";
-import type { AsignacionDetalleDTO, FiltroCargos } from "@/shared/utils/types";
-import { Pencil, Trash2 } from "lucide-react";
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useCargoActivo } from "../../../asignaciones/hooks/useCargoActivo";
-import { useCargosDesignacion } from "../../hooks/useCargosDesignacion";
-import useDesignacionDetalle from "../../hooks/useDesignacionDetalle";
-import DesignacionCargoActivo from "./DesignacionCargoActivo/DesignacionCargoActivo";
+import DesignacionDetalleActions from "../../components/DesignacionDetalleActions";
+import DesignacionDetalleModals from "../../components/DesignacionDetalleModals/DesignacionDetalleModals";
+import { useDesignacionDetallePage } from "../../hooks/useDesignacionDetallePage";
+import DesignacionCargoActivo from "./DesignacionaAsignacionActiva/DesignacionAsignacionActiva";
 import DesignacionCargosHistorial from "./DesignacionCargosHistorial/DesignacionCargosHistorial";
 import DesignacionDatos from "./DesignacionDatos/DesignacionDatos";
 import styles from "./DesignacionDetallePage.module.scss";
@@ -21,162 +11,75 @@ import DesignacionHeaderInfo from "./DesignacionHeaderInfo/DesignacionHeaderInfo
 import DesignacionHorarios from "./DesignacionHorarios";
 
 export default function DesignacionDetallePage() {
-	const { designacionId } = useParams<{ designacionId: string }>();
-	const id = Number(designacionId);
-	const navigate = useNavigate();
+	const vm = useDesignacionDetallePage();
 
-	const [cargoAEditar, setCargoAEditar] = useState<AsignacionDetalleDTO | null>(
-		null,
-	);
-	const [tipoAsignacionCrear, setTipoAsignacionCrear] = useState<
-		"TITULAR" | "PROVISIONAL" | null
-	>(null);
+	if (vm.isLoading) {
+		return <p>Cargando designación...</p>;
+	}
 
-	const [filtroCargos, setFiltroCargos] = useState<FiltroCargos>("LICENCIA");
+	if (vm.error) {
+		return <p>{vm.error}</p>;
+	}
 
-	// 🔹 Designación (header + horarios)
-	const {
-		designacion,
-		isLoading,
-		error,
-		refetch: refetchDesignacion,
-	} = useDesignacionDetalle(id);
-
-	// 🔹 Cargo activo (estado actual)
-	const { cargoActivo, isLoading: isLoadingActivo } = useCargoActivo(id);
-
-	// 🔹 Historial de cargos (filtrado desde backend)
-	const {
-		cargos,
-		isLoading: isLoadingCargos,
-		refetch: refetchCargos,
-	} = useCargosDesignacion(id, filtroCargos);
-
-	const handleEditar = () => {
-		navigate(designacionesPaths.edit(id));
-	};
-
-	const handleEliminar = () => {
-		// TODO: implementar eliminación de designación
-	};
-
-	if (isLoading) return <p>Cargando designación...</p>;
-	if (error) return <p>{error}</p>;
-	if (!designacion) return <p>Designación no encontrada</p>;
+	if (!vm.designacion) {
+		return <p>Designación no encontrada</p>;
+	}
 
 	return (
 		<PageLayout breadcrumbs={<Breadcrumbs />}>
 			<div className={styles.page}>
-				{/* HEADER */}
 				<div className={styles.header}>
-					<DesignacionHeaderInfo designacion={designacion} />
+					<DesignacionHeaderInfo designacion={vm.designacion} />
 				</div>
-				{/* BODY */}
+
 				<div className={styles.body}>
 					<div className={styles.content}>
 						<div className={styles.cargoActivo}>
 							<DesignacionCargoActivo
-								cargo={cargoActivo}
-								designacionId={id}
-								isLoading={isLoadingActivo}
-								onEditar={(cargo) => setCargoAEditar(cargo)}
+								cargo={vm.cargoActivo}
+								designacionId={vm.id}
+								isLoading={vm.isLoadingActivo}
+								onEditar={vm.setCargoAEditar}
 							/>
 						</div>
+
 						<div className={styles.horarios}>
-							<DesignacionHorarios franjas={designacion.franjasHorarias} />
+							<DesignacionHorarios franjas={vm.designacion.franjasHorarias} />
 						</div>
+
 						<div className={styles.datos}>
-							<DesignacionDatos designacion={designacion} />
+							<DesignacionDatos designacion={vm.designacion} />
 						</div>
+
 						<div className={styles.botonesSection}>
-							<h3 className={styles.title}>Acciones</h3>
-
-							<div className={styles.botones}>
-								<Button variant="secondary" size="sm" onClick={handleEditar}>
-									<Pencil size={16} />
-									Editar
-								</Button>
-
-								<Button variant="danger" size="sm" onClick={handleEliminar}>
-									<Trash2 size={16} />
-									Eliminar
-								</Button>
-							</div>
+							<DesignacionDetalleActions
+								onEditar={vm.handleEditar}
+								onEliminar={vm.handleEliminar}
+							/>
 						</div>
+
 						<div className={styles.historial}>
 							<DesignacionCargosHistorial
-								cargos={cargos}
-								isLoading={isLoadingCargos}
-								filtro={filtroCargos}
-								onChangeFiltro={setFiltroCargos}
-								onNuevoCargo={(tipo) => setTipoAsignacionCrear(tipo)}
+								cargos={vm.cargos}
+								isLoading={vm.isLoadingCargos}
+								filtro={vm.filtroCargos}
+								onChangeFiltro={vm.setFiltroCargos}
+								onNuevoCargo={vm.setTipoAsignacionCrear}
 							/>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			{/* MODAL */}
-			{tipoAsignacionCrear === "TITULAR" && (
-				<ModalCreateAsignacionTitular
-					designacionId={designacion.id}
-					secuencia={1}
-					empleadoInicial={null}
-					tomaPosesion={new Date().toISOString().slice(0, 10)}
-					onClose={() => setTipoAsignacionCrear(null)}
-					onSuccess={() => {
-						setTipoAsignacionCrear(null);
-						refetchDesignacion();
-						refetchCargos();
-					}}
-				/>
-			)}
-
-			{tipoAsignacionCrear === "PROVISIONAL" && (
-				<ModalCreateAsignacionProvisional
-					designacionId={designacion.id}
-					onClose={() => setTipoAsignacionCrear(null)}
-					onSuccess={() => {
-						setTipoAsignacionCrear(null);
-						refetchDesignacion();
-						refetchCargos();
-					}}
-				/>
-			)}
-
-			{/* MODAL EDITAR */}
-			{cargoAEditar && cargoAEditar.situacionDeRevista === "Titular" && (
-				<ModalUpdateAsignacionTitular
-					asignacionId={cargoAEditar.id}
-					designacionId={id}
-					secuencia={cargoAEditar.secuencia ?? 1}
-					empleadoInicial={cargoAEditar.empleado}
-					tomaPosesion={cargoAEditar.periodo.fechaDesde}
-					onClose={() => setCargoAEditar(null)}
-					onSuccess={() => {
-						setCargoAEditar(null);
-						refetchDesignacion();
-						refetchCargos();
-					}}
-				/>
-			)}
-
-			{cargoAEditar && cargoAEditar.situacionDeRevista === "Provisional" && (
-				<ModalUpdateAsignacionProvisional
-					asignacionId={cargoAEditar.id}
-					designacionId={id}
-					secuencia={cargoAEditar.secuencia ?? 1}
-					empleadoInicial={cargoAEditar.empleado}
-					fechaDesde={cargoAEditar.periodo.fechaDesde}
-					fechaHasta={cargoAEditar.periodo.fechaHasta}
-					onClose={() => setCargoAEditar(null)}
-					onSuccess={() => {
-						setCargoAEditar(null);
-						refetchDesignacion();
-						refetchCargos();
-					}}
-				/>
-			)}
+			<DesignacionDetalleModals
+				id={vm.id}
+				designacion={vm.designacion}
+				cargoAEditar={vm.cargoAEditar}
+				tipoAsignacionCrear={vm.tipoAsignacionCrear}
+				onCloseCrear={vm.closeCrearModal}
+				onCloseEditar={vm.closeEditarModal}
+				onSuccess={vm.handleSuccess}
+			/>
 		</PageLayout>
 	);
 }

@@ -1,3 +1,5 @@
+import type { RolEducativo } from "../types";
+
 export const asistenciasQueryKeys = {
 	all: ["asistencias"] as const,
 
@@ -22,17 +24,18 @@ export const asistenciasQueryKeys = {
 			escuelaId,
 			"empleado",
 			empleadoId,
+			"mes",
 			anio,
 			mes,
 		] as const,
 
-	empleadosPorFecha: (
+	empleados: (
 		escuelaId: number,
 		fecha: string,
-		roles: string[],
-		query: string,
-		page: number,
-		size: number,
+		roles: RolEducativo[] = [],
+		q: string = "",
+		page: number = 0,
+		size: number = 10,
 	) =>
 		[
 			...asistenciasQueryKeys.all,
@@ -41,7 +44,7 @@ export const asistenciasQueryKeys = {
 			"empleados",
 			fecha,
 			[...roles].sort(),
-			query,
+			q,
 			page,
 			size,
 		] as const,

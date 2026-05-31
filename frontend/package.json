@@ -5,6 +5,12 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
+
+		"biome:check": "biome check .",
+		"biome:fix": "biome check . --write",
+		"biome:lint": "biome lint .",
+		"biome:format": "biome format . --write",
+
 		"electron:start": "electron .",
 		"electron:pack": "electron-builder --dir",
 		"electron:dist": "electron-builder",

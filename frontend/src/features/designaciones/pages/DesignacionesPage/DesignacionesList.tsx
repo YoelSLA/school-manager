@@ -3,8 +3,8 @@ import type {
 	DesignacionAdministrativaResumenDTO,
 	DesignacionCursoResumenDTO,
 } from "@/shared/utils/types";
-import DesignacionAdministrativaCard from "../../components/DesignacionAdministrativaCard";
-import DesignacionCursoCard from "../../components/DesignacionCursoCard";
+import DesignacionAdministrativaCard from "../../components/DesignacionAdministrativa/DesignacionAdministrativaCard";
+import DesignacionCursoCard from "../../components/DesignacionCurso/DesignacionCursoCard";
 
 type Props =
 	| {

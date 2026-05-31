@@ -1,6 +1,5 @@
 package com.gestion.escuela.gestion_escolar.services;
 
-import com.gestion.escuela.gestion_escolar.AbstractIntegrationTest;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.Materia;
 import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
@@ -19,7 +18,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MateriaServiceTest extends AbstractIntegrationTest {
+class MateriaServiceTest extends DomainServiceFixtureTest {
 
 	@Autowired
 	private EscuelaService escuelaService;
@@ -85,7 +84,7 @@ class MateriaServiceTest extends AbstractIntegrationTest {
 	}
 
 	@Nested
-	@DisplayName("Crear batch de materias")
+	@DisplayName("Crear batch de materia")
 	class CrearBatchTest {
 
 		@Test
@@ -145,7 +144,7 @@ class MateriaServiceTest extends AbstractIntegrationTest {
 		}
 
 		@Test
-		@DisplayName("Debe crear todas las materias correctamente")
+		@DisplayName("Debe crear todas las materia correctamente")
 		void creaTodasLasMateriasCorrectamente() {
 
 			List<Materia> materias = List.of(
@@ -198,7 +197,7 @@ class MateriaServiceTest extends AbstractIntegrationTest {
 	}
 
 	@Nested
-	@DisplayName("Listar materias paginadas por escuela.")
+	@DisplayName("Listar materia paginadas por escuela.")
 	class ListarMateriasPorEscuelaTest {
 
 		@Test
@@ -214,7 +213,7 @@ class MateriaServiceTest extends AbstractIntegrationTest {
 		}
 
 		@Test
-		@DisplayName("Debe listar materias ordenadas por nombre ascendente")
+		@DisplayName("Debe listar materia ordenadas por nombre ascendente")
 		void listaOrdenadoPorNombreAsc() {
 
 			// Arrange

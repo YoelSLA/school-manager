@@ -7,7 +7,6 @@ type Props = {
 };
 
 export default function BadgeEstadoDesignacion({ value }: Props) {
-	const { label, variant } = ESTADO_DESIGNACION_CONFIG[value];
-
-	return <Badge variant={variant}>{label}</Badge>;
+	const config = ESTADO_DESIGNACION_CONFIG[value];
+	return <Badge variant={config.variant}>{config.label}</Badge>;
 }

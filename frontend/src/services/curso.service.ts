@@ -1,0 +1,56 @@
+import { http } from "@/shared/api/http";
+import type {
+	CursoCreateDTO,
+	CursoFiltro,
+	CursoResponseDTO,
+	PageResponse,
+} from "@/shared/utils/types";
+
+export async function obtenerCursos(
+	escuelaId: number,
+	turno?: CursoFiltro,
+	page: number = 0,
+	size: number = 10,
+): Promise<PageResponse<CursoResponseDTO>> {
+	const params: Record<string, string | number> = {
+		page,
+		size,
+	};
+
+	if (turno && turno !== "TODOS") {
+		params.turno = turno;
+	}
+
+	const response = await http.get<PageResponse<CursoResponseDTO>>(
+		`/escuelas/${escuelaId}/cursos`,
+		{ params },
+	);
+
+	return response.data;
+}
+
+export async function obtenerNombresCursos(
+	escuelaId?: number,
+): Promise<CursoResponseDTO[]> {
+	if (!escuelaId) {
+		throw new Error("escuelaId es requerido para obtener cursos");
+	}
+
+	const response = await http.get<CursoResponseDTO[]>(
+		`/escuelas/${escuelaId}/cursos/nombres`,
+	);
+
+	return response.data;
+}
+
+export async function crearCurso(
+	escuelaId: number,
+	data: CursoCreateDTO,
+): Promise<CursoResponseDTO> {
+	const response = await http.post<CursoResponseDTO>(
+		`/escuelas/${escuelaId}/cursos`,
+		data,
+	);
+
+	return response.data;
+}

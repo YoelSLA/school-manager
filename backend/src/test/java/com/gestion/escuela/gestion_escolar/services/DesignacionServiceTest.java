@@ -1,12 +1,11 @@
 package com.gestion.escuela.gestion_escolar.services;
 
-import com.gestion.escuela.gestion_escolar.AbstractIntegrationTest;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class DesignacionServiceTest extends AbstractIntegrationTest {
+class DesignacionServiceTest extends DomainServiceFixtureTest {
 
 	@Autowired
 	private DesignacionService designacionService;
@@ -89,7 +88,7 @@ class DesignacionServiceTest extends AbstractIntegrationTest {
 //		assertEquals(EstadoLicencia.CUBIERTA, licenciaGuardada.getEstadoEn(inicioSuplencia));
 //	}
 
-// Cubre múltiples designaciones afectadas por una misma licencia usando un único suplente
+// Cubre múltiples designacion afectadas por una misma licencia usando un único suplente
 //	@Test
 //	void cubrirMultiplesDesignacionesConUnSuplente() {
 //
@@ -195,7 +194,7 @@ class DesignacionServiceTest extends AbstractIntegrationTest {
 //		assertEquals(original.getId(), renovada.getLicenciaAnterior().getId());
 //		assertEquals(renovada.getId(), original.getLicenciaSiguiente().getId());
 //
-//		// Assert — copia de designaciones
+//		// Assert — copia de designacion
 //		assertEquals(1, renovada.getDesignaciones().size());
 //		assertTrue(renovada.getDesignaciones().contains(designacionGuardada));
 //

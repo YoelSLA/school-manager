@@ -16,8 +16,9 @@ export default function LicenciaTimelineItem({
 }: Props) {
 	return (
 		<div
-			className={`${styles["timeline-item"]} ${esActual ? styles["timeline-item--active"] : ""
-				}`}
+			className={`${styles["timeline-item"]} ${
+				esActual ? styles["timeline-item--active"] : ""
+			}`}
 		>
 			<div className={styles["timeline-item__marker"]} />
 

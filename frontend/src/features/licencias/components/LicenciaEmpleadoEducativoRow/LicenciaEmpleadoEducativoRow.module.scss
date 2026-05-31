@@ -1,0 +1,156 @@
+// LicenciaEmpleadoEducativoRow.module.scss
+
+.card {
+	display: flex;
+
+	flex-direction: column;
+
+	gap: 0.2rem;
+
+	padding: 1rem 1.1rem;
+
+	border-radius: 1.4rem;
+
+	background: linear-gradient(
+		180deg,
+		rgba(255, 255, 255, 0.94) 0%,
+		rgba(248, 250, 252, 0.9) 100%
+	);
+
+	border: 1px solid rgba(255, 255, 255, 0.6);
+
+	backdrop-filter: blur(10px);
+
+	box-shadow:
+		0 10px 30px rgba(16, 185, 129, 0.05),
+		0 2px 8px rgba(15, 23, 42, 0.04);
+
+	transition:
+		transform 180ms ease,
+		box-shadow 180ms ease,
+		border-color 180ms ease;
+
+	&:hover {
+		transform: translateY(-1px);
+
+		border-color: rgba(16, 185, 129, 0.16);
+
+		box-shadow:
+			0 14px 34px rgba(16, 185, 129, 0.08),
+			0 4px 12px rgba(15, 23, 42, 0.05);
+	}
+}
+
+.top {
+	display: flex;
+
+	align-items: flex-start;
+
+	justify-content: space-between;
+
+	gap: 1rem;
+}
+
+.status {
+	display: flex;
+
+	align-items: center;
+
+	justify-content: center;
+
+	flex-shrink: 0;
+}
+
+.badges {
+	display: flex;
+
+	align-items: center;
+
+	flex-wrap: wrap;
+
+	gap: 0.6rem;
+
+	min-width: 0;
+}
+
+.badge,
+.badgeArticulo {
+	display: inline-flex;
+
+	align-items: center;
+
+	gap: 0.38rem;
+
+	padding: 0.48rem 0.82rem;
+
+	border-radius: 999px;
+
+	font-size: 0.82rem;
+
+	font-weight: 600;
+
+	backdrop-filter: blur(8px);
+
+	transition:
+		background 180ms ease,
+		transform 180ms ease,
+		border-color 180ms ease;
+
+	:global(svg) {
+		width: 0.92rem;
+
+		height: 0.92rem;
+
+		flex-shrink: 0;
+	}
+}
+
+.badge {
+	border: 1px solid rgba(226, 232, 240, 0.9);
+
+	background: rgba(248, 250, 252, 0.92);
+
+	color: #334155;
+
+	&:hover {
+		background: #f1f5f9;
+	}
+}
+
+.badgeArticulo {
+	border: 1px solid rgba(59, 130, 246, 0.18);
+
+	background: rgba(59, 130, 246, 0.1);
+
+	color: #1d4ed8;
+
+	&:hover {
+		background: rgba(59, 130, 246, 0.16);
+	}
+}
+
+.title {
+	margin: 0;
+
+	font-size: 1rem;
+
+	font-weight: 700;
+
+	letter-spacing: -0.02em;
+
+	line-height: 1.35;
+
+	color: #0f172a;
+
+	word-break: break-word;
+}
+
+.footer {
+	display: flex;
+
+	align-items: center;
+
+	padding-top: 0.85rem;
+
+	border-top: 1px solid rgba(226, 232, 240, 0.75);
+}

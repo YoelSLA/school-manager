@@ -7,9 +7,6 @@ type Props = {
 };
 
 export default function BadgeRolEducativo({ rolEducativo }: Props) {
-	console.log(rolEducativo);
-	console.log(ROL_EDUCATIVO_CONFIG);
-
 	const { label, variant, icon } = ROL_EDUCATIVO_CONFIG[rolEducativo];
 
 	return (

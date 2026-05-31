@@ -1,7 +1,7 @@
+import { BookOpen, Briefcase, GraduationCap, Hash } from "lucide-react";
 import Button from "@/components/Button";
 import BadgeEstadoDesignacion from "@/shared/components/BagdeEstadoDesignacion";
 import type { LicenciaDesignacionDTO } from "@/shared/utils/types";
-import { BookOpen, Briefcase, GraduationCap, Hash } from "lucide-react";
 import styles from "./DesignacionInfoCard.module.scss";
 
 type Props = {

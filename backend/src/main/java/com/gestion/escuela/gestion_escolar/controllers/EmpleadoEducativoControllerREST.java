@@ -1,10 +1,12 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.DesignacionLicenciaItemDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.BajaDefinitivaDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.EmpleadoEducativoDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.LicenciaDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadoEducativo.response.EmpleadoEducativoAsignacionesDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadoEducativo.response.EmpleadoEducativoDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadoEducativo.response.EmpleadoEducativoLicenciasDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.request.LicenciaCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.response.LicenciaDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.request.BajaDefinitivaDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.response.DesignacionLicenciaItemDTO;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.DesignacionMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.EmpleadoEducativoMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.LicenciaMapper;
@@ -66,11 +68,8 @@ public class EmpleadoEducativoControllerREST {
 
 	@GetMapping("/{empleadoId}")
 	public EmpleadoEducativoDetalleDTO obtenerPorId(@PathVariable Long empleadoId) {
-
 		EmpleadoEducativo empleado = empleadoEducativoService.obtenerPorId(empleadoId);
-
 		Set<RolEducativo> rolesEducativos = empleadoEducativoService.obtenerRolesEducativos(empleadoId);
-
 		return EmpleadoEducativoMapper.toDetalle(empleado, rolesEducativos);
 	}
 
@@ -83,6 +82,18 @@ public class EmpleadoEducativoControllerREST {
 				.stream()
 				.map(DesignacionMapper::toLicenciaItem)
 				.collect(Collectors.toSet());
+	}
+
+	@GetMapping("/{empleadoId}/asignaciones")
+	public EmpleadoEducativoAsignacionesDTO obtenerAsignaciones(@PathVariable Long empleadoId) {
+		EmpleadoEducativo empleado = empleadoEducativoService.obtenerPorId(empleadoId);
+		return EmpleadoEducativoMapper.toAsignaciones(empleado);
+	}
+
+	@GetMapping("/{empleadoId}/licencias")
+	public EmpleadoEducativoLicenciasDTO obtenerLicencias(@PathVariable Long empleadoId) {
+		EmpleadoEducativo empleado = empleadoEducativoService.obtenerPorId(empleadoId);
+		return EmpleadoEducativoMapper.toLicencias(empleado);
 	}
 
 }

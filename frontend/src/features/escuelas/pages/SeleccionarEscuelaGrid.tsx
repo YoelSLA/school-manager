@@ -19,9 +19,6 @@ export function SeleccionarEscuelaGrid({
 				<EscuelaCard
 					key={e.id}
 					escuela={e}
-					onEntrar={() =>
-						localStorage.setItem("escuelaActiva", e.id.toString())
-					}
 					onEditar={() => onEditar(e)}
 					onEliminar={() => onEliminar(e)}
 				/>

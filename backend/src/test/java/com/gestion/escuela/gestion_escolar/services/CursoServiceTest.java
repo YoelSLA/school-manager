@@ -1,6 +1,5 @@
 package com.gestion.escuela.gestion_escolar.services;
 
-import com.gestion.escuela.gestion_escolar.AbstractIntegrationTest;
 import com.gestion.escuela.gestion_escolar.models.Curso;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
@@ -19,10 +18,12 @@ import java.util.List;
 
 import static com.gestion.escuela.gestion_escolar.models.enums.Turno.MANIANA;
 import static com.gestion.escuela.gestion_escolar.models.enums.Turno.TARDE;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
-class  CursoServiceTest extends AbstractIntegrationTest {
+class CursoServiceTest extends DomainServiceFixtureTest {
 
 	@Autowired
 	private EscuelaService escuelaService;
@@ -30,139 +31,118 @@ class  CursoServiceTest extends AbstractIntegrationTest {
 	@Autowired
 	private CursoService cursoService;
 
-	private Escuela escuelaBDD;
+	private Escuela p_escuelaN65;
 
 	@BeforeEach
 	void setUp() {
-		Escuela escuelaModelo = new Escuela(
-				"Escuela N°65",
-				"San Francisco Solano",
-				"Avenida Provincial 849",
-				"1142130357");
-
-		escuelaBDD = escuelaService.crear(escuelaModelo);
+		p_escuelaN65 = escuelaService.crear(m_escuelaN65);
 	}
 
 	@Nested
 	@DisplayName("Creación de curso")
 	class CrearCurso {
-
-		Curso cursoM;
+		Curso p_a1g2;
 
 		@BeforeEach
 		void setUp() {
-
-			cursoM = new Curso(
-					MANIANA,
-					1,
-					2
-			);
-
+			p_a1g2 = cursoService.crear(p_escuelaN65.getId(), m_a1g2);
 		}
 
 		@Test
 		@DisplayName("Debe crear un curso correctamente.")
-		void crearCursoaCorrectamente() {
-
-			Curso curso = cursoService.crear(escuelaBDD.getId(), cursoM);
-
-			assertNotNull(curso.getId());
-			assertEquals(MANIANA, curso.getTurno());
-			assertEquals(1, curso.getAnio());
-			assertEquals(2, curso.getGrado());
-			assertEquals(escuelaBDD.getId(), curso.getEscuela().getId());
+		void crearCursoCorrectamente() {
+			// Arrange
+			Curso m_a6g1 = new Curso(TARDE, 6, 1);
+			// Act
+			Curso p_a6g1 = cursoService.crear(p_escuelaN65.getId(), m_a6g1);
+			// Assert
+			assertThat(p_a6g1.getId()).isNotNull();
+			assertThat(p_a6g1.getTurno()).isEqualTo(TARDE);
+			assertThat(p_a6g1.getAnio()).isEqualTo(6);
+			assertThat(p_a6g1.getGrado()).isEqualTo(1);
+			assertThat(p_a6g1.getEscuela()).isEqualTo(p_escuelaN65);
 		}
 
 		@Test
 		@DisplayName("Debe lanzar excepción si ya existe un curso con el año, grado y turno en la escuela.")
 		void fallaSiMateriaDuplicadaEnLaMismaEscuela() {
-
-
-			cursoService.crear(escuelaBDD.getId(), cursoM);
-			Curso cursoMDuplicado = new Curso(
-					cursoM.getTurno(),
-					cursoM.getAnio(),
-					cursoM.getGrado()
+			// Arrange
+			Curso m_a1g2Duplicado = new Curso(
+					p_a1g2.getTurno(),
+					p_a1g2.getAnio(),
+					p_a1g2.getGrado()
 			);
 
-			assertThrows(
-					RecursoDuplicadoException.class,
-					() -> cursoService.crear(escuelaBDD.getId(), cursoMDuplicado)
-			);
+			// Act + Assert
+			assertThatThrownBy(() -> cursoService.crear(p_escuelaN65.getId(), m_a1g2Duplicado))
+					.isInstanceOf(RecursoDuplicadoException.class);
 		}
-
 	}
 
 	@Nested
-	@DisplayName("Crear batch de cursos")
+	@DisplayName("Crear batch de curso")
 	class CrearBatchTest {
 
 		@Test
 		@DisplayName("No debe hacer nada si la lista es null")
 		void noHaceNadaSiListaEsNull() {
-
-			cursoService.crearBatch(escuelaBDD.getId(), null);
-
-			List<Curso> cursos = cursoService.listarCursosPorEscuela(escuelaBDD.getId());
-
-			assertTrue(cursos.isEmpty());
+			// Arrange
+			cursoService.crearBatch(p_escuelaN65.getId(), null);
+			// Act
+			List<Curso> cursos = cursoService.listarCursosPorEscuela(p_escuelaN65.getId());
+			// Assert
+			assertThat(cursos).isEmpty();
 		}
 
 		@Test
 		@DisplayName("No debe hacer nada si la lista está vacía")
 		void noHaceNadaSiListaVacia() {
-
-			cursoService.crearBatch(escuelaBDD.getId(), List.of());
-
-			List<Curso> cursos = cursoService.listarCursosPorEscuela(escuelaBDD.getId());
-
-			assertTrue(cursos.isEmpty());
+			// Arrange
+			cursoService.crearBatch(p_escuelaN65.getId(), List.of());
+			// Act
+			List<Curso> cursos = cursoService.listarCursosPorEscuela(p_escuelaN65.getId());
+			// Assert
+			assertThat(cursos).isEmpty();
 		}
 
 		@Test
 		@DisplayName("Debe lanzar excepción si la escuela no existe.")
 		void fallaSiEscuelaNoExiste() {
-
-			assertThrows(
-					RecursoNoEncontradoException.class,
-					() -> cursoService.crearBatch(999L, List.of(mock(Curso.class)))
-			);
+			// Act + Assert
+			assertThatThrownBy(() -> cursoService.crearBatch(999L, List.of(mock(Curso.class))))
+					.isInstanceOf(RecursoNoEncontradoException.class);
 		}
 
 		@Test
 		@DisplayName("Debe lanzar excepción si algun curso ya existe en la escuela.")
 		void fallaSiAlgunaMateriaEsDuplicada() {
+			// Arrange
+			Curso m_a1g1 = new Curso(MANIANA, 1, 1);
+			Curso m_a1g2 = new Curso(MANIANA, 1, 2);
 
-			cursoService.crear(
-					escuelaBDD.getId(),
-					new Curso(MANIANA, 1, 1)
-			);
+			cursoService.crear(p_escuelaN65.getId(), m_a1g1);
 
-			List<Curso> nuevas = List.of(
-					new Curso(MANIANA, 1, 2),
-					new Curso(MANIANA, 1, 1)
-			);
+			List<Curso> nuevas = List.of(m_a1g1, m_a1g2);
 
-			assertThrows(
-					RecursoDuplicadoException.class,
-					() -> cursoService.crearBatch(escuelaBDD.getId(), nuevas)
-			);
+			// Act + Assert
+			assertThatThrownBy(() -> cursoService.crearBatch(p_escuelaN65.getId(), nuevas))
+					.isInstanceOf(RecursoDuplicadoException.class);
 		}
 
 		@Test
-		@DisplayName("Debe crear todos los cursos correctamente")
+		@DisplayName("Debe crear todos los curso correctamente")
 		void creaTodasLasMateriasCorrectamente() {
+			// Arrange
+			Curso m_a1g1 = new Curso(MANIANA, 1, 1);
+			Curso m_a1g2 = new Curso(MANIANA, 1, 2);
+			List<Curso> ms_cursos = List.of(m_a1g1, m_a1g2);
 
-			List<Curso> cursos = List.of(
-					new Curso(MANIANA, 1, 1),
-					new Curso(MANIANA, 1, 2)
-			);
+			// Act
+			cursoService.crearBatch(p_escuelaN65.getId(), ms_cursos);
 
-			cursoService.crearBatch(escuelaBDD.getId(), cursos);
-
-			List<Curso> guardadas = cursoService.listarCursosPorEscuela(escuelaBDD.getId());
-
-			assertEquals(2, guardadas.size());
+			// Assert
+			List<Curso> ps_cursos = cursoService.listarCursosPorEscuela(p_escuelaN65.getId());
+			assertThat(ps_cursos).hasSize(2);
 		}
 	}
 
@@ -173,73 +153,64 @@ class  CursoServiceTest extends AbstractIntegrationTest {
 		@Test
 		@DisplayName("Debe devolver el curso cuando existe")
 		void devuelveMateriaSiExiste() {
+			// Arrange
+			Curso m_a1g1 = new Curso(MANIANA, 1, 1);
+			Curso p_a1g1 = cursoService.crear(p_escuelaN65.getId(), m_a1g1);
 
-			Curso creada = cursoService.crear(
-					escuelaBDD.getId(),
-					new Curso(MANIANA, 1, 1)
-			);
+			// Act
+			Curso p_a1g1Encontrado = cursoService.obtenerPorId(p_a1g1.getId());
 
-			Curso encontrada = cursoService.obtenerPorId(creada.getId());
-
-			assertEquals(creada.getId(), encontrada.getId());
-			assertEquals(MANIANA, encontrada.getTurno());
-			assertEquals(1, encontrada.getAnio());
-			assertEquals(1, encontrada.getGrado());
-
+			// Assert
+			assertThat(p_a1g1Encontrado.getId()).isEqualTo(p_a1g1.getId());
+			assertThat(p_a1g1Encontrado.getTurno()).isEqualTo(MANIANA);
+			assertThat(p_a1g1Encontrado.getAnio()).isEqualTo(1);
+			assertThat(p_a1g1Encontrado.getGrado()).isEqualTo(1);
 		}
 
 		@Test
 		@DisplayName("Debe lanzar excepción cuando el curso no existe.")
 		void fallaSiNoExiste() {
-
-			assertThrows(
-					RecursoNoEncontradoException.class,
-					() -> cursoService.obtenerPorId(99L)
-			);
+			// Act + Assert
+			assertThatThrownBy(() -> cursoService.obtenerPorId(99L))
+					.isInstanceOf(RecursoNoEncontradoException.class);
 		}
 	}
 
 	@Nested
-	@DisplayName("Listar cursos paginados por escuela.")
+	@DisplayName("Listar curso paginados por escuela.")
 	class ListarCursosPorEscuelaTest {
 
 		@Test
 		@DisplayName("Debe lanzar excepción si la escuela no existe")
 		void fallaSiEscuelaNoExiste() {
-
+			// Arrange
 			Pageable pageable = PageRequest.of(0, 10);
 
-			assertThrows(
-					RecursoNoEncontradoException.class,
-					() -> cursoService.listarCursosPorEscuela(99L, MANIANA, pageable)
-			);
+			// Act + Assert
+			assertThatThrownBy(() -> cursoService.listarCursosPorEscuela(99L, MANIANA, pageable))
+					.isInstanceOf(RecursoNoEncontradoException.class);
 		}
 
 		@Test
-		@DisplayName("Debe listar cursos ordenados por turno, año y grado ascendente")
+		@DisplayName("Debe listar curso ordenados por turno, año y grado ascendente")
 		void listaOrdenadoPorNombreAsc() {
+			// Arrange
+			Curso m_a1g1 = new Curso(MANIANA, 1, 1);
+			Curso m_a2g1 = new Curso(MANIANA, 2, 1);
+			Curso m_a3g1 = new Curso(MANIANA, 3, 1);
 
-			cursoService.crear(escuelaBDD.getId(),
-					new Curso(MANIANA, 1, 1));
-
-			cursoService.crear(escuelaBDD.getId(),
-					new Curso(MANIANA, 3, 1));
-
-			cursoService.crear(escuelaBDD.getId(),
-					new Curso(MANIANA, 2, 1));
-
-
+			cursoService.crearBatch(p_escuelaN65.getId(), List.of(m_a1g1, m_a2g1, m_a3g1));
 			Pageable pageable = PageRequest.of(0, 10);
 
-			Page<Curso> pagina =
-					cursoService.listarCursosPorEscuela(
-							escuelaBDD.getId(),
+			// Act
+			Page<Curso> pagina = cursoService.listarCursosPorEscuela(
+							p_escuelaN65.getId(),
 							MANIANA,
 							pageable
-					);
+			);
 
+			// Assert
 			List<Curso> cursos = pagina.getContent();
-
 			assertEquals(3, cursos.size());
 			assertEquals("1° 1", cursos.get(0).anioDivision());
 			assertEquals("2° 1", cursos.get(1).anioDivision());
@@ -249,25 +220,23 @@ class  CursoServiceTest extends AbstractIntegrationTest {
 		@Test
 		@DisplayName("Debe respetar la paginación")
 		void respetaLaPaginacion() {
+			// Arrange
+			Curso m_a1g1 = new Curso(MANIANA, 1, 1);
+			Curso m_a2g1 = new Curso(MANIANA, 2, 1);
+			Curso m_a3g1 = new Curso(MANIANA, 3, 1);
 
-			cursoService.crear(escuelaBDD.getId(),
-					new Curso(MANIANA, 1, 1));
-
-			cursoService.crear(escuelaBDD.getId(),
-					new Curso(MANIANA, 3, 1));
-
-			cursoService.crear(escuelaBDD.getId(),
-					new Curso(MANIANA, 2, 1));
+			cursoService.crearBatch(p_escuelaN65.getId(), List.of(m_a1g1, m_a2g1, m_a3g1));
 
 			Pageable pageable = PageRequest.of(0, 2);
 
-			Page<Curso> pagina =
-					cursoService.listarCursosPorEscuela(
-							escuelaBDD.getId(),
+			// Act
+			Page<Curso> pagina = cursoService.listarCursosPorEscuela(
+							p_escuelaN65.getId(),
 							MANIANA,
 							pageable
-					);
+			);
 
+			// Assert
 			assertEquals(2, pagina.getContent().size());
 			assertEquals(3, pagina.getTotalElements());
 		}
@@ -280,59 +249,51 @@ class  CursoServiceTest extends AbstractIntegrationTest {
 		@Test
 		@DisplayName("Debe lanzar excepción si la escuela no existe")
 		void fallaSiEscuelaNoExiste() {
-
-			assertThrows(
-					RecursoNoEncontradoException.class,
-					() -> cursoService.eliminar(99L, 1L)
-			);
+			// Act + Assert
+			assertThatThrownBy(() -> cursoService.eliminar(99L, 1L))
+					.isInstanceOf(RecursoNoEncontradoException.class);
 		}
 
 		@Test
 		@DisplayName("Debe lanzar excepción si el curso no existe en la escuela")
 		void fallaSiMateriaNoExiste() {
-
-			assertThrows(
-					RecursoNoEncontradoException.class,
-					() -> cursoService.eliminar(escuelaBDD.getId(), 99L)
-			);
+			// Act + Assert
+			assertThatThrownBy(() -> cursoService.eliminar(p_escuelaN65.getId(), 99L))
+					.isInstanceOf(RecursoNoEncontradoException.class);
 		}
 
 		@Test
 		@DisplayName("Debe eliminar el curso correctamente")
 		void eliminaMateriaCorrectamente() {
+			// Arrange
+			Curso m_a1g1 = new Curso(MANIANA, 1, 1);
+			Curso p_a1g1 = cursoService.crear(p_escuelaN65.getId(), m_a1g1);
 
-			Curso cursoModelo = new Curso(MANIANA, 1, 1);
+			// Act
+			cursoService.eliminar(p_escuelaN65.getId(), p_a1g1.getId());
 
-			Curso cursoBDD = cursoService.crear(escuelaBDD.getId(), cursoModelo);
-
-			cursoService.eliminar(escuelaBDD.getId(), cursoBDD.getId());
-
-			assertThrows(
-					RecursoNoEncontradoException.class,
-					() -> cursoService.obtenerPorId(cursoBDD.getId())
-			);
+			// Assert
+			assertThatThrownBy(() -> cursoService.obtenerPorId(p_a1g1.getId()))
+					.isInstanceOf(RecursoNoEncontradoException.class);
 		}
 
 		@Test
 		@DisplayName("Debe lanzar excepción de dominio si el curso pertenece a otra escuela")
 		void fallaSiMateriaPerteneceAOtraEscuela() {
 
-			Escuela escuelaModelo = new Escuela(
+			Escuela m_escuelaTest = new Escuela(
 					"test",
 					"test",
 					"test",
 					"11421303");
+			Escuela p_escuelaTest = escuelaService.crear(m_escuelaTest);
+			Curso m_a1g1 = new Curso(MANIANA, 1, 1);
+			Curso p_a1g1 = cursoService.crear(p_escuelaN65.getId(), m_a1g1);
 
-			Curso cursoModelo = new Curso(MANIANA, 1, 1);
+			// Act + Assert
+			assertThatThrownBy(() -> cursoService.eliminar(p_escuelaTest.getId(), p_a1g1.getId()))
+					.isInstanceOf(RecursoNoEncontradoException.class);
 
-			Escuela otraEscuelaBDD = escuelaService.crear(escuelaModelo);
-
-			Curso curso = cursoService.crear(escuelaBDD.getId(), cursoModelo);
-
-			assertThrows(
-					RecursoNoEncontradoException.class,
-					() -> cursoService.eliminar(otraEscuelaBDD.getId(), curso.getId())
-			);
 		}
 	}
 
@@ -343,67 +304,54 @@ class  CursoServiceTest extends AbstractIntegrationTest {
 		@Test
 		@DisplayName("Debe lanzar excepción si el curso no existe en la escuela.")
 		void fallaSiMateriaNoExiste() {
-
-			assertThrows(
-					RecursoNoEncontradoException.class,
-					() -> cursoService.actualizar(
-							escuelaBDD.getId(),
-							99L,
-							1,
-							1,
-							TARDE
-					)
-			);
+			// Act + Assert
+			assertThatThrownBy(() -> cursoService.actualizar(
+					p_escuelaN65.getId(),
+					99L,
+					1,
+					1,
+					TARDE
+			)).isInstanceOf(RecursoNoEncontradoException.class);
 		}
 
 		@Test
 		@DisplayName("Debe actualizar correctamente el curso")
 		void actualizaCorrectamente() {
-
 			// Arrange
-			Curso cursoModelo = new Curso(MANIANA, 1, 1);
-			Curso cursoBDD = cursoService.crear(escuelaBDD.getId(), cursoModelo);
-
-			assertNotNull(cursoBDD.getId());
-			assertEquals(MANIANA, cursoModelo.getTurno());
-			assertEquals(1, cursoModelo.getAnio());
-			assertEquals(1, cursoModelo.getGrado());
+			Curso m_a1g1 = new Curso(MANIANA, 1, 1);
+			Curso p_a1g1 = cursoService.crear(p_escuelaN65.getId(), m_a1g1);
 
 			// Act
-			Curso cursoBDDActualizado = cursoService.actualizar(
-					escuelaBDD.getId(),
-					cursoBDD.getId(),
-					1,
+			Curso p_a1g1Actualizado = cursoService.actualizar(
+					p_escuelaN65.getId(),
+					p_a1g1.getId(),
 					2,
-					MANIANA
+					2,
+					TARDE
 			);
 
 			// Assert
-			assertEquals(1, cursoBDDActualizado.getAnio());
-			assertEquals(2, cursoBDDActualizado.getGrado());
-			assertEquals("1° 2", cursoBDDActualizado.anioDivision());
-			assertEquals(MANIANA, cursoBDDActualizado.getTurno());
-
+			assertThat(p_a1g1Actualizado.getAnio()).isEqualTo(2);
+			assertThat(p_a1g1Actualizado.getGrado()).isEqualTo(2);
+			assertThat(p_a1g1Actualizado.anioDivision()).isEqualTo("2° 2");
+			assertThat(p_a1g1Actualizado.getTurno()).isEqualTo(TARDE);
 		}
 
 		@Test
 		@DisplayName("Debe lanzar excepción de dominio si los datos son inválidos")
 		void fallaSiDatosInvalidos() {
-
 			// Arrange
-			Curso cursoModelo = new Curso(MANIANA, 1, 1);
-			Curso cursoBDD = cursoService.crear(escuelaBDD.getId(), cursoModelo);
+			Curso m_a1g1 = new Curso(MANIANA, 1, 1);
+			Curso p_a1g1 = cursoService.crear(p_escuelaN65.getId(), m_a1g1);
 
-			assertThrows(
-					CampoObligatorioException.class,
-					() -> cursoService.actualizar(
-							escuelaBDD.getId(),
-							cursoBDD.getId(),
-							null,
-							1,
-							TARDE
-					)
-			);
+			// Act + Assert
+			assertThatThrownBy(() -> cursoService.actualizar(
+					p_escuelaN65.getId(),
+					p_a1g1.getId(),
+					null,
+					1,
+					TARDE
+			)).isInstanceOf(CampoObligatorioException.class);
 		}
 	}
 

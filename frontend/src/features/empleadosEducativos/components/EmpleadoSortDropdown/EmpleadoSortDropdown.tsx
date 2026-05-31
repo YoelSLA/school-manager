@@ -1,5 +1,5 @@
-import type { SortDirection, SortState } from "@/shared/utils/types";
 import { useEffect, useRef, useState } from "react";
+import type { SortDirection, SortState } from "@/shared/utils/types";
 import styles from "./EmpleadoSortDropdown.module.scss";
 import SortGroup from "./EmpleadoSortField";
 

@@ -1,6 +1,6 @@
 package com.gestion.escuela.gestion_escolar.services.impl;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionCursoFilterDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionCursoFilterDTO;
 import com.gestion.escuela.gestion_escolar.models.*;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionProvisional;
@@ -74,7 +74,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 	@Override
 	public <T extends Designacion> void crearBatch(List<T> designaciones) {
 
-		Validaciones.noVacio(designaciones, "designaciones");
+		Validaciones.noVacio(designaciones, "designacion");
 
 		Escuela escuela = designaciones.getFirst().getEscuela();
 		Long escuelaId = escuela.getId();
@@ -140,7 +140,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 		List<Designacion> designaciones = designacionRepository.findAllById(designacionIds);
 
 		if (designaciones.size() != designacionIds.size()) {
-			throw new RuntimeException("No se encontraron las designaciones");
+			throw new RuntimeException("No se encontraron las designacion");
 		}
 
 		return designaciones;

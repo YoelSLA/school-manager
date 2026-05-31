@@ -1,11 +1,11 @@
-import { eliminarAsignacion } from "@/features/designaciones/services/designaciones.services";
-import { asistenciasQueryKeys } from "@/shared/utils/queryKeys/asistencias.queryKeys";
-import { designacionesQueryKeys } from "@/shared/utils/queryKeys/designaciones.queryKeys";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { eliminarAsignacion } from "@/services/designacion.service";
+import { asistenciasQueryKeys } from "@/shared/utils/queryKeys/asistencias.queryKeys";
+import { designacionesQueryKeys } from "@/shared/utils/queryKeys/designaciones.queryKeys";
 import {
-    mapAsignacionError,
-    type UserError,
+	mapAsignacionError,
+	type UserError,
 } from "../errors/asignacionErrorMapper";
 
 type Params = {

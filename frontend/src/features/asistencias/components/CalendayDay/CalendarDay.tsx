@@ -1,13 +1,10 @@
-import type { EstadoVisual } from "../../utils";
+import type { EstadoVisual } from "@/shared/utils/types";
 import styles from "./CalendayDay.module.scss";
 
 type Props = {
 	date: Date;
-
 	codigo: string | null;
-
 	estadoVisual: EstadoVisual;
-
 	esLaboral: boolean;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 

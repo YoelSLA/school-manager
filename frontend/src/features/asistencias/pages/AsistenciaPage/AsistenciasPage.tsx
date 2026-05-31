@@ -1,5 +1,5 @@
 import Pagination from "@/app/layouts/Pagination";
-import { useAsistenciasPage } from "../../hooks/useAsistenciasPage";
+import { useAsistenciasPage } from "../../hooks/pages/useAsistenciasPage";
 import styles from "./AsistenciasPage.module.scss";
 import AsistenciasSidebar from "./AsistenciasSidebar";
 import EmpleadoResultsList from "./EmpleadoResultsList";

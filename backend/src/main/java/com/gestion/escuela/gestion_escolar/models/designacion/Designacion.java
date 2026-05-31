@@ -64,7 +64,6 @@ public abstract class Designacion {
 	// =========================================================
 	// Constructor
 	// =========================================================
-
 	protected Designacion() {
 		this.asignaciones = new ArrayList<>();
 		this.franjasHorarias = new HashSet<>();
@@ -81,7 +80,6 @@ public abstract class Designacion {
 		this.asignaciones = new ArrayList<>();
 		this.franjasHorarias = new HashSet<>();
 	}
-
 	// =========================================================
 	// Gestión de Franjas Horarias
 	// =========================================================
@@ -106,12 +104,14 @@ public abstract class Designacion {
 
 	public boolean trabajaElDia(LocalDate fecha) {
 
-		if (fecha == null)
+		if (fecha == null) {
 			return false;
+		}
 
-		DiaDeSemana diaEnum = DiaDeSemana.from(fecha);
+		DiaDeSemana dia = DiaDeSemana.from(fecha);
 
-		return franjasHorarias.stream().anyMatch(f -> f.getDia().equals(diaEnum));
+		return dia.esLaborable() && franjasHorarias.stream()
+						.anyMatch(f -> f.getDia().equals(dia));
 	}
 	// =========================================================
 	// Gestión de Asignaciones
@@ -173,6 +173,14 @@ public abstract class Designacion {
 	public boolean tieneAsignacionQueSeSuperponeCon(Periodo periodo) {
 		return this.asignaciones.stream()
 				.anyMatch(a -> a.seSuperponeCon(periodo));
+	}
+	public Optional<Asignacion> getAsignacionActivaDe(
+			EmpleadoEducativo empleado,
+			LocalDate fecha
+	) {
+		return asignacionesActivasEn(fecha)
+				.filter(a -> a.getEmpleadoEducativo().equals(empleado))
+				.findFirst();
 	}
 	// =========================================================
 	// Cobertura
@@ -262,7 +270,7 @@ public abstract class Designacion {
 
 	@Transient
 	public EstadoDesignacion getEstadoEn(LocalDate fecha) {
-		return EstadoDesignacion.desde(asignacionQueEjerceEn(fecha).isPresent());
+		return EstadoDesignacion.desdeCobertura(asignacionQueEjerceEn(fecha).isPresent());
 	}
 
 	public Optional<AsignacionSuplente> getSuplenciaActivaEn(LocalDate fecha) {
@@ -292,7 +300,7 @@ public abstract class Designacion {
 	// Notificaciones y Transiciones
 	// =========================================================
 	/**
-	 * Método interno de coordinación utilizado cuando una asignación
+	 * Metodo interno de coordinación utilizado cuando una asignación
 	 * genera una vacante definitiva.
 	 *
 	 * <p>No representa un caso de uso público del dominio y no debe
@@ -330,7 +338,7 @@ public abstract class Designacion {
 				", cupof = " + cupof +
 				", escuela  = " + (escuela != null ? escuela : null) +
 				", rolEducativo = " + rolEducativo +
-				", asignaciones = " + asignaciones.size() +
+				", asignacion = " + asignaciones.size() +
 				" }";
 	}
 

@@ -5,8 +5,8 @@ import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionProvision
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
 import com.gestion.escuela.gestion_escolar.models.enums.*;
 import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
-import com.gestion.escuela.gestion_escolar.models.exceptions.DesignacionYaTieneTitularException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionYaCubiertaException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionYaTieneTitularException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -26,7 +26,6 @@ class DesignacionAdministrativaTest extends DomainTestFixture {
 
 	private Escuela escuela;
 	private EmpleadoEducativo leguizamonMarina;
-	private EmpleadoEducativo giardinoNoraRosa;
 	private EmpleadoEducativo vallejosValeria;
 	private DesignacionAdministrativa direccion2467830;
 	private DesignacionAdministrativa auxiliar2330001;
@@ -96,7 +95,7 @@ class DesignacionAdministrativaTest extends DomainTestFixture {
 	class EstadoInicial {
 
 		@Test
-		@DisplayName("Una designación sin asignaciones está vacante")
+		@DisplayName("Una designación sin asignacion está vacante")
 		void designacionSinAsignacionesEstaVacante() {
 			assertEquals(
 					EstadoDesignacion.VACANTE,
@@ -368,7 +367,7 @@ class DesignacionAdministrativaTest extends DomainTestFixture {
 	}
 
 	@Nested
-	@DisplayName("Superposición de asignaciones")
+	@DisplayName("Superposición de asignacion")
 	class Superposicion {
 
 //		@Test

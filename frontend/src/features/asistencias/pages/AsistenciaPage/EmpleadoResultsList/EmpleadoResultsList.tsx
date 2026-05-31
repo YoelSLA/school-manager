@@ -1,10 +1,10 @@
-import type { EmpleadoAsistenciaDTO } from "@/shared/utils/types";
-import EmpleadoAsistenciaCard from "../../../components/EmpleadoAsistenciaCard/EmpleadoAsistenciaCard";
+import type { AsistenciaEmpleadoResumenDTO } from "@/shared/utils/types";
+import EmpleadoAsistenciaCard from "../../../components/AsistenciaEmpleadoCard/EmpleadoAsistenciaCard";
 import styles from "./EmpleadoResultsList.module.scss";
 
 type Props = {
-	empleados: EmpleadoAsistenciaDTO[];
-	onSelect: (empleado: EmpleadoAsistenciaDTO) => void;
+	empleados: AsistenciaEmpleadoResumenDTO[];
+	onSelect: (empleado: AsistenciaEmpleadoResumenDTO) => void;
 };
 
 export default function EmpleadoResultsList({ empleados, onSelect }: Props) {
@@ -15,13 +15,12 @@ export default function EmpleadoResultsList({ empleados, onSelect }: Props) {
 			</div>
 		);
 	}
-
 	return (
 		<section className={styles.list}>
 			{empleados.map((empleado) => (
 				<EmpleadoAsistenciaCard
-					key={empleado.id}
-					empleado={empleado}
+					key={empleado.empleadoBasico.id}
+					asistenciaEmpleadoResumen={empleado}
 					onSelect={onSelect}
 				/>
 			))}

@@ -1,6 +1,8 @@
 package com.gestion.escuela.gestion_escolar.models.exceptions.asignacion;
 
-public class AsignacionSuperpuestaException extends RuntimeException {
+import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarException;
+
+public class AsignacionSuperpuestaException extends GestionEscolarException {
 
 	public AsignacionSuperpuestaException() {
 		super("El empleado ya posee una asignación superpuesta en el período indicado.");
