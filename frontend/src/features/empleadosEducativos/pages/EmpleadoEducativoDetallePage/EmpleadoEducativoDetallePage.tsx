@@ -1,89 +1,46 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import ConfirmModal from "@/components/ConfirmModal";
-import Breadcrumbs from "@/layout/Breadcrumbs";
-import PageLayout from "@/layout/PageLayout/PageLayout";
-import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
-import { useAppSelector } from "@/store/hooks";
-import type { BajaDefinitivaDTO } from "@/utils/types";
+import Breadcrumbs from "@/app/layouts/Breadcrumbs";
+import PageLayout from "@/app/layouts/PageLayout/PageLayout";
+
+import ConfirmModal from "@/components/ModalConfirm";
+
 import BajaDefinitivaModal from "../../components/BajaDefinitivaModal";
-import { useDarDeBajaDefinitiva } from "../../hooks/useDarDeBajaDefinitiva";
-import { useEmpleadoEducativo } from "../../hooks/useEmpleadoEducativo";
-import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
-import { useReactivarEmpleado } from "../../hooks/useReactivarEmpleado";
+
+import { useEmpleadoEducativoDetallePage } from "../../hooks/useEmpleadoEducativoDetallePage";
+
 import AsignacionesList from "./AsignacionesList";
 import DatosPersonales from "./DatosPersonales/DatosPersonales";
 import EmpleadoBottomBar from "./EmpleadoBottomBar/EmpleadoBottomBar";
+
 import styles from "./EmpleadoEducativoDetallePage.module.scss";
+import EmpleadoLicenciaSection from "./EmpleadoLicenciaSection";
 import HeaderEmpleado from "./HeaderEmpleado/HeaderEmpleado";
-import LicenciasList from "./LicenciasList";
 
 export default function EmpleadoEducativoDetallePage() {
-	const { empleadoId } = useParams();
-	const empleadoNav = useEmpleadoNavigation();
-	const escuelaActiva = useAppSelector(selectEscuelaActiva);
+	const {
+		empleado,
+		asignaciones,
+		licencias,
+		empleadoNav,
+		isLoading,
+		isError,
+		isBajaModalOpen,
+		setIsBajaModalOpen,
+		isReactivarModalOpen,
+		setIsReactivarModalOpen,
+		handleToggleActivo,
+		confirmarBaja,
+		confirmarReactivacion,
+		bajaMutation,
+		reactivarMutation,
+	} = useEmpleadoEducativoDetallePage();
 
-	const [isBajaModalOpen, setIsBajaModalOpen] = useState(false);
-	const [isReactivarModalOpen, setIsReactivarModalOpen] = useState(false);
+	if (isLoading) {
+		return <div>Cargando empleado...</div>;
+	}
 
-	const id = Number(empleadoId);
-
-	const { data: empleado, isLoading, isError } = useEmpleadoEducativo(id);
-
-	const bajaMutation = useDarDeBajaDefinitiva();
-	const reactivarMutation = useReactivarEmpleado();
-
-	if (isLoading) return <div>Cargando empleado...</div>;
-	if (isError || !empleado) return <div>Error al cargar el empleado</div>;
-
-	/* =========================
-		 HANDLERS
-	========================= */
-
-	const handleToggleActivo = () => {
-		if (empleado.activo) {
-			setIsBajaModalOpen(true);
-		} else {
-			setIsReactivarModalOpen(true);
-		}
-	};
-
-	const confirmarBaja = (data: BajaDefinitivaDTO) => {
-		if (!escuelaActiva?.id) return;
-
-		bajaMutation.mutate(
-			{
-				empleadoId: empleado.id,
-				escuelaId: escuelaActiva.id,
-				payload: data,
-			},
-			{
-				onSuccess: () => {
-					setIsBajaModalOpen(false);
-				},
-			},
-		);
-	};
-
-	const confirmarReactivacion = () => {
-		if (!escuelaActiva?.id) return;
-
-		reactivarMutation.mutate(
-			{
-				empleadoId: empleado.id,
-				escuelaId: escuelaActiva.id,
-			},
-			{
-				onSuccess: () => {
-					setIsReactivarModalOpen(false);
-				},
-			},
-		);
-	};
-
-	/* =========================
-		 RENDER
-	========================= */
+	if (isError || !empleado || !asignaciones || !licencias) {
+		return <div>Error al cargar el empleado</div>;
+	}
 
 	return (
 		<PageLayout breadcrumbs={<Breadcrumbs />}>
@@ -101,11 +58,12 @@ export default function EmpleadoEducativoDetallePage() {
 
 					<div className={styles.right}>
 						<div className={styles.panel}>
-							<AsignacionesList asignaciones={empleado.asignaciones} />
-							<LicenciasList licencias={empleado.licencias} />
+							<AsignacionesList asignaciones={asignaciones.asignaciones} />
+							<EmpleadoLicenciaSection licencias={licencias} />
 						</div>
 					</div>
 				</div>
+
 				<EmpleadoBottomBar
 					activo={empleado.activo}
 					onCrearCargo={() => empleadoNav.crearCargo?.(empleado)}
@@ -114,8 +72,6 @@ export default function EmpleadoEducativoDetallePage() {
 					onToggleActivo={handleToggleActivo}
 				/>
 			</div>
-
-			{/* ================= MODALS ================= */}
 
 			<BajaDefinitivaModal
 				isOpen={isBajaModalOpen}

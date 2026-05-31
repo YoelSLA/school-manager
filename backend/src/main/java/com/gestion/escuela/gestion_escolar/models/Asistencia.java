@@ -20,7 +20,7 @@ import java.time.LocalDate;
 		}
 )
 @Getter
-public class Asistencia {
+public class Asistencia extends AuditableEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,7 +63,7 @@ public class Asistencia {
 
 		if (estadoAsistencia != EstadoAsistencia.AUSENTE) {
 			throw new IllegalStateException(
-					"Solo se persisten asistencias AUSENTE"
+					"Solo se persisten asistencia AUSENTE"
 			);
 		}
 
@@ -89,4 +89,5 @@ public class Asistencia {
 		this.tipoLicencia = tipoLicencia;
 		this.observacion = observacion;
 	}
+
 }

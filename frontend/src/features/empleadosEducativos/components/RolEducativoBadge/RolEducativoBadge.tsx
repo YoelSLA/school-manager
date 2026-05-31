@@ -1,5 +1,5 @@
-import { ROL_EDUCATIVO_LABELS } from "@/utils";
-import type { RolEducativo } from "@/utils/types/enums";
+import { ROL_EDUCATIVO_LABELS } from "@/shared/utils";
+import type { RolEducativo } from "@/shared/utils/types/enums";
 import styles from "./RolEducativoBadge.module.scss";
 
 type Props = {

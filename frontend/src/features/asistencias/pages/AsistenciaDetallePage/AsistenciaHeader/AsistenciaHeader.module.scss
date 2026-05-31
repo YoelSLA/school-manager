@@ -1,0 +1,99 @@
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 20px;
+
+  padding: 8px;
+
+  background-color: white;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+}
+
+/* =========================================================
+ * INFO
+ * =======================================================*/
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  min-width: 0;
+
+  flex: 1;
+}
+
+.cuil {
+  font-size: 14px;
+  font-weight: 500;
+
+  color: #64748b;
+
+  white-space: nowrap;
+}
+
+.separator {
+  font-size: 14px;
+
+  color: #cbd5e1;
+}
+
+.nombre {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+
+  color: #0f172a;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================================================
+ * ROLES
+ * =======================================================*/
+
+.roles {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+/* =========================================================
+ * BUTTON
+ * =======================================================*/
+
+.header :global(button) {
+  flex-shrink: 0;
+}
+
+/* =========================================================
+ * RESPONSIVE
+ * =======================================================*/
+
+@media (max-width: 900px) {
+  .header {
+    grid-template-columns: 1fr;
+
+    align-items: flex-start;
+  }
+
+  .info {
+    flex-wrap: wrap;
+  }
+
+  .nombre {
+    font-size: 22px;
+  }
+
+  .roles {
+    justify-content: flex-start;
+  }
+}

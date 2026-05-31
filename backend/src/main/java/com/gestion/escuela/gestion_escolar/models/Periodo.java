@@ -4,7 +4,6 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioExc
 import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 import com.gestion.escuela.gestion_escolar.models.exceptions.periodo.PeriodoAbiertoException;
-import com.gestion.escuela.gestion_escolar.models.exceptions.periodo.PeriodoYaCerradoException;
 import jakarta.persistence.Embeddable;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,13 +25,20 @@ public class Periodo {
 	protected Periodo() {
 	}
 
-	public Periodo(LocalDate fechaDesde, LocalDate fechaHasta) {
+	private Periodo(LocalDate fechaDesde, LocalDate fechaHasta) {
 
 		validarCrearPeriodo(fechaDesde, fechaHasta);
 
 		this.fechaDesde = fechaDesde;
 		this.fechaHasta = fechaHasta;
+	}
 
+	public static Periodo abierto(LocalDate fechaDesde) {
+		return new Periodo(fechaDesde, null);
+	}
+
+	public static Periodo cerrado(LocalDate fechaDesde, LocalDate fechaHasta) {
+		return new Periodo(fechaDesde, fechaHasta);
 	}
 
 	public boolean seSuperponeCon(Periodo otro) {

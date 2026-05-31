@@ -96,7 +96,7 @@ public class LicenciaServiceImpl implements LicenciaService {
 				licencia.getPeriodo().getFechaHasta()
 		);
 
-		licencia.limpiarDesignaciones();
+		licencia.eliminarDesignaciones();
 
 		licenciaRepository.delete(licencia);
 	}

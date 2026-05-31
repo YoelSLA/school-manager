@@ -1,9 +1,9 @@
 import { MapPin, Pencil, Phone, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { setEscuelaActiva } from "@/app/store/escuela/escuelaSlice";
+import { useAppDispatch } from "@/app/store/hooks";
 import Card from "@/components/Card/Card";
-import { setEscuelaActiva } from "@/store/escuela/escuelaSlice";
-import { useAppDispatch } from "@/store/hooks";
-import type { EscuelaResponseDTO } from "@/utils/types";
+import type { EscuelaResponseDTO } from "@/shared/utils/types";
 import styles from "./EscuelaCard.module.scss";
 
 type Props = {

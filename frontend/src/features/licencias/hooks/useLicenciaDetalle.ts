@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { licenciasQueryKeys } from "@/utils/queryKeys/licencias.queryKeys";
-import type { LicenciaDetalleDTO } from "@/utils/types";
-import { getLicenciaDetalle } from "../services/licencias.services";
+import { licenciasQueryKeys } from "@/shared/utils/queryKeys/licencias.queryKeys";
+import type { LicenciaDetalleDTO } from "@/shared/utils/types";
+import { getLicenciaDetalle } from "../../../services/licencia.service";
 
 export function useLicenciaDetalle(licenciaId?: number) {
 	const query = useQuery<LicenciaDetalleDTO>({

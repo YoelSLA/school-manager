@@ -1,28 +1,25 @@
 import { useState } from "react";
-import ConfirmModal from "@/components/ConfirmModal";
-
-("@/layout/SidebarSectate");
-
-import { usePagination } from "@/hooks/usePagination";
-import GridListState from "@/layout/GridListState";
-import ListPageLayout from "@/layout/ListPageLayout";
-import Pagination from "@/layout/Pagination";
-import Sidebar from "@/layout/Sidebar";
-import SidebarPageLayout from "@/layout/SidebarPageLayout";
-import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
-import { useAppSelector } from "@/store/hooks";
+import GridListState from "@/app/layouts/GridListState";
+import ListPageLayout from "@/app/layouts/ListPageLayout";
+import Pagination from "@/app/layouts/Pagination";
+import Sidebar from "@/app/layouts/Sidebar";
+import SidebarPageLayout from "@/app/layouts/SidebarPageLayout";
+import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
+import { useAppSelector } from "@/app/store/hooks";
+import ConfirmModal from "@/components/ModalConfirm";
+import { usePagination } from "@/shared/utils/hooks/usePagination";
 import type {
 	MateriaCreateDTO,
 	MateriaResponseDTO,
 	MateriaUpdateDTO,
-} from "@/utils/types";
+} from "@/shared/utils/types";
 import MateriaCard from "../components/MateriaCard";
 import CrearMateriaModal from "../components/MateriaCreateModal";
-import MateriaEditModal from "../components/MateriaEditModal/MateriaEditModal";
+import MateriaEditModal from "../components/MateriaUpdateModal/MateriaEditModal";
 import { useCrearMateria } from "../hooks/useCreateMateria";
 import useDeleteMateria from "../hooks/useDeleteMateria";
 import { useMaterias } from "../hooks/useMaterias";
-import { useEditMateria } from "../hooks/useUpdateMateria";
+import { useUpdateMateria } from "../hooks/useUpdateMateria";
 
 export default function MateriasPage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
@@ -64,7 +61,7 @@ export default function MateriasPage() {
 			 EDIT
 	========================= */
 
-	const { mutate: editMateria, isPending: isEditing } = useEditMateria(
+	const { mutate: editMateria, isPending: isEditing } = useUpdateMateria(
 		escuelaActiva?.id,
 	);
 

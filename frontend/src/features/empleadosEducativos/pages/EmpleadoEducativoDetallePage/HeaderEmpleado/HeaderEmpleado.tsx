@@ -1,6 +1,6 @@
-import BadgeRolEducativo from "@/components/BadgeRolEducativo";
-import BadgeEstadoEmpleado from "@/components/BagdeEstadoEmpleado";
-import type { EmpleadoEducativoDetalleDTO } from "@/utils/types";
+import BadgeRolEducativo from "@/shared/components/BadgeRolEducativo";
+import BadgeEstadoEmpleado from "@/shared/components/BagdeEstadoEmpleado";
+import type { EmpleadoEducativoDetalleDTO } from "@/shared/utils/types";
 import styles from "./HeaderEmpleado.module.scss";
 
 type Props = {
@@ -25,7 +25,7 @@ export default function HeaderEmpleado({ empleado }: Props) {
 			</div>
 			<div className={styles["header-empleado__badges"]}>
 				{empleado.rolesVigentes.map((rol) => (
-					<BadgeRolEducativo key={rol} value={rol} />
+					<BadgeRolEducativo key={rol} rolEducativo={rol} />
 				))}
 			</div>
 		</header>

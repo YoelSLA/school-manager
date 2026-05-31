@@ -1,7 +1,11 @@
 import { Calendar, IdCard, LocationEdit, Mail, Phone } from "lucide-react";
-import { formatearFecha } from "@/utils";
-import type { EmpleadoEducativoDetalleDTO } from "@/utils/types";
+
+import { formatearFecha } from "@/shared/utils";
+
+import type { EmpleadoEducativoDetalleDTO } from "@/shared/utils/types";
+
 import DatoPersonalItem from "./DatoPersonalItem";
+
 import styles from "./DatosPersonales.module.scss";
 
 type Props = {
@@ -9,6 +13,7 @@ type Props = {
 };
 
 export default function DatosPersonales({ empleado }: Props) {
+
 	const DATOS = [
 		{
 			icon: IdCard,
@@ -23,17 +28,17 @@ export default function DatosPersonales({ empleado }: Props) {
 		{
 			icon: Phone,
 			label: "Teléfono",
-			value: empleado.telefono,
+			value: empleado.telefono?.trim() || "No disponible",
 		},
 		{
 			icon: LocationEdit,
 			label: "Domicilio",
-			value: empleado.domicilio,
+			value: empleado.domicilio?.trim() || "No disponible",
 		},
 		{
 			icon: Mail,
 			label: "Email",
-			value: empleado.email,
+			value: empleado.email?.trim() || "No disponible",
 		},
 		{
 			icon: Calendar,
@@ -46,9 +51,11 @@ export default function DatosPersonales({ empleado }: Props) {
 
 	return (
 		<section className={styles.datos}>
-			<h2 className={styles.datos__titulo}>Datos personales</h2>
+			<header className={styles.header}>
+				<h2 className={styles.title}>DATOS PERSONALES</h2>
+			</header>
 
-			<div className={styles.datos__grid}>
+			<div className={styles.grid}>
 				{DATOS.map((dato) => (
 					<DatoPersonalItem
 						key={dato.label}

@@ -1,6 +1,10 @@
 package com.gestion.escuela.gestion_escolar.rest;
 
 import com.gestion.escuela.gestion_escolar.AbstractIntegrationTest;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.curso.request.CursoCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.curso.request.CursoUpdateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.escuela.request.EscuelaCreateDTO;
+import com.gestion.escuela.gestion_escolar.models.enums.Turno;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,18 +31,19 @@ class CursoRestAssuredTest extends AbstractIntegrationTest {
 	@Test
 	void flujoCompletoCurso() {
 
-		// 1️⃣ Crear escuela
+		EscuelaCreateDTO escuelaCreateDTO =
+				new EscuelaCreateDTO(
+						"Escuela N°77",
+						"Quilmes",
+						"Rivadavia 1234",
+						"12345678"
+				);
+
+		// 1️ Crear escuela
 		long escuelaId =
 				given()
 						.contentType(ContentType.JSON)
-						.body("""
-								{
-								  "nombre": "Escuela N°77",
-								  "localidad": "Quilmes",
-								  "direccion": "Rivadavia 1234",
-								  "telefono": "12345678"
-								}
-								""")
+						.body(escuelaCreateDTO)
 						.when()
 						.post("/api/escuelas")
 						.then()
@@ -47,17 +52,17 @@ class CursoRestAssuredTest extends AbstractIntegrationTest {
 						.jsonPath()
 						.getLong("id");
 
-		// 2️⃣ Crear curso
-		long cursoId =
-				given()
+		// 2️ Crear curso
+
+		CursoCreateDTO cursoCreateDTO = new CursoCreateDTO(
+						Turno.MANIANA,
+						1,
+						1
+				);
+
+		long cursoId = given()
 						.contentType(ContentType.JSON)
-						.body("""
-								{
-								  "turno": "Mañana",
-								  "anio": 1,
-								  "grado": 1
-								}
-								""")
+						.body(cursoCreateDTO)
 						.when()
 						.post("/api/escuelas/" + escuelaId + "/cursos")
 						.then()
@@ -66,7 +71,7 @@ class CursoRestAssuredTest extends AbstractIntegrationTest {
 						.jsonPath()
 						.getLong("id");
 
-		// 3️⃣ Listar cursos
+		// 3️ Listar curso
 		given()
 				.when()
 				.get("/api/escuelas/" + escuelaId + "/cursos")
@@ -74,16 +79,17 @@ class CursoRestAssuredTest extends AbstractIntegrationTest {
 				.statusCode(200)
 				.body("content.grado", hasItem(1));
 
-		// 4️⃣ Actualizar curso
+		// 4️ Actualizar curso
+		CursoUpdateDTO cursoUpdateDTO =
+				new CursoUpdateDTO(
+						Turno.MANIANA,
+						1,
+						3
+				);
+
 		given()
 				.contentType(ContentType.JSON)
-				.body("""
-						{
-						  "turno": "Mañana",
-						  "anio": 1,
-						  "grado": 3
-						}
-						""")
+				.body(cursoUpdateDTO)
 				.when()
 				.put("/api/escuelas/" + escuelaId + "/cursos/" + cursoId)
 				.then()

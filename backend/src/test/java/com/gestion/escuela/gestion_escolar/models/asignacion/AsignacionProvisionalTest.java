@@ -31,16 +31,17 @@ class AsignacionProvisionalTest {
 		empleado = mock(EmpleadoEducativo.class);
 		designacion = mock(Designacion.class);
 
-		periodo = new Periodo(
+		periodo = Periodo.cerrado(
 				LocalDate.of(2025, 3, 1),
-				LocalDate.of(2025, 3, 31)
-		);
+				LocalDate.of(2025, 3, 31));
+		
+		asignacion = AsignacionProvisional.builder()
+				.empleadoEducativo(empleado)
+				.designacion(designacion)
+				.periodo(periodo)
+				.secuencia(1)
+				.build();
 
-		asignacion = new AsignacionProvisional(
-				empleado,
-				designacion,
-				periodo, 1
-		);
 	}
 
 	// =====================================================
@@ -125,8 +126,7 @@ class AsignacionProvisionalTest {
 		void estaActivaMetodoDirecto() {
 			when(empleado.estaEnLicenciaPara(any(), any())).thenReturn(false);
 
-			assertTrue(
-					asignacion.estaActivaEn(LocalDate.of(2025, 3, 10))
+			assertTrue(asignacion.estaActivaEn(LocalDate.of(2025, 3, 10))
 			);
 		}
 
@@ -179,7 +179,7 @@ class AsignacionProvisionalTest {
 			LocalDate fechaBaja = LocalDate.of(2025, 3, 15);
 
 			asignacion.finalizarPorBajaDefinitiva(
-					CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+					CausaBaja.RENUNCIA,
 					fechaBaja
 			);
 
@@ -220,14 +220,14 @@ class AsignacionProvisionalTest {
 			LocalDate fecha = LocalDate.of(2025, 3, 15);
 
 			asignacion.finalizarPorBajaDefinitiva(
-					CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+					CausaBaja.RENUNCIA,
 					fecha
 			);
 
 			assertThrows(
 					AsignacionYaDadaDeBajaException.class,
 					() -> asignacion.finalizarPorBajaDefinitiva(
-							CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+							CausaBaja.RENUNCIA,
 							fecha
 					)
 			);
@@ -250,7 +250,7 @@ class AsignacionProvisionalTest {
 			LocalDate fechaBaja = LocalDate.of(2025, 3, 15);
 
 			asignacion.finalizarPorBajaDefinitiva(
-					CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+					CausaBaja.RENUNCIA,
 					fechaBaja
 			);
 
@@ -266,7 +266,7 @@ class AsignacionProvisionalTest {
 			LocalDate fecha = LocalDate.of(2025, 3, 15);
 
 			asignacion.finalizarPorBajaDefinitiva(
-					CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+					CausaBaja.RENUNCIA,
 					fecha
 			);
 
@@ -280,12 +280,12 @@ class AsignacionProvisionalTest {
 			LocalDate fecha = LocalDate.of(2025, 3, 15);
 
 			asignacion.finalizarPorBajaDefinitiva(
-					CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+					CausaBaja.RENUNCIA,
 					fecha
 			);
 
 			assertEquals(
-					CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+					CausaBaja.RENUNCIA,
 					asignacion.getCausaBaja()
 			);
 		}
@@ -378,7 +378,7 @@ class AsignacionProvisionalTest {
 			LocalDate fechaBaja = LocalDate.of(2025, 3, 15);
 
 			asignacion.finalizarPorBajaDefinitiva(
-					CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+					CausaBaja.RENUNCIA,
 					fechaBaja
 			);
 
@@ -398,7 +398,7 @@ class AsignacionProvisionalTest {
 			LocalDate fechaBaja = LocalDate.of(2025, 3, 15);
 
 			asignacion.finalizarPorBajaDefinitiva(
-					CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+					CausaBaja.RENUNCIA,
 					fechaBaja
 			);
 
@@ -472,16 +472,6 @@ class AsignacionProvisionalTest {
 	@Nested
 	@DisplayName("Otros comportamientos")
 	class Otros {
-
-		@Test
-		void asignarEmpleado() {
-
-			EmpleadoEducativo nuevo = mock(EmpleadoEducativo.class);
-
-			asignacion.asignarEmpleado(nuevo);
-
-			assertEquals(nuevo, asignacion.getEmpleadoEducativo());
-		}
 
 		@Test
 		void noGeneraVacanteDefinitiva() {

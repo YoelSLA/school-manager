@@ -1,4 +1,4 @@
-const { BrowserWindow, Menu, app } = require("electron");
+const { BrowserWindow, app } = require("electron");
 const path = require("node:path");
 
 const isDev = !app.isPackaged;
@@ -11,14 +11,18 @@ function createWindow() {
 		height: 720,
 		minWidth: 1300,
 		minHeight: 720,
+
+		// Solo ocultar en producción
 		autoHideMenuBar: !isDev,
+
 		webPreferences: {
 			preload: path.join(__dirname, "preload.cjs"),
 		},
 	});
 
+	// Solo eliminar menú en producción
 	if (!isDev) {
-		Menu.setApplicationMenu(null);
+		mainWindow.removeMenu();
 	}
 
 	if (isDev) {

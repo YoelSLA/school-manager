@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { licenciasQueryKeys } from "@/utils/queryKeys/licencias.queryKeys";
-import { deleteLicencia } from "../services/licencias.services";
+import { licenciasQueryKeys } from "@/shared/utils/queryKeys/licencias.queryKeys";
+import { deleteLicencia } from "../../../services/licencia.service";
 
 export default function useDeleteLicencia() {
 	const queryClient = useQueryClient();

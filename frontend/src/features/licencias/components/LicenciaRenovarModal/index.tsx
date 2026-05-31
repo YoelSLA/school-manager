@@ -1,9 +1,9 @@
-import FormInputField from "@/components/forms/FormInputField/FormInputField";
-import FormSelectField from "@/components/forms/FormSelectField/FormSelectField";
-import Modal from "@/components/Modal/Modal";
-import { agruparPorArticulo } from "@/utils";
-import type { RenovarLicenciaDTO } from "@/utils/types";
 import { useForm } from "react-hook-form";
+import FormInputField from "@/components/FormInputField/FormInputField";
+import FormSelectField from "@/components/FormSelectField/FormSelectField";
+import Modal from "@/components/Modal/Modal";
+import { agruparPorArticulo } from "@/shared/utils";
+import type { RenovarLicenciaDTO } from "@/shared/utils/types";
 import { useRenovarLicencia } from "../../hooks/useRenovarLicencia";
 import { TIPOS_LICENCIA } from "../../utils/tipoLicencia";
 import "./LicenciaRenovarModal.css";

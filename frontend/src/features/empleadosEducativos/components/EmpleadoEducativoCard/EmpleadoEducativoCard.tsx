@@ -1,6 +1,6 @@
 import { Card, CardDivider } from "@/components/Card";
-import { formatFechaIngreso } from "@/utils";
-import type { EmpleadoEducativoDetalleDTO } from "@/utils/types";
+import { formatFechaIngreso } from "@/shared/utils";
+import type { EmpleadoEducativoDetalleDTO } from "@/shared/utils/types";
 import EmpleadoCardHeader from "./EmpleadoCardHeader/EmpleadoCardHeader";
 import EmpleadoCardInfo from "./EmpleadoCardInfo/EmpleadoCardInfo";
 import EmpleadoCardRoles from "./EmpleadoCardRoles/EmpleadoCardRoles";

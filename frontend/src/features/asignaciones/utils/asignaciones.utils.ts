@@ -1,5 +1,10 @@
-import type { FiltroCargos } from "@/utils/types";
-import { CaracteristicaAsignacion } from "@/utils/types/enums";
+import type {
+	AsignacionAdministrativaEmpleadoEducativoRowDTO,
+	AsignacionCursoEmpleadoEducativoRowDTO,
+	AsignacionEmpleadoEducativoRowDTO,
+	FiltroCargos,
+} from "@/shared/utils/types";
+import { CaracteristicaAsignacion } from "@/shared/utils/types/enums";
 
 export const TIPO_ASIGNACION_OPTIONS = [
 	{ value: "TITULAR", label: "Titular" },
@@ -39,3 +44,29 @@ export const FILTROS_CARGOS: {
 	{ value: "FINALIZADA", label: "Finalizados" },
 	{ value: "BAJA", label: "Bajas" },
 ];
+
+export default function formatEnumLabel(value: string) {
+	return value
+		.toLowerCase()
+		.replaceAll("_", " ")
+		.replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+export function formatRol(rol: string) {
+	return rol
+		.toLowerCase()
+		.replaceAll("_", " ")
+		.replace(/\b\w/g, (l) => l.toUpperCase());
+}
+
+export function esAsignacionCurso(
+	asignacion: AsignacionEmpleadoEducativoRowDTO,
+): asignacion is AsignacionCursoEmpleadoEducativoRowDTO {
+	return asignacion.tipo === "CURSO";
+}
+
+export function esAsignacionAdministrativa(
+	asignacion: AsignacionEmpleadoEducativoRowDTO,
+): asignacion is AsignacionAdministrativaEmpleadoEducativoRowDTO {
+	return asignacion.tipo === "ADMINISTRATIVA";
+}

@@ -1,10 +1,10 @@
-import GridListState from "@/layout/GridListState";
+import GridListState from "@/app/layouts/GridListState";
 import type {
 	DesignacionAdministrativaResumenDTO,
 	DesignacionCursoResumenDTO,
-} from "@/utils/types";
-import DesignacionAdministrativaCard from "../../components/DesignacionAdministrativaCard";
-import DesignacionCursoCard from "../../components/DesignacionCursoCard";
+} from "@/shared/utils/types";
+import DesignacionAdministrativaCard from "../../components/DesignacionAdministrativa/DesignacionAdministrativaCard";
+import DesignacionCursoCard from "../../components/DesignacionCurso/DesignacionCursoCard";
 
 type Props =
 	| {

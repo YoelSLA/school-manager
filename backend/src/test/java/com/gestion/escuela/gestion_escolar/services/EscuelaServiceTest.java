@@ -1,8 +1,6 @@
 package com.gestion.escuela.gestion_escolar.services;
 
-import com.gestion.escuela.gestion_escolar.AbstractIntegrationTest;
-
-class EscuelaServiceTest extends AbstractIntegrationTest {
+class EscuelaServiceTest extends DomainServiceFixtureTest {
 
 //	@Autowired
 //	private EscuelaService escuelaService;

@@ -1,4 +1,4 @@
-import ConfirmModal from "@/components/ConfirmModal";
+import ConfirmModal from "@/components/ModalConfirm";
 
 type Props = {
 	open: boolean;

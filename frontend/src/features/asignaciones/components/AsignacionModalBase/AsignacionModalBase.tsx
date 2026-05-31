@@ -1,20 +1,20 @@
 import { useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
-import FormInputField from "@/components/forms/FormInputField/FormInputField";
-import FormSelectField from "@/components/forms/FormSelectField";
+import FormInputField from "@/components/FormInputField/FormInputField";
+import FormSelectField from "@/components/FormSelectField";
 import Modal from "@/components/Modal/Modal";
 import { CARACTERISTICA_ASIGNACION_OPTIONS } from "@/features/asignaciones/utils/asignaciones.utils";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
 import type {
 	CubrirProvisionalDTO,
 	CubrirTitularDTO,
-	EmpleadoEducativoMinimoDTO,
-} from "@/utils/types";
+	EmpleadoEducativoBasicoDTO,
+} from "@/shared/utils/types";
 import styles from "./AsignacionModalBase.module.scss";
 
 type Props = {
 	title: string;
-	defaultEmpleado?: EmpleadoEducativoMinimoDTO | null;
+	defaultEmpleado?: EmpleadoEducativoBasicoDTO | null;
 
 	tipoAsignacion: "TITULAR" | "PROVISIONAL";
 	setTipoAsignacion: (tipo: "TITULAR" | "PROVISIONAL") => void;

@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { CaracteristicaAsignacion } from "@/utils/types/enums";
-import { requiredFechaISO } from "@/utils/zod/schemas";
+import { CaracteristicaAsignacion } from "@/shared/utils/types/enums";
+import { requiredFechaISO } from "@/shared/utils/zod/schemas";
 
 export const createTitularSchema = z.object({
 	empleadoId: z.coerce

@@ -1,26 +1,51 @@
 import Modal from "@/components/Modal/Modal";
 import TipoLicenciaSelect from "@/features/licencias/components/TipoLicenciaSelect/TipoLicenciaSelect";
+
 import type { RegistrarInasistenciaFormOutput } from "../../form/asistencias.form.types";
 import { useRegistrarInasistenciaForm } from "../../form/useRegistrarInasistenciaForm";
+
 import styles from "./RegistrarInasistenciaModal.module.scss";
 
 type Props = {
 	open: boolean;
+
 	diasSeleccionados: number;
+
+	fechasSeleccionadas: Date[];
+
 	isSubmitting: boolean;
 
 	onCancel: () => void;
+
 	onConfirm: (data: RegistrarInasistenciaFormOutput) => void;
 };
+
+/* =========================================================
+ * HELPERS
+ * =======================================================*/
+
+function formatFecha(date: Date) {
+	return date.toLocaleDateString("es-AR", {
+		day: "numeric",
+		month: "long",
+		year: "numeric",
+	});
+}
+
+/* =========================================================
+ * COMPONENT
+ * =======================================================*/
 
 export default function RegistrarInasistenciaModal({
 	open,
 	diasSeleccionados,
+	fechasSeleccionadas,
 	isSubmitting,
 	onCancel,
 	onConfirm,
 }: Props) {
 	const { form } = useRegistrarInasistenciaForm();
+
 	const {
 		register,
 		handleSubmit,
@@ -28,17 +53,41 @@ export default function RegistrarInasistenciaModal({
 		reset,
 	} = form;
 
-	if (!open) return null;
+	/* =========================================================
+	 * TITLE
+	 * =======================================================*/
+
+	const titulo =
+		fechasSeleccionadas.length === 1
+			? `Registrar inasistencia · ${formatFecha(fechasSeleccionadas[0])}`
+			: `Registrar inasistencia · ${diasSeleccionados} días`;
+
+	/* =========================================================
+	 * GUARDS
+	 * =======================================================*/
+
+	if (!open) {
+		return null;
+	}
+
+	/* =========================================================
+	 * HANDLERS
+	 * =======================================================*/
 
 	const handleCancel = () => {
 		reset();
+
 		onCancel();
 	};
+
+	/* =========================================================
+	 * RENDER
+	 * =======================================================*/
 
 	return (
 		<form onSubmit={handleSubmit(onConfirm)}>
 			<Modal
-				title="Registrar inasistencia manual"
+				title={titulo}
 				onCancel={handleCancel}
 				confirmLabel="Registrar"
 				isSubmitting={isSubmitting}

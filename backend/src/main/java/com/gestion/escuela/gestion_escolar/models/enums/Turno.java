@@ -1,7 +1,5 @@
 package com.gestion.escuela.gestion_escolar.models.enums;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-
 public enum Turno {
 
 	MANIANA("Mañana"),
@@ -14,7 +12,6 @@ public enum Turno {
 		this.nombre = nombre;
 	}
 
-	@JsonValue
 	public String getNombre() {
 		return nombre;
 	}

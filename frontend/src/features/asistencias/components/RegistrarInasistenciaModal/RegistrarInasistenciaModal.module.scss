@@ -1,34 +1,33 @@
 .form {
 	display: flex;
 	flex-direction: column;
-	gap: 16px;
+	gap: 20px;
 }
-
-/* ===============================
-   FIELD
-================================ */
 
 .field {
 	display: flex;
 	flex-direction: column;
-	gap: 6px;
+	gap: 8px;
 
 	label {
-		font-size: 0.75rem;
-		font-weight: 500;
+		font-size: 0.8rem;
+		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 0.04em;
-		color: #475569; // slate-600
+		color: #475569;
 	}
 
 	select,
 	textarea {
-		font-size: 0.875rem;
-		padding: 8px 10px;
-		border-radius: 8px;
+		width: 100%;
 
-		border: 1px solid #d1d5db; // gray-300
-		background: #ffffff;
+		font-size: 0.95rem;
+		padding: 10px 12px;
+
+		border-radius: 10px;
+		border: 1px solid #d1d5db;
+
+		background: #fff;
 		color: #111827;
 
 		transition:
@@ -37,8 +36,8 @@
 
 		&:focus {
 			outline: none;
-			border-color: #2563eb; // blue-600
-			box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+			border-color: #2563eb;
+			box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 		}
 
 		&:disabled {
@@ -49,16 +48,12 @@
 
 	textarea {
 		resize: vertical;
-		min-height: 80px;
+		min-height: 100px;
+		max-height: 180px;
 	}
 }
 
-/* ===============================
-   HELPER
-================================ */
-
 .helper {
-	font-size: 0.8rem;
-	color: #6b7280; // gray-500
-	padding-top: 4px;
+	font-size: 0.85rem;
+	color: #64748b;
 }

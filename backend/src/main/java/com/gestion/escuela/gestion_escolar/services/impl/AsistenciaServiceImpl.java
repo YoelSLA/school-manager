@@ -1,12 +1,10 @@
 package com.gestion.escuela.gestion_escolar.services.impl;
 
-import com.gestion.escuela.gestion_escolar.models.Asistencia;
-import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
-import com.gestion.escuela.gestion_escolar.models.EstadoAsistenciaDia;
-import com.gestion.escuela.gestion_escolar.models.RolCantidad;
+import com.gestion.escuela.gestion_escolar.models.*;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsistencia;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
+import com.gestion.escuela.gestion_escolar.models.exceptions.AsistenciaNoEditableException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
 import com.gestion.escuela.gestion_escolar.persistence.AsignacionRepository;
 import com.gestion.escuela.gestion_escolar.persistence.AsistenciaRepository;
@@ -33,9 +31,90 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 	private final AsignacionRepository asignacionRepository;
 	private final EmpleadoEducativoRepository empleadoEducativoRepository;
 
+	@Transactional
 	@Override
+	public void registrarInasistencia(
+			Long escuelaId,
+			Long empleadoId,
+			LocalDate fecha,
+			TipoLicencia tipoLicencia,
+			String observacion
+	) {
+
+		EmpleadoEducativo empleadoEducativo = empleadoEducativoRepository.findById(empleadoId)
+				.orElseThrow(() -> new RecursoNoEncontradoException("empleado educativo", empleadoId));
+
+		Optional<Asistencia> asistenciaExistente = asistenciaRepository
+						.findByEmpleadoEducativoIdAndEscuelaIdAndFecha(
+								empleadoEducativo.getId(),
+								escuelaId,
+								fecha
+						);
+
+		Asistencia asistencia;
+
+		if (asistenciaExistente.isPresent()) {
+			asistencia = asistenciaExistente.get();
+			asistencia.actualizarManual(tipoLicencia, observacion);
+		} else {
+			asistencia = new Asistencia(
+					empleadoEducativo,
+					fecha,
+					EstadoAsistencia.AUSENTE,
+					tipoLicencia,
+					observacion
+			);
+		}
+		asistenciaRepository.save(asistencia);
+	}
+
+	@Transactional
+	@Override
+	public void registrarInasistencias(
+			Long escuelaId,
+			EmpleadoEducativo empleado,
+			List<LocalDate> fechas,
+			TipoLicencia tipoLicencia,
+			String observacion
+	) {
+
+		if (fechas == null || fechas.isEmpty()) {
+			return;
+		}
+
+		for (LocalDate fecha : fechas) {
+			registrarInasistencia(
+					escuelaId,
+					empleado.getId(),
+					fecha,
+					tipoLicencia,
+					observacion
+			);
+		}
+	}
+
 	@Transactional(readOnly = true)
-	public List<EstadoAsistenciaDia> obtenerEstadoMensual(
+	@Override
+	public List<Asistencia> obtenerAsistenciasDelMes(
+			Long escuelaId,
+			Long empleadoId,
+			YearMonth mes
+	) {
+
+		LocalDate inicio = mes.atDay(1);
+		LocalDate fin = mes.atEndOfMonth();
+
+		return asistenciaRepository.findByEmpleadoEducativoIdAndEscuelaIdAndFechaBetween(
+				empleadoId,
+				escuelaId,
+				inicio,
+				fin
+		);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<EstadoAsistenciaDia> obtenerEstadoAsistenciaMensual(
 			Long escuelaId,
 			Long empleadoId,
 			YearMonth mes
@@ -111,11 +190,9 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 			Pageable pageable
 	) {
 
-		List<RolEducativo> rolesFiltro =
-				(roles == null || roles.isEmpty()) ? null : roles;
+		List<RolEducativo> rolesFiltro = (roles == null || roles.isEmpty()) ? null : roles;
 
-		String queryFiltro =
-				(query == null || query.isBlank()) ? null : query;
+		String queryFiltro = (query == null || query.isBlank()) ? null : query;
 
 		return empleadoEducativoRepository.buscarEmpleadosConRolVigente(
 				escuelaId,
@@ -127,73 +204,68 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 	}
 
 	@Override
-	@Transactional
-	public void registrarInasistenciasManuales(
+	public void eliminarInasistencia(
 			Long escuelaId,
-			EmpleadoEducativo empleado,
-			List<LocalDate> fechas,
-			TipoLicencia tipoLicencia,
-			String observacion
+			Long empleadoId,
+			LocalDate fecha
 	) {
 
-		if (fechas == null || fechas.isEmpty()) {
-			return;
+		Asistencia asistencia =
+				asistenciaRepository.findByEmpleadoEducativoIdAndEscuelaIdAndFecha(empleadoId, escuelaId, fecha)
+				.orElseThrow(() -> new RecursoNoEncontradoException("inasistencia", fecha));
+
+		if (asistencia.getEstadoAsistencia() != EstadoAsistencia.AUSENTE) {
+			throw new AsistenciaNoEditableException(fecha);
 		}
 
-		List<Asistencia> existentes = asistenciaRepository
-				.findByEmpleadoEducativoIdAndEscuelaIdAndFechaIn(
-						empleado.getId(),
-						escuelaId,
-						fechas
-				);
-
-		Map<LocalDate, Asistencia> existentesPorFecha = existentes.stream()
-				.collect(Collectors.toMap(
-						Asistencia::getFecha,
-						asistencia -> asistencia
-				));
-
-		List<Asistencia> aGuardar = new ArrayList<>();
-
-		for (LocalDate fecha : fechas) {
-
-			Asistencia existente = existentesPorFecha.get(fecha);
-
-			if (existente != null) {
-				existente.actualizarManual(
-						tipoLicencia,
-						observacion
-				);
-				aGuardar.add(existente);
-
-			} else {
-				Asistencia a = new Asistencia(empleado, fecha, EstadoAsistencia.AUSENTE, tipoLicencia, observacion);
-				aGuardar.add(a);
-			}
-		}
-
-		asistenciaRepository.saveAll(aGuardar);
+		asistenciaRepository.delete(asistencia);
 	}
 
 	@Override
-	public void eliminarInasistenciasManual(
-			Long escuelaId,
-			Long empleadoId,
-			List<LocalDate> fechas) {
+	public void eliminarInasistencias(Long escuelaId, Long empleadoId, List<LocalDate> fechas) {
 
 		if (fechas == null || fechas.isEmpty()) {
 			return;
 		}
 
-		List<Asistencia> asistencias = asistenciaRepository.findByEmpleadoEducativoIdAndEscuelaIdAndFechaIn(empleadoId, escuelaId, fechas);
-
-		for (Asistencia asistencia : asistencias) {
-
-			if (asistencia.getEstadoAsistencia() != EstadoAsistencia.AUSENTE) {
-				throw new IllegalStateException("No se puede eliminar una asistencia que no sea AUSENTE");
-			}
+		for (LocalDate fecha : fechas) {
+			this.eliminarInasistencia(escuelaId, empleadoId, fecha
+			);
 		}
-		asistenciaRepository.deleteAll(asistencias);
+	}
+
+	@Override
+	public EmpleadoAsistenciaResumen getResumenAsistenciaEmpleado(
+			EmpleadoEducativo empleado,
+			LocalDate fecha
+	) {
+
+		LocalDate desde = fecha.withDayOfMonth(1);
+		LocalDate hasta = fecha.withDayOfMonth(fecha.lengthOfMonth());
+
+		int faltasUltimoMes =
+				(int) asistenciaRepository
+						.countByEmpleadoEducativoIdAndFechaBetweenAndEstadoAsistenciaIn(
+								empleado.getId(),
+								desde,
+								hasta,
+								List.of(EstadoAsistencia.AUSENTE)
+						);
+
+		TipoLicencia licenciaMasFrecuente =
+				asistenciaRepository
+						.findTipoLicenciaMasFrecuenteDelMes(
+								empleado.getId(),
+								desde,
+								hasta
+						)
+						.orElse(null);
+
+		return new EmpleadoAsistenciaResumen(
+				empleado.rolesActivosEn(fecha),
+				faltasUltimoMes,
+				licenciaMasFrecuente
+		);
 	}
 
 }

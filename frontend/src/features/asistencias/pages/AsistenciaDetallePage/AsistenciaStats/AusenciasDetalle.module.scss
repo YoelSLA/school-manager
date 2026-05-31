@@ -1,0 +1,97 @@
+.detalleBox {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+
+	padding: 14px;
+
+	background-color: #f8fafc;
+
+	border: 1px solid #e2e8f0;
+	border-radius: 14px;
+}
+
+.detalleTitle {
+	font-size: 13px;
+	font-weight: 700;
+
+	color: #0f172a;
+}
+
+/* =========================================================
+ * LIST
+ * =======================================================*/
+
+.ausentesList {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+
+	padding: 0;
+	margin: 0;
+
+	list-style: none;
+
+	max-height: 220px;
+
+	overflow-y: auto;
+
+	padding-right: 4px;
+}
+
+/* =========================================================
+ * SCROLLBAR
+ * =======================================================*/
+
+.ausentesList::-webkit-scrollbar {
+	width: 6px;
+}
+
+.ausentesList::-webkit-scrollbar-thumb {
+	background-color: #cbd5e1;
+	border-radius: 999px;
+}
+
+/* =========================================================
+ * ITEM
+ * =======================================================*/
+
+.ausentesList li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	padding: 8px 10px;
+
+	background-color: #fff;
+
+	border-radius: 10px;
+
+	border: 1px solid #e2e8f0;
+}
+
+.ausentesList li span {
+	font-size: 12px;
+	font-weight: 600;
+
+	color: #334155;
+}
+
+.ausentesList li strong {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	min-width: 24px;
+	height: 24px;
+
+	padding: 0 6px;
+
+	border-radius: 999px;
+
+	font-size: 11px;
+	font-weight: 700;
+
+	background-color: #dbeafe;
+	color: #1d4ed8;
+}

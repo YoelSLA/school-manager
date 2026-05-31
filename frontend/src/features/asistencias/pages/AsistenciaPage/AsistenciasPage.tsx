@@ -1,101 +1,32 @@
-import { useEffect, useState } from "react";
-import { useDynamicPageSize } from "@/hooks/useDynamicPageSize";
-import Pagination from "@/layout/Pagination";
-import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
-import { useAppSelector } from "@/store/hooks";
-import { useAsistenciaNavigation } from "../../hooks/useAsistenciaNavigation";
-import { useEmpleadosAsistencias } from "../../hooks/useEmpleadosAsistencias";
-import { useRolesConAsistencias } from "../../hooks/useRolesConAsistencias";
+import Pagination from "@/app/layouts/Pagination";
+import { useAsistenciasPage } from "../../hooks/pages/useAsistenciasPage";
 import styles from "./AsistenciasPage.module.scss";
 import AsistenciasSidebar from "./AsistenciasSidebar";
-import type { RolItem } from "./AsistenciasSidebar/AsistenciasSidebar";
 import EmpleadoResultsList from "./EmpleadoResultsList";
 import EmpleadoSearchBar from "./EmpleadoSearchBar";
 
-function todayISO(): string {
-	return new Date().toISOString().slice(0, 10);
-}
-
 export default function AsistenciasPage() {
-	const escuelaActiva = useAppSelector(selectEscuelaActiva);
-	const fecha = todayISO();
-	const asistenciaNav = useAsistenciaNavigation();
-
 	const {
-		data: rolesData = [],
-		isLoading: isLoadingRoles,
-		isError: isErrorRoles,
-	} = useRolesConAsistencias(escuelaActiva.id, fecha);
-
-	const [roles, setRoles] = useState<RolItem[]>([]);
-
-	useEffect(() => {
-		if (rolesData.length === 0) return;
-
-		setRoles(
-			rolesData.map((rol) => ({
-				id: rol.id,
-				label: rol.label,
-				count: rol.count,
-				checked: true,
-			})),
-		);
-	}, [rolesData]);
-
-	function handleToggleRol(rolId: string) {
-		setRoles((prev) =>
-			prev.map((rol) =>
-				rol.id === rolId ? { ...rol, checked: !rol.checked } : rol,
-			),
-		);
-	}
-
-	const [query, setQuery] = useState("");
-	const [page, setPage] = useState(0);
-
-	function handleClearFilters() {
-		setRoles((prev) =>
-			prev.map((rol) => ({
-				...rol,
-				checked: false,
-			})),
-		);
-
-		setQuery("");
-		setPage(0);
-	}
-
-	const rolesActivos = roles.filter((r) => r.checked).map((r) => r.id);
-	const hayRolesSeleccionados = rolesActivos.length > 0;
-
-	const pageSize = useDynamicPageSize(9, 12);
-
-	useEffect(() => {
-		setPage(0);
-	}, []);
-
-	const {
-		data,
-		isLoading: isLoadingEmpleados,
-		isError: isErrorEmpleados,
-	} = useEmpleadosAsistencias({
-		escuelaId: escuelaActiva.id,
-		fecha,
-		roles: rolesActivos,
+		roles,
 		query,
 		page,
-		size: pageSize,
-		enabled: hayRolesSeleccionados,
-	});
+		totalPages,
+		empleados,
+		isLoading,
+		isError,
+		handleToggleRol,
+		handleClearFilters,
+		setQuery,
+		setPage,
+		handleSelectEmpleado,
+		hayRolesSeleccionados,
+	} = useAsistenciasPage();
 
-	const empleados = data?.content ?? [];
-	const totalPages = data?.totalPages ?? 0;
-
-	if (isLoadingRoles || isLoadingEmpleados) {
+	if (isLoading) {
 		return <div>Cargando asistencias...</div>;
 	}
 
-	if (isErrorRoles || isErrorEmpleados) {
+	if (isError) {
 		return <div>Error al cargar asistencias</div>;
 	}
 
@@ -117,9 +48,7 @@ export default function AsistenciasPage() {
 				<div className={styles.results}>
 					<EmpleadoResultsList
 						empleados={hayRolesSeleccionados ? empleados : []}
-						onSelect={(empleado) => {
-							asistenciaNav.verDetalle(empleado);
-						}}
+						onSelect={handleSelectEmpleado}
 					/>
 				</div>
 

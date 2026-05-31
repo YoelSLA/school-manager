@@ -1,6 +1,6 @@
-import BadgeEstadoDesignacion from "@/components/BagdeEstadoDesignacion";
 import RolEducativoBadge from "@/features/empleadosEducativos/components/RolEducativoBadge";
-import type { DesignacionDetalleDTO } from "@/utils/types";
+import BadgeEstadoDesignacion from "@/shared/components/BagdeEstadoDesignacion";
+import type { DesignacionDetalleDTO } from "@/shared/utils/types";
 import styles from "./DesignacionHeaderInfo.module.scss";
 
 type Props = {

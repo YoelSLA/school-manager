@@ -1,5 +1,5 @@
-import type { DesignacionDetalleDTO } from "@/utils/types";
 import { BookOpen, Compass, GraduationCap } from "lucide-react";
+import type { DesignacionDetalleDTO } from "@/shared/utils/types";
 import styles from "./DesignacionDatos.module.scss";
 
 type Props = {

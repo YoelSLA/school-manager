@@ -1,15 +1,18 @@
 package com.gestion.escuela.gestion_escolar.models.enums;
 
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 
 import java.time.LocalDate;
 
 public enum DiaDeSemana {
+
 	LUNES("Lunes"),
 	MARTES("Martes"),
 	MIERCOLES("Miércoles"),
 	JUEVES("Jueves"),
-	VIERNES("Viernes");
+	VIERNES("Viernes"),
+	SABADO("Sábado"),
+	DOMINGO("Domingo");
 
 	private final String nombre;
 
@@ -19,29 +22,24 @@ public enum DiaDeSemana {
 
 	public static DiaDeSemana from(LocalDate fecha) {
 
-		if (fecha == null)
-			return null;
+		Validaciones.noNulo(fecha, "fecha");
 
 		return switch (fecha.getDayOfWeek()) {
-			case MONDAY ->
-					LUNES;
-			case TUESDAY ->
-					MARTES;
-			case WEDNESDAY ->
-					MIERCOLES;
-			case THURSDAY ->
-					JUEVES;
-			case FRIDAY ->
-					VIERNES;
-			case SATURDAY,
-				 SUNDAY ->
-					null; // 👈 no excepción
+			case MONDAY -> LUNES;
+			case TUESDAY -> MARTES;
+			case WEDNESDAY -> MIERCOLES;
+			case THURSDAY -> JUEVES;
+			case FRIDAY -> VIERNES;
+			case SATURDAY -> SABADO;
+			case SUNDAY -> DOMINGO;
 		};
 	}
 
-	@JsonValue
+	public boolean esLaborable() {
+		return this != SABADO && this != DOMINGO;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
 }
-

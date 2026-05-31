@@ -25,9 +25,4 @@ public class DesignacionAdministrativa extends Designacion {
 		return super.toString();
 	}
 
-	public void actualizar(Integer cupof, RolEducativo rolEducativo) {
-		actualizarCupof(cupof);
-		actualizarRolEducativo(rolEducativo);
-	}
-
 }

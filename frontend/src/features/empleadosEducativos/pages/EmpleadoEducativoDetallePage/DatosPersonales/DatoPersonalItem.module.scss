@@ -1,43 +1,81 @@
 .item {
-	display: grid;
-	grid-template-columns: 16px 1fr;
-	grid-template-rows: auto auto;
-	column-gap: 8px;
-	row-gap: 2px;
+	display: flex;
 
-	align-items: start;
+	align-items: flex-start;
 
-	font-size: 0.8rem;
-	color: #374151;
+	gap: 0.85rem;
+
+	padding: 0.9rem;
+
+	border-radius: 1rem;
+
+	background: rgb(255 255 255 / 55%);
+
+	border: 1px solid rgb(255 255 255 / 60%);
+
+	backdrop-filter: blur(4px);
+
+	box-shadow:
+		0 2px 8px rgb(59 130 246 / 4%),
+		inset 0 1px 0 rgb(255 255 255 / 30%);
 }
 
-.icon {
-	grid-column: 1;
-	grid-row: 1 / span 2;
-	align-self: center;
+.iconWrapper {
+	width: 2rem;
 
-	color: #92400e;
+	height: 2rem;
+
+	display: flex;
+
+	align-items: center;
+
+	justify-content: center;
+
+	border-radius: 0.8rem;
+
+	background: rgb(59 130 246 / 10%);
+
+	color: #2563eb;
+
 	flex-shrink: 0;
 }
 
+.icon {
+	flex-shrink: 0;
+}
+
+.content {
+	display: flex;
+
+	flex-direction: column;
+
+	gap: 0.18rem;
+
+	min-width: 0;
+
+	flex: 1;
+}
+
 .label {
-	grid-column: 2;
-	grid-row: 1;
+	font-size: 0.68rem;
 
-	font-size: 0.7rem;
-	font-weight: 500;
+	font-weight: 700;
+
 	text-transform: uppercase;
-	letter-spacing: 0.04em;
 
-	color: #6b7280;
+	letter-spacing: 0.08em;
+
+	color: #78716c;
 }
 
 .value {
-	grid-column: 2;
-	grid-row: 2;
+	font-size: 0.93rem;
 
-	font-size: 0.85rem;
 	font-weight: 600;
-	color: #111827;
-	white-space: nowrap;
+
+	line-height: 1.35;
+
+	color: #1f2937;
+
+	word-break: break-word;
 }

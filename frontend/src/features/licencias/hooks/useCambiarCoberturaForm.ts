@@ -2,9 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-
-import type { EmpleadoEducativoMinimoDTO } from "@/utils/types";
-
+import type { EmpleadoEducativoBasicoDTO } from "@/shared/utils/types";
 import { cambiarCoberturaSchema } from "../form/cambiarCobertura.schema";
 import { useCambiarCobertura } from "./useCambiarCobertura";
 
@@ -12,7 +10,7 @@ type Props = {
 	licenciaId: number;
 	designacionId: number;
 	secuencia: number;
-	empleadoInicial: EmpleadoEducativoMinimoDTO | null;
+	empleadoInicial: EmpleadoEducativoBasicoDTO | null;
 	fechaInicial: string;
 	onSuccess: () => void;
 };
@@ -32,7 +30,7 @@ export function useCambiarCoberturaForm({
 	fechaInicial,
 	onSuccess,
 }: Props) {
-	const [empleado, setEmpleado] = useState<EmpleadoEducativoMinimoDTO | null>(
+	const [empleado, setEmpleado] = useState<EmpleadoEducativoBasicoDTO | null>(
 		empleadoInicial,
 	);
 

@@ -1,4 +1,4 @@
-import type { LicenciaTimelineItemDTO } from "@/utils/types";
+import type { LicenciaTimelineItemDTO } from "@/shared/utils/types";
 
 export function useUltimaLicencia(
 	timeline: LicenciaTimelineItemDTO[],

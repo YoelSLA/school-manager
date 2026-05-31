@@ -1,0 +1,92 @@
+/* ======================================================
+	 DASHBOARD
+====================================================== */
+
+export const dashboardPaths = {
+	base: "/dashboard",
+};
+
+/* ======================================================
+	 EMPLEADOS EDUCATIVOS
+====================================================== */
+
+export const empleadosEducativosPaths = {
+	base: "/empleadosEducativos",
+
+	create: "/empleadosEducativos/crear",
+
+	detail: (empleadoId: number | string) => `/empleadosEducativos/${empleadoId}`,
+
+	edit: (empleadoId: number | string) =>
+		`/empleadosEducativos/${empleadoId}/editar`,
+
+	// ✅ NUEVOS
+	crearCargo: (empleadoId: number | string) =>
+		`/empleadosEducativos/${empleadoId}/cargos/crear`,
+
+	crearLicencia: (empleadoId: number | string) =>
+		`/empleadosEducativos/${empleadoId}/licencias/crear`,
+};
+
+/* ======================================================
+	 ASISTENCIAS
+====================================================== */
+
+export const asistenciasPaths = {
+	base: "/asistencias",
+
+	list: "/asistencias",
+
+	detail: (empleadoId: number | string, anio: number, mes: number) =>
+		`/asistencias/${empleadoId}/${anio}/${mes}`,
+
+	month: (empleadoId: number | string, anio: number, mes: number) =>
+		`/asistencias/${empleadoId}/${anio}/${mes}`,
+};
+
+/* ======================================================
+	 CURSOS
+====================================================== */
+
+export const cursosPaths = {
+	base: "/cursos",
+
+	detail: (cursoId: number | string) => `/cursos/${cursoId}`,
+};
+
+/* ======================================================
+	 MATERIAS
+====================================================== */
+
+export const materiasPaths = {
+	base: "/materias",
+};
+
+/* ======================================================
+	 DESIGNACIONES
+====================================================== */
+
+export const designacionesPaths = {
+	base: "/designaciones",
+
+	create: "/designaciones/crear",
+
+	detail: (designacionId: number | string) => `/designaciones/${designacionId}`,
+
+	edit: (designacionId: number | string) =>
+		`/designaciones/${designacionId}/editar`,
+};
+/* ======================================================
+	 LICENCIAS
+====================================================== */
+
+export const licenciasPaths = {
+	base: "/licencias",
+
+	create: "/licencias/crear",
+
+	detail: (licenciaId: number | string) => `/licencias/${licenciaId}`,
+
+	designaciones: (licenciaId: number | string) =>
+		`/licencias/${licenciaId}/designaciones`,
+};

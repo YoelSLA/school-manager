@@ -11,7 +11,6 @@ import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoDuplicadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
-import com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo.EmpleadoEducativoDuplicadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo.EmpleadoNoPerteneceAEscuelaException;
 import com.gestion.escuela.gestion_escolar.persistence.*;
 import com.gestion.escuela.gestion_escolar.services.EmpleadoEducativoService;
@@ -25,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
@@ -44,10 +44,7 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 
 		Escuela escuela = escuelaRepository.findById(escuelaId).orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
 
-		if (empleadoEducativoRepository.existsByCuilAndEscuelaId(
-				empleado.getCuil(),
-				escuelaId
-		)) {
+		if (empleadoEducativoRepository.existsByCuilAndEscuelaId(empleado.getCuil(), escuelaId)) {
 			throw new RecursoDuplicadoException(
 					String.format(
 							"Ya existe un empleado con CUIL '%s' en la escuela %s",
@@ -57,10 +54,7 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 			);
 		}
 
-		if (empleadoEducativoRepository.existsByEmailAndEscuelaId(
-				empleado.getEmail(),
-				escuelaId
-		)) {
+		if (empleadoEducativoRepository.existsByEmailAndEscuelaId(empleado.getEmail(), escuelaId)) {
 			throw new RecursoDuplicadoException(
 					String.format(
 							"Ya existe un empleado con email '%s' en la escuela %s",
@@ -76,8 +70,11 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 	}
 
 	@Override
-	public void crearBatch(List<EmpleadoEducativo> empleadoEducativos) {
-		empleadoEducativoRepository.saveAll(empleadoEducativos);
+	public void crearBatch(List<EmpleadoEducativo> empleados) {
+
+		for (EmpleadoEducativo empleado : empleados) {
+			crear(empleado.getEscuela().getId(), empleado);
+		}
 	}
 
 	@Override
@@ -95,31 +92,13 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 			Set<Long> designacionIds
 	) {
 
-		log.info("Creando licencia para empleado {}", empleadoId);
-		log.debug(
-				"Datos licencia -> tipo: {}, periodo: {} a {}, descripcion: {}, designacionesIds: {}",
-				tipo,
-				periodo.getFechaDesde(),
-				periodo.getFechaHasta(),
-				descripcion,
-				designacionIds
-		);
-
 		EmpleadoEducativo empleado = obtenerPorId(empleadoId);
-
-		log.debug("Empleado encontrado: {}", empleado.getId());
 
 		Set<Designacion> designaciones = new HashSet<>(designacionRepository.findAllById(designacionIds));
 
-		log.debug("Se encontraron {} designaciones", designaciones.size());
-
 		Licencia licencia = empleado.crearLicencia(tipo, periodo, descripcion, designaciones);
 
-		log.debug("Licencia creada en memoria");
-
 		licenciaRepository.save(licencia);
-
-		log.info("Licencia {} guardada correctamente", licencia.getId());
 
 		return licencia;
 	}
@@ -131,7 +110,6 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 			CausaBaja causa
 	) {
 		EmpleadoEducativo empleado = obtenerPorId(empleadoId);
-
 		empleado.darDeBajaDefinitiva(causa, fechaBaja);
 
 	}
@@ -228,10 +206,12 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 				escuelaId,
 				empleadoId
 		)) {
-			throw new EmpleadoEducativoDuplicadoException(
-					"CUIL",
-					empleado.getCuil(),
-					escuela.getNombre()
+			throw new RecursoDuplicadoException(
+					String.format(
+							"Ya existe un empleado con CUIL '%s' en la escuela '%s'.",
+							empleado.getCuil(),
+							escuela.getNombre()
+					)
 			);
 		}
 
@@ -240,10 +220,12 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 				escuelaId,
 				empleadoId
 		)) {
-			throw new EmpleadoEducativoDuplicadoException(
-					"email",
-					empleado.getEmail(),
-					escuela.getNombre()
+			throw new RecursoDuplicadoException(
+					String.format(
+							"Ya existe un empleado con email '%s' en la escuela '%s'.",
+							empleado.getEmail(),
+							escuela.getNombre()
+					)
 			);
 		}
 
@@ -258,6 +240,11 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 		return empleado.designacionesActivasEn(LocalDate.now());
 	}
 
+	@Override
+	public Optional<Licencia> obtenerLicenciaActiva(Long empleadoId, LocalDate fecha) {
+		EmpleadoEducativo empleado = obtenerPorId(empleadoId);
+		return empleado.licenciaActivaEn(fecha);
+	}
 
 }
 

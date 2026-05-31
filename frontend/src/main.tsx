@@ -6,13 +6,13 @@ import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import { BrowserRouter, HashRouter } from "react-router-dom";
 
-import { store } from "@/store";
+import { store } from "@/app/store";
 
 import "@/styles/index.css";
 import "@/styles/tokens.css";
 
+import AppRouter from "./app/router/AppRouter";
 import { queryClient } from "./queryClient";
-import AppRouter from "./router/AppRouter";
 
 const rootElement = document.getElementById("root");
 

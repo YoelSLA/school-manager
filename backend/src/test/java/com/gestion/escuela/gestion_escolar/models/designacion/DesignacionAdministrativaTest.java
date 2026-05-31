@@ -1,15 +1,12 @@
 package com.gestion.escuela.gestion_escolar.models.designacion;
 
-import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
-import com.gestion.escuela.gestion_escolar.models.Escuela;
-import com.gestion.escuela.gestion_escolar.models.FranjaHoraria;
-import com.gestion.escuela.gestion_escolar.models.Periodo;
+import com.gestion.escuela.gestion_escolar.models.*;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionProvisional;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
 import com.gestion.escuela.gestion_escolar.models.enums.*;
 import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
-import com.gestion.escuela.gestion_escolar.models.exceptions.DesignacionYaTieneTitularException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionYaCubiertaException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionYaTieneTitularException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -21,14 +18,14 @@ import java.time.Month;
 import java.util.Optional;
 import java.util.Set;
 
+import static com.gestion.escuela.gestion_escolar.models.Periodo.cerrado;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Tests de Designación Administrativa")
-class DesignacionAdministrativaTest {
+class DesignacionAdministrativaTest extends DomainTestFixture {
 
 	private Escuela escuela;
 	private EmpleadoEducativo leguizamonMarina;
-	private EmpleadoEducativo giardinoNoraRosa;
 	private EmpleadoEducativo vallejosValeria;
 	private DesignacionAdministrativa direccion2467830;
 	private DesignacionAdministrativa auxiliar2330001;
@@ -44,14 +41,6 @@ class DesignacionAdministrativaTest {
 				"Leguizamon",
 				LocalDate.of(1971, Month.JANUARY, 22),
 				LocalDate.of(2004, Month.JULY, 21)
-		);
-
-		giardinoNoraRosa = crearEmpleado(
-				"27-14762038-7",
-				"Nora Rosa",
-				"Giardino",
-				LocalDate.of(1961, Month.NOVEMBER, 10),
-				LocalDate.of(1998, Month.MARCH, 1)
 		);
 
 		vallejosValeria = crearEmpleado(
@@ -73,17 +62,16 @@ class DesignacionAdministrativaTest {
 			LocalDate nacimiento,
 			LocalDate ingreso
 	) {
-		return new EmpleadoEducativo(
-				escuela,
-				cuil,
-				nombre,
-				apellido,
-				" ",
-				" ",
-				nacimiento,
-				ingreso,
-				"test@gmail.com"
-		);
+		return EmpleadoEducativo.builder()
+				.escuela(escuela)
+				.cuil(cuil)
+				.nombre(nombre)
+				.apellido(apellido)
+				.fechaDeNacimiento(nacimiento)
+				.fechaDeIngreso(ingreso)
+				.email("test@gmail.com")
+				.build();
+
 	}
 
 	private Escuela crearEscuela65Bernal() {
@@ -107,7 +95,7 @@ class DesignacionAdministrativaTest {
 	class EstadoInicial {
 
 		@Test
-		@DisplayName("Una designación sin asignaciones está vacante")
+		@DisplayName("Una designación sin asignacion está vacante")
 		void designacionSinAsignacionesEstaVacante() {
 			assertEquals(
 					EstadoDesignacion.VACANTE,
@@ -156,9 +144,9 @@ class DesignacionAdministrativaTest {
 
 			LocalDate fechaTomaPosesion = LocalDate.of(2017, Month.JUNE, 7);
 			LocalDate fechaCese = LocalDate.of(2018, Month.FEBRUARY, 28);
-			Periodo periodo = new Periodo(fechaTomaPosesion, fechaCese);
+			Periodo periodoCerrado = cerrado(fechaTomaPosesion, fechaCese);
 
-			direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo, 1);
+			direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodoCerrado, 1);
 
 			assertEquals(EstadoDesignacion.CUBIERTA, direccion2467830.getEstadoEn(fechaTomaPosesion));
 		}
@@ -171,7 +159,7 @@ class DesignacionAdministrativaTest {
 
 			LocalDate fechaTomaPosesion2 = LocalDate.of(2017, Month.JUNE, 7);
 			LocalDate fechaCese = LocalDate.of(2018, Month.FEBRUARY, 28);
-			Periodo periodo = new Periodo(fechaTomaPosesion2, fechaCese);
+			Periodo periodoCerrado = cerrado(fechaTomaPosesion2, fechaCese);
 
 			direccion2467830.cubrirConTitular(leguizamonMarina, fechaTomaPosesion, 1);
 
@@ -179,7 +167,7 @@ class DesignacionAdministrativaTest {
 					DesignacionYaCubiertaException.class,
 					() -> direccion2467830.cubrirConProvisionalManual(
 							giardinoNoraRosa,
-							periodo, 1
+							periodoCerrado, 1
 					)
 			);
 		}
@@ -234,9 +222,14 @@ class DesignacionAdministrativaTest {
 
 			LocalDate fechaInicio = LocalDate.of(2025, Month.FEBRUARY, 24);
 			LocalDate fechaFin = LocalDate.of(2026, Month.FEBRUARY, 4);
-			Periodo periodo = new Periodo(fechaInicio, fechaFin);
+			Periodo periodoCerrado = cerrado(fechaInicio, fechaFin);
 
-			leguizamonMarina.crearLicencia(TipoLicencia.L_115D1, periodo, "Reposo", Set.of(auxiliar2330001));
+			leguizamonMarina.crearLicencia(
+					TipoLicencia.L_115D1,
+					periodoCerrado,
+					"Reposo",
+					Set.of(auxiliar2330001)
+			);
 
 			assertEquals(EstadoDesignacion.VACANTE, auxiliar2330001.getEstadoEn(fechaInicio));
 		}
@@ -303,9 +296,10 @@ class DesignacionAdministrativaTest {
 			// Arrange
 			LocalDate fechaInicio = LocalDate.of(2017, Month.JUNE, 7);
 			LocalDate fechaFin = LocalDate.of(2018, Month.FEBRUARY, 28);
-			Periodo periodo = new Periodo(fechaInicio, fechaFin);
+			Periodo periodoCerrado = cerrado(fechaInicio, fechaFin);
 
-			AsignacionProvisional anterior = direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo, 1);
+			AsignacionProvisional anterior =
+					direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodoCerrado, 1);
 
 			// Act
 			AsignacionProvisional renovada = direccion2467830.renovarProvisionalAutomatica(anterior, 1);
@@ -325,9 +319,10 @@ class DesignacionAdministrativaTest {
 			// Arrange
 			LocalDate fechaInicio = LocalDate.of(2017, Month.JUNE, 7);
 			LocalDate fechaFin = LocalDate.of(2018, Month.FEBRUARY, 28);
-			Periodo periodo = new Periodo(fechaInicio, fechaFin);
+			Periodo periodoCerrado = cerrado(fechaInicio, fechaFin);
 
-			AsignacionProvisional anterior = direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo, 1);
+			AsignacionProvisional anterior =
+					direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodoCerrado, 1);
 
 			LocalDate nuevaFechaFin = LocalDate.of(2018, Month.DECEMBER, 31);
 
@@ -349,29 +344,30 @@ class DesignacionAdministrativaTest {
 			// Arrange
 			LocalDate fechaInicio = LocalDate.of(2017, Month.JUNE, 7);
 			LocalDate fechaFin = LocalDate.of(2018, Month.FEBRUARY, 28);
-			Periodo periodo = new Periodo(fechaInicio, fechaFin);
+			Periodo periodoCerrado = cerrado(fechaInicio, fechaFin);
 
 			AsignacionProvisional anterior =
-					direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo, 1);
+					direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodoCerrado, 1);
 
-			Periodo nuevoPeriodo = new Periodo(
+			Periodo nuevoPeriodoCerrado = cerrado(
 					LocalDate.of(2018, Month.MARCH, 1),
 					LocalDate.of(2018, Month.NOVEMBER, 30)
 			);
 
 			// Act
-			AsignacionProvisional renovada = direccion2467830.renovarProvisionalManual(anterior, nuevoPeriodo, 1);
+			AsignacionProvisional renovada =
+					direccion2467830.renovarProvisionalManual(anterior, nuevoPeriodoCerrado, 1);
 
 			// Assert
 			assertNotNull(renovada);
-			assertEquals(nuevoPeriodo, renovada.getPeriodo());
+			assertEquals(nuevoPeriodoCerrado, renovada.getPeriodo());
 			assertEquals(giardinoNoraRosa, renovada.getEmpleadoEducativo());
 		}
 
 	}
 
 	@Nested
-	@DisplayName("Superposición de asignaciones")
+	@DisplayName("Superposición de asignacion")
 	class Superposicion {
 
 //		@Test
@@ -408,7 +404,7 @@ class DesignacionAdministrativaTest {
 
 			assertThrows(
 					CampoObligatorioException.class,
-					() -> direccion2467830.asignarEscuela(null)
+					() -> direccion2467830.setEscuela(null)
 			);
 		}
 
@@ -423,7 +419,7 @@ class DesignacionAdministrativaTest {
 					"12345678"
 			);
 
-			direccion2467830.asignarEscuela(nuevaEscuela);
+			direccion2467830.setEscuela(nuevaEscuela);
 
 			assertEquals(nuevaEscuela, direccion2467830.getEscuela());
 		}
@@ -564,9 +560,13 @@ class DesignacionAdministrativaTest {
 			// Arrange
 			LocalDate fechaTomaPosesion = LocalDate.of(2017, Month.JUNE, 7);
 			LocalDate fechaCese = LocalDate.of(2018, Month.FEBRUARY, 28);
-			Periodo periodo = new Periodo(fechaTomaPosesion, fechaCese);
+			Periodo periodoCerrado = cerrado(fechaTomaPosesion, fechaCese);
 
-			AsignacionProvisional provisional = direccion2467830.cubrirConProvisionalManual(giardinoNoraRosa, periodo, 1);
+			AsignacionProvisional provisional =
+					direccion2467830.cubrirConProvisionalManual(
+							giardinoNoraRosa,
+							periodoCerrado, 1
+					);
 
 			assertEquals(EstadoDesignacion.CUBIERTA, direccion2467830.getEstadoEn(fechaTomaPosesion));
 			assertEquals(EstadoAsignacion.ACTIVA, provisional.getEstadoEn(fechaTomaPosesion));

@@ -1,7 +1,8 @@
 package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.*;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response.AsignacionDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.response.*;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.periodo.response.PeriodoCerradoDTO;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
@@ -9,9 +10,12 @@ import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdminis
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoPeriodoLicencia;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LicenciaMapper {
 
 	private static final LocalDate HOY = LocalDate.now();
@@ -33,10 +37,10 @@ public class LicenciaMapper {
 
 		return new LicenciaResumenDTO(
 				l.getId(),
-				EmpleadoEducativoMapper.toMinimo(l.getEmpleadoEducativo()),
+				EmpleadoEducativoMapper.toBasico(l.getEmpleadoEducativo()),
 				normativa,
 				tipo.getDescripcion(),
-				PeriodoMapper.toPeriodoResponse(l),
+				(PeriodoCerradoDTO) PeriodoMapper.toDTO(l.getPeriodo()),
 				l.getEstadoEn(HOY),
 				l.diasRestantes(HOY)
 		);
@@ -59,17 +63,17 @@ public class LicenciaMapper {
 
 		return new LicenciaDetalleDTO(
 				l.getId(),
-				EmpleadoEducativoMapper.toMinimo(l.getEmpleadoEducativo()),
+				EmpleadoEducativoMapper.toBasico(l.getEmpleadoEducativo()),
 				normativa,
 				l.getDescripcion(),
-				PeriodoMapper.toPeriodoResponse(l),
+				PeriodoMapper.toCerradoDTO(l.getPeriodo()),
 				l.getEstadoEn(HOY)
 		);
 	}
 
 	public static LicenciaDesignacionDTO toDesignacionDTO(Designacion d) {
 
-		Asignacion asignacion = d.getAsignacionActivaEn(HOY).orElse(null);
+		Asignacion asignacion = d.asignacionQueEjerceEn(HOY).orElse(null);
 
 		AsignacionDetalleDTO asignacionActiva =
 				asignacion != null
@@ -107,8 +111,25 @@ public class LicenciaMapper {
 		return new LicenciaTimelineItemDTO(
 				l.getId(),
 				l.getLicenciaAnterior() == null ? TipoPeriodoLicencia.ORIGINAL : TipoPeriodoLicencia.RENOVACION,
-				PeriodoMapper.toPeriodoResponse(l)
+				PeriodoMapper.toCerradoDTO(l.getPeriodo())
 
+		);
+	}
+
+	public static LicenciaEmpleadoEducativoRowDTO toLicenciaRow(Licencia l) {
+		TipoLicencia tipo = l.getTipoLicencia();
+		LicenciaNormativaDTO normativaDTO = new LicenciaNormativaDTO(
+				tipo.getCodigo(),
+				tipo.getArticulo(),
+				tipo.getDescripcion()
+		);
+		return new LicenciaEmpleadoEducativoRowDTO(
+				l.getId(),
+				tipo,
+				PeriodoMapper.toCerradoDTO(l.getPeriodo()),
+				normativaDTO,
+				l.getEstadoEn(HOY),
+				l.getDescripcion()
 		);
 	}
 }

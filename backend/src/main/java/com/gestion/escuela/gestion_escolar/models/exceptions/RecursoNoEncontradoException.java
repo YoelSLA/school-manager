@@ -1,8 +1,11 @@
 package com.gestion.escuela.gestion_escolar.models.exceptions;
 
-public class RecursoNoEncontradoException extends DominioException {
-	public RecursoNoEncontradoException(String recurso, Long id) {
-		super(recurso + " con id " + id + " no existe");
+public class RecursoNoEncontradoException extends GestionEscolarException {
+
+	public RecursoNoEncontradoException(
+			String recurso,
+			Object identificador
+	) {
+		super(recurso + " con identificador " + identificador + " no existe");
 	}
 }
-

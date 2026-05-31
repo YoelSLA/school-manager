@@ -1,9 +1,12 @@
 package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.escuelas.EscuelaCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.escuelas.EscuelaResumenDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.escuela.request.EscuelaCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.escuela.response.EscuelaResumenDTO;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EscuelaMapper {
 
 	public static Escuela toEntity(EscuelaCreateDTO dto) {

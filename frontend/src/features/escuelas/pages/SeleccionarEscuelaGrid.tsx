@@ -1,4 +1,4 @@
-import type { EscuelaResponseDTO } from "@/utils/types";
+import type { EscuelaResponseDTO } from "@/shared/utils/types";
 import EscuelaCard from "../components/EscuelaCard/EscuelaCard";
 import styles from "./SeleccionarEscuelaGrid.module.scss";
 
@@ -19,9 +19,6 @@ export function SeleccionarEscuelaGrid({
 				<EscuelaCard
 					key={e.id}
 					escuela={e}
-					onEntrar={() =>
-						localStorage.setItem("escuelaActiva", e.id.toString())
-					}
 					onEditar={() => onEditar(e)}
 					onEliminar={() => onEliminar(e)}
 				/>

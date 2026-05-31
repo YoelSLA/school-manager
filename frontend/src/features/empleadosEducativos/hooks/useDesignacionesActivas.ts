@@ -1,6 +1,6 @@
-import { empleadosEducativosQueryKeys } from "@/utils/queryKeys/empleadosEducativos.queryKeys";
 import { useQuery } from "@tanstack/react-query";
-import { getDesignacionesActivas } from "../services/empleadosEducativos.services";
+import { empleadosEducativosQueryKeys } from "@/shared/utils/queryKeys/empleadosEducativos.queryKeys";
+import { getDesignacionesActivas } from "../../../services/empleadoEducativo.service";
 
 export const useDesignacionesActivas = (empleadoId: number | null) => {
 	return useQuery({

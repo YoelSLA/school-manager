@@ -1,12 +1,11 @@
 package com.gestion.escuela.gestion_escolar.controllers.helper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.MateriaCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.MateriaUpdateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.request.MateriaCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.request.MateriaUpdateDTO;
 import jakarta.servlet.ServletException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -15,7 +14,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
-@Component
 public class MockMVCMateriaController {
 
 	@Autowired

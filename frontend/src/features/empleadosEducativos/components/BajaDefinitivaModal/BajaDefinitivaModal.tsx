@@ -1,6 +1,6 @@
-import CausaBajaSelectField from "@/components/forms/selects/CausaBajaSelectField";
 import Modal from "@/components/Modal/Modal";
-import type { BajaDefinitivaDTO } from "@/utils/types";
+import CausaBajaSelectField from "@/features/empleadosEducativos/components/fields/CausaBajaSelectField";
+import type { BajaDefinitivaDTO } from "@/shared/utils/types";
 import { useBajaDefinitivaForm } from "../../form/hooks/useBajaDefinitivaForm";
 
 type Props = {
@@ -20,36 +20,39 @@ export default function BajaDefinitivaModal({
 
 	const {
 		register,
+		handleSubmit,
 		formState: { errors },
 		reset,
 	} = form;
 
 	if (!isOpen) return null;
 
-	const _submit = (data: BajaDefinitivaDTO) => {
+	const submit = (data: BajaDefinitivaDTO) => {
 		onConfirm(data);
 		reset();
 	};
 
 	return (
-		<Modal
-			title="Dar de baja definitiva"
-			onCancel={() => {
-				reset();
-				onClose();
-			}}
-			confirmLabel="Confirmar baja"
-			isSubmitting={isSubmitting}
-		>
-			<CausaBajaSelectField<BajaDefinitivaDTO>
-				register={register}
-				name="causa"
-				error={errors.causa?.message}
-			/>
+		<form onSubmit={handleSubmit(submit)}>
+			<Modal
+				title="Dar de baja definitiva"
+				onCancel={() => {
+					reset();
+					onClose();
+				}}
+				confirmLabel="Confirmar baja"
+				isSubmitting={isSubmitting}
+			>
+				<CausaBajaSelectField<BajaDefinitivaDTO>
+					register={register}
+					name="causa"
+					error={errors.causa?.message}
+				/>
 
-			<small style={{ opacity: 0.7 }}>
-				La fecha de baja se registrará automáticamente con la fecha actual.
-			</small>
-		</Modal>
+				<small style={{ opacity: 0.7 }}>
+					La fecha de baja se registrará automáticamente con la fecha actual.
+				</small>
+			</Modal>
+		</form>
 	);
 }

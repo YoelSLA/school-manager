@@ -1,6 +1,6 @@
 package com.gestion.escuela.gestion_escolar.services.impl;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionCursoFilterDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionCursoFilterDTO;
 import com.gestion.escuela.gestion_escolar.models.*;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionProvisional;
@@ -74,7 +74,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 	@Override
 	public <T extends Designacion> void crearBatch(List<T> designaciones) {
 
-		Validaciones.noVacio(designaciones, "designaciones");
+		Validaciones.noVacio(designaciones, "designacion");
 
 		Escuela escuela = designaciones.getFirst().getEscuela();
 		Long escuelaId = escuela.getId();
@@ -140,14 +140,14 @@ public class DesignacionServiceImpl implements DesignacionService {
 		List<Designacion> designaciones = designacionRepository.findAllById(designacionIds);
 
 		if (designaciones.size() != designacionIds.size()) {
-			throw new RuntimeException("No se encontraron las designaciones");
+			throw new RuntimeException("No se encontraron las designacion");
 		}
 
 		return designaciones;
 	}
 
 	@Override
-	public Asignacion cubrirConTitular(
+	public AsignacionTitular cubrirConTitular(
 			Long designacionId,
 			Long empleadoId,
 			LocalDate fechaTomaPosesion,
@@ -193,9 +193,9 @@ public class DesignacionServiceImpl implements DesignacionService {
 			throw new IllegalArgumentException("La fecha fin no puede ser anterior a la fecha inicio");
 		}
 
-		Periodo periodo = new Periodo(fechaDesde, fechaHasta);
+		Periodo periodoCerrado = Periodo.cerrado(fechaDesde, fechaHasta);
 
-		AsignacionProvisional asignacion = designacion.cubrirConProvisionalManual(empleado, periodo, secuencia);
+		AsignacionProvisional asignacion = designacion.cubrirConProvisionalManual(empleado, periodoCerrado, secuencia);
 
 		designacionRepository.save(designacion);
 
@@ -257,21 +257,16 @@ public class DesignacionServiceImpl implements DesignacionService {
 			throw new RangoFechasInvalidoException(nuevaFechaInicio, nuevaFechaInicio);
 		}
 
-		// 1️⃣ Cerrar actual
-//		actual.finalizar();
+		// 1️ Cerrar actual
+		// actual.finalizar();
 
-		// 2️⃣ Crear nueva
-		Periodo nuevoPeriodo = new Periodo(nuevaFechaInicio, nuevaFechaFin);
+		// actual.getDesignacion().agregarAsignacion(nueva);
 
-		//		actual.getDesignacion().agregarAsignacion(nueva);
-
-		return new AsignacionSuplente(
-				actual.getEmpleadoEducativo(),
-				actual.getDesignacion(),
-				nuevoPeriodo,
-				secuencia
-
-		);
+		return AsignacionSuplente.builder()
+				.empleadoEducativo(actual.getEmpleadoEducativo())
+				.designacion(actual.getDesignacion())
+				.periodo(Periodo.cerrado(nuevaFechaInicio, nuevaFechaFin))
+				.build();
 	}
 
 	@Override
@@ -379,9 +374,11 @@ public class DesignacionServiceImpl implements DesignacionService {
 				designacionCurso.getId()
 		);
 
-		designacionCurso.actualizar(cupof, materia, curso, orientacion);
-
-		designacionCurso.reemplazarFranjas(franjasHorarias);
+		designacionCurso.setCupof(cupof);
+		designacionCurso.setMateria(materia);
+		designacionCurso.setCurso(curso);
+		designacionCurso.setOrientacion(orientacion);
+		designacionCurso.setFranjasHorarias(franjasHorarias);
 	}
 
 	@Override
@@ -403,8 +400,9 @@ public class DesignacionServiceImpl implements DesignacionService {
 				designacion.getId()
 		);
 
-		designacion.actualizar(cupof, rolEducativo);
-		designacion.reemplazarFranjas(franjasHorarias);
+		designacion.setCupof(cupof);
+		designacion.setRolEducativo(rolEducativo);
+		designacion.setFranjasHorarias(franjasHorarias);
 	}
 
 	public Asignacion actualizarAsignacion(

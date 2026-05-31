@@ -1,16 +1,11 @@
 package com.gestion.escuela.gestion_escolar.services;
 
-import com.gestion.escuela.gestion_escolar.AbstractIntegrationTest;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
-import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
-import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDate;
-
-class DesignacionServiceTest extends AbstractIntegrationTest {
+class DesignacionServiceTest extends DomainServiceFixtureTest {
 
 	@Autowired
 	private DesignacionService designacionService;
@@ -36,16 +31,16 @@ class DesignacionServiceTest extends AbstractIntegrationTest {
 	private DesignacionAdministrativa bibliotecario;
 
 
-	@BeforeEach
-	void setUp() {
-		escuela = crearEscuela65Bernal();
-		juanPerez = crearEmpleadoJuanPerez();
-		mariaLopez = crearEmpleadoMariaLopez();
-		carlosFernandez = crearEmpleadoCarlosFernandez();
-		secretaria = crearDesignacionAdministrativa(2467832, RolEducativo.SECRETARIA);
-		bibliotecario = crearDesignacionAdministrativa(2467838, RolEducativo.BIBLIOTECARIO);
-		preceptoria = crearDesignacionAdministrativa(2467833, RolEducativo.PRECEPTORIA);
-	}
+//	@BeforeEach
+//	void setUp() {
+//		escuela = crearEscuela65Bernal();
+//		juanPerez = crearEmpleadoJuanPerez();
+//		mariaLopez = crearEmpleadoMariaLopez();
+//		carlosFernandez = crearEmpleadoCarlosFernandez();
+//		secretaria = crearDesignacionAdministrativa(2467832, RolEducativo.SECRETARIA);
+//		bibliotecario = crearDesignacionAdministrativa(2467838, RolEducativo.BIBLIOTECARIO);
+//		preceptoria = crearDesignacionAdministrativa(2467833, RolEducativo.PRECEPTORIA);
+//	}
 
 
 //	// Cubre una designación vacante por licencia con un suplente desde una fecha dentro del período de licencia.
@@ -93,7 +88,7 @@ class DesignacionServiceTest extends AbstractIntegrationTest {
 //		assertEquals(EstadoLicencia.CUBIERTA, licenciaGuardada.getEstadoEn(inicioSuplencia));
 //	}
 
-// Cubre múltiples designaciones afectadas por una misma licencia usando un único suplente
+// Cubre múltiples designacion afectadas por una misma licencia usando un único suplente
 //	@Test
 //	void cubrirMultiplesDesignacionesConUnSuplente() {
 //
@@ -199,7 +194,7 @@ class DesignacionServiceTest extends AbstractIntegrationTest {
 //		assertEquals(original.getId(), renovada.getLicenciaAnterior().getId());
 //		assertEquals(renovada.getId(), original.getLicenciaSiguiente().getId());
 //
-//		// Assert — copia de designaciones
+//		// Assert — copia de designacion
 //		assertEquals(1, renovada.getDesignaciones().size());
 //		assertTrue(renovada.getDesignaciones().contains(designacionGuardada));
 //
@@ -503,56 +498,56 @@ class DesignacionServiceTest extends AbstractIntegrationTest {
 		));
 	}
 
-	private EmpleadoEducativo crearEmpleadoJuanPerez() {
-		return empleadoEducativoService.crear(escuela.getId(), new EmpleadoEducativo(
-				escuela,
-				"20-34567891-2",
-				"Juan",
-				"Pérez",
-				"Mitre 1450",
-				"1162347890",
-				LocalDate.of(1982, 6, 18),
-				LocalDate.of(2008, 4, 1),
-				"juan.perez@test.com"
-		));
-	}
-
-	private EmpleadoEducativo crearEmpleadoMariaLopez() {
-		return empleadoEducativoService.crear(escuela.getId(), new EmpleadoEducativo(
-				escuela,
-				"27-38945612-7",
-				"María",
-				"López",
-				"Sarmiento 980",
-				"1145983210",
-				LocalDate.of(1989, 9, 3),
-				LocalDate.of(2016, 3, 12),
-				"maria.lopez@test.com"
-		));
-	}
-
-	private EmpleadoEducativo crearEmpleadoCarlosFernandez() {
-		return empleadoEducativoService.crear(escuela.getId(), new EmpleadoEducativo(
-				escuela,
-				"23-31278945-6",
-				"Carlos",
-				"Fernández",
-				"Av. Calchaquí 3200",
-				"1176540987",
-				LocalDate.of(1975, 12, 21),
-				LocalDate.of(2001, 8, 20),
-				"carlos.fernandez@test.com"
-		));
-	}
-
-	private DesignacionAdministrativa crearDesignacionAdministrativa(
-			Integer cupof,
-			RolEducativo rolEducativo
-	) {
-		return designacionService.crear(
-				new DesignacionAdministrativa(escuela, cupof, rolEducativo)
-		);
-	}
+//	private EmpleadoEducativo crearEmpleadoJuanPerez() {
+//		return empleadoEducativoService.crear(escuela.getId(), new EmpleadoEducativo(
+//				escuela,
+//				"20-34567891-2",
+//				"Juan",
+//				"Pérez",
+//				"Mitre 1450",
+//				"1162347890",
+//				LocalDate.of(1982, 6, 18),
+//				LocalDate.of(2008, 4, 1),
+//				"juan.perez@test.com"
+//		));
+//	}
+//
+//	private EmpleadoEducativo crearEmpleadoMariaLopez() {
+//		return empleadoEducativoService.crear(escuela.getId(), new EmpleadoEducativo(
+//				escuela,
+//				"27-38945612-7",
+//				"María",
+//				"López",
+//				"Sarmiento 980",
+//				"1145983210",
+//				LocalDate.of(1989, 9, 3),
+//				LocalDate.of(2016, 3, 12),
+//				"maria.lopez@test.com"
+//		));
+//	}
+//
+//	private EmpleadoEducativo crearEmpleadoCarlosFernandez() {
+//		return empleadoEducativoService.crear(escuela.getId(), new EmpleadoEducativo(
+//				escuela,
+//				"23-31278945-6",
+//				"Carlos",
+//				"Fernández",
+//				"Av. Calchaquí 3200",
+//				"1176540987",
+//				LocalDate.of(1975, 12, 21),
+//				LocalDate.of(2001, 8, 20),
+//				"carlos.fernandez@test.com"
+//		));
+//	}
+//
+//	private DesignacionAdministrativa crearDesignacionAdministrativa(
+//			Integer cupof,
+//			RolEducativo rolEducativo
+//	) {
+//		return designacionService.crear(
+//				new DesignacionAdministrativa(escuela, cupof, rolEducativo)
+//		);
+//	}
 
 
 }

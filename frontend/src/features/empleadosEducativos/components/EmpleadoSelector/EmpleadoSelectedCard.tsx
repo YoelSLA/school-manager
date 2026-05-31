@@ -1,9 +1,9 @@
 import { IdCard, User, X } from "lucide-react";
-import type { EmpleadoEducativoMinimoDTO } from "@/utils/types";
+import type { EmpleadoEducativoBasicoDTO } from "@/shared/utils/types";
 import styles from "./EmpleadoSelectedCard.module.scss";
 
 type Props = {
-	empleado: EmpleadoEducativoMinimoDTO;
+	empleado: EmpleadoEducativoBasicoDTO;
 	onRemove: () => void;
 };
 

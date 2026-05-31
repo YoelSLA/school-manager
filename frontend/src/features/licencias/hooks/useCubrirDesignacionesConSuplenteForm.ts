@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import type { EmpleadoEducativoMinimoDTO } from "@/utils/types";
+import type { EmpleadoEducativoBasicoDTO } from "@/shared/utils/types/empleado.types";
 import { cubrirDesignacionesConSuplenteSchema } from "../form/cubrirDesignacionesConSuplente.schema";
 import { useCubrirDesignacionesConSuplente } from "./useCubrirDesignacionesConSuplente";
 
@@ -17,7 +17,7 @@ export function useCubrirDesignacionesForm({
 	designacionIds,
 	onSuccess,
 }: Props) {
-	const [suplente, setSuplente] = useState<EmpleadoEducativoMinimoDTO | null>(
+	const [suplente, setSuplente] = useState<EmpleadoEducativoBasicoDTO | null>(
 		null,
 	);
 

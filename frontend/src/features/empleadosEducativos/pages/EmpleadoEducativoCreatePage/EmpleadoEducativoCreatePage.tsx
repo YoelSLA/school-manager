@@ -1,18 +1,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { AxiosError } from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import Breadcrumbs from "@/app/layouts/Breadcrumbs";
+import PageLayout from "@/app/layouts/PageLayout/PageLayout";
+import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
+import { useAppSelector } from "@/app/store/hooks";
 import Button from "@/components/Button/Button";
 import FormActions from "@/components/FormActions";
 import Modal from "@/components/Modal/Modal";
-import Breadcrumbs from "@/layout/Breadcrumbs";
-import PageLayout from "@/layout/PageLayout/PageLayout";
-import { selectEscuelaActiva } from "@/store/escuela/escuelaSelectors";
-import { useAppSelector } from "@/store/hooks";
-
-import { getTodayArgentinaISO } from "@/utils";
-import type { EmpleadoEducativoCreateDTO } from "@/utils/types";
+import { getApiError, getErrorMessage } from "@/shared/api/errorHandler";
+import { getTodayArgentinaISO } from "@/shared/utils";
+import type { EmpleadoEducativoCreateDTO } from "@/shared/utils/types";
 import ContactoSection from "../../components/EmpleadoEducativoCreateForm/ContactoSection";
 import DatosPersonalesSection from "../../components/EmpleadoEducativoCreateForm/DatosPersonalesSection";
 import IngresoSection from "../../components/EmpleadoEducativoCreateForm/IngresoSection";
@@ -132,32 +131,32 @@ export default function EmpleadoEducativoCreatePage() {
 				title: "Empleado educativo creado",
 				description: "Se ha creado el empleado educativo correctamente.",
 			});
-		} catch (error: unknown) {
-			const axiosError = error as AxiosError<{
-				message?: string;
-			}>;
-
-			const message = axiosError.response?.data?.message ?? "";
+		} catch (error) {
+			const apiError = getApiError(error);
+			const message = getErrorMessage(error, "");
 
 			if (message.toLowerCase().includes("cuil")) {
 				setError("cuil", {
 					type: "manual",
 					message: "El CUIL ya está registrado.",
 				});
+				return;
 			}
 
 			if (message.toLowerCase().includes("email")) {
 				setError("email", {
 					type: "manual",
-					message: "El email ya está registrado",
+					message: "El email ya está registrado.",
 				});
+				return;
 			}
 
 			setResultModal({
 				open: true,
 				success: false,
-				title: "Error al crear empleado educativo",
-				description: message,
+				title: "Error",
+				description:
+					apiError?.message ?? "No se pudo crear el empleado educativo.",
 			});
 		}
 	};

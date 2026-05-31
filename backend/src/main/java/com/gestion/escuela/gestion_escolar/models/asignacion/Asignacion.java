@@ -7,6 +7,7 @@ import com.gestion.escuela.gestion_escolar.models.caracteristicaAsignacion.Carac
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
+import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista;
 import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 import com.gestion.escuela.gestion_escolar.models.exceptions.asignacion.AsignacionYaDadaDeBajaException;
@@ -47,7 +48,8 @@ public abstract class Asignacion {
 	@JoinColumn(name = "caracteristica_id")
 	private CaracteristicaAsignacion caracteristica;
 
-	protected Asignacion() {
+	public Asignacion() {
+		// JPA
 	}
 
 	public Asignacion(
@@ -70,18 +72,15 @@ public abstract class Asignacion {
 			throw new AsignacionYaDadaDeBajaException();
 		}
 
+		boolean generaVacante = this.puedeGenerarVacanteDefinitiva();
+
 		this.darDeBajaEn(fechaBaja);
 
 		this.bajaAsignacion = new BajaAsignacion(fechaBaja, causaBaja);
 
-		if (this.puedeGenerarVacanteDefinitiva()) {
+		if (generaVacante) {
 			designacion.notificarBajaDefinitivaDe(this, fechaBaja);
 		}
-	}
-
-	public void asignarEmpleado(EmpleadoEducativo empleadoEducativo) {
-		Validaciones.noNulo(empleadoEducativo, "empleado educativo");
-		this.empleadoEducativo = empleadoEducativo;
 	}
 
 	public void aplicarCaracteristica(CaracteristicaAsignacion nueva) {
@@ -102,8 +101,20 @@ public abstract class Asignacion {
 		return getEstadoEn(fecha) == EstadoAsignacion.ACTIVA;
 	}
 
+	public boolean estaVigenteEn(LocalDate fecha) {
+		return getEstadoEn(fecha).estaVigente();
+	}
+
+	public boolean estaEjerciendoEn(LocalDate fecha) {
+		return getEstadoEn(fecha).estaEjerciendo();
+	}
+
 	public boolean estaEnLicenciaEn(LocalDate fecha) {
 		return getEstadoEn(fecha) == EstadoAsignacion.LICENCIA;
+	}
+
+	public boolean estaFinalizadaEn(LocalDate fecha) {
+		return getEstadoEn(fecha).estaFinalizada();
 	}
 
 	public boolean puedeGenerarVacanteDefinitiva() {
@@ -178,17 +189,20 @@ public abstract class Asignacion {
 		return this.periodo.seSuperponeCon(periodo);
 	}
 
-	public boolean estaEjerciendoEn(LocalDate fecha) {
-
-		return estaActivaEn(fecha) && !estaEnLicenciaEn(fecha);
+	public boolean seSuperponeCon(Asignacion asignacion) {
+		return this.periodo.seSuperponeCon(asignacion.periodo);
 	}
 
 	public boolean esTitular() {
 		return getSituacionDeRevista() == TITULAR;
 	}
 
-	public boolean esProvisomal() {
+	public boolean esProvisonal() {
 		return getSituacionDeRevista() == PROVISIONAL;
+	}
+
+	public RolEducativo getRolEducativo() {
+		return designacion.getRolEducativo();
 	}
 
 	public void actualizar(
@@ -197,12 +211,12 @@ public abstract class Asignacion {
 			LocalDate fechaCese,
 			Integer secuencia
 	) {
-		if(esProvisomal()) {
+		if(esProvisonal()) {
 			Validaciones.noNulo(fechaCese, "fecha de cese");
 		}
 
 		this.actualizar(empleado, fechaTomaPosesion, secuencia);
-		this.periodo = new Periodo(fechaTomaPosesion, fechaCese);
+		this.periodo = Periodo.cerrado(fechaTomaPosesion, fechaCese);
 	}
 
 	public void actualizar(
@@ -217,10 +231,7 @@ public abstract class Asignacion {
 
 		this.empleadoEducativo = empleado;
 		this.secuencia = secuencia;
-		this.periodo = new Periodo(
-				fechaTomaPosesion,
-				this.periodo.getFechaHasta()
-		);
+		this.periodo = Periodo.cerrado(fechaTomaPosesion, this.periodo.getFechaHasta());
 	}
 
 	public void setDesignacion(Designacion designacion) {
@@ -237,5 +248,10 @@ public abstract class Asignacion {
 		Validaciones.noNulo(designacion, "designacion");
 		Validaciones.noNulo(periodo, "periodo");
 		Validaciones.noNulo(secuencia, "secuencia");
+	}
+
+	public void setEmpleadoEducativo(EmpleadoEducativo empleado) {
+		Validaciones.noNulo(empleado, "empleado");
+		this.empleadoEducativo = empleado;
 	}
 }

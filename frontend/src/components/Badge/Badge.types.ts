@@ -6,6 +6,7 @@ export type BadgeVariant =
 	| "finalizada"
 	| "baja"
 	| "pendiente"
+	| "no_vigente"
 	| "descubierta"
 	| "inactiva"
 	| "auxiliar"
@@ -19,4 +20,7 @@ export type BadgeVariant =
 	| "orientacionSocial"
 	| "preceptoria"
 	| "docente"
-	| "recalificacionLaboralDefinitiva";
+	| "recalificacionLaboralDefinitiva"
+	| "titular"
+	| "provisional"
+	| "suplente";

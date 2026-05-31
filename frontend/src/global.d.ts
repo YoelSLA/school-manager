@@ -1,4 +1,4 @@
-import type { Status } from "./store";
+import type { Status } from "./app/store";
 
 export type UpdaterState = {
 	status: Status;

@@ -1,14 +1,14 @@
 import { useState } from "react";
-import SortBuilder from "@/components/EmpleadoSortDropdown";
+import GridListState from "@/app/layouts/GridListState";
+import ListPageLayout from "@/app/layouts/ListPageLayout";
+import Pagination from "@/app/layouts/Pagination";
+import Sidebar from "@/app/layouts/Sidebar";
+import SidebarPageLayout from "@/app/layouts/SidebarPageLayout/SidebarPageLayout";
 import FilterPillGroup from "@/components/FilterPillGroup";
-import { usePagination } from "@/hooks/usePagination";
-import GridListState from "@/layout/GridListState";
-import ListPageLayout from "@/layout/ListPageLayout";
-import Pagination from "@/layout/Pagination";
-import Sidebar from "@/layout/Sidebar";
-import SidebarPageLayout from "@/layout/SidebarPageLayout/SidebarPageLayout";
-import type { EmpleadoEducativoFiltro, SortState } from "@/utils/types";
+import { usePagination } from "@/shared/utils/hooks/usePagination";
+import type { EmpleadoEducativoFiltro, SortState } from "@/shared/utils/types";
 import EmpleadoEducativoCard from "../../components/EmpleadoEducativoCard";
+import EmpleadoSortDropdown from "../../components/EmpleadoSortDropdown";
 import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
 import { useEmpleadosEducativos } from "../../hooks/useEmpleadosEducativos";
 import { FILTROS_EMPLEADOS } from "../../utils/empleadosEducativos.utils";
@@ -56,7 +56,9 @@ export default function EmpleadosEducativosPage() {
 							onChange={handleFiltroChange}
 						/>
 					}
-					controls={<SortBuilder value={sort} onChange={handleSortChange} />}
+					controls={
+						<EmpleadoSortDropdown value={sort} onChange={handleSortChange} />
+					}
 					onRefresh={refetch}
 					isFetching={isFetching}
 					onCreate={empleadoNav.crear}

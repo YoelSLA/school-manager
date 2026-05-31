@@ -5,7 +5,7 @@ import {
 	optionalString,
 	requiredFechaISO,
 	requiredString,
-} from "@/utils/zod/schemas";
+} from "@/shared/utils/zod/schemas";
 
 /* =========================
    Regex

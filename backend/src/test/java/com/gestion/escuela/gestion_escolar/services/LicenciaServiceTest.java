@@ -1,8 +1,6 @@
 package com.gestion.escuela.gestion_escolar.services;
 
-import com.gestion.escuela.gestion_escolar.AbstractIntegrationTest;
-
-class LicenciaServiceTest extends AbstractIntegrationTest {
+class LicenciaServiceTest extends DomainServiceFixtureTest {
 
 //	@Autowired
 //	private LicenciaService licenciaService;

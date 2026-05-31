@@ -3,9 +3,9 @@ import type {
 	CursoFiltro,
 	CursoResponseDTO,
 	PageResponse,
-} from "@/utils/types";
-import { cursosQueryKeys } from "../../../utils/queryKeys/cursos.queryKeys";
-import { obtenerCursos } from "../services/cursos.services";
+} from "@/shared/utils/types";
+import { obtenerCursos } from "../../../services/curso.service";
+import { cursosQueryKeys } from "../../../shared/utils/queryKeys/cursos.queryKeys";
 
 export function useCursos(
 	escuelaId?: number,

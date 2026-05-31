@@ -1,36 +1,47 @@
 package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.DesignacionLicenciaAdministrativaItemDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.DesignacionLicenciaCursoItemDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.DesignacionLicenciaItemDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.AsignacionDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionAdministrativaDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionCursoDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.horarios.FranjaHorariaMinimoDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response.AsignacionDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionAdministrativaCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionCursoCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.*;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.franjaHoraria.response.FranjaHorariaMinimoDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.response.DesignacionLicenciaAdministrativaItemDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.response.DesignacionLicenciaCursoItemDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.response.DesignacionLicenciaItemDTO;
+import com.gestion.escuela.gestion_escolar.models.Curso;
+import com.gestion.escuela.gestion_escolar.models.Escuela;
+import com.gestion.escuela.gestion_escolar.models.Materia;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DesignacionMapper {
 
+	private static final LocalDate HOY = LocalDate.now();
+
+	// ---------------------------
+	// Public mapping entry points
+	// ---------------------------
+
 	public static DesignacionDetalleDTO toDetalle(Designacion d) {
-		LocalDate hoy = LocalDate.now();
 
 		if (d instanceof DesignacionCurso dc) {
 			return new DesignacionCursoDetalleDTO(
 					dc.getId(),
 					dc.getCupof(),
-					dc.getEstadoEn(hoy),
+					dc.getEstadoEn(HOY),
 					dc.getRolEducativo(),
 					dc.getMateria().getNombre(),
 					dc.getCurso().anioDivision(),
 					dc.getOrientacion(),
-					franjasHorarias(dc),
-					asignaciones(dc),
+					franjas(d),
+					asignaciones(d),
 					"CURSO"
 			);
 		}
@@ -39,10 +50,10 @@ public class DesignacionMapper {
 			return new DesignacionAdministrativaDetalleDTO(
 					da.getId(),
 					da.getCupof(),
-					da.getEstadoEn(LocalDate.now()),
+					da.getEstadoEn(HOY),
 					da.getRolEducativo(),
 					asignaciones(da),
-					franjasHorarias(da),
+					franjas(da),
 					"ADMINISTRATIVA"
 			);
 		}
@@ -51,9 +62,7 @@ public class DesignacionMapper {
 	}
 
 	public static DesignacionLicenciaItemDTO toLicenciaItem(Designacion d) {
-
 		if (d instanceof DesignacionAdministrativa adm) {
-
 			return new DesignacionLicenciaAdministrativaItemDTO(
 					adm.getId(),
 					adm.getCupof(),
@@ -63,13 +72,12 @@ public class DesignacionMapper {
 		}
 
 		if (d instanceof DesignacionCurso curso) {
-
 			return new DesignacionLicenciaCursoItemDTO(
 					curso.getId(),
 					curso.getCupof(),
 					curso.getRolEducativo().name(),
 					MateriaMapper.toNombreDTO(curso.getMateria()),
-					CursoMapper.toNombreDTO(curso.getCurso()),
+					CursoMapper.toResponse(curso.getCurso()),
 					curso.getOrientacion(),
 					"CURSO"
 			);
@@ -78,6 +86,65 @@ public class DesignacionMapper {
 		throw new IllegalStateException("Tipo de designación no soportado");
 	}
 
+	public static DesignacionAdministrativaResumenDTO toResumen(DesignacionAdministrativa d) {
+		final LocalDate hoy = LocalDate.now();
+		return new DesignacionAdministrativaResumenDTO(
+				d.getId(),
+				d.getCupof(),
+				d.getEstadoEn(hoy),
+				d.getRolEducativo(),
+				franjas(d)
+		);
+	}
+
+	public static DesignacionCursoResumenDTO toResumen(DesignacionCurso d) {
+		return new DesignacionCursoResumenDTO(
+				d.getId(),
+				d.getCupof(),
+				d.getEstadoEn(HOY),
+				d.getRolEducativo(),
+				d.getMateria().getNombre(),
+				d.getCurso().anioDivision(),
+				d.getOrientacion(),
+				franjas(d)
+		);
+	}
+
+	// ---------------------------
+	// Entity builders
+	// ---------------------------
+
+	public static DesignacionAdministrativa toEntity(DesignacionAdministrativaCreateDTO dto, Escuela e) {
+		DesignacionAdministrativa d = new DesignacionAdministrativa(e, dto.cupof(), dto.rolEducativo());
+
+		dto.franjasHorarias().forEach(f -> d.agregarFranjaHoraria(FranjaHorariaMapper.toEntity(f)));
+
+		return d;
+	}
+
+	public static DesignacionCurso toEntity(
+			DesignacionCursoCreateDTO dto,
+			Escuela escuela,
+			Curso curso,
+			Materia materia,
+			String orientacion
+	) {
+		DesignacionCurso designacion = new DesignacionCurso(
+				escuela,
+				dto.cupof(),
+				materia,
+				curso,
+				orientacion
+		);
+
+		dto.franjasHorarias().forEach(f -> designacion.agregarFranjaHoraria(FranjaHorariaMapper.toEntity(f)));
+
+		return designacion;
+	}
+
+	// ---------------------------
+	// Private helpers
+	// ---------------------------
 
 	private static List<AsignacionDetalleDTO> asignaciones(Designacion d) {
 		return d.getAsignaciones().stream()
@@ -85,7 +152,7 @@ public class DesignacionMapper {
 				.toList();
 	}
 
-	private static List<FranjaHorariaMinimoDTO> franjasHorarias(Designacion d) {
+	private static List<FranjaHorariaMinimoDTO> franjas(Designacion d) {
 		return d.getFranjasHorarias().stream()
 				.map(FranjaHorariaMapper::toMinimo)
 				.toList();

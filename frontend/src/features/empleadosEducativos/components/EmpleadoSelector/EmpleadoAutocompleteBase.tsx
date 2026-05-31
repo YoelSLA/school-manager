@@ -1,5 +1,5 @@
 import { type ReactNode, useEffect, useId, useRef, useState } from "react";
-import type { EmpleadoEducativoMinimoDTO } from "@/utils/types";
+import type { EmpleadoEducativoBasicoDTO } from "@/shared/utils/types";
 import useDebounce from "../../hooks/useDebounce";
 import useEmpleadoSearch from "../../hooks/useEmpleadoSearch";
 import styles from "./EmpleadoAutocompleteBase.module.scss";
@@ -7,7 +7,7 @@ import styles from "./EmpleadoAutocompleteBase.module.scss";
 type AutocompleteProps = {
 	value: string;
 	onChange: (v: string) => void;
-	onSelect: (e: EmpleadoEducativoMinimoDTO) => void;
+	onSelect: (e: EmpleadoEducativoBasicoDTO) => void;
 	label?: ReactNode;
 	placeholder?: string;
 	error?: { message?: string };
@@ -52,7 +52,7 @@ export default function EmpleadoAutocompleteBase({
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
-	const handleSelect = (empleado: EmpleadoEducativoMinimoDTO) => {
+	const handleSelect = (empleado: EmpleadoEducativoBasicoDTO) => {
 		onSelect(empleado);
 		setIsOpen(false);
 		setHighlightIndex(-1);

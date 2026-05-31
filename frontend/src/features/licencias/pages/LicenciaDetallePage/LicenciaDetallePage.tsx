@@ -1,9 +1,9 @@
-import Button from "@/components/Button";
-import ConfirmModal from "@/components/ConfirmModal";
-import Breadcrumbs from "@/layout/Breadcrumbs";
-import PageLayout from "@/layout/PageLayout/PageLayout";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import Breadcrumbs from "@/app/layouts/Breadcrumbs";
+import PageLayout from "@/app/layouts/PageLayout/PageLayout";
+import Button from "@/components/Button";
+import ConfirmModal from "@/components/ModalConfirm";
 import LicenciaRenovarModal from "../../components/LicenciaRenovarModal";
 import useDeleteLicencia from "../../hooks/useDeleteLicencia";
 import { useLicenciaDetalle } from "../../hooks/useLicenciaDetalle";
@@ -22,7 +22,7 @@ export default function LicenciaDetallePage() {
 	const licenciaIdNumber = Number(licenciaId);
 
 	/* =================================
-	   STATE
+		 STATE
 	================================= */
 
 	const [renovarVisible, setRenovarVisible] = useState(false);
@@ -30,7 +30,7 @@ export default function LicenciaDetallePage() {
 	const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
 	/* =================================
-	   QUERY
+		 QUERY
 	================================= */
 
 	const { licencia, isLoading, isError } = useLicenciaDetalle(licenciaIdNumber);
@@ -44,7 +44,7 @@ export default function LicenciaDetallePage() {
 	const puedeRenovar = useUltimaLicencia(timeline, licenciaIdNumber);
 
 	/* =================================
-	   DELETE
+		 DELETE
 	================================= */
 
 	const { mutate: deleteLicencia, isPending: isDeleting } = useDeleteLicencia();
@@ -61,7 +61,7 @@ export default function LicenciaDetallePage() {
 	};
 
 	/* =================================
-	   STATES
+		 STATES
 	================================= */
 
 	if (isLoading) {

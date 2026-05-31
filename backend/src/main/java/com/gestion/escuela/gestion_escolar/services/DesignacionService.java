@@ -1,9 +1,10 @@
 package com.gestion.escuela.gestion_escolar.services;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.DesignacionCursoFilterDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionCursoFilterDTO;
 import com.gestion.escuela.gestion_escolar.models.FranjaHoraria;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionProvisional;
+import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
@@ -28,7 +29,7 @@ public interface DesignacionService {
 
 	List<Designacion> obtenerDesignaciones(List<Long> designacionIds);
 
-	Asignacion cubrirConTitular(
+	AsignacionTitular cubrirConTitular(
 			Long designacionId,
 			Long empleadoId,
 			LocalDate fechaTomaPosesion,

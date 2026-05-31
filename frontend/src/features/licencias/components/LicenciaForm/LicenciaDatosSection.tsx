@@ -1,10 +1,10 @@
+import type { UseFormReturn } from "react-hook-form";
 import Button from "@/components/Button";
 import FormSection from "@/components/FormSection";
-import DescripcionField from "@/components/forms/inputs/DescripcionInputField";
-import FechaField from "@/components/forms/inputs/FechaInputField";
+import DescripcionField from "@/features/designaciones/components/fields/DescripcionInputField";
+import FechaField from "@/features/designaciones/components/fields/FechaInputField";
 import TipoLicenciaSelect from "@/features/licencias/components/TipoLicenciaSelect/TipoLicenciaSelect";
-import type { LicenciaCreateFormValues } from "@/utils/types";
-import type { UseFormReturn } from "react-hook-form";
+import type { LicenciaCreateFormValues } from "@/shared/utils/types";
 import styles from "./LicenciaDatosSection.module.scss";
 
 type Props = {
@@ -13,11 +13,7 @@ type Props = {
 	error?: string | null;
 };
 
-export default function LicenciaDatosSection({
-	form,
-	error,
-	isSubmitting,
-}: Props) {
+export default function LicenciaDatosSection({ form, isSubmitting }: Props) {
 	const {
 		register,
 		formState: { errors },
@@ -58,8 +54,6 @@ export default function LicenciaDatosSection({
 			</div>
 
 			<footer className={styles.licenciaFormFooter}>
-				{error && <p className={styles.licenciaFormError}>{error}</p>}
-
 				<Button
 					type="submit"
 					variant="primary"

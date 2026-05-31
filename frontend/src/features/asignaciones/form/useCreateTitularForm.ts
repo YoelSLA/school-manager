@@ -1,8 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import type { CubrirTitularDTO } from "@/utils/types";
-import { CaracteristicaAsignacion } from "@/utils/types/enums";
+import type { CubrirTitularDTO } from "@/shared/utils/types";
+import { CaracteristicaAsignacion } from "@/shared/utils/types/enums";
 import { createTitularSchema } from "./createTitular.schema";
 
 type Props = {
@@ -13,7 +13,7 @@ type FormInput = z.input<typeof createTitularSchema>;
 type FormOutput = z.output<typeof createTitularSchema>;
 
 export function useCreateTitularForm({ defaultValues }: Props = {}) {
-	const form = useForm<FormInput, any, FormOutput>({
+	const form = useForm<FormInput, undefined, FormOutput>({
 		resolver: zodResolver(createTitularSchema),
 
 		defaultValues: {

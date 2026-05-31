@@ -1,6 +1,8 @@
 package com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo;
 
-public class EmpleadoNoPerteneceAEscuelaException extends RuntimeException {
+import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarException;
+
+public class EmpleadoNoPerteneceAEscuelaException extends GestionEscolarException {
 
 	public EmpleadoNoPerteneceAEscuelaException(Long empleadoId, Long escuelaId) {
 		super("El empleado con id " + empleadoId +

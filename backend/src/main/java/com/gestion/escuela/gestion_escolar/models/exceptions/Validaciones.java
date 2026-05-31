@@ -20,7 +20,7 @@ public final class Validaciones {
 
 	public static void noVacio(Collection<?> coleccion, String campo) {
 		if (coleccion == null || coleccion.isEmpty()) {
-			throw new IllegalArgumentException("Debe indicar al menos una " + campo);
+			throw new CampoObligatorioException("Debe indicar al menos una " + campo);
 		}
 	}
 

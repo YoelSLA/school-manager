@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { materiasQueryKeys } from "@/utils/queryKeys/materias.queryKeys";
-import { deleteMateria } from "../services/materias.services";
+import { materiasQueryKeys } from "@/shared/utils/queryKeys/materias.queryKeys";
+import { deleteMateria } from "../../../services/materia.service";
 
 export default function useDeleteMateria(escuelaId?: number) {
 	const queryClient = useQueryClient();

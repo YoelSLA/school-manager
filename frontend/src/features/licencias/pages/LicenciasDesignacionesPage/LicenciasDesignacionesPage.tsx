@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
+import Breadcrumbs from "@/app/layouts/Breadcrumbs";
+import PageLayout from "@/app/layouts/PageLayout/PageLayout";
 import Button from "@/components/Button";
 import DesignacionItem from "@/features/designaciones/components/DesignacionItem/DesignacionItem";
 import { useDesignacionesAfectadas } from "@/features/licencias/hooks/useDesignacionesAfectadas";
-import Breadcrumbs from "@/layout/Breadcrumbs";
-import PageLayout from "@/layout/PageLayout/PageLayout";
-import type { CoberturaSeleccionada, LocationState } from "@/utils/types";
+import type {
+	CoberturaSeleccionada,
+	LocationState,
+} from "@/shared/utils/types";
 import LicenciaCambiarCoberturaModal from "../../components/LicenciaCambiarCoberturaModal/LicenciaCambiarCoberturaModal";
 import LicenciaCubrirDesignacionesModal from "../../components/LicenciaCubrirDesignacionesModal/LicenciaCubrirDesignacionesModal";
 import LicenciasDesignacionesHeader from "./LicenciasDesignacionesHeader/LicenciasDesignacionesHeader";

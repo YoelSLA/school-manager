@@ -1,10 +1,10 @@
 import { Clock, Tag } from "lucide-react";
-import BadgeSituacionRevista from "@/components/BadgeSituacionRevista/BadgeSituacionRevista";
-import BadgeEstadoDesignacion from "@/components/BagdeEstadoDesignacion";
 import { Card } from "@/components/Card";
-import EmpleadoInfo from "@/components/EmpleadoInfo";
 import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
-import type { EstadoDesignacion } from "@/utils/types/enums";
+import BadgeSituacionRevista from "@/shared/components/BadgeSituacionRevista/BadgeSituacionRevista";
+import BadgeEstadoDesignacion from "@/shared/components/BagdeEstadoDesignacion";
+import EmpleadoInfo from "@/shared/components/EmpleadoInfo";
+import type { EstadoDesignacion } from "@/shared/utils/types/enums";
 import styles from "./DesignacionCard.module.scss";
 
 type Props = {

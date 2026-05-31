@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { eliminarAsignacion } from "@/features/designaciones/services/designaciones.services";
-import { asistenciasQueryKeys } from "@/utils/queryKeys/asistencias.queryKeys";
-import { designacionesQueryKeys } from "@/utils/queryKeys/designaciones.queryKeys";
+import { eliminarAsignacion } from "@/services/designacion.service";
+import { asistenciasQueryKeys } from "@/shared/utils/queryKeys/asistencias.queryKeys";
+import { designacionesQueryKeys } from "@/shared/utils/queryKeys/designaciones.queryKeys";
 import {
 	mapAsignacionError,
 	type UserError,
