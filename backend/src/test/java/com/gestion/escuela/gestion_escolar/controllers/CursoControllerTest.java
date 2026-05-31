@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,11 +27,13 @@ import static com.gestion.escuela.gestion_escolar.models.enums.Turno.TARDE;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(EscuelaCursoControllerREST.class)
+@WithMockUser
 class CursoControllerTest {
 
 	@Autowired
@@ -53,13 +56,14 @@ class CursoControllerTest {
 		CursoCreateDTO dto = new CursoCreateDTO(MANIANA, 1, 1);
 
 		mockMvc.perform(post("/api/escuelas/1/cursos")
+						.with(csrf())
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(dto)))
 				.andExpect(status().isCreated())
 				.andExpect(jsonPath("$.id").value(1))
 				.andExpect(jsonPath("$.anio").value(1))
 				.andExpect(jsonPath("$.grado").value(1))
-				.andExpect(jsonPath("$.turno").value("Mañana"));
+				.andExpect(jsonPath("$.turno").value("MANIANA"));
 	}
 
 	@Test
@@ -71,6 +75,7 @@ class CursoControllerTest {
 		);
 
 		mockMvc.perform(post("/api/escuelas/1/cursos/batch")
+						.with(csrf())
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(dtos)))
 				.andExpect(status().isCreated());
@@ -102,19 +107,21 @@ class CursoControllerTest {
 		CursoUpdateDTO dto = new CursoUpdateDTO(TARDE, 3, 2);
 
 		mockMvc.perform(put("/api/escuelas/1/cursos/10")
+						.with(csrf())
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(dto)))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.id").value(10))
 				.andExpect(jsonPath("$.anio").value(3))
 				.andExpect(jsonPath("$.grado").value(1))
-				.andExpect(jsonPath("$.turno").value("Tarde"));
+				.andExpect(jsonPath("$.turno").value("TARDE"));
 	}
 
 	@Test
 	void debeEliminarCurso() throws Exception {
 
-		mockMvc.perform(delete("/api/escuelas/1/cursos/10"))
+		mockMvc.perform(delete("/api/escuelas/1/cursos/10")
+						.with(csrf()))
 				.andExpect(status().isNoContent());
 
 		verify(cursoService).eliminar(1L, 10L);

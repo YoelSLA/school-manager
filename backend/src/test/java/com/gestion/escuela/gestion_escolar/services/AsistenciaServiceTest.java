@@ -1,13 +1,9 @@
-package com.gestion.escuela.gestion_escolar.controllers.services;
+package com.gestion.escuela.gestion_escolar.services;
 
 
 import com.gestion.escuela.gestion_escolar.models.*;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
-import com.gestion.escuela.gestion_escolar.services.AsistenciaService;
-import com.gestion.escuela.gestion_escolar.services.DesignacionService;
-import com.gestion.escuela.gestion_escolar.services.EmpleadoEducativoService;
-import com.gestion.escuela.gestion_escolar.services.EscuelaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -55,9 +51,9 @@ class AsistenciaServiceTest extends DomainServiceFixtureTest {
 				LocalTime.of(12,0),
 				LocalTime.of(18,0)
 		);
-		m_direccion2467830.agregarFranjaHoraria(martes12a18);
+		mDireccion2467830.agregarFranjaHoraria(martes12a18);
 
-		DesignacionAdministrativa pDireccion2467830 = designacionService.crear(m_direccion2467830);
+		DesignacionAdministrativa pDireccion2467830 = designacionService.crear(mDireccion2467830);
 
 		designacionService.cubrirConTitular(
 				pDireccion2467830.getId(),

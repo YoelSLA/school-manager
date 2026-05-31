@@ -39,6 +39,7 @@ class AsignacionProvisionalTest {
 				.empleadoEducativo(empleado)
 				.designacion(designacion)
 				.periodo(periodo)
+				.secuencia(1)
 				.build();
 
 	}
@@ -125,8 +126,7 @@ class AsignacionProvisionalTest {
 		void estaActivaMetodoDirecto() {
 			when(empleado.estaEnLicenciaPara(any(), any())).thenReturn(false);
 
-			assertTrue(
-					asignacion.estaActivaEn(LocalDate.of(2025, 3, 10))
+			assertTrue(asignacion.estaActivaEn(LocalDate.of(2025, 3, 10))
 			);
 		}
 

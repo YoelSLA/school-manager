@@ -1,4 +1,4 @@
-package com.gestion.escuela.gestion_escolar.controllers.services;
+package com.gestion.escuela.gestion_escolar.services;
 
 class LicenciaServiceTest extends DomainServiceFixtureTest {
 

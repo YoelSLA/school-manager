@@ -1,12 +1,8 @@
-package com.gestion.escuela.gestion_escolar.controllers.services;
+package com.gestion.escuela.gestion_escolar.services;
 
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
-import com.gestion.escuela.gestion_escolar.services.DesignacionService;
-import com.gestion.escuela.gestion_escolar.services.EmpleadoEducativoService;
-import com.gestion.escuela.gestion_escolar.services.EscuelaService;
-import com.gestion.escuela.gestion_escolar.services.LicenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 class DesignacionServiceTest extends DomainServiceFixtureTest {

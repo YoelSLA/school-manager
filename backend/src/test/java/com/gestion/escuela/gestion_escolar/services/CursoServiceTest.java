@@ -1,12 +1,10 @@
-package com.gestion.escuela.gestion_escolar.controllers.services;
+package com.gestion.escuela.gestion_escolar.services;
 
 import com.gestion.escuela.gestion_escolar.models.Curso;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoDuplicadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
-import com.gestion.escuela.gestion_escolar.services.CursoService;
-import com.gestion.escuela.gestion_escolar.services.EscuelaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -25,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
-class  CursoServiceTest extends DomainServiceFixtureTest {
+class CursoServiceTest extends DomainServiceFixtureTest {
 
 	@Autowired
 	private EscuelaService escuelaService;
@@ -59,7 +57,7 @@ class  CursoServiceTest extends DomainServiceFixtureTest {
 			Curso p_a6g1 = cursoService.crear(p_escuelaN65.getId(), m_a6g1);
 			// Assert
 			assertThat(p_a6g1.getId()).isNotNull();
-			assertThat(p_a6g1.getTurno()).isEqualTo(MANIANA);
+			assertThat(p_a6g1.getTurno()).isEqualTo(TARDE);
 			assertThat(p_a6g1.getAnio()).isEqualTo(6);
 			assertThat(p_a6g1.getGrado()).isEqualTo(1);
 			assertThat(p_a6g1.getEscuela()).isEqualTo(p_escuelaN65);
@@ -112,7 +110,7 @@ class  CursoServiceTest extends DomainServiceFixtureTest {
 		void fallaSiEscuelaNoExiste() {
 			// Act + Assert
 			assertThatThrownBy(() -> cursoService.crearBatch(999L, List.of(mock(Curso.class))))
-					.isInstanceOf(RecursoDuplicadoException.class);
+					.isInstanceOf(RecursoNoEncontradoException.class);
 		}
 
 		@Test
@@ -174,7 +172,7 @@ class  CursoServiceTest extends DomainServiceFixtureTest {
 		void fallaSiNoExiste() {
 			// Act + Assert
 			assertThatThrownBy(() -> cursoService.obtenerPorId(99L))
-					.isInstanceOf(RecursoDuplicadoException.class);
+					.isInstanceOf(RecursoNoEncontradoException.class);
 		}
 	}
 
@@ -190,7 +188,7 @@ class  CursoServiceTest extends DomainServiceFixtureTest {
 
 			// Act + Assert
 			assertThatThrownBy(() -> cursoService.listarCursosPorEscuela(99L, MANIANA, pageable))
-					.isInstanceOf(RecursoDuplicadoException.class);
+					.isInstanceOf(RecursoNoEncontradoException.class);
 		}
 
 		@Test

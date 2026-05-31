@@ -26,7 +26,6 @@ class DesignacionAdministrativaTest extends DomainTestFixture {
 
 	private Escuela escuela;
 	private EmpleadoEducativo leguizamonMarina;
-	private EmpleadoEducativo giardinoNoraRosa;
 	private EmpleadoEducativo vallejosValeria;
 	private DesignacionAdministrativa direccion2467830;
 	private DesignacionAdministrativa auxiliar2330001;

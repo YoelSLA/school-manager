@@ -1,4 +1,4 @@
-package com.gestion.escuela.gestion_escolar.controllers.services;
+package com.gestion.escuela.gestion_escolar.services;
 
 import com.gestion.escuela.gestion_escolar.AbstractIntegrationTest;
 import com.gestion.escuela.gestion_escolar.models.Curso;
@@ -24,7 +24,7 @@ public abstract class DomainServiceFixtureTest extends AbstractIntegrationTest  
 	protected EmpleadoEducativo m_giardinoNoraRosa;
 	protected EmpleadoEducativo m_billordoTomasa;
 	protected EmpleadoEducativo m_marchettiRoman;
-	protected DesignacionAdministrativa m_direccion2467830;
+	protected DesignacionAdministrativa mDireccion2467830;
 	protected DesignacionCurso m_plg2467775;
 	protected Materia m_practicasDelLenguaje;
 	protected Curso m_a1g1;
@@ -85,7 +85,7 @@ public abstract class DomainServiceFixtureTest extends AbstractIntegrationTest  
 		m_a1g1 = new Curso(MANIANA, 1, 1);
 		m_a1g2 = new Curso(TARDE, 1, 2);
 
-		m_direccion2467830 = new DesignacionAdministrativa(m_escuelaN65, 2467830, DIRECCION);
+		mDireccion2467830 = new DesignacionAdministrativa(m_escuelaN65, 2467830, DIRECCION);
 		m_plg2467775 = new DesignacionCurso(
 				m_escuelaN65,
 				2467775,

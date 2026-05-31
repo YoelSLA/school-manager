@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
@@ -23,12 +24,14 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(EscuelaMateriaControllerREST.class)
-public class MateriaControllerTest {
+@WithMockUser
+class MateriaControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -55,6 +58,7 @@ public class MateriaControllerTest {
 		);
 
 		mockMvc.perform(post("/api/escuelas/1/materias")
+						.with(csrf())
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(dto)))
 				.andExpect(status().isCreated())
@@ -71,6 +75,7 @@ public class MateriaControllerTest {
 		);
 
 		mockMvc.perform(post("/api/escuelas/1/materias/batch")
+						.with(csrf())
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(dtos)))
 				.andExpect(status().isCreated());
@@ -94,8 +99,17 @@ public class MateriaControllerTest {
 				5
 		);
 
-		Materia materiaActualizada = new Materia("Matemática Avanzada", "MAT2", 5);
-		ReflectionTestUtils.setField(materiaActualizada, "id", 10L);
+		Materia materiaActualizada = new Materia(
+				"Matemática Avanzada",
+				"MAT2",
+				5
+		);
+
+		ReflectionTestUtils.setField(
+				materiaActualizada,
+				"id",
+				10L
+		);
 
 		when(materiaService.actualizar(
 				eq(1L),
@@ -106,8 +120,9 @@ public class MateriaControllerTest {
 		)).thenReturn(materiaActualizada);
 
 		mockMvc.perform(put("/api/escuelas/1/materias/10")
+								.with(csrf())
 						.contentType(MediaType.APPLICATION_JSON)
-						.content(objectMapper.writeValueAsString(dto)))
+								.content(objectMapper.writeValueAsString(dto)))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.id").value(10))
 				.andExpect(jsonPath("$.nombre").value("Matemática Avanzada"))
@@ -118,7 +133,8 @@ public class MateriaControllerTest {
 	@Test
 	void debeEliminarMateria() throws Exception {
 
-		mockMvc.perform(delete("/api/escuelas/1/materias/10"))
+		mockMvc.perform(delete("/api/escuelas/1/materias/10")
+						.with(csrf()))
 				.andExpect(status().isNoContent());
 
 		verify(materiaService).eliminar(1L, 10L);
@@ -139,8 +155,10 @@ public class MateriaControllerTest {
 				2
 		);
 
-		when(materiaService.listarMateriasPorEscuela(eq(1L), any(Pageable.class)))
-				.thenReturn(page);
+		when(materiaService.listarMateriasPorEscuela(
+				eq(1L),
+				any(Pageable.class)
+		)).thenReturn(page);
 
 		mockMvc.perform(get("/api/escuelas/1/materias")
 						.param("page", "0")

@@ -1,12 +1,10 @@
-package com.gestion.escuela.gestion_escolar.controllers.services;
+package com.gestion.escuela.gestion_escolar.services;
 
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.Materia;
 import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoDuplicadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
-import com.gestion.escuela.gestion_escolar.services.EscuelaService;
-import com.gestion.escuela.gestion_escolar.services.MateriaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
