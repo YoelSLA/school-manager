@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const TURNOS = ["MANIANA", "TARDE", "VESPERTINO"] as const;
 
-export const crearCursoSchema = z.object({
+export const cursoCreateSchema = z.object({
 	turno: z.enum(TURNOS),
 
 	anio: z.coerce

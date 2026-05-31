@@ -43,53 +43,20 @@ public class AsignacionSuplente extends Asignacion {
 		return SituacionDeRevista.SUPLENTE;
 	}
 
-//	public void convertirseEnProvisional(LocalDate fechaDesde, Integer secuencia) {
-//
-//		LocalDate fechaFinSuplencia = fechaDesde.minusDays(1);
-//
-//		this.finalizarPorBajaDefinitiva(
-//				CausaBaja.PASE_DE_SUPLENTE_A_PROVISIONAL,
-//				fechaFinSuplencia
-//		);
-//
-//		getDesignacion().cubrirConProvisionalAutomatico(
-//				this.getEmpleadoEducativo(),
-//				fechaDesde,
-//				secuencia
-//		);
-//	}
-
-	public void convertirseEnProvisional(
-			LocalDate fechaDesde,
-			Integer secuencia
-	) {
-
-		System.out.println("\n=== CONVERTIRSE EN PROVISIONAL ===");
-		System.out.println("Suplente actual: " + this);
-		System.out.println("Periodo actual suplencia: " + this.getPeriodo());
-		System.out.println("Fecha desde provisional: " + fechaDesde);
+	public void convertirseEnProvisional(LocalDate fechaDesde, Integer secuencia) {
 
 		LocalDate fechaFinSuplencia = fechaDesde.minusDays(1);
 
-		System.out.println("Fecha fin suplencia: " + fechaFinSuplencia);
-
 		this.finalizarPorBajaDefinitiva(
-				CausaBaja.PASE_DE_SUPLENTE_A_PROVISIONAL,
+				CausaBaja.PASE_A_PROVISIONAL,
 				fechaFinSuplencia
 		);
-
-		System.out.println("Periodo DESPUÉS de finalizar: " + this.getPeriodo());
-		System.out.println("Baja asignación: " + this.getBajaAsignacion());
-
-		System.out.println("Creando provisional automática...");
 
 		getDesignacion().cubrirConProvisionalAutomatico(
 				this.getEmpleadoEducativo(),
 				fechaDesde,
 				secuencia
 		);
-
-		System.out.println("=== FIN CONVERSIÓN PROVISIONAL ===");
 	}
 
 	public static class Builder {

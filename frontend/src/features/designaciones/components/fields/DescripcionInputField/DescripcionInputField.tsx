@@ -1,6 +1,6 @@
-import FormInputField from "@/components/FormInputField/FormInputField";
 import { AlignLeft } from "lucide-react";
 import type { FieldValues, Path, UseFormRegister } from "react-hook-form";
+import FormInputField from "@/components/FormInputField/FormInputField";
 
 type Props<T extends FieldValues> = {
 	register: UseFormRegister<T>;

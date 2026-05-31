@@ -5,6 +5,7 @@ import PageLayout from "@/app/layouts/PageLayout/PageLayout";
 import ErrorModal from "@/components/ModalError";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
 import { useDesignacionesActivas } from "@/features/empleadosEducativos/hooks/useDesignacionesActivas";
+import { getErrorMessage } from "@/shared/api/errorHandler";
 import type {
 	LicenciaCreateDTO,
 	LicenciaCreateFormValues,
@@ -39,12 +40,25 @@ export default function LicenciaCreatePage() {
 	const handleSubmit = async (data: LicenciaCreateFormValues) => {
 		if (!empleadoId) {
 			setEmpleadoError("Debe seleccionar un empleado");
-
 			return;
 		}
 
+		const { fechaDesde, fechaHasta } = data.periodo;
+
+		const periodo = fechaHasta
+			? {
+					tipo: "CERRADO" as const,
+					fechaDesde,
+					fechaHasta,
+				}
+			: {
+					tipo: "ABIERTO" as const,
+					fechaDesde,
+				};
+
 		const payload: LicenciaCreateDTO = {
 			...data,
+			periodo,
 			designacionesIds: data.designacionesIds.map(Number),
 		};
 
@@ -53,13 +67,10 @@ export default function LicenciaCreatePage() {
 				empleadoId,
 				payload,
 			});
-		} catch (err: any) {
-			const message =
-				err?.response?.data?.message ?? "No se pudo crear la licencia";
-
+		} catch (err) {
 			setModalError({
 				title: "Error al crear licencia",
-				message,
+				message: getErrorMessage(err, "No se pudo crear la licencia"),
 			});
 		}
 	};

@@ -1,10 +1,10 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.response.EmpleadoEducativoAsignacionesDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.response.EmpleadoEducativoDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.response.EmpleadoEducativoLicenciasDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.request.LicenciaCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.response.LicenciaDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadoEducativo.response.EmpleadoEducativoAsignacionesDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadoEducativo.response.EmpleadoEducativoDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadoEducativo.response.EmpleadoEducativoLicenciasDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.request.LicenciaCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.response.LicenciaDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.request.BajaDefinitivaDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.response.DesignacionLicenciaItemDTO;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.DesignacionMapper;

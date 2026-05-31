@@ -2,7 +2,7 @@ package com.gestion.escuela.gestion_escolar.models.exceptions;
 
 import java.time.LocalDate;
 
-public class RangoFechasInvalidoException extends DominioException {
+public class RangoFechasInvalidoException extends GestionEscolarException {
 
 	public RangoFechasInvalidoException(LocalDate fechaDesde, LocalDate fechaHasta) {
 		super(String.format(

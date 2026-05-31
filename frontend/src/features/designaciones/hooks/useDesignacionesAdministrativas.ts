@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
+import { listarDesignacionesAdministrativas } from "../../../services/designacion.service";
 import { designacionesQueryKeys } from "../../../shared/utils/queryKeys/designaciones.queryKeys";
-import { listarDesignacionesAdministrativas } from "../designaciones.services";
 
 export function useDesignacionesAdministrativas(
 	escuelaId?: number,

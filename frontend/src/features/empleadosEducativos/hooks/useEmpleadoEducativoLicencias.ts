@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { empleadosEducativosQueryKeys } from "@/shared/utils/queryKeys/empleadosEducativos.queryKeys";
 
-import { getLicenciasEmpleadoEducativo } from "../empleadosEducativos.services";
+import { getLicenciasEmpleadoEducativo } from "../../../services/empleadoEducativo.service";
 
 export function useEmpleadoEducativoLicencias(empleadoId?: number) {
 	return useQuery({

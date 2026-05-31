@@ -1,7 +1,7 @@
-import type { CubrirProvisionalDTO } from "@/shared/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
+import type { CubrirProvisionalDTO } from "@/shared/utils/types";
 import { updateProvisionalSchema } from "./updateProvisional.schema";
 
 type Props = {
@@ -12,7 +12,7 @@ type FormInput = z.input<typeof updateProvisionalSchema>;
 type FormOutput = z.output<typeof updateProvisionalSchema>;
 
 export function useUpdateProvisionalForm({ defaultValues }: Props = {}) {
-	const form = useForm<FormInput, any, FormOutput>({
+	const form = useForm<FormInput, undefined, FormOutput>({
 		resolver: zodResolver(updateProvisionalSchema),
 
 		defaultValues: {

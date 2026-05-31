@@ -1,7 +1,7 @@
 package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.response.AsignacionDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.response.*;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response.AsignacionDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.response.*;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.periodo.response.PeriodoCerradoDTO;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
@@ -10,9 +10,12 @@ import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdminis
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoPeriodoLicencia;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LicenciaMapper {
 
 	private static final LocalDate HOY = LocalDate.now();

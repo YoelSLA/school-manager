@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import GridListState from "@/app/layouts/GridListState";
 import ListPageLayout from "@/app/layouts/ListPageLayout";
 import Pagination from "@/app/layouts/Pagination";
@@ -7,7 +8,6 @@ import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
 import FilterPillGroup from "@/components/FilterPillGroup";
 import { useDynamicPageSize } from "@/shared/utils/hooks/useDynamicPageSize";
-import { useEffect, useState } from "react";
 
 import type {
 	CursoCreateDTO,

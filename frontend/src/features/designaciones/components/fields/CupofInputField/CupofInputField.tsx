@@ -1,5 +1,5 @@
-import FormInputField from "@/components/FormInputField";
 import type { FieldValues, Path, UseFormRegister } from "react-hook-form";
+import FormInputField from "@/components/FormInputField";
 
 type Props<T extends FieldValues> = {
 	register: UseFormRegister<T>;

@@ -1,5 +1,5 @@
-import { requiredFechaISO } from "@/shared/utils/zod/schemas";
 import z from "zod";
+import { requiredFechaISO } from "@/shared/utils/zod/schemas";
 
 export const cubrirDesignacionesConSuplenteSchema = z.object({
 	empleadoId: z.coerce

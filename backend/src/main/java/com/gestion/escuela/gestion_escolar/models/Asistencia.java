@@ -63,7 +63,7 @@ public class Asistencia extends AuditableEntity {
 
 		if (estadoAsistencia != EstadoAsistencia.AUSENTE) {
 			throw new IllegalStateException(
-					"Solo se persisten asistencias AUSENTE"
+					"Solo se persisten asistencia AUSENTE"
 			);
 		}
 
@@ -89,4 +89,5 @@ public class Asistencia extends AuditableEntity {
 		this.tipoLicencia = tipoLicencia;
 		this.observacion = observacion;
 	}
+
 }

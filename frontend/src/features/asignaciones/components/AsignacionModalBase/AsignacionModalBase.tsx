@@ -8,13 +8,13 @@ import { EmpleadoSelector } from "@/features/empleadosEducativos/components/Empl
 import type {
 	CubrirProvisionalDTO,
 	CubrirTitularDTO,
-	EmpleadoEducativoMinimoDTO,
+	EmpleadoEducativoBasicoDTO,
 } from "@/shared/utils/types";
 import styles from "./AsignacionModalBase.module.scss";
 
 type Props = {
 	title: string;
-	defaultEmpleado?: EmpleadoEducativoMinimoDTO | null;
+	defaultEmpleado?: EmpleadoEducativoBasicoDTO | null;
 
 	tipoAsignacion: "TITULAR" | "PROVISIONAL";
 	setTipoAsignacion: (tipo: "TITULAR" | "PROVISIONAL") => void;

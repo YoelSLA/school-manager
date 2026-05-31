@@ -1,22 +1,7 @@
-import type {
-	AsignacionAdministrativaEmpleadoEducativoRowDTO,
-	AsignacionCursoEmpleadoEducativoRowDTO,
-	AsignacionEmpleadoEducativoRowDTO,
-} from "@/shared/utils/types";
+import { esAsignacionAdministrativa, esAsignacionCurso } from "@/shared/utils";
+import type { AsignacionEmpleadoEducativoRowDTO } from "@/shared/utils/types";
 import AsignacionAdministrativaEmpleadoRow from "./AsignacionAdministrativaEmpleadoRow/AsignacionAdministrativaEmpleadoRow";
 import AsignacionCursoEmpleadoEducativoRow from "./AsignacionCursoEmpleadoRow/AsignacionCursoEmpleadoRow";
-
-function esAsignacionCurso(
-	asignacion: AsignacionEmpleadoEducativoRowDTO,
-): asignacion is AsignacionCursoEmpleadoEducativoRowDTO {
-	return asignacion.tipo === "CURSO";
-}
-
-function esAsignacionAdministrativa(
-	asignacion: AsignacionEmpleadoEducativoRowDTO,
-): asignacion is AsignacionAdministrativaEmpleadoEducativoRowDTO {
-	return asignacion.tipo === "ADMINISTRATIVA";
-}
 
 type Props = {
 	asignacion: AsignacionEmpleadoEducativoRowDTO;

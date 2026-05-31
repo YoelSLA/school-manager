@@ -1,6 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import { empleadosEducativosPaths } from "@/app/router/paths";
 import type { EmpleadoEducativoDetalleDTO } from "@/shared/utils/types";
-import { useNavigate } from "react-router-dom";
 
 export const useEmpleadoNavigation = () => {
 	const navigate = useNavigate();

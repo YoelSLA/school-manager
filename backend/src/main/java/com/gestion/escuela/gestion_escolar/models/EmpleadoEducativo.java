@@ -4,12 +4,13 @@ import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.DiaDeSemana;
+import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
-import com.gestion.escuela.gestion_escolar.models.exceptions.EmpleadoInactivoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 import com.gestion.escuela.gestion_escolar.models.exceptions.asignacion.AsignacionSuperpuestaException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionNoActivaDelEmpleadoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo.EmpleadoInactivoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.licencia.LicenciaSuperpuestaException;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(
-		name = "empleado_educativo",
+		name = "empleadoEducativo",
 		uniqueConstraints = {
 				@UniqueConstraint(columnNames = {"cuil", "escuela_id"}),
 				@UniqueConstraint(columnNames = {"email", "escuela_id"})
@@ -262,6 +263,15 @@ public class EmpleadoEducativo {
 		return asignaciones.stream()
 				.map(Asignacion::getDesignacion)
 				.anyMatch(designacion -> designacion.trabajaElDia(fecha));
+	}
+
+	public List<RolEducativo> rolesActivosEn(LocalDate fecha) {
+
+		return asignaciones.stream()
+				.filter(a -> a.estaActivaEn(fecha))
+				.map(Asignacion::getRolEducativo)
+				.distinct()
+				.toList();
 	}
 	// =========================================================
 	// ESTADO DEL EMPLEADO EDUCATIVO

@@ -1,13 +1,14 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencias.request.EliminarInasistenciasManualDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencias.response.AsistenciaDiaDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencias.response.EmpleadoAsistenciaDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencias.response.RegistrarInasistenciasManualDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencias.response.RolCount;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencia.request.EliminarInasistenciasManualDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencia.response.AsistenciaDiaDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencia.response.AsistenciaEmpleadoResumenDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencia.response.RegistrarInasistenciasManualDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencia.response.RolCount;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.response.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.AsistenciaMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.PageMapper;
+import com.gestion.escuela.gestion_escolar.models.EmpleadoAsistenciaResumen;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.services.AsistenciaService;
@@ -34,8 +35,8 @@ public class AsistenciaControllerREST {
 	private final AsistenciaService asistenciaService;
 	private final EmpleadoEducativoService empleadoEducativoService;
 
-	@PostMapping("/manual")
-	public ResponseEntity<Void> registrarInasistenciasManual(
+	@PostMapping
+	public ResponseEntity<Void> registrarInasistencias(
 			@PathVariable Long escuelaId,
 			@Valid @RequestBody RegistrarInasistenciasManualDTO request
 	) {
@@ -44,7 +45,7 @@ public class AsistenciaControllerREST {
 				request.empleadoId()
 		);
 
-		asistenciaService.registrarInasistenciasManuales(
+		asistenciaService.registrarInasistencias(
 				escuelaId,
 				empleado,
 				request.fechas(),
@@ -77,7 +78,7 @@ public class AsistenciaControllerREST {
 	}
 
 	@GetMapping("/empleados")
-	public PageResponse<EmpleadoAsistenciaDTO> buscarEmpleados(
+	public PageResponse<AsistenciaEmpleadoResumenDTO> buscarEmpleados(
 			@PathVariable Long escuelaId,
 			@RequestParam LocalDate fecha,
 			@RequestParam(required = false) List<RolEducativo> roles,
@@ -86,11 +87,10 @@ public class AsistenciaControllerREST {
 	) {
 
 		int maxSize = 20;
-		int pageSize = Math.min(pageable.getPageSize(), maxSize);
 
 		Pageable limitedPageable = PageRequest.of(
 				pageable.getPageNumber(),
-				pageSize,
+				Math.min(pageable.getPageSize(), maxSize),
 				pageable.getSort()
 		);
 
@@ -104,18 +104,28 @@ public class AsistenciaControllerREST {
 
 		return PageMapper.toPageResponse(
 				empleados,
-				empleado -> EmpleadoAsistenciaDTO.from(empleado, fecha)
+				empleado -> {
+					EmpleadoAsistenciaResumen resumen =
+							asistenciaService.getResumenAsistenciaEmpleado(
+									empleado,
+									fecha
+							);
+					return AsistenciaMapper.toResumenDTO(
+							empleado,
+							resumen
+					);
+				}
 		);
 	}
 
-	@DeleteMapping("/manual")
+	@DeleteMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void eliminarInasistenciasManual(
+	public void eliminarInasistencias(
 			@PathVariable Long escuelaId,
 			@Valid @RequestBody EliminarInasistenciasManualDTO dto
 	) {
 
-		asistenciaService.eliminarInasistenciasManual(
+		asistenciaService.eliminarInasistencias(
 				escuelaId,
 				dto.empleadoId(),
 				dto.fechas()
@@ -132,7 +142,7 @@ public class AsistenciaControllerREST {
 
 		YearMonth yearMonth = YearMonth.of(anio, mes);
 
-		return asistenciaService.obtenerEstadoMensual(
+		return asistenciaService.obtenerEstadoAsistenciaMensual(
 						escuelaId,
 						empleadoId,
 						yearMonth

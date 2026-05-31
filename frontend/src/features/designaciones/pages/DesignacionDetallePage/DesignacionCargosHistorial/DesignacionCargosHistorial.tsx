@@ -1,4 +1,7 @@
-import type { AsignacionDetalleDTO, FiltroCargos } from "@/shared/utils/types";
+import type {
+	EmpleadoEducativoAsignacionItemDTO,
+	FiltroCargos,
+} from "@/shared/utils/types";
 import styles from "./DesignacionCargosHistorial.module.scss";
 import DesignacionCargosHistorialContent from "./DesignacionCargosHistorialContent/DesignacionCargosHistorialContent";
 import DesignacionCargosHistorialHeader from "./DesignacionCargosHistorialHeader/DesignacionCargosHistorialHeader";
@@ -12,7 +15,7 @@ const MENSAJES: Record<FiltroCargos, string> = {
 };
 
 type Props = {
-	cargos: AsignacionDetalleDTO[];
+	cargos: EmpleadoEducativoAsignacionItemDTO[];
 
 	isLoading?: boolean;
 

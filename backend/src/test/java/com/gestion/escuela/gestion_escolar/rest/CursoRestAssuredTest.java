@@ -66,7 +66,7 @@ class CursoRestAssuredTest extends AbstractIntegrationTest {
 						.jsonPath()
 						.getLong("id");
 
-		// 3️⃣ Listar cursos
+		// 3️⃣ Listar curso
 		given()
 				.when()
 				.get("/api/escuelas/" + escuelaId + "/cursos")

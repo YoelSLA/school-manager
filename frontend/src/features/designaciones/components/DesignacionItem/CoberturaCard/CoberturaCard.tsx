@@ -16,6 +16,8 @@ export default function CoberturaCard({
 }: Props) {
 	const asignacion = designacion.asignacionActiva;
 
+	console.log(asignacion?.periodo);
+
 	return (
 		<div className={styles.card}>
 			<div className={styles.header}>
@@ -27,7 +29,9 @@ export default function CoberturaCard({
 			) : (
 				<>
 					<CoberturaCardPerson empleado={asignacion.empleado} />
-					<CoberturaCardPeriod periodo={asignacion.periodo} />
+					{"fechaHasta" in asignacion.periodo && (
+						<CoberturaCardPeriod periodo={asignacion.periodo} />
+					)}
 					<CoberturaCardActions
 						designacionId={designacion.designacionId}
 						onCambiarCobertura={onCambiarCobertura}

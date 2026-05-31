@@ -15,11 +15,11 @@ import type {
 } from "@/shared/utils/types";
 import MateriaCard from "../components/MateriaCard";
 import CrearMateriaModal from "../components/MateriaCreateModal";
-import MateriaEditModal from "../components/MateriaEditModal/MateriaEditModal";
+import MateriaEditModal from "../components/MateriaUpdateModal/MateriaEditModal";
 import { useCrearMateria } from "../hooks/useCreateMateria";
 import useDeleteMateria from "../hooks/useDeleteMateria";
 import { useMaterias } from "../hooks/useMaterias";
-import { useEditMateria } from "../hooks/useUpdateMateria";
+import { useUpdateMateria } from "../hooks/useUpdateMateria";
 
 export default function MateriasPage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
@@ -61,7 +61,7 @@ export default function MateriasPage() {
 			 EDIT
 	========================= */
 
-	const { mutate: editMateria, isPending: isEditing } = useEditMateria(
+	const { mutate: editMateria, isPending: isEditing } = useUpdateMateria(
 		escuelaActiva?.id,
 	);
 

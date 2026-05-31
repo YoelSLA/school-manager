@@ -1,8 +1,8 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { Escuela } from "@/features/escuelas/types/escuela.types";
+import type { EscuelaResponseDTO } from "@/shared/utils/types/escuela.types";
 
 type EscuelaState = {
-	escuelaActiva: Escuela | null;
+	escuelaActiva: EscuelaResponseDTO | null;
 };
 
 const initialState: EscuelaState = {
@@ -16,7 +16,7 @@ const escuelaSlice = createSlice({
 	name: "escuela",
 	initialState,
 	reducers: {
-		setEscuelaActiva(state, action: PayloadAction<Escuela>) {
+		setEscuelaActiva(state, action: PayloadAction<EscuelaResponseDTO>) {
 			state.escuelaActiva = action.payload;
 			localStorage.setItem("escuelaActiva", JSON.stringify(action.payload));
 		},

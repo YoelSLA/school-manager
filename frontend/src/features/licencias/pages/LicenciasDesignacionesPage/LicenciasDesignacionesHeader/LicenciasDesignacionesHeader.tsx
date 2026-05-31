@@ -1,15 +1,15 @@
+import { CalendarDays, FileText, User } from "lucide-react";
 import InfoCard from "@/features/licencias/components/InfoCard";
 import BadgeEstadoLicencia from "@/shared/components/BagdeEstadoLicencia/BagdeEstadoLicencia";
 import { formatearFecha } from "@/shared/utils";
 import type {
-	EmpleadoEducativoMinimoDTO,
+	EmpleadoEducativoBasicoDTO,
 	LicenciaDetalleDTO,
 } from "@/shared/utils/types";
-import { CalendarDays, FileText, User } from "lucide-react";
 import styles from "./LicenciaDesignacionesHeader.module.scss";
 
 type Props = {
-	empleado: EmpleadoEducativoMinimoDTO;
+	empleado: EmpleadoEducativoBasicoDTO;
 	licencia: LicenciaDetalleDTO;
 };
 

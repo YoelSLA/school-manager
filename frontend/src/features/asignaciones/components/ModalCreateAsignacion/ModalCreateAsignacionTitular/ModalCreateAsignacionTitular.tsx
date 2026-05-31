@@ -6,13 +6,13 @@ import { useCreateTitular } from "@/features/asignaciones/hooks/useCreateTitular
 import FechaField from "@/features/designaciones/components/fields/FechaInputField";
 import NumberField from "@/features/designaciones/components/fields/NumberInputField";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
-import type { EmpleadoEducativoMinimoDTO } from "@/shared/utils/types";
+import type { EmpleadoEducativoBasicoDTO } from "@/shared/utils/types";
 import styles from "../ModalCreateAsignacion.module.scss";
 
 type Props = {
 	designacionId: number;
 	secuencia: number;
-	empleadoInicial: EmpleadoEducativoMinimoDTO | null;
+	empleadoInicial: EmpleadoEducativoBasicoDTO | null;
 	tomaPosesion: string;
 	onClose: () => void;
 	onSuccess: () => void;

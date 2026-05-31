@@ -1,10 +1,10 @@
-import type { CursoNombreDTO } from "@/shared/utils/types";
 import { useQuery } from "@tanstack/react-query";
+import type { CursoResponseDTO } from "@/shared/utils/types";
+import { obtenerNombresCursos } from "../../../services/curso.service";
 import { cursosQueryKeys } from "../../../shared/utils/queryKeys/cursos.queryKeys";
-import { obtenerNombresCursos } from "../services/cursos.services";
 
 export function useCursosNombres(escuelaId?: number) {
-	const query = useQuery<CursoNombreDTO[]>({
+	const query = useQuery<CursoResponseDTO[]>({
 		queryKey:
 			escuelaId != null
 				? cursosQueryKeys.nombres(escuelaId)
@@ -18,7 +18,7 @@ export function useCursosNombres(escuelaId?: number) {
 		},
 
 		enabled: !!escuelaId,
-		staleTime: 5 * 60 * 1000, // 🧠 casi no cambian
+		staleTime: 5 * 60 * 1000,
 	});
 
 	return {

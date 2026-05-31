@@ -1,4 +1,3 @@
-// AsignacionRow.tsx
 import type {
 	CargoDesignacionAdministrativaDTO,
 	CargoDesignacionCursoDTO,

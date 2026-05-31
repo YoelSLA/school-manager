@@ -13,7 +13,6 @@ type Props = {
 };
 
 export default function DatosPersonales({ empleado }: Props) {
-	console.log(empleado);
 
 	const DATOS = [
 		{

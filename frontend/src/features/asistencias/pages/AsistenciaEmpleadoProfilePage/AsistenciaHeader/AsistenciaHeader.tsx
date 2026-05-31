@@ -1,8 +1,8 @@
-import { asistenciasPaths } from "@/app/router/paths";
 import { useNavigate } from "react-router-dom";
+import { asistenciasPaths } from "@/app/router/paths";
 
 import BadgeRolEducativo from "@/shared/components/BadgeRolEducativo";
-import { RolEducativo } from "@/shared/utils/types/enums";
+import type { RolEducativo } from "@/shared/utils/types/enums";
 import styles from "./AsistenciaHeader.module.scss";
 
 type Props = {
@@ -43,7 +43,7 @@ export default function AsistenciaHeader({ empleadoId, empleado }: Props) {
 
 				<div className={styles.header__roles}>
 					{empleado.roles.map((rol) => (
-						<BadgeRolEducativo rolEducativo={rol} />
+						<BadgeRolEducativo rolEducativo={rol} key={rol} />
 					))}
 				</div>
 			</div>

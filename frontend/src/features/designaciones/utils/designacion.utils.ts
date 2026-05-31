@@ -1,7 +1,7 @@
-import type { FranjaHoraria } from "@/shared/utils/types";
+import type { FranjaHorariaDTO } from "@/shared/utils/types";
 import { Dia, RolEducativo } from "@/shared/utils/types/enums";
 
-export const DEFAULT_FRANJA: FranjaHoraria = {
+export const DEFAULT_FRANJA: FranjaHorariaDTO = {
 	dia: Dia.LUNES,
 	horaDesde: "08:00",
 	horaHasta: "12:00",

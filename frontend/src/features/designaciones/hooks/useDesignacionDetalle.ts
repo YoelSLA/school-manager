@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import type { DesignacionDetalleDTO } from "@/shared/utils/types";
+import { obtenerDesignacionDetalle } from "../../../services/designacion.service";
 import { designacionesQueryKeys } from "../../../shared/utils/queryKeys/designaciones.queryKeys";
-import { obtenerDesignacionDetalle } from "../designaciones.services";
 
 export default function useDesignacionDetalle(designacionId?: number) {
 	const query = useQuery<DesignacionDetalleDTO>({

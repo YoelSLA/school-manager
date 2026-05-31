@@ -179,7 +179,7 @@ class AsignacionProvisionalTest {
 			LocalDate fechaBaja = LocalDate.of(2025, 3, 15);
 
 			asignacion.finalizarPorBajaDefinitiva(
-					CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+					CausaBaja.RENUNCIA,
 					fechaBaja
 			);
 
@@ -220,14 +220,14 @@ class AsignacionProvisionalTest {
 			LocalDate fecha = LocalDate.of(2025, 3, 15);
 
 			asignacion.finalizarPorBajaDefinitiva(
-					CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+					CausaBaja.RENUNCIA,
 					fecha
 			);
 
 			assertThrows(
 					AsignacionYaDadaDeBajaException.class,
 					() -> asignacion.finalizarPorBajaDefinitiva(
-							CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+							CausaBaja.RENUNCIA,
 							fecha
 					)
 			);
@@ -250,7 +250,7 @@ class AsignacionProvisionalTest {
 			LocalDate fechaBaja = LocalDate.of(2025, 3, 15);
 
 			asignacion.finalizarPorBajaDefinitiva(
-					CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+					CausaBaja.RENUNCIA,
 					fechaBaja
 			);
 
@@ -266,7 +266,7 @@ class AsignacionProvisionalTest {
 			LocalDate fecha = LocalDate.of(2025, 3, 15);
 
 			asignacion.finalizarPorBajaDefinitiva(
-					CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+					CausaBaja.RENUNCIA,
 					fecha
 			);
 
@@ -280,12 +280,12 @@ class AsignacionProvisionalTest {
 			LocalDate fecha = LocalDate.of(2025, 3, 15);
 
 			asignacion.finalizarPorBajaDefinitiva(
-					CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+					CausaBaja.RENUNCIA,
 					fecha
 			);
 
 			assertEquals(
-					CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+					CausaBaja.RENUNCIA,
 					asignacion.getCausaBaja()
 			);
 		}
@@ -378,7 +378,7 @@ class AsignacionProvisionalTest {
 			LocalDate fechaBaja = LocalDate.of(2025, 3, 15);
 
 			asignacion.finalizarPorBajaDefinitiva(
-					CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+					CausaBaja.RENUNCIA,
 					fechaBaja
 			);
 
@@ -398,7 +398,7 @@ class AsignacionProvisionalTest {
 			LocalDate fechaBaja = LocalDate.of(2025, 3, 15);
 
 			asignacion.finalizarPorBajaDefinitiva(
-					CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+					CausaBaja.RENUNCIA,
 					fechaBaja
 			);
 

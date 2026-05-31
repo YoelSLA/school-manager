@@ -7,6 +7,7 @@ import com.gestion.escuela.gestion_escolar.models.caracteristicaAsignacion.Carac
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
+import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista;
 import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 import com.gestion.escuela.gestion_escolar.models.exceptions.asignacion.AsignacionYaDadaDeBajaException;
@@ -82,7 +83,6 @@ public abstract class Asignacion {
 		}
 	}
 
-
 	public void aplicarCaracteristica(CaracteristicaAsignacion nueva) {
 		throw new UnsupportedOperationException("Solo una asignación TITULAR puede tener característica");
 	}
@@ -101,8 +101,20 @@ public abstract class Asignacion {
 		return getEstadoEn(fecha) == EstadoAsignacion.ACTIVA;
 	}
 
+	public boolean estaVigenteEn(LocalDate fecha) {
+		return getEstadoEn(fecha).estaVigente();
+	}
+
+	public boolean estaEjerciendoEn(LocalDate fecha) {
+		return getEstadoEn(fecha).estaEjerciendo();
+	}
+
 	public boolean estaEnLicenciaEn(LocalDate fecha) {
 		return getEstadoEn(fecha) == EstadoAsignacion.LICENCIA;
+	}
+
+	public boolean estaFinalizadaEn(LocalDate fecha) {
+		return getEstadoEn(fecha).estaFinalizada();
 	}
 
 	public boolean puedeGenerarVacanteDefinitiva() {
@@ -181,18 +193,16 @@ public abstract class Asignacion {
 		return this.periodo.seSuperponeCon(asignacion.periodo);
 	}
 
-
-	public boolean estaEjerciendoEn(LocalDate fecha) {
-
-		return estaActivaEn(fecha) && !estaEnLicenciaEn(fecha);
-	}
-
 	public boolean esTitular() {
 		return getSituacionDeRevista() == TITULAR;
 	}
 
 	public boolean esProvisonal() {
 		return getSituacionDeRevista() == PROVISIONAL;
+	}
+
+	public RolEducativo getRolEducativo() {
+		return designacion.getRolEducativo();
 	}
 
 	public void actualizar(

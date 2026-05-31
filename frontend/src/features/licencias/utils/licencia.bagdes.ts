@@ -5,5 +5,5 @@ export const ESTADO_LICENCIA_BADGE = {
 	PENDIENTE: "pendiente",
 	CUBIERTA: "cubierta",
 	DESCUBIERTA: "descubierta",
-	FINALIZADA: "finalizada",
+	NO_VIGENTE: "no_vigente",
 } as const satisfies Record<EstadoLicencia, BadgeVariant>;

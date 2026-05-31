@@ -1,9 +1,9 @@
+import type { UseFormRegister } from "react-hook-form";
 import FormSelectField from "@/components/FormSelectField/FormSelectField";
 import type {
 	DesignacionCursoFormValues,
 	MateriaNombreDTO,
 } from "@/shared/utils/types";
-import type { UseFormRegister } from "react-hook-form";
 
 type Props = {
 	register: UseFormRegister<DesignacionCursoFormValues>;

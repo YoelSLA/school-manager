@@ -1,4 +1,4 @@
-const { app, ipcMain, globalShortcut } = require("electron");
+const { app, ipcMain, globalShortcut, Menu } = require("electron");
 const { createWindow, getMainWindow } = require("./windowManager.cjs");
 const {
 	setupAutoUpdater,
@@ -6,10 +6,17 @@ const {
 	restartApp,
 } = require("./updater.cjs");
 
+const isDev = !app.isPackaged;
+
 app.whenReady().then(() => {
+	// Ocultar menú solo en producción
+	if (!isDev) {
+		Menu.setApplicationMenu(null);
+	}
+
 	createWindow();
 
-	// 🔥 DEV TOOLS (siempre habilitadas)
+	// DEV TOOLS
 	globalShortcut.register("F12", () => {
 		getMainWindow()?.webContents.toggleDevTools();
 	});
@@ -18,15 +25,15 @@ app.whenReady().then(() => {
 		getMainWindow()?.webContents.toggleDevTools();
 	});
 
-	// 🔄 updater
+	// Updater
 	setupAutoUpdater();
 
-	// 📡 IPC
+	// IPC
 	ipcMain.on("start_download", startDownload);
 	ipcMain.on("restart_app", restartApp);
 });
 
-// 🛑 cerrar app correctamente
+// Cerrar app correctamente
 app.on("window-all-closed", () => {
 	if (process.platform !== "darwin") {
 		app.quit();

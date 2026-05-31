@@ -1,9 +1,9 @@
 import { User } from "lucide-react";
-import type { EmpleadoEducativoMinimoDTO } from "@/shared/utils/types";
+import type { EmpleadoEducativoBasicoDTO } from "@/shared/utils/types";
 import styles from "./CoberturaCardPerson.module.scss";
 
 type Props = {
-	empleado: EmpleadoEducativoMinimoDTO;
+	empleado: EmpleadoEducativoBasicoDTO;
 };
 
 export default function CoberturaCardPerson({ empleado }: Props) {

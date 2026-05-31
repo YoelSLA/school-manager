@@ -2,7 +2,10 @@ import FormInputField from "@/components/FormInputField";
 import FormSection from "@/components/FormSection";
 import FormSelectField from "@/components/FormSelectField/FormSelectField";
 import Modal from "@/components/Modal/Modal";
-import type { CursoCreateDTO } from "@/shared/utils/types";
+import type {
+	CursoCreateDTO,
+	CursoCreateFormValues,
+} from "@/shared/utils/types";
 import { useCrearCursoForm } from "../../form/useCrearCursoForm";
 import { TURNO_OPTIONS } from "../../utils/cursos.utils";
 
@@ -25,8 +28,16 @@ export default function CursoCreateModal({
 		},
 	} = useCrearCursoForm();
 
+	const handleFormSubmit = (data: CursoCreateFormValues) => {
+		onSubmit({
+			turno: data.turno,
+			anio: Number(data.anio),
+			grado: Number(data.grado),
+		});
+	};
+
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
+		<form onSubmit={handleSubmit(handleFormSubmit)}>
 			<Modal
 				title="Nuevo curso"
 				onCancel={onClose}
@@ -34,7 +45,7 @@ export default function CursoCreateModal({
 				isSubmitting={isSubmitting}
 			>
 				<FormSection title="Datos del curso" layout="column">
-					<FormSelectField<CursoCreateDTO>
+					<FormSelectField<CursoCreateFormValues>
 						label="Turno"
 						name="turno"
 						register={register}
@@ -47,7 +58,7 @@ export default function CursoCreateModal({
 						))}
 					</FormSelectField>
 
-					<FormInputField<CursoCreateDTO>
+					<FormInputField<CursoCreateFormValues>
 						label="Año"
 						name="anio"
 						type="number"
@@ -56,7 +67,7 @@ export default function CursoCreateModal({
 						inputProps={{ min: 1 }}
 					/>
 
-					<FormInputField<CursoCreateDTO>
+					<FormInputField<CursoCreateFormValues>
 						label="Grado"
 						name="grado"
 						type="number"

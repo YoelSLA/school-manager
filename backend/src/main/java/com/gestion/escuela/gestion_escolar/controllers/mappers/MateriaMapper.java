@@ -1,8 +1,8 @@
 package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.request.MateriaCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.response.MateriaNombreDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.response.MateriaResponseDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.request.MateriaCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.response.MateriaNombreDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.response.MateriaResponseDTO;
 import com.gestion.escuela.gestion_escolar.models.Materia;
 
 public class MateriaMapper {

@@ -17,26 +17,19 @@ type Props = {
 
 	onCancel: () => void;
 
-	onConfirm: (
-		data: RegistrarInasistenciaFormOutput,
-	) => void;
+	onConfirm: (data: RegistrarInasistenciaFormOutput) => void;
 };
 
 /* =========================================================
  * HELPERS
  * =======================================================*/
 
-function formatFecha(
-	date: Date,
-) {
-	return date.toLocaleDateString(
-		"es-AR",
-		{
-			day: "numeric",
-			month: "long",
-			year: "numeric",
-		},
-	);
+function formatFecha(date: Date) {
+	return date.toLocaleDateString("es-AR", {
+		day: "numeric",
+		month: "long",
+		year: "numeric",
+	});
 }
 
 /* =========================================================
@@ -51,8 +44,7 @@ export default function RegistrarInasistenciaModal({
 	onCancel,
 	onConfirm,
 }: Props) {
-	const { form } =
-		useRegistrarInasistenciaForm();
+	const { form } = useRegistrarInasistenciaForm();
 
 	const {
 		register,
@@ -66,11 +58,8 @@ export default function RegistrarInasistenciaModal({
 	 * =======================================================*/
 
 	const titulo =
-		fechasSeleccionadas.length ===
-			1
-			? `Registrar inasistencia · ${formatFecha(
-				fechasSeleccionadas[0],
-			)}`
+		fechasSeleccionadas.length === 1
+			? `Registrar inasistencia · ${formatFecha(fechasSeleccionadas[0])}`
 			: `Registrar inasistencia · ${diasSeleccionados} días`;
 
 	/* =========================================================
@@ -96,68 +85,33 @@ export default function RegistrarInasistenciaModal({
 	 * =======================================================*/
 
 	return (
-		<form
-			onSubmit={handleSubmit(
-				onConfirm,
-			)}
-		>
+		<form onSubmit={handleSubmit(onConfirm)}>
 			<Modal
 				title={titulo}
-				onCancel={
-					handleCancel
-				}
+				onCancel={handleCancel}
 				confirmLabel="Registrar"
-				isSubmitting={
-					isSubmitting
-				}
+				isSubmitting={isSubmitting}
 			>
-				<div
-					className={
-						styles.form
-					}
-				>
+				<div className={styles.form}>
 					<TipoLicenciaSelect
-						register={
-							register
-						}
+						register={register}
 						name="tipoLicencia"
-						error={
-							errors
-								.tipoLicencia
-								?.message
-						}
+						error={errors.tipoLicencia?.message}
 					/>
 
-					<div
-						className={
-							styles.field
-						}
-					>
-						<label htmlFor="observacion">
-							Observación
-						</label>
+					<div className={styles.field}>
+						<label htmlFor="observacion">Observación</label>
 
 						<textarea
 							id="observacion"
-							{...register(
-								"observacion",
-							)}
+							{...register("observacion")}
 							rows={3}
 							placeholder="Observación opcional"
 						/>
 					</div>
 
-					<p
-						className={
-							styles.helper
-						}
-					>
-						Se
-						registrarán{" "}
-						{
-							diasSeleccionados
-						}{" "}
-						días
+					<p className={styles.helper}>
+						Se registrarán {diasSeleccionados} días
 					</p>
 				</div>
 			</Modal>

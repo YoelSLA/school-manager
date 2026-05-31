@@ -12,7 +12,7 @@ type Props = {
 };
 
 export function useCreateProvisionalForm({ defaultValues }: Props = {}) {
-	const form = useForm<FormInput, any, FormOutput>({
+	const form = useForm<FormInput, undefined, FormOutput>({
 		resolver: zodResolver(createProvisionalSchema),
 
 		defaultValues: {

@@ -1,9 +1,9 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.request.MateriaCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.materias.request.MateriaUpdateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.escuelasContexto.EscuelaMateriaControllerREST;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.request.MateriaCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.request.MateriaUpdateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.escuela.EscuelaMateriaControllerREST;
 import com.gestion.escuela.gestion_escolar.models.Materia;
 import com.gestion.escuela.gestion_escolar.services.MateriaService;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { cubrirConProvisional } from "@/features/designaciones/designaciones.services";
+import { cubrirConProvisional } from "@/services/designacion.service";
 import { asistenciasQueryKeys } from "@/shared/utils/queryKeys/asistencias.queryKeys";
 
 import { designacionesQueryKeys } from "@/shared/utils/queryKeys/designaciones.queryKeys";

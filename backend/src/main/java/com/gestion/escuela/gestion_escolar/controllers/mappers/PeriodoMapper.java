@@ -7,9 +7,12 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.periodo.response.Per
 import com.gestion.escuela.gestion_escolar.controllers.dtos.periodo.response.PeriodoCerradoDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.periodo.response.PeriodoDTO;
 import com.gestion.escuela.gestion_escolar.models.Periodo;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PeriodoMapper {
 
 	public static PeriodoDTO toDTO(Periodo periodo) {

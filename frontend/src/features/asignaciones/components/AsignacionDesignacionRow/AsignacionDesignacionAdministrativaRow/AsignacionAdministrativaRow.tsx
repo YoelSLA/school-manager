@@ -1,3 +1,4 @@
+import { formatRol } from "@/features/asignaciones/utils/asignaciones.utils";
 import BadgeEstadoAsignacion from "@/shared/components/BagdeEstadoAsignacion";
 import type {
 	CargoDesignacionAdministrativaDTO,
@@ -11,13 +12,6 @@ type Props = {
 		designacion: CargoDesignacionAdministrativaDTO;
 	};
 };
-
-function formatRol(rol: string) {
-	return rol
-		.toLowerCase()
-		.replaceAll("_", " ")
-		.replace(/\b\w/g, (l) => l.toUpperCase());
-}
 
 export default function AsignacionDesignacionAdministrativaRow({
 	asignacion,

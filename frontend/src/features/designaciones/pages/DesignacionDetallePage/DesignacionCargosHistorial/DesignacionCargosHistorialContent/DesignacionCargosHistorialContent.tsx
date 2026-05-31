@@ -1,9 +1,9 @@
 import AsignacionDesignacionRow from "@/features/asignaciones/components/AsignacionDesignacionRow";
-import type { AsignacionDetalleDTO } from "@/shared/utils/types";
+import type { EmpleadoEducativoAsignacionItemDTO } from "@/shared/utils/types/empleado.types";
 import styles from "./DesignacionCargosHistorialContent.module.scss";
 
 type Props = {
-	cargos: AsignacionDetalleDTO[];
+	cargos: EmpleadoEducativoAsignacionItemDTO[];
 
 	isLoading: boolean;
 

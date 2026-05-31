@@ -2,9 +2,9 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
-import type { EmpleadoEducativoMinimoDTO } from "@/shared/utils/types";
+import type { EmpleadoEducativoBasicoDTO } from "@/shared/utils/types";
+import { buscarEmpleadosPorEscuela } from "../../../services/empleadoEducativo.service";
 import { empleadosEducativosQueryKeys } from "../../../shared/utils/queryKeys/empleadosEducativos.queryKeys";
-import { buscarEmpleadosPorEscuela } from "../empleadosEducativos.services";
 
 export default function useEmpleadoSearch(search: string) {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
@@ -16,7 +16,7 @@ export default function useEmpleadoSearch(search: string) {
 
 	const enabled = !!escuelaId && search.length >= 2;
 
-	const query = useQuery<EmpleadoEducativoMinimoDTO[]>({
+	const query = useQuery<EmpleadoEducativoBasicoDTO[]>({
 		queryKey: enabled
 			? empleadosEducativosQueryKeys.search(escuelaId, search)
 			: empleadosEducativosQueryKeys.lists(),

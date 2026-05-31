@@ -6,13 +6,13 @@ import { useUpdateProvisional } from "@/features/asignaciones/hooks/useUpdatePro
 import FechaField from "@/features/designaciones/components/fields/FechaInputField";
 import NumberField from "@/features/designaciones/components/fields/NumberInputField";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
-import type { EmpleadoEducativoMinimoDTO } from "@/shared/utils/types";
+import type { EmpleadoEducativoBasicoDTO } from "@/shared/utils/types";
 import styles from "../ModalUpdateAsignacion.module.scss";
 
 type Props = {
 	designacionId: number;
 	asignacionId: number;
-	empleadoInicial: EmpleadoEducativoMinimoDTO | null;
+	empleadoInicial: EmpleadoEducativoBasicoDTO | null;
 	fechaDesde: string;
 	fechaHasta: string | null;
 	secuencia: number;

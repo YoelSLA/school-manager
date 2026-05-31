@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { EmpleadoEducativoCreateDTO } from "@/shared/utils/types";
+import { crearEmpleadoEducativo } from "../../../services/empleadoEducativo.service";
 import { empleadosEducativosQueryKeys } from "../../../shared/utils/queryKeys/empleadosEducativos.queryKeys";
-import { crearEmpleadoEducativo } from "../empleadosEducativos.services";
 
 type Variables = {
 	escuelaId: number;

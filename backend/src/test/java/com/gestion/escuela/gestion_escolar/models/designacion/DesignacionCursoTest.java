@@ -10,9 +10,9 @@ import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
-import com.gestion.escuela.gestion_escolar.models.exceptions.DesignacionYaTieneTitularException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionNoVacantePorLicenciaException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionYaCubiertaException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionYaTieneTitularException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.franjaHoraria.RangoHorarioInvalidoException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -27,6 +27,7 @@ import static com.gestion.escuela.gestion_escolar.models.Periodo.abierto;
 import static com.gestion.escuela.gestion_escolar.models.Periodo.cerrado;
 import static com.gestion.escuela.gestion_escolar.models.enums.DiaDeSemana.*;
 import static java.time.Month.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DesignacionCursoTest extends DomainTestFixture {
@@ -1021,14 +1022,13 @@ class DesignacionCursoTest extends DomainTestFixture {
 
 		@Test
 		void deberiaRetornarSuplenciaActiva() {
-
-
-			AsignacionTitular titular =
-					plg2467783.cubrirConTitular(
-							marchettiRoman,
-							LocalDate.of(2026, MARCH, 1),
-							1
-					);
+			// Arrange
+			LocalDate fechaTomaPosesion = LocalDate.of(2026, MARCH, 1);
+			AsignacionTitular titular = plg2467783.cubrirConTitular(
+					marchettiRoman,
+					fechaTomaPosesion,
+					1
+			);
 
 			LocalDate fechaInicioLicencia = LocalDate.of(2026, APRIL, 1);
 			LocalDate fechaFinLicencia = LocalDate.of(2026, MAY, 1);
@@ -1037,21 +1037,22 @@ class DesignacionCursoTest extends DomainTestFixture {
 					TipoLicencia.L_A1,
 					unPeriodo,
 					"Licencia médica",
-					Set.of(plg2467783));
+					Set.of(plg2467783)
+			);
 
-			AsignacionSuplente suplencia =
-					plg2467783.cubrirConSuplente(
-							unaLicencia,
-							giardinoNoraRosa,
-							fechaFinLicencia,
-							2
-					);
+			AsignacionSuplente suplencia = plg2467783.cubrirConSuplente(
+					unaLicencia,
+					giardinoNoraRosa,
+					fechaInicioLicencia,
+					2
+			);
 
-			Optional<AsignacionSuplente> resultado =
-					plg2467783.getSuplenciaActivaEn(LocalDate.of(2026, APRIL, 10));
+			Optional<AsignacionSuplente> suplenciaEncontrada = plg2467783.getSuplenciaActivaEn(
+					LocalDate.of(2026, APRIL, 10)
+			);
 
-			assertTrue(resultado.isPresent());
-			assertEquals(suplencia, resultado.get());
+			assertThat(suplenciaEncontrada.isPresent()).isTrue();
+			assertThat(suplenciaEncontrada.get()).isEqualTo(suplencia);
 		}
 
 		@Test
@@ -1189,44 +1190,41 @@ class DesignacionCursoTest extends DomainTestFixture {
 
 			LocalDate fechaInicioLicencia = LocalDate.of(2026, APRIL, 1);
 			LocalDate fechaFinLicencia = LocalDate.of(2026, MAY, 1);
-			Periodo unPeriodo = cerrado(fechaInicioLicencia, fechaFinLicencia);
-			Licencia unaLicencia = marchettiRoman.crearLicencia(
+			Licencia licencia = marchettiRoman.crearLicencia(
 					TipoLicencia.L_A1,
-					unPeriodo,
+					cerrado(fechaInicioLicencia, fechaFinLicencia),
 					"Licencia médica",
-					Set.of(plg2467783));
+					Set.of(plg2467783)
+			);
 
-			AsignacionSuplente suplencia = plg2467783.cubrirConSuplente(
-					unaLicencia,
+			plg2467783.cubrirConSuplente(
+					licencia,
 					giardinoNoraRosa,
 					fechaInicioLicencia,
-					2);
+					2
+			);
 
 			// Act
 			LocalDate fechaDeBaja = LocalDate.of(2026, APRIL, 10);
-			titular.finalizarPorBajaDefinitiva(CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES, fechaDeBaja);
+			titular.finalizarPorBajaDefinitiva(
+					CausaBaja.RENUNCIA,
+					fechaDeBaja
+			);
 
 			// Assert
-			// Assert
-			Optional<AsignacionProvisional> provisional =
-					plg2467783.getAsignaciones()
-							.stream()
-							.filter(AsignacionProvisional.class::isInstance)
-							.map(AsignacionProvisional.class::cast)
-							.filter(a ->
-									a.getEmpleadoEducativo()
-											.equals(giardinoNoraRosa)
-							)
-							.findFirst();
+			Asignacion asignacion = plg2467783.getAsignacionActivaDe(
+					giardinoNoraRosa,
+					fechaDeBaja.plusDays(1)
+			).orElseThrow();
 
 			assertAll(
-					() -> assertTrue(provisional.isPresent()),
-
+					() -> assertInstanceOf(
+							AsignacionProvisional.class,
+							asignacion
+					),
 					() -> assertEquals(
-							LocalDate.of(2026, APRIL, 11),
-							provisional.get()
-									.getPeriodo()
-									.getFechaDesde()
+							fechaDeBaja.plusDays(1),
+							asignacion.getPeriodo().getFechaDesde()
 					)
 			);
 		}
@@ -1275,7 +1273,7 @@ class DesignacionCursoTest extends DomainTestFixture {
 					() -> assertTrue(resultado.contains("DesignacionCurso")),
 					() -> assertTrue(resultado.contains("cupof = 2467783")),
 					() -> assertTrue(resultado.contains("rolEducativo = DOCENTE")),
-					() -> assertTrue(resultado.contains("asignaciones = 0"))
+					() -> assertTrue(resultado.contains("asignacion = 0"))
 			);
 		}
 
@@ -1290,7 +1288,7 @@ class DesignacionCursoTest extends DomainTestFixture {
 
 			String resultado = plg2467783.toString();
 
-			assertTrue(resultado.contains("asignaciones = 1"));
+			assertTrue(resultado.contains("asignacion = 1"));
 		}
 	}
 

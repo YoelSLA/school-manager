@@ -359,7 +359,7 @@ class PeriodoTest {
 			// Act + Assert
 			assertThatThrownBy(periodoAbierto::dias)
 					.isInstanceOf(PeriodoAbiertoException.class)
-					.hasMessage("No se pueden calcular días de un período abierto");
+					.hasMessage("El período se encuentra abierto.");
 		}
 	}
 

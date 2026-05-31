@@ -1,12 +1,12 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.request.AsignacionUpdateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.response.AsignacionDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.request.CubrirProvisionalDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.request.CubrirTitularDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.request.DesignacionAdministrativaUpdateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.request.DesignacionCursoUpdateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.response.DesignacionDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.request.AsignacionUpdateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response.AsignacionDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.CubrirProvisionalDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.CubrirTitularDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionAdministrativaUpdateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionCursoUpdateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.AsignacionMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.DesignacionMapper;
 import com.gestion.escuela.gestion_escolar.models.FranjaHoraria;

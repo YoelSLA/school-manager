@@ -1,6 +1,8 @@
 package com.gestion.escuela.gestion_escolar.models.exceptions.periodo;
 
-public class PeriodoAbiertoException extends RuntimeException {
+import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarException;
+
+public class PeriodoAbiertoException extends GestionEscolarException {
 
 	public PeriodoAbiertoException() {
 		super("El período se encuentra abierto.");

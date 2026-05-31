@@ -1,15 +1,16 @@
-import FormSelectField from "@/components/FormSelectField/FormSelectField";
-import {
-	ordenarCursos,
-	TURNO_LABELS,
-} from "@/features/cursos/utils/cursos.utils";
-import type { CursoNombreDTO, DesignacionCursoFormValues } from "@/shared/utils/types";
 import { useMemo } from "react";
 import type { UseFormRegister } from "react-hook-form";
+import FormSelectField from "@/components/FormSelectField/FormSelectField";
+import { ordenarCursos } from "@/features/cursos/utils/cursos.utils";
+import { TURNO_LABELS } from "@/shared/utils/enumLabels";
+import type {
+	CursoResponseDTO,
+	DesignacionCursoFormValues,
+} from "@/shared/utils/types";
 
 type Props = {
 	register: UseFormRegister<DesignacionCursoFormValues>;
-	cursos: CursoNombreDTO[];
+	cursos: CursoResponseDTO[];
 	isLoading?: boolean;
 	error?: string;
 };

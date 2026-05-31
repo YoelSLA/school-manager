@@ -2,7 +2,7 @@ import Breadcrumbs from "@/app/layouts/Breadcrumbs";
 import PageLayout from "@/app/layouts/PageLayout/PageLayout";
 import ConfirmModal from "@/components/ModalConfirm";
 import RegistrarInasistenciaModal from "../../components/RegistrarInasistenciaModal/RegistrarInasistenciaModal";
-import useAsistenciaDetallePage from "../../hooks/useAsistenciaDetallePage";
+import useAsistenciaDetallePage from "../../hooks/pages/useAsistenciaDetallePage";
 import AsistenciaCalendar from "./AsistenciaCalendar/AsistenciaCalendar";
 import styles from "./AsistenciaDetallePage.module.scss";
 import AsistenciaHeader from "./AsistenciaHeader/AsistenciaHeader";

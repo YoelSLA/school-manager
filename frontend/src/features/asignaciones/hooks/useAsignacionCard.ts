@@ -19,7 +19,7 @@ export function useAsignacionCard({ cargo, designacionId, onEditar }: Props) {
 	const { empleado, periodo, situacionDeRevista, estadoAsignacion, secuencia } =
 		cargo;
 
-	const esSuplente = situacionDeRevista === "Suplente";
+	const esSuplente = situacionDeRevista === "SUPLENTE";
 
 	const showMenu = !esSuplente;
 

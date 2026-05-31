@@ -2,9 +2,9 @@ import type { AsignacionDetalleDTO } from "@/shared/utils/types";
 import { useAsignacionCard } from "../../hooks/useAsignacionCard";
 import styles from "./AsignacionCard.module.scss";
 import AsignacionCardBadges from "./AsignacionCardBadges";
+import AsignacionCardPeriod from "./AsignacionCardDetails";
 import AsignacionCardEmployee from "./AsignacionCardEmployee";
 import AsignacionCardMenu from "./AsignacionCardMenu";
-import AsignacionCardPeriod from "./AsignacionCardDetails";
 
 type Props = {
 	cargo: AsignacionDetalleDTO;

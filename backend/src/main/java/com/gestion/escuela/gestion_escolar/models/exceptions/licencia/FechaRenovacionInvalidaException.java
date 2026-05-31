@@ -1,6 +1,8 @@
 package com.gestion.escuela.gestion_escolar.models.exceptions.licencia;
 
-public class FechaRenovacionInvalidaException extends RuntimeException {
+import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarException;
+
+public class FechaRenovacionInvalidaException extends GestionEscolarException {
 
 	public FechaRenovacionInvalidaException(String mensaje) {
 		super(mensaje);

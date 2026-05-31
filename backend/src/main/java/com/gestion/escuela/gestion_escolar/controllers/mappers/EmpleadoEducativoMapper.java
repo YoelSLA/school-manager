@@ -1,23 +1,26 @@
 package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.response.AsignacionEmpleadoEducativoRowDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.request.EmpleadoEducativoCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.request.EmpleadoEducativoUpdateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadosEducativos.response.*;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.response.LicenciaDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.licencias.response.LicenciaEmpleadoEducativoRowDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response.AsignacionEmpleadoEducativoRowDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadoEducativo.request.EmpleadoEducativoCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadoEducativo.request.EmpleadoEducativoUpdateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadoEducativo.response.*;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.response.LicenciaDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.response.LicenciaEmpleadoEducativoRowDTO;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EmpleadoEducativoMapper {
 
-	private final static LocalDate HOY = LocalDate.now();
+	private static final LocalDate HOY = LocalDate.now();
 
 	public static EmpleadoEducativoBasicoDTO toBasico(EmpleadoEducativo e) {
 		return new EmpleadoEducativoBasicoDTO(

@@ -1,7 +1,7 @@
+import { Calendar, Clock, FileText, Hash } from "lucide-react";
 import BadgeEstadoLicencia from "@/shared/components/BagdeEstadoLicencia";
 import { diasRestantes, formatPeriodo } from "@/shared/utils";
 import type { LicenciaDetalleDTO } from "@/shared/utils/types";
-import { Calendar, Clock, FileText, Hash } from "lucide-react";
 import styles from "./LicenciaInfoBox.module.scss";
 
 type Props = {

@@ -34,8 +34,6 @@ export default function EmpleadoEducativoDetallePage() {
 		reactivarMutation,
 	} = useEmpleadoEducativoDetallePage();
 
-	console.log("LICENCIAS DENTRO DE PAGE", licencias);
-
 	if (isLoading) {
 		return <div>Cargando empleado...</div>;
 	}

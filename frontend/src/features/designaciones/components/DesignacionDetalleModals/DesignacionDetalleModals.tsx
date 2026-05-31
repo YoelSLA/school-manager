@@ -53,7 +53,7 @@ export default function DesignacionDetalleModals({
 				/>
 			)}
 
-			{cargoAEditar && cargoAEditar.situacionDeRevista === "Titular" && (
+			{cargoAEditar && cargoAEditar.situacionDeRevista === "TITULAR" && (
 				<ModalUpdateAsignacionTitular
 					asignacionId={cargoAEditar.id}
 					designacionId={id}
@@ -68,21 +68,23 @@ export default function DesignacionDetalleModals({
 				/>
 			)}
 
-			{cargoAEditar && cargoAEditar.situacionDeRevista === "Provisional" && (
-				<ModalUpdateAsignacionProvisional
-					asignacionId={cargoAEditar.id}
-					designacionId={id}
-					secuencia={cargoAEditar.secuencia ?? 1}
-					empleadoInicial={cargoAEditar.empleado}
-					fechaDesde={cargoAEditar.periodo.fechaDesde}
-					fechaHasta={cargoAEditar.periodo.fechaHasta}
-					onClose={onCloseEditar}
-					onSuccess={() => {
-						onCloseEditar();
-						onSuccess();
-					}}
-				/>
-			)}
+			{cargoAEditar &&
+				cargoAEditar.situacionDeRevista === "PROVISIONAL" &&
+				cargoAEditar.periodo.tipo === "CERRADO" && (
+					<ModalUpdateAsignacionProvisional
+						asignacionId={cargoAEditar.id}
+						designacionId={id}
+						secuencia={cargoAEditar.secuencia ?? 1}
+						empleadoInicial={cargoAEditar.empleado}
+						fechaDesde={cargoAEditar.periodo.fechaDesde}
+						fechaHasta={cargoAEditar.periodo.fechaHasta}
+						onClose={onCloseEditar}
+						onSuccess={() => {
+							onCloseEditar();
+							onSuccess();
+						}}
+					/>
+				)}
 		</>
 	);
 }

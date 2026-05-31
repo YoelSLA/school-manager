@@ -1,9 +1,9 @@
-import type { EmpleadoEducativoMinimoDTO } from "@/shared/utils/types";
 import { IdCard, User } from "lucide-react";
+import type { EmpleadoEducativoBasicoDTO } from "@/shared/utils/types";
 import styles from "./EmpleadoInfo.module.scss";
 
 type Props = {
-	empleado?: EmpleadoEducativoMinimoDTO | null;
+	empleado?: EmpleadoEducativoBasicoDTO | null;
 };
 
 export default function EmpleadoInfo({ empleado }: Props) {

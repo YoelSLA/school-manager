@@ -97,7 +97,7 @@ public class Licencia {
 	}
 
 	public void agregarDesignaciones(Set<Designacion> designaciones) {
-		Validaciones.noVacio(designaciones, "designaciones");
+		Validaciones.noVacio(designaciones, "designacion");
 
 		this.designaciones.addAll(designaciones);
 	}

@@ -1,9 +1,9 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.request.CursoCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.cursos.request.CursoUpdateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.escuelasContexto.EscuelaCursoControllerREST;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.curso.request.CursoCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.curso.request.CursoUpdateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.escuela.EscuelaCursoControllerREST;
 import com.gestion.escuela.gestion_escolar.models.Curso;
 import com.gestion.escuela.gestion_escolar.models.enums.Turno;
 import com.gestion.escuela.gestion_escolar.services.CursoService;

@@ -1,3 +1,5 @@
+@use "sass:map";
+
 $badge-variants: (
 	/* =========================
 	   ESTADOS
@@ -190,9 +192,9 @@ $badge-variants: (
 	}
 
 	@each $name, $colors in $badge-variants {
-		$bg: map-get($colors, bg);
-		$border: map-get($colors, border);
-		$text: map-get($colors, text);
+    $bg: map.get($colors, bg);
+    $border: map.get($colors, border);
+    $text: map.get($colors, text);
 
 		&--#{$name} {
 			background-color: $bg;

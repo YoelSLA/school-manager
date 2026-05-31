@@ -1,6 +1,8 @@
 package com.gestion.escuela.gestion_escolar.models.exceptions.designacion;
 
-public class DesignacionNoVacantePorLicenciaException extends RuntimeException {
+import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarException;
+
+public class DesignacionNoVacantePorLicenciaException extends GestionEscolarException {
 
 	public DesignacionNoVacantePorLicenciaException(Long designacionId) {
 		super(

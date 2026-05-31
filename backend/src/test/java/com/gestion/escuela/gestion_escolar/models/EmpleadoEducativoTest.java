@@ -5,8 +5,12 @@ import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
-import com.gestion.escuela.gestion_escolar.models.exceptions.*;
+import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.CuilInvalidoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.EmailInvalidoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionNoActivaDelEmpleadoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo.EmpleadoInactivoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.licencia.LicenciaSuperpuestaException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -266,7 +270,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 		void noDeberiaCrearLicenciaParaEmpleadoInactivo() {
 
 			giardinoNoraRosa.darDeBajaDefinitiva(
-					CausaBaja.RENUNCIA_POR_CAUSAS_PARTICULARES,
+					CausaBaja.RENUNCIA,
 					LocalDate.of(2025, DECEMBER, 1)
 			);
 
@@ -754,7 +758,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 //		}
 //
 //		@Test
-//		@DisplayName("Debe fallar si designaciones está vacía")
+//		@DisplayName("Debe fallar si designacion está vacía")
 //		void fallaSiDesignacionesVacia() {
 //
 //			assertThrows(
@@ -769,7 +773,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 //		}
 //
 //		@Test
-//		@DisplayName("Debe fallar si designaciones es null")
+//		@DisplayName("Debe fallar si designacion es null")
 //		void fallaSiDesignacionesNull() {
 //
 //			assertThrows(
@@ -1065,7 +1069,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 //		}
 //
 //		@Test
-//		@DisplayName("cuando toma licencia en varias designaciones activas libera todas y calcula los dias afectados")
+//		@DisplayName("cuando toma licencia en varias designacion activas libera todas y calcula los dias afectados")
 //		void tomaLicenciaEnVariasDesignacionesYCalculaDiasAfectados() {
 //
 //			LocalDate fechaTomaPosesion = LocalDate.of(1998, MARCH, 1);

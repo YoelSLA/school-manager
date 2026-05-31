@@ -1,22 +1,25 @@
 package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.response.AsignacionAdministrativaEmpleadoEducativoRowDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.response.AsignacionCursoEmpleadoEducativoRowDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.response.AsignacionDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asignaciones.response.AsignacionEmpleadoEducativoRowDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.response.DesignacionAdministrativaAsignacionDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designaciones.response.DesignacionCursoAsignacionDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response.AsignacionAdministrativaEmpleadoEducativoRowDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response.AsignacionCursoEmpleadoEducativoRowDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response.AsignacionDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response.AsignacionEmpleadoEducativoRowDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionAdministrativaAsignacionDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionCursoAsignacionDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.response.BajaAsignacionDTO;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AsignacionMapper {
 
-	private final static LocalDate HOY = LocalDate.now();
+	private static final LocalDate HOY = LocalDate.now();
 
 	public static AsignacionDetalleDTO toDetalle(Asignacion a) {
 		return new AsignacionDetalleDTO(

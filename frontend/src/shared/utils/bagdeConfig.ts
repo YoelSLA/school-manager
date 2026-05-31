@@ -1,11 +1,18 @@
 import { Clock, Repeat, ShieldCheck } from "lucide-react";
-import type { BadgeConfig } from "./types";
 import {
-	type EstadoAsignacion,
-	type EstadoDesignacion,
-	type EstadoLicencia,
+	ESTADO_ASIGNACION_LABELS,
+	ESTADO_DESIGNACION_LABELS,
+	ESTADO_LICENCIA_LABELS,
+	ROL_EDUCATIVO_LABELS,
+	SITUACION_REVISTA_LABELS,
+} from "./enumLabels";
+import type { BadgeConfig } from "./types";
+import type {
+	EstadoAsignacion,
+	EstadoDesignacion,
+	EstadoLicencia,
 	RolEducativo,
-	type SituacionDeRevista,
+	SituacionDeRevista,
 } from "./types/enums";
 
 /* =========================
@@ -15,17 +22,12 @@ import {
 export const ESTADO_DESIGNACION_CONFIG: Record<EstadoDesignacion, BadgeConfig> =
 	{
 		CUBIERTA: {
-			label: "Cubierta",
+			label: ESTADO_DESIGNACION_LABELS.CUBIERTA,
 			variant: "cubierta",
 		},
 
-		LICENCIA: {
-			label: "Licencia",
-			variant: "licencia",
-		},
-
 		VACANTE: {
-			label: "Vacante",
+			label: ESTADO_DESIGNACION_LABELS.VACANTE,
 			variant: "vacante",
 		},
 	};
@@ -36,27 +38,27 @@ export const ESTADO_DESIGNACION_CONFIG: Record<EstadoDesignacion, BadgeConfig> =
 
 export const ESTADO_ASIGNACION_CONFIG: Record<EstadoAsignacion, BadgeConfig> = {
 	ACTIVA: {
-		label: "Activa",
+		label: ESTADO_ASIGNACION_LABELS.ACTIVA,
 		variant: "activa",
 	},
 
 	LICENCIA: {
-		label: "Licencia",
+		label: ESTADO_ASIGNACION_LABELS.LICENCIA,
 		variant: "licencia",
 	},
 
 	FINALIZADA: {
-		label: "Finalizada",
+		label: ESTADO_ASIGNACION_LABELS.FINALIZADA,
 		variant: "finalizada",
 	},
 
 	BAJA: {
-		label: "Baja",
+		label: ESTADO_ASIGNACION_LABELS.BAJA,
 		variant: "baja",
 	},
 
 	PENDIENTE: {
-		label: "Pendiente",
+		label: ESTADO_ASIGNACION_LABELS.PENDIENTE,
 		variant: "pendiente",
 	},
 };
@@ -67,21 +69,22 @@ export const ESTADO_ASIGNACION_CONFIG: Record<EstadoAsignacion, BadgeConfig> = {
 
 export const ESTADO_LICENCIA_CONFIG: Record<EstadoLicencia, BadgeConfig> = {
 	PENDIENTE: {
-		label: "Pendiente",
+		label: ESTADO_LICENCIA_LABELS.PENDIENTE,
 		variant: "pendiente",
 	},
+
 	CUBIERTA: {
-		label: "Cubierta",
+		label: ESTADO_LICENCIA_LABELS.CUBIERTA,
 		variant: "cubierta",
 	},
 
 	DESCUBIERTA: {
-		label: "Descubierta",
+		label: ESTADO_LICENCIA_LABELS.DESCUBIERTA,
 		variant: "descubierta",
 	},
 
 	NO_VIGENTE: {
-		label: "No Vigente",
+		label: ESTADO_LICENCIA_LABELS.NO_VIGENTE,
 		variant: "no_vigente",
 	},
 };
@@ -114,20 +117,20 @@ export function getEstadoEmpleadoKey(
 
 export const SITUACION_REVISTA_CONFIG: Record<SituacionDeRevista, BadgeConfig> =
 	{
-		Titular: {
-			label: "Titular",
+		TITULAR: {
+			label: SITUACION_REVISTA_LABELS.TITULAR,
 			variant: "titular",
 			icon: ShieldCheck,
 		},
 
-		Provisional: {
-			label: "Provisional",
+		PROVISIONAL: {
+			label: SITUACION_REVISTA_LABELS.PROVISIONAL,
 			variant: "provisional",
 			icon: Clock,
 		},
 
-		Suplente: {
-			label: "Suplente",
+		SUPLENTE: {
+			label: SITUACION_REVISTA_LABELS.SUPLENTE,
 			variant: "suplente",
 			icon: Repeat,
 		},
@@ -136,64 +139,65 @@ export const SITUACION_REVISTA_CONFIG: Record<SituacionDeRevista, BadgeConfig> =
 /* =========================
         ROL EDUCATIVO
 ========================= */
+
 export const ROL_EDUCATIVO_CONFIG: Record<RolEducativo, BadgeConfig> = {
-	[RolEducativo.AUXILIAR]: {
-		label: "AUXILIAR",
+	AUXILIAR: {
+		label: ROL_EDUCATIVO_LABELS.AUXILIAR,
 		variant: "auxiliar",
 	},
 
-	[RolEducativo.BIBLIOTECARIO]: {
-		label: "BIBLIOTECARIO",
+	BIBLIOTECARIO: {
+		label: ROL_EDUCATIVO_LABELS.BIBLIOTECARIO,
 		variant: "bibliotecario",
 	},
 
-	[RolEducativo.CAMBIO_DE_FUNCION]: {
-		label: "CAMBIO DE FUNCIÓN",
+	CAMBIO_DE_FUNCION: {
+		label: ROL_EDUCATIVO_LABELS.CAMBIO_DE_FUNCION,
 		variant: "cambioDeFuncion",
 	},
 
-	[RolEducativo.DIRECCION]: {
-		label: "DIRECCIÓN",
+	DIRECCION: {
+		label: ROL_EDUCATIVO_LABELS.DIRECCION,
 		variant: "direccion",
 	},
 
-	[RolEducativo.ENCARGO_DE_MEDIO_DE_APOYO_TECNICO_PROFESIONAL]: {
-		label: "ENCARGO DE MEDIO DE APOYO TÉCNICO PROFESIONAL",
+	ENCARGO_DE_MEDIO_DE_APOYO_TECNICO_PROFESIONAL: {
+		label: ROL_EDUCATIVO_LABELS.ENCARGO_DE_MEDIO_DE_APOYO_TECNICO_PROFESIONAL,
 		variant: "medioApoyoTecnicoProfesional",
 	},
 
-	[RolEducativo.VICEDIRECCION]: {
-		label: "VICEDIRECCIÓN",
+	VICEDIRECCION: {
+		label: ROL_EDUCATIVO_LABELS.VICEDIRECCION,
 		variant: "vicedireccion",
 	},
 
-	[RolEducativo.SECRETARIA]: {
-		label: "SECRETARÍA",
+	SECRETARIA: {
+		label: ROL_EDUCATIVO_LABELS.SECRETARIA,
 		variant: "secretaria",
 	},
 
-	[RolEducativo.ORIENTACION_EDUCACIONAL]: {
-		label: "ORIENTACIÓN EDUCACIONAL",
+	ORIENTACION_EDUCACIONAL: {
+		label: ROL_EDUCATIVO_LABELS.ORIENTACION_EDUCACIONAL,
 		variant: "orientacionEducacional",
 	},
 
-	[RolEducativo.ORIENTACION_SOCIAL]: {
-		label: "ORIENTACIÓN SOCIAL",
+	ORIENTACION_SOCIAL: {
+		label: ROL_EDUCATIVO_LABELS.ORIENTACION_SOCIAL,
 		variant: "orientacionSocial",
 	},
 
-	[RolEducativo.PRECEPTORIA]: {
-		label: "PRECEPTORÍA",
+	PRECEPTORIA: {
+		label: ROL_EDUCATIVO_LABELS.PRECEPTORIA,
 		variant: "preceptoria",
 	},
 
-	[RolEducativo.DOCENTE]: {
-		label: "DOCENTE",
+	DOCENTE: {
+		label: ROL_EDUCATIVO_LABELS.DOCENTE,
 		variant: "docente",
 	},
 
-	[RolEducativo.RECALIFICACION_LABORAL_DEFINITIVA]: {
-		label: "RECALIFICACIÓN LABORAL DEFINITIVA",
+	RECALIFICACION_LABORAL_DEFINITIVA: {
+		label: ROL_EDUCATIVO_LABELS.RECALIFICACION_LABORAL_DEFINITIVA,
 		variant: "recalificacionLaboralDefinitiva",
 	},
 };
