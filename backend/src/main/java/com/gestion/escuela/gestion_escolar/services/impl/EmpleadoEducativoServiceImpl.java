@@ -83,26 +83,6 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 				.orElseThrow(() -> new RecursoNoEncontradoException("empleado educativo", id));
 	}
 
-//	@Override
-//	public Licencia crearLicencia(
-//			Long empleadoId,
-//			TipoLicencia tipo,
-//			Periodo periodo,
-//			String descripcion,
-//			Set<Long> designacionIds
-//	) {
-//
-//		EmpleadoEducativo empleado = obtenerPorId(empleadoId);
-//
-//		Set<Designacion> designaciones = new HashSet<>(designacionRepository.findAllById(designacionIds));
-//
-//		Licencia licencia = empleado.crearLicencia(tipo, periodo, descripcion, designaciones);
-//
-//		licenciaRepository.save(licencia);
-//
-//		return licencia;
-//	}
-
 	@Override
 	public Licencia crearLicencia(
 			Long empleadoId,
@@ -112,35 +92,18 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 			Set<Long> designacionIds
 	) {
 
-		System.out.println("===== CREAR LICENCIA =====");
-		System.out.println("empleadoId = " + empleadoId);
-		System.out.println("tipo = " + tipo);
-		System.out.println("periodo = " + periodo);
-		System.out.println("descripcion = " + descripcion);
-		System.out.println("designacionIds = " + designacionIds);
-
 		EmpleadoEducativo empleado = obtenerPorId(empleadoId);
 
 		Set<Designacion> designaciones = new HashSet<>(designacionRepository.findAllById(designacionIds));
 
-		System.out.println("designaciones encontradas = " + designaciones.size());
-
 		Licencia licencia = empleado.crearLicencia(tipo, periodo, descripcion, designaciones);
-
-		System.out.println("===== LICENCIA ANTES DE GUARDAR =====");
-		System.out.println("tipoLicencia = " + licencia.getTipoLicencia());
-		System.out.println("descripcion = " + licencia.getDescripcion());
-		System.out.println("fechaDesde = " + licencia.getPeriodo().getFechaDesde());
-		System.out.println("fechaHasta = " + licencia.getPeriodo().getFechaHasta());
-		System.out.println("empleadoId = " + licencia.getEmpleadoEducativo().getId());
 
 		licenciaRepository.save(licencia);
 
-		System.out.println("===== LICENCIA GUARDADA =====");
-		System.out.println("id = " + licencia.getId());
-
 		return licencia;
 	}
+
+
 
 	@Override
 	public void darDeBajaDefinitiva(
