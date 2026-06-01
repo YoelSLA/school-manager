@@ -103,6 +103,8 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 		return licencia;
 	}
 
+
+
 	@Override
 	public void darDeBajaDefinitiva(
 			Long empleadoId,
