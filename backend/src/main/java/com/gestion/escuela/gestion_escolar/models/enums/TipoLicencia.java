@@ -3,6 +3,7 @@ package com.gestion.escuela.gestion_escolar.models.enums;
 import lombok.Getter;
 
 @Getter
+@SuppressWarnings("java:S1192")
 public enum TipoLicencia {
 
 	L_A1("Artículo 114", "A1", "Licencia ordinaria por enfermedad."),
@@ -10,7 +11,7 @@ public enum TipoLicencia {
 	L_A22("Artículo 114", "A22", "Licencia extraordinaria por enfermedad para docentes titulares con más de 5 años de antiguedad."),
 	L_A2211("Artículo 114", "A2211", "Licencia extraordinaria por enfermedad prolongada para docentes titulares o provisionales cubriendo hasta 365 dias con 100% de haberes para tratamientos complejos o postquirúrgicos."),
 	L_B1("Artículo 114", "B1", "Licencia por examen medico prematrimonial."),
-	L_B2("Artículo 114", "B2", "Licencia por matrimonio otorgado 12 dias corridos."),
+	L_B2("Artículo 114", "B2", "Licencia por matrimonio otorgado 12 dias de corridos."),
 	L_114C("Artículo 114", "114C", "Licencia por matrimonio otorgado a suplentes contando 6 dias habiles contados a partir del casamiento."),
 	L_114D("Artículo 114", "114D", "Licencia por embarazo y maternidad para docentes, otorga 135 días con goce integro de haberes a partir del septimo y medio de gestación."),
 	L_114E("Artículo 114", "114E", "Licencia por nacimiento de hijo."),
@@ -54,8 +55,16 @@ public enum TipoLicencia {
 	L_115E3("Artículo 115", "115E3", "Licencia por desempeño de cargos electivos o de representación politica, se considera licencia sin goce de haberes por el termino desempeño que dependa de un funcionario politico."),
 	L_ART(null, "ART", "Licencia por cobertura de accidentes laborales o enfermadades prosesionales."),
 	L_10579RT("Artículo 121", "10579RT", "Licencia para personal docente."),
-	L_10430RT("Artículo 49", "10430RT", "Licencia para personal auxiliar.");
+	L_10430RT("Artículo 49", "10430RT", "Licencia para personal auxiliar."),
+	L_ARTICULO_139("Artículo 139", "Articulo139", "Licencia por separación del cargo preventivo."),
+	L_114A28("Artículo 114", "114A28", "Licencia por enfermedad cronica."),
+	L_B21("Artículo 114", "B21", "Licencia por enfemerdad preexistente.");
 
+	private static final String ARTICULO_114 = "Artículo 114";
+	private static final String ARTICULO_115 = "Artículo 115";
+	private static final String ARTICULO_121 = "Artículo 121";
+	private static final String ARTICULO_49 = "Artículo 49";
+	private static final String ARTICULO_139 = "Artículo 139";
 	private final String articulo;
 	private final String codigo;
 	private final String descripcion;
