@@ -60,9 +60,7 @@ class AsistenciaServiceTest extends DomainServiceFixtureTest {
 				pDireccion2467830.getId(),
 				pGiardinoNoraRosa.getId(),
 				LocalDate.of(1998,MARCH, 1),
-				null,
-				1
-				);
+				1);
 	}
 
 	@Test

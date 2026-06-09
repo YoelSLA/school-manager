@@ -2,7 +2,6 @@ package com.gestion.escuela.gestion_escolar.models.asignacion;
 
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Periodo;
-import com.gestion.escuela.gestion_escolar.models.caracteristicaAsignacion.CaracteristicaAsignacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
@@ -61,38 +60,6 @@ class AsignacionProvisionalTest {
 			assertEquals(SituacionDeRevista.PROVISIONAL, asignacion.getSituacionDeRevista());
 		}
 
-		@Test
-		@DisplayName("toString debe cubrir todos los ternarios")
-		void toStringCompleto() {
-
-			when(empleado.getId()).thenReturn(1L);
-			when(designacion.getId()).thenReturn(2L);
-
-			CaracteristicaAsignacion caracteristica =
-					mock(CaracteristicaAsignacion.class);
-
-			when(caracteristica.getId()).thenReturn(3L);
-
-			// Forzamos característica usando subclase testable
-			class Testable extends AsignacionProvisional {
-				public Testable(EmpleadoEducativo e, Designacion d, Periodo p) {
-					super(e, d, p, 1);
-				}
-
-				public void setCar(CaracteristicaAsignacion c) {
-					super.asignarCaracteristica(c);
-				}
-			}
-
-			Testable a = new Testable(empleado, designacion, periodo);
-			a.setCar(caracteristica);
-
-			String texto = a.toString();
-
-			assertTrue(texto.contains("empleadoId = 1"));
-			assertTrue(texto.contains("designacionId = 2"));
-			assertTrue(texto.contains("caracteristicaId = 3"));
-		}
 	}
 
 	// =====================================================
@@ -409,59 +376,6 @@ class AsignacionProvisionalTest {
 							LocalDate.of(2025, 3, 20)
 					)
 			);
-		}
-	}
-
-	// =====================================================
-	// 🔹 CARACTERÍSTICA
-	// =====================================================
-
-	@Nested
-	@DisplayName("Característica")
-	class CaracteristicaTest {
-
-		@Test
-		void noTieneCaracteristica() {
-			assertFalse(asignacion.tieneCaracteristica());
-		}
-
-		@Test
-		void aplicarCaracteristicaNoPermitido() {
-			CaracteristicaAsignacion c = mock(CaracteristicaAsignacion.class);
-
-			assertThrows(
-					UnsupportedOperationException.class,
-					() -> asignacion.aplicarCaracteristica(c)
-			);
-		}
-
-		@Test
-		void asignarCaracteristicaInterna() {
-
-			TestableAsignacion a =
-					new TestableAsignacion(empleado, designacion, periodo);
-
-			CaracteristicaAsignacion c =
-					mock(CaracteristicaAsignacion.class);
-
-			a.forzarCaracteristica(c);
-
-			assertTrue(a.tieneCaracteristica());
-		}
-
-		static class TestableAsignacion extends AsignacionProvisional {
-
-			public TestableAsignacion(
-					EmpleadoEducativo e,
-					Designacion d,
-					Periodo p
-			) {
-				super(e, d, p, 1);
-			}
-
-			public void forzarCaracteristica(CaracteristicaAsignacion c) {
-				super.asignarCaracteristica(c);
-			}
 		}
 	}
 

@@ -4,7 +4,6 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.response.ApiError;
 import com.gestion.escuela.gestion_escolar.models.exceptions.*;
 import com.gestion.escuela.gestion_escolar.models.exceptions.asignacion.AsignacionSuperpuestaException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.asignacion.AsignacionYaDadaDeBajaException;
-import com.gestion.escuela.gestion_escolar.models.exceptions.asignacion.AsignacionYaTieneCaracteristicaException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.curso.AnioInvalidoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.curso.GradoInvalidoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.*;
@@ -102,7 +101,6 @@ public class GlobalExceptionHandler {
 
 			AsistenciaNoEditableException.class,
 
-			AsignacionYaTieneCaracteristicaException.class,
 			AsignacionYaDadaDeBajaException.class,
 
 			DesignacionNoActivaDelEmpleadoException.class,

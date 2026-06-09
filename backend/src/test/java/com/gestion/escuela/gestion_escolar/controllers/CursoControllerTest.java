@@ -103,7 +103,7 @@ class CursoControllerTest {
 				eq(Turno.TARDE)
 		)).thenReturn(cursoActualizado);
 
-		CursoUpdateDTO dto = new CursoUpdateDTO(TARDE, 3, 2);
+		CursoDTO dto = new CursoDTO(TARDE, 3, 2);
 
 		mockMvc.perform(put("/api/escuelas/1/cursos/10")
 						.with(csrf())

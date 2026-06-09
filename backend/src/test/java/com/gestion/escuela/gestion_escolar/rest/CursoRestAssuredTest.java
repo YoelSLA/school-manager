@@ -53,7 +53,7 @@ class CursoRestAssuredTest extends AbstractIntegrationTest {
 
 		// 2️ Crear curso
 
-		CursoDTO cursoDTO = new CursoDTO(
+		CursoDTO cursoCreateDTO = new CursoDTO(
 						Turno.MANIANA,
 						1,
 						1
@@ -61,7 +61,7 @@ class CursoRestAssuredTest extends AbstractIntegrationTest {
 
 		long cursoId = given()
 						.contentType(ContentType.JSON)
-						.body(cursoDTO)
+						.body(cursoCreateDTO)
 						.when()
 						.post("/api/escuelas/" + escuelaId + "/cursos")
 						.then()
@@ -79,8 +79,8 @@ class CursoRestAssuredTest extends AbstractIntegrationTest {
 				.body("content.grado", hasItem(1));
 
 		// 4️ Actualizar curso
-		CursoUpdateDTO cursoUpdateDTO =
-				new CursoUpdateDTO(
+		CursoDTO cursoUpdateDTO =
+				new CursoDTO(
 						Turno.MANIANA,
 						1,
 						3

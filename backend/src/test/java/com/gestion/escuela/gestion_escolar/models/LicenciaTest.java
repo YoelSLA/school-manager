@@ -554,17 +554,16 @@ class LicenciaTest extends DomainTestFixture {
 		}
 
 		@Test
-		void deberiaRetornarRepresentacionTextualDeLicencia() {
-
-			String resultado = licencia.toString();
-
-			assertThat(resultado).contains("Licencia");
-			assertThat(resultado).contains("id");
-			assertThat(resultado).contains("empleadoEducativoBasico");
-			assertThat(resultado).contains("codigoLicencia");
-			assertThat(resultado).contains("Licencia médica");
-			assertThat(resultado).contains("periodo");
-			assertThat(resultado).contains("designacion");
+		void deberiaIncluirLosDatosPrincipalesEnToString() {
+			assertThat(licencia.toString())
+					.contains("Licencia{")
+					.contains("empleadoId=")
+					.contains("codigoLicencia=L_A1")
+					.contains("descripcion='Licencia médica'")
+					.contains("periodo=2026-03-01 → 2026-03-10")
+					.contains("licenciaAnteriorId=")
+					.contains("licenciaSiguienteId=")
+					.contains("designacionesIds=");
 		}
 	}
 
