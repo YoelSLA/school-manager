@@ -9,7 +9,7 @@ import { getErrorMessage } from "@/shared/api/errorHandler";
 import type {
 	LicenciaCreateDTO,
 	LicenciaCreateFormValues,
-} from "@/shared/utils/types";
+} from "@/shared/types";
 import LicenciaDatosSection from "../../components/LicenciaForm";
 import DesignacionesSelector from "../../components/LicenciaForm/DesignacionesSelector";
 import { useLicenciaForm } from "../../form/useLicenciaForm";

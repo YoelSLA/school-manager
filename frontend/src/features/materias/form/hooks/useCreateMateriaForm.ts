@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { materiaCreateSchema } from "@/features/materias/form/schemas/materiaCreate.schema";
-import type { MateriaCreateFormValues } from "@/shared/utils/types";
+import type { MateriaCreateFormValues } from "@/shared/types";
 
 export function useCreateMateriaForm() {
 	const form = useForm<MateriaCreateFormValues>({

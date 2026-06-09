@@ -2,8 +2,8 @@ import { Calendar, Flag, Hourglass } from "lucide-react";
 import Card from "@/components/Card/Card";
 import BadgeEstadoLicencia from "@/shared/components/BagdeEstadoLicencia";
 import EmpleadoInfo from "@/shared/components/EmpleadoInfo";
+import type { LicenciaResumenDTO } from "@/shared/types";
 import { formatearFecha } from "@/shared/utils";
-import type { LicenciaResumenDTO } from "@/shared/utils/types";
 import styles from "./LicenciaCard.module.scss";
 
 type Props = {

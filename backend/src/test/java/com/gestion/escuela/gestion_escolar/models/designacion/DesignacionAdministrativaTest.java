@@ -279,7 +279,7 @@ class DesignacionAdministrativaTest extends DomainTestFixture {
 
 			assertEquals(
 					Optional.empty(),
-					direccion2467830.asignacionQueEjerceEn(null)
+					direccion2467830.asignacionQueEjerceEn((LocalDate) null)
 			);
 		}
 

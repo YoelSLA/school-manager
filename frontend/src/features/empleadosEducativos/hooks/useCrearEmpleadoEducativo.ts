@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { EmpleadoEducativoCreateDTO } from "@/shared/utils/types";
+import type { EmpleadoEducativoCreateDTO } from "@/shared/types";
 import { crearEmpleadoEducativo } from "../../../services/empleadoEducativo.service";
 import { empleadosEducativosQueryKeys } from "../../../shared/utils/queryKeys/empleadosEducativos.queryKeys";
 

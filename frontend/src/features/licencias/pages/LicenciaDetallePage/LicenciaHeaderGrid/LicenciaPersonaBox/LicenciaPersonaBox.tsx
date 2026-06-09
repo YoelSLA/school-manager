@@ -1,6 +1,6 @@
 import { ArrowRight, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import type { LicenciaDetalleDTO } from "@/shared/utils/types";
+import type { LicenciaDetalleDTO } from "@/shared/types";
 import styles from "./LicenciaPersonaBox.module.scss";
 
 type Props = {

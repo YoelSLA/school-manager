@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { RolEducativo } from "@/shared/utils/types/enums";
+import { RolEducativo } from "@/shared/types/enums";
 import { crearFranjaHorariaSchema } from "@/shared/utils/zod/crearfranjaHoraria.schema";
 
 export const updateDesignacionAdministrativaSchema = z.object({

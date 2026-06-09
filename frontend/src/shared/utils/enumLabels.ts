@@ -7,7 +7,7 @@ import type {
 	RolEducativo,
 	SituacionDeRevista,
 	Turno,
-} from "./types/enums";
+} from "../types/enums";
 
 export const ESTADO_DESIGNACION_LABELS: Record<EstadoDesignacion, string> = {
 	CUBIERTA: "Cubierta",

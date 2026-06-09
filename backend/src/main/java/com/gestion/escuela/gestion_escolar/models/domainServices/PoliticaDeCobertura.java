@@ -23,7 +23,7 @@ public class PoliticaDeCobertura {
 											   LocalDate fechaDesde
 	) {
 
-		Validaciones.noNulo(empleado, "empleado");
+		Validaciones.noNulo(empleado, "empleadoEducativoBasico");
 		Validaciones.noNulo(fechaDesde, "fecha desde");
 		validarPuedeTomarPosesionEn(empleado, fechaDesde);
 
@@ -38,7 +38,7 @@ public class PoliticaDeCobertura {
 															 LocalDate fechaInicio,
 															 Periodo periodo) {
 
-		Validaciones.noNulo(empleadoEducativo, "empleado educativo");
+		Validaciones.noNulo(empleadoEducativo, "empleadoEducativoBasico educativo");
 		Validaciones.noNulo(fechaInicio, "fecha inicio");
 		validarCubrirConProvisional(designacion, empleadoEducativo, periodo);
 		validarPuedeTomarPosesionEn(empleadoEducativo, periodo.getFechaDesde());
@@ -49,7 +49,7 @@ public class PoliticaDeCobertura {
 														 EmpleadoEducativo empleadoEducativo,
 														 Periodo periodo) {
 
-		Validaciones.noNulo(empleadoEducativo, "empleado educativo");
+		Validaciones.noNulo(empleadoEducativo, "empleadoEducativoBasico educativo");
 		Validaciones.noNulo(periodo, "periodo");
 		Validaciones.noNulo(periodo.getFechaDesde(), "fecha desde");
 		Validaciones.noNulo(periodo.getFechaHasta(), "fecha hasta");
@@ -65,7 +65,7 @@ public class PoliticaDeCobertura {
 	) {
 
 		Validaciones.noNulo(licencia, "licencia");
-		Validaciones.noNulo(suplente, "empleado educativo");
+		Validaciones.noNulo(suplente, "empleadoEducativoBasico educativo");
 		Validaciones.noNulo(fechaInicio, "fecha inicio");
 
 		validarPuedeTomarPosesionEn(suplente, fechaInicio);
@@ -114,7 +114,7 @@ public class PoliticaDeCobertura {
 	) {
 
 
-		Validaciones.noNulo(empleado, "empleado educativo");
+		Validaciones.noNulo(empleado, "empleadoEducativoBasico educativo");
 		Validaciones.noNulo(periodo, "periodo");
 
 		if (designacion.tieneAsignacionQueSeSuperponeCon(periodo)) {

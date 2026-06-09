@@ -1,5 +1,5 @@
 import type { FieldArrayWithId, UseFormRegister } from "react-hook-form";
-import type { DesignacionAdministrativaFormValues } from "@/shared/utils/types";
+import type { DesignacionAdministrativaFormValues } from "@/shared/types";
 import styles from "../../FranjasHorariasList.module.scss";
 import FranjaHorariaRowAdministrativa from "./FranjaHorariaRowAdministrativa";
 

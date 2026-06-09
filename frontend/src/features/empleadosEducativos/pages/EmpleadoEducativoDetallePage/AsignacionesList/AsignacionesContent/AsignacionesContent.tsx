@@ -1,8 +1,5 @@
 import AsignacionEmpleadoRow from "@/features/asignaciones/components/AsignacionEmpleadoEducativoRow/AsignacionEmpleadoRow";
-import type {
-	AsignacionEmpleadoEducativoRowDTO,
-	Tab,
-} from "@/shared/utils/types";
+import type { AsignacionEmpleadoEducativoRowDTO, Tab } from "@/shared/types";
 import styles from "./AsignacionesContent.module.scss";
 
 type Props = {

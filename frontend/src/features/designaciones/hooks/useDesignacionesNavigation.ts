@@ -1,12 +1,12 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import type { DesignacionResumenDTO } from "@/shared/utils/types";
+import type { DesignacionCursoCardDTO } from "@/shared/types";
 
 export function useDesignacionesNavigation() {
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	return {
-		verDetalle: (designacion: DesignacionResumenDTO) =>
+		verDetalle: (designacion: DesignacionCursoCardDTO) =>
 			navigate(`/designaciones/${designacion.id}${location.search}`, {
 				state: {
 					dynamicLabels: {

@@ -2,7 +2,7 @@ import {
 	CausaBaja,
 	type EmpleadoEducativoFiltro,
 	type SortState,
-} from "@/shared/utils/types";
+} from "@/shared/types";
 
 export const FILTROS_EMPLEADOS: {
 	label: string;

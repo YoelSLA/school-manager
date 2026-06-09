@@ -1,4 +1,4 @@
-import type { EscuelaResponseDTO } from "@/shared/utils/types";
+import type { EscuelaResponseDTO } from "@/shared/types";
 import EscuelaCard from "../components/EscuelaCard/EscuelaCard";
 import styles from "./SeleccionarEscuelaGrid.module.scss";
 

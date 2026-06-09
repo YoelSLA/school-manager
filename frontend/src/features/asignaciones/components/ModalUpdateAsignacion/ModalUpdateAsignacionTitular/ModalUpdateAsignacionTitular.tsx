@@ -6,7 +6,7 @@ import { useUpdateTitular } from "@/features/asignaciones/hooks/useUpdateTitular
 import FechaField from "@/features/designaciones/components/fields/FechaInputField";
 import NumberField from "@/features/designaciones/components/fields/NumberInputField";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
-import type { EmpleadoEducativoBasicoDTO } from "@/shared/utils/types";
+import type { EmpleadoEducativoBasicoDTO } from "@/shared/types";
 import styles from "../ModalUpdateAsignacion.module.scss";
 
 type Props = {

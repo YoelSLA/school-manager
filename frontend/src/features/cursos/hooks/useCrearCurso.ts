@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { CursoCreateDTO } from "@/shared/utils/types";
+import type { CursoCreateDTO } from "@/shared/types";
 import { crearCurso } from "../../../services/curso.service";
 import { cursosQueryKeys } from "../../../shared/utils/queryKeys/cursos.queryKeys";
 

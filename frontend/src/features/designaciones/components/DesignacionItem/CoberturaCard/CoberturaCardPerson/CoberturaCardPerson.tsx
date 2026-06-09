@@ -1,5 +1,5 @@
 import { User } from "lucide-react";
-import type { EmpleadoEducativoBasicoDTO } from "@/shared/utils/types";
+import type { EmpleadoEducativoBasicoDTO } from "@/shared/types";
 import styles from "./CoberturaCardPerson.module.scss";
 
 type Props = {

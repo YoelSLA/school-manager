@@ -1,8 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import type { CubrirTitularDTO } from "@/shared/utils/types";
-import { CaracteristicaAsignacion } from "@/shared/utils/types/enums";
+import type { CubrirTitularDTO } from "@/shared/types";
+import { CaracteristicaAsignacion } from "@/shared/types/enums";
 import { updateTitularSchema } from "./updateTitular.schema";
 
 type Props = {

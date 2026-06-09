@@ -2,8 +2,7 @@ package com.gestion.escuela.gestion_escolar.controllers.escuela;
 
 import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.request.MateriaCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.request.MateriaUpdateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.response.MateriaNombreDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.response.MateriaResponseDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.response.MateriaDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.response.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.MateriaMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.PageMapper;
@@ -28,7 +27,7 @@ public class EscuelaMateriaControllerREST {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public MateriaResponseDTO crear(
+	public MateriaDetalleDTO crear(
 			@PathVariable Long escuelaId,
 			@Valid @RequestBody MateriaCreateDTO dto
 	) {
@@ -50,7 +49,7 @@ public class EscuelaMateriaControllerREST {
 	}
 
 	@PutMapping("/{materiaId}")
-	public MateriaResponseDTO actualizar(
+	public MateriaDetalleDTO actualizar(
 			@PathVariable Long escuelaId,
 			@PathVariable Long materiaId,
 			@Valid @RequestBody MateriaUpdateDTO dto
@@ -75,7 +74,7 @@ public class EscuelaMateriaControllerREST {
 	}
 
 	@GetMapping
-	public PageResponse<MateriaResponseDTO> listar(
+	public PageResponse<MateriaDetalleDTO> listar(
 			@PathVariable Long escuelaId,
 			Pageable pageable
 	) {
@@ -84,17 +83,4 @@ public class EscuelaMateriaControllerREST {
 
 		return PageMapper.toPageResponse(materias, MateriaMapper::toResponse);
 	}
-
-	@GetMapping("/nombres")
-	public List<MateriaNombreDTO> listarNombres(
-			@PathVariable Long escuelaId
-	) {
-		var materias = materiaService.listarMateriasPorEscuela(escuelaId);
-
-		return materias
-				.stream()
-				.map(MateriaMapper::toNombreDTO)
-				.toList();
-	}
-
 }

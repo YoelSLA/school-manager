@@ -3,8 +3,8 @@ import { useFieldArray, useForm } from "react-hook-form";
 import type {
 	DesignacionAdministrativaCreateDTO,
 	DesignacionAdministrativaFormValues,
-} from "@/shared/utils/types";
-import { Dia, RolEducativo } from "@/shared/utils/types/enums";
+} from "@/shared/types";
+import { Dia, RolEducativo } from "@/shared/types/enums";
 import { createDesignacionAdministrativaSchema } from "../schemas/createDesignacionAdministrativa.schema";
 
 export function useCreateDesignacionAdministrativaForm() {

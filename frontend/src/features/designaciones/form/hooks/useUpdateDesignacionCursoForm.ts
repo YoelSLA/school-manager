@@ -2,25 +2,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import type {
-	CursoNombreDTO,
 	DesignacionCursoFormValues,
 	DesignacionCursoUpdateDTO,
 	DesignacionDetalleDTO,
-	MateriaNombreDTO,
-} from "@/shared/utils/types";
+} from "@/shared/types";
 import { updateDesignacionCursoSchema } from "../schemas/updateDesignacionCurso.schema";
 
 type Props = {
 	designacion?: DesignacionDetalleDTO;
-	materias?: MateriaNombreDTO[];
-	cursos?: CursoNombreDTO[];
 };
 
-export function useUpdateDesignacionCursoForm({
-	designacion,
-	materias,
-	cursos,
-}: Props) {
+export function useUpdateDesignacionCursoForm({ designacion }: Props) {
 	const form = useForm<
 		DesignacionCursoFormValues,
 		undefined,
@@ -41,26 +33,14 @@ export function useUpdateDesignacionCursoForm({
 			return;
 		}
 
-		if (!materias || !cursos) {
-			return;
-		}
-
-		const materiaEncontrada = materias.find(
-			(m) => m.nombre === designacion.materia,
-		);
-
-		const cursoEncontrado = cursos.find(
-			(c) => c.division === designacion.curso,
-		);
-
 		reset({
 			cupof: designacion.cupof,
-			materiaId: materiaEncontrada?.id,
-			cursoId: cursoEncontrado?.id,
+			materiaId: designacion.materia.id,
+			cursoId: designacion.curso.id,
 			orientacion: designacion.orientacion ?? "",
 			franjasHorarias: designacion.franjasHorarias ?? [],
 		});
-	}, [designacion, materias, cursos, reset]);
+	}, [designacion, reset]);
 
 	return {
 		form,

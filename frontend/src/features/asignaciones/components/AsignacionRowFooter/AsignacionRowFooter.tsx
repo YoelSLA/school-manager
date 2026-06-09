@@ -1,7 +1,7 @@
 import BadgeSituacionRevista from "@/shared/components/BadgeSituacionRevista";
 import PeriodoDisplay from "@/shared/components/PeriodoDisplay";
-import type { PeriodoDTO } from "@/shared/utils/types";
-import type { SituacionDeRevista } from "@/shared/utils/types/enums";
+import type { PeriodoDTO } from "@/shared/types";
+import type { SituacionDeRevista } from "@/shared/types/enums";
 import styles from "./AsignacionRowFooter.module.scss";
 
 type Props = {

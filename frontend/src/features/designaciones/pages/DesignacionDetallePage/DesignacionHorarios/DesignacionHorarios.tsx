@@ -1,5 +1,5 @@
+import type { FranjaHorariaMinimoDTO } from "@/shared/types";
 import { DIAS_SEMANA } from "@/shared/utils";
-import type { FranjaHorariaMinimoDTO } from "@/shared/utils/types";
 import styles from "./DesignacionHorarios.module.scss";
 import HorarioDia from "./HorarioDia";
 

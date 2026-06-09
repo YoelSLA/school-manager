@@ -1,8 +1,8 @@
 import Breadcrumbs from "@/app/layouts/Breadcrumbs";
 import PageLayout from "@/app/layouts/PageLayout/PageLayout";
-import DesignacionAdministrativaUpdate from "../../components/DesignacionAdministrativa/DesignacionAdministrativaUpdate";
-import DesignacionCursoUpdate from "../../components/DesignacionCurso/DesignacionCursoUpdate";
-import { useDesignacionUpdatePage } from "../../hooks/useDesignacionesUpdatePage";
+import DesignacionAdministrativaUpdateForm from "@/features/designaciones/components/DesignacionAdministrativa/DesignacionAdministrativaUpdateForm";
+import DesignacionCursoUpdateForm from "@/features/designaciones/components/DesignacionCurso/DesignacionCursoUpdateForm";
+import { useDesignacionUpdatePage } from "../../hooks/pages/useDesignacionesUpdatePage";
 import styles from "./DesignacionUpdatePage.module.scss";
 
 export default function DesignacionUpdatePage() {
@@ -19,7 +19,7 @@ export default function DesignacionUpdatePage() {
 					)}
 
 					{vm.designacion?.tipo === "CURSO" && (
-						<DesignacionCursoUpdate
+						<DesignacionCursoUpdateForm
 							designacion={vm.designacion}
 							onSubmit={vm.handleEditarCurso}
 							isSubmitting={vm.editarCurso.isPending}
@@ -27,7 +27,7 @@ export default function DesignacionUpdatePage() {
 					)}
 
 					{vm.designacion?.tipo === "ADMINISTRATIVA" && (
-						<DesignacionAdministrativaUpdate
+						<DesignacionAdministrativaUpdateForm
 							designacion={vm.designacion}
 							onSubmit={vm.handleEditarAdministrativa}
 							isSubmitting={vm.editarAdministrativa.isPending}

@@ -1,12 +1,12 @@
-import type { TipoLicencia } from "@/features/licencias/utils/tipoLicencia";
 import type {
 	AsignacionAdministrativaEmpleadoEducativoRowDTO,
 	AsignacionCursoEmpleadoEducativoRowDTO,
 	AsignacionEmpleadoEducativoRowDTO,
 	BajaAsignacionDTO,
 	DesignacionFiltro,
-} from "./types";
-import { Dia, type RolEducativo } from "./types/enums";
+	TipoLicencia,
+} from "../types";
+import { Dia, type RolEducativo } from "../types/enums";
 
 export function diasRestantes(fechaHasta: string): number {
 	const [year, month, day] = fechaHasta.split("-").map(Number);
@@ -62,8 +62,9 @@ export function formatPeriodo(desde: string, hasta: string) {
 
 export function agruparPorArticulo(tipos: TipoLicencia[]) {
 	return tipos.reduce<Record<string, TipoLicencia[]>>((acc, tipo) => {
-		acc[tipo.articulo] ??= [];
-		acc[tipo.articulo].push(tipo);
+		const articulo = tipo.articulo ?? "Sin artículo";
+		acc[articulo] ??= [];
+		acc[articulo].push(tipo);
 		return acc;
 	}, {});
 }

@@ -1,12 +1,12 @@
 import { CalendarDays, Hash, User } from "lucide-react";
 import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
 import BadgeSituacionRevista from "@/shared/components/BadgeSituacionRevista";
+import type { DesignacionLicenciaAdministrativaDTO } from "@/shared/types";
 import { formatearFecha } from "@/shared/utils";
-import type { DesignacionLicenciaAdministrativaItemDTO } from "@/shared/utils/types";
 import styles from "./DesignacionAdministrativaRow.module.scss";
 
 type Props = {
-	designacion: DesignacionLicenciaAdministrativaItemDTO;
+	designacion: DesignacionLicenciaAdministrativaDTO;
 	checked: boolean;
 	onToggle: (id: number) => void;
 };

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
+import type { AsistenciaEmpleadoResumenDTO } from "@/shared/types";
 import { getTodayArgentinaISO } from "@/shared/utils";
 import { useDynamicPageSize } from "@/shared/utils/hooks/useDynamicPageSize";
-import type { AsistenciaEmpleadoResumenDTO } from "@/shared/utils/types";
 import type { RolItem } from "../../pages/AsistenciaPage/AsistenciasSidebar/AsistenciasSidebar";
 import { useEmpleadosAsistencias } from "../reactQuery/useEmpleadosAsistencias";
 import { useRolesConAsistencias } from "../reactQuery/useRolesConAsistencias";

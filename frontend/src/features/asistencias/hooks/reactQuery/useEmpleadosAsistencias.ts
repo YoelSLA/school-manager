@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { asistenciasQueryKeys } from "@/shared/utils/queryKeys/asistencias.queryKeys";
 import type {
 	AsistenciaEmpleadoResumenDTO,
 	PageResponse,
 	RolEducativo,
-} from "@/shared/utils/types";
+} from "@/shared/types";
+import { asistenciasQueryKeys } from "@/shared/utils/queryKeys/asistencias.queryKeys";
 import { obtenerEmpleadosAsistencias } from "../../../../services/asistencia.service";
 
 type Params = {

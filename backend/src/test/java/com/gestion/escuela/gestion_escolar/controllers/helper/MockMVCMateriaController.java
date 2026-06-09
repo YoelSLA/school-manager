@@ -75,9 +75,4 @@ public class MockMVCMateriaController {
 				.andReturn().getResponse().getContentAsString();
 	}
 
-	public String listarNombres(Long escuelaId) throws Throwable {
-		return performRequest(MockMvcRequestBuilders.get("/api/escuelas/" + escuelaId + "/materias/nombres"))
-				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andReturn().getResponse().getContentAsString();
-	}
 }

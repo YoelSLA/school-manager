@@ -1,8 +1,7 @@
 package com.gestion.escuela.gestion_escolar.rest;
 
 import com.gestion.escuela.gestion_escolar.AbstractIntegrationTest;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.curso.request.CursoCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.curso.request.CursoUpdateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.curso.request.CursoDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.escuela.request.EscuelaCreateDTO;
 import com.gestion.escuela.gestion_escolar.models.enums.Turno;
 import io.restassured.RestAssured;
@@ -54,7 +53,7 @@ class CursoRestAssuredTest extends AbstractIntegrationTest {
 
 		// 2️ Crear curso
 
-		CursoCreateDTO cursoCreateDTO = new CursoCreateDTO(
+		CursoDTO cursoCreateDTO = new CursoDTO(
 						Turno.MANIANA,
 						1,
 						1
@@ -80,8 +79,8 @@ class CursoRestAssuredTest extends AbstractIntegrationTest {
 				.body("content.grado", hasItem(1));
 
 		// 4️ Actualizar curso
-		CursoUpdateDTO cursoUpdateDTO =
-				new CursoUpdateDTO(
+		CursoDTO cursoUpdateDTO =
+				new CursoDTO(
 						Turno.MANIANA,
 						1,
 						3
@@ -94,7 +93,7 @@ class CursoRestAssuredTest extends AbstractIntegrationTest {
 				.put("/api/escuelas/" + escuelaId + "/cursos/" + cursoId)
 				.then()
 				.statusCode(200)
-				.body("turno", equalTo("Mañana"))
+				.body("turno", equalTo("MANIANA"))
 				.body("anio", equalTo(1))
 				.body("grado", equalTo(3));
 

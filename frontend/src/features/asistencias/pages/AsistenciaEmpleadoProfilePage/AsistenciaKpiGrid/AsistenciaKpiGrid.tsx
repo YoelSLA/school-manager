@@ -34,6 +34,4 @@
 // 		</section>
 // 	);
 // }
-export default function AsistenciaKpiGrid() {
-  
-}
+export default function AsistenciaKpiGrid() {}

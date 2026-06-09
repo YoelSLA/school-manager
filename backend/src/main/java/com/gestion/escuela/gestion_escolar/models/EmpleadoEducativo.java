@@ -38,7 +38,6 @@ public class EmpleadoEducativo {
 	private Long id;
 
 	@ManyToOne(optional = false)
-
 	@JoinColumn(name = "escuela_id")
 	private Escuela escuela;
 
@@ -154,7 +153,7 @@ public class EmpleadoEducativo {
 
 		this.validarAsignacionNoSuperpuesta(asignacion);
 
-		// Agrega la asignación al empleado
+		// Agrega la asignación al empleadoEducativoBasico
 		asignaciones.add(asignacion);
 
 		// Mantiene sincronizada la relación
@@ -277,8 +276,8 @@ public class EmpleadoEducativo {
 	// ESTADO DEL EMPLEADO EDUCATIVO
 	// =========================================================
 	public void darDeBajaDefinitiva(CausaBaja causaBaja, LocalDate fechaBaja) {
-		Validaciones.noNulo(causaBaja, "causa baja");
-		Validaciones.noNulo(fechaBaja, "fecha de baja");
+		Validaciones.noNulo(causaBaja, "causa bajaAsignacion");
+		Validaciones.noNulo(fechaBaja, "fecha de bajaAsignacion");
 		this.activo = false;
 		asignacionesAfectadasPorBaja(fechaBaja).
 				forEach(a -> a.finalizarPorBajaDefinitiva(causaBaja, fechaBaja));
@@ -348,6 +347,37 @@ public class EmpleadoEducativo {
 		if (!activas.containsAll(designaciones)) {
 			throw new DesignacionNoActivaDelEmpleadoException(designaciones);
 		}
+	}
+
+	/**
+	 * Indica si el empleadoEducativoBasico posee al menos una licencia que se superpone con el
+	 * período indicado.
+	 *
+	 * <p>Se considera que una licencia se superpone cuando comparte al menos un
+	 * día con el período consultado.</p>
+	 *
+	 * @param periodo período a evaluar.
+	 * @return {@code true} si el empleadoEducativoBasico tiene una licencia superpuesta al
+	 * período indicado; {@code false} en caso contrario.
+	 */
+	public boolean tieneLicenciaSuperpuestaEn(Periodo periodo) {
+		return licencias.stream()
+				.anyMatch(l -> l.seSuperponeCon(periodo));
+	}
+
+	/**
+	 * Indica si el empleadoEducativoBasico posee alguna licencia vigente en la fecha indicada.
+	 *
+	 * @param fecha fecha a evaluar.
+	 * @return {@code true} si existe una licencia que incluya la fecha dada;
+	 * {@code false} en caso contrario.
+	 */
+	public boolean tieneLicenciaEn(LocalDate fecha) {
+		if (fecha == null)
+			return false;
+
+		return licencias.stream()
+				.anyMatch(l -> l.contiene(fecha));
 	}
 
 	// =========================================================

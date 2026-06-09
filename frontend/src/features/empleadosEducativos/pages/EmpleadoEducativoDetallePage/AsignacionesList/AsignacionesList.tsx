@@ -4,7 +4,7 @@ import type {
 	AsignacionCursoEmpleadoEducativoRowDTO,
 	AsignacionEmpleadoEducativoRowDTO,
 	Tab,
-} from "@/shared/utils/types";
+} from "@/shared/types";
 import AsignacionesContent from "./AsignacionesContent";
 import styles from "./AsignacionesList.module.scss";
 import AsignacionesTabs from "./AsignacionesTabs";

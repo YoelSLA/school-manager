@@ -1,5 +1,5 @@
 import type { KeyboardEvent } from "react";
-import type { LicenciaDesignacionDTO } from "@/shared/utils/types";
+import type { LicenciaDesignacionDTO } from "@/shared/types";
 import CoberturaCard from "./CoberturaCard";
 import DesignacionInfoCard from "./DesignacionInfoCard";
 import styles from "./DesignacionItem.module.scss";

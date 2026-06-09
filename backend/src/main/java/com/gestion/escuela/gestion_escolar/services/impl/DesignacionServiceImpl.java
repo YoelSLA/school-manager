@@ -6,16 +6,11 @@ import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionProvisional;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionSuplente;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
-import com.gestion.escuela.gestion_escolar.models.caracteristicaAsignacion.Articulo13;
-import com.gestion.escuela.gestion_escolar.models.caracteristicaAsignacion.CambioDeFuncion;
-import com.gestion.escuela.gestion_escolar.models.caracteristicaAsignacion.CaracteristicaAsignacion;
-import com.gestion.escuela.gestion_escolar.models.caracteristicaAsignacion.RecalificacionLaboralDefinitiva;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
-import com.gestion.escuela.gestion_escolar.models.enums.TipoCaracteristicaAsignacion;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoDuplicadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
@@ -151,7 +146,6 @@ public class DesignacionServiceImpl implements DesignacionService {
 			Long designacionId,
 			Long empleadoId,
 			LocalDate fechaTomaPosesion,
-			TipoCaracteristicaAsignacion caracteristica,
 			Integer secuencia
 	) {
 
@@ -159,13 +153,9 @@ public class DesignacionServiceImpl implements DesignacionService {
 				.orElseThrow(() -> new RecursoNoEncontradoException("designación", designacionId));
 
 		EmpleadoEducativo empleado = empleadoEducativoRepository.findById(empleadoId)
-				.orElseThrow(() -> new RecursoNoEncontradoException("empleado educativo", empleadoId));
+				.orElseThrow(() -> new RecursoNoEncontradoException("empleadoEducativoBasico educativo", empleadoId));
 
 		AsignacionTitular titular = designacion.cubrirConTitular(empleado, fechaTomaPosesion, secuencia);
-
-		if (caracteristica != null) {
-			titular.aplicarCaracteristica(crearCaracteristica(caracteristica));
-		}
 
 		return asignacionRepository.save(titular);
 	}
@@ -186,7 +176,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 
 		EmpleadoEducativo empleado = empleadoEducativoRepository.findById(empleadoId)
 				.orElseThrow(() ->
-						new RecursoNoEncontradoException("empleado educativo", empleadoId)
+						new RecursoNoEncontradoException("empleadoEducativoBasico educativo", empleadoId)
 				);
 
 		if (fechaHasta != null && fechaHasta.isBefore(fechaDesde)) {
@@ -221,7 +211,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 
 		EmpleadoEducativo suplente = empleadoEducativoRepository.findById(suplenteId)
 				.orElseThrow(() ->
-						new RecursoNoEncontradoException("empleado educativo", suplenteId)
+						new RecursoNoEncontradoException("empleadoEducativoBasico educativo", suplenteId)
 				);
 
 		List<Designacion> designaciones = obtenerDesignaciones(designacionIds);
@@ -415,7 +405,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 	) {
 
 		EmpleadoEducativo empleado = empleadoEducativoRepository.findById(empleadoId)
-				.orElseThrow(() -> new RecursoNoEncontradoException("empleado educativo", empleadoId));
+				.orElseThrow(() -> new RecursoNoEncontradoException("empleadoEducativoBasico educativo", empleadoId));
 
 		designacionRepository.findById(designacionId)
 				.orElseThrow(() -> new RecursoNoEncontradoException("designación", designacionId));
@@ -455,7 +445,7 @@ public class DesignacionServiceImpl implements DesignacionService {
 		}
 
 		EmpleadoEducativo nuevoSuplente = empleadoEducativoRepository.findById(nuevoEmpleadoId)
-				.orElseThrow(() -> new RecursoNoEncontradoException("empleado", nuevoEmpleadoId));
+				.orElseThrow(() -> new RecursoNoEncontradoException("empleadoEducativoBasico", nuevoEmpleadoId));
 
 		AsignacionSuplente suplencia = designacion.getSuplenciaActivaEn(fechaLicencia)
 				.orElseThrow(() -> new CoberturaNoEncontradaException(designacion));
@@ -463,6 +453,8 @@ public class DesignacionServiceImpl implements DesignacionService {
 		suplencia.actualizar(nuevoSuplente, fechaTomaPosesion, secuencia);
 
 		designacionRepository.save(designacion);
+
+
 	}
 
 	@Override
@@ -477,19 +469,6 @@ public class DesignacionServiceImpl implements DesignacionService {
 		designacion.eliminarAsignacion(asignacion);
 
 		designacionRepository.save(designacion);
-	}
-
-	private CaracteristicaAsignacion crearCaracteristica(
-			TipoCaracteristicaAsignacion tipo
-	) {
-		return switch (tipo) {
-			case ARTICULO_13 ->
-					new Articulo13();
-			case CAMBIO_DE_FUNCION ->
-					new CambioDeFuncion();
-			case RECALIFICACION_LABORAL_DEFINITIVA ->
-					new RecalificacionLaboralDefinitiva();
-		};
 	}
 
 	private void validarCupofUnico(Long escuelaId, Integer cupof, Long designacionId) {

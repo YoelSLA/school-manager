@@ -3,7 +3,6 @@ package com.gestion.escuela.gestion_escolar.services;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
-import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
@@ -230,11 +229,10 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 		void crearLicencia() {
 			// Arrange
 			LocalDate fechaTomaPosesion = LocalDate.of(1998, JANUARY, 1);
-			AsignacionTitular titular = designacionService.cubrirConTitular(
+			designacionService.cubrirConTitular(
 					p_plg2467775.getId(),
 					pGardinoNoraRosa.getId(),
 					fechaTomaPosesion,
-					null,
 					1
 			);
 
@@ -386,7 +384,7 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 //		empleadoEducativoService.darDeBajaDefinitiva(mariaLopez.getId(), fechaBaja, CausaBaja.RENUNCIA);
 //
 //		// Assert
-//		// no hay asignacion, no hay nada que dar de baja
+//		// no hay asignacion, no hay nada que dar de bajaAsignacion
 //		assertTrue(mariaLopez.getAsignaciones().isEmpty());
 //	}
 //
@@ -463,10 +461,10 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 //		empleadoEducativoService.darDeBajaDefinitiva(carlosFernandez.getId(), fechaBaja, CausaBaja.RENUNCIA);
 //
 //		// Assert
-//		// 1️⃣ Titular dado de baja
+//		// 1️⃣ Titular dado de bajaAsignacion
 //		assertEquals(EstadoAsignacion.DADA_DE_BAJA, asignacionTitular.getEstadoEn(fechaBaja));
 //
-//		// 2️⃣ La asignación de suplente original queda dada de baja
+//		// 2️⃣ La asignación de suplente original queda dada de bajaAsignacion
 //		assertEquals(EstadoAsignacion.DADA_DE_BAJA, asignacionSuplente.getEstadoEn(fechaBaja));
 //
 //		// 3️⃣ Existe una nueva asignación PROVISIONAL

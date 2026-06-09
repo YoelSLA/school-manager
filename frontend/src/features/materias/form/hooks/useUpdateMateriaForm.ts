@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { materiaUpdateSchema } from "@/features/materias/form/schemas/materiaUpdateschema";
-import type { MateriaUpdateFormValues } from "@/shared/utils/types";
+import type { MateriaUpdateFormValues } from "@/shared/types";
 
 type Props = {
 	materia: MateriaUpdateFormValues;

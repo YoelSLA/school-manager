@@ -3,7 +3,6 @@ package com.gestion.escuela.gestion_escolar.models.asignacion;
 import com.gestion.escuela.gestion_escolar.models.BajaAsignacion;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Periodo;
-import com.gestion.escuela.gestion_escolar.models.caracteristicaAsignacion.CaracteristicaAsignacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
@@ -32,6 +31,7 @@ public abstract class Asignacion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@ManyToOne(optional = false)
 	private Designacion designacion;
 
@@ -44,15 +44,11 @@ public abstract class Asignacion {
 	@Column(nullable = false)
 	private Integer secuencia;
 
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "caracteristica_id")
-	private CaracteristicaAsignacion caracteristica;
-
-	public Asignacion() {
+	protected Asignacion() {
 		// JPA
 	}
 
-	public Asignacion(
+	protected Asignacion(
 			EmpleadoEducativo empleadoEducativo,
 			Designacion designacion,
 			Periodo periodo,
@@ -83,12 +79,8 @@ public abstract class Asignacion {
 		}
 	}
 
-	public void aplicarCaracteristica(CaracteristicaAsignacion nueva) {
-		throw new UnsupportedOperationException("Solo una asignación TITULAR puede tener característica");
-	}
-
 	public void darDeBajaEn(LocalDate fechaBaja) {
-		Validaciones.noNulo(fechaBaja, "fecha baja");
+		Validaciones.noNulo(fechaBaja, "fecha bajaAsignacion");
 
 		if (!periodo.estaVigenteEn(fechaBaja)) {
 			throw new IllegalStateException("La asignación no está vigente en esa fecha");
@@ -123,10 +115,6 @@ public abstract class Asignacion {
 
 	public boolean estaDadaDeBajaEn(LocalDate fecha) {
 		return bajaAsignacion != null && !fecha.isBefore(bajaAsignacion.getFechaBaja());
-	}
-
-	public boolean tieneCaracteristica() {
-		return caracteristica != null;
 	}
 
 	@Transient
@@ -169,10 +157,6 @@ public abstract class Asignacion {
 	@Transient
 	public abstract SituacionDeRevista getSituacionDeRevista();
 
-	protected void asignarCaracteristica(CaracteristicaAsignacion nueva) {
-		this.caracteristica = nueva;
-	}
-
 	@Override
 	public String toString() {
 		return getClass().getSimpleName() + "{ " +
@@ -180,8 +164,7 @@ public abstract class Asignacion {
 				", empleadoId = " + (empleadoEducativo != null ? empleadoEducativo.getId() : null) +
 				", designacionId = " + (designacion != null ? designacion.getId() : null) +
 				", periodo = " + periodo +
-				", baja = " + (bajaAsignacion != null) +
-				", caracteristicaId = " + (caracteristica != null ? caracteristica.getId() : null) +
+				", bajaAsignacion = " + (bajaAsignacion != null) +
 				" }";
 	}
 
@@ -225,7 +208,7 @@ public abstract class Asignacion {
 			Integer secuencia
 	) {
 
-		Validaciones.noNulo(empleado, "empleado educativo");
+		Validaciones.noNulo(empleado, "empleadoEducativoBasico educativo");
 		Validaciones.noNulo(fechaTomaPosesion, "fecha de toma de posesión");
 		Validaciones.noNulo(secuencia, "secuencia");
 
@@ -244,14 +227,14 @@ public abstract class Asignacion {
 			Designacion designacion,
 			Periodo periodo,
 			Integer secuencia) {
-		Validaciones.noNulo(empleadoEducativo, "empleado educativo");
+		Validaciones.noNulo(empleadoEducativo, "empleadoEducativoBasico educativo");
 		Validaciones.noNulo(designacion, "designacion");
 		Validaciones.noNulo(periodo, "periodo");
 		Validaciones.noNulo(secuencia, "secuencia");
 	}
 
 	public void setEmpleadoEducativo(EmpleadoEducativo empleado) {
-		Validaciones.noNulo(empleado, "empleado");
+		Validaciones.noNulo(empleado, "empleadoEducativoBasico");
 		this.empleadoEducativo = empleado;
 	}
 }

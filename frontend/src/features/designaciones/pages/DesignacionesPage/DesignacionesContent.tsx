@@ -1,18 +1,18 @@
 import type { UseQueryResult } from "@tanstack/react-query";
 import type {
-	DesignacionAdministrativaResumenDTO,
-	DesignacionCursoResumenDTO,
+	DesignacionAdministrativaCardDTO,
+	DesignacionCursoCardDTO,
 	PageResponse,
-} from "@/shared/utils/types";
+} from "@/shared/types";
 import DesignacionesList from "./DesignacionesList";
 
 type Props = {
 	isAdmin: boolean;
-	adminQuery: UseQueryResult<PageResponse<DesignacionAdministrativaResumenDTO>>;
-	cursoQuery: UseQueryResult<PageResponse<DesignacionCursoResumenDTO>>;
+	adminQuery: UseQueryResult<PageResponse<DesignacionAdministrativaCardDTO>>;
+	cursoQuery: UseQueryResult<PageResponse<DesignacionCursoCardDTO>>;
 	onVerDetalle:
-		| ((d: DesignacionAdministrativaResumenDTO) => void)
-		| ((d: DesignacionCursoResumenDTO) => void);
+		| ((d: DesignacionAdministrativaCardDTO) => void)
+		| ((d: DesignacionCursoCardDTO) => void);
 };
 
 export default function DesignacionesContent({
@@ -23,7 +23,7 @@ export default function DesignacionesContent({
 }: Props) {
 	if (isAdmin) {
 		const handleVerDetalle = onVerDetalle as (
-			d: DesignacionAdministrativaResumenDTO,
+			d: DesignacionAdministrativaCardDTO,
 		) => void;
 
 		return (
@@ -37,9 +37,7 @@ export default function DesignacionesContent({
 		);
 	}
 
-	const handleVerDetalle = onVerDetalle as (
-		d: DesignacionCursoResumenDTO,
-	) => void;
+	const handleVerDetalle = onVerDetalle as (d: DesignacionCursoCardDTO) => void;
 
 	return (
 		<DesignacionesList

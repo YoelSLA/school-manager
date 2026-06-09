@@ -1,16 +1,16 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
 import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencia.request.EliminarInasistenciasManualDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencia.request.RegistrarInasistenciasManualDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencia.response.AsistenciaDiaDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencia.response.AsistenciaEmpleadoResumenDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencia.response.RegistrarInasistenciasManualDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencia.response.RolCount;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.response.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.AsistenciaMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.PageMapper;
-import com.gestion.escuela.gestion_escolar.models.EmpleadoAsistenciaResumen;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
+import com.gestion.escuela.gestion_escolar.models.records.EmpleadoAsistenciaResumen;
+import com.gestion.escuela.gestion_escolar.models.records.RolCount;
 import com.gestion.escuela.gestion_escolar.services.AsistenciaService;
 import com.gestion.escuela.gestion_escolar.services.EmpleadoEducativoService;
 import jakarta.validation.Valid;

@@ -1,6 +1,6 @@
 import BadgeRolEducativo from "@/shared/components/BadgeRolEducativo";
 import EmpleadoInfo from "@/shared/components/EmpleadoInfo";
-import type { AsistenciaEmpleadoResumenDTO } from "@/shared/utils/types";
+import type { AsistenciaEmpleadoResumenDTO } from "@/shared/types";
 import styles from "./AsistenciaEmpleadoCard.module.scss";
 
 type Props = {
@@ -12,12 +12,8 @@ export default function AsistenciaEmpleadoCard({
 	asistenciaEmpleadoResumen,
 	onSelect,
 }: Props) {
-	const {
-		empleadoBasico,
-		roles,
-		faltasUltimoMes,
-		licenciaMasFrecuente,
-	} = asistenciaEmpleadoResumen;
+	const { empleadoBasico, roles, faltasUltimoMes, licenciaMasFrecuente } =
+		asistenciaEmpleadoResumen;
 
 	return (
 		<article className={styles.card}>

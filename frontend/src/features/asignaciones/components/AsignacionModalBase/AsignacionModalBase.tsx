@@ -9,7 +9,7 @@ import type {
 	CubrirProvisionalDTO,
 	CubrirTitularDTO,
 	EmpleadoEducativoBasicoDTO,
-} from "@/shared/utils/types";
+} from "@/shared/types";
 import styles from "./AsignacionModalBase.module.scss";
 
 type Props = {

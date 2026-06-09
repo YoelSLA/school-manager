@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import type { EmpleadoEducativoBasicoDTO } from "@/shared/utils/types";
+import type { EmpleadoEducativoBasicoDTO } from "@/shared/types";
 import { cambiarCoberturaSchema } from "../form/cambiarCobertura.schema";
 import { useCambiarCobertura } from "./useCambiarCobertura";
 

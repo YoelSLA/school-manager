@@ -1,7 +1,7 @@
 import type {
 	EmpleadoEducativoAsignacionItemDTO,
 	FiltroCargos,
-} from "@/shared/utils/types";
+} from "@/shared/types";
 import styles from "./DesignacionCargosHistorial.module.scss";
 import DesignacionCargosHistorialContent from "./DesignacionCargosHistorialContent/DesignacionCargosHistorialContent";
 import DesignacionCargosHistorialHeader from "./DesignacionCargosHistorialHeader/DesignacionCargosHistorialHeader";

@@ -2,7 +2,7 @@ import { CalendarRange, FileText, Timer } from "lucide-react";
 
 import BadgeEstadoLicencia from "@/shared/components/BagdeEstadoLicencia";
 
-import type { LicenciaEmpleadoEducativoRowDTO } from "@/shared/utils/types";
+import type { LicenciaEmpleadoEducativoRowDTO } from "@/shared/types";
 
 import styles from "./LicenciaRow.module.scss";
 

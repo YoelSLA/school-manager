@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import type {
 	EmpleadoEducativoBasicoDTO,
 	LicenciaDetalleDTO,
-} from "@/shared/utils/types";
+} from "@/shared/types";
 
 export function useLicenciasNavigation() {
 	const navigate = useNavigate();

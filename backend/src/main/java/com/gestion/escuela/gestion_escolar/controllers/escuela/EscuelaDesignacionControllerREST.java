@@ -1,10 +1,12 @@
 package com.gestion.escuela.gestion_escolar.controllers.escuela;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionAdministrativaCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionCursoCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionAdministrativaResumenDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionAdministrativaDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionCursoDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionAdministrativaCardDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionCursoCardDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionCursoFilterDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionCursoResumenDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionDetalleDTO.DesignacionAdministrativaDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionDetalleDTO.DesignacionCursoDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.response.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.DesignacionMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.PageMapper;
@@ -39,22 +41,22 @@ public class EscuelaDesignacionControllerREST {
 
 	@PostMapping("/administrativas")
 	@ResponseStatus(HttpStatus.CREATED)
-	public DesignacionAdministrativaResumenDTO crearAdministrativa(
+	public DesignacionAdministrativaDetalleDTO crearAdministrativa(
 			@PathVariable Long escuelaId,
-			@Valid @RequestBody DesignacionAdministrativaCreateDTO dto
+			@Valid @RequestBody DesignacionAdministrativaDTO dto
 	) {
 		Escuela escuela = escuelaService.obtenerPorId(escuelaId);
 		DesignacionAdministrativa designacion = DesignacionMapper.toEntity(dto, escuela);
 		DesignacionAdministrativa creada = designacionService.crear(designacion);
 
-		return DesignacionMapper.toResumen(creada);
+		return DesignacionMapper.toDetalle(creada);
 	}
 
 	@PostMapping("/administrativas/batch")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void crearAdministrativasBatch(
 			@PathVariable Long escuelaId,
-			@RequestBody List<DesignacionAdministrativaCreateDTO> administrativasDTOs
+			@RequestBody List<DesignacionAdministrativaDTO> administrativasDTOs
 	) {
 		Escuela escuela = escuelaService.obtenerPorId(escuelaId);
 		List<DesignacionAdministrativa> administrativas = administrativasDTOs.stream()
@@ -66,7 +68,7 @@ public class EscuelaDesignacionControllerREST {
 
 
 	@GetMapping("/administrativas")
-	public PageResponse<DesignacionAdministrativaResumenDTO> listarAdministrativas(
+	public PageResponse<DesignacionAdministrativaCardDTO> listarAdministrativas(
 			@PathVariable Long escuelaId,
 			Pageable pageable
 	) {
@@ -82,9 +84,9 @@ public class EscuelaDesignacionControllerREST {
 
 	@PostMapping("/cursos")
 	@ResponseStatus(HttpStatus.CREATED)
-	public DesignacionCursoResumenDTO crearCurso(
+	public DesignacionCursoDetalleDTO crearCurso(
 			@PathVariable Long escuelaId,
-			@Valid @RequestBody DesignacionCursoCreateDTO dto
+			@Valid @RequestBody DesignacionCursoDTO dto
 	) {
 		Escuela escuela = escuelaService.obtenerPorId(escuelaId);
 		Materia materia = materiaService.obtenerPorId(dto.materiaId());
@@ -93,14 +95,14 @@ public class EscuelaDesignacionControllerREST {
 		DesignacionCurso designacion = DesignacionMapper.toEntity(dto, escuela, curso, materia, dto.orientacion());
 		DesignacionCurso creada = designacionService.crear(designacion);
 
-		return DesignacionMapper.toResumen(creada);
+		return DesignacionMapper.toDetalle(creada);
 	}
 
 	@PostMapping("/cursos/batch")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void crearCursosBatch(
 			@PathVariable Long escuelaId,
-			@RequestBody List<@Valid DesignacionCursoCreateDTO> cursosDTOs
+			@RequestBody List<@Valid DesignacionCursoDTO> cursosDTOs
 	) {
 		Escuela escuela = escuelaService.obtenerPorId(escuelaId);
 		List<DesignacionCurso> cursos = cursosDTOs.stream()
@@ -115,7 +117,7 @@ public class EscuelaDesignacionControllerREST {
 	}
 
 	@GetMapping("/cursos")
-	public PageResponse<DesignacionCursoResumenDTO> listarCursos(
+	public PageResponse<DesignacionCursoCardDTO> listarCursos(
 			@PathVariable Long escuelaId,
 			DesignacionCursoFilterDTO filter,
 			Pageable pageable

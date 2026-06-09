@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { updateMateria } from "@/services/materia.service";
+import type { MateriaUpdateDTO } from "@/shared/types";
 import { materiasQueryKeys } from "@/shared/utils/queryKeys/materias.queryKeys";
-import type { MateriaUpdateDTO } from "@/shared/utils/types";
-import { editMateria } from "../../../services/materia.service";
 
 type EditarMateriaParams = {
 	id: number;
@@ -16,7 +16,7 @@ export function useUpdateMateria(escuelaId?: number) {
 			if (!escuelaId) {
 				throw new Error("escuelaId requerido");
 			}
-			return editMateria(escuelaId, id, data);
+			return updateMateria(escuelaId, id, data);
 		},
 
 		onSuccess: () => {

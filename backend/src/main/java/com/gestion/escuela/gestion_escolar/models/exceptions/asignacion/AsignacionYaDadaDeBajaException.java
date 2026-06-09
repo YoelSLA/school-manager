@@ -4,7 +4,7 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarExcep
 
 public class AsignacionYaDadaDeBajaException extends GestionEscolarException {
 	public AsignacionYaDadaDeBajaException() {
-		super("La asignación ya fue dada de baja");
+		super("La asignación ya fue dada de bajaAsignacion");
 	}
 }
 

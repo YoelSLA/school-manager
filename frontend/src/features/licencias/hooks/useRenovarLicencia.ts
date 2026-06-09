@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import type { RenovarLicenciaDTO } from "@/shared/types";
 import { licenciasQueryKeys } from "@/shared/utils/queryKeys/licencias.queryKeys";
-import type { RenovarLicenciaDTO } from "@/shared/utils/types";
 import { renovarLicencia } from "../../../services/licencia.service";
 
 type Variables = {

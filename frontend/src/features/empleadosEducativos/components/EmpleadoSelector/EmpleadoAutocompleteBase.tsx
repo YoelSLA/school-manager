@@ -1,5 +1,5 @@
 import { type ReactNode, useEffect, useId, useRef, useState } from "react";
-import type { EmpleadoEducativoBasicoDTO } from "@/shared/utils/types";
+import type { EmpleadoEducativoBasicoDTO } from "@/shared/types";
 import useDebounce from "../../hooks/useDebounce";
 import useEmpleadoSearch from "../../hooks/useEmpleadoSearch";
 import styles from "./EmpleadoAutocompleteBase.module.scss";

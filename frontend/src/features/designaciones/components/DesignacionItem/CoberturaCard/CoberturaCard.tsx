@@ -1,4 +1,4 @@
-import type { LicenciaDesignacionDTO } from "@/shared/utils/types";
+import type { LicenciaDesignacionDTO } from "@/shared/types";
 import styles from "./CoberturaCard.module.scss";
 import CoberturaCardActions from "./CoberturaCardActions";
 import CoberturaCardEmpty from "./CoberturaCardEmpty";
@@ -14,9 +14,7 @@ export default function CoberturaCard({
 	designacion,
 	onCambiarCobertura,
 }: Props) {
-	const asignacion = designacion.asignacionActiva;
-
-	console.log(asignacion?.periodo);
+	const asignacion = designacion.cobertura;
 
 	return (
 		<div className={styles.card}>
@@ -28,7 +26,7 @@ export default function CoberturaCard({
 				<CoberturaCardEmpty />
 			) : (
 				<>
-					<CoberturaCardPerson empleado={asignacion.empleado} />
+					<CoberturaCardPerson empleado={asignacion.empleadoEducativoBasico} />
 					{"fechaHasta" in asignacion.periodo && (
 						<CoberturaCardPeriod periodo={asignacion.periodo} />
 					)}

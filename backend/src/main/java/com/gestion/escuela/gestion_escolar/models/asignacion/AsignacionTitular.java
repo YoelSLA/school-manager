@@ -2,10 +2,8 @@ package com.gestion.escuela.gestion_escolar.models.asignacion;
 
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Periodo;
-import com.gestion.escuela.gestion_escolar.models.caracteristicaAsignacion.CaracteristicaAsignacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista;
-import com.gestion.escuela.gestion_escolar.models.exceptions.asignacion.AsignacionYaTieneCaracteristicaException;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
@@ -44,19 +42,6 @@ public class AsignacionTitular extends Asignacion {
 	@Override
 	public boolean puedeGenerarVacanteDefinitiva() {
 		return true;
-	}
-
-	@Override
-	public void aplicarCaracteristica(CaracteristicaAsignacion nueva) {
-		if (this.getCaracteristica() != null) {
-			throw new AsignacionYaTieneCaracteristicaException();
-		}
-
-		nueva.validarAplicacion(this);
-
-		asignarCaracteristica(nueva);
-
-		nueva.alAsignarse(this);
 	}
 
 	public static class Builder {

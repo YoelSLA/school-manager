@@ -1,4 +1,4 @@
-import type { EmpleadoEducativoFiltro, SortState } from "@/shared/utils/types";
+import type { EmpleadoEducativoFiltro, SortState } from "@/shared/types";
 
 export const empleadosEducativosQueryKeys = {
 	all: ["empleadoEducativo"] as const,

@@ -36,7 +36,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 
 
 	@Nested
-	@DisplayName("Creación de empleado")
+	@DisplayName("Creación de empleadoEducativoBasico")
 	class Creacion {
 
 		private EmpleadoEducativo.Builder builderValido() {
@@ -52,7 +52,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 		}
 
 		@Test
-		@DisplayName("Debe crear empleado válido")
+		@DisplayName("Debe crear empleadoEducativoBasico válido")
 		void creaEmpleadoValido() {
 
 			LocalDate fechaNacimiento = LocalDate.of(1990, JANUARY, 12);
@@ -218,7 +218,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 	}
 
 	@Nested
-	@DisplayName("Licencias del empleado")
+	@DisplayName("Licencias del empleadoEducativoBasico")
 	class Licencias {
 
 		@Test
@@ -474,7 +474,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 	}
 
 	@Nested
-	@DisplayName("Asignaciones del empleado")
+	@DisplayName("Asignaciones del empleadoEducativoBasico")
 	class Asignaciones {
 
 		private Asignacion titular;
@@ -570,7 +570,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 //		}
 //
 //		@Test
-//		@DisplayName("Debe crear una licencia válida y agregarla al empleado")
+//		@DisplayName("Debe crear una licencia válida y agregarla al empleadoEducativoBasico")
 //		void creaLicenciaValida() {
 //			// Arrange
 //			LocalDate fechaTomaPosesion = LocalDate.of(1998, FEBRUARY, 28);
@@ -701,7 +701,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 //		}
 //
 //		@Test
-//		@DisplayName("Debe fallar si el empleado está inactivo")
+//		@DisplayName("Debe fallar si el empleadoEducativoBasico está inactivo")
 //		void fallaSiEmpleadoInactivo() {
 //
 //			giardinoNoraRosa.setActivo(false); // TODO: Cambiar esto por darBajaDefinitiva despues, ES MOMENTANEO
@@ -812,7 +812,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 //	class BajaDefinitiva {
 //
 //		@Test
-//		@DisplayName("Debe fallar si causa de baja es null")
+//		@DisplayName("Debe fallar si causa de bajaAsignacion es null")
 //		void fallaSiCausaBajaEsNull() {
 //
 //			assertThrows(
@@ -825,7 +825,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 //		}
 //
 //		@Test
-//		@DisplayName("Debe fallar si fecha de baja es null")
+//		@DisplayName("Debe fallar si fecha de bajaAsignacion es null")
 //		void fallaSiFechaBajaEsNull() {
 //
 //			assertThrows(
@@ -933,11 +933,11 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 //	}
 //
 //	@Nested
-//	@DisplayName("Actualización de empleado")
+//	@DisplayName("Actualización de empleadoEducativoBasico")
 //	class Actualizacion {
 //
 //		@Test
-//		@DisplayName("Debe actualizar correctamente los datos del empleado")
+//		@DisplayName("Debe actualizar correctamente los datos del empleadoEducativoBasico")
 //		void actualizaCorrectamenteLosDatos() {
 //
 //			// Arrange

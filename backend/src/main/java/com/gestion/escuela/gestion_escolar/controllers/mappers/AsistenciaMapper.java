@@ -2,10 +2,10 @@ package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
 import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencia.response.AsistenciaDiaDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.asistencia.response.AsistenciaEmpleadoResumenDTO;
-import com.gestion.escuela.gestion_escolar.models.EmpleadoAsistenciaResumen;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.EstadoAsistenciaDia;
 import com.gestion.escuela.gestion_escolar.models.enums.OrigenAsistencia;
+import com.gestion.escuela.gestion_escolar.models.records.EmpleadoAsistenciaResumen;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -39,7 +39,7 @@ public class AsistenciaMapper {
 				EmpleadoEducativoMapper.toBasico(empleado),
 				resumen.rolesActivos(),
 				resumen.faltasUltimoMes(),
-				resumen.licenciaMasFrecuente()
+				resumen.licenciaMasFrecuente() != null ? resumen.licenciaMasFrecuente().getCodigo() : null
 		);
 	}
 

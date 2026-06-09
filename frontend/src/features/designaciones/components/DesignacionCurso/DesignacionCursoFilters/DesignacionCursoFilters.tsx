@@ -1,8 +1,8 @@
 import { BookOpen, CheckCircle, GraduationCap } from "lucide-react";
 import SelectField from "@/components/SelectField";
-import { useCursosNombres } from "@/features/cursos/hooks/useCursosNombres";
-import { useMateriasSelect } from "@/features/materias/hooks/useMateriasSelect";
-import type { CursoFiltersState } from "@/shared/utils/types";
+import { useListarCursos } from "@/features/cursos/hooks/useListarCursos";
+import { useListMaterias } from "@/features/materias/hooks/useListMaterias";
+import type { CursoFiltersState } from "@/shared/types";
 import styles from "./DesignacionCursoFilters.module.scss";
 
 type Props = {
@@ -16,16 +16,18 @@ export default function DesignacionCursoFilters({
 	filters,
 	onChange,
 }: Props) {
-	const { cursos } = useCursosNombres(escuelaId);
-	const { materias } = useMateriasSelect(escuelaId);
+	const { data: cursosPage } = useListarCursos(escuelaId, "TODOS", 0, 1000);
+
+	const { data: materiasPage } = useListMaterias(escuelaId, 0, 1000);
+
+	const cursos = cursosPage?.content ?? [];
+	const materias = materiasPage?.content ?? [];
 
 	const updateFilter = (key: keyof CursoFiltersState, value?: string) => {
-		const newFilters = {
+		onChange({
 			...filters,
 			[key]: value,
-		};
-
-		onChange(newFilters);
+		});
 	};
 
 	return (

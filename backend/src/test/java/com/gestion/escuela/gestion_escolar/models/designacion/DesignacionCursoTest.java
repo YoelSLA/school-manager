@@ -438,7 +438,7 @@ class DesignacionCursoTest extends DomainTestFixture {
 		@Test
 		void deberiaRetornarOptionalVacioSiFechaEsNull() {
 
-			Optional<Asignacion> resultado = plg2467783.asignacionQueEjerceEn(null);
+			Optional<Asignacion> resultado = plg2467783.asignacionQueEjerceEn((LocalDate) null);
 
 			assertTrue(resultado.isEmpty());
 		}

@@ -2,17 +2,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import type {
-	CursoNombreDTO,
+	CursoDetalleDTO,
 	DesignacionCursoCreateDTO,
 	DesignacionCursoFormValues,
 	MateriaNombreDTO,
-} from "@/shared/utils/types";
-import { Dia } from "@/shared/utils/types/enums";
+} from "@/shared/types";
+import { Dia } from "@/shared/types/enums";
 import { createDesignacionCursoSchema } from "../schemas/createDesignacionCurso.schema";
 
 type Props = {
 	materias?: MateriaNombreDTO[];
-	cursos?: CursoNombreDTO[];
+	cursos?: CursoDetalleDTO[];
 	orientaciones?: string[];
 };
 

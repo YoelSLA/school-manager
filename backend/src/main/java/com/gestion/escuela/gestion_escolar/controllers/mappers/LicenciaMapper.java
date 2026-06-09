@@ -4,6 +4,7 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response.
 import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.response.*;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.periodo.response.PeriodoCerradoDTO;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
+import com.gestion.escuela.gestion_escolar.models.Periodo;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
@@ -71,9 +72,12 @@ public class LicenciaMapper {
 		);
 	}
 
-	public static LicenciaDesignacionDTO toDesignacionDTO(Designacion d) {
+	public static LicenciaDesignacionDTO toDesignacionDTO(
+			Designacion d,
+			Periodo periodoLicencia
+	) {
 
-		Asignacion asignacion = d.asignacionQueEjerceEn(HOY).orElse(null);
+		Asignacion asignacion = d.asignacionQueEjerceEn(periodoLicencia).orElse(null);
 
 		AsignacionDetalleDTO asignacionActiva =
 				asignacion != null
@@ -81,20 +85,21 @@ public class LicenciaMapper {
 						: null;
 
 		if (d instanceof DesignacionAdministrativa da) {
+
 			return new LicenciaDesignacionAdministrativaDTO(
 					da.getId(),
 					da.getCupof(),
-					da.getEstadoEn(HOY),
+					da.getEstadoEn(periodoLicencia),
 					da.getRolEducativo(),
 					asignacionActiva);
 		}
 
 		if (d instanceof DesignacionCurso dc) {
-			assert asignacionActiva != null;
+
 			return new LicenciaDesignacionCursoDTO(
 					dc.getId(),
 					dc.getCupof(),
-					dc.getEstadoEn(HOY),
+					dc.getEstadoEn(periodoLicencia),
 					dc.getRolEducativo(),
 					dc.getMateria().getNombre(),
 					dc.getCurso().anioDivision(),

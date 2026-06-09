@@ -6,7 +6,7 @@ public enum EstadoAsignacion {
 	ACTIVA("Activa", true, true),
 	LICENCIA("En licencia", true, false),
 	FINALIZADA("Finalizada", false, false),
-	BAJA("Dada de baja", false, false);
+	BAJA("Dada de bajaAsignacion", false, false);
 
 	private final String descripcion;
 	private final boolean vigente;

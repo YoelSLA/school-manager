@@ -3,18 +3,18 @@ import type {
 	AsignacionDetalleDTO,
 	CubrirProvisionalDTO,
 	CubrirTitularDTO,
+	DesignacionAdministrativaCardDTO,
 	DesignacionAdministrativaCreateDTO,
-	DesignacionAdministrativaResumenDTO,
+	DesignacionCursoCardDTO,
 	DesignacionCursoCreateDTO,
 	DesignacionCursoDetalleDTO,
 	DesignacionCursoFilter,
-	DesignacionCursoResumenDTO,
 	DesignacionDetalleDTO,
 	EditarProvisionalDTO,
 	EditarTitularDTO,
 	EstadoCargo,
 	PageResponse,
-} from "@/shared/utils/types";
+} from "@/shared/types";
 
 /* ======================
 	 Crear
@@ -60,9 +60,9 @@ export async function listarDesignacionesAdministrativas(
 	escuelaId: number,
 	page: number = 0,
 	size: number = 10,
-): Promise<PageResponse<DesignacionAdministrativaResumenDTO>> {
+): Promise<PageResponse<DesignacionAdministrativaCardDTO>> {
 	const { data } = await http.get<
-		PageResponse<DesignacionAdministrativaResumenDTO>
+		PageResponse<DesignacionAdministrativaCardDTO>
 	>(`/escuelas/${escuelaId}/designaciones/administrativas`, {
 		params: { page, size },
 	});
@@ -75,8 +75,8 @@ export async function listarDesignacionesCursos(
 	page: number = 0,
 	size: number = 10,
 	filter?: DesignacionCursoFilter,
-): Promise<PageResponse<DesignacionCursoResumenDTO>> {
-	const { data } = await http.get<PageResponse<DesignacionCursoResumenDTO>>(
+): Promise<PageResponse<DesignacionCursoCardDTO>> {
+	const { data } = await http.get<PageResponse<DesignacionCursoCardDTO>>(
 		`/escuelas/${escuelaId}/designaciones/cursos`,
 		{
 			params: {

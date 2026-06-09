@@ -5,10 +5,7 @@ import PageLayout from "@/app/layouts/PageLayout/PageLayout";
 import Button from "@/components/Button";
 import DesignacionItem from "@/features/designaciones/components/DesignacionItem/DesignacionItem";
 import { useDesignacionesAfectadas } from "@/features/licencias/hooks/useDesignacionesAfectadas";
-import type {
-	CoberturaSeleccionada,
-	LocationState,
-} from "@/shared/utils/types";
+import type { CoberturaSeleccionada, LocationState } from "@/shared/types";
 import LicenciaCambiarCoberturaModal from "../../components/LicenciaCambiarCoberturaModal/LicenciaCambiarCoberturaModal";
 import LicenciaCubrirDesignacionesModal from "../../components/LicenciaCubrirDesignacionesModal/LicenciaCubrirDesignacionesModal";
 import LicenciasDesignacionesHeader from "./LicenciasDesignacionesHeader/LicenciasDesignacionesHeader";
@@ -55,7 +52,7 @@ export default function LicenciasDesignacionesPage() {
 	}
 
 	function handleCambiarCobertura(designacion: (typeof designaciones)[number]) {
-		const asignacionActiva = designacion.asignacionActiva;
+		const asignacionActiva = designacion.cobertura;
 
 		if (!asignacionActiva) {
 			return;
@@ -64,7 +61,7 @@ export default function LicenciasDesignacionesPage() {
 		setCambiarCobertura({
 			designacionId: designacion.designacionId,
 			secuencia: asignacionActiva.secuencia,
-			empleado: asignacionActiva.empleado,
+			empleado: asignacionActiva.empleadoEducativoBasico,
 			fechaTomaPosesion: asignacionActiva.periodo.fechaDesde,
 		});
 	}

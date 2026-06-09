@@ -5,7 +5,7 @@ import ModalUpdateAsignacionTitular from "@/features/asignaciones/components/Mod
 import type {
 	AsignacionDetalleDTO,
 	DesignacionDetalleDTO,
-} from "@/shared/utils/types";
+} from "@/shared/types";
 
 type Props = {
 	id: number;
@@ -58,7 +58,7 @@ export default function DesignacionDetalleModals({
 					asignacionId={cargoAEditar.id}
 					designacionId={id}
 					secuencia={cargoAEditar.secuencia ?? 1}
-					empleadoInicial={cargoAEditar.empleado}
+					empleadoInicial={cargoAEditar.empleadoEducativoBasico}
 					tomaPosesion={cargoAEditar.periodo.fechaDesde}
 					onClose={onCloseEditar}
 					onSuccess={() => {
@@ -75,7 +75,7 @@ export default function DesignacionDetalleModals({
 						asignacionId={cargoAEditar.id}
 						designacionId={id}
 						secuencia={cargoAEditar.secuencia ?? 1}
-						empleadoInicial={cargoAEditar.empleado}
+						empleadoInicial={cargoAEditar.empleadoEducativoBasico}
 						fechaDesde={cargoAEditar.periodo.fechaDesde}
 						fechaHasta={cargoAEditar.periodo.fechaHasta}
 						onClose={onCloseEditar}

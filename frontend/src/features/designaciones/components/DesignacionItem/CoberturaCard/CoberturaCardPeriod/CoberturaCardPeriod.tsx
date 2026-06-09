@@ -1,6 +1,6 @@
 import { CalendarDays } from "lucide-react";
+import type { PeriodoCerradoDTO } from "@/shared/types";
 import { formatearFecha } from "@/shared/utils";
-import type { PeriodoCerradoDTO } from "@/shared/utils/types";
 import styles from "./CoberturaCardPeriod.module.scss";
 
 type Props = {

@@ -5,7 +5,7 @@ import type {
 	UseFormRegister,
 } from "react-hook-form";
 import Button from "@/components/Button";
-import type { DesignacionAdministrativaFormValues } from "@/shared/utils/types";
+import type { DesignacionAdministrativaFormValues } from "@/shared/types";
 import styles from "../../DesignacionFormLayout.module.scss";
 import FranjasHorariasBoxAdministrativa from "./FranjasHorariasBoxAdministrativa";
 

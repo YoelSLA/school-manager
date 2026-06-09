@@ -2,20 +2,17 @@ package com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response
 
 import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadoEducativo.response.EmpleadoEducativoBasicoDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.periodo.response.PeriodoDTO;
-import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.response.BajaAsignacionDTO;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista;
 
-import java.time.LocalDate;
-
 public record AsignacionDetalleDTO(
 		Long id,
-		EmpleadoEducativoBasicoDTO empleado,
 		PeriodoDTO periodo,
 		SituacionDeRevista situacionDeRevista,
-		LocalDate fechaBaja,
-		CausaBaja causaBaja,
 		EstadoAsignacion estadoAsignacion,
-		Integer secuencia
+		BajaAsignacionDTO bajaAsignacion,
+		Integer secuencia,
+		EmpleadoEducativoBasicoDTO empleadoEducativoBasico
 ) {
 }

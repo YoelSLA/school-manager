@@ -1,12 +1,12 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionLicenciaItemDTO.DesignacionLicenciaDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadoEducativo.response.EmpleadoEducativoAsignacionesDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadoEducativo.response.EmpleadoEducativoDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadoEducativo.response.EmpleadoEducativoLicenciasDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.request.LicenciaCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.response.LicenciaDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.request.BajaDefinitivaDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.response.DesignacionLicenciaItemDTO;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.DesignacionMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.EmpleadoEducativoMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.LicenciaMapper;
@@ -74,7 +74,7 @@ public class EmpleadoEducativoControllerREST {
 	}
 
 	@GetMapping("/{empleadoId}/designaciones-activas")
-	public Set<DesignacionLicenciaItemDTO> obtenerDesignacionesActivas(
+	public Set<DesignacionLicenciaDTO> obtenerDesignacionesActivas(
 			@PathVariable Long empleadoId
 	) {
 

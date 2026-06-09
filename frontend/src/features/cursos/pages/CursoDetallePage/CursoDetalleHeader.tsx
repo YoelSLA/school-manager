@@ -1,8 +1,8 @@
-import type { CursoResponseDTO } from "@/shared/utils/types";
+import type { CursoDetalleDTO } from "@/shared/types";
 import styles from "./CursoDetalleHeader.module.scss";
 
 type Props = {
-	curso: CursoResponseDTO;
+	curso: CursoDetalleDTO;
 };
 
 export default function CursoDetalleHeader({ curso }: Props) {

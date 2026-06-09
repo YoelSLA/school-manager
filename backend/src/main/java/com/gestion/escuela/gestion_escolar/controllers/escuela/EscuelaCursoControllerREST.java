@@ -1,8 +1,7 @@
 package com.gestion.escuela.gestion_escolar.controllers.escuela;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.curso.request.CursoCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.curso.request.CursoUpdateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.curso.response.CursoResponseDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.curso.request.CursoDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.curso.response.CursoDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.response.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.CursoMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.PageMapper;
@@ -28,9 +27,9 @@ public class EscuelaCursoControllerREST {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public CursoResponseDTO crear(
+	public CursoDetalleDTO crear(
 			@PathVariable Long escuelaId,
-			@Valid @RequestBody CursoCreateDTO dto
+			@Valid @RequestBody CursoDTO dto
 	) {
 		Curso curso = cursoService.crear(escuelaId, CursoMapper.toEntity(dto));
 		return CursoMapper.toResponse(curso);
@@ -40,7 +39,7 @@ public class EscuelaCursoControllerREST {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void crearBatch(
 			@PathVariable Long escuelaId,
-			@RequestBody List<CursoCreateDTO> cursosDTOs
+			@RequestBody List<CursoDTO> cursosDTOs
 	) {
 		List<Curso> cursos = cursosDTOs.stream()
 				.map(CursoMapper::toEntity)
@@ -50,10 +49,10 @@ public class EscuelaCursoControllerREST {
 	}
 
 	@PutMapping("/{cursoId}")
-	public CursoResponseDTO actualizar(
+	public CursoDetalleDTO actualizar(
 			@PathVariable Long escuelaId,
 			@PathVariable Long cursoId,
-			@Valid @RequestBody CursoUpdateDTO dto
+			@Valid @RequestBody CursoDTO dto
 	) {
 		Curso curso = cursoService.actualizar(
 				escuelaId,
@@ -75,7 +74,7 @@ public class EscuelaCursoControllerREST {
 	}
 
 	@GetMapping
-	public PageResponse<CursoResponseDTO> listar(
+	public PageResponse<CursoDetalleDTO> listar(
 			@PathVariable Long escuelaId,
 			@RequestParam(name = "turno", required = false) Turno turno,
 			Pageable pageable
@@ -84,19 +83,6 @@ public class EscuelaCursoControllerREST {
 		Page<Curso> cursos = cursoService.listarCursosPorEscuela(escuelaId, turno, limitedPageable);
 
 		return PageMapper.toPageResponse(cursos, CursoMapper::toResponse);
-	}
-
-	@GetMapping("/nombres")
-	public List<CursoResponseDTO> listarNombres(
-			@PathVariable Long escuelaId
-	) {
-
-		var cursos = cursoService.listarCursosPorEscuela(escuelaId);
-
-		return cursos
-				.stream()
-				.map(CursoMapper::toResponse)
-				.toList();
 	}
 
 }

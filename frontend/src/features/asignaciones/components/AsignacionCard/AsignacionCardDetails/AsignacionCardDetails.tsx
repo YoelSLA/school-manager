@@ -1,5 +1,5 @@
 import PeriodoDisplay from "@/shared/components/PeriodoDisplay";
-import type { PeriodoDTO } from "@/shared/utils/types";
+import type { PeriodoDTO } from "@/shared/types";
 import styles from "./AsignacionCardDetails.module.scss";
 
 type Props = {

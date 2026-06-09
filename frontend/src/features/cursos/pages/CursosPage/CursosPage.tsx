@@ -7,31 +7,30 @@ import SidebarPageLayout from "@/app/layouts/SidebarPageLayout/SidebarPageLayout
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
 import FilterPillGroup from "@/components/FilterPillGroup";
-import { useDynamicPageSize } from "@/shared/utils/hooks/useDynamicPageSize";
-
 import type {
 	CursoCreateDTO,
+	CursoDetalleDTO,
 	CursoFiltro,
-	CursoResponseDTO,
-} from "@/shared/utils/types";
+} from "@/shared/types";
+import { useDynamicPageSize } from "@/shared/utils/hooks/useDynamicPageSize";
 import CursoCard from "../../components/CursoCard";
 import CursoCreateModal from "../../components/CursoCreateModal";
 import { useCrearCurso } from "../../hooks/useCrearCurso";
-import { useCursos } from "../../hooks/useCursos";
+import { useListarCursos } from "../../hooks/useListarCursos";
 import { FILTROS_CURSOS } from "../../utils/cursos.utils";
 
 export default function CursosPage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 
 	/* =========================
-		 FILTRO
-	========================= */
+     FILTRO
+  ========================= */
 
 	const [filtro, setFiltro] = useState<CursoFiltro>("TODOS");
 
 	/* =========================
-		 PAGINACION
-	========================= */
+     PAGINACION
+  ========================= */
 
 	const [page, setPage] = useState(0);
 	const pageSize = useDynamicPageSize();
@@ -41,10 +40,10 @@ export default function CursosPage() {
 	}, []);
 
 	/* =========================
-		 QUERY
-	========================= */
+     QUERY
+  ========================= */
 
-	const { data, isLoading, isError, refetch, isFetching } = useCursos(
+	const { data, isLoading, isError, refetch, isFetching } = useListarCursos(
 		escuelaActiva?.id,
 		filtro,
 		page,
@@ -55,8 +54,8 @@ export default function CursosPage() {
 	const totalPages = data?.totalPages ?? 0;
 
 	/* =========================
-		 CREAR CURSO
-	========================= */
+     CREAR CURSO
+  ========================= */
 
 	const [isCrearOpen, setIsCrearOpen] = useState(false);
 
@@ -77,16 +76,16 @@ export default function CursosPage() {
 	};
 
 	/* =========================
-		 DETALLE
-	========================= */
+     DETALLE
+  ========================= */
 
-	const handleVerDetalle = (_curso: CursoResponseDTO) => {
+	const handleVerDetalle = (_curso: CursoDetalleDTO) => {
 		// navegación futura
 	};
 
 	/* =========================
-		 RENDER
-	========================= */
+     RENDER
+  ========================= */
 
 	return (
 		<>

@@ -3,7 +3,7 @@ import FormSelectField from "@/components/FormSelectField/FormSelectField";
 import type {
 	DesignacionCursoFormValues,
 	MateriaNombreDTO,
-} from "@/shared/utils/types";
+} from "@/shared/types";
 
 type Props = {
 	register: UseFormRegister<DesignacionCursoFormValues>;

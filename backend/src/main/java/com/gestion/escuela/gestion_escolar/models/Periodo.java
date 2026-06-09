@@ -106,7 +106,7 @@ public class Periodo {
 
 	}
 
-	private boolean contiene(LocalDate fecha) {
+	public boolean contiene(LocalDate fecha) {
 		if (fecha == null) {
 			return false;
 		}

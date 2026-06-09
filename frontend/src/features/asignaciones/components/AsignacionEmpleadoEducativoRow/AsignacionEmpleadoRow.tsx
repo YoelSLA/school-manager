@@ -1,5 +1,5 @@
+import type { AsignacionEmpleadoEducativoRowDTO } from "@/shared/types";
 import { esAsignacionAdministrativa, esAsignacionCurso } from "@/shared/utils";
-import type { AsignacionEmpleadoEducativoRowDTO } from "@/shared/utils/types";
 import AsignacionAdministrativaEmpleadoRow from "./AsignacionAdministrativaEmpleadoRow/AsignacionAdministrativaEmpleadoRow";
 import AsignacionCursoEmpleadoEducativoRow from "./AsignacionCursoEmpleadoRow/AsignacionCursoEmpleadoRow";
 

@@ -1,10 +1,9 @@
-
 import { http } from "@/shared/api/http";
 import type {
 	EscuelaCreateDTO,
 	EscuelaResponseDTO,
 	EscuelaUpdateDTO,
-} from "@/shared/utils/types";
+} from "@/shared/types";
 
 export const crearEscuela = async (
 	data: EscuelaCreateDTO,

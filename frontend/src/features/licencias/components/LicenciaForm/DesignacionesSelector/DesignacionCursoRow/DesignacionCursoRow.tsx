@@ -7,12 +7,12 @@ import {
 } from "lucide-react";
 import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
 import BadgeSituacionRevista from "@/shared/components/BadgeSituacionRevista";
+import type { DesignacionLicenciaCursoDTO } from "@/shared/types";
 import { TURNO_LABELS } from "@/shared/utils/enumLabels";
-import type { DesignacionLicenciaCursoItemDTO } from "@/shared/utils/types";
 import styles from "./DesignacionCursoRow.module.scss";
 
 type Props = {
-	designacion: DesignacionLicenciaCursoItemDTO;
+	designacion: DesignacionLicenciaCursoDTO;
 	checked: boolean;
 	onToggle: (id: number) => void;
 };

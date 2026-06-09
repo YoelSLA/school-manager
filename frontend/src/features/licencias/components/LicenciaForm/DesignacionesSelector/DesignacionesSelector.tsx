@@ -1,10 +1,10 @@
-import type { DesignacionLicenciaItemDTO } from "@/shared/utils/types";
+import type { DesignacionLicenciaDTO } from "@/shared/types";
 import DesignacionAdministrativaRow from "./DesignacionAdministrativaRow/DesignacionAdministrativaRow";
 import DesignacionCursoRow from "./DesignacionCursoRow/DesignacionCursoRow";
 import styles from "./DesignacionesSelector.module.scss";
 
 type Props = {
-	designaciones: DesignacionLicenciaItemDTO[];
+	designaciones: DesignacionLicenciaDTO[];
 	loading: boolean;
 	value: number[];
 	onChange: (ids: number[]) => void;

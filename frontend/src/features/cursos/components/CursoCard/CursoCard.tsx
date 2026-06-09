@@ -1,10 +1,10 @@
 import { ArrowRight } from "lucide-react";
-import type { CursoResponseDTO } from "@/shared/utils/types";
+import type { CursoDetalleDTO } from "@/shared/types/curso.types";
 import styles from "./CursoCard.module.scss";
 
 type Props = {
-	curso: CursoResponseDTO;
-	onVerDetalle: (curso: CursoResponseDTO) => void;
+	curso: CursoDetalleDTO;
+	onVerDetalle: (curso: CursoDetalleDTO) => void;
 };
 
 export default function CursoCard({ curso, onVerDetalle }: Props) {

@@ -2,7 +2,7 @@ import qs from "qs";
 import { http } from "@/shared/api/http";
 import type {
 	BajaDefinitivaDTO,
-	DesignacionLicenciaItemDTO,
+	DesignacionLicenciaDTO,
 	EmpleadoEducativoAsignacionesDTO,
 	EmpleadoEducativoBasicoDTO,
 	EmpleadoEducativoCreateDTO,
@@ -13,7 +13,7 @@ import type {
 	LicenciaCreateDTO,
 	PageResponse,
 	SortState,
-} from "@/shared/utils/types";
+} from "@/shared/types";
 import { buildSortQuery } from "../features/empleadosEducativos/utils/empleadosEducativos.utils";
 
 export const crearEmpleadoEducativo = async (
@@ -109,8 +109,8 @@ export const reactivarEmpleado = async (empleadoId: number): Promise<void> => {
 
 export const getDesignacionesActivas = async (
 	empleadoId: number,
-): Promise<DesignacionLicenciaItemDTO[]> => {
-	const { data } = await http.get<DesignacionLicenciaItemDTO[]>(
+): Promise<DesignacionLicenciaDTO[]> => {
+	const { data } = await http.get<DesignacionLicenciaDTO[]>(
 		`/empleadosEducativos/${empleadoId}/designaciones-activas`,
 	);
 

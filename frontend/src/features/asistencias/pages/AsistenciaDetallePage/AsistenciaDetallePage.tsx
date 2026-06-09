@@ -36,7 +36,6 @@ export default function AsistenciaDetallePage() {
 		return (
 			<PageLayout>
 				<Breadcrumbs />
-
 				<div>Cargando asistencias...</div>
 			</PageLayout>
 		);
@@ -49,7 +48,6 @@ export default function AsistenciaDetallePage() {
 		return (
 			<PageLayout>
 				<Breadcrumbs />
-
 				<div>Error al cargar asistencias</div>
 			</PageLayout>
 		);
@@ -78,7 +76,6 @@ export default function AsistenciaDetallePage() {
 						asistenciasMap={asistenciasMap}
 						onDayClick={handleDayClick}
 					/>
-
 					<AsistenciaStats asistencias={asistencias} />
 				</div>
 			</section>

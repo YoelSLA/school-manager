@@ -70,7 +70,7 @@ public class Licencia {
 
 	private Licencia(Builder builder) {
 
-		Validaciones.noNulo(builder.empleadoEducativo, "empleado educativo");
+		Validaciones.noNulo(builder.empleadoEducativo, "empleadoEducativoBasico educativo");
 		Validaciones.noNulo(builder.tipoLicencia, "tipo licencia");
 		Validaciones.noNulo(builder.periodo, "periodo");
 		Validaciones.noVacio(builder.designaciones, "designación");
@@ -134,6 +134,10 @@ public class Licencia {
 		}
 
 		return estaCubiertaEn(fecha) ? EstadoLicencia.CUBIERTA : EstadoLicencia.DESCUBIERTA;
+	}
+
+	public boolean contiene(LocalDate fecha) {
+		return periodo.contiene(fecha);
 	}
 
 	private boolean estaCubiertaEn(LocalDate fecha) {
@@ -263,7 +267,7 @@ public class Licencia {
 				(empleadoEducativo != null
 						? empleadoEducativo.getId()
 						: null) +
-				", tipoLicencia=" + tipoLicencia +
+				", codigoLicencia=" + tipoLicencia +
 				", descripcion='" + descripcion + '\'' +
 				", periodo=" + periodo +
 				", licenciaAnteriorId=" +

@@ -1,8 +1,12 @@
 package com.gestion.escuela.gestion_escolar.services;
 
-import com.gestion.escuela.gestion_escolar.models.*;
+import com.gestion.escuela.gestion_escolar.models.Asistencia;
+import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
+import com.gestion.escuela.gestion_escolar.models.EstadoAsistenciaDia;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
+import com.gestion.escuela.gestion_escolar.models.records.EmpleadoAsistenciaResumen;
+import com.gestion.escuela.gestion_escolar.models.records.RolCantidad;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;

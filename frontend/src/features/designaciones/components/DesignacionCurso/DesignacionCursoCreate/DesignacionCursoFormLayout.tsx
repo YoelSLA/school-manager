@@ -5,7 +5,7 @@ import type {
 	UseFormRegister,
 } from "react-hook-form";
 import Button from "@/components/Button";
-import type { DesignacionCursoFormValues } from "@/shared/utils/types";
+import type { DesignacionCursoFormValues } from "@/shared/types";
 import styles from "../../DesignacionFormLayout.module.scss";
 import FranjasHorariasBoxCurso from "./FranjasHorariasBoxCurso";
 

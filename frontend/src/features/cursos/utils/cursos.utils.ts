@@ -1,4 +1,4 @@
-import type { CursoFiltro, CursoResponseDTO } from "@/shared/utils/types";
+import type { CursoDetalleDTO, CursoFiltro } from "@/shared/types";
 
 export const FILTROS_CURSOS: {
 	label: string;
@@ -12,7 +12,7 @@ export const FILTROS_CURSOS: {
 
 export const filtrosCursos: Record<
 	CursoFiltro,
-	(curso: CursoResponseDTO) => boolean
+	(curso: CursoDetalleDTO) => boolean
 > = {
 	TODOS: () => true,
 	MANIANA: (curso) => curso.turno === "MANIANA",
@@ -40,7 +40,7 @@ function parseDivision(value: string) {
 	};
 }
 
-export function ordenarCursos(a: CursoResponseDTO, b: CursoResponseDTO) {
+export function ordenarCursos(a: CursoDetalleDTO, b: CursoDetalleDTO) {
 	// 1. Turno
 	const turnoA = ORDEN_TURNO[a.turno] ?? 99;
 	const turnoB = ORDEN_TURNO[b.turno] ?? 99;

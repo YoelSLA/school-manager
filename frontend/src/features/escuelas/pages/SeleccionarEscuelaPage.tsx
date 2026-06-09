@@ -1,8 +1,5 @@
 import { useState } from "react";
-import type {
-	EscuelaCreateDTO,
-	EscuelaResponseDTO,
-} from "@/shared/utils/types";
+import type { EscuelaCreateDTO, EscuelaResponseDTO } from "@/shared/types";
 import CreateEscuelaModal from "../components/CreateEscuelaModal/CreateEscuelaModal";
 import DisableEscuelaModal from "../components/DisableEscuelaModal";
 import { useCrearEscuela } from "../hooks/useCrearEscuela";

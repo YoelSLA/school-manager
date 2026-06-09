@@ -1,4 +1,12 @@
 import { Clock, Repeat, ShieldCheck } from "lucide-react";
+import type { BadgeConfig } from "../types";
+import type {
+	EstadoAsignacion,
+	EstadoDesignacion,
+	EstadoLicencia,
+	RolEducativo,
+	SituacionDeRevista,
+} from "../types/enums";
 import {
 	ESTADO_ASIGNACION_LABELS,
 	ESTADO_DESIGNACION_LABELS,
@@ -6,14 +14,6 @@ import {
 	ROL_EDUCATIVO_LABELS,
 	SITUACION_REVISTA_LABELS,
 } from "./enumLabels";
-import type { BadgeConfig } from "./types";
-import type {
-	EstadoAsignacion,
-	EstadoDesignacion,
-	EstadoLicencia,
-	RolEducativo,
-	SituacionDeRevista,
-} from "./types/enums";
 
 /* =========================
         DESIGNACIÓN

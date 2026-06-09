@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createMateria } from "@/services/materia.service";
+import type { MateriaCreateDTO } from "@/shared/types";
 import { materiasQueryKeys } from "@/shared/utils/queryKeys/materias.queryKeys";
-import type { MateriaCreateDTO } from "@/shared/utils/types";
-import { crearMateria } from "../../../services/materia.service";
 
-export function useCrearMateria(escuelaId?: number) {
+export function useCreateMateria(escuelaId?: number) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
@@ -11,7 +11,8 @@ export function useCrearMateria(escuelaId?: number) {
 			if (!escuelaId) {
 				throw new Error("escuelaId requerido");
 			}
-			return crearMateria(escuelaId, data);
+
+			return createMateria(escuelaId, data);
 		},
 
 		onSuccess: () => {

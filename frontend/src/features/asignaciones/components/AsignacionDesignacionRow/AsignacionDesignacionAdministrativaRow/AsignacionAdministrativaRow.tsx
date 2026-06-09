@@ -3,7 +3,7 @@ import BadgeEstadoAsignacion from "@/shared/components/BagdeEstadoAsignacion";
 import type {
 	CargoDesignacionAdministrativaDTO,
 	EmpleadoEducativoAsignacionItemDTO,
-} from "@/shared/utils/types";
+} from "@/shared/types";
 import AsignacionRowFooter from "../../AsignacionRowFooter/AsignacionRowFooter";
 import AsignacionRowLayout from "../../AsignacionRowLayout";
 
