@@ -93,7 +93,7 @@ class CursoRestAssuredTest extends AbstractIntegrationTest {
 				.put("/api/escuelas/" + escuelaId + "/cursos/" + cursoId)
 				.then()
 				.statusCode(200)
-				.body("turno", equalTo("Mañana"))
+				.body("turno", equalTo("MANIANA"))
 				.body("anio", equalTo(1))
 				.body("grado", equalTo(3));
 

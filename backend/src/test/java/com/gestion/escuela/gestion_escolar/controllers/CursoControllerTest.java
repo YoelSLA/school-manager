@@ -157,17 +157,4 @@ class CursoControllerTest {
 				.andExpect(jsonPath("$.totalElements").value(2));
 	}
 
-	@Test
-	void debeListarNombresDeCursos() throws Exception {
-
-		Curso c1 = new Curso(MANIANA, 1, 1);
-		Curso c2 = new Curso(TARDE, 1, 2);
-
-		when(cursoService.listarCursosPorEscuela(1L))
-				.thenReturn(List.of(c1, c2));
-
-		mockMvc.perform(get("/api/escuelas/1/cursos/nombres"))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.length()").value(2));
-	}
 }

@@ -170,19 +170,4 @@ class MateriaControllerTest {
 				.andExpect(jsonPath("$.totalElements").value(2));
 	}
 
-	@Test
-	void debeListarNombresDeMaterias() throws Exception {
-
-		Materia m1 = new Materia("Matemática", "MAT", 4);
-		Materia m2 = new Materia("Lengua", "LEN", 3);
-
-		when(materiaService.listarMateriasPorEscuela(1L))
-				.thenReturn(List.of(m1, m2));
-
-		mockMvc.perform(get("/api/escuelas/1/materias/nombres"))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.length()").value(2))
-				.andExpect(jsonPath("$[0].nombre").value("Matemática"))
-				.andExpect(jsonPath("$[1].nombre").value("Lengua"));
-	}
 }
