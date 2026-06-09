@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
 
-import type { BajaDefinitivaDTO } from "@/shared/utils/types";
+import type { BajaDefinitivaDTO } from "@/shared/types";
 
 import { useDarDeBajaDefinitiva } from "./useDarDeBajaDefinitiva";
 import { useEmpleadoEducativo } from "./useEmpleadoEducativo";

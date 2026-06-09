@@ -1,5 +1,5 @@
 import type { FieldArrayWithId, UseFormRegister } from "react-hook-form";
-import type { DesignacionCursoFormValues } from "@/shared/utils/types";
+import type { DesignacionCursoFormValues } from "@/shared/types";
 import styles from "../../FranjasHorariasList.module.scss";
 import FranjaHorariaRowCurso from "./FranjaHorariaRowCurso";
 

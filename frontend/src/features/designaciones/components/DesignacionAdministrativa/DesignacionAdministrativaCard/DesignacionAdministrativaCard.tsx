@@ -1,10 +1,10 @@
 import BadgeRolEducativo from "@/shared/components/BadgeRolEducativo";
-import type { DesignacionAdministrativaResumenDTO } from "@/shared/utils/types";
+import type { DesignacionAdministrativaCardDTO } from "@/shared/types";
 import DesignacionCard from "../../DesignacionCard";
 
 type Props = {
-	designacion: DesignacionAdministrativaResumenDTO;
-	onVerDetalle: (designacion: DesignacionAdministrativaResumenDTO) => void;
+	designacion: DesignacionAdministrativaCardDTO;
+	onVerDetalle: (designacion: DesignacionAdministrativaCardDTO) => void;
 };
 
 export default function DesignacionAdministrativaCard({
@@ -14,7 +14,7 @@ export default function DesignacionAdministrativaCard({
 	return (
 		<DesignacionCard
 			designacionId={designacion.id}
-			franjasCount={designacion.franjasHorarias.length}
+			franjasCount={designacion.cantidadFranjasHorarias}
 			cupof={designacion.cupof}
 			estadoDesignacion={designacion.estadoDesignacion}
 			onVerDetalle={() => onVerDetalle(designacion)}

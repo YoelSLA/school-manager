@@ -24,7 +24,7 @@ public class BajaAsignacion {
 	public BajaAsignacion(LocalDate fechaBaja, CausaBaja causa) {
 		if (fechaBaja == null || causa == null) {
 			throw new EstadoInvalidoException(
-					"No se puede dar de baja una asignación en este estado"
+					"No se puede dar de bajaAsignacion una asignación en este estado"
 			);
 		}
 		this.fechaBaja = fechaBaja;

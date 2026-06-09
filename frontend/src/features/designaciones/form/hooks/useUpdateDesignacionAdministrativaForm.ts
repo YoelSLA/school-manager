@@ -4,7 +4,7 @@ import type {
 	DesignacionAdministrativaDetalleDTO,
 	DesignacionAdministrativaFormValues,
 	DesignacionAdministrativaUpdateDTO,
-} from "@/shared/utils/types";
+} from "@/shared/types";
 import { updateDesignacionAdministrativaSchema } from "../schemas/updateDesignacionAdministrativa.schema";
 
 type Props = {

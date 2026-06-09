@@ -13,7 +13,7 @@ public record LicenciaDesignacionCursoDTO(
 		String materia,
 		String curso,
 		String orientacion,
-		AsignacionDetalleDTO asignacionActiva
+		AsignacionDetalleDTO cobertura
 ) implements LicenciaDesignacionDTO {
 
 	@Override

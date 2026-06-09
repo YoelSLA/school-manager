@@ -1,4 +1,4 @@
-import type { AsistenciaDiaDTO, EstadoVisual } from "@/shared/utils/types";
+import type { AsistenciaDiaDTO, EstadoVisual } from "@/shared/types";
 
 // --------------------------------------------------------------------------------------------
 export function getCodigoAsistencia(asistencia?: AsistenciaDiaDTO) {
@@ -10,7 +10,7 @@ export function getCodigoAsistencia(asistencia?: AsistenciaDiaDTO) {
 		return "PRESENTE";
 	}
 
-	return asistencia.tipoLicencia ?? "A";
+	return asistencia.codigoLicencia ?? "A";
 }
 // --------------------------------------------------------------------------------------------
 export function getEstadoVisual(asistencia?: AsistenciaDiaDTO): EstadoVisual {
@@ -34,7 +34,7 @@ export function getCodigoAusencia(asistencia: AsistenciaDiaDTO): string {
 	if (asistencia.origenAsistencia === "LICENCIA") {
 		return asistencia.licencia?.normativa.codigo ?? "SIN_CODIGO";
 	}
-	return asistencia.tipoLicencia ?? "SIN_CODIGO";
+	return asistencia.codigoLicencia ?? "SIN_CODIGO";
 }
 // --------------------------------------------------------------------------------------------
 export function useAsistenciaStats(asistencias: AsistenciaDiaDTO[]) {

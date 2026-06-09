@@ -1,7 +1,7 @@
 import ListPageLayout from "@/app/layouts/ListPageLayout";
 import Pagination from "@/app/layouts/Pagination";
 import SidebarPageLayout from "@/app/layouts/SidebarPageLayout";
-import { useDesignacionesPage } from "../../hooks/useDesignacionesPage";
+import { useDesignacionesPage } from "../../hooks/pages/useDesignacionesPage";
 import DesignacionesContent from "./DesignacionesContent";
 import DesignacionesFilters from "./DesignacionesFilters";
 import DesignacionesHeader from "./DesignacionesHeader";

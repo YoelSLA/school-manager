@@ -386,7 +386,7 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 //		empleadoEducativoService.darDeBajaDefinitiva(mariaLopez.getId(), fechaBaja, CausaBaja.RENUNCIA);
 //
 //		// Assert
-//		// no hay asignacion, no hay nada que dar de baja
+//		// no hay asignacion, no hay nada que dar de bajaAsignacion
 //		assertTrue(mariaLopez.getAsignaciones().isEmpty());
 //	}
 //
@@ -463,10 +463,10 @@ class EmpleadoEducativoServiceTest extends DomainServiceFixtureTest {
 //		empleadoEducativoService.darDeBajaDefinitiva(carlosFernandez.getId(), fechaBaja, CausaBaja.RENUNCIA);
 //
 //		// Assert
-//		// 1️⃣ Titular dado de baja
+//		// 1️⃣ Titular dado de bajaAsignacion
 //		assertEquals(EstadoAsignacion.DADA_DE_BAJA, asignacionTitular.getEstadoEn(fechaBaja));
 //
-//		// 2️⃣ La asignación de suplente original queda dada de baja
+//		// 2️⃣ La asignación de suplente original queda dada de bajaAsignacion
 //		assertEquals(EstadoAsignacion.DADA_DE_BAJA, asignacionSuplente.getEstadoEn(fechaBaja));
 //
 //		// 3️⃣ Existe una nueva asignación PROVISIONAL

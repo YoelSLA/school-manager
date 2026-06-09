@@ -1,8 +1,8 @@
 import type { UseFormRegister } from "react-hook-form";
 import FormSelectField from "@/components/FormSelectField/FormSelectField";
 import { ROL_EDUCATIVO_LABELS } from "@/features/designaciones/utils/designacion.utils";
-import type { DesignacionAdministrativaFormValues } from "@/shared/utils/types";
-import { RolEducativo } from "@/shared/utils/types/enums";
+import type { DesignacionAdministrativaFormValues } from "@/shared/types";
+import { RolEducativo } from "@/shared/types/enums";
 
 type Props = {
 	register: UseFormRegister<DesignacionAdministrativaFormValues>;

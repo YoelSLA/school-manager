@@ -11,7 +11,7 @@ public class EmpleadoEnLicenciaException extends GestionEscolarException {
 
 	public EmpleadoEnLicenciaException(Long empleadoId, LocalDate fecha) {
 		super(
-				"El empleado " + empleadoId +
+				"El empleadoEducativoBasico " + empleadoId +
 						" se encuentra de licencia en la fecha " + fecha
 		);
 		this.empleadoId = empleadoId;

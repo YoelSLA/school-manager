@@ -1,5 +1,5 @@
 import Button from "@/components/Button";
-import type { CursoFiltersState } from "@/shared/utils/types";
+import type { CursoFiltersState } from "@/shared/types";
 import DesignacionCursoFilters from "../../components/DesignacionCurso/DesignacionCursoFilters";
 import styles from "./DesignacionesPage.module.scss";
 

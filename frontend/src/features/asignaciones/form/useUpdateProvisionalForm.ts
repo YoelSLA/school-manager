@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import type { CubrirProvisionalDTO } from "@/shared/utils/types";
+import type { CubrirProvisionalDTO } from "@/shared/types";
 import { updateProvisionalSchema } from "./updateProvisional.schema";
 
 type Props = {

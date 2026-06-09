@@ -47,7 +47,7 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 		if (empleadoEducativoRepository.existsByCuilAndEscuelaId(empleado.getCuil(), escuelaId)) {
 			throw new RecursoDuplicadoException(
 					String.format(
-							"Ya existe un empleado con CUIL '%s' en la escuela %s",
+							"Ya existe un empleadoEducativoBasico con CUIL '%s' en la escuela %s",
 							empleado.getCuil(),
 							escuela.getNombre()
 					)
@@ -57,7 +57,7 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 		if (empleadoEducativoRepository.existsByEmailAndEscuelaId(empleado.getEmail(), escuelaId)) {
 			throw new RecursoDuplicadoException(
 					String.format(
-							"Ya existe un empleado con email '%s' en la escuela %s",
+							"Ya existe un empleadoEducativoBasico con email '%s' en la escuela %s",
 							empleado.getEmail(),
 							escuela.getNombre()
 					)
@@ -80,7 +80,7 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 	@Override
 	public EmpleadoEducativo obtenerPorId(Long id) {
 		return empleadoEducativoRepository.findById(id)
-				.orElseThrow(() -> new RecursoNoEncontradoException("empleado educativo", id));
+				.orElseThrow(() -> new RecursoNoEncontradoException("empleadoEducativoBasico educativo", id));
 	}
 
 	@Override
@@ -210,7 +210,7 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 		)) {
 			throw new RecursoDuplicadoException(
 					String.format(
-							"Ya existe un empleado con CUIL '%s' en la escuela '%s'.",
+							"Ya existe un empleadoEducativoBasico con CUIL '%s' en la escuela '%s'.",
 							empleado.getCuil(),
 							escuela.getNombre()
 					)
@@ -224,7 +224,7 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 		)) {
 			throw new RecursoDuplicadoException(
 					String.format(
-							"Ya existe un empleado con email '%s' en la escuela '%s'.",
+							"Ya existe un empleadoEducativoBasico con email '%s' en la escuela '%s'.",
 							empleado.getEmail(),
 							escuela.getNombre()
 					)

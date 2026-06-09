@@ -1,9 +1,9 @@
 import Breadcrumbs from "@/app/layouts/Breadcrumbs";
 import PageLayout from "@/app/layouts/PageLayout/PageLayout";
 import ErrorModal from "@/components/ModalError";
-import DesignacionAdministrativaForm from "../../components/DesignacionAdministrativa/DesignacionAdministrativaForm";
-import DesignacionCursoForm from "../../components/DesignacionCurso/DesignacionCursoForm";
-import { useDesignacionCreatePage } from "../../hooks/useDesignacionCreatePage";
+import DesignacionAdministrativaForm from "../../components/DesignacionAdministrativa/DesignacionAdministrativaCreateForm";
+import DesignacionCursoForm from "../../components/DesignacionCurso/DesignacionCursoCreateForm";
+import { useDesignacionCreatePage } from "../../hooks/pages/useDesignacionCreatePage";
 import styles from "./DesignacionCreatePage.module.scss";
 import DesignacionTabs from "./DesignacionTabs/DesignacionTabs";
 

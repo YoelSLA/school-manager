@@ -41,7 +41,6 @@ public class LicenciaControllerREST {
 		);
 
 	}
-
 	@PutMapping("/{licenciaId}/coberturas/{designacionId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void cambiarCobertura(
@@ -49,6 +48,7 @@ public class LicenciaControllerREST {
 			@PathVariable Long designacionId,
 			@RequestBody @Valid CambiarCoberturaDTO dto
 	) {
+
 		designacionService.cambiarCobertura(
 				licenciaId,
 				designacionId,
@@ -85,14 +85,30 @@ public class LicenciaControllerREST {
 		return LicenciaMapper.toDetalle(licencia);
 	}
 
+//	@GetMapping("/{licenciaId}/designaciones-afectadas")
+//	public List<LicenciaDesignacionDTO> obtenerDesignacionesAfectadas(
+//			@PathVariable Long licenciaId
+//	) {
+//
+//		Licencia licencia = licenciaService.obtenerPorId(licenciaId);
+//
+//		return licenciaService.obtenerDesignacionesAfectadas(licenciaId)
+//				.stream()
+//				.map(d -> LicenciaMapper.toDesignacionDTO(
+//						d, licencia.getPeriodo()))
+//				.toList();
+//	}
+
 	@GetMapping("/{licenciaId}/designaciones-afectadas")
 	public List<LicenciaDesignacionDTO> obtenerDesignacionesAfectadas(
 			@PathVariable Long licenciaId
 	) {
 
+		Licencia licencia = licenciaService.obtenerPorId(licenciaId);
+
 		return licenciaService.obtenerDesignacionesAfectadas(licenciaId)
 				.stream()
-				.map(LicenciaMapper::toDesignacionDTO)
+				.map(d -> LicenciaMapper.toDesignacionDTO(d, licencia.getPeriodo()))
 				.toList();
 	}
 

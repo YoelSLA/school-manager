@@ -1,5 +1,5 @@
 import { BookOpen, Compass, GraduationCap } from "lucide-react";
-import type { DesignacionDetalleDTO } from "@/shared/utils/types";
+import type { DesignacionDetalleDTO } from "@/shared/types";
 import styles from "./DesignacionDatos.module.scss";
 
 type Props = {
@@ -28,13 +28,13 @@ export default function DesignacionDatos({ designacion }: Props) {
 							<div className={styles.badge}>
 								<BookOpen size={16} />
 
-								<span>{designacion.materia}</span>
+								<span>{designacion.materia.nombre}</span>
 							</div>
 
 							<div className={styles.badge}>
 								<GraduationCap size={16} />
 
-								<span>{designacion.curso}</span>
+								<span>{designacion.curso.division}</span>
 							</div>
 
 							<div className={styles.badge}>

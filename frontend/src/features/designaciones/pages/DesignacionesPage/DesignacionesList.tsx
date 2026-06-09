@@ -1,25 +1,25 @@
 import GridListState from "@/app/layouts/GridListState";
 import type {
-	DesignacionAdministrativaResumenDTO,
-	DesignacionCursoResumenDTO,
-} from "@/shared/utils/types";
+	DesignacionAdministrativaCardDTO,
+	DesignacionCursoCardDTO,
+} from "@/shared/types";
 import DesignacionAdministrativaCard from "../../components/DesignacionAdministrativa/DesignacionAdministrativaCard";
 import DesignacionCursoCard from "../../components/DesignacionCurso/DesignacionCursoCard";
 
 type Props =
 	| {
-			designaciones: DesignacionAdministrativaResumenDTO[];
+			designaciones: DesignacionAdministrativaCardDTO[];
 			filtro: "ADMIN";
 			isLoading: boolean;
 			isError: boolean;
-			onVerDetalle: (d: DesignacionAdministrativaResumenDTO) => void;
+			onVerDetalle: (d: DesignacionAdministrativaCardDTO) => void;
 	  }
 	| {
-			designaciones: DesignacionCursoResumenDTO[];
+			designaciones: DesignacionCursoCardDTO[];
 			filtro: "CURSO";
 			isLoading: boolean;
 			isError: boolean;
-			onVerDetalle: (d: DesignacionCursoResumenDTO) => void;
+			onVerDetalle: (d: DesignacionCursoCardDTO) => void;
 	  };
 
 export default function DesignacionesList(props: Props) {

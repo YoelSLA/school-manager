@@ -1,12 +1,12 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.request.AsignacionProvisionalCreateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.request.AsignacionTitularCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.request.AsignacionUpdateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response.AsignacionDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.CubrirProvisionalDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.CubrirTitularDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionAdministrativaUpdateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionCursoUpdateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionAdministrativaDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionCursoDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionDetalleDTO.DesignacionDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.AsignacionMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.DesignacionMapper;
 import com.gestion.escuela.gestion_escolar.models.FranjaHoraria;
@@ -37,13 +37,12 @@ public class DesignacionControllerREST {
 	@ResponseStatus(HttpStatus.CREATED)
 	public AsignacionDetalleDTO cubrirConTitular(
 			@PathVariable Long designacionId,
-			@Valid @RequestBody CubrirTitularDTO dto
+			@Valid @RequestBody AsignacionTitularCreateDTO dto
 	) {
 		Asignacion asignacion = designacionService.cubrirConTitular(
 				designacionId,
 				dto.empleadoId(),
 				dto.fechaTomaPosesion(),
-				dto.caracteristica(),
 				dto.secuencia()
 		);
 
@@ -54,7 +53,7 @@ public class DesignacionControllerREST {
 	@ResponseStatus(HttpStatus.CREATED)
 	public AsignacionDetalleDTO cubrirConProvisional(
 			@PathVariable Long designacionId,
-			@Valid @RequestBody CubrirProvisionalDTO dto
+			@Valid @RequestBody AsignacionProvisionalCreateDTO dto
 	) {
 		Asignacion asignacion = designacionService.cubrirConProvisional(
 				designacionId,
@@ -105,7 +104,7 @@ public class DesignacionControllerREST {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void actualizarDesignacionCurso(
 			@PathVariable Long designacionId,
-			@Valid @RequestBody DesignacionCursoUpdateDTO dto
+			@Valid @RequestBody DesignacionCursoDTO dto
 	) {
 
 		Set<FranjaHoraria> franjas = dto.franjasHorarias()
@@ -131,7 +130,7 @@ public class DesignacionControllerREST {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void actualizarDesignacionAdministrativa(
 			@PathVariable Long designacionId,
-			@Valid @RequestBody DesignacionAdministrativaUpdateDTO dto
+			@Valid @RequestBody DesignacionAdministrativaDTO dto
 	) {
 
 		Set<FranjaHoraria> franjas = dto.franjasHorarias()

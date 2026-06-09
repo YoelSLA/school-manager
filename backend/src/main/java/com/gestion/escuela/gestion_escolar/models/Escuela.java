@@ -64,13 +64,6 @@ public class Escuela {
 		inicializarColecciones();
 	}
 
-	private void inicializarColecciones() {
-		this.empleadosEducativos = new ArrayList<>();
-		this.designaciones = new ArrayList<>();
-		this.materias = new ArrayList<>();
-		this.cursos = new ArrayList<>();
-	}
-
 	/* ==========================
 	   RELACIONES
 	   ========================== */
@@ -92,7 +85,7 @@ public class Escuela {
 
 	public void agregarEmpleado(EmpleadoEducativo empleado) {
 		if (empleado == null) {
-			throw new IllegalArgumentException("El empleado no puede ser null");
+			throw new IllegalArgumentException("El empleadoEducativoBasico no puede ser null");
 		}
 		empleado.setEscuela(this);
 		this.empleadosEducativos.add(empleado);
@@ -145,5 +138,13 @@ public class Escuela {
 	public void desactivar() {
 		this.activa = false;
 	}
+
+	private void inicializarColecciones() {
+		this.empleadosEducativos = new ArrayList<>();
+		this.designaciones = new ArrayList<>();
+		this.materias = new ArrayList<>();
+		this.cursos = new ArrayList<>();
+	}
+
 }
 

@@ -1,6 +1,6 @@
 import formatEnumLabel from "@/features/asignaciones/utils/asignaciones.utils";
 import BadgeEstadoAsignacion from "@/shared/components/BagdeEstadoAsignacion";
-import type { AsignacionAdministrativaEmpleadoEducativoRowDTO } from "@/shared/utils/types";
+import type { AsignacionAdministrativaEmpleadoEducativoRowDTO } from "@/shared/types";
 import AsignacionRowFooter from "../../AsignacionRowFooter/AsignacionRowFooter";
 import AsignacionRowLayout from "../../AsignacionRowLayout";
 

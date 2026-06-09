@@ -1,9 +1,4 @@
-export interface TipoLicencia {
-	enumValue: string;
-	articulo: string;
-	codigo: string;
-	descripcion: string;
-}
+import type { TipoLicencia } from "@/shared/types";
 
 export const TIPOS_LICENCIA: TipoLicencia[] = [
 	/* ===============================
@@ -343,5 +338,30 @@ export const TIPOS_LICENCIA: TipoLicencia[] = [
 		articulo: "Artículo 49",
 		codigo: "10430RT",
 		descripcion: "Licencia para personal auxiliar.",
+	},
+	{
+		enumValue: "L_ART",
+		articulo: null,
+		codigo: "ART",
+		descripcion:
+			"Licencia por cobertura de accidentes laborales o enfermedades profesionales.",
+	},
+	{
+		enumValue: "L_ARTICULO_139",
+		articulo: "Artículo 139",
+		codigo: "Articulo139",
+		descripcion: "Licencia por separación preventiva del cargo.",
+	},
+	{
+		enumValue: "L_114A28",
+		articulo: "Artículo 114",
+		codigo: "114A28",
+		descripcion: "Licencia por enfermedad crónica.",
+	},
+	{
+		enumValue: "L_B21",
+		articulo: "Artículo 114",
+		codigo: "B21",
+		descripcion: "Licencia por enfermedad preexistente.",
 	},
 ];

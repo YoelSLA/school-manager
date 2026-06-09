@@ -1,6 +1,6 @@
 import { ShieldCheck, X } from "lucide-react";
 
-import type { LicenciaDetalleDTO } from "@/shared/utils/types";
+import type { LicenciaDetalleDTO } from "@/shared/types";
 
 import EmpleadoLicenciaCard from "./EmpleadoLicenciaCard";
 

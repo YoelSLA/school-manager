@@ -1,7 +1,7 @@
 import Button from "@/components/Button";
 import FilterPillGroup from "@/components/FilterPillGroup/FilterPillGroup";
 import { FILTROS_CARGOS } from "@/features/asignaciones/utils/asignaciones.utils";
-import type { FiltroCargos } from "@/shared/utils/types";
+import type { FiltroCargos } from "@/shared/types";
 import styles from "./DesignacionCargosHistorialHeader.module.scss";
 
 type Props = {

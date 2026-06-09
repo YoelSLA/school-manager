@@ -3,7 +3,7 @@ import type { FieldErrors, UseFormRegister } from "react-hook-form";
 import FormInputFieldRHF from "@/components/FormInputField";
 import FormSection from "@/components/FormSection";
 import styles from "@/components/FormSection/FormSection.module.scss";
-import type { EmpleadoEducativoCreateDTO } from "@/shared/utils/types";
+import type { EmpleadoEducativoCreateDTO } from "@/shared/types";
 
 type Props = {
 	register: UseFormRegister<EmpleadoEducativoCreateDTO>;

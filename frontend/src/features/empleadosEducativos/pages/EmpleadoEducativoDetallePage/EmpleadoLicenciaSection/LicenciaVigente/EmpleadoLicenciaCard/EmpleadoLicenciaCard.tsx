@@ -1,7 +1,7 @@
 import BadgeEstadoLicencia from "@/shared/components/BagdeEstadoLicencia";
 import PeriodoDisplay from "@/shared/components/PeriodoDisplay";
 
-import type { LicenciaDetalleDTO } from "@/shared/utils/types";
+import type { LicenciaDetalleDTO } from "@/shared/types";
 
 import styles from "./EmpleadoLicenciaCard.module.scss";
 

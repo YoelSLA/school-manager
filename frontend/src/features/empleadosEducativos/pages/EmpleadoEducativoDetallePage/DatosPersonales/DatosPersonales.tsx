@@ -1,8 +1,6 @@
 import { Calendar, IdCard, LocationEdit, Mail, Phone } from "lucide-react";
-
+import type { EmpleadoEducativoDetalleDTO } from "@/shared/types";
 import { formatearFecha } from "@/shared/utils";
-
-import type { EmpleadoEducativoDetalleDTO } from "@/shared/utils/types";
 
 import DatoPersonalItem from "./DatoPersonalItem";
 
@@ -13,7 +11,6 @@ type Props = {
 };
 
 export default function DatosPersonales({ empleado }: Props) {
-
 	const DATOS = [
 		{
 			icon: IdCard,

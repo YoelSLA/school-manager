@@ -57,7 +57,7 @@ public class Asistencia extends AuditableEntity {
 			String observacion
 	) {
 
-		Validaciones.noNulo(empleadoEducativo, "empleado educativo");
+		Validaciones.noNulo(empleadoEducativo, "empleadoEducativoBasico educativo");
 		Validaciones.noNulo(fecha, "fecha");
 		Validaciones.noNulo(estadoAsistencia, "estado asistencia");
 

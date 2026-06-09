@@ -1,0 +1,63 @@
+ALTER TABLE asistencia
+DROP CONSTRAINT IF EXISTS asistencia_tipo_licencia_check;
+
+ALTER TABLE asistencia
+    ADD CONSTRAINT asistencia_tipo_licencia_check
+        CHECK (
+            tipo_licencia IS NULL
+                OR tipo_licencia IN (
+                                     'L_A1',
+                                     'L_A2',
+                                     'L_A22',
+                                     'L_A2211',
+                                     'L_B1',
+                                     'L_B2',
+                                     'L_114C',
+                                     'L_114D',
+                                     'L_114E',
+                                     'L_114F1',
+                                     'L_114F2',
+                                     'L_114F3',
+                                     'L_114F4',
+                                     'L_114G',
+                                     'L_114H1',
+                                     'L_114I',
+                                     'L_114J',
+                                     'L_114K',
+                                     'L_114L',
+                                     'L_114LL11',
+                                     'L_114LL12',
+                                     'L_114LL13',
+                                     'L_114LL14',
+                                     'L_114LL15',
+                                     'L_114LL2',
+                                     'L_114LL3',
+                                     'L_114M',
+                                     'L_114M11',
+                                     'L_114M12',
+                                     'L_114N',
+                                     'L_114N1',
+                                     'L_114O1',
+                                     'L_114O2',
+                                     'L_114O3',
+                                     'L_114O4',
+                                     'L_114O5',
+                                     'L_115A1',
+                                     'L_115A2',
+                                     'L_115B1',
+                                     'L_115B2',
+                                     'L_115B3',
+                                     'L_115B4',
+                                     'L_115C',
+                                     'L_115D1',
+                                     'L_115E1',
+                                     'L_115E2',
+                                     'L_115E3',
+                                     'L_ART',
+                                     'L_10579RT',
+                                     'L_10430RT',
+                                     'L_ARTICULO_139',
+                                     'L_114A28',
+                                     'L_B21'
+                )
+            );

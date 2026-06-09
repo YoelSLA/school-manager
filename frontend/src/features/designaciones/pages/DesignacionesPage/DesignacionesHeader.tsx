@@ -1,7 +1,7 @@
 import Sidebar from "@/app/layouts/Sidebar";
 import FilterPillGroup from "@/components/FilterPillGroup";
+import type { DesignacionFiltro } from "@/shared/types";
 import { FILTROS_DESIGNACIONES } from "@/shared/utils";
-import type { DesignacionFiltro } from "@/shared/utils/types";
 import type { useDesignacionesNavigation } from "../../hooks/useDesignacionesNavigation";
 
 type Props = {

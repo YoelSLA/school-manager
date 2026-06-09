@@ -151,7 +151,7 @@ class AsignacionProvisionalTest {
 		}
 
 		@Test
-		@DisplayName("Debe estar en LICENCIA si el empleado está en licencia")
+		@DisplayName("Debe estar en LICENCIA si el empleadoEducativoBasico está en licencia")
 		void estaEnLicencia() {
 			when(empleado.estaEnLicenciaPara(any(), any())).thenReturn(true);
 
@@ -173,7 +173,7 @@ class AsignacionProvisionalTest {
 		}
 
 		@Test
-		@DisplayName("No debe estar en BAJA si la fecha es anterior a la baja")
+		@DisplayName("No debe estar en BAJA si la fecha es anterior a la bajaAsignacion")
 		void noEstaEnBajaSiFechaAnteriorALaBaja() {
 
 			LocalDate fechaBaja = LocalDate.of(2025, 3, 15);
@@ -244,7 +244,7 @@ class AsignacionProvisionalTest {
 		}
 
 		@Test
-		@DisplayName("No está dada de baja si la fecha es anterior a la baja")
+		@DisplayName("No está dada de bajaAsignacion si la fecha es anterior a la bajaAsignacion")
 		void noEstaDadaDeBajaSiFechaAnterior() {
 
 			LocalDate fechaBaja = LocalDate.of(2025, 3, 15);
@@ -260,7 +260,7 @@ class AsignacionProvisionalTest {
 		}
 
 		@Test
-		@DisplayName("getFechaBaja debe devolver fecha cuando hay baja")
+		@DisplayName("getFechaBaja debe devolver fecha cuando hay bajaAsignacion")
 		void fechaBajaConValor() {
 
 			LocalDate fecha = LocalDate.of(2025, 3, 15);
@@ -274,7 +274,7 @@ class AsignacionProvisionalTest {
 		}
 
 		@Test
-		@DisplayName("getCausaBaja debe devolver causa cuando hay baja")
+		@DisplayName("getCausaBaja debe devolver causa cuando hay bajaAsignacion")
 		void causaBajaConValor() {
 
 			LocalDate fecha = LocalDate.of(2025, 3, 15);
@@ -372,7 +372,7 @@ class AsignacionProvisionalTest {
 		}
 
 		@Test
-		@DisplayName("No cubre designación si está dada de baja")
+		@DisplayName("No cubre designación si está dada de bajaAsignacion")
 		void noCubreSiEstaDadaDeBaja() {
 
 			LocalDate fechaBaja = LocalDate.of(2025, 3, 15);
@@ -386,13 +386,13 @@ class AsignacionProvisionalTest {
 
 			assertFalse(
 					asignacion.estaActivaEn(
-							LocalDate.of(2025, 3, 20) // después de la baja
+							LocalDate.of(2025, 3, 20) // después de la bajaAsignacion
 					)
 			);
 		}
 
 		@Test
-		@DisplayName("No genera vacante si está dada de baja")
+		@DisplayName("No genera vacante si está dada de bajaAsignacion")
 		void noGeneraVacanteSiEstaDadaDeBaja() {
 
 			LocalDate fechaBaja = LocalDate.of(2025, 3, 15);

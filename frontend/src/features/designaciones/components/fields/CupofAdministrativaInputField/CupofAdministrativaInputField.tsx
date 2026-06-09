@@ -1,6 +1,6 @@
 import type { UseFormRegister } from "react-hook-form";
 import FormInputField from "@/components/FormInputField";
-import type { DesignacionAdministrativaFormValues } from "@/shared/utils/types";
+import type { DesignacionAdministrativaFormValues } from "@/shared/types";
 
 type Props = {
 	register: UseFormRegister<DesignacionAdministrativaFormValues>;

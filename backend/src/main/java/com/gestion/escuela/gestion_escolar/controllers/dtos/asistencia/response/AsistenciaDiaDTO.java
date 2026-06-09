@@ -14,7 +14,7 @@ public record AsistenciaDiaDTO(
 		// PRESENTE | AUSENTE
 		OrigenAsistencia origenAsistencia,
 		// MANUAL | LICENCIA | null si PRESENTE
-		String tipoLicencia,
+		String codigoLicencia,
 		// solo si aplica
 		LicenciaResumenDTO licencia
 		// solo si aplica

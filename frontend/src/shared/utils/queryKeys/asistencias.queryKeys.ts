@@ -1,4 +1,4 @@
-import type { RolEducativo } from "../types";
+import type { RolEducativo } from "../../types";
 
 export const asistenciasQueryKeys = {
 	all: ["asistencias"] as const,

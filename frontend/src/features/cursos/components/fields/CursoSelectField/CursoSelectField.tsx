@@ -2,15 +2,15 @@ import { useMemo } from "react";
 import type { UseFormRegister } from "react-hook-form";
 import FormSelectField from "@/components/FormSelectField/FormSelectField";
 import { ordenarCursos } from "@/features/cursos/utils/cursos.utils";
-import { TURNO_LABELS } from "@/shared/utils/enumLabels";
 import type {
-	CursoResponseDTO,
+	CursoDetalleDTO,
 	DesignacionCursoFormValues,
-} from "@/shared/utils/types";
+} from "@/shared/types";
+import { TURNO_LABELS } from "@/shared/utils/enumLabels";
 
 type Props = {
 	register: UseFormRegister<DesignacionCursoFormValues>;
-	cursos: CursoResponseDTO[];
+	cursos: CursoDetalleDTO[];
 	isLoading?: boolean;
 	error?: string;
 };

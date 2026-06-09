@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
 import { useAsistenciaStats } from "@/features/asistencias/utils";
-import type { AsistenciaDiaDTO } from "@/shared/utils/types";
+import type { AsistenciaDiaDTO } from "@/shared/types";
 
 import AsistenciaProgress from "./AsistenciaProgress";
 import styles from "./AsistenciaStats.module.scss";

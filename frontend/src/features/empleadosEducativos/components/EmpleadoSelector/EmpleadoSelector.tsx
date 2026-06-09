@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { EmpleadoEducativoBasicoDTO } from "@/shared/utils/types";
+import type { EmpleadoEducativoBasicoDTO } from "@/shared/types";
 import EmpleadoAutocompleteBase from "./EmpleadoAutocompleteBase";
 import EmpleadoSelectedCard from "./EmpleadoSelectedCard";
 import styles from "./EmpleadoSelector.module.scss";

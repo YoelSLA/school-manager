@@ -5,7 +5,7 @@ import PageLayout from "@/app/layouts/PageLayout";
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
 import Button from "@/components/Button";
-import type { EmpleadoEducativoUpdateDTO } from "@/shared/utils/types";
+import type { EmpleadoEducativoUpdateDTO } from "@/shared/types";
 import EmpleadoEducativoUpdateForm from "../../components/EmpleadoEducativoUpdateForm";
 import { useEmpleadoEducativoEditForm } from "../../form/hooks/useEmpleadoEducativoEditForm";
 import { useEditarEmpleadoEducativo } from "../../hooks/useEditarEmpleadoEducativo";

@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import type { Tab } from "@/shared/utils/types";
+import type { Tab } from "@/shared/types";
 import styles from "./AsignacionesTabs.module.scss";
 
 type Props = {

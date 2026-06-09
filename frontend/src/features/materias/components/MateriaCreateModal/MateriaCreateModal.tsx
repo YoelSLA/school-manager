@@ -1,10 +1,7 @@
 import FormInputField from "@/components/FormInputField";
 import FormSection from "@/components/FormSection";
 import Modal from "@/components/Modal/Modal";
-import type {
-	MateriaCreateDTO,
-	MateriaCreateFormValues,
-} from "@/shared/utils/types";
+import type { MateriaCreateDTO, MateriaCreateFormValues } from "@/shared/types";
 import { useCreateMateriaForm } from "../../form/hooks/useCreateMateriaForm";
 
 type Props = {

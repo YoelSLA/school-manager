@@ -1,10 +1,10 @@
 import { Edit, Trash2 } from "lucide-react";
 import { Card } from "@/components/Card";
-import type { MateriaResponseDTO } from "@/shared/utils/types";
+import type { MateriaDetalleDTO } from "@/shared/types";
 import styles from "./MateriaCard.module.scss";
 
 type Props = {
-	materia: MateriaResponseDTO;
+	materia: MateriaDetalleDTO;
 	onEdit?: () => void;
 	onDelete?: () => void;
 };

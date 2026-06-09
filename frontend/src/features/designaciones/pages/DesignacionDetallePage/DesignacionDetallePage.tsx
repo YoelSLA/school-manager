@@ -2,7 +2,7 @@ import Breadcrumbs from "@/app/layouts/Breadcrumbs";
 import PageLayout from "@/app/layouts/PageLayout/PageLayout";
 import DesignacionDetalleActions from "../../components/DesignacionDetalleActions";
 import DesignacionDetalleModals from "../../components/DesignacionDetalleModals/DesignacionDetalleModals";
-import { useDesignacionDetallePage } from "../../hooks/useDesignacionDetallePage";
+import { useDesignacionDetallePage } from "../../hooks/pages/useDesignacionDetallePage";
 import DesignacionCargoActivo from "./DesignacionaAsignacionActiva/DesignacionAsignacionActiva";
 import DesignacionCargosHistorial from "./DesignacionCargosHistorial/DesignacionCargosHistorial";
 import DesignacionDatos from "./DesignacionDatos/DesignacionDatos";

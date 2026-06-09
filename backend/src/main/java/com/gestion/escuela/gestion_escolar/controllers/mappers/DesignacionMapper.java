@@ -1,13 +1,20 @@
 package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
 import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response.AsignacionDetalleDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionAdministrativaCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionCursoCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.*;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionAdministrativaDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionCursoDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionAdministrativaCardDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionCursoCardDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionAsignacionDTO.DesignacionAdministrativaAsignacionDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionAsignacionDTO.DesignacionAsignacionDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionAsignacionDTO.DesignacionCursoAsignacionDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionDetalleDTO.DesignacionAdministrativaDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionDetalleDTO.DesignacionCursoDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionDetalleDTO.DesignacionDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionLicenciaItemDTO.DesignacionLicenciaAdministrativaDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionLicenciaItemDTO.DesignacionLicenciaCursoDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionLicenciaItemDTO.DesignacionLicenciaDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.franjaHoraria.response.FranjaHorariaMinimoDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.response.DesignacionLicenciaAdministrativaItemDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.response.DesignacionLicenciaCursoItemDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.response.DesignacionLicenciaItemDTO;
 import com.gestion.escuela.gestion_escolar.models.Curso;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.Materia;
@@ -30,83 +37,86 @@ public class DesignacionMapper {
 	// ---------------------------
 
 	public static DesignacionDetalleDTO toDetalle(Designacion d) {
+		if (d instanceof DesignacionAdministrativa da) {
+			return toDetalle(da);
+		}
 
 		if (d instanceof DesignacionCurso dc) {
-			return new DesignacionCursoDetalleDTO(
-					dc.getId(),
-					dc.getCupof(),
-					dc.getEstadoEn(HOY),
-					dc.getRolEducativo(),
-					dc.getMateria().getNombre(),
-					dc.getCurso().anioDivision(),
-					dc.getOrientacion(),
-					franjas(d),
-					asignaciones(d),
-					"CURSO"
-			);
+			return toDetalle(dc);
 		}
 
-		if (d instanceof DesignacionAdministrativa da) {
-			return new DesignacionAdministrativaDetalleDTO(
-					da.getId(),
-					da.getCupof(),
-					da.getEstadoEn(HOY),
-					da.getRolEducativo(),
-					asignaciones(da),
-					franjas(da),
-					"ADMINISTRATIVA"
-			);
-		}
-
-		throw new IllegalStateException("Tipo de designación no soportado");
+		throw new IllegalStateException();
 	}
 
-	public static DesignacionLicenciaItemDTO toLicenciaItem(Designacion d) {
+	public static DesignacionAdministrativaDetalleDTO toDetalle(DesignacionAdministrativa d) {
+			return new DesignacionAdministrativaDetalleDTO(
+					d.getId(),
+					d.getCupof(),
+					d.getEstadoEn(HOY),
+					d.getRolEducativo(),
+					asignaciones(d),
+					franjas(d)
+			);
+	}
+
+	public static DesignacionCursoDetalleDTO toDetalle(DesignacionCurso d) {
+			return new DesignacionCursoDetalleDTO(
+					d.getId(),
+					d.getCupof(),
+					d.getEstadoEn(HOY),
+					d.getRolEducativo(),
+					asignaciones(d),
+					franjas(d),
+					CursoMapper.toResponse(d.getCurso()),
+					MateriaMapper.toResponse(d.getMateria()),
+					d.getOrientacion()
+			);
+	}
+
+	public static DesignacionLicenciaDTO toLicenciaItem(Designacion d) {
 		if (d instanceof DesignacionAdministrativa adm) {
-			return new DesignacionLicenciaAdministrativaItemDTO(
+			return new DesignacionLicenciaAdministrativaDTO(
 					adm.getId(),
 					adm.getCupof(),
-					adm.getRolEducativo().name(),
-					"ADMINISTRATIVA"
+					adm.getRolEducativo().name()
 			);
 		}
 
 		if (d instanceof DesignacionCurso curso) {
-			return new DesignacionLicenciaCursoItemDTO(
+			return new DesignacionLicenciaCursoDTO(
 					curso.getId(),
 					curso.getCupof(),
 					curso.getRolEducativo().name(),
-					MateriaMapper.toNombreDTO(curso.getMateria()),
+					MateriaMapper.toResponse(curso.getMateria()),
 					CursoMapper.toResponse(curso.getCurso()),
-					curso.getOrientacion(),
-					"CURSO"
+					curso.getOrientacion()
 			);
 		}
 
 		throw new IllegalStateException("Tipo de designación no soportado");
 	}
 
-	public static DesignacionAdministrativaResumenDTO toResumen(DesignacionAdministrativa d) {
+	public static DesignacionAdministrativaCardDTO toResumen(DesignacionAdministrativa d) {
 		final LocalDate hoy = LocalDate.now();
-		return new DesignacionAdministrativaResumenDTO(
+		return new DesignacionAdministrativaCardDTO(
 				d.getId(),
 				d.getCupof(),
+				d.getFranjasHorarias().size(),
 				d.getEstadoEn(hoy),
-				d.getRolEducativo(),
-				franjas(d)
+				d.getRolEducativo()
 		);
 	}
 
-	public static DesignacionCursoResumenDTO toResumen(DesignacionCurso d) {
-		return new DesignacionCursoResumenDTO(
+	public static DesignacionCursoCardDTO toResumen(DesignacionCurso d) {
+		return new DesignacionCursoCardDTO(
 				d.getId(),
 				d.getCupof(),
+				d.getFranjasHorarias().size(),
 				d.getEstadoEn(HOY),
 				d.getRolEducativo(),
 				d.getMateria().getNombre(),
 				d.getCurso().anioDivision(),
-				d.getOrientacion(),
-				franjas(d)
+				d.getOrientacion()
 		);
 	}
 
@@ -114,7 +124,7 @@ public class DesignacionMapper {
 	// Entity builders
 	// ---------------------------
 
-	public static DesignacionAdministrativa toEntity(DesignacionAdministrativaCreateDTO dto, Escuela e) {
+	public static DesignacionAdministrativa toEntity(DesignacionAdministrativaDTO dto, Escuela e) {
 		DesignacionAdministrativa d = new DesignacionAdministrativa(e, dto.cupof(), dto.rolEducativo());
 
 		dto.franjasHorarias().forEach(f -> d.agregarFranjaHoraria(FranjaHorariaMapper.toEntity(f)));
@@ -123,7 +133,7 @@ public class DesignacionMapper {
 	}
 
 	public static DesignacionCurso toEntity(
-			DesignacionCursoCreateDTO dto,
+			DesignacionCursoDTO dto,
 			Escuela escuela,
 			Curso curso,
 			Materia materia,
@@ -156,6 +166,34 @@ public class DesignacionMapper {
 		return d.getFranjasHorarias().stream()
 				.map(FranjaHorariaMapper::toMinimo)
 				.toList();
+	}
+
+	public static DesignacionAsignacionDTO toDesignacionDTO(Designacion d) {
+
+		if (d instanceof DesignacionCurso curso) {
+			return new DesignacionCursoAsignacionDTO(
+					curso.getId(),
+					curso.getCupof(),
+					curso.getEstadoEn(HOY),
+					curso.getMateria().getNombre(),
+					curso.getCurso().toString(),
+					curso.getOrientacion()
+			);
+		}
+
+		if (d instanceof DesignacionAdministrativa administrativa) {
+			return new DesignacionAdministrativaAsignacionDTO(
+					administrativa.getId(),
+					administrativa.getCupof(),
+					administrativa.getEstadoEn(HOY),
+					administrativa.getRolEducativo()
+			);
+		}
+
+		throw new IllegalArgumentException(
+				"Tipo de designación no soportado: "
+						+ d.getClass().getSimpleName()
+		);
 	}
 
 

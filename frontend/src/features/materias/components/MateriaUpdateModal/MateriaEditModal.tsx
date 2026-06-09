@@ -2,10 +2,7 @@ import FormInputField from "@/components/FormInputField";
 import FormSection from "@/components/FormSection";
 import Modal from "@/components/Modal/Modal";
 import { useUpdateMateriaForm } from "@/features/materias/form/hooks/useUpdateMateriaForm";
-import type {
-	MateriaUpdateDTO,
-	MateriaUpdateFormValues,
-} from "@/shared/utils/types";
+import type { MateriaUpdateDTO, MateriaUpdateFormValues } from "@/shared/types";
 
 type Props = {
 	materia: MateriaUpdateDTO;

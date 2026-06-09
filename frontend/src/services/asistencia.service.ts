@@ -8,7 +8,7 @@ import type {
 	RegistrarInasistenciasManualDTO,
 	RolCountDTO,
 	RolEducativo,
-} from "@/shared/utils/types";
+} from "@/shared/types";
 
 export async function registrarInasistencias(
 	escuelaId: number,

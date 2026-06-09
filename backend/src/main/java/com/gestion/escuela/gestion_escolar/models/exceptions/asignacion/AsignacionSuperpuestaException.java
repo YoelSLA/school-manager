@@ -5,6 +5,6 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarExcep
 public class AsignacionSuperpuestaException extends GestionEscolarException {
 
 	public AsignacionSuperpuestaException() {
-		super("El empleado ya posee una asignación superpuesta en el período indicado.");
+		super("El empleadoEducativoBasico ya posee una asignación superpuesta en el período indicado.");
 	}
 }

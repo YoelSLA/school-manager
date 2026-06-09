@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { setEscuelaActiva } from "@/app/store/escuela/escuelaSlice";
 import { useAppDispatch } from "@/app/store/hooks";
 import Card from "@/components/Card/Card";
-import type { EscuelaResponseDTO } from "@/shared/utils/types";
+import type { EscuelaResponseDTO } from "@/shared/types";
 import styles from "./EscuelaCard.module.scss";
 
 type Props = {

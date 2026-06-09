@@ -1,4 +1,4 @@
-import type { LicenciaDetalleDTO } from "@/shared/utils/types";
+import type { LicenciaDetalleDTO } from "@/shared/types";
 import styles from "./LicenciaHeaderStack.module.scss";
 import LicenciaInfoBox from "./LicenciaInfoBox";
 import LicenciaPersonaBox from "./LicenciaPersonaBox";

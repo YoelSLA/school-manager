@@ -1,6 +1,6 @@
 import BadgeRolEducativo from "@/shared/components/BadgeRolEducativo";
 import BadgeEstadoEmpleado from "@/shared/components/BagdeEstadoEmpleado";
-import type { EmpleadoEducativoDetalleDTO } from "@/shared/utils/types";
+import type { EmpleadoEducativoDetalleDTO } from "@/shared/types";
 import styles from "./HeaderEmpleado.module.scss";
 
 type Props = {

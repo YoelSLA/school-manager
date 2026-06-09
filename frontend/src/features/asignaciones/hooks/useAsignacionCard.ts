@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDeleteAsignacion } from "@/features/asignaciones/hooks/useDeleteAsignacion";
-import type { AsignacionDetalleDTO } from "@/shared/utils/types";
+import type { AsignacionDetalleDTO } from "@/shared/types";
 
 type Props = {
 	cargo: AsignacionDetalleDTO;
@@ -16,8 +16,13 @@ export function useAsignacionCard({ cargo, designacionId, onEditar }: Props) {
 		onSuccess: () => {},
 	});
 
-	const { empleado, periodo, situacionDeRevista, estadoAsignacion, secuencia } =
-		cargo;
+	const {
+		empleadoEducativoBasico,
+		periodo,
+		situacionDeRevista,
+		estadoAsignacion,
+		secuencia,
+	} = cargo;
 
 	const esSuplente = situacionDeRevista === "SUPLENTE";
 
@@ -52,7 +57,7 @@ export function useAsignacionCard({ cargo, designacionId, onEditar }: Props) {
 	return {
 		open,
 		showMenu,
-		empleado,
+		empleadoEducativoBasico,
 		periodo,
 		secuencia,
 		situacionDeRevista,

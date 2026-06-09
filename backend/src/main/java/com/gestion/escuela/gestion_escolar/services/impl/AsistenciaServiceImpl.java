@@ -1,11 +1,15 @@
 package com.gestion.escuela.gestion_escolar.services.impl;
 
-import com.gestion.escuela.gestion_escolar.models.*;
+import com.gestion.escuela.gestion_escolar.models.Asistencia;
+import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
+import com.gestion.escuela.gestion_escolar.models.EstadoAsistenciaDia;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsistencia;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 import com.gestion.escuela.gestion_escolar.models.exceptions.AsistenciaNoEditableException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
+import com.gestion.escuela.gestion_escolar.models.records.EmpleadoAsistenciaResumen;
+import com.gestion.escuela.gestion_escolar.models.records.RolCantidad;
 import com.gestion.escuela.gestion_escolar.persistence.AsignacionRepository;
 import com.gestion.escuela.gestion_escolar.persistence.AsistenciaRepository;
 import com.gestion.escuela.gestion_escolar.persistence.EmpleadoEducativoRepository;
@@ -42,7 +46,7 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 	) {
 
 		EmpleadoEducativo empleadoEducativo = empleadoEducativoRepository.findById(empleadoId)
-				.orElseThrow(() -> new RecursoNoEncontradoException("empleado educativo", empleadoId));
+				.orElseThrow(() -> new RecursoNoEncontradoException("empleadoEducativoBasico educativo", empleadoId));
 
 		Optional<Asistencia> asistenciaExistente = asistenciaRepository
 						.findByEmpleadoEducativoIdAndEscuelaIdAndFecha(
@@ -122,7 +126,7 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 
 		EmpleadoEducativo empleado = empleadoEducativoRepository.findById(empleadoId)
 				.orElseThrow(() ->
-						new RecursoNoEncontradoException("empleado", empleadoId)
+						new RecursoNoEncontradoException("empleadoEducativoBasico", empleadoId)
 				);
 
 		LocalDate inicio = mes.atDay(1);

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { asistenciasPaths } from "@/app/router/paths";
-import type { AsistenciaEmpleadoResumenDTO } from "@/shared/utils/types";
+import type { AsistenciaEmpleadoResumenDTO } from "@/shared/types";
 
 export function useAsistenciasNavigation() {
 	const navigate = useNavigate();

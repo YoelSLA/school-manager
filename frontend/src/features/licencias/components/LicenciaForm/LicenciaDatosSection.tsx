@@ -4,7 +4,7 @@ import FormSection from "@/components/FormSection";
 import DescripcionField from "@/features/designaciones/components/fields/DescripcionInputField";
 import FechaField from "@/features/designaciones/components/fields/FechaInputField";
 import TipoLicenciaSelect from "@/features/licencias/components/TipoLicenciaSelect/TipoLicenciaSelect";
-import type { LicenciaCreateFormValues } from "@/shared/utils/types";
+import type { LicenciaCreateFormValues } from "@/shared/types";
 import styles from "./LicenciaDatosSection.module.scss";
 
 type Props = {

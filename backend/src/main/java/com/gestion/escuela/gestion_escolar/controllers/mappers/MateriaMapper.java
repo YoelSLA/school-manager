@@ -1,11 +1,12 @@
 package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
 import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.request.MateriaCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.response.MateriaNombreDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.response.MateriaResponseDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.response.MateriaDetalleDTO;
 import com.gestion.escuela.gestion_escolar.models.Materia;
 
 public class MateriaMapper {
+
+	private MateriaMapper() {}
 
 	public static Materia toEntity(MateriaCreateDTO dto) {
 
@@ -16,19 +17,12 @@ public class MateriaMapper {
 		);
 	}
 
-	public static MateriaResponseDTO toResponse(Materia m) {
-		return new MateriaResponseDTO(
+	public static MateriaDetalleDTO toResponse(Materia m) {
+		return new MateriaDetalleDTO(
 				m.getId(),
 				m.getNombre(),
 				m.getAbreviatura(),
 				m.getCantidadModulos()
-		);
-	}
-
-	public static MateriaNombreDTO toNombreDTO(Materia materia) {
-		return new MateriaNombreDTO(
-				materia.getId(),
-				materia.getNombre()
 		);
 	}
 

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { RolCountDTO } from "@/shared/utils/types";
+import type { RolCountDTO } from "@/shared/types";
 import { obtenerRolesConAsistencias } from "../../../../services/asistencia.service";
 import { asistenciasQueryKeys } from "../../../../shared/utils/queryKeys/asistencias.queryKeys";
 

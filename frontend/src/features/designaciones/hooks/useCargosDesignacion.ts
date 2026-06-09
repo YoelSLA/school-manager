@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { EstadoCargo } from "@/shared/utils/types";
+import type { EstadoCargo } from "@/shared/types";
 import { listarCargosPorDesignacion } from "../../../services/designacion.service";
 import { designacionesQueryKeys } from "../../../shared/utils/queryKeys/designaciones.queryKeys";
 

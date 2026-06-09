@@ -3,7 +3,7 @@ import BadgeEstadoAsignacion from "@/shared/components/BagdeEstadoAsignacion";
 import type {
 	EstadoAsignacion,
 	SituacionDeRevista,
-} from "@/shared/utils/types/enums";
+} from "@/shared/types/enums";
 import styles from "./AsignacionCardBadges.module.scss";
 
 type Props = {

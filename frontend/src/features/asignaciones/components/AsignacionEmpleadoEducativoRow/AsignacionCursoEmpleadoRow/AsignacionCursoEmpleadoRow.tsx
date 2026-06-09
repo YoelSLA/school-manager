@@ -1,7 +1,7 @@
 import { BookOpen, GraduationCap, Hash, Shapes } from "lucide-react";
 
 import BadgeEstadoAsignacion from "@/shared/components/BagdeEstadoAsignacion";
-import type { AsignacionCursoEmpleadoEducativoRowDTO } from "@/shared/utils/types";
+import type { AsignacionCursoEmpleadoEducativoRowDTO } from "@/shared/types";
 
 import AsignacionRowFooter from "../../AsignacionRowFooter";
 import AsignacionRowLayout from "../../AsignacionRowLayout";

@@ -10,7 +10,7 @@ public record LicenciaDesignacionAdministrativaDTO(
 		Integer cupof,
 		EstadoDesignacion estado,
 		RolEducativo rolEducativo,
-		AsignacionDetalleDTO asignacionActiva
+		AsignacionDetalleDTO cobertura
 ) implements LicenciaDesignacionDTO {
 
 	@Override

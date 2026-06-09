@@ -2,10 +2,7 @@ import FormInputField from "@/components/FormInputField";
 import FormSection from "@/components/FormSection";
 import FormSelectField from "@/components/FormSelectField/FormSelectField";
 import Modal from "@/components/Modal/Modal";
-import type {
-	CursoCreateDTO,
-	CursoCreateFormValues,
-} from "@/shared/utils/types";
+import type { CursoCreateDTO, CursoCreateFormValues } from "@/shared/types";
 import { useCrearCursoForm } from "../../form/useCrearCursoForm";
 import { TURNO_OPTIONS } from "../../utils/cursos.utils";
 

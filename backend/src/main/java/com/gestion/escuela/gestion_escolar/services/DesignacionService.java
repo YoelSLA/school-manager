@@ -10,7 +10,6 @@ import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdminis
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
-import com.gestion.escuela.gestion_escolar.models.enums.TipoCaracteristicaAsignacion;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -33,7 +32,6 @@ public interface DesignacionService {
 			Long designacionId,
 			Long empleadoId,
 			LocalDate fechaTomaPosesion,
-			TipoCaracteristicaAsignacion caracteristica,
 			Integer secuencia
 	);
 

@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { EscuelaResponseDTO } from "@/shared/utils/types/escuela.types";
+import type { EscuelaResponseDTO } from "@/shared/types/escuela.types";
 
 type EscuelaState = {
 	escuelaActiva: EscuelaResponseDTO | null;

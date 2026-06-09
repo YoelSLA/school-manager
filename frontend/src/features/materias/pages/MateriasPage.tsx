@@ -7,18 +7,18 @@ import SidebarPageLayout from "@/app/layouts/SidebarPageLayout";
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
 import ConfirmModal from "@/components/ModalConfirm";
-import { usePagination } from "@/shared/utils/hooks/usePagination";
+import { useCreateMateria } from "@/features/materias/hooks/useCreateMateria";
+import { useListMaterias } from "@/features/materias/hooks/useListMaterias";
 import type {
 	MateriaCreateDTO,
-	MateriaResponseDTO,
+	MateriaDetalleDTO,
 	MateriaUpdateDTO,
-} from "@/shared/utils/types";
+} from "@/shared/types";
+import { usePagination } from "@/shared/utils/hooks/usePagination";
 import MateriaCard from "../components/MateriaCard";
 import CrearMateriaModal from "../components/MateriaCreateModal";
 import MateriaEditModal from "../components/MateriaUpdateModal/MateriaEditModal";
-import { useCrearMateria } from "../hooks/useCreateMateria";
 import useDeleteMateria from "../hooks/useDeleteMateria";
-import { useMaterias } from "../hooks/useMaterias";
 import { useUpdateMateria } from "../hooks/useUpdateMateria";
 
 export default function MateriasPage() {
@@ -28,15 +28,15 @@ export default function MateriasPage() {
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [materiaAEditar, setMateriaAEditar] =
-		useState<MateriaResponseDTO | null>(null);
+		useState<MateriaDetalleDTO | null>(null);
 	const [materiaAEliminar, setMateriaAEliminar] =
-		useState<MateriaResponseDTO | null>(null);
+		useState<MateriaDetalleDTO | null>(null);
 
 	/* =========================
-			 QUERY
-	========================= */
+       QUERY
+  ========================= */
 
-	const { data, isLoading, isError, refetch, isFetching } = useMaterias(
+	const { data, isLoading, isError, refetch, isFetching } = useListMaterias(
 		escuelaActiva?.id,
 		page,
 		pageSize,
@@ -45,7 +45,7 @@ export default function MateriasPage() {
 	const materias = data?.content ?? [];
 	const totalPages = data?.totalPages ?? 0;
 
-	const { mutate: createMateria, isPending } = useCrearMateria(
+	const { mutate: createMateria, isPending } = useCreateMateria(
 		escuelaActiva?.id,
 	);
 
@@ -58,8 +58,8 @@ export default function MateriasPage() {
 	};
 
 	/* =========================
-			 EDIT
-	========================= */
+       EDIT
+  ========================= */
 
 	const { mutate: editMateria, isPending: isEditing } = useUpdateMateria(
 		escuelaActiva?.id,
@@ -75,8 +75,8 @@ export default function MateriasPage() {
 	};
 
 	/* =========================
-			 DELETE
-	========================= */
+       DELETE
+  ========================= */
 
 	const { mutate: deleteMateria, isPending: isDeleting } = useDeleteMateria(
 		escuelaActiva?.id,

@@ -1,4 +1,4 @@
-import type { DesignacionCursoFilter } from "@/shared/utils/types";
+import type { DesignacionCursoFilter } from "@/shared/types";
 
 export const designacionesQueryKeys = {
 	all: ["designaciones"] as const,

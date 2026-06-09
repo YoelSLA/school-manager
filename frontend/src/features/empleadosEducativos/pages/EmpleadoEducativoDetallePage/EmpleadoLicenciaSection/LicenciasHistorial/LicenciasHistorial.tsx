@@ -1,5 +1,5 @@
 import LicenciaEmpleadoEducativoRow from "@/features/licencias/components/LicenciaEmpleadoEducativoRow";
-import type { LicenciaEmpleadoEducativoRowDTO } from "@/shared/utils/types";
+import type { LicenciaEmpleadoEducativoRowDTO } from "@/shared/types";
 import styles from "./LicenciasHistorial.module.scss";
 
 type Props = {

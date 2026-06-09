@@ -4,6 +4,7 @@ package com.gestion.escuela.gestion_escolar.services;
 import com.gestion.escuela.gestion_escolar.models.*;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
+import com.gestion.escuela.gestion_escolar.models.records.EmpleadoAsistenciaResumen;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -276,7 +277,7 @@ class AsistenciaServiceTest extends DomainServiceFixtureTest {
 					)
 			)
 			.isInstanceOf(RecursoNoEncontradoException.class)
-			.hasMessageContaining("empleado educativo");
+			.hasMessageContaining("empleadoEducativoBasico educativo");
 		}
 
 	}

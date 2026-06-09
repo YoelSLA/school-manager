@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { cubrirConTitular } from "@/services/designacion.service";
+import type { CubrirTitularDTO } from "@/shared/types";
 import { asistenciasQueryKeys } from "@/shared/utils/queryKeys/asistencias.queryKeys";
 import { designacionesQueryKeys } from "@/shared/utils/queryKeys/designaciones.queryKeys";
 import { empleadosEducativosQueryKeys } from "@/shared/utils/queryKeys/empleadosEducativos.queryKeys";
-import type { CubrirTitularDTO } from "@/shared/utils/types";
 import {
 	mapAsignacionError,
 	type UserError,

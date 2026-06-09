@@ -1,5 +1,5 @@
-import type { FranjaHorariaDTO } from "@/shared/utils/types";
-import { Dia, RolEducativo } from "@/shared/utils/types/enums";
+import type { FranjaHorariaDTO } from "@/shared/types";
+import { Dia, RolEducativo } from "@/shared/types/enums";
 
 export const DEFAULT_FRANJA: FranjaHorariaDTO = {
 	dia: Dia.LUNES,

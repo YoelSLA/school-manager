@@ -11,7 +11,7 @@ import type {
 	LicenciaTimelineItemDTO,
 	PageResponse,
 	RenovarLicenciaDTO,
-} from "@/shared/utils/types";
+} from "@/shared/types";
 import type { CambiarCoberturaDTO } from "../features/licencias/form/cambiarCobertura.schema";
 
 export const cubrirDesignacionesConSuplente = async (
@@ -60,14 +60,27 @@ export const getLicenciasPorEscuela = async (
 	return data;
 };
 
+// export const getDesignacionesAfectadas = async (
+// 	licenciaId: number,
+// ): Promise<LicenciaDesignacion[]> => {
+// 	const { data } = await http.get<LicenciaDesignacionDTO[]>(
+// 		`/licencias/${licenciaId}/designaciones-afectadas`,
+// 	);
+
+// 	return data;
+// };
+
 export const getDesignacionesAfectadas = async (
 	licenciaId: number,
 ): Promise<LicenciaDesignacion[]> => {
-	const { data } = await http.get<LicenciaDesignacionDTO[]>(
+	const response = await http.get<LicenciaDesignacionDTO[]>(
 		`/licencias/${licenciaId}/designaciones-afectadas`,
 	);
 
-	return data;
+	console.log("Response:", response);
+	console.log("Data:", response.data);
+
+	return response.data;
 };
 
 export const getLicenciaTimeline = async (

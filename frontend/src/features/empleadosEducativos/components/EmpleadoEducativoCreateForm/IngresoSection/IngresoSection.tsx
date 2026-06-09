@@ -2,7 +2,7 @@ import { Calendar, CheckCircle } from "lucide-react";
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
 import FormInputFieldRHF from "@/components/FormInputField/FormInputField";
 import FormSection from "@/components/FormSection";
-import type { EmpleadoEducativoCreateDTO } from "@/shared/utils/types";
+import type { EmpleadoEducativoCreateDTO } from "@/shared/types";
 import styles from "./IngresoSection.module.scss";
 
 type Props = {

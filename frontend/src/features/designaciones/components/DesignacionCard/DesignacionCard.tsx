@@ -4,7 +4,7 @@ import { useCargoActivo } from "@/features/asignaciones/hooks/useCargoActivo";
 import BadgeSituacionRevista from "@/shared/components/BadgeSituacionRevista/BadgeSituacionRevista";
 import BadgeEstadoDesignacion from "@/shared/components/BagdeEstadoDesignacion";
 import EmpleadoInfo from "@/shared/components/EmpleadoInfo";
-import type { EstadoDesignacion } from "@/shared/utils/types/enums";
+import type { EstadoDesignacion } from "@/shared/types/enums";
 import styles from "./DesignacionCard.module.scss";
 
 type Props = {
@@ -26,9 +26,9 @@ export default function DesignacionCard({
 }: Props) {
 	const { cargoActivo } = useCargoActivo(designacionId);
 
-	const empleado = cargoActivo?.empleado
+	const empleado = cargoActivo?.empleadoEducativoBasico
 		? {
-				...cargoActivo.empleado,
+				...cargoActivo.empleadoEducativoBasico,
 				situacionDeRevista: cargoActivo.situacionDeRevista,
 			}
 		: undefined;

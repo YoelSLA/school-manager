@@ -1,4 +1,4 @@
-import type { EmpleadoEducativoLicenciasDTO } from "@/shared/utils/types";
+import type { EmpleadoEducativoLicenciasDTO } from "@/shared/types";
 import styles from "./EmpleadoLicenciaSection.module.scss";
 import LicenciasHistorial from "./LicenciasHistorial";
 import LicenciaVigente from "./LicenciaVigente";

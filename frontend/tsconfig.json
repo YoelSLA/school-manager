@@ -1,27 +1,19 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "jsx": "react-jsx",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "bundler",
-    "rootDir": "src",
-    "outDir": "dist",
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    }
-  },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "dist",
-    "node_modules",
-    "coverage"
-  ]
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"jsx": "react-jsx",
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"moduleResolution": "bundler",
+		"rootDir": "src",
+		"outDir": "dist",
+		"paths": {
+			"@/*": ["./src/*"]
+		}
+	},
+	"include": ["src"],
+	"exclude": ["dist", "node_modules", "coverage"]
 }

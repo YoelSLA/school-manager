@@ -1,17 +1,16 @@
 import { http } from "@/shared/api/http";
 import type {
 	MateriaCreateDTO,
-	MateriaNombreDTO,
-	MateriaResponseDTO,
+	MateriaDetalleDTO,
 	MateriaUpdateDTO,
 	PageResponse,
-} from "@/shared/utils/types";
+} from "@/shared/types";
 
-export async function crearMateria(
+export async function createMateria(
 	escuelaId: number,
 	payload: MateriaCreateDTO,
-): Promise<MateriaResponseDTO> {
-	const response = await http.post<MateriaResponseDTO>(
+): Promise<MateriaDetalleDTO> {
+	const response = await http.post<MateriaDetalleDTO>(
 		`/escuelas/${escuelaId}/materias`,
 		payload,
 	);
@@ -19,12 +18,12 @@ export async function crearMateria(
 	return response.data;
 }
 
-export async function editMateria(
+export async function updateMateria(
 	escuelaId: number,
 	materiaId: number,
 	payload: MateriaUpdateDTO,
-): Promise<MateriaResponseDTO> {
-	const response = await http.put<MateriaResponseDTO>(
+): Promise<MateriaDetalleDTO> {
+	const response = await http.put<MateriaDetalleDTO>(
 		`/escuelas/${escuelaId}/materias/${materiaId}`,
 		payload,
 	);
@@ -39,26 +38,16 @@ export async function deleteMateria(
 	await http.delete(`/escuelas/${escuelaId}/materias/${materiaId}`);
 }
 
-export async function obtenerMaterias(
+export async function listMaterias(
 	escuelaId: number,
 	page: number = 0,
 	size: number = 10,
-): Promise<PageResponse<MateriaResponseDTO>> {
-	const response = await http.get<PageResponse<MateriaResponseDTO>>(
+): Promise<PageResponse<MateriaDetalleDTO>> {
+	const response = await http.get<PageResponse<MateriaDetalleDTO>>(
 		`/escuelas/${escuelaId}/materias`,
 		{
 			params: { page, size },
 		},
-	);
-
-	return response.data;
-}
-
-export async function obtenerMateriasNombres(
-	escuelaId: number,
-): Promise<MateriaNombreDTO[]> {
-	const response = await http.get<MateriaNombreDTO[]>(
-		`/escuelas/${escuelaId}/materias/nombres`,
 	);
 
 	return response.data;

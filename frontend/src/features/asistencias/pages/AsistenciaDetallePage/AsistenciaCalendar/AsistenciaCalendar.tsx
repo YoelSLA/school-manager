@@ -9,18 +9,14 @@ import {
 	getCodigoAsistencia,
 	getEstadoVisual,
 } from "@/features/asistencias/utils";
-import type { AsistenciaDiaDTO } from "@/shared/utils/types";
+import type { AsistenciaDiaDTO } from "@/shared/types";
 import styles from "./AsistenciaCalendar.module.scss";
 
 type Props = {
 	month: Date;
-
 	selected?: Date;
-
 	onMonthChange: (date: Date) => void;
-
 	onDayClick: (date: Date) => void;
-
 	asistenciasMap: Record<string, AsistenciaDiaDTO>;
 };
 
@@ -53,9 +49,7 @@ export default function AsistenciaCalendar({
 		const date = day.date;
 
 		const asistencia = getAsistencia(date);
-
 		const codigo = getCodigoAsistencia(asistencia);
-
 		const estadoVisual = getEstadoVisual(asistencia);
 
 		return (

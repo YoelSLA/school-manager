@@ -1,4 +1,4 @@
-import type { EstadoVisual } from "@/shared/utils/types";
+import type { EstadoVisual } from "@/shared/types";
 import styles from "./CalendayDay.module.scss";
 
 type Props = {

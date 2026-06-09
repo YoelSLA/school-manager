@@ -1,4 +1,4 @@
-import type { SortDirection } from "@/shared/utils/types";
+import type { SortDirection } from "@/shared/types";
 import styles from "./EmpleadoSortField.module.scss";
 
 type Props = {

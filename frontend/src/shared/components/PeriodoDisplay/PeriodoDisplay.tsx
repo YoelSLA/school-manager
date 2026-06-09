@@ -1,6 +1,6 @@
 import { CalendarDays, Clock3 } from "lucide-react";
+import type { PeriodoDTO } from "@/shared/types";
 import { formatearFecha } from "@/shared/utils";
-import type { PeriodoDTO } from "@/shared/utils/types";
 import styles from "./PeriodoDisplay.module.scss";
 
 type Props = {

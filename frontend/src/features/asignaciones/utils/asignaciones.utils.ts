@@ -3,8 +3,8 @@ import type {
 	AsignacionCursoEmpleadoEducativoRowDTO,
 	AsignacionEmpleadoEducativoRowDTO,
 	FiltroCargos,
-} from "@/shared/utils/types";
-import { CaracteristicaAsignacion } from "@/shared/utils/types/enums";
+} from "@/shared/types";
+import { CaracteristicaAsignacion } from "@/shared/types/enums";
 
 export const TIPO_ASIGNACION_OPTIONS = [
 	{ value: "TITULAR", label: "Titular" },

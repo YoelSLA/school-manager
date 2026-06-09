@@ -1,4 +1,4 @@
-import type { AsignacionDetalleDTO } from "@/shared/utils/types";
+import type { AsignacionDetalleDTO } from "@/shared/types";
 import { useAsignacionCard } from "../../hooks/useAsignacionCard";
 import styles from "./AsignacionCard.module.scss";
 import AsignacionCardBadges from "./AsignacionCardBadges";
@@ -26,7 +26,7 @@ export default function AsignacionCard(props: Props) {
 					onEliminar={vm.handleEliminar}
 				/>
 			)}
-			<AsignacionCardEmployee empleado={vm.empleado} />
+			<AsignacionCardEmployee empleado={vm.empleadoEducativoBasico} />
 			<AsignacionCardPeriod periodo={vm.periodo} secuencia={vm.secuencia} />
 			<AsignacionCardBadges
 				situacionDeRevista={vm.situacionDeRevista}

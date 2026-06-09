@@ -3,7 +3,6 @@ package com.gestion.escuela.gestion_escolar.models.enums;
 import lombok.Getter;
 
 @Getter
-@SuppressWarnings("java:S1192")
 public enum TipoLicencia {
 
 	L_A1("Artículo 114", "A1", "Licencia ordinaria por enfermedad."),
@@ -60,11 +59,6 @@ public enum TipoLicencia {
 	L_114A28("Artículo 114", "114A28", "Licencia por enfermedad cronica."),
 	L_B21("Artículo 114", "B21", "Licencia por enfemerdad preexistente.");
 
-	private static final String ARTICULO_114 = "Artículo 114";
-	private static final String ARTICULO_115 = "Artículo 115";
-	private static final String ARTICULO_121 = "Artículo 121";
-	private static final String ARTICULO_49 = "Artículo 49";
-	private static final String ARTICULO_139 = "Artículo 139";
 	private final String articulo;
 	private final String codigo;
 	private final String descripcion;

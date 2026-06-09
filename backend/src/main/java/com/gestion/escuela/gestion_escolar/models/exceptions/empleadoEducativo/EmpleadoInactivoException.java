@@ -7,7 +7,7 @@ public class EmpleadoInactivoException extends GestionEscolarException {
 
 	public EmpleadoInactivoException(EmpleadoEducativo empleado) {
 		super(
-				"El empleado %s %s (CUIL: %s) se encuentra inactivo"
+				"El empleadoEducativoBasico %s %s (CUIL: %s) se encuentra inactivo"
 						.formatted(
 								empleado.getApellido(),
 								empleado.getNombre(),

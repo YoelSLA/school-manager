@@ -1,6 +1,6 @@
 import Badge from "@/components/Badge";
+import type { SituacionDeRevista } from "@/shared/types/enums";
 import { SITUACION_REVISTA_CONFIG } from "@/shared/utils/bagdeConfig";
-import type { SituacionDeRevista } from "@/shared/utils/types/enums";
 
 type Props = {
 	value: SituacionDeRevista;

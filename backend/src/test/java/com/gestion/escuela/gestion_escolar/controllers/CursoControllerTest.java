@@ -1,8 +1,7 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.curso.request.CursoCreateDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.curso.request.CursoUpdateDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.curso.request.CursoDTO;
 import com.gestion.escuela.gestion_escolar.controllers.escuela.EscuelaCursoControllerREST;
 import com.gestion.escuela.gestion_escolar.models.Curso;
 import com.gestion.escuela.gestion_escolar.models.enums.Turno;
@@ -53,7 +52,7 @@ class CursoControllerTest {
 
 		when(cursoService.crear(eq(1L), any(Curso.class))).thenReturn(cursoModelo);
 
-		CursoCreateDTO dto = new CursoCreateDTO(MANIANA, 1, 1);
+		CursoDTO dto = new CursoDTO(MANIANA, 1, 1);
 
 		mockMvc.perform(post("/api/escuelas/1/cursos")
 						.with(csrf())
@@ -69,9 +68,9 @@ class CursoControllerTest {
 	@Test
 	void debeCrearCursosEnBatch() throws Exception {
 
-		List<CursoCreateDTO> dtos = List.of(
-				new CursoCreateDTO(MANIANA, 1, 1),
-				new CursoCreateDTO(TARDE, 2, 2)
+		List<CursoDTO> dtos = List.of(
+				new CursoDTO(MANIANA, 1, 1),
+				new CursoDTO(TARDE, 2, 2)
 		);
 
 		mockMvc.perform(post("/api/escuelas/1/cursos/batch")

@@ -1,4 +1,4 @@
-import type { RolEducativo } from "@/shared/utils/types/enums";
+import type { RolEducativo } from "@/shared/types/enums";
 import RolEducativoBadge from "../../RolEducativoBadge";
 import styles from "./EmpleadoCardRoles.module.scss";
 

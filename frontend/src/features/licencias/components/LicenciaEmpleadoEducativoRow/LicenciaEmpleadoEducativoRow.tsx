@@ -3,7 +3,7 @@ import { FileText, Hash } from "lucide-react";
 import BadgeEstadoLicencia from "@/shared/components/BagdeEstadoLicencia";
 import PeriodoDisplay from "@/shared/components/PeriodoDisplay";
 
-import type { LicenciaEmpleadoEducativoRowDTO } from "@/shared/utils/types";
+import type { LicenciaEmpleadoEducativoRowDTO } from "@/shared/types";
 
 import styles from "./LicenciaEmpleadoEducativoRow.module.scss";
 

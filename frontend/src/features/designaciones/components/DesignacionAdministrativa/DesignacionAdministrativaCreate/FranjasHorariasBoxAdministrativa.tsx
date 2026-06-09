@@ -8,7 +8,7 @@ import type {
 import Button from "@/components/Button";
 import ErrorModal from "@/components/ModalError";
 import { DEFAULT_FRANJA } from "@/features/designaciones/utils/designacion.utils";
-import type { DesignacionAdministrativaFormValues } from "@/shared/utils/types";
+import type { DesignacionAdministrativaFormValues } from "@/shared/types";
 import styles from "../../FranjasHorariasBox.module.scss";
 import FranjasHorariasListAdministrativa from "./FranjasHorariasListAdministrativa";
 

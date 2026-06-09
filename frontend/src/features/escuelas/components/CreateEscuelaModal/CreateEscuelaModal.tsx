@@ -1,7 +1,7 @@
 import FormInputField from "@/components/FormInputField/FormInputField";
 import FormSection from "@/components/FormSection";
 import Modal from "@/components/Modal/Modal";
-import type { EscuelaCreateDTO } from "@/shared/utils/types";
+import type { EscuelaCreateDTO } from "@/shared/types";
 import { useCrearEscuelaForm } from "../../form/useCrearEscuelaForm";
 
 type Props = {
