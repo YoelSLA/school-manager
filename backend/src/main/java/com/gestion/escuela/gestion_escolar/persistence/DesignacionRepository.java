@@ -6,6 +6,7 @@ import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdminis
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -109,5 +110,13 @@ public interface DesignacionRepository extends JpaRepository<Designacion, Long> 
 			@Param("designacionId") Long designacionId,
 			@Param("fecha") LocalDate fecha
 	);
+
+	@EntityGraph(attributePaths = {
+			"asignaciones",
+			"asignaciones.empleadoEducativo",
+			"asignaciones.empleadoEducativo.licencias"
+	})
+	@Override
+	Optional<Designacion> findById(Long id);
 
 }
