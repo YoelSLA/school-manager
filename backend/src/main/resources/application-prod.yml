@@ -11,7 +11,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-    show-sql: false
+    show-sql: true
+    properties:
+      hibernate:
+        generate_statistics: true
+        format_sql: true
 
   flyway:
     enabled: true
@@ -22,4 +26,6 @@ spring:
 
 logging:
   level:
-    org.hibernate.SQL: OFF
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.hibernate.stat: DEBUG

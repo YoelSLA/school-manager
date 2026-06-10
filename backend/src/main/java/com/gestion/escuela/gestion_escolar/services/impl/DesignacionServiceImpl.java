@@ -311,9 +311,32 @@ public class DesignacionServiceImpl implements DesignacionService {
 
 	@Override
 	public Optional<Asignacion> obtenerCargoActivo(Long designacionId) {
+
+		long inicio = System.currentTimeMillis();
+
 		Designacion designacion = obtenerPorId(designacionId);
 
-		return designacion.asignacionQueEjerceEn(LocalDate.now());
+		long despuesDeBuscar = System.currentTimeMillis();
+
+		Optional<Asignacion> resultado =
+				designacion.asignacionQueEjerceEn(LocalDate.now());
+
+		long fin = System.currentTimeMillis();
+
+		System.out.printf(
+				"""
+				obtenerCargoActivo(%d)
+				  obtenerPorId: %d ms
+				  filtrar     : %d ms
+				  total       : %d ms
+				""",
+				designacionId,
+				(despuesDeBuscar - inicio),
+				(fin - despuesDeBuscar),
+				(fin - inicio)
+		);
+
+		return resultado;
 	}
 
 	@Override
