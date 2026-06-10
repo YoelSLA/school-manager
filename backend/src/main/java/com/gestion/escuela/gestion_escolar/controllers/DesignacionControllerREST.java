@@ -77,11 +77,33 @@ public class DesignacionControllerREST {
 	public ResponseEntity<AsignacionDetalleDTO> obtenerCargoActivo(
 			@PathVariable Long designacionId
 	) {
-		return designacionService
-				.obtenerCargoActivo(designacionId)
+		long inicio = System.currentTimeMillis();
+
+		var cargoActivo = designacionService.obtenerCargoActivo(designacionId);
+
+		long despuesService = System.currentTimeMillis();
+
+		ResponseEntity<AsignacionDetalleDTO> response = cargoActivo
 				.map(AsignacionMapper::toDetalle)
 				.map(ResponseEntity::ok)
 				.orElseGet(() -> ResponseEntity.noContent().build());
+
+		long fin = System.currentTimeMillis();
+
+		System.out.printf(
+				"""
+				/designaciones/%d/cargo-activo
+				  service: %d ms
+				  mapper : %d ms
+				  total  : %d ms
+				""",
+				designacionId,
+				(despuesService - inicio),
+				(fin - despuesService),
+				(fin - inicio)
+		);
+
+		return response;
 	}
 
 	@GetMapping("/{designacionId}/cargos")
