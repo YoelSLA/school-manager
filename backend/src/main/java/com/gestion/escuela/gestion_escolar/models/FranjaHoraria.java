@@ -36,7 +36,7 @@ public class FranjaHoraria {
 	}
 
 	public FranjaHoraria(DiaDeSemana dia, LocalTime horaDesde, LocalTime horaHasta) {
-		validarCrearFranjaHoraria(dia, horaDesde, horaHasta);
+		validarCrear(dia, horaDesde, horaHasta);
 		this.dia = dia;
 		this.horaDesde = horaDesde;
 		this.horaHasta = horaHasta;
@@ -51,7 +51,7 @@ public class FranjaHoraria {
 		return this.horaDesde.isBefore(otra.horaHasta) && otra.horaDesde.isBefore(this.horaHasta);
 	}
 
-	public boolean esMismoDiaQue(FranjaHoraria otra) {
+	private boolean esMismoDiaQue(FranjaHoraria otra) {
 		Validaciones.noNulo(otra, "franja horaria");
 		return this.dia.equals(otra.dia);
 	}
@@ -76,7 +76,7 @@ public class FranjaHoraria {
 		);
 	}
 
-	private void validarCrearFranjaHoraria(
+	private void validarCrear(
 			DiaDeSemana dia,
 			LocalTime horaDesde,
 			LocalTime horaHasta

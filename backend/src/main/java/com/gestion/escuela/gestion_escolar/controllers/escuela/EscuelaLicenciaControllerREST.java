@@ -28,8 +28,34 @@ public class EscuelaLicenciaControllerREST {
 			Pageable pageable
 	) {
 		Pageable limitedPageable = PaginationUtils.limit(pageable);
-		Page<Licencia> licencias = licenciaService.buscarPorEscuela(escuelaId, limitedPageable);
 
-		return PageMapper.toPageResponse(licencias, LicenciaMapper::toResumen);
+		long inicioQuery = System.currentTimeMillis();
+
+		Page<Licencia> licencias = licenciaService.buscarPorEscuela(
+				escuelaId,
+				limitedPageable
+		);
+
+		System.out.println(
+				"SERVICE+QUERY -> "
+						+ (System.currentTimeMillis() - inicioQuery)
+						+ " ms"
+		);
+
+		long inicioMapper = System.currentTimeMillis();
+
+		PageResponse<LicenciaResumenDTO> response =
+				PageMapper.toPageResponse(
+						licencias,
+						LicenciaMapper::toResumen
+				);
+
+		System.out.println(
+				"MAPPER -> "
+						+ (System.currentTimeMillis() - inicioMapper)
+						+ " ms"
+		);
+
+		return response;
 	}
 }

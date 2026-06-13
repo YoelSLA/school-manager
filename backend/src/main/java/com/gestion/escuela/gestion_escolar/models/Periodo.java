@@ -96,16 +96,6 @@ public class Periodo {
 		return fechaDesde + " → " + (esAbierto() ? "abierto" : fechaHasta);
 	}
 
-	private void validarCrearPeriodo(LocalDate fechaDesde, LocalDate fechaHasta) {
-
-		Validaciones.noNulo(fechaDesde, "fechaDesde");
-
-		if (fechaHasta != null && fechaDesde.isAfter(fechaHasta)) {
-			throw new RangoFechasInvalidoException(fechaDesde, fechaHasta);
-		}
-
-	}
-
 	public boolean contiene(LocalDate fecha) {
 		if (fecha == null) {
 			return false;
@@ -116,4 +106,16 @@ public class Periodo {
 
 		return despuesDelInicio && antesDelFin;
 	}
+
+	private void validarCrearPeriodo(LocalDate fechaDesde, LocalDate fechaHasta) {
+
+		Validaciones.noNulo(fechaDesde, "fechaDesde");
+
+		if (fechaHasta != null && fechaDesde.isAfter(fechaHasta)) {
+			throw new RangoFechasInvalidoException(fechaDesde, fechaHasta);
+		}
+
+	}
+
+
 }

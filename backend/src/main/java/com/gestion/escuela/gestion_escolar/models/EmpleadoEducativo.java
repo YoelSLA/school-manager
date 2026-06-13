@@ -78,7 +78,7 @@ public class EmpleadoEducativo {
 
 	private EmpleadoEducativo(Builder builder) {
 
-		validarCrearEmpleadoEducativo(
+		validarCrearOActualizar(
 				builder.escuela,
 				builder.cuil,
 				builder.nombre,
@@ -114,14 +114,16 @@ public class EmpleadoEducativo {
 			String descripcion,
 			Set<Designacion> designaciones
 	) {
-		validarCrearLicencia(tipo, periodo, designaciones);
+		validarCrearOActualizar(tipo, periodo, designaciones);
 
 		Licencia licencia = Licencia.builder()
 				.empleadoEducativo(this)
 				.tipoLicencia(tipo)
 				.periodo(periodo)
 				.descripcion(descripcion)
-				.agregarDesignaciones(designaciones)
+				.agregarAsignaciones(
+						asignacionesActivasDe(designaciones, periodo.getFechaDesde())
+				)
 				.build();
 
 		licencias.add(licencia);
@@ -140,8 +142,12 @@ public class EmpleadoEducativo {
 		return licencias.stream().filter(l -> l.estaVigenteEn(fecha)).findFirst();
 	}
 
-	public boolean estaEnLicenciaPara(Designacion designacion, LocalDate fecha) {
-		return licencias.stream().anyMatch(l -> l.afectaA(designacion, fecha));
+	public boolean estaEnLicenciaPara(
+			Asignacion asignacion,
+			LocalDate fecha
+	) {
+		return licencias.stream()
+				.anyMatch(l -> l.afectaA(asignacion, fecha));
 	}
 	// =========================================================
 	// ASIGNACIONES
@@ -183,7 +189,7 @@ public class EmpleadoEducativo {
 		}
 
 		return asignaciones.stream()
-				.filter(a -> estaEnLicenciaPara(a.getDesignacion(), fecha))
+				.filter(a -> estaEnLicenciaPara(a, fecha))
 				.collect(Collectors.toUnmodifiableSet());
 	}
 
@@ -294,7 +300,7 @@ public class EmpleadoEducativo {
 			String email
 	) {
 
-		validarCrearEmpleadoEducativo(this.escuela, cuil, nombre, apellido, email, fechaDeNacimiento, fechaDeIngreso);
+		validarCrearOActualizar(this.escuela, cuil, nombre, apellido, email, fechaDeNacimiento, fechaDeIngreso);
 
 		this.cuil = cuil;
 		this.nombre = nombre;
@@ -308,7 +314,7 @@ public class EmpleadoEducativo {
 	// =========================================================
 	// VALIDACIONES
 	// =========================================================
-	private void validarCrearEmpleadoEducativo(
+	private void validarCrearOActualizar(
 			Escuela escuela,
 			String cuil,
 			String nombre,
@@ -330,10 +336,10 @@ public class EmpleadoEducativo {
 		}
 	}
 
-	private void validarCrearLicencia(TipoLicencia tipo, Periodo periodo, Set<Designacion> designaciones) {
+	private void validarCrearOActualizar(TipoLicencia tipo, Periodo periodo, Set<Designacion> designaciones) {
 		Validaciones.noNulo(tipo, "tipo de licencia");
 		Validaciones.noNulo(periodo, "periodo");
-		Validaciones.noVacio(designaciones, "designacion.");
+		Validaciones.noVacio(designaciones, "designaciones");
 
 		if (!this.activo) {
 			throw new EmpleadoInactivoException(this);
@@ -373,11 +379,30 @@ public class EmpleadoEducativo {
 	 * {@code false} en caso contrario.
 	 */
 	public boolean tieneLicenciaEn(LocalDate fecha) {
-		if (fecha == null)
-			return false;
 
-		return licencias.stream()
+		long inicio = System.currentTimeMillis();
+
+		boolean resultado = licencias.stream()
 				.anyMatch(l -> l.contiene(fecha));
+
+		System.out.println(
+				"Empleado " + id +
+						" tieneLicenciaEn -> " +
+						(System.currentTimeMillis() - inicio) +
+						" ms"
+		);
+
+		return resultado;
+	}
+
+	private Set<Asignacion> asignacionesActivasDe(
+			Set<Designacion> designaciones,
+			LocalDate fecha
+	) {
+		return asignaciones.stream()
+				.filter(a -> a.estaActivaEn(fecha))
+				.filter(a -> designaciones.contains(a.getDesignacion()))
+				.collect(Collectors.toSet());
 	}
 
 	// =========================================================

@@ -1,5 +1,6 @@
 package com.gestion.escuela.gestion_escolar.models;
 
+import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionSuplente;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
@@ -15,6 +16,8 @@ import lombok.Getter;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.gestion.escuela.gestion_escolar.models.Periodo.cerrado;
 
@@ -29,11 +32,11 @@ public class Licencia {
 
 	@ManyToMany
 	@JoinTable(
-			name = "licencia_designacion",
+			name = "licencia_asignacion",
 			joinColumns = @JoinColumn(name = "licencia_id"),
-			inverseJoinColumns = @JoinColumn(name = "designacion_id")
+			inverseJoinColumns = @JoinColumn(name = "asignacion_id")
 	)
-	private final Set<Designacion> designaciones;
+	private final Set<Asignacion> asignaciones;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,7 +68,7 @@ public class Licencia {
 	// =========================================================
 
 	protected Licencia() {
-		this.designaciones = new HashSet<>(); // JPA
+		this.asignaciones = new HashSet<>(); // JPA
 	}
 
 	private Licencia(Builder builder) {
@@ -73,48 +76,49 @@ public class Licencia {
 		Validaciones.noNulo(builder.empleadoEducativo, "empleadoEducativoBasico educativo");
 		Validaciones.noNulo(builder.tipoLicencia, "tipo licencia");
 		Validaciones.noNulo(builder.periodo, "periodo");
-		Validaciones.noVacio(builder.designaciones, "designación");
+		Validaciones.noVacio(builder.asignaciones, "asignaciones");
 
 		this.empleadoEducativo = builder.empleadoEducativo;
 		this.tipoLicencia = builder.tipoLicencia;
 		this.periodo = builder.periodo;
 		this.descripcion = builder.descripcion;
-		this.designaciones = new HashSet<>(builder.designaciones);
+		this.asignaciones = new HashSet<>(builder.asignaciones);
 	}
+
+	// =========================================================
+	// Gestión de Asignaciones
+	// =========================================================
 
 	public static Builder builder() {
 		return new Builder();
 	}
 
-	// =========================================================
-	// Gestión de Designaciones
-	// =========================================================
+	public void agregarAsignacion(Asignacion asignacion) {
+		Validaciones.noNulo(asignacion, "asignacion");
 
-	public void agregarDesignacion(Designacion designacion) {
-		Validaciones.noNulo(designacion, "designacion");
-
-		this.designaciones.add(designacion);
+		this.asignaciones.add(asignacion);
 	}
 
-	public void agregarDesignaciones(Set<Designacion> designaciones) {
-		Validaciones.noVacio(designaciones, "designacion");
+	public void agregarAsignaciones(Set<Asignacion> asignaciones) {
+		Validaciones.noVacio(asignaciones, "asignaciones");
 
-		this.designaciones.addAll(designaciones);
+		this.asignaciones.addAll(asignaciones);
 	}
 
-	public void eliminarDesignacion(Designacion designacion) {
-		Validaciones.noNulo(designacion, "designacion");
+	public void eliminarAsignacion(Asignacion asignacion) {
+		Validaciones.noNulo(asignacion, "asignacion");
 
-		this.designaciones.remove(designacion);
+		this.asignaciones.remove(asignacion);
 	}
 
-	public void eliminarDesignaciones() {
-		this.designaciones.clear();
+	public void eliminarAsignaciones() {
+		this.asignaciones.clear();
 	}
 
-	public Set<Designacion> getDesignaciones() {
-		return Collections.unmodifiableSet(designaciones);
+	public Set<Asignacion> getAsignaciones() {
+		return Collections.unmodifiableSet(asignaciones);
 	}
+
 	// =========================================================
 	// Vigencia y Estado
 	// =========================================================
@@ -140,22 +144,6 @@ public class Licencia {
 		return periodo.contiene(fecha);
 	}
 
-	private boolean estaCubiertaEn(LocalDate fecha) {
-
-		if (!estaVigenteEn(fecha)) {
-			return false;
-		}
-
-		if (designaciones.isEmpty()) {
-			return false;
-		}
-
-		return designaciones.stream()
-				.allMatch(d ->
-						d.getEstadoEn(fecha) == EstadoDesignacion.CUBIERTA
-				);
-	}
-
 	public long diasRestantes(LocalDate fecha) {
 
 		Validaciones.noNulo(fecha, "fecha");
@@ -166,28 +154,24 @@ public class Licencia {
 
 		return ChronoUnit.DAYS.between(fecha, periodo.getFechaHasta()) + 1;
 	}
+
 	// =========================================================
 	// Relaciones con Designaciones
 	// =========================================================
-	public boolean afectaA(
-			Designacion designacion,
-			LocalDate fecha
-	) {
-		return periodo.estaVigenteEn(fecha) && designaciones.contains(designacion);
+	public boolean afectaA(Asignacion asignacion, LocalDate fecha) {
+		Validaciones.noNulo(asignacion, "asignacion");
+
+		return periodo.estaVigenteEn(fecha) && asignaciones.contains(asignacion);
 	}
 
 	public Optional<AsignacionSuplente> suplenciaDe(
-			Designacion designacion
+			Asignacion asignacion
 	) {
+		Validaciones.noNulo(asignacion, "asignacion");
 
-		Validaciones.noNulo(designacion, "designacion");
-
-		return designacion.getAsignaciones().stream()
-				.filter(AsignacionSuplente.class::isInstance)
-				.map(AsignacionSuplente.class::cast)
-				.filter(a -> this.equals(a.getLicencia()))
-				.findFirst();
+		return asignacion.getDesignacion().suplenciaDe(this);
 	}
+
 	// =========================================================
 	// Renovaciones y Cadena
 	// =========================================================
@@ -203,11 +187,15 @@ public class Licencia {
 
 		LocalDate nuevoDesde = periodo.getFechaHasta().plusDays(1);
 
+		Set<Designacion> designaciones = asignaciones.stream()
+				.map(Asignacion::getDesignacion)
+				.collect(Collectors.toSet());
+
 		Licencia licenciaRenovada = empleadoEducativo.crearLicencia(
 				tipoLicencia,
 				cerrado(nuevoDesde, nuevoHasta),
 				descripcion,
-				this.designaciones
+				designaciones
 		);
 
 		this.licenciaSiguiente = licenciaRenovada;
@@ -231,31 +219,17 @@ public class Licencia {
 		return cadena;
 	}
 
-	private Licencia licenciaRaiz() {
-
-		Licencia actual = this;
-
-		while (actual.licenciaAnterior != null) {
-			actual = actual.licenciaAnterior;
-		}
-
-		return actual;
-	}
 	// =========================================================
 	// Superposición
 	// =========================================================
 	public boolean seSuperponeCon(Licencia otraLicencia) {
-		Validaciones.noNulo(otraLicencia, "licencia");
-
 		return this.seSuperponeCon(otraLicencia.getPeriodo());
 	}
 
 	public boolean seSuperponeCon(Periodo periodo) {
-
-		Validaciones.noNulo(periodo, "periodo");
-
 		return this.periodo.seSuperponeCon(periodo);
 	}
+
 	// =========================================================
 	// Infraestructura / Utilitarios
 	// =========================================================
@@ -279,17 +253,56 @@ public class Licencia {
 						? licenciaSiguiente.getId()
 						: null) +
 				", designacionesIds=" +
-				designaciones.stream()
-						.map(Designacion::getId)
+				asignaciones.stream()
+						.map(Asignacion::getId)
 						.toList() +
 				'}';
 	}
+
+	public Optional<Asignacion> getAsignacionAfectada(
+			Designacion designacion
+	) {
+
+		Validaciones.noNulo(designacion, "designacion");
+
+		return asignaciones.stream()
+				.filter(a -> a.getDesignacion().equals(designacion))
+				.findFirst();
+	}
+
+	private boolean estaCubiertaEn(LocalDate fecha) {
+
+		if (!estaVigenteEn(fecha)) {
+			return false;
+		}
+
+		return designacionesAfectadas()
+				.allMatch(d -> d.getEstadoEn(fecha) == EstadoDesignacion.CUBIERTA);
+	}
+
+	private Stream<Designacion> designacionesAfectadas() {
+		return asignaciones.stream()
+				.map(Asignacion::getDesignacion)
+				.distinct();
+	}
+
+	private Licencia licenciaRaiz() {
+
+		Licencia actual = this;
+
+		while (actual.licenciaAnterior != null) {
+			actual = actual.licenciaAnterior;
+		}
+
+		return actual;
+	}
+
 	// =========================================================
 	// Construcción / Builder
 	// =========================================================
 	public static class Builder {
 
-		private final Set<Designacion> designaciones = new HashSet<>();
+		private final Set<Asignacion> asignaciones = new HashSet<>();
 		private EmpleadoEducativo empleadoEducativo;
 		private TipoLicencia tipoLicencia;
 		private Periodo periodo;
@@ -325,13 +338,13 @@ public class Licencia {
 			return this;
 		}
 
-		public Builder agregarDesignacion(Designacion designacion) {
-			this.designaciones.add(designacion);
+		public Builder agregarAsignacion(Asignacion asignacion) {
+			this.asignaciones.add(asignacion);
 			return this;
 		}
 
-		public Builder agregarDesignaciones(Set<Designacion> designaciones) {
-			this.designaciones.addAll(designaciones);
+		public Builder agregarAsignaciones(Set<Asignacion> asignaciones) {
+			this.asignaciones.addAll(asignaciones);
 			return this;
 		}
 

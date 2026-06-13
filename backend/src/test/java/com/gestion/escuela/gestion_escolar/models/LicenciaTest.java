@@ -1,6 +1,8 @@
 package com.gestion.escuela.gestion_escolar.models;
 
+import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionSuplente;
+import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoLicencia;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
@@ -24,6 +26,7 @@ class LicenciaTest extends DomainTestFixture {
 
 	private TipoLicencia tipoLicencia = TipoLicencia.L_A1;
 	private Periodo periodoCerrado;
+	private Asignacion titular;
 
 	@BeforeEach
 	void setUp() {
@@ -31,6 +34,9 @@ class LicenciaTest extends DomainTestFixture {
 		LocalDate fechaInicioLicencia =  LocalDate.of(2026, MARCH, 1);
 		LocalDate fechaFinLicencia =  LocalDate.of(2026, MARCH, 10);
 		periodoCerrado = cerrado(fechaInicioLicencia, fechaFinLicencia);
+
+		LocalDate fechaTomaPosesion = LocalDate.of(1998, FEBRUARY, 28);
+		titular = plg2467775.cubrirConTitular(giardinoNoraRosa, fechaTomaPosesion, 1);
 
 	}
 
@@ -44,16 +50,14 @@ class LicenciaTest extends DomainTestFixture {
 					.empleadoEducativo(giardinoNoraRosa)
 					.tipoLicencia(tipoLicencia)
 					.periodo(periodoCerrado)
-					.agregarDesignacion(direccion2467830)
+					.agregarAsignacion(titular)
 					.build();
 
 			assertThat(licencia).isNotNull();
-
 			assertThat(licencia.getEmpleadoEducativo()).isEqualTo(giardinoNoraRosa);
-
 			assertThat(licencia.getTipoLicencia()).isEqualTo(tipoLicencia);
-
 			assertThat(licencia.getPeriodo()).isEqualTo(periodoCerrado);
+			assertThat(licencia.getAsignaciones()).contains(titular);
 		}
 
 		@Test
@@ -64,7 +68,7 @@ class LicenciaTest extends DomainTestFixture {
 					.tipoLicencia(tipoLicencia)
 					.periodo(periodoCerrado)
 					.descripcion("Licencia médica")
-					.agregarDesignacion(direccion2467830)
+					.agregarAsignacion(titular)
 					.build();
 
 			assertThat(licencia.getDescripcion()).isEqualTo("Licencia médica");
@@ -77,25 +81,25 @@ class LicenciaTest extends DomainTestFixture {
 					.empleadoEducativo(giardinoNoraRosa)
 					.tipoLicencia(tipoLicencia)
 					.periodo(periodoCerrado)
-					.agregarDesignacion(plg2467775)
+					.agregarAsignacion(titular)
 					.build();
 
-			assertThat(licencia.getDesignaciones()).containsExactly(plg2467775);
+			assertThat(licencia.getAsignaciones()).containsExactly(titular);
 		}
 
 		@Test
 		void deberiaAgregarMultiplesDesignaciones() {
 
-			Set<Designacion> designaciones = Set.of(plg2467775, direccion2467830);
+			Set<Asignacion> asignaciones = Set.of(titular);
 
 			Licencia licencia = Licencia.builder()
 					.empleadoEducativo(giardinoNoraRosa)
 					.tipoLicencia(tipoLicencia)
 					.periodo(periodoCerrado)
-					.agregarDesignaciones(designaciones)
+					.agregarAsignaciones(asignaciones)
 					.build();
 
-			assertThat(licencia.getDesignaciones()).containsExactlyInAnyOrderElementsOf(designaciones);
+			assertThat(licencia.getAsignaciones()).containsExactlyInAnyOrderElementsOf(asignaciones);
 		}
 
 		@Test
@@ -104,7 +108,7 @@ class LicenciaTest extends DomainTestFixture {
 					.empleadoEducativo(giardinoNoraRosa)
 					.tipoLicencia(tipoLicencia)
 					.periodo(periodoCerrado)
-					.agregarDesignacion(plg2467775)
+					.agregarAsignacion(titular)
 					.build();
 
 			assertThat(licencia.getDescripcion()).isNull();
@@ -178,16 +182,16 @@ class LicenciaTest extends DomainTestFixture {
 					.empleadoEducativo(giardinoNoraRosa)
 					.tipoLicencia(tipoLicencia)
 					.periodo(periodoCerrado)
-					.agregarDesignacion(direccion2467830)
+					.agregarAsignacion(titular)
 					.build();
 		}
 
 		@Test
 		void deberiaAgregarDesignacion() {
 
-			licencia.agregarDesignacion(direccion2467830);
+			licencia.agregarAsignacion(direccion2467830);
 
-			assertThat(licencia.getDesignaciones()).containsExactly(direccion2467830);
+			assertThat(licencia.getAsignaciones()).containsExactly(direccion2467830);
 		}
 
 		@Test
@@ -195,37 +199,37 @@ class LicenciaTest extends DomainTestFixture {
 
 			Set<Designacion> designaciones = Set.of(direccion2467830, plg2467775);
 
-			licencia.agregarDesignaciones(designaciones);
+			licencia.agregarAsignaciones(designaciones);
 
-			assertThat(licencia.getDesignaciones()).containsExactlyInAnyOrderElementsOf(designaciones);
+			assertThat(licencia.getAsignaciones()).containsExactlyInAnyOrderElementsOf(designaciones);
 		}
 
 		@Test
 		void deberiaEliminarDesignacion() {
 
-			licencia.agregarDesignacion(direccion2467830);
-			licencia.eliminarDesignacion(direccion2467830);
+			licencia.agregarAsignacion(direccion2467830);
+			licencia.eliminarAsignacion(direccion2467830);
 
-			assertThat(licencia.getDesignaciones()).isEmpty();
+			assertThat(licencia.getAsignaciones()).isEmpty();
 		}
 
 		@Test
 		void deberiaEliminarTodasLasDesignaciones() {
 
-			licencia.agregarDesignacion(direccion2467830);
-			licencia.agregarDesignacion(plg2467775);
-			licencia.eliminarDesignaciones();
+			licencia.agregarAsignacion(direccion2467830);
+			licencia.agregarAsignacion(plg2467775);
+			licencia.eliminarAsignaciones();
 
-			assertThat(licencia.getDesignaciones()).isEmpty();
+			assertThat(licencia.getAsignaciones()).isEmpty();
 		}
 
 		@Test
 		void deberiaRetornarConjuntoInmodificableDeDesignaciones() {
 
-			licencia.agregarDesignacion(direccion2467830);
+			licencia.agregarAsignacion(direccion2467830);
 
 			assertThatThrownBy(() ->
-					licencia.getDesignaciones().add(plg2467775))
+					licencia.getAsignaciones().add(plg2467775))
 					.isInstanceOf(UnsupportedOperationException.class);
 		}
 
@@ -233,7 +237,7 @@ class LicenciaTest extends DomainTestFixture {
 		void deberiaLanzarExcepcionCuandoDesignacionEsNullAlAgregar() {
 
 			assertThatThrownBy(() ->
-					licencia.agregarDesignacion(null))
+					licencia.agregarAsignacion(null))
 					.isInstanceOf(CampoObligatorioException.class);
 		}
 
@@ -241,7 +245,7 @@ class LicenciaTest extends DomainTestFixture {
 		void deberiaLanzarExcepcionCuandoDesignacionesEsNull() {
 
 			assertThatThrownBy(() ->
-					licencia.agregarDesignaciones(null))
+					licencia.agregarAsignaciones(null))
 					.isInstanceOf(CampoObligatorioException.class);
 		}
 
@@ -249,7 +253,7 @@ class LicenciaTest extends DomainTestFixture {
 		void deberiaLanzarExcepcionCuandoDesignacionesEsVacio() {
 
 			assertThatThrownBy(() ->
-					licencia.agregarDesignaciones(Set.of()))
+					licencia.agregarAsignaciones(Set.of()))
 					.isInstanceOf(CampoObligatorioException.class);
 		}
 
@@ -257,7 +261,7 @@ class LicenciaTest extends DomainTestFixture {
 		void deberiaLanzarExcepcionCuandoDesignacionEsNullAlEliminar() {
 
 			assertThatThrownBy(() ->
-					licencia.eliminarDesignacion(null))
+					licencia.eliminarAsignacion(null))
 					.isInstanceOf(CampoObligatorioException.class);
 		}
 	}
@@ -274,7 +278,7 @@ class LicenciaTest extends DomainTestFixture {
 					.empleadoEducativo(giardinoNoraRosa)
 					.tipoLicencia(tipoLicencia)
 					.periodo(periodoCerrado)
-					.agregarDesignacion(direccion2467830)
+					.agregarAsignacion(titular)
 					.build();
 		}
 
@@ -331,12 +335,13 @@ class LicenciaTest extends DomainTestFixture {
 	class RelacionesConDesignaciones {
 
 		private Licencia licencia;
+		private AsignacionTitular direccionTitular;
 
 		@BeforeEach
 		void setUp() {
 
 			LocalDate fechaTomaPosesion = LocalDate.of(1998, FEBRUARY, 28);
-			direccion2467830.cubrirConTitular(giardinoNoraRosa, fechaTomaPosesion, 1);
+			direccionTitular = direccion2467830.cubrirConTitular(giardinoNoraRosa, fechaTomaPosesion, 1);
 
 			licencia = giardinoNoraRosa.crearLicencia(
 					tipoLicencia,
@@ -350,7 +355,7 @@ class LicenciaTest extends DomainTestFixture {
 		@Test
 		void deberiaAfectarDesignacionCuandoLaLicenciaEstaVigente() {
 
-			boolean afecta = licencia.afectaA(direccion2467830, LocalDate.of(2026, MARCH, 5));
+			boolean afecta = licencia.afectaA(direccionTitular, LocalDate.of(2026, MARCH, 5));
 
 			assertThat(afecta).isTrue();
 		}
@@ -358,7 +363,7 @@ class LicenciaTest extends DomainTestFixture {
 		@Test
 		void noDeberiaAfectarDesignacionCuandoLaLicenciaNoEstaVigente() {
 
-			boolean afecta = licencia.afectaA(direccion2467830, LocalDate.of(2026, APRIL, 1));
+			boolean afecta = licencia.afectaA(direccionTitular, LocalDate.of(2026, APRIL, 1));
 
 			assertThat(afecta).isFalse();
 		}
@@ -366,7 +371,7 @@ class LicenciaTest extends DomainTestFixture {
 		@Test
 		void noDeberiaAfectarDesignacionCuandoNoPerteneceALaLicencia() {
 
-			boolean afecta = licencia.afectaA(plg2467775, LocalDate.of(2026, MARCH, 5));
+			boolean afecta = licencia.afectaA(direccionTitular, LocalDate.of(2026, MARCH, 5));
 
 			assertThat(afecta).isFalse();
 		}
@@ -381,7 +386,7 @@ class LicenciaTest extends DomainTestFixture {
 					1
 			);
 
-			Optional<AsignacionSuplente> resultado = licencia.suplenciaDe(direccion2467830);
+			Optional<AsignacionSuplente> resultado = licencia.suplenciaDe(direccionTitular);
 
 			assertThat(resultado).contains(suplente);
 		}
@@ -389,7 +394,7 @@ class LicenciaTest extends DomainTestFixture {
 		@Test
 		void deberiaRetornarOptionalVacioCuandoNoHaySuplencia() {
 
-			Optional<AsignacionSuplente> resultado = licencia.suplenciaDe(direccion2467830);
+			Optional<AsignacionSuplente> resultado = licencia.suplenciaDe(direccionTitular);
 
 			assertThat(resultado).isEmpty();
 		}
@@ -426,7 +431,7 @@ class LicenciaTest extends DomainTestFixture {
 					.empleadoEducativo(giardinoNoraRosa)
 					.tipoLicencia(tipoLicencia)
 					.periodo(periodoCerrado)
-					.agregarDesignacion(direccion2467830)
+					.agregarAsignacion(titular)
 					.build();
 		}
 
@@ -442,7 +447,7 @@ class LicenciaTest extends DomainTestFixture {
 					.empleadoEducativo(giardinoNoraRosa)
 					.tipoLicencia(tipoLicencia)
 					.periodo(otroPeriodo)
-					.agregarDesignacion(plg2467775)
+					.agregarAsignacion(titular)
 					.build();
 
 			boolean seSuperpone = licencia.seSuperponeCon(otraLicencia);
@@ -462,7 +467,7 @@ class LicenciaTest extends DomainTestFixture {
 					.empleadoEducativo(giardinoNoraRosa)
 					.tipoLicencia(tipoLicencia)
 					.periodo(otroPeriodo)
-					.agregarDesignacion(plg2467775)
+					.agregarAsignacion(titular)
 					.build();
 
 			boolean seSuperpone = licencia.seSuperponeCon(otraLicencia);
@@ -549,7 +554,7 @@ class LicenciaTest extends DomainTestFixture {
 					.tipoLicencia(tipoLicencia)
 					.periodo(periodoCerrado)
 					.descripcion("Licencia médica")
-					.agregarDesignacion(direccion2467830)
+					.agregarAsignacion(titular)
 					.build();
 		}
 

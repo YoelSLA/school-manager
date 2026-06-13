@@ -1,24 +1,53 @@
 server:
-  port: 8080
+  # Puerto utilizado en el entorno de desarrollo.
+  port: ${PORT:8080}
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/gestion_escolar_dev
-    username: postgres
-    password: root
+    # Variables de entorno para facilitar distintos entornos.
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/gestion_escolar_dev}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:root}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
+      # Verifica que las entidades coincidan con el esquema existente.
       ddl-auto: validate
-    show-sql: false
+
+    # Muestra las consultas SQL generadas por Hibernate.
+    show-sql: true
+
+    # Evita mantener la sesión abierta durante el renderizado de respuestas.
+    open-in-view: true
+
     properties:
       hibernate:
-        format_sql: true
+        # Habilita estadísticas internas de Hibernate.
+        # Útil para detectar problemas de rendimiento y consultas N+1.
+        generate_statistics: false
+
+        # Formatea las consultas SQL en consola.
+        format_sql: false
 
   flyway:
+    # Ejecuta automáticamente las migraciones al iniciar.
     enabled: true
+
+    # No genera baseline automáticamente.
     baseline-on-migrate: false
 
   jackson:
+    # Zona horaria utilizada por Jackson.
     time-zone: America/Argentina/Buenos_Aires
+
+logging:
+  level:
+    # SQL ejecutado por Hibernate.
+    org.hibernate.SQL: OFF
+
+    # Valores de los parámetros enviados a las consultas.
+    org.hibernate.orm.jdbc.bind: OFF
+
+    # Estadísticas de Hibernate.
+    org.hibernate.stat: OFF

@@ -9,6 +9,8 @@ import java.time.LocalDate;
 
 public class AsignacionFactory {
 
+	private AsignacionFactory() {}
+
 	public static AsignacionTitular crearTitular(
 			EmpleadoEducativo empleadoEducativo,
 			Designacion designacion,

@@ -16,7 +16,6 @@ import lombok.Getter;
 import java.time.LocalDate;
 
 import static com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista.PROVISIONAL;
-import static com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista.TITULAR;
 
 @Entity
 @Table(name = "asignacion")
@@ -54,7 +53,7 @@ public abstract class Asignacion {
 			Periodo periodo,
 			Integer secuencia
 	) {
-		validarCrearAsignacion(empleadoEducativo, designacion, periodo, secuencia);
+		validarCrear(empleadoEducativo, designacion, periodo, secuencia);
 
 		this.empleadoEducativo = empleadoEducativo;
 		this.designacion = designacion;
@@ -79,22 +78,8 @@ public abstract class Asignacion {
 		}
 	}
 
-	public void darDeBajaEn(LocalDate fechaBaja) {
-		Validaciones.noNulo(fechaBaja, "fecha bajaAsignacion");
-
-		if (!periodo.estaVigenteEn(fechaBaja)) {
-			throw new IllegalStateException("La asignación no está vigente en esa fecha");
-		}
-
-		this.periodo = this.periodo.cerrarEn(fechaBaja);
-	}
-
 	public boolean estaActivaEn(LocalDate fecha) {
 		return getEstadoEn(fecha) == EstadoAsignacion.ACTIVA;
-	}
-
-	public boolean estaVigenteEn(LocalDate fecha) {
-		return getEstadoEn(fecha).estaVigente();
 	}
 
 	public boolean estaEjerciendoEn(LocalDate fecha) {
@@ -105,35 +90,27 @@ public abstract class Asignacion {
 		return getEstadoEn(fecha) == EstadoAsignacion.LICENCIA;
 	}
 
-	public boolean estaFinalizadaEn(LocalDate fecha) {
-		return getEstadoEn(fecha).estaFinalizada();
-	}
-
 	public boolean puedeGenerarVacanteDefinitiva() {
 		return false;
-	}
-
-	public boolean estaDadaDeBajaEn(LocalDate fecha) {
-		return bajaAsignacion != null && !fecha.isBefore(bajaAsignacion.getFechaBaja());
 	}
 
 	@Transient
 	public EstadoAsignacion getEstadoEn(LocalDate fecha) {
 		Validaciones.noNulo(fecha, "fecha");
 
-		if (bajaAsignacion != null && !fecha.isBefore(bajaAsignacion.getFechaBaja())) {
+		if (estaDadaDeBajaEn(fecha)) {
 			return EstadoAsignacion.BAJA;
 		}
 
-		if (fecha.isBefore(periodo.getFechaDesde())) {
+		if (estaPendienteEn(fecha)) {
 			return EstadoAsignacion.PENDIENTE;
 		}
 
-		if (periodo.getFechaHasta() != null && fecha.isAfter(periodo.getFechaHasta())) {
+		if (estaFinalizadaEn(fecha)) {
 			return EstadoAsignacion.FINALIZADA;
 		}
 
-		if (empleadoEducativo.estaEnLicenciaPara(designacion, fecha)) {
+		if (empleadoEducativo.estaEnLicenciaPara(this, fecha)) {
 			return EstadoAsignacion.LICENCIA;
 		}
 
@@ -176,14 +153,6 @@ public abstract class Asignacion {
 		return this.periodo.seSuperponeCon(asignacion.periodo);
 	}
 
-	public boolean esTitular() {
-		return getSituacionDeRevista() == TITULAR;
-	}
-
-	public boolean esProvisonal() {
-		return getSituacionDeRevista() == PROVISIONAL;
-	}
-
 	public RolEducativo getRolEducativo() {
 		return designacion.getRolEducativo();
 	}
@@ -194,7 +163,7 @@ public abstract class Asignacion {
 			LocalDate fechaCese,
 			Integer secuencia
 	) {
-		if(esProvisonal()) {
+		if(this.getSituacionDeRevista() == PROVISIONAL) {
 			Validaciones.noNulo(fechaCese, "fecha de cese");
 		}
 
@@ -222,7 +191,12 @@ public abstract class Asignacion {
 		this.designacion = designacion;
 	}
 
-	private void validarCrearAsignacion(
+	public void setEmpleadoEducativo(EmpleadoEducativo empleado) {
+		Validaciones.noNulo(empleado, "empleadoEducativoBasico");
+		this.empleadoEducativo = empleado;
+	}
+
+	private void validarCrear(
 			EmpleadoEducativo empleadoEducativo,
 			Designacion designacion,
 			Periodo periodo,
@@ -233,8 +207,27 @@ public abstract class Asignacion {
 		Validaciones.noNulo(secuencia, "secuencia");
 	}
 
-	public void setEmpleadoEducativo(EmpleadoEducativo empleado) {
-		Validaciones.noNulo(empleado, "empleadoEducativoBasico");
-		this.empleadoEducativo = empleado;
+	private void darDeBajaEn(LocalDate fechaBaja) {
+		Validaciones.noNulo(fechaBaja, "fecha bajaAsignacion");
+
+		if (!periodo.estaVigenteEn(fechaBaja)) {
+			throw new IllegalStateException("La asignación no está vigente en esa fecha");
+		}
+
+		this.periodo = this.periodo.cerrarEn(fechaBaja);
 	}
+
+	private boolean estaDadaDeBajaEn(LocalDate fecha) {
+		return bajaAsignacion != null && !fecha.isBefore(bajaAsignacion.getFechaBaja());
+	}
+
+	private boolean estaPendienteEn(LocalDate fecha) {
+		return fecha.isBefore(periodo.getFechaDesde());
+	}
+
+	private boolean estaFinalizadaEn(LocalDate fecha) {
+		return periodo.getFechaHasta() != null && fecha.isAfter(periodo.getFechaHasta());
+	}
+
+
 }

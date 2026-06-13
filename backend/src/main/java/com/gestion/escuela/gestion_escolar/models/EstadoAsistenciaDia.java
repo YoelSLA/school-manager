@@ -2,9 +2,11 @@ package com.gestion.escuela.gestion_escolar.models;
 
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsistencia;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
+import lombok.Getter;
 
 import java.time.LocalDate;
 
+@Getter
 public class EstadoAsistenciaDia {
 
 	private final LocalDate fecha;
@@ -62,29 +64,6 @@ public class EstadoAsistenciaDia {
 				null
 		);
 	}
-
-	// Getters
-
-	public LocalDate getFecha() {
-		return fecha;
-	}
-
-	public EstadoAsistencia getEstadoAsistencia() {
-		return estadoAsistencia;
-	}
-
-	public TipoLicencia getTipoLicencia() {
-		return tipoLicencia;
-	}
-
-	public Licencia getLicencia() {
-		return licencia;
-	}
-
-	public Long getAsistenciaId() {
-		return asistenciaId;
-	}
-
 	public boolean esManual() {
 		return asistenciaId != null;
 	}

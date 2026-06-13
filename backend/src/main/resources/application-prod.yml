@@ -1,8 +1,10 @@
 server:
+  # Puerto utilizado en el entorno de producción.
   port: ${PORT}
 
 spring:
   datasource:
+    # Configuración de conexión obtenida desde variables de entorno.
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
@@ -10,22 +12,48 @@ spring:
 
   jpa:
     hibernate:
+      # Valida que el esquema de la base de datos coincida con las entidades.
+      # No crea ni modifica tablas.
       ddl-auto: validate
+
+    # Muestra las consultas SQL generadas por Hibernate.
+    # Útil para depuración, pero puede generar mucho ruido en los logs.
     show-sql: true
+
+    # Deshabilita Open Session In View.
+    # Obliga a resolver las relaciones lazy dentro de la capa de servicio.
+    open-in-view: false
+
     properties:
       hibernate:
+        # Habilita estadísticas internas de Hibernate para análisis de rendimiento.
+        # Puede ayudar a detectar consultas N+1 y problemas de acceso a datos.
         generate_statistics: true
+
+        # Formatea las consultas SQL para facilitar su lectura.
         format_sql: true
 
   flyway:
+    # Ejecuta automáticamente las migraciones al iniciar la aplicación.
     enabled: true
+
+    # No crea una baseline automáticamente.
+    # Se espera que el esquema sea gestionado completamente por Flyway.
     baseline-on-migrate: false
 
   jackson:
+    # Zona horaria utilizada para serializar y deserializar fechas.
     time-zone: America/Argentina/Buenos_Aires
 
 logging:
   level:
+    # Muestra las consultas SQL generadas por Hibernate.
     org.hibernate.SQL: DEBUG
+
+    # Muestra los valores reales enviados como parámetros a las consultas.
+    # Muy útil para depuración, pero puede exponer datos sensibles.
     org.hibernate.orm.jdbc.bind: TRACE
+
+    # Muestra estadísticas de ejecución de Hibernate.
+    # Recomendado únicamente para diagnóstico y análisis de rendimiento.
     org.hibernate.stat: DEBUG

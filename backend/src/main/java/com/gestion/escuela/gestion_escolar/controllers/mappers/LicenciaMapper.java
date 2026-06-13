@@ -26,9 +26,20 @@ public class LicenciaMapper {
 	   ========================= */
 
 	public static LicenciaResumenDTO toResumen(Licencia l) {
+
+		long inicioEstado = System.currentTimeMillis();
+
+		var estado = l.getEstadoEn(HOY);
+
+		System.out.println(
+				"Licencia " + l.getId()
+						+ " getEstadoEn() -> "
+						+ (System.currentTimeMillis() - inicioEstado)
+						+ " ms"
+		);
+
 		TipoLicencia tipo = l.getTipoLicencia();
 
-		// 🔹 Normativa encapsulada
 		LicenciaNormativaDTO normativa =
 				new LicenciaNormativaDTO(
 						tipo.getCodigo(),
@@ -42,7 +53,7 @@ public class LicenciaMapper {
 				normativa,
 				tipo.getDescripcion(),
 				(PeriodoCerradoDTO) PeriodoMapper.toDTO(l.getPeriodo()),
-				l.getEstadoEn(HOY),
+				estado,
 				l.diasRestantes(HOY)
 		);
 	}

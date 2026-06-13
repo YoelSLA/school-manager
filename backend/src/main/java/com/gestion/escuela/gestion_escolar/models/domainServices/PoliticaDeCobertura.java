@@ -3,6 +3,7 @@ package com.gestion.escuela.gestion_escolar.models.domainServices;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.Periodo;
+import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
@@ -58,19 +59,22 @@ public class PoliticaDeCobertura {
 	}
 
 	public static void validarCubrirConSuplente(
-			Designacion designacion,
+			Asignacion asignacion,
 			Licencia licencia,
 			EmpleadoEducativo suplente,
 			LocalDate fechaInicio
 	) {
 
+		Validaciones.noNulo(asignacion, "asignacion");
 		Validaciones.noNulo(licencia, "licencia");
 		Validaciones.noNulo(suplente, "empleadoEducativoBasico educativo");
 		Validaciones.noNulo(fechaInicio, "fecha inicio");
 
+		Designacion designacion = asignacion.getDesignacion();
+
 		validarPuedeTomarPosesionEn(suplente, fechaInicio);
 
-		if (!licencia.afectaA(designacion, fechaInicio)) {
+		if (!licencia.afectaA(asignacion, fechaInicio)) {
 			throw new DesignacionNoAfectadaPorLicenciaException(designacion.getId(), licencia.getId());
 		}
 
@@ -78,12 +82,7 @@ public class PoliticaDeCobertura {
 			throw new RangoFechasInvalidoException(licencia.getPeriodo().getFechaDesde(), fechaInicio);
 		}
 
-		assert designacion != null;
-
 		if (!designacion.tieneVacantePorLicenciaEn(fechaInicio)) {
-
-			boolean vacantePorLicencia = designacion.tieneVacantePorLicenciaEn(fechaInicio);
-
 			throw new DesignacionNoVacantePorLicenciaException(designacion.getId());
 		}
 

@@ -1,6 +1,7 @@
 package com.gestion.escuela.gestion_escolar.models;
 
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
+import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
 import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
@@ -259,7 +260,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 			assertThat(licencia.getTipoLicencia()).isEqualTo(TipoLicencia.L_114O1);
 			assertThat(licencia.getPeriodo()).isEqualTo(unPeriodo);
 			assertThat(licencia.getDescripcion()).isEqualTo("Reposo médico");
-			assertThat(licencia.getDesignaciones()).containsExactly(plg2467775);
+			assertThat(licencia.getAsignaciones()).containsExactly(titular);
 			// Relacion bidireccional
 			assertThat(licencia.getEmpleadoEducativo()).isEqualTo(giardinoNoraRosa);
 			assertThat(giardinoNoraRosa.getLicencias()).contains(licencia);
@@ -397,7 +398,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 		void deberiaRetornarTrueCuandoEmpleadoEstaEnLicenciaParaDesignacion() {
 			// Arrange
 			LocalDate fechaTomaPosesion = LocalDate.of(1998, FEBRUARY, 28);
-			plg2467775.cubrirConTitular(giardinoNoraRosa, fechaTomaPosesion, 1);
+			AsignacionTitular titular = plg2467775.cubrirConTitular(giardinoNoraRosa, fechaTomaPosesion, 1);
 
 			giardinoNoraRosa.crearLicencia(
 					TipoLicencia.L_114O1,
@@ -411,8 +412,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 
 			// Act
 			boolean resultado = giardinoNoraRosa.estaEnLicenciaPara(
-							plg2467775,
-							LocalDate.of(2026, MARCH, 5)
+					titular, LocalDate.of(2026, MARCH, 5)
 			);
 
 			assertThat(resultado).isTrue();
@@ -422,7 +422,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 		void deberiaRetornarFalseCuandoEmpleadoNoEstaEnLicenciaEnFecha() {
 
 			LocalDate fechaTomaPosesion = LocalDate.of(1998, FEBRUARY, 28);
-			plg2467775.cubrirConTitular(giardinoNoraRosa, fechaTomaPosesion, 1);
+			Asignacion titular = plg2467775.cubrirConTitular(giardinoNoraRosa, fechaTomaPosesion, 1);
 
 			giardinoNoraRosa.crearLicencia(
 					TipoLicencia.L_114O1,
@@ -435,7 +435,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 			);
 
 			boolean resultado = giardinoNoraRosa.estaEnLicenciaPara(
-							plg2467775,
+							titular,
 							LocalDate.of(2026, APRIL, 1)
 			);
 
@@ -464,7 +464,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 			);
 
 			boolean resultado = giardinoNoraRosa.estaEnLicenciaPara(
-							direccion2467830,
+							mock(AsignacionTitular.class),
 							LocalDate.of(2026, MARCH, 5)
 					);
 

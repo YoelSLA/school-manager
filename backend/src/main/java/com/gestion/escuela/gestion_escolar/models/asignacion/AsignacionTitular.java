@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AsignacionTitular extends Asignacion {
 
-	public AsignacionTitular(
+	private AsignacionTitular(
 			EmpleadoEducativo empleadoEducativo,
 			Designacion designacion,
 			Periodo periodo,

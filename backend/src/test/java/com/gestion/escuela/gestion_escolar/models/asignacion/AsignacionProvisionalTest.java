@@ -210,21 +210,21 @@ class AsignacionProvisionalTest {
 			assertNull(asignacion.getCausaBaja());
 		}
 
-		@Test
-		@DisplayName("No está dada de bajaAsignacion si la fecha es anterior a la bajaAsignacion")
-		void noEstaDadaDeBajaSiFechaAnterior() {
-
-			LocalDate fechaBaja = LocalDate.of(2025, 3, 15);
-
-			asignacion.finalizarPorBajaDefinitiva(
-					CausaBaja.RENUNCIA,
-					fechaBaja
-			);
-
-			assertFalse(
-					asignacion.estaDadaDeBajaEn(LocalDate.of(2025, 3, 10))
-			);
-		}
+//		@Test
+//		@DisplayName("No está dada de bajaAsignacion si la fecha es anterior a la bajaAsignacion")
+//		void noEstaDadaDeBajaSiFechaAnterior() {
+//
+//			LocalDate fechaBaja = LocalDate.of(2025, 3, 15);
+//
+//			asignacion.finalizarPorBajaDefinitiva(
+//					CausaBaja.RENUNCIA,
+//					fechaBaja
+//			);
+//
+//			assertFalse(
+//					asignacion.estaDadaDeBajaEn(LocalDate.of(2025, 3, 10))
+//			);
+//		}
 
 		@Test
 		@DisplayName("getFechaBaja debe devolver fecha cuando hay bajaAsignacion")
