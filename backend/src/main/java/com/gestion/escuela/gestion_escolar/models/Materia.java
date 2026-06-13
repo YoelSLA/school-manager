@@ -41,7 +41,7 @@ public class Materia {
 			Integer cantidadModulos
 	) {
 
-		validarCrearOActualizarMateria(nombre, abreviatura, cantidadModulos);
+		validarCrearOActualizar(nombre, abreviatura, cantidadModulos);
 
 		this.nombre = nombre;
 		this.abreviatura = abreviatura;
@@ -51,7 +51,7 @@ public class Materia {
 
 	public void actualizar(String nombre, String abreviatura, Integer cantidadModulos) {
 
-		validarCrearOActualizarMateria(nombre, abreviatura, cantidadModulos);
+		validarCrearOActualizar(nombre, abreviatura, cantidadModulos);
 
 		this.nombre = nombre;
 		this.abreviatura = abreviatura;
@@ -69,7 +69,7 @@ public class Materia {
 		return nombre + " (" + abreviatura + ") - " + cantidadModulos + " " + textoModulo;
 	}
 
-	private void validarCrearOActualizarMateria(
+	private void validarCrearOActualizar(
 			String nombre,
 			String abreviatura,
 			Integer cantidadModulos

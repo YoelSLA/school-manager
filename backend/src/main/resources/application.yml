@@ -1,20 +1,54 @@
+server:
+  # Puerto HTTP donde se expone la aplicación.
+  port: 8080
+
 spring:
   profiles:
+    # Perfil activo por defecto.
     active: dev
 
-  jackson:
-    time-zone: America/Argentina/Buenos_Aires
+  datasource:
+    # Configuración de la base de datos local de desarrollo.
+    url: jdbc:postgresql://localhost:5433/gestion_escolar_dev
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      # Valida que el esquema de la base coincida con las entidades.
+      # No crea ni modifica tablas.
+      ddl-auto: validate
+
+    # Muestra las consultas SQL en consola.
+    show-sql: false
+
+    # Deshabilita Open Session In View.
+    # Evita consultas lazy fuera de la capa de servicio.
+    open-in-view: false
+
+    properties:
+      hibernate:
+        # Formatea las consultas SQL para mejorar la lectura.
+        format_sql: true
 
   flyway:
+    # Habilita la ejecución automática de migraciones.
     enabled: true
-    baseline-on-migrate: true
 
-server:
-  port: 8080
-  error:
-    include-message: always
+    # Impide crear una baseline automáticamente.
+    # Recomendado para proyectos nuevos donde Flyway controla
+    # completamente el esquema desde la primera migración.
+    baseline-on-migrate: false
+
+  jackson:
+    # Zona horaria utilizada para serializar/deserializar fechas.
+    time-zone: America/Argentina/Buenos_Aires
 
 logging:
   level:
+    # Nivel de log global de la aplicación.
     root: INFO
+
+    # Logs de la aplicación.
     ar.edu.unq.schoolmanager: DEBUG

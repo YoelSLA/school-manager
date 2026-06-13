@@ -40,7 +40,7 @@ public class Curso {
 
 	public Curso(Turno turno, Integer anio, Integer grado) {
 
-		validarCrearOActualizarTurno(turno, anio, grado);
+		validarCrearOActualizar(turno, anio, grado);
 
 		this.turno = turno;
 		this.anio = anio;
@@ -49,7 +49,7 @@ public class Curso {
 
 	public void actualizar(Turno turno, Integer anio, Integer grado) {
 
-		validarCrearOActualizarTurno(turno, anio, grado);
+		validarCrearOActualizar(turno, anio, grado);
 
 		this.turno = turno;
 		this.anio = anio;
@@ -70,7 +70,7 @@ public class Curso {
 		return anioDivision() + " - " + turno.getNombre();
 	}
 
-	private void validarCrearOActualizarTurno(Turno turno, Integer anio, Integer grado) {
+	private void validarCrearOActualizar(Turno turno, Integer anio, Integer grado) {
 
 		Validaciones.noNulo(turno, "turno");
 		Validaciones.noNulo(anio, "anio");

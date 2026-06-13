@@ -21,6 +21,8 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Stream;
 
+import static com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista.TITULAR;
+
 @Entity
 @Table(
 		name = "designacion",
@@ -269,7 +271,7 @@ public abstract class Designacion {
 	 * contrario.
 	 */
 	public boolean tieneTitularActivo(LocalDate fecha) {
-		return asignacionesEjercientesEn(fecha).anyMatch(Asignacion::esTitular);
+		return asignacionesEjercientesEn(fecha).anyMatch(a -> a.getSituacionDeRevista().equals(TITULAR));
 	}
 
 	/**
@@ -378,7 +380,23 @@ public abstract class Designacion {
 			LocalDate fechaInicio,
 			Integer secuencia
 	) {
-		return ServicioCobertura.cubrirConSuplente(this, licencia, suplente, fechaInicio, secuencia);
+
+		Asignacion asignacionLicenciada = licencia.getAsignaciones()
+				.stream()
+				.filter(a -> a.getDesignacion().equals(this))
+				.findFirst()
+				.orElseThrow(() ->
+						new IllegalStateException(
+								"La licencia no afecta a esta designación"
+						));
+
+		return ServicioCobertura.cubrirConSuplente(
+				asignacionLicenciada,
+				licencia,
+				suplente,
+				fechaInicio,
+				secuencia
+		);
 	}
 	// =========================================================
 	// Renovaciones
@@ -593,5 +611,15 @@ public abstract class Designacion {
 	}
 
 
+	public Optional<AsignacionSuplente> suplenciaDe(
+			Licencia licencia
+	) {
+		Validaciones.noNulo(licencia, "licencia");
 
+		return asignaciones.stream()
+				.filter(AsignacionSuplente.class::isInstance)
+				.map(AsignacionSuplente.class::cast)
+				.filter(a -> licencia.equals(a.getLicencia()))
+				.findFirst();
+	}
 }

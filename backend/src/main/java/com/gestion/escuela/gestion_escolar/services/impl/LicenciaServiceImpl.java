@@ -1,6 +1,7 @@
 package com.gestion.escuela.gestion_escolar.services.impl;
 
 import com.gestion.escuela.gestion_escolar.models.Licencia;
+import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -39,10 +41,24 @@ public class LicenciaServiceImpl implements LicenciaService {
 		escuelaRepository.findById(escuelaId)
 				.orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
 
-		return licenciaRepository.buscarRaicesPorEscuelaId(
+		long inicio = System.currentTimeMillis();
+
+		Page<Licencia> resultado = licenciaRepository.buscarRaicesPorEscuelaId(
 				escuelaId,
 				pageable
 		);
+
+		System.out.println(
+				"QUERY LICENCIAS -> "
+						+ (System.currentTimeMillis() - inicio)
+						+ " ms"
+						+ " | elementos: "
+						+ resultado.getNumberOfElements()
+						+ " | total: "
+						+ resultado.getTotalElements()
+		);
+
+		return resultado;
 	}
 
 	@Override
@@ -69,7 +85,7 @@ public class LicenciaServiceImpl implements LicenciaService {
 
 		Licencia licencia = obtenerPorId(licenciaId);
 
-		return licencia.getDesignaciones();
+		return licencia.getAsignaciones().stream().map(Asignacion::getDesignacion).collect(Collectors.toSet());
 
 	}
 
@@ -86,8 +102,10 @@ public class LicenciaServiceImpl implements LicenciaService {
 		Licencia licencia = licenciaRepository.findById(licenciaId)
 				.orElseThrow(() -> new RecursoNoEncontradoException("licencia", licenciaId));
 
-		List<Long> designacionesIds = licencia.getDesignaciones().stream()
+		List<Long> designacionesIds = licencia.getAsignaciones().stream()
+				.map(Asignacion::getDesignacion)
 				.map(Designacion::getId)
+				.distinct()
 				.toList();
 
 		asignacionRepository.eliminarSuplenciasDeLicencia(
@@ -96,7 +114,7 @@ public class LicenciaServiceImpl implements LicenciaService {
 				licencia.getPeriodo().getFechaHasta()
 		);
 
-		licencia.eliminarDesignaciones();
+		licencia.eliminarAsignaciones();
 
 		licenciaRepository.delete(licencia);
 	}

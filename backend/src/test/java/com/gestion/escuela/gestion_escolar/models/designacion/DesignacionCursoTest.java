@@ -339,12 +339,12 @@ class DesignacionCursoTest extends DomainTestFixture {
 		@Test
 		void deberiaAgregarAsignacion() {
 
-			AsignacionTitular titular = new AsignacionTitular(
-					marchettiRoman,
-					plg2467783,
-					abierto(LocalDate.of(1998, MARCH, 1)),
-					1
-			);
+			AsignacionTitular titular = AsignacionTitular.builder()
+					.empleadoEducativo(marchettiRoman)
+					.designacion(plg2467783)
+					.periodo(abierto(LocalDate.of(1998, MARCH, 1)))
+					.secuencia(1)
+					.build();
 
 			plg2467783.agregarAsignacion(titular);
 
@@ -365,19 +365,19 @@ class DesignacionCursoTest extends DomainTestFixture {
 		@Test
 		void noDeberiaPermitirAgregarAsignacionSiYaExisteUnaQueEjerceEnLaMismaFecha() {
 
-			AsignacionTitular titular = new AsignacionTitular(
-					marchettiRoman,
-					plg2467783,
-					abierto(LocalDate.of(2026, MARCH, 1)),
-					1
-			);
+			AsignacionTitular titular = AsignacionTitular.builder()
+					.empleadoEducativo(marchettiRoman)
+					.designacion(plg2467783)
+					.periodo(abierto(LocalDate.of(2026, MARCH, 1)))
+					.secuencia(1)
+					.build();
 
-			AsignacionProvisional provisional = new AsignacionProvisional(
-					giardinoNoraRosa,
-					plg2467783,
-					abierto(LocalDate.of(2026, MARCH, 1)),
-					2
-			);
+			AsignacionProvisional provisional = AsignacionProvisional.builder()
+					.empleadoEducativo(giardinoNoraRosa)
+					.designacion(plg2467783)
+					.periodo(abierto(LocalDate.of(2026, MARCH, 1)))
+					.secuencia(2)
+					.build();
 
 			plg2467783.agregarAsignacion(titular);
 
@@ -390,12 +390,12 @@ class DesignacionCursoTest extends DomainTestFixture {
 		@Test
 		void deberiaEliminarAsignacion() {
 
-			AsignacionTitular titular = new AsignacionTitular(
-					marchettiRoman,
-					plg2467783,
-					abierto(LocalDate.of(2026, MARCH, 1)),
-					1
-			);
+			AsignacionTitular titular = AsignacionTitular.builder()
+					.empleadoEducativo(marchettiRoman)
+					.designacion(plg2467783)
+					.periodo(abierto(LocalDate.of(2026, MARCH, 1)))
+					.secuencia(1)
+					.build();
 
 			plg2467783.agregarAsignacion(titular);
 
@@ -411,12 +411,12 @@ class DesignacionCursoTest extends DomainTestFixture {
 		void deberiaRetornarAsignacionQueEjerceEnFecha() {
 
 			LocalDate fechaTomaPosesion = LocalDate.of(2026, MARCH, 1);
-			AsignacionTitular titular = new AsignacionTitular(
-					marchettiRoman,
-					plg2467783,
-					abierto(fechaTomaPosesion),
-					1
-			);
+			AsignacionTitular titular = AsignacionTitular.builder()
+					.empleadoEducativo(marchettiRoman)
+					.designacion(plg2467783)
+					.periodo(abierto(fechaTomaPosesion))
+					.secuencia(1)
+					.build();
 
 			plg2467783.agregarAsignacion(titular);
 
@@ -446,12 +446,12 @@ class DesignacionCursoTest extends DomainTestFixture {
 		@Test
 		void deberiaRetornarEmpleadoActivoEnFecha() {
 
-			AsignacionTitular titular = new AsignacionTitular(
-					marchettiRoman,
-					plg2467783,
-					abierto(LocalDate.of(2026, MARCH, 1)),
-					1
-			);
+			AsignacionTitular titular = AsignacionTitular.builder()
+					.empleadoEducativo(marchettiRoman)
+					.designacion(plg2467783)
+					.periodo(abierto(LocalDate.of(2026, MARCH, 1)))
+					.secuencia(1)
+					.build();
 
 			plg2467783.agregarAsignacion(titular);
 
@@ -465,12 +465,12 @@ class DesignacionCursoTest extends DomainTestFixture {
 		@Test
 		void deberiaIndicarQueTieneTitularActivo() {
 
-			AsignacionTitular titular = new AsignacionTitular(
-					marchettiRoman,
-					plg2467783,
-					abierto(LocalDate.of(2026, MARCH, 1)),
-					1
-			);
+			AsignacionTitular titular = AsignacionTitular.builder()
+					.empleadoEducativo(marchettiRoman)
+					.designacion(plg2467783)
+					.periodo(abierto(LocalDate.of(2026, MARCH, 1)))
+					.secuencia(1)
+					.build();
 
 			plg2467783.agregarAsignacion(titular);
 
@@ -485,12 +485,12 @@ class DesignacionCursoTest extends DomainTestFixture {
 		@Test
 		void deberiaIndicarQueEstaCubiertaEnFecha() {
 
-			AsignacionTitular titular = new AsignacionTitular(
-					marchettiRoman,
-					plg2467783,
-					abierto(LocalDate.of(2026, MARCH, 1)),
-					1
-			);
+			AsignacionTitular titular = AsignacionTitular.builder()
+					.empleadoEducativo(marchettiRoman)
+					.designacion(plg2467783)
+					.periodo(abierto(LocalDate.of(2026, MARCH, 1)))
+					.secuencia(1)
+					.build();
 
 			plg2467783.agregarAsignacion(titular);
 
@@ -506,14 +506,14 @@ class DesignacionCursoTest extends DomainTestFixture {
 		@Test
 		void deberiaIndicarQueTieneAsignacionSuperpuesta() {
 
-			AsignacionTitular titular = new AsignacionTitular(
-					marchettiRoman,
-					plg2467783,
-					cerrado(LocalDate.of(2026, MARCH, 1),
+			AsignacionTitular titular = AsignacionTitular.builder()
+					.empleadoEducativo(marchettiRoman)
+					.designacion(plg2467783)
+					.periodo(cerrado(LocalDate.of(2026, MARCH, 1),
 							LocalDate.of(2026, JUNE, 1)
-					),
-					1
-			);
+					))
+					.secuencia(1)
+					.build();
 
 			plg2467783.agregarAsignacion(titular);
 
@@ -528,14 +528,14 @@ class DesignacionCursoTest extends DomainTestFixture {
 		@Test
 		void deberiaIndicarQueNoTieneAsignacionSuperpuesta() {
 
-			AsignacionTitular titular = new AsignacionTitular(
-					marchettiRoman,
-					plg2467783,
-					cerrado(LocalDate.of(2026, MARCH, 1),
+			AsignacionTitular titular = AsignacionTitular.builder()
+					.empleadoEducativo(marchettiRoman)
+					.designacion(plg2467783)
+					.periodo(cerrado(LocalDate.of(2026, MARCH, 1),
 							LocalDate.of(2026, APRIL, 1)
-					),
-					1
-			);
+					))
+					.secuencia(1)
+					.build();
 
 			plg2467783.agregarAsignacion(titular);
 
@@ -736,7 +736,7 @@ class DesignacionCursoTest extends DomainTestFixture {
 		@Test
 		void noDeberiaCubrirConSuplenteSiNoExisteVacantePorLicencia() {
 
-			plg2467783.cubrirConTitular(
+			AsignacionTitular titular = plg2467783.cubrirConTitular(
 					marchettiRoman,
 					LocalDate.of(2026, MARCH, 1),
 					1
@@ -752,7 +752,7 @@ class DesignacionCursoTest extends DomainTestFixture {
 							)
 					)
 					.descripcion("Licencia médica")
-					.agregarDesignacion(plg2467783)
+					.agregarAsignacion(titular)
 					.build();
 
 			assertThrows(

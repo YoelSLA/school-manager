@@ -4,6 +4,7 @@ import com.gestion.escuela.gestion_escolar.models.AsignacionFactory;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.Periodo;
+import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionProvisional;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionSuplente;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
@@ -86,16 +87,26 @@ public class ServicioCobertura {
 	}
 
 	public static AsignacionSuplente cubrirConSuplente(
-			Designacion designacion,
+			Asignacion asignacionLicenciada,
 			Licencia licencia,
 			EmpleadoEducativo suplente,
 			LocalDate fechaInicio,
 			Integer secuencia
 	) {
 
-		PoliticaDeCobertura.validarCubrirConSuplente(designacion, licencia, suplente, fechaInicio);
+		Designacion designacion = asignacionLicenciada.getDesignacion();
 
-		Periodo periodo = Periodo.cerrado(fechaInicio, licencia.getPeriodo().getFechaHasta());
+		PoliticaDeCobertura.validarCubrirConSuplente(
+				asignacionLicenciada,
+				licencia,
+				suplente,
+				fechaInicio
+		);
+
+		Periodo periodo = Periodo.cerrado(
+				fechaInicio,
+				licencia.getPeriodo().getFechaHasta()
+		);
 
 		AsignacionSuplente asignacion = AsignacionFactory.crearSuplente(
 				suplente,
@@ -106,6 +117,7 @@ public class ServicioCobertura {
 		);
 
 		designacion.agregarAsignacion(asignacion);
+
 		return asignacion;
 	}
 }

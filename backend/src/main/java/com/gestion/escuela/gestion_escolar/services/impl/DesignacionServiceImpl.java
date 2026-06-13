@@ -461,14 +461,17 @@ public class DesignacionServiceImpl implements DesignacionService {
 		Designacion designacion = designacionRepository.findById(designacionId)
 				.orElseThrow(() -> new RecursoNoEncontradoException("designacion", designacionId));
 
-		LocalDate fechaLicencia = licencia.getPeriodo().getFechaDesde();
-
-		if (!licencia.afectaA(designacion, fechaLicencia)) {
-			throw new CoberturaNoPerteneceALicenciaException(licencia, designacion);
-		}
+		licencia.getAsignacionAfectada(designacion)
+				.orElseThrow(() ->
+						new CoberturaNoPerteneceALicenciaException(
+								licencia,
+								designacion
+						));
 
 		EmpleadoEducativo nuevoSuplente = empleadoEducativoRepository.findById(nuevoEmpleadoId)
 				.orElseThrow(() -> new RecursoNoEncontradoException("empleadoEducativoBasico", nuevoEmpleadoId));
+
+		LocalDate fechaLicencia = licencia.getPeriodo().getFechaDesde();
 
 		AsignacionSuplente suplencia = designacion.getSuplenciaActivaEn(fechaLicencia)
 				.orElseThrow(() -> new CoberturaNoEncontradaException(designacion));
