@@ -1,6 +1,6 @@
 server:
   # Puerto utilizado en el entorno de producción.
-  port: ${PORT}
+  port: ${PORT:8080}
 
 spring:
   datasource:

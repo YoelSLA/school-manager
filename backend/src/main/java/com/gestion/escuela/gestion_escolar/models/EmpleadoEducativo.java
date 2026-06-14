@@ -1,7 +1,6 @@
 package com.gestion.escuela.gestion_escolar.models;
 
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
-import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.DiaDeSemana;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
@@ -196,34 +195,6 @@ public class EmpleadoEducativo {
 		return resultado;
 	}
 
-	private void validarAsignacionNoSuperpuesta(Asignacion asignacion) {
-
-		boolean superpuesta = asignaciones.stream()
-				.anyMatch(a ->
-						a != asignacion
-								&& a.getDesignacion().equals(asignacion.getDesignacion())
-								&& a.seSuperponeCon(asignacion)
-				);
-
-		if (superpuesta) {
-			throw new AsignacionSuperpuestaException();
-		}
-	}
-
-	// =========================================================
-	// DESIGNACIONES
-	// =========================================================
-	public Set<Designacion> designacionesActivasEn(LocalDate fecha) {
-
-		if (fecha == null) {
-			return Set.of();
-		}
-
-		return asignaciones.stream()
-				.filter(a -> a.estaActivaEn(fecha))
-				.map(Asignacion::getDesignacion)
-				.collect(Collectors.toUnmodifiableSet());
-	}
 	// =========================================================
 	// ASISTENCIA / JORNADA LABORAL
 	// =========================================================
@@ -255,15 +226,6 @@ public class EmpleadoEducativo {
 			return EstadoAsistenciaDia.manual(manual);
 		}
 		return EstadoAsistenciaDia.presente(fecha);
-	}
-
-	private boolean debeAsistirEn(LocalDate fecha) {
-		if (fecha == null) {
-			return false;
-		}
-		return asignaciones.stream()
-				.map(Asignacion::getDesignacion)
-				.anyMatch(designacion -> designacion.trabajaElDia(fecha));
 	}
 
 	public List<RolEducativo> rolesActivosEn(LocalDate fecha) {
@@ -307,9 +269,69 @@ public class EmpleadoEducativo {
 		this.fechaDeIngreso = fechaDeIngreso;
 		this.email = email;
 	}
+
+	/**
+	 * Indica si el empleadoEducativoBasico posee al menos una licencia que se superpone con el
+	 * período indicado.
+	 *
+	 * <p>Se considera que una licencia se superpone cuando comparte al menos un
+	 * día con el período consultado.</p>
+	 *
+	 * @param periodo período a evaluar.
+	 * @return {@code true} si el empleadoEducativoBasico tiene una licencia superpuesta al
+	 * período indicado; {@code false} en caso contrario.
+	 */
+	public boolean tieneLicenciaSuperpuestaEn(Periodo periodo) {
+		return licencias.stream()
+				.anyMatch(l -> l.seSuperponeCon(periodo));
+	}
+
+	/**
+	 * Indica si el empleadoEducativoBasico posee alguna licencia vigente en la fecha indicada.
+	 *
+	 * @param fecha fecha a evaluar.
+	 * @return {@code true} si existe una licencia que incluya la fecha dada;
+	 * {@code false} en caso contrario.
+	 */
+	public boolean tieneLicenciaEn(LocalDate fecha) {
+		return licencias.stream()
+				.anyMatch(l -> l.contiene(fecha));
+	}
+
+	private boolean pertenecenAlEmpleado(Set<Asignacion> asignaciones) {
+		return this.asignaciones.containsAll(asignaciones);
+	}
+
+	private boolean estanActivasEn(Set<Asignacion> asignaciones, LocalDate fecha) {
+		return asignacionesActivasEn(fecha).containsAll(asignaciones);
+	}
+
+	private boolean debeAsistirEn(LocalDate fecha) {
+		if (fecha == null) {
+			return false;
+		}
+		return asignaciones.stream()
+				.map(Asignacion::getDesignacion)
+				.anyMatch(designacion -> designacion.trabajaElDia(fecha));
+	}
+
 	// =========================================================
 	// VALIDACIONES
 	// =========================================================
+	private void validarAsignacionNoSuperpuesta(Asignacion asignacion) {
+
+		boolean superpuesta = asignaciones.stream()
+				.anyMatch(a ->
+						a != asignacion
+								&& a.getDesignacion().equals(asignacion.getDesignacion())
+								&& a.seSuperponeCon(asignacion)
+				);
+
+		if (superpuesta) {
+			throw new AsignacionSuperpuestaException();
+		}
+	}
+
 	private void validarCrearOActualizar(
 			Escuela escuela,
 			String cuil,
@@ -345,7 +367,7 @@ public class EmpleadoEducativo {
 			throw new EmpleadoInactivoException(this);
 		}
 
-		if (tieneLicenciaSuperpuesta(periodo)) {
+		if (tieneLicenciaSuperpuestaEn(periodo)) {
 			throw new LicenciaSuperpuestaException();
 		}
 
@@ -357,58 +379,6 @@ public class EmpleadoEducativo {
 			throw new AsignacionNoActivaDelEmpleadoException();
 		}
 	}
-
-	/**
-	 * Indica si el empleadoEducativoBasico posee al menos una licencia que se superpone con el
-	 * período indicado.
-	 *
-	 * <p>Se considera que una licencia se superpone cuando comparte al menos un
-	 * día con el período consultado.</p>
-	 *
-	 * @param periodo período a evaluar.
-	 * @return {@code true} si el empleadoEducativoBasico tiene una licencia superpuesta al
-	 * período indicado; {@code false} en caso contrario.
-	 */
-	public boolean tieneLicenciaSuperpuestaEn(Periodo periodo) {
-		return licencias.stream()
-				.anyMatch(l -> l.seSuperponeCon(periodo));
-	}
-
-	/**
-	 * Indica si el empleadoEducativoBasico posee alguna licencia vigente en la fecha indicada.
-	 *
-	 * @param fecha fecha a evaluar.
-	 * @return {@code true} si existe una licencia que incluya la fecha dada;
-	 * {@code false} en caso contrario.
-	 */
-	public boolean tieneLicenciaEn(LocalDate fecha) {
-		return licencias.stream()
-				.anyMatch(l -> l.contiene(fecha));
-	}
-
-	private Set<Asignacion> asignacionesActivasDe(
-			Set<Designacion> designaciones,
-			LocalDate fecha
-	) {
-		return asignaciones.stream()
-				.filter(a -> a.estaActivaEn(fecha))
-				.filter(a -> designaciones.contains(a.getDesignacion()))
-				.collect(Collectors.toSet());
-	}
-
-	private boolean tieneLicenciaSuperpuesta(Periodo periodo) {
-		return licencias.stream().anyMatch(l -> l.seSuperponeCon(periodo));
-	}
-
-	private boolean pertenecenAlEmpleado(Set<Asignacion> asignaciones) {
-		return this.asignaciones.containsAll(asignaciones);
-	}
-
-	private boolean estanActivasEn(Set<Asignacion> asignaciones, LocalDate fecha) {
-		return asignacionesActivasEn(fecha).containsAll(asignaciones);
-	}
-
-
 
 	// =========================================================
 	// BUILDER
