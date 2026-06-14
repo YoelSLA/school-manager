@@ -1,5 +1,4 @@
 import type z from "zod";
-import type { crearLicenciaSchema } from "@/features/licencias/form/crearLicencia.schema";
 import type { cubrirDesignacionesConSuplenteSchema } from "@/features/licencias/form/cubrirDesignacionesConSuplente.schema";
 import type { TipoLicencia } from "@/shared/types/ui.types";
 import type { AsignacionDetalleDTO } from "./asignaciones.types";
@@ -10,14 +9,15 @@ import type {
 } from "./common.types";
 import type { EmpleadoEducativoBasicoDTO } from "./empleadoEducativo.types";
 import type { EstadoDesignacion, EstadoLicencia, RolEducativo } from "./enums";
+import { createLicencia } from "@/features/licencias/form/createLicencia.schema";
 
-export type LicenciaCreateFormValues = z.input<typeof crearLicenciaSchema>;
+export type LicenciaCreateFormValues = z.input<typeof createLicencia>;
 
 export type LicenciaCreateDTO = {
 	tipoLicencia: string;
 	periodo: PeriodoCreateDTO;
 	descripcion?: string;
-	designacionesIds: number[];
+	asignacionesIds: number[];
 };
 
 export type CubrirDesignacionesConSuplente = z.infer<

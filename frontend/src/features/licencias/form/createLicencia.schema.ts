@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { crearPeriodoSchema } from "@/shared/utils/zod/crearPeriodo.schema";
 
-export const crearLicenciaSchema = z.object({
+export const createLicencia = z.object({
 	tipoLicencia: z
 		.string()
 		.min(1, { message: "Debe seleccionar un tipo de licencia" }),
@@ -15,7 +15,7 @@ export const crearLicenciaSchema = z.object({
 		})
 		.optional(),
 
-	designacionesIds: z.array(z.coerce.number()).min(1, {
-		message: "Debe indicar al menos una designación afectada",
+	asignacionesIds: z.array(z.coerce.number()).min(1, {
+		message: "Debe indicar al menos una asignacion afectada",
 	}),
 });

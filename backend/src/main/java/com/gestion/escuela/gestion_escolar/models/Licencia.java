@@ -16,7 +16,6 @@ import lombok.Getter;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.gestion.escuela.gestion_escolar.models.Periodo.cerrado;
@@ -160,8 +159,10 @@ public class Licencia {
 	// =========================================================
 	public boolean afectaA(Asignacion asignacion, LocalDate fecha) {
 		Validaciones.noNulo(asignacion, "asignacion");
+		Validaciones.noNulo(fecha, "fecha");
 
-		return periodo.estaVigenteEn(fecha) && asignaciones.contains(asignacion);
+		return periodo.estaVigenteEn(fecha)
+				&& asignaciones.contains(asignacion);
 	}
 
 	public Optional<AsignacionSuplente> suplenciaDe(
@@ -187,15 +188,11 @@ public class Licencia {
 
 		LocalDate nuevoDesde = periodo.getFechaHasta().plusDays(1);
 
-		Set<Designacion> designaciones = asignaciones.stream()
-				.map(Asignacion::getDesignacion)
-				.collect(Collectors.toSet());
-
 		Licencia licenciaRenovada = empleadoEducativo.crearLicencia(
 				tipoLicencia,
 				cerrado(nuevoDesde, nuevoHasta),
 				descripcion,
-				designaciones
+				new HashSet<>(this.getAsignaciones())
 		);
 
 		this.licenciaSiguiente = licenciaRenovada;
@@ -222,11 +219,13 @@ public class Licencia {
 	// =========================================================
 	// Superposición
 	// =========================================================
-	public boolean seSuperponeCon(Licencia otraLicencia) {
-		return this.seSuperponeCon(otraLicencia.getPeriodo());
+	public boolean seSuperponeCon(Licencia licencia) {
+		Validaciones.noNulo(licencia, "licencia");
+		return this.seSuperponeCon(licencia.getPeriodo());
 	}
 
 	public boolean seSuperponeCon(Periodo periodo) {
+		Validaciones.noNulo(periodo, "periodo");
 		return this.periodo.seSuperponeCon(periodo);
 	}
 

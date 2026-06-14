@@ -1,13 +1,13 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionLicenciaItemDTO.DesignacionLicenciaDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response.asignacionLicenciaDTO.AsignacionLicenciaDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadoEducativo.response.EmpleadoEducativoAsignacionesDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadoEducativo.response.EmpleadoEducativoDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.empleadoEducativo.response.EmpleadoEducativoLicenciasDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.request.LicenciaCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.response.LicenciaDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.request.BajaDefinitivaDTO;
-import com.gestion.escuela.gestion_escolar.controllers.mappers.DesignacionMapper;
+import com.gestion.escuela.gestion_escolar.controllers.mappers.AsignacionMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.EmpleadoEducativoMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.LicenciaMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.PeriodoMapper;
@@ -46,7 +46,7 @@ public class EmpleadoEducativoControllerREST {
 				dto.tipoLicencia(),
 				PeriodoMapper.toEntity(dto.periodo()),
 				dto.descripcion(),
-				dto.designacionesIds()
+				dto.asignacionesIds()
 		);
 
 		return LicenciaMapper.toDetalle(licencia);
@@ -73,14 +73,14 @@ public class EmpleadoEducativoControllerREST {
 		return EmpleadoEducativoMapper.toDetalle(empleado, rolesEducativos);
 	}
 
-	@GetMapping("/{empleadoId}/designaciones-activas")
-	public Set<DesignacionLicenciaDTO> obtenerDesignacionesActivas(
+	@GetMapping("/{empleadoId}/asignaciones-activas")
+	public Set<AsignacionLicenciaDTO> obtenerAsignacionesActivas(
 			@PathVariable Long empleadoId
 	) {
 
-		return empleadoEducativoService.obtenerDesignacionesActivas(empleadoId)
+		return empleadoEducativoService.obtenerAsignacionesActivas(empleadoId)
 				.stream()
-				.map(DesignacionMapper::toLicenciaItem)
+				.map(AsignacionMapper::toLicenciaItem)
 				.collect(Collectors.toSet());
 	}
 

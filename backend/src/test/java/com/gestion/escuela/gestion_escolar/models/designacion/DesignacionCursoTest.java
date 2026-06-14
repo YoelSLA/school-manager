@@ -25,7 +25,8 @@ import java.util.Set;
 
 import static com.gestion.escuela.gestion_escolar.models.Periodo.abierto;
 import static com.gestion.escuela.gestion_escolar.models.Periodo.cerrado;
-import static com.gestion.escuela.gestion_escolar.models.enums.DiaDeSemana.*;
+import static com.gestion.escuela.gestion_escolar.models.enums.DiaDeSemana.LUNES;
+import static com.gestion.escuela.gestion_escolar.models.enums.DiaDeSemana.MARTES;
 import static java.time.Month.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -295,29 +296,6 @@ class DesignacionCursoTest extends DomainTestFixture {
 			);
 		}
 
-		private FranjaHoraria miercoles1330a1530() {
-			return new FranjaHoraria(
-					MIERCOLES,
-					LocalTime.of(13,30),
-					LocalTime.of(15,30)
-			);
-		}
-
-		private FranjaHoraria jueves1400a1600() {
-			return new FranjaHoraria(
-					JUEVES,
-					LocalTime.of(14,0),
-					LocalTime.of(16,0)
-			);
-		}
-
-		private FranjaHoraria viernes0800a1000() {
-			return new FranjaHoraria(
-					VIERNES,
-					LocalTime.of(8,0),
-					LocalTime.of(10,0)
-			);
-		}
 	}
 
 	@Nested
@@ -643,7 +621,7 @@ class DesignacionCursoTest extends DomainTestFixture {
 		void deberiaCubrirConSuplente() {
 			// Arrange
 			LocalDate fechaTomaPosesionTitular = LocalDate.of(2026, MARCH, 1);
-			AsignacionTitular titular = plg2467783.cubrirConTitular(
+			AsignacionTitular titularMarchetti = plg2467783.cubrirConTitular(
 					marchettiRoman,
 					fechaTomaPosesionTitular,
 					1
@@ -656,14 +634,14 @@ class DesignacionCursoTest extends DomainTestFixture {
 					TipoLicencia.L_A1,
 					unPeriodo,
 					null,
-					Set.of(plg2467783));
+					Set.of(titularMarchetti));
 
 			// Act
 			AsignacionSuplente suplente = plg2467783.cubrirConSuplente(
-							unaLicencia,
-							giardinoNoraRosa,
-							LocalDate.of(2026, APRIL, 1),
-							2
+					unaLicencia,
+					giardinoNoraRosa,
+					LocalDate.of(2026, APRIL, 1),
+					2
 			);
 
 			assertAll(
@@ -678,12 +656,13 @@ class DesignacionCursoTest extends DomainTestFixture {
 
 		@Test
 		void noDeberiaCubrirConTitularSiEmpleadoEsNull() {
+			LocalDate fecha = LocalDate.of(2026, MARCH, 1);
 
 			assertThrows(
 					CampoObligatorioException.class,
 					() -> plg2467783.cubrirConTitular(
 							null,
-							LocalDate.of(2026, MARCH, 1),
+							fecha,
 							1
 					)
 			);
@@ -692,9 +671,12 @@ class DesignacionCursoTest extends DomainTestFixture {
 		@Test
 		void noDeberiaCubrirConTitularSiYaHayTitularActivo() {
 
+			LocalDate fechaInicioTitular = LocalDate.of(2026, MARCH, 1);
+			LocalDate fechaSegundoTitular = LocalDate.of(2026, MARCH, 10);
+
 			plg2467783.cubrirConTitular(
 					marchettiRoman,
-					LocalDate.of(2026, MARCH, 1),
+					fechaInicioTitular,
 					1
 			);
 
@@ -702,7 +684,7 @@ class DesignacionCursoTest extends DomainTestFixture {
 					DesignacionYaTieneTitularException.class,
 					() -> plg2467783.cubrirConTitular(
 							giardinoNoraRosa,
-							LocalDate.of(2026, MARCH, 10),
+							fechaSegundoTitular,
 							2
 					)
 			);
@@ -711,12 +693,19 @@ class DesignacionCursoTest extends DomainTestFixture {
 		@Test
 		void noDeberiaCubrirConProvisionalSiSeSuperpone() {
 
+			Periodo primeraCobertura = cerrado(
+					LocalDate.of(2026, MARCH, 1),
+					LocalDate.of(2026, JULY, 1)
+			);
+
+			Periodo segundaCobertura = cerrado(
+					LocalDate.of(2026, APRIL, 1),
+					LocalDate.of(2026, AUGUST, 1)
+			);
+
 			plg2467783.cubrirConProvisionalManual(
 					marchettiRoman,
-					cerrado(
-							LocalDate.of(2026, MARCH, 1),
-							LocalDate.of(2026, JULY, 1)
-					),
+					primeraCobertura,
 					1
 			);
 
@@ -724,10 +713,7 @@ class DesignacionCursoTest extends DomainTestFixture {
 					DesignacionYaCubiertaException.class,
 					() -> plg2467783.cubrirConProvisionalManual(
 							giardinoNoraRosa,
-							cerrado(
-									LocalDate.of(2026, APRIL, 1),
-									LocalDate.of(2026, AUGUST, 1)
-							),
+							segundaCobertura,
 							2
 					)
 			);
@@ -755,541 +741,543 @@ class DesignacionCursoTest extends DomainTestFixture {
 					.agregarAsignacion(titular)
 					.build();
 
+			LocalDate fechaInicioSuplencia = LocalDate.of(2026, APRIL, 1);
+
 			assertThrows(
 					DesignacionNoVacantePorLicenciaException.class,
 					() -> plg2467783.cubrirConSuplente(
 							licencia,
 							giardinoNoraRosa,
-							LocalDate.of(2026, APRIL, 1),
+							fechaInicioSuplencia,
 							2
 					)
 			);
 		}
+
+		@Nested
+		class Renovaciones {
+
+			private DesignacionCurso plg2467783;
+
+			@BeforeEach
+			void setUp() {
+				plg2467783 = new DesignacionCurso(
+						escuelaN65,
+						2467783,
+						practicasDelLenguaje,
+						a1g2,
+						"Bachiller de Ciclo Básico"
+				);
+			}
+
+			@Test
+			void deberiaRenovarProvisionalAutomaticamente() {
+
+				AsignacionProvisional anterior =
+						plg2467783.cubrirConProvisionalManual(
+								marchettiRoman,
+								cerrado(
+										LocalDate.of(2025, MARCH, 3),
+										LocalDate.of(2026, FEBRUARY, 26)
+								),
+								1
+						);
+
+				AsignacionProvisional renovada = plg2467783.renovarProvisionalAutomatica(anterior, 2);
+
+				assertAll(
+						() -> assertEquals(marchettiRoman, renovada.getEmpleadoEducativo()),
+						() -> assertEquals(plg2467783, renovada.getDesignacion()),
+						() -> assertEquals(2, renovada.getSecuencia()),
+						() -> assertEquals(
+								LocalDate.of(2026, MARCH, 1),
+								renovada.getPeriodo().getFechaDesde()
+						),
+						() -> assertEquals(
+								LocalDate.of(2027, FEBRUARY, 26),
+								renovada.getPeriodo().getFechaHasta()
+						),
+						() -> assertTrue(plg2467783.getAsignaciones().contains(renovada))
+				);
+			}
+
+			@Test
+			void noDeberiaRenovarProvisionalAutomaticamenteSiAsignacionAnteriorEsNull() {
+
+				assertThrows(
+						CampoObligatorioException.class,
+						() -> plg2467783.renovarProvisionalAutomatica(null, 2)
+				);
+			}
+
+			@Test
+			void deberiaRenovarProvisionalDesdeMarzo() {
+
+				AsignacionProvisional anterior =
+						plg2467783.cubrirConProvisionalManual(
+								marchettiRoman,
+								cerrado(
+										LocalDate.of(2025, MARCH, 1),
+										LocalDate.of(2025, DECEMBER, 31)
+								),
+								1
+						);
+
+				AsignacionProvisional renovada =
+						plg2467783.renovarProvisionalDesdeMarzo(
+								anterior,
+								LocalDate.of(2026, JULY, 31),
+								2
+						);
+
+				assertAll(
+						() -> assertEquals(marchettiRoman, renovada.getEmpleadoEducativo()),
+
+						() -> assertEquals(plg2467783, renovada.getDesignacion()
+						),
+
+						() -> assertEquals(
+								LocalDate.of(2026, MARCH, 1),
+								renovada.getPeriodo().getFechaDesde()
+						),
+
+						() -> assertEquals(
+								LocalDate.of(2026, JULY, 31),
+								renovada.getPeriodo().getFechaHasta()
+						),
+
+						() -> assertEquals(2, renovada.getSecuencia()
+						)
+				);
+			}
+
+			@Test
+			void noDeberiaRenovarDesdeMarzoSiFechaHastaEsNull() {
+
+				AsignacionProvisional anterior =
+						plg2467783.cubrirConProvisionalManual(
+								marchettiRoman,
+								cerrado(
+										LocalDate.of(2025, MARCH, 1),
+										LocalDate.of(2025, DECEMBER, 31)
+								),
+								1
+						);
+
+				assertThrows(
+						CampoObligatorioException.class,
+						() -> plg2467783.renovarProvisionalDesdeMarzo(anterior, null, 2)
+				);
+			}
+
+			@Test
+			void deberiaRenovarProvisionalManual() {
+
+				AsignacionProvisional anterior =
+						plg2467783.cubrirConProvisionalManual(
+								marchettiRoman,
+								cerrado(
+										LocalDate.of(2025, MARCH, 1),
+										LocalDate.of(2025, DECEMBER, 31)
+								),
+								1
+						);
+
+				Periodo nuevoPeriodo = cerrado(
+						LocalDate.of(2026, MARCH, 1),
+						LocalDate.of(2026, JULY, 31)
+				);
+
+				AsignacionProvisional renovada = plg2467783.renovarProvisionalManual(anterior, nuevoPeriodo, 2);
+
+				assertAll(
+						() -> assertEquals(marchettiRoman, renovada.getEmpleadoEducativo()),
+
+						() -> assertEquals(plg2467783, renovada.getDesignacion()),
+
+						() -> assertEquals(nuevoPeriodo, renovada.getPeriodo()),
+
+						() -> assertEquals(2, renovada.getSecuencia()),
+
+						() -> assertTrue(plg2467783.getAsignaciones().contains(renovada))
+				);
+			}
+
+			@Test
+			void noDeberiaRenovarProvisionalManualSiPeriodoEsNull() {
+
+				AsignacionProvisional anterior =
+						plg2467783.cubrirConProvisionalManual(
+								marchettiRoman,
+								cerrado(
+										LocalDate.of(2025, MARCH, 1),
+										LocalDate.of(2025, DECEMBER, 31)
+								),
+								1
+						);
+
+				assertThrows(
+						CampoObligatorioException.class,
+						() -> plg2467783.renovarProvisionalManual(anterior, null, 2)
+				);
+			}
+		}
+
+		@Nested
+		class EstadoYVigencia {
+
+			private DesignacionCurso plg2467783;
+
+			@BeforeEach
+			void setUp() {
+				plg2467783 = new DesignacionCurso(
+						escuelaN65,
+						2467783,
+						practicasDelLenguaje,
+						a1g2,
+						"Bachiller de Ciclo Básico"
+				);
+			}
+
+			@Test
+			void deberiaIndicarQueTieneVacantePorLicencia() {
+
+				AsignacionTitular titularMarchetti =
+						plg2467783.cubrirConTitular(
+								marchettiRoman,
+								LocalDate.of(2026, MARCH, 1),
+								1
+						);
+
+				LocalDate fechaInicioLicencia = LocalDate.of(2026, APRIL, 1);
+				LocalDate fechaFinLicencia = LocalDate.of(2026, MAY, 1);
+				Periodo unPeriodo = cerrado(fechaInicioLicencia, fechaFinLicencia);
+				marchettiRoman.crearLicencia(
+						TipoLicencia.L_A1,
+						unPeriodo,
+						null,
+						Set.of(titularMarchetti));
+
+				assertTrue(plg2467783.tieneVacantePorLicenciaEn(LocalDate.of(2026, APRIL, 10)));
+			}
+
+			@Test
+			void deberiaIndicarQueNoTieneVacantePorLicencia() {
+
+				plg2467783.cubrirConTitular(
+						marchettiRoman,
+						LocalDate.of(2026, MARCH, 1),
+						1
+				);
+
+				assertFalse(plg2467783.tieneVacantePorLicenciaEn(LocalDate.of(2026, APRIL, 10)));
+			}
+
+			@Test
+			void deberiaRetornarEstadoCubierta() {
+
+				plg2467783.cubrirConTitular(
+						marchettiRoman,
+						LocalDate.of(2026, MARCH, 1),
+						1
+				);
+
+				EstadoDesignacion estado =
+						plg2467783.getEstadoEn(
+								LocalDate.of(2026, APRIL, 1)
+						);
+
+				assertEquals(
+						EstadoDesignacion.CUBIERTA,
+						estado
+				);
+			}
+
+			@Test
+			void deberiaRetornarEstadoVacante() {
+
+				EstadoDesignacion estado =
+						plg2467783.getEstadoEn(
+								LocalDate.of(2026, APRIL, 1)
+						);
+
+				assertEquals(
+						EstadoDesignacion.VACANTE,
+						estado
+				);
+			}
+
+			@Test
+			void deberiaRetornarSuplenciaActiva() {
+				// Arrange
+				LocalDate fechaTomaPosesion = LocalDate.of(2026, MARCH, 1);
+				AsignacionTitular titularMarchetti = plg2467783.cubrirConTitular(
+						marchettiRoman,
+						fechaTomaPosesion,
+						1
+				);
+
+				LocalDate fechaInicioLicencia = LocalDate.of(2026, APRIL, 1);
+				LocalDate fechaFinLicencia = LocalDate.of(2026, MAY, 1);
+				Periodo unPeriodo = cerrado(fechaInicioLicencia, fechaFinLicencia);
+				Licencia unaLicencia = marchettiRoman.crearLicencia(
+						TipoLicencia.L_A1,
+						unPeriodo,
+						"Licencia médica",
+						Set.of(titularMarchetti)
+				);
+
+				AsignacionSuplente suplencia = plg2467783.cubrirConSuplente(
+						unaLicencia,
+						giardinoNoraRosa,
+						fechaInicioLicencia,
+						2
+				);
+
+				Optional<AsignacionSuplente> suplenciaEncontrada = plg2467783.getSuplenciaActivaEn(
+						LocalDate.of(2026, APRIL, 10)
+				);
+
+				assertThat(suplenciaEncontrada).isPresent().contains(suplencia);
+			}
+
+			@Test
+			void deberiaRetornarOptionalVacioSiNoHaySuplenciaActiva() {
+
+				Optional<AsignacionSuplente> resultado =
+						plg2467783.getSuplenciaActivaEn(
+								LocalDate.of(2026, APRIL, 10)
+						);
+
+				assertTrue(resultado.isEmpty());
+			}
+		}
+
+		@Nested
+		class GestionInstitucional {
+
+			private DesignacionCurso plg2467783;
+
+			@BeforeEach
+			void setUp() {
+				plg2467783 = new DesignacionCurso(
+						escuelaN65,
+						2467783,
+						practicasDelLenguaje,
+						a1g2,
+						"Bachiller de Ciclo Básico"
+				);
+			}
+
+			@Test
+			void deberiaCambiarEscuela() {
+				plg2467783.setEscuela(escuelaN65);
+				assertEquals(escuelaN65, plg2467783.getEscuela());
+			}
+
+			@Test
+			void noDeberiaPermitirEscuelaNull() {
+				assertThrows(CampoObligatorioException.class, () -> plg2467783.setEscuela(null));
+			}
+
+			@Test
+			void deberiaCambiarCupof() {
+				plg2467783.setCupof(999999);
+				assertEquals(999999, plg2467783.getCupof());
+			}
+
+			@Test
+			void noDeberiaPermitirCupofNull() {
+				assertThrows(CampoObligatorioException.class, () -> plg2467783.setCupof(null));
+			}
+
+		}
+
+		@Nested
+		class TransicionesDeCobertura {
+
+			private DesignacionCurso plg2467783;
+
+			@BeforeEach
+			void setUp() {
+				plg2467783 = new DesignacionCurso(
+						escuelaN65,
+						2467783,
+						practicasDelLenguaje,
+						a1g2,
+						"Bachiller de Ciclo Básico"
+				);
+			}
+
+			@Test
+			void noDeberiaPermitirAsignacionNull() {
+
+				LocalDate fechaBaja = LocalDate.of(2026, APRIL, 1);
+
+				assertThrows(
+						CampoObligatorioException.class,
+						() -> plg2467783.notificarBajaDefinitivaDe(
+								null,
+								fechaBaja
+						)
+				);
+			}
+
+			@Test
+			void noDeberiaPermitirFechaBajaNull() {
+
+				AsignacionTitular titular =
+						plg2467783.cubrirConTitular(
+								marchettiRoman,
+								LocalDate.of(2026, MARCH, 1),
+								1
+						);
+
+				assertThrows(
+						CampoObligatorioException.class,
+						() -> plg2467783.notificarBajaDefinitivaDe(
+								titular,
+								null
+						)
+				);
+			}
+
+			@Test
+			void noDeberiaHacerNadaSiLaAsignacionNoPuedeGenerarVacanteDefinitiva() {
+
+				AsignacionProvisional provisional =
+						plg2467783.cubrirConProvisionalManual(
+								marchettiRoman,
+								cerrado(
+										LocalDate.of(2026, MARCH, 1),
+										LocalDate.of(2026, JULY, 1)
+								),
+								1
+						);
+
+				plg2467783.notificarBajaDefinitivaDe(
+						provisional,
+						LocalDate.of(2026, APRIL, 1)
+				);
+
+				assertTrue(
+						plg2467783.getAsignaciones()
+								.contains(provisional)
+				);
+			}
+
+			@Test
+			void deberiaConvertirSuplenteEnProvisional() {
+				// Arrange
+				LocalDate fechaTomaPosesion = LocalDate.of(2026, MARCH, 1);
+				AsignacionTitular titularMarchetti = plg2467783.cubrirConTitular(
+						marchettiRoman,
+						fechaTomaPosesion,
+						1
+				);
+
+				LocalDate fechaInicioLicencia = LocalDate.of(2026, APRIL, 1);
+				LocalDate fechaFinLicencia = LocalDate.of(2026, MAY, 1);
+				Licencia licencia = marchettiRoman.crearLicencia(
+						TipoLicencia.L_A1,
+						cerrado(fechaInicioLicencia, fechaFinLicencia),
+						"Licencia médica",
+						Set.of(titularMarchetti)
+				);
+
+				plg2467783.cubrirConSuplente(
+						licencia,
+						giardinoNoraRosa,
+						fechaInicioLicencia,
+						2
+				);
+
+				// Act
+				LocalDate fechaDeBaja = LocalDate.of(2026, APRIL, 10);
+				titularMarchetti.finalizarPorBajaDefinitiva(
+						CausaBaja.RENUNCIA,
+						fechaDeBaja
+				);
+
+				// Assert
+				Asignacion asignacion = plg2467783.getAsignacionActivaDe(
+						giardinoNoraRosa,
+						fechaDeBaja.plusDays(1)
+				).orElseThrow();
+
+				assertAll(
+						() -> assertInstanceOf(
+								AsignacionProvisional.class,
+								asignacion
+						),
+						() -> assertEquals(
+								fechaDeBaja.plusDays(1),
+								asignacion.getPeriodo().getFechaDesde()
+						)
+				);
+			}
+
+			@Test
+			void noDeberiaFallarSiNoHaySuplenciaActiva() {
+
+				AsignacionTitular titular =
+						plg2467783.cubrirConTitular(
+								marchettiRoman,
+								LocalDate.of(2026, MARCH, 1),
+								1
+						);
+
+				assertDoesNotThrow(
+						() -> plg2467783.notificarBajaDefinitivaDe(
+								titular,
+								LocalDate.of(2026, APRIL, 1)
+						)
+				);
+			}
+		}
+
+		@Nested
+		class InfraestructuraYUtilitarios {
+
+			private DesignacionCurso plg2467783;
+
+			@BeforeEach
+			void setUp() {
+				plg2467783 = new DesignacionCurso(
+						escuelaN65,
+						2467783,
+						practicasDelLenguaje,
+						a1g2,
+						"Bachiller de Ciclo Básico"
+				);
+			}
+
+			@Test
+			void deberiaRetornarRepresentacionTextual() {
+
+				String resultado = plg2467783.toString();
+
+				assertAll(
+						() -> assertTrue(resultado.contains("DesignacionCurso")),
+						() -> assertTrue(resultado.contains("cupof = 2467783")),
+						() -> assertTrue(resultado.contains("rolEducativo = DOCENTE")),
+						() -> assertTrue(resultado.contains("asignacion = 0"))
+				);
+			}
+
+			@Test
+			void deberiaMostrarCantidadDeAsignaciones() {
+
+				plg2467783.cubrirConTitular(
+						marchettiRoman,
+						LocalDate.of(2026, MARCH, 1),
+						1
+				);
+
+				String resultado = plg2467783.toString();
+
+				assertTrue(resultado.contains("asignacion = 1"));
+			}
+		}
 	}
-
-	@Nested
-	class Renovaciones {
-
-		private DesignacionCurso plg2467783;
-
-		@BeforeEach
-		void setUp() {
-			plg2467783 = new DesignacionCurso(
-					escuelaN65,
-					2467783,
-					practicasDelLenguaje,
-					a1g2,
-					"Bachiller de Ciclo Básico"
-			);
-		}
-
-		@Test
-		void deberiaRenovarProvisionalAutomaticamente() {
-
-			AsignacionProvisional anterior =
-					plg2467783.cubrirConProvisionalManual(
-							marchettiRoman,
-							cerrado(
-									LocalDate.of(2025, MARCH, 3),
-									LocalDate.of(2026, FEBRUARY, 26)
-							),
-							1
-					);
-
-			AsignacionProvisional renovada = plg2467783.renovarProvisionalAutomatica(anterior, 2);
-
-			assertAll(
-					() -> assertEquals(marchettiRoman, renovada.getEmpleadoEducativo()),
-					() -> assertEquals(plg2467783, renovada.getDesignacion()),
-					() -> assertEquals(2, renovada.getSecuencia()),
-					() -> assertEquals(
-							LocalDate.of(2026, MARCH, 1),
-							renovada.getPeriodo().getFechaDesde()
-					),
-					() -> assertEquals(
-							LocalDate.of(2027, FEBRUARY, 26),
-							renovada.getPeriodo().getFechaHasta()
-					),
-					() -> assertTrue(plg2467783.getAsignaciones().contains(renovada))
-			);
-		}
-
-		@Test
-		void noDeberiaRenovarProvisionalAutomaticamenteSiAsignacionAnteriorEsNull() {
-
-			assertThrows(
-					CampoObligatorioException.class,
-					() -> plg2467783.renovarProvisionalAutomatica(null, 2)
-			);
-		}
-
-		@Test
-		void deberiaRenovarProvisionalDesdeMarzo() {
-
-			AsignacionProvisional anterior =
-					plg2467783.cubrirConProvisionalManual(
-							marchettiRoman,
-							cerrado(
-									LocalDate.of(2025, MARCH, 1),
-									LocalDate.of(2025, DECEMBER, 31)
-							),
-							1
-					);
-
-			AsignacionProvisional renovada =
-					plg2467783.renovarProvisionalDesdeMarzo(
-							anterior,
-							LocalDate.of(2026, JULY, 31),
-							2
-					);
-
-			assertAll(
-					() -> assertEquals(marchettiRoman, renovada.getEmpleadoEducativo()),
-
-					() -> assertEquals(plg2467783, renovada.getDesignacion()
-					),
-
-					() -> assertEquals(
-							LocalDate.of(2026, MARCH, 1),
-							renovada.getPeriodo().getFechaDesde()
-					),
-
-					() -> assertEquals(
-							LocalDate.of(2026, JULY, 31),
-							renovada.getPeriodo().getFechaHasta()
-					),
-
-					() -> assertEquals(2, renovada.getSecuencia()
-					)
-			);
-		}
-
-		@Test
-		void noDeberiaRenovarDesdeMarzoSiFechaHastaEsNull() {
-
-			AsignacionProvisional anterior =
-					plg2467783.cubrirConProvisionalManual(
-							marchettiRoman,
-							cerrado(
-									LocalDate.of(2025, MARCH, 1),
-									LocalDate.of(2025, DECEMBER, 31)
-							),
-							1
-					);
-
-			assertThrows(
-					CampoObligatorioException.class,
-					() -> plg2467783.renovarProvisionalDesdeMarzo(anterior, null, 2)
-			);
-		}
-
-		@Test
-		void deberiaRenovarProvisionalManual() {
-
-			AsignacionProvisional anterior =
-					plg2467783.cubrirConProvisionalManual(
-							marchettiRoman,
-							cerrado(
-									LocalDate.of(2025, MARCH, 1),
-									LocalDate.of(2025, DECEMBER, 31)
-							),
-							1
-					);
-
-			Periodo nuevoPeriodo = cerrado(
-					LocalDate.of(2026, MARCH, 1),
-					LocalDate.of(2026, JULY, 31)
-			);
-
-			AsignacionProvisional renovada = plg2467783.renovarProvisionalManual(anterior, nuevoPeriodo, 2);
-
-			assertAll(
-					() -> assertEquals(marchettiRoman, renovada.getEmpleadoEducativo()),
-
-					() -> assertEquals(plg2467783, renovada.getDesignacion()),
-
-					() -> assertEquals(nuevoPeriodo, renovada.getPeriodo()),
-
-					() -> assertEquals(2, renovada.getSecuencia()),
-
-					() -> assertTrue(plg2467783.getAsignaciones().contains(renovada))
-			);
-		}
-
-		@Test
-		void noDeberiaRenovarProvisionalManualSiPeriodoEsNull() {
-
-			AsignacionProvisional anterior =
-					plg2467783.cubrirConProvisionalManual(
-							marchettiRoman,
-							cerrado(
-									LocalDate.of(2025, MARCH, 1),
-									LocalDate.of(2025, DECEMBER, 31)
-							),
-							1
-					);
-
-			assertThrows(
-					CampoObligatorioException.class,
-					() -> plg2467783.renovarProvisionalManual(anterior, null, 2)
-			);
-		}
-	}
-
-	@Nested
-	class EstadoYVigencia {
-
-		private DesignacionCurso plg2467783;
-
-		@BeforeEach
-		void setUp() {
-			plg2467783 = new DesignacionCurso(
-					escuelaN65,
-					2467783,
-					practicasDelLenguaje,
-					a1g2,
-					"Bachiller de Ciclo Básico"
-			);
-		}
-
-		@Test
-		void deberiaIndicarQueTieneVacantePorLicencia() {
-
-			AsignacionTitular titular =
-					plg2467783.cubrirConTitular(
-							marchettiRoman,
-							LocalDate.of(2026, MARCH, 1),
-							1
-					);
-
-			LocalDate fechaInicioLicencia = LocalDate.of(2026, APRIL, 1);
-			LocalDate fechaFinLicencia = LocalDate.of(2026, MAY, 1);
-			Periodo unPeriodo = cerrado(fechaInicioLicencia, fechaFinLicencia);
-			Licencia unaLicencia = marchettiRoman.crearLicencia(
-					TipoLicencia.L_A1,
-					unPeriodo,
-					null,
-					Set.of(plg2467783));
-
-			assertTrue(plg2467783.tieneVacantePorLicenciaEn(LocalDate.of(2026, APRIL, 10)));
-		}
-
-		@Test
-		void deberiaIndicarQueNoTieneVacantePorLicencia() {
-
-			plg2467783.cubrirConTitular(
-					marchettiRoman,
-					LocalDate.of(2026, MARCH, 1),
-					1
-			);
-
-			assertFalse(plg2467783.tieneVacantePorLicenciaEn(LocalDate.of(2026, APRIL, 10)));
-		}
-
-		@Test
-		void deberiaRetornarEstadoCubierta() {
-
-			plg2467783.cubrirConTitular(
-					marchettiRoman,
-					LocalDate.of(2026, MARCH, 1),
-					1
-			);
-
-			EstadoDesignacion estado =
-					plg2467783.getEstadoEn(
-							LocalDate.of(2026, APRIL, 1)
-					);
-
-			assertEquals(
-					EstadoDesignacion.CUBIERTA,
-					estado
-			);
-		}
-
-		@Test
-		void deberiaRetornarEstadoVacante() {
-
-			EstadoDesignacion estado =
-					plg2467783.getEstadoEn(
-							LocalDate.of(2026, APRIL, 1)
-					);
-
-			assertEquals(
-					EstadoDesignacion.VACANTE,
-					estado
-			);
-		}
-
-		@Test
-		void deberiaRetornarSuplenciaActiva() {
-			// Arrange
-			LocalDate fechaTomaPosesion = LocalDate.of(2026, MARCH, 1);
-			AsignacionTitular titular = plg2467783.cubrirConTitular(
-					marchettiRoman,
-					fechaTomaPosesion,
-					1
-			);
-
-			LocalDate fechaInicioLicencia = LocalDate.of(2026, APRIL, 1);
-			LocalDate fechaFinLicencia = LocalDate.of(2026, MAY, 1);
-			Periodo unPeriodo = cerrado(fechaInicioLicencia, fechaFinLicencia);
-			Licencia unaLicencia = marchettiRoman.crearLicencia(
-					TipoLicencia.L_A1,
-					unPeriodo,
-					"Licencia médica",
-					Set.of(plg2467783)
-			);
-
-			AsignacionSuplente suplencia = plg2467783.cubrirConSuplente(
-					unaLicencia,
-					giardinoNoraRosa,
-					fechaInicioLicencia,
-					2
-			);
-
-			Optional<AsignacionSuplente> suplenciaEncontrada = plg2467783.getSuplenciaActivaEn(
-					LocalDate.of(2026, APRIL, 10)
-			);
-
-			assertThat(suplenciaEncontrada.isPresent()).isTrue();
-			assertThat(suplenciaEncontrada.get()).isEqualTo(suplencia);
-		}
-
-		@Test
-		void deberiaRetornarOptionalVacioSiNoHaySuplenciaActiva() {
-
-			Optional<AsignacionSuplente> resultado =
-					plg2467783.getSuplenciaActivaEn(
-							LocalDate.of(2026, APRIL, 10)
-					);
-
-			assertTrue(resultado.isEmpty());
-		}
-	}
-
-	@Nested
-	class GestionInstitucional {
-
-		private DesignacionCurso plg2467783;
-
-		@BeforeEach
-		void setUp() {
-			plg2467783 = new DesignacionCurso(
-					escuelaN65,
-					2467783,
-					practicasDelLenguaje,
-					a1g2,
-					"Bachiller de Ciclo Básico"
-			);
-		}
-
-		@Test
-		void deberiaCambiarEscuela() {
-			plg2467783.setEscuela(escuelaN65);
-			assertEquals(escuelaN65, plg2467783.getEscuela());
-		}
-
-		@Test
-		void noDeberiaPermitirEscuelaNull() {
-			assertThrows(CampoObligatorioException.class, () -> plg2467783.setEscuela(null));
-		}
-
-		@Test
-		void deberiaCambiarCupof() {
-			plg2467783.setCupof(999999);
-			assertEquals(999999, plg2467783.getCupof());
-		}
-
-		@Test
-		void noDeberiaPermitirCupofNull() {
-			assertThrows(CampoObligatorioException.class, () -> plg2467783.setCupof(null));
-		}
-
-	}
-
-	@Nested
-	class TransicionesDeCobertura {
-
-		private DesignacionCurso plg2467783;
-
-		@BeforeEach
-		void setUp() {
-			plg2467783 = new DesignacionCurso(
-					escuelaN65,
-					2467783,
-					practicasDelLenguaje,
-					a1g2,
-					"Bachiller de Ciclo Básico"
-			);
-		}
-
-		@Test
-		void noDeberiaPermitirAsignacionNull() {
-
-			assertThrows(
-					CampoObligatorioException.class,
-					() -> plg2467783.notificarBajaDefinitivaDe(
-							null,
-							LocalDate.of(2026, APRIL, 1)
-					)
-			);
-		}
-
-		@Test
-		void noDeberiaPermitirFechaBajaNull() {
-
-			AsignacionTitular titular =
-					plg2467783.cubrirConTitular(
-							marchettiRoman,
-							LocalDate.of(2026, MARCH, 1),
-							1
-					);
-
-			assertThrows(
-					CampoObligatorioException.class,
-					() -> plg2467783.notificarBajaDefinitivaDe(
-							titular,
-							null
-					)
-			);
-		}
-
-		@Test
-		void noDeberiaHacerNadaSiLaAsignacionNoPuedeGenerarVacanteDefinitiva() {
-
-			AsignacionProvisional provisional =
-					plg2467783.cubrirConProvisionalManual(
-							marchettiRoman,
-							cerrado(
-									LocalDate.of(2026, MARCH, 1),
-									LocalDate.of(2026, JULY, 1)
-							),
-							1
-					);
-
-			plg2467783.notificarBajaDefinitivaDe(
-					provisional,
-					LocalDate.of(2026, APRIL, 1)
-			);
-
-			assertTrue(
-					plg2467783.getAsignaciones()
-							.contains(provisional)
-			);
-		}
-
-		@Test
-		void deberiaConvertirSuplenteEnProvisional() {
-			// Arrange
-			LocalDate fechaTomaPosesion = LocalDate.of(2026, MARCH, 1);
-			AsignacionTitular titular = plg2467783.cubrirConTitular(
-					marchettiRoman,
-					fechaTomaPosesion,
-					1
-			);
-
-			LocalDate fechaInicioLicencia = LocalDate.of(2026, APRIL, 1);
-			LocalDate fechaFinLicencia = LocalDate.of(2026, MAY, 1);
-			Licencia licencia = marchettiRoman.crearLicencia(
-					TipoLicencia.L_A1,
-					cerrado(fechaInicioLicencia, fechaFinLicencia),
-					"Licencia médica",
-					Set.of(plg2467783)
-			);
-
-			plg2467783.cubrirConSuplente(
-					licencia,
-					giardinoNoraRosa,
-					fechaInicioLicencia,
-					2
-			);
-
-			// Act
-			LocalDate fechaDeBaja = LocalDate.of(2026, APRIL, 10);
-			titular.finalizarPorBajaDefinitiva(
-					CausaBaja.RENUNCIA,
-					fechaDeBaja
-			);
-
-			// Assert
-			Asignacion asignacion = plg2467783.getAsignacionActivaDe(
-					giardinoNoraRosa,
-					fechaDeBaja.plusDays(1)
-			).orElseThrow();
-
-			assertAll(
-					() -> assertInstanceOf(
-							AsignacionProvisional.class,
-							asignacion
-					),
-					() -> assertEquals(
-							fechaDeBaja.plusDays(1),
-							asignacion.getPeriodo().getFechaDesde()
-					)
-			);
-		}
-
-		@Test
-		void noDeberiaFallarSiNoHaySuplenciaActiva() {
-
-			AsignacionTitular titular =
-					plg2467783.cubrirConTitular(
-							marchettiRoman,
-							LocalDate.of(2026, MARCH, 1),
-							1
-					);
-
-			assertDoesNotThrow(
-					() -> plg2467783.notificarBajaDefinitivaDe(
-							titular,
-							LocalDate.of(2026, APRIL, 1)
-					)
-			);
-		}
-	}
-
-	@Nested
-	class InfraestructuraYUtilitarios {
-
-		private DesignacionCurso plg2467783;
-
-		@BeforeEach
-		void setUp() {
-			plg2467783 = new DesignacionCurso(
-					escuelaN65,
-					2467783,
-					practicasDelLenguaje,
-					a1g2,
-					"Bachiller de Ciclo Básico"
-			);
-		}
-
-		@Test
-		void deberiaRetornarRepresentacionTextual() {
-
-			String resultado = plg2467783.toString();
-
-			assertAll(
-					() -> assertTrue(resultado.contains("DesignacionCurso")),
-					() -> assertTrue(resultado.contains("cupof = 2467783")),
-					() -> assertTrue(resultado.contains("rolEducativo = DOCENTE")),
-					() -> assertTrue(resultado.contains("asignacion = 0"))
-			);
-		}
-
-		@Test
-		void deberiaMostrarCantidadDeAsignaciones() {
-
-			plg2467783.cubrirConTitular(
-					marchettiRoman,
-					LocalDate.of(2026, MARCH, 1),
-					1
-			);
-
-			String resultado = plg2467783.toString();
-
-			assertTrue(resultado.contains("asignacion = 1"));
-		}
-	}
-
 }

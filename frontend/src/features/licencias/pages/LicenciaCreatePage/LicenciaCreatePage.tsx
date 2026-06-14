@@ -4,128 +4,128 @@ import Breadcrumbs from "@/app/layouts/Breadcrumbs";
 import PageLayout from "@/app/layouts/PageLayout/PageLayout";
 import ErrorModal from "@/components/ModalError";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
-import { useDesignacionesActivas } from "@/features/empleadosEducativos/hooks/useDesignacionesActivas";
+import { useAsignacionesActivas } from "@/features/empleadosEducativos/hooks/useAsignacionesActivas";
 import { getErrorMessage } from "@/shared/api/errorHandler";
 import type {
-	LicenciaCreateDTO,
-	LicenciaCreateFormValues,
+  LicenciaCreateDTO,
+  LicenciaCreateFormValues,
 } from "@/shared/types";
 import LicenciaDatosSection from "../../components/LicenciaForm";
-import DesignacionesSelector from "../../components/LicenciaForm/DesignacionesSelector";
+import AsignacionesSelector from "../../components/AsignacionesSelector";
 import { useLicenciaForm } from "../../form/useLicenciaForm";
 import { useCrearLicencia } from "../../hooks/useCrearLicencia";
 import styles from "./LicenciaCreatePage.module.scss";
 
 type ErrorState = {
-	title: string;
-	message: string;
+  title: string;
+  message: string;
 } | null;
 
 export default function LicenciaCreatePage() {
-	const { crearLicencia, isLoading, error } = useCrearLicencia();
+  const { crearLicencia, isLoading, error } = useCrearLicencia();
 
-	const { form } = useLicenciaForm();
+  const { form } = useLicenciaForm();
 
-	const [empleadoId, setEmpleadoId] = useState<number | null>(null);
+  const [empleadoId, setEmpleadoId] = useState<number | null>(null);
 
-	const [empleadoError, setEmpleadoError] = useState<string | null>(null);
+  const [empleadoError, setEmpleadoError] = useState<string | null>(null);
 
-	const [modalError, setModalError] = useState<ErrorState>(null);
+  const [modalError, setModalError] = useState<ErrorState>(null);
 
-	const designacionesIds = form.watch("designacionesIds") ?? [];
+  const asignacionesIds = form.watch("asignacionesIds") ?? [];
 
-	const { data: designaciones, isLoading: loadingDesignaciones } =
-		useDesignacionesActivas(empleadoId);
+  const { data: asignaciones, isLoading: loadingAsignaciones } =
+    useAsignacionesActivas(empleadoId);
 
-	const handleSubmit = async (data: LicenciaCreateFormValues) => {
-		if (!empleadoId) {
-			setEmpleadoError("Debe seleccionar un empleado");
-			return;
-		}
+  const handleSubmit = async (data: LicenciaCreateFormValues) => {
+    if (!empleadoId) {
+      setEmpleadoError("Debe seleccionar un empleado");
+      return;
+    }
 
-		const { fechaDesde, fechaHasta } = data.periodo;
+    const { fechaDesde, fechaHasta } = data.periodo;
 
-		const periodo = fechaHasta
-			? {
-					tipo: "CERRADO" as const,
-					fechaDesde,
-					fechaHasta,
-				}
-			: {
-					tipo: "ABIERTO" as const,
-					fechaDesde,
-				};
+    const periodo = fechaHasta
+      ? {
+        tipo: "CERRADO" as const,
+        fechaDesde,
+        fechaHasta,
+      }
+      : {
+        tipo: "ABIERTO" as const,
+        fechaDesde,
+      };
 
-		const payload: LicenciaCreateDTO = {
-			...data,
-			periodo,
-			designacionesIds: data.designacionesIds.map(Number),
-		};
+    const payload: LicenciaCreateDTO = {
+      ...data,
+      periodo,
+      asignacionesIds: data.asignacionesIds.map(Number),
+    };
 
-		try {
-			await crearLicencia({
-				empleadoId,
-				payload,
-			});
-		} catch (err) {
-			setModalError({
-				title: "Error al crear licencia",
-				message: getErrorMessage(err, "No se pudo crear la licencia"),
-			});
-		}
-	};
+    try {
+      await crearLicencia({
+        empleadoId,
+        payload,
+      });
+    } catch (err) {
+      setModalError({
+        title: "Error al crear licencia",
+        message: getErrorMessage(err, "No se pudo crear la licencia"),
+      });
+    }
+  };
 
-	return (
-		<PageLayout breadcrumbs={<Breadcrumbs />}>
-			<FormProvider {...form}>
-				<form
-					onSubmit={form.handleSubmit(handleSubmit)}
-					className={styles.crearLicencia}
-				>
-					<div className={styles.crearLicenciaGrid}>
-						{/* IZQUIERDA */}
-						<aside className={styles.crearLicenciaLeft}>
-							<div className={styles.crearLicenciaEmpleado}>
-								<EmpleadoSelector
-									onChange={(empleado) => {
-										setEmpleadoId(empleado?.id ?? null);
+  return (
+    <PageLayout breadcrumbs={<Breadcrumbs />}>
+      <FormProvider {...form}>
+        <form
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className={styles.crearLicencia}
+        >
+          <div className={styles.crearLicenciaGrid}>
+            {/* IZQUIERDA */}
+            <aside className={styles.crearLicenciaLeft}>
+              <div className={styles.crearLicenciaEmpleado}>
+                <EmpleadoSelector
+                  onChange={(empleado) => {
+                    setEmpleadoId(empleado?.id ?? null);
 
-										setEmpleadoError(null);
+                    setEmpleadoError(null);
 
-										form.setValue("designacionesIds", []);
-									}}
-								/>
+                    form.setValue("asignacionesIds", []);
+                  }}
+                />
 
-								{empleadoError && (
-									<p className={styles.crearLicenciaError}>{empleadoError}</p>
-								)}
-							</div>
+                {empleadoError && (
+                  <p className={styles.crearLicenciaError}>{empleadoError}</p>
+                )}
+              </div>
 
-							<div className={styles.crearLicenciaDesignaciones}>
-								<DesignacionesSelector
-									designaciones={designaciones ?? []}
-									loading={loadingDesignaciones}
-									value={designacionesIds.map(Number)}
-									onChange={(ids) => form.setValue("designacionesIds", ids)}
-								/>
-							</div>
-						</aside>
+              <div className={styles.crearLicenciaDesignaciones}>
+                <AsignacionesSelector
+                  asignaciones={asignaciones ?? []}
+                  loading={loadingAsignaciones}
+                  value={asignacionesIds.map(Number)}
+                  onChange={(ids) => form.setValue("asignacionesIds", ids)}
+                />
+              </div>
+            </aside>
 
-						{/* DERECHA */}
-						<main className={styles.crearLicenciaRight}>
-							<LicenciaDatosSection
-								form={form}
-								isSubmitting={isLoading}
-								error={error ? "No se pudo crear la licencia" : null}
-							/>
-						</main>
-					</div>
-				</form>
-			</FormProvider>
+            {/* DERECHA */}
+            <main className={styles.crearLicenciaRight}>
+              <LicenciaDatosSection
+                form={form}
+                isSubmitting={isLoading}
+                error={error ? "No se pudo crear la licencia" : null}
+              />
+            </main>
+          </div>
+        </form>
+      </FormProvider>
 
-			{modalError && (
-				<ErrorModal error={modalError} onClose={() => setModalError(null)} />
-			)}
-		</PageLayout>
-	);
+      {modalError && (
+        <ErrorModal error={modalError} onClose={() => setModalError(null)} />
+      )}
+    </PageLayout>
+  );
 }

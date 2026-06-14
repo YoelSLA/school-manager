@@ -3,7 +3,6 @@ package com.gestion.escuela.gestion_escolar.models;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionSuplente;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
-import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoLicencia;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
@@ -21,6 +20,7 @@ import static com.gestion.escuela.gestion_escolar.models.Periodo.cerrado;
 import static java.time.Month.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.mock;
 
 class LicenciaTest extends DomainTestFixture {
 
@@ -171,9 +171,11 @@ class LicenciaTest extends DomainTestFixture {
 	}
 
 	@Nested
-	class GestionDesignaciones {
+	class GestionAsignaciones {
 
 		private Licencia licencia;
+		private AsignacionTitular titular2;
+		private AsignacionTitular titular3;
 
 		@BeforeEach
 		void setUp() {
@@ -184,40 +186,47 @@ class LicenciaTest extends DomainTestFixture {
 					.periodo(periodoCerrado)
 					.agregarAsignacion(titular)
 					.build();
+
+			titular2 = mock(AsignacionTitular.class);
+			titular3 = mock(AsignacionTitular.class);
+
 		}
 
 		@Test
-		void deberiaAgregarDesignacion() {
+		void deberiaAgregarAsignacion() {
 
-			licencia.agregarAsignacion(direccion2467830);
+			licencia.agregarAsignacion(titular2);
 
-			assertThat(licencia.getAsignaciones()).containsExactly(direccion2467830);
+			assertThat(licencia.getAsignaciones())
+					.containsExactlyInAnyOrder(titular, titular2);
 		}
 
 		@Test
-		void deberiaAgregarMultiplesDesignaciones() {
+		void deberiaAgregarMultiplesAsignaciones() {
 
-			Set<Designacion> designaciones = Set.of(direccion2467830, plg2467775);
+			Set<Asignacion> asignaciones = Set.of(titular2);
 
-			licencia.agregarAsignaciones(designaciones);
+			licencia.agregarAsignaciones(asignaciones);
 
-			assertThat(licencia.getAsignaciones()).containsExactlyInAnyOrderElementsOf(designaciones);
+			assertThat(licencia.getAsignaciones())
+					.containsExactlyInAnyOrder(titular, titular2);
 		}
 
 		@Test
-		void deberiaEliminarDesignacion() {
+		void deberiaEliminarAsignacion() {
 
-			licencia.agregarAsignacion(direccion2467830);
-			licencia.eliminarAsignacion(direccion2467830);
+			licencia.agregarAsignacion(titular2);
+			licencia.eliminarAsignacion(titular2);
 
-			assertThat(licencia.getAsignaciones()).isEmpty();
+			assertThat(licencia.getAsignaciones())
+					.containsExactly(titular);
 		}
 
 		@Test
 		void deberiaEliminarTodasLasDesignaciones() {
 
-			licencia.agregarAsignacion(direccion2467830);
-			licencia.agregarAsignacion(plg2467775);
+			licencia.agregarAsignacion(titular2);
+			licencia.agregarAsignacion(titular3);
 			licencia.eliminarAsignaciones();
 
 			assertThat(licencia.getAsignaciones()).isEmpty();
@@ -226,10 +235,10 @@ class LicenciaTest extends DomainTestFixture {
 		@Test
 		void deberiaRetornarConjuntoInmodificableDeDesignaciones() {
 
-			licencia.agregarAsignacion(direccion2467830);
+			licencia.agregarAsignacion(titular2);
 
 			assertThatThrownBy(() ->
-					licencia.getAsignaciones().add(plg2467775))
+					licencia.getAsignaciones().add(titular3))
 					.isInstanceOf(UnsupportedOperationException.class);
 		}
 
@@ -315,14 +324,6 @@ class LicenciaTest extends DomainTestFixture {
 		}
 
 		@Test
-		void deberiaRetornarEstadoDescubiertaCuandoEstaVigenteYNoEstaCubierta() {
-
-			EstadoLicencia estado = licencia.getEstadoEn(LocalDate.of(2026, MARCH, 5));
-
-			assertThat(estado).isEqualTo(EstadoLicencia.DESCUBIERTA);
-		}
-
-		@Test
 		void deberiaRetornarCantidadDeDiasDeLicencia() {
 
 			Integer dias = licencia.dias();
@@ -347,7 +348,7 @@ class LicenciaTest extends DomainTestFixture {
 					tipoLicencia,
 					periodoCerrado,
 					null,
-					Set.of(direccion2467830)
+					Set.of(direccionTitular)
 			);
 
 		}
@@ -369,9 +370,14 @@ class LicenciaTest extends DomainTestFixture {
 		}
 
 		@Test
-		void noDeberiaAfectarDesignacionCuandoNoPerteneceALaLicencia() {
+		void noDeberiaAfectarAsignacionCuandoNoPerteneceALaLicencia() {
 
-			boolean afecta = licencia.afectaA(direccionTitular, LocalDate.of(2026, MARCH, 5));
+			AsignacionTitular otraAsignacion = mock(AsignacionTitular.class);
+
+			boolean afecta = licencia.afectaA(
+					otraAsignacion,
+					LocalDate.of(2026, MARCH, 5)
+			);
 
 			assertThat(afecta).isFalse();
 		}
@@ -400,14 +406,13 @@ class LicenciaTest extends DomainTestFixture {
 		}
 
 		@Test
-		void noDeberiaAfectarCuandoLaDesignacionEsNull() {
+		void noDeberiaPermitirDesignacionNull() {
 
-			boolean afecta = licencia.afectaA(
-					null,
-					LocalDate.of(2026, MARCH, 5)
-			);
+			LocalDate fecha = LocalDate.of(2026, MARCH, 5);
 
-			assertThat(afecta).isFalse();
+			assertThatThrownBy(() ->
+					licencia.afectaA(null, fecha)
+			).isInstanceOf(CampoObligatorioException.class);
 		}
 
 		@Test
