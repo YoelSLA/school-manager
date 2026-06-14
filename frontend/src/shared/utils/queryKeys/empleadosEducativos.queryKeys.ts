@@ -17,10 +17,10 @@ export const empleadosEducativosQueryKeys = {
 	licencias: (empleadoId: number) =>
 		[...empleadosEducativosQueryKeys.detail(empleadoId), "licencias"] as const,
 
-	designacionesActivas: (empleadoId: number) =>
+	asignacionesActivas: (empleadoId: number) =>
 		[
 			...empleadosEducativosQueryKeys.detail(empleadoId),
-			"designaciones-activas",
+			"asignaciones-activas",
 		] as const,
 
 	byEscuela: (

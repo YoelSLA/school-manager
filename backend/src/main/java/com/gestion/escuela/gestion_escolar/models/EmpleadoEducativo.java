@@ -8,8 +8,9 @@ import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoLicencia;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
+import com.gestion.escuela.gestion_escolar.models.exceptions.asignacion.AsignacionNoActivaDelEmpleadoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.asignacion.AsignacionNoPerteneceAlEmpleadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.asignacion.AsignacionSuperpuestaException;
-import com.gestion.escuela.gestion_escolar.models.exceptions.designacion.DesignacionNoActivaDelEmpleadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo.EmpleadoInactivoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.licencia.LicenciaSuperpuestaException;
 import jakarta.persistence.*;
@@ -112,18 +113,16 @@ public class EmpleadoEducativo {
 			TipoLicencia tipo,
 			Periodo periodo,
 			String descripcion,
-			Set<Designacion> designaciones
+			Set<Asignacion> asignaciones
 	) {
-		validarCrearOActualizar(tipo, periodo, designaciones);
+		validarCrearOActualizarLicencia(tipo, periodo, asignaciones);
 
 		Licencia licencia = Licencia.builder()
 				.empleadoEducativo(this)
 				.tipoLicencia(tipo)
 				.periodo(periodo)
 				.descripcion(descripcion)
-				.agregarAsignaciones(
-						asignacionesActivasDe(designaciones, periodo.getFechaDesde())
-				)
+				.agregarAsignaciones(asignaciones)
 				.build();
 
 		licencias.add(licencia);
@@ -172,10 +171,7 @@ public class EmpleadoEducativo {
 	}
 
 	public Set<Asignacion> asignacionesActivasEn(LocalDate fecha) {
-
-		if (fecha == null) {
-			return Set.of();
-		}
+		Validaciones.noNulo(fecha, "fecha");
 
 		return asignaciones.stream()
 				.filter(a -> a.estaActivaEn(fecha))
@@ -336,22 +332,29 @@ public class EmpleadoEducativo {
 		}
 	}
 
-	private void validarCrearOActualizar(TipoLicencia tipo, Periodo periodo, Set<Designacion> designaciones) {
+	private void validarCrearOActualizarLicencia(
+			TipoLicencia tipo,
+			Periodo periodo,
+			Set<Asignacion> asignaciones
+	) {
 		Validaciones.noNulo(tipo, "tipo de licencia");
 		Validaciones.noNulo(periodo, "periodo");
-		Validaciones.noVacio(designaciones, "designaciones");
+		Validaciones.noVacio(asignaciones, "asignaciones");
 
-		if (!this.activo) {
+		if (!isActivo()) {
 			throw new EmpleadoInactivoException(this);
 		}
 
-		if (licencias.stream().anyMatch(l -> l.seSuperponeCon(periodo))) {
+		if (tieneLicenciaSuperpuesta(periodo)) {
 			throw new LicenciaSuperpuestaException();
 		}
 
-		Set<Designacion> activas = designacionesActivasEn(periodo.getFechaDesde());
-		if (!activas.containsAll(designaciones)) {
-			throw new DesignacionNoActivaDelEmpleadoException(designaciones);
+		if (!pertenecenAlEmpleado(asignaciones)) {
+			throw new AsignacionNoPerteneceAlEmpleadoException();
+		}
+
+		if (!estanActivasEn(asignaciones, periodo.getFechaDesde())) {
+			throw new AsignacionNoActivaDelEmpleadoException();
 		}
 	}
 
@@ -379,20 +382,8 @@ public class EmpleadoEducativo {
 	 * {@code false} en caso contrario.
 	 */
 	public boolean tieneLicenciaEn(LocalDate fecha) {
-
-		long inicio = System.currentTimeMillis();
-
-		boolean resultado = licencias.stream()
+		return licencias.stream()
 				.anyMatch(l -> l.contiene(fecha));
-
-		System.out.println(
-				"Empleado " + id +
-						" tieneLicenciaEn -> " +
-						(System.currentTimeMillis() - inicio) +
-						" ms"
-		);
-
-		return resultado;
 	}
 
 	private Set<Asignacion> asignacionesActivasDe(
@@ -404,6 +395,20 @@ public class EmpleadoEducativo {
 				.filter(a -> designaciones.contains(a.getDesignacion()))
 				.collect(Collectors.toSet());
 	}
+
+	private boolean tieneLicenciaSuperpuesta(Periodo periodo) {
+		return licencias.stream().anyMatch(l -> l.seSuperponeCon(periodo));
+	}
+
+	private boolean pertenecenAlEmpleado(Set<Asignacion> asignaciones) {
+		return this.asignaciones.containsAll(asignaciones);
+	}
+
+	private boolean estanActivasEn(Set<Asignacion> asignaciones, LocalDate fecha) {
+		return asignacionesActivasEn(fecha).containsAll(asignaciones);
+	}
+
+
 
 	// =========================================================
 	// BUILDER

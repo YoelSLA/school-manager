@@ -1,6 +1,7 @@
 import qs from "qs";
 import { http } from "@/shared/api/http";
 import type {
+  AsignacionLicenciaDTO,
 	BajaDefinitivaDTO,
 	DesignacionLicenciaDTO,
 	EmpleadoEducativoAsignacionesDTO,
@@ -107,11 +108,11 @@ export const reactivarEmpleado = async (empleadoId: number): Promise<void> => {
 	await http.post(`/empleadosEducativos/${empleadoId}/reactivar`);
 };
 
-export const getDesignacionesActivas = async (
+export const getAsignacionesActivas = async (
 	empleadoId: number,
-): Promise<DesignacionLicenciaDTO[]> => {
-	const { data } = await http.get<DesignacionLicenciaDTO[]>(
-		`/empleadosEducativos/${empleadoId}/designaciones-activas`,
+): Promise<AsignacionLicenciaDTO[]> => {
+	const { data } = await http.get<AsignacionLicenciaDTO[]>(
+		`/empleadosEducativos/${empleadoId}/asignaciones-activas`,
 	);
 
 	return data;

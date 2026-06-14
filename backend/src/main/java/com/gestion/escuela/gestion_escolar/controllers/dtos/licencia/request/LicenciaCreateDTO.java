@@ -21,8 +21,8 @@ public record LicenciaCreateDTO(
 		@Size(max = 255, message = "La descripción no puede superar los 255 caracteres")
 		String descripcion,
 
-		@NotEmpty(message = "Debe indicar al menos una designación afectada")
-		Set<Long> designacionesIds
+		@NotEmpty(message = "Debe indicar al menos una asignación afectada.")
+		Set<Long> asignacionesIds
 ) {
 }
 

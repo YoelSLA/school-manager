@@ -19,6 +19,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static com.gestion.escuela.gestion_escolar.models.Periodo.cerrado;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Tests de Designación Administrativa")
@@ -218,7 +219,7 @@ class DesignacionAdministrativaTest extends DomainTestFixture {
 		void titularEnLicencia() {
 
 			LocalDate fechaTomaPosesion = LocalDate.of(2004, Month.JULY, 21);
-			auxiliar2330001.cubrirConTitular(leguizamonMarina, fechaTomaPosesion, 1);
+			AsignacionTitular titular = auxiliar2330001.cubrirConTitular(leguizamonMarina, fechaTomaPosesion, 1);
 
 			LocalDate fechaInicio = LocalDate.of(2025, Month.FEBRUARY, 24);
 			LocalDate fechaFin = LocalDate.of(2026, Month.FEBRUARY, 4);
@@ -228,10 +229,11 @@ class DesignacionAdministrativaTest extends DomainTestFixture {
 					TipoLicencia.L_115D1,
 					periodoCerrado,
 					"Reposo",
-					Set.of(auxiliar2330001)
+					Set.of(titular)
 			);
 
-			assertEquals(EstadoDesignacion.VACANTE, auxiliar2330001.getEstadoEn(fechaInicio));
+			assertThat(auxiliar2330001.getEstadoEn(fechaInicio)).isEqualTo(EstadoDesignacion.VACANTE);
+			assertThat(titular.getEstadoEn(fechaInicio)).isEqualTo(EstadoAsignacion.LICENCIA);
 		}
 	}
 

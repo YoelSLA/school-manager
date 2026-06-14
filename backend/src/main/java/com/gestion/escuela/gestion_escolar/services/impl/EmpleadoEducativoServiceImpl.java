@@ -4,7 +4,7 @@ import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
 import com.gestion.escuela.gestion_escolar.models.Periodo;
-import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
+import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
 import com.gestion.escuela.gestion_escolar.models.enums.DiaDeSemana;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
@@ -89,14 +89,13 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 			TipoLicencia tipo,
 			Periodo periodo,
 			String descripcion,
-			Set<Long> designacionIds
+			Set<Long> asignacionesIds
 	) {
+		EmpleadoEducativo empleadoEducativo = obtenerPorId(empleadoId);
 
-		EmpleadoEducativo empleado = obtenerPorId(empleadoId);
+		Set<Asignacion> asignaciones = new HashSet<>(asignacionRepository.findAllById(asignacionesIds));
 
-		Set<Designacion> designaciones = new HashSet<>(designacionRepository.findAllById(designacionIds));
-
-		Licencia licencia = empleado.crearLicencia(tipo, periodo, descripcion, designaciones);
+		Licencia licencia = empleadoEducativo.crearLicencia(tipo, periodo, descripcion, asignaciones);
 
 		licenciaRepository.save(licencia);
 
@@ -235,11 +234,11 @@ public class EmpleadoEducativoServiceImpl implements EmpleadoEducativoService {
 	}
 
 	@Override
-	public Set<Designacion> obtenerDesignacionesActivas(Long empleadoId) {
+	public Set<Asignacion> obtenerAsignacionesActivas(Long empleadoId) {
 
 		EmpleadoEducativo empleado = obtenerPorId(empleadoId);
 
-		return empleado.designacionesActivasEn(LocalDate.now());
+		return empleado.asignacionesActivasEn(LocalDate.now());
 	}
 
 	@Override

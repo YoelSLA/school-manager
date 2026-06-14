@@ -1,19 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
+import { getAsignacionesActivas } from "@/services/empleadoEducativo.service";
 import { empleadosEducativosQueryKeys } from "@/shared/utils/queryKeys/empleadosEducativos.queryKeys";
-import { getDesignacionesActivas } from "../../../services/empleadoEducativo.service";
 
-export const useDesignacionesActivas = (empleadoId: number | null) => {
+export const useAsignacionesActivas = (empleadoId: number | null) => {
 	return useQuery({
 		queryKey: empleadoId
-			? empleadosEducativosQueryKeys.designacionesActivas(empleadoId)
-			: ["designaciones-activos-empty"],
+			? empleadosEducativosQueryKeys.asignacionesActivas(empleadoId)
+			: ["asignaciones-activas-empty"],
 
 		queryFn: () => {
 			if (empleadoId === null) {
 				throw new Error("empleadoId es requerido");
 			}
 
-			return getDesignacionesActivas(empleadoId);
+			return getAsignacionesActivas(empleadoId);
 		},
 
 		enabled: empleadoId !== null,

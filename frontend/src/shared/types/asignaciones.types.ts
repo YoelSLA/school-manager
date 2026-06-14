@@ -5,10 +5,12 @@ import type { updateProvisionalSchema } from "@/features/asignaciones/form/updat
 import type { updateTitularSchema } from "@/features/asignaciones/form/updateTitular.schema";
 import type {
 	BajaAsignacionDTO,
+	CursoDetalleDTO,
 	DesignacionAdministrativaAsignacionDTO,
 	DesignacionCursoAsignacionDTO,
 	EmpleadoEducativoBasicoDTO,
 	EstadoAsignacion,
+	MateriaDetalleDTO,
 	PeriodoDTO,
 } from ".";
 import type {
@@ -115,3 +117,29 @@ export type CoberturaSeleccionada = {
 	empleado: EmpleadoEducativoBasicoDTO | null;
 	fechaTomaPosesion: string;
 };
+
+export interface AsignacionLicenciaBaseDTO {
+	id: number;
+	secuencia: number;
+	cupof: number;
+	rolEducativo: RolEducativo;
+	situacionDeRevista: SituacionDeRevista;
+	periodo: PeriodoDTO;
+	tipo: "ADMINISTRATIVA" | "CURSO";
+}
+
+export interface AsignacionLicenciaAdministrativaDTO
+	extends AsignacionLicenciaBaseDTO {
+	tipo: "ADMINISTRATIVA";
+}
+
+export interface AsignacionLicenciaCursoDTO extends AsignacionLicenciaBaseDTO {
+	tipo: "CURSO";
+	materia: MateriaDetalleDTO;
+	curso: CursoDetalleDTO;
+	orientacion: string;
+}
+
+export type AsignacionLicenciaDTO =
+	| AsignacionLicenciaAdministrativaDTO
+	| AsignacionLicenciaCursoDTO;
