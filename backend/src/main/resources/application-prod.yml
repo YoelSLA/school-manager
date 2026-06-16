@@ -21,7 +21,7 @@ spring:
 
     # Deshabilita Open Session In View.
     # Obliga a resolver las relaciones lazy dentro de la capa de servicio.
-    open-in-view: false
+    open-in-view: true
 
     properties:
       hibernate:
