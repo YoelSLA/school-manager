@@ -15,7 +15,15 @@ public interface LicenciaRepository extends JpaRepository<Licencia, Long> {
 
 	@EntityGraph(attributePaths = {
 			"empleadoEducativo",
-			"asignaciones"
+
+			"asignaciones",
+			"asignaciones.empleadoEducativo",
+			"asignaciones.empleadoEducativo.licencias",
+
+			"asignaciones.designacion",
+			"asignaciones.designacion.asignaciones",
+			"asignaciones.designacion.asignaciones.empleadoEducativo",
+			"asignaciones.designacion.asignaciones.empleadoEducativo.licencias"
 	})
 	@Query(
 			value = """

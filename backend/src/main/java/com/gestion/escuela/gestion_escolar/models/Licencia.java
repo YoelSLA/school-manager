@@ -16,7 +16,7 @@ import lombok.Getter;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 import static com.gestion.escuela.gestion_escolar.models.Periodo.cerrado;
 
@@ -132,13 +132,34 @@ public class Licencia {
 	@Transient
 	public EstadoLicencia getEstadoEn(LocalDate fecha) {
 
-		if (!periodo.estaVigenteEn(fecha)) {
+		long inicio = System.currentTimeMillis();
+
+		boolean vigente = periodo.estaVigenteEn(fecha);
+
+		System.out.println(
+				"Licencia " + id +
+						" periodo.estaVigenteEn() -> " +
+						(System.currentTimeMillis() - inicio) + " ms"
+		);
+
+		if (!vigente) {
 			return EstadoLicencia.NO_VIGENTE;
 		}
 
-		return estaCubiertaEn(fecha) ? EstadoLicencia.CUBIERTA : EstadoLicencia.DESCUBIERTA;
-	}
+		inicio = System.currentTimeMillis();
 
+		boolean cubierta = estaCubiertaEn(fecha);
+
+		System.out.println(
+				"Licencia " + id +
+						" estaCubiertaEn() -> " +
+						(System.currentTimeMillis() - inicio) + " ms"
+		);
+
+		return cubierta
+				? EstadoLicencia.CUBIERTA
+				: EstadoLicencia.DESCUBIERTA;
+	}
 	public boolean contiene(LocalDate fecha) {
 		return periodo.contiene(fecha);
 	}
@@ -275,14 +296,18 @@ public class Licencia {
 			return false;
 		}
 
-		return designacionesAfectadas()
-				.allMatch(d -> d.getEstadoEn(fecha) == EstadoDesignacion.CUBIERTA);
+		Set<Designacion> designaciones = designacionesAfectadas();
+
+		return designaciones.stream()
+				.allMatch(d ->
+						d.getEstadoEn(fecha)
+								== EstadoDesignacion.CUBIERTA);
 	}
 
-	private Stream<Designacion> designacionesAfectadas() {
+	private Set<Designacion> designacionesAfectadas() {
 		return asignaciones.stream()
 				.map(Asignacion::getDesignacion)
-				.distinct();
+				.collect(Collectors.toSet());
 	}
 
 	private Licencia licenciaRaiz() {

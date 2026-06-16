@@ -19,6 +19,7 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
 import static com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista.TITULAR;
@@ -34,31 +35,29 @@ import static com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevist
 @Getter
 public abstract class Designacion {
 
+	@Transient
+	private final Map<LocalDate, EstadoDesignacion> cacheEstados =
+			new ConcurrentHashMap<>();
 	@ElementCollection
 	@CollectionTable(
 			name = "franja_horaria",
 			joinColumns = @JoinColumn(name = "designacion_id")
 	)
 	private Set<FranjaHoraria> franjasHorarias;
-
 	@OneToMany(
 			mappedBy = "designacion",
 			cascade = CascadeType.ALL,
 			orphanRemoval = true
 	)
 	private List<Asignacion> asignaciones;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	@Column(nullable = false)
 	private Integer cupof;
-
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "escuela_id", nullable = false)
 	private Escuela escuela;
-
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private RolEducativo rolEducativo;
@@ -485,7 +484,13 @@ public abstract class Designacion {
 	 */
 	@Transient
 	public EstadoDesignacion getEstadoEn(LocalDate fecha) {
-		return EstadoDesignacion.desdeCobertura(asignacionQueEjerceEn(fecha).isPresent());
+
+		return cacheEstados.computeIfAbsent(
+				fecha,
+				f -> EstadoDesignacion.desdeCobertura(
+						asignacionQueEjerceEn(f).isPresent()
+				)
+		);
 	}
 
 	/**
@@ -622,4 +627,5 @@ public abstract class Designacion {
 				.filter(a -> licencia.equals(a.getLicencia()))
 				.findFirst();
 	}
+
 }
