@@ -16,22 +16,20 @@ spring:
       # No crea ni modifica tablas.
       ddl-auto: validate
 
-    # Muestra las consultas SQL generadas por Hibernate.
-    # Útil para depuración, pero puede generar mucho ruido en los logs.
-    show-sql: true
+    # No muestra las consultas SQL generadas por Hibernate.
+    show-sql: false
 
     # Deshabilita Open Session In View.
     # Obliga a resolver las relaciones lazy dentro de la capa de servicio.
-    open-in-view: true
+    open-in-view: false
 
     properties:
       hibernate:
-        # Habilita estadísticas internas de Hibernate para análisis de rendimiento.
-        # Puede ayudar a detectar consultas N+1 y problemas de acceso a datos.
-        generate_statistics: true
+        # Deshabilita estadísticas internas de Hibernate.
+        generate_statistics: false
 
-        # Formatea las consultas SQL para facilitar su lectura.
-        format_sql: true
+        # Mantiene el SQL sin formatear.
+        format_sql: false
 
   flyway:
     # Ejecuta automáticamente las migraciones al iniciar la aplicación.
@@ -47,13 +45,11 @@ spring:
 
 logging:
   level:
-    # Muestra las consultas SQL generadas por Hibernate.
-    org.hibernate.SQL: DEBUG
+    # Deshabilita el log de consultas SQL generadas por Hibernate.
+    org.hibernate.SQL: OFF
 
-    # Muestra los valores reales enviados como parámetros a las consultas.
-    # Muy útil para depuración, pero puede exponer datos sensibles.
-    org.hibernate.orm.jdbc.bind: TRACE
+    # Deshabilita el log de parámetros enviados a las consultas.
+    org.hibernate.orm.jdbc.bind: OFF
 
-    # Muestra estadísticas de ejecución de Hibernate.
-    # Recomendado únicamente para diagnóstico y análisis de rendimiento.
-    org.hibernate.stat: DEBUG
+    # Deshabilita el log de estadísticas de Hibernate.
+    org.hibernate.stat: OFF

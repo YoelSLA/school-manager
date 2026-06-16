@@ -294,8 +294,29 @@ public class EmpleadoEducativo {
 	 * {@code false} en caso contrario.
 	 */
 	public boolean tieneLicenciaEn(LocalDate fecha) {
-		return licencias.stream()
+
+		long inicio = System.currentTimeMillis();
+
+		int size = licencias.size(); // fuerza carga lazy
+
+		System.out.println(
+				"Empleado " + id +
+						" cargar licencias (" + size + ") -> " +
+						(System.currentTimeMillis() - inicio) + " ms"
+		);
+
+		inicio = System.currentTimeMillis();
+
+		boolean resultado = licencias.stream()
 				.anyMatch(l -> l.contiene(fecha));
+
+		System.out.println(
+				"Empleado " + id +
+						" recorrer licencias -> " +
+						(System.currentTimeMillis() - inicio) + " ms"
+		);
+
+		return resultado;
 	}
 
 	private boolean pertenecenAlEmpleado(Set<Asignacion> asignaciones) {
