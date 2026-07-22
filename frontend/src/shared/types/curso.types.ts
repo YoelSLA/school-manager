@@ -15,3 +15,8 @@ export type CursoDetalleDTO = {
 	division: string;
 	turno: Turno;
 };
+
+export type CursoSelectDTO = {
+	id: number;
+	nombre: string;
+};

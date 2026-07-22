@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class AsistenciaNoEditableException extends GestionEscolarException {
 
-	public AsistenciaNoEditableException(LocalDate fecha) {
-		super("La asistencia del día " + fecha + " no puede ser eliminada.");
-	}
+  public AsistenciaNoEditableException(LocalDate fecha) {
+    super("La asistencia del día " + fecha + " no puede ser eliminada.");
+  }
 }

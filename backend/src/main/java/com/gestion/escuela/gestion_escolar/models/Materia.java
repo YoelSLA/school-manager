@@ -7,81 +7,67 @@ import lombok.Getter;
 
 @Entity
 @Table(
-		name = "materia",
-		uniqueConstraints = {
-				@UniqueConstraint(columnNames = {"escuela_id", "nombre"})
-		}
-)
+    name = "materia",
+    uniqueConstraints = {@UniqueConstraint(columnNames = {"escuela_id", "nombre"})})
 @Getter
 public class Materia {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	@Column(nullable = false)
-	private String nombre;
+  @Column(nullable = false)
+  private String nombre;
 
-	@Column(nullable = false)
-	private String abreviatura;
+  @Column(nullable = false)
+  private String abreviatura;
 
-	@Column(nullable = false)
-	private Integer cantidadModulos;
+  @Column(nullable = false)
+  private Integer cantidadModulos;
 
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "escuela_id")
-	private Escuela escuela;
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "escuela_id")
+  private Escuela escuela;
 
-	protected Materia() {
-	}
+  protected Materia() {}
 
-	public Materia(
-			String nombre,
-			String abreviatura,
-			Integer cantidadModulos
-	) {
+  public Materia(String nombre, String abreviatura, Integer cantidadModulos) {
 
-		validarCrearOActualizar(nombre, abreviatura, cantidadModulos);
+    validarCrearOActualizar(nombre, abreviatura, cantidadModulos);
 
-		this.nombre = nombre;
-		this.abreviatura = abreviatura;
-		this.cantidadModulos = cantidadModulos;
+    this.nombre = nombre;
+    this.abreviatura = abreviatura;
+    this.cantidadModulos = cantidadModulos;
+  }
 
-	}
+  public void actualizar(String nombre, String abreviatura, Integer cantidadModulos) {
 
-	public void actualizar(String nombre, String abreviatura, Integer cantidadModulos) {
+    validarCrearOActualizar(nombre, abreviatura, cantidadModulos);
 
-		validarCrearOActualizar(nombre, abreviatura, cantidadModulos);
+    this.nombre = nombre;
+    this.abreviatura = abreviatura;
+    this.cantidadModulos = cantidadModulos;
+  }
 
-		this.nombre = nombre;
-		this.abreviatura = abreviatura;
-		this.cantidadModulos = cantidadModulos;
-	}
+  public void setEscuela(Escuela escuela) {
+    Validaciones.noNulo(escuela, "escuela");
+    this.escuela = escuela;
+  }
 
-	public void setEscuela(Escuela escuela) {
-		Validaciones.noNulo(escuela, "escuela");
-		this.escuela = escuela;
-	}
+  @Override
+  public String toString() {
+    String textoModulo = cantidadModulos == 1 ? "módulo" : "módulos";
+    return nombre + " (" + abreviatura + ") - " + cantidadModulos + " " + textoModulo;
+  }
 
-	@Override
-	public String toString() {
-		String textoModulo = cantidadModulos == 1 ? "módulo" : "módulos";
-		return nombre + " (" + abreviatura + ") - " + cantidadModulos + " " + textoModulo;
-	}
+  private void validarCrearOActualizar(String nombre, String abreviatura, Integer cantidadModulos) {
 
-	private void validarCrearOActualizar(
-			String nombre,
-			String abreviatura,
-			Integer cantidadModulos
-	) {
+    Validaciones.noBlank(nombre, "nombre");
+    Validaciones.noBlank(abreviatura, "abreviatura");
+    Validaciones.noNulo(cantidadModulos, "cantidadModulos");
 
-		Validaciones.noBlank(nombre, "nombre");
-		Validaciones.noBlank(abreviatura, "abreviatura");
-		Validaciones.noNulo(cantidadModulos, "cantidadModulos");
-
-		if (cantidadModulos <= 0) {
-			throw new CantidadModulosInvalidaException(cantidadModulos);
-		}
-	}
-
+    if (cantidadModulos <= 0) {
+      throw new CantidadModulosInvalidaException(cantidadModulos);
+    }
+  }
 }

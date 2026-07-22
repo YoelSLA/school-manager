@@ -1,108 +1,143 @@
 import type { MouseEvent, ReactNode } from "react";
 import { useState } from "react";
 import styles from "./Button.module.scss";
+import type {
+  ButtonSize,
+  ButtonVariant,
+  DropdownItem,
+} from "./Button.types";
 
-export type ButtonVariant =
-	| "primary"
-	| "secondary"
-	| "filter"
-	| "success"
-	| "danger"
-	| "ghost";
+const variantClass = {
+  primary: styles.btnPrimary,
+  secondary: styles.btnSecondary,
+  success: styles.btnSuccess,
+  danger: styles.btnDanger,
+  ghost: styles.btnGhost,
+  filter: styles.btnFilter,
+};
 
-export type ButtonSize = "sm" | "md" | "icon";
-
-type DropdownItem = {
-	label: string;
-	onClick: () => void;
+const sizeClass = {
+  sm: styles.btnSm,
+  md: styles.btnMd,
+  icon: styles.btnIcon,
 };
 
 type Props = {
-	children: ReactNode;
-	onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
-	variant?: ButtonVariant;
-	size?: ButtonSize;
-	disabled?: boolean;
-	className?: string;
-	type?: "button" | "submit" | "reset";
-	active?: boolean;
-	loading?: boolean;
-
-	// 👇 NUEVO
-	dropdownItems?: DropdownItem[];
+  children: ReactNode;
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  disabled?: boolean;
+  loading?: boolean;
+  active?: boolean;
+  type?: "button" | "submit" | "reset";
+  className?: string;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+  title?: string;
+  id?: string;
+  fullWidth?: boolean;
+  dropdownItems?: DropdownItem[];
 };
 
 export default function Button({
-	children,
-	onClick,
-	variant = "primary",
-	size = "md",
-	disabled = false,
-	className = "",
-	type = "button",
-	active = false,
-	loading = false,
-	dropdownItems,
+  children,
+  onClick,
+  variant = "primary",
+  size = "md",
+  disabled = false,
+  loading = false,
+  active = false,
+  type = "button",
+  className = "",
+  leftIcon,
+  rightIcon,
+  title,
+  id,
+  fullWidth = false,
+  dropdownItems,
 }: Props) {
-	const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
-	const isDisabled = disabled || loading;
+  const isDisabled = disabled || loading;
 
-	const classes = [
-		styles.btn,
-		styles[`btn${variant.charAt(0).toUpperCase()}${variant.slice(1)}`],
-		size === "sm" && styles.btnSm,
-		size === "md" && styles.btnMd,
-		size === "icon" && styles.btnIcon,
-		active && styles.isActive,
-		loading && styles.isLoading,
-		className,
-	]
-		.filter(Boolean)
-		.join(" ");
+  const classes = [
+    styles.btn,
+    variantClass[variant],
+    sizeClass[size],
+    active && styles.isActive,
+    loading && styles.isLoading,
+    fullWidth && styles.fullWidth,
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
-	const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-		if (dropdownItems) {
-			setOpen((prev) => !prev);
-		} else {
-			onClick?.(e);
-		}
-	};
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    if (dropdownItems) {
+      setOpen((prev) => !prev);
+      return;
+    }
 
-	return (
-		<div className={styles.wrapper}>
-			<button
-				type={type}
-				className={classes}
-				onClick={isDisabled ? undefined : handleClick}
-				disabled={isDisabled}
-				aria-disabled={isDisabled}
-				aria-busy={loading}
-			>
-				{loading && <span className={styles.spinner} />}
-				<span className={styles.content}>
-					{children}
-					{dropdownItems && " ▾"}
-				</span>
-			</button>
+    onClick?.(e);
+  };
 
-			{dropdownItems && open && (
-				<div className={styles.dropdown}>
-					{dropdownItems.map((item) => (
-						<button
-							type="button"
-							key={item.label}
-							className={styles.dropdownItem}
-							onClick={() => {
-								item.onClick();
-								setOpen(false);
-							}}
-						>
-							{item.label}
-						</button>
-					))}
-				</div>
-			)}
-		</div>
-	);
+  return (
+    <div className={styles.wrapper}>
+      <button
+        id={id}
+        title={title}
+        type={type}
+        className={classes}
+        onClick={isDisabled ? undefined : handleClick}
+        disabled={isDisabled}
+        aria-disabled={isDisabled}
+        aria-busy={loading}
+      >
+        {loading && <span className={styles.spinner} />}
+
+        <span className={styles.content}>
+          {leftIcon && <span className={styles.icon}>{leftIcon}</span>}
+
+          <span>{children}</span>
+
+          {dropdownItems ? (
+            <span className={styles.icon}>▾</span>
+          ) : (
+            rightIcon && <span className={styles.icon}>{rightIcon}</span>
+          )}
+        </span>
+      </button>
+
+      {dropdownItems && open && (
+        <div className={styles.dropdown}>
+          {dropdownItems.map((item) => (
+            <button
+              key={item.label}
+              type="button"
+              className={[
+                styles.dropdownItem,
+                item.danger && styles.dropdownItemDanger,
+              ]
+                .filter(Boolean)
+                .join(" ")}
+              disabled={item.disabled}
+              onClick={() => {
+                if (item.disabled) return;
+
+                item.onClick();
+                setOpen(false);
+              }}
+            >
+              {item.icon && (
+                <span className={styles.icon}>{item.icon}</span>
+              )}
+
+              <span>{item.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }

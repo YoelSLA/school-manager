@@ -16,47 +16,57 @@ import lombok.Getter;
 @Getter
 public class DesignacionCurso extends Designacion {
 
-	@ManyToOne(optional = false)
-	private Materia materia;
+  @ManyToOne(optional = false)
+  private Materia materia;
 
-	@ManyToOne(optional = false)
-	private Curso curso;
+  @ManyToOne(optional = false)
+  private Curso curso;
 
-	@Column(nullable = false)
-	private String orientacion;
+  @Column(nullable = false)
+  private String orientacion;
 
-	protected DesignacionCurso() {
-	}
+  protected DesignacionCurso() {}
 
-	public DesignacionCurso(Escuela escuela, Integer cupof, Materia materia, Curso curso, String orientacion) {
-		super(escuela, cupof, RolEducativo.DOCENTE);
+  public DesignacionCurso(
+      Escuela escuela, Integer cupof, Materia materia, Curso curso, String orientacion) {
+    super(escuela, cupof, RolEducativo.DOCENTE);
 
-		Validaciones.noNulo(materia, "materia");
-		Validaciones.noNulo(curso, "curso");
-		Validaciones.noBlank(orientacion, "orientacion");
+    Validaciones.noNulo(materia, "materia");
+    Validaciones.noNulo(curso, "curso");
+    Validaciones.noBlank(orientacion, "orientacion");
 
-		this.materia = materia;
-		this.curso = curso;
-		this.orientacion = orientacion;
-	}
+    this.materia = materia;
+    this.curso = curso;
+    this.orientacion = orientacion;
+  }
 
-	@Override
-	public String toString() {
-		return super.toString().replace("}", ", materiaId=" + (materia != null ? materia.getId() : null) + ", cursoId=" + (curso != null ? curso.getId() : null) + ", orientacion='" + getOrientacion() + '\'' + '}');
-	}
+  @Override
+  public String toString() {
+    return super.toString()
+        .replace(
+            "}",
+            ", materiaId="
+                + (materia != null ? materia.getId() : null)
+                + ", cursoId="
+                + (curso != null ? curso.getId() : null)
+                + ", orientacion='"
+                + getOrientacion()
+                + '\''
+                + '}');
+  }
 
-	public void setCurso(Curso curso) {
-		Validaciones.noNulo(curso, "curso");
-		this.curso = curso;
-	}
+  public void setCurso(Curso curso) {
+    Validaciones.noNulo(curso, "curso");
+    this.curso = curso;
+  }
 
-	public void setMateria(Materia materia) {
-		Validaciones.noNulo(materia, "materia");
-		this.materia = materia;
-	}
+  public void setMateria(Materia materia) {
+    Validaciones.noNulo(materia, "materia");
+    this.materia = materia;
+  }
 
-	public void setOrientacion(String orientacion) {
-		Validaciones.noBlank(orientacion, "orientacion");
-		this.orientacion = orientacion;
-	}
+  public void setOrientacion(String orientacion) {
+    Validaciones.noBlank(orientacion, "orientacion");
+    this.orientacion = orientacion;
+  }
 }

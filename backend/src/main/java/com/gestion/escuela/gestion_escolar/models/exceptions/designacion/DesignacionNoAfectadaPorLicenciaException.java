@@ -4,10 +4,11 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarExcep
 
 public class DesignacionNoAfectadaPorLicenciaException extends GestionEscolarException {
 
-	public DesignacionNoAfectadaPorLicenciaException(Long designacionId, Long licenciaId) {
-		super(
-				"La designación con id " + designacionId +
-						" no está afectada por la licencia con id " + licenciaId
-		);
-	}
+  public DesignacionNoAfectadaPorLicenciaException(Long designacionId, Long licenciaId) {
+    super(
+        "La designación con id "
+            + designacionId
+            + " no está afectada por la licencia con id "
+            + licenciaId);
+  }
 }

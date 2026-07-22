@@ -2,17 +2,7 @@ package com.gestion.escuela.gestion_escolar.controllers.dtos.franjaHoraria.reque
 
 import com.gestion.escuela.gestion_escolar.models.enums.DiaDeSemana;
 import jakarta.validation.constraints.NotNull;
-
 import java.time.LocalTime;
 
 public record FranjaHorariaCreateDTO(
-		@NotNull
-		DiaDeSemana dia,
-
-		@NotNull
-		LocalTime horaDesde,
-
-		@NotNull
-		LocalTime horaHasta
-) {
-}
+    @NotNull DiaDeSemana dia, @NotNull LocalTime horaDesde, @NotNull LocalTime horaHasta) {}

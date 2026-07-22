@@ -1,26 +1,19 @@
 package com.gestion.escuela.gestion_escolar.models;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class EscuelaTest {
+import org.junit.jupiter.api.Test;
 
-	@Test
-	void escuelaSeCreaActiva() {
-		Escuela escuela = escuelaValida();
+class EscuelaTest {
 
-		assertTrue(escuela.isActiva());
-	}
+  @Test
+  void escuelaSeCreaActiva() {
+    Escuela escuela = escuelaValida();
 
+    assertTrue(escuela.isActiva());
+  }
 
-	private Escuela escuelaValida() {
-		return new Escuela(
-				"Escuela N°1",
-				"Quilmes",
-				"Av. Siempre Viva 123",
-				"11-1234-5678"
-		);
-	}
-
+  private Escuela escuelaValida() {
+    return new Escuela("Escuela N°1", "Quilmes", "Av. Siempre Viva 123", "11-1234-5678");
+  }
 }

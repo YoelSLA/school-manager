@@ -4,8 +4,7 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarExcep
 
 public class AsignacionNoPerteneceAlEmpleadoException extends GestionEscolarException {
 
-	public AsignacionNoPerteneceAlEmpleadoException() {
-		super("Las asignaciones indicadas no pertenecen al empleado.");
-	}
-
+  public AsignacionNoPerteneceAlEmpleadoException() {
+    super("Las asignaciones indicadas no pertenecen al empleado.");
+  }
 }

@@ -1,5 +1,4 @@
-@use "@/styles/breakpoints" as *;
-@use "@/styles/_debug.mixins" as debug;
+@use "@/styles/abstracts" as *;
 
 /* ======================================================
    LIST PAGE LAYOUT (FLEX)
@@ -20,9 +19,6 @@
 
   /* 📦 BOX MODEL */
   gap: var(--list-gap);
-
-  /* 🧪 DEBUG */
-  @include debug.debug(green);
 
   /* 🧱 FILTERS */
   &__filters {

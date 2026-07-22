@@ -4,7 +4,7 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarExcep
 
 public class CantidadModulosInvalidaException extends GestionEscolarException {
 
-	public CantidadModulosInvalidaException(Integer cantidad) {
-		super("La cantidad de módulos debe ser mayor a 0. Valor recibido: " + cantidad);
-	}
+  public CantidadModulosInvalidaException(Integer cantidad) {
+    super("La cantidad de módulos debe ser mayor a 0. Valor recibido: " + cantidad);
+  }
 }

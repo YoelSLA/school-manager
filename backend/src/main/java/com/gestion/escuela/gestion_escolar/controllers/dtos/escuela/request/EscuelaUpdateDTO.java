@@ -8,13 +8,12 @@ import lombok.Setter;
 @Setter
 public class EscuelaUpdateDTO {
 
-	@NotBlank(message = "El nombre es obligatorio")
-	private String nombre;
+  @NotBlank(message = "El nombre es obligatorio")
+  private String nombre;
 
-	@NotBlank(message = "La dirección es obligatoria")
-	private String direccion;
+  @NotBlank(message = "La dirección es obligatoria")
+  private String direccion;
 
-	@NotBlank(message = "El teléfono es obligatorio")
-	private String telefono;
+  @NotBlank(message = "El teléfono es obligatorio")
+  private String telefono;
 }
-

@@ -16,7 +16,7 @@ type Props = {
   onToggle: (id: number) => void;
 };
 
-export default function DesignacionCursoRow({
+export default function DesignacionLicenciaCursoRow({
   asignacion,
   checked,
   onToggle,

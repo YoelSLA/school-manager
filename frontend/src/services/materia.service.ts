@@ -2,6 +2,7 @@ import { http } from "@/shared/api/http";
 import type {
 	MateriaCreateDTO,
 	MateriaDetalleDTO,
+	MateriaSelectDTO,
 	MateriaUpdateDTO,
 	PageResponse,
 } from "@/shared/types";
@@ -48,6 +49,16 @@ export async function listMaterias(
 		{
 			params: { page, size },
 		},
+	);
+
+	return response.data;
+}
+
+export async function listMateriasSelect(
+	escuelaId: number,
+): Promise<MateriaSelectDTO[]> {
+	const response = await http.get<MateriaSelectDTO[]>(
+		`/escuelas/${escuelaId}/materias/select`,
 	);
 
 	return response.data;

@@ -20,4 +20,6 @@ export const cursosQueryKeys = {
 
 	nombres: (escuelaId: number) =>
 		[...cursosQueryKeys.all, "nombres", escuelaId] as const,
+
+	select: (escuelaId: number) => ["cursos", escuelaId, "select"] as const,
 };

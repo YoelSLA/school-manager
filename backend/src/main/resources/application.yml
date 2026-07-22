@@ -9,7 +9,7 @@ spring:
 
   datasource:
     # Configuración de la base de datos local de desarrollo.
-    url: jdbc:postgresql://localhost:5433/gestion_escolar_dev
+    url: jdbc:postgresql://localhost:5432/gestion_escolar_dev
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver

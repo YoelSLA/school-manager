@@ -11,4 +11,6 @@ export const materiasQueryKeys = {
 
 	detail: (materiaId: number) =>
 		[...materiasQueryKeys.all, "detail", materiaId] as const,
+
+	select: (escuelaId: number) => ["materias", escuelaId, "select"] as const,
 };

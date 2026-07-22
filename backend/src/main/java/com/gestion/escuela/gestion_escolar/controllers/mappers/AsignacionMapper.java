@@ -10,82 +10,74 @@ import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
+import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
+import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AsignacionMapper {
 
-	private static final LocalDate HOY = LocalDate.now();
+  public static AsignacionDetalleDTO toDetalle(Asignacion a, EstadoAsignacion estadoAsignacion) {
+    return new AsignacionDetalleDTO(
+        a.getId(),
+        PeriodoMapper.toDTO(a.getPeriodo()),
+        a.getSituacionDeRevista(),
+        estadoAsignacion,
+        toBaja(a),
+        a.getSecuencia(),
+        EmpleadoEducativoMapper.toBasico(a.getEmpleadoEducativo()));
+  }
 
-	public static AsignacionDetalleDTO toDetalle(Asignacion a) {
+  public static AsignacionEmpleadoEducativoRowDTO toAsignacionRow(
+      Asignacion a, EstadoAsignacion estadoAsignacion, EstadoDesignacion estadoDesignacion) {
 
-		BajaAsignacionDTO bajaDefinitiva = new BajaAsignacionDTO(
-				a.getFechaBaja(),
-				a.getCausaBaja()
-		);
+    return new AsignacionEmpleadoEducativoRowDTO(
+        a.getId(),
+        PeriodoMapper.toDTO(a.getPeriodo()),
+        a.getSituacionDeRevista(),
+        estadoAsignacion,
+        toBaja(a),
+        a.getSecuencia(),
+        DesignacionMapper.toDesignacionDTO(a.getDesignacion(), estadoDesignacion));
+  }
 
-		return new AsignacionDetalleDTO(
-				a.getId(),
-				PeriodoMapper.toDTO(a.getPeriodo()),
-				a.getSituacionDeRevista(),
-				a.getEstadoEn(LocalDate.now()),
-				bajaDefinitiva,
-				a.getSecuencia(),
-				EmpleadoEducativoMapper.toBasico(a.getEmpleadoEducativo())
-		);
-	}
+  public static AsignacionLicenciaDTO toLicenciaItem(Asignacion asignacion) {
 
-	public static AsignacionEmpleadoEducativoRowDTO toAsignacionRow(Asignacion a) {
+    Designacion d = asignacion.getDesignacion();
 
-		BajaAsignacionDTO baja = a.getFechaBaja() == null
-				? null
-				: new BajaAsignacionDTO(a.getFechaBaja(), a.getCausaBaja());
+    if (d instanceof DesignacionAdministrativa adm) {
+      return new AsignacionLicenciaAdministrativaDTO(
+          asignacion.getId(),
+          asignacion.getSecuencia(),
+          adm.getCupof(),
+          adm.getRolEducativo(),
+          asignacion.getSituacionDeRevista(),
+          PeriodoMapper.toDTO(asignacion.getPeriodo()));
+    }
 
-		return new AsignacionEmpleadoEducativoRowDTO(
-				a.getId(),
-				PeriodoMapper.toDTO(a.getPeriodo()),
-				a.getSituacionDeRevista(),
-				a.getEstadoEn(HOY),
-				baja,
-				a.getSecuencia(),
-				DesignacionMapper.toDesignacionDTO(a.getDesignacion())
-		);
-	}
+    if (d instanceof DesignacionCurso curso) {
+      return new AsignacionLicenciaCursoDTO(
+          asignacion.getId(),
+          asignacion.getSecuencia(),
+          curso.getCupof(),
+          curso.getRolEducativo(),
+          asignacion.getSituacionDeRevista(),
+          PeriodoMapper.toDTO(asignacion.getPeriodo()),
+          MateriaMapper.toResponse(curso.getMateria()),
+          CursoMapper.toResponse(curso.getCurso()),
+          curso.getOrientacion());
+    }
 
-	public static AsignacionLicenciaDTO toLicenciaItem(Asignacion asignacion) {
+    throw new IllegalStateException("Tipo de designación no soportado");
+  }
 
-		Designacion d = asignacion.getDesignacion();
+  private static BajaAsignacionDTO toBaja(Asignacion a) {
 
-		if (d instanceof DesignacionAdministrativa adm) {
-			return new AsignacionLicenciaAdministrativaDTO(
-					asignacion.getId(),
-					asignacion.getSecuencia(),
-					adm.getCupof(),
-					adm.getRolEducativo(),
-					asignacion.getSituacionDeRevista(),
-					PeriodoMapper.toDTO(asignacion.getPeriodo())
+    if (a.getFechaBaja() == null) {
+      return null;
+    }
 
-			);
-		}
-
-		if (d instanceof DesignacionCurso curso) {
-			return new AsignacionLicenciaCursoDTO(
-					asignacion.getId(),
-					asignacion.getSecuencia(),
-					curso.getCupof(),
-					curso.getRolEducativo(),
-					asignacion.getSituacionDeRevista(),
-					PeriodoMapper.toDTO(asignacion.getPeriodo()),
-					MateriaMapper.toResponse(curso.getMateria()),
-					CursoMapper.toResponse(curso.getCurso()),
-					curso.getOrientacion()
-			);
-		}
-
-		throw new IllegalStateException("Tipo de designación no soportado");
-	}
+    return new BajaAsignacionDTO(a.getFechaBaja(), a.getCausaBaja());
+  }
 }
-

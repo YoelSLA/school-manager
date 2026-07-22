@@ -1,11 +1,9 @@
-@use "@/styles/breakpoints" as *;
-@use "@/styles/_debug.mixins" as debug;
+@use "@/styles/abstracts" as *;
 
 .appLayout {
 	/* 🧩 VARIABLES */
 	--layout-padding: 8px;
 	--layout-gap: 8px;
-
 	/* 🏗️ LAYOUT */
 	height: 100vh;
 	display: flex;
@@ -17,14 +15,11 @@
 
 	/* 🎨 VISUAL */
 	background: var(--bg-page);
-
-	/* 🧪 DEBUG */
-	@include debug.debug(orange);
+  background-color: black;
 
 	/* 🧱 HEADER */
 	&__header {
 		flex-shrink: 0;
-		@include debug.debug(black);
 	}
 
 	/* 🧱 CONTENT */
@@ -39,8 +34,6 @@
 
 		/* ⚙️ behavior */
 		overflow: auto;
-
-		@include debug.debug(darkgreen);
 	}
 }
 
@@ -48,15 +41,15 @@
 
 @include desktop-height-small {
 	.appLayout {
-		--layout-padding: 4px;
-		--layout-gap: 4px;
+		--layout-padding: 8px;
+		--layout-gap: 8px;
 	}
 }
 
 @include desktop-height-medium {
 	.appLayout {
-		--layout-padding: 8px;
-		--layout-gap: 8px;
+		--layout-padding: 12px;
+		--layout-gap: 12px;
 	}
 }
 

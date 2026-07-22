@@ -9,16 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class FranjaHorariaMapper {
 
-	public static FranjaHoraria toEntity(FranjaHorariaCreateDTO dto) {
-		return new FranjaHoraria(dto.dia(), dto.horaDesde(), dto.horaHasta());
-	}
+  public static FranjaHoraria toEntity(FranjaHorariaCreateDTO dto) {
+    return new FranjaHoraria(dto.dia(), dto.horaDesde(), dto.horaHasta());
+  }
 
-	public static FranjaHorariaMinimoDTO toMinimo(FranjaHoraria franjaHoraria) {
-		return new FranjaHorariaMinimoDTO(
-				franjaHoraria.getDia(),
-				franjaHoraria.getHoraDesde(),
-				franjaHoraria.getHoraHasta()
-		);
-
-	}
+  public static FranjaHorariaMinimoDTO toMinimo(FranjaHoraria franjaHoraria) {
+    return new FranjaHorariaMinimoDTO(
+        franjaHoraria.getDia(), franjaHoraria.getHoraDesde(), franjaHoraria.getHoraHasta());
+  }
 }

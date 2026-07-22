@@ -1,0 +1,94 @@
+@use "@/styles/abstracts" as *;
+
+.filtersRow {
+	display: flex;
+	align-items: center;
+	gap: $space-12;
+
+	width: 100%;
+  background-color: bisque;
+  border-radius: 16px;
+  padding: 4px;
+}
+
+.filters {
+	flex: 1;
+
+	display: flex;
+	align-items: center;
+	gap: $space-8;
+
+	min-width: 0;
+}
+
+.filters > * {
+	flex: 1 1 220px;
+
+	min-width: 180px;
+	max-width: 260px;
+}
+
+.actions {
+	flex-shrink: 0;
+
+	display: flex;
+	align-items: center;
+
+	margin-left: auto;
+}
+
+/* ================= HEIGHTS ================= */
+
+@include desktop-height-small {
+	.filtersRow {
+		min-height: 40px;
+	}
+}
+
+@include desktop-height-medium {
+	.filtersRow {
+		min-height: 48px;
+	}
+}
+
+@include desktop-height-large {
+	.filtersRow {
+		min-height: 56px;
+	}
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1200px) {
+	.filtersRow {
+		flex-wrap: wrap;
+	}
+
+	.filters {
+		width: 100%;
+		flex-wrap: wrap;
+	}
+
+	.filters > * {
+		flex: 1 1 220px;
+		max-width: none;
+	}
+
+	.actions {
+		width: 100%;
+		justify-content: flex-end;
+		margin-left: 0;
+	}
+}
+
+@media (max-width: 768px) {
+	.filters {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.filters > * {
+		width: 100%;
+		max-width: none;
+	}
+}

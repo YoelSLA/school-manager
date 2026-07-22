@@ -1,5 +1,4 @@
-@use "@/styles/breakpoints" as *;
-@use "@/styles/_debug.mixins" as debug;
+@use "@/styles/abstracts" as *;
 
 /* ======================================================
    SIDEBAR PAGE LAYOUT (SIMPLIFIED)
@@ -13,14 +12,13 @@
 	overflow: hidden;
 	gap: 8px;
 
-	@include debug.debug(blueviolet);
+  background-color: red;
 
 	/* ================= SIDEBAR ================= */
 
 	&__sidebar {
 		flex-shrink: 0;
 
-		@include debug.debug(black);
 	}
 
 	/* ================= FILTERS ================= */
@@ -31,7 +29,6 @@
 		min-height: 0;
 		display: flex;
 
-		@include debug.debug(gold);
 	}
 
 	/* ================= BODY ================= */
@@ -40,9 +37,6 @@
 		flex: 1;
 		min-height: 0;
 		overflow: hidden;
-
-		@include debug.debug(aqua);
-
 	}
 }
 

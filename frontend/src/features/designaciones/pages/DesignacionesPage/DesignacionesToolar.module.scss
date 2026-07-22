@@ -1,0 +1,110 @@
+@use "@/styles/abstracts" as *;
+
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  padding: 1.25rem 1.5rem;
+
+  background-color: aqua;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+
+  color: var(--color-text);
+}
+
+.subtitle {
+  margin: 0.25rem 0 0;
+
+  font-size: 0.95rem;
+  line-height: 1.4;
+
+  color: var(--color-text-secondary);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  flex-shrink: 0;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ===========================
+   Desktop (altura baja)
+=========================== */
+
+@include desktop-height-small {
+  .toolbar {
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .title {
+    font-size: 1.45rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+}
+
+/* ===========================
+   Desktop (altura media)
+=========================== */
+
+@include desktop-height-medium {
+  .toolbar {
+    gap: 0.9rem;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+}
+
+/* ===========================
+   Desktop (altura grande)
+=========================== */
+
+@include desktop-height-large {
+  .toolbar {
+    padding: 1.5rem 2rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+}

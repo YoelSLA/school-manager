@@ -5,10 +5,12 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarExcep
 
 public class DesignacionYaCubiertaException extends GestionEscolarException {
 
-	public DesignacionYaCubiertaException(Designacion designacion) {
-		super("La designación CUPOF " +
-				designacion.getCupof() +
-				" (" + designacion.getRolEducativo() +
-				") ya se encuentra cubierta");
-	}
+  public DesignacionYaCubiertaException(Designacion designacion) {
+    super(
+        "La designación CUPOF "
+            + designacion.getCupof()
+            + " ("
+            + designacion.getRolEducativo()
+            + ") ya se encuentra cubierta");
+  }
 }

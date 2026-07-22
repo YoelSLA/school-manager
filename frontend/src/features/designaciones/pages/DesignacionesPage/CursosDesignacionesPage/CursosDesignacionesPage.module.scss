@@ -1,0 +1,31 @@
+@use "@/styles/abstracts" as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+  min-height: 0;
+
+  gap: $layout-gap-small;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  min-height: 0;
+}
+
+@include desktop-height-medium {
+  .page {
+    gap: $layout-gap-medium;
+  }
+}
+
+@include desktop-height-large {
+  .page {
+    gap: $layout-gap-large;
+  }
+}

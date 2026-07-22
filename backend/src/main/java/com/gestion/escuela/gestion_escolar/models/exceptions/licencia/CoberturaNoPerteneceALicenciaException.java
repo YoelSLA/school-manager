@@ -6,14 +6,10 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarExcep
 
 public class CoberturaNoPerteneceALicenciaException extends GestionEscolarException {
 
-	public CoberturaNoPerteneceALicenciaException(
-			Licencia licencia,
-			Designacion designacion
-	) {
-		super(String.format(
-				"La designación %d no tiene una cobertura asociada a la licencia %d",
-				designacion.getId(),
-				licencia.getId()
-		));
-	}
+  public CoberturaNoPerteneceALicenciaException(Licencia licencia, Designacion designacion) {
+    super(
+        String.format(
+            "La designación %d no tiene una cobertura asociada a la licencia %d",
+            designacion.getId(), licencia.getId()));
+  }
 }

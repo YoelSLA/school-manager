@@ -5,29 +5,26 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.EstadoInvalidoExcep
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import lombok.Getter;
-
 import java.time.LocalDate;
+import lombok.Getter;
 
 @Embeddable
 @Getter
 public class BajaAsignacion {
 
-	private LocalDate fechaBaja;
+  private LocalDate fechaBaja;
 
-	@Enumerated(EnumType.STRING)
-	private CausaBaja causa;
+  @Enumerated(EnumType.STRING)
+  private CausaBaja causa;
 
-	protected BajaAsignacion() {
-	}
+  protected BajaAsignacion() {}
 
-	public BajaAsignacion(LocalDate fechaBaja, CausaBaja causa) {
-		if (fechaBaja == null || causa == null) {
-			throw new EstadoInvalidoException(
-					"No se puede dar de bajaAsignacion una asignación en este estado"
-			);
-		}
-		this.fechaBaja = fechaBaja;
-		this.causa = causa;
-	}
+  public BajaAsignacion(LocalDate fechaBaja, CausaBaja causa) {
+    if (fechaBaja == null || causa == null) {
+      throw new EstadoInvalidoException(
+          "No se puede dar de bajaAsignacion una asignación en este estado");
+    }
+    this.fechaBaja = fechaBaja;
+    this.causa = causa;
+  }
 }

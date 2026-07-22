@@ -16,68 +16,57 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AsignacionTitular extends Asignacion {
 
-	private AsignacionTitular(
-			EmpleadoEducativo empleadoEducativo,
-			Designacion designacion,
-			Periodo periodo,
-			Integer secuencia
-	) {
-		super(
-				empleadoEducativo,
-				designacion,
-				periodo,
-				secuencia
-		);
-	}
+  private AsignacionTitular(
+      EmpleadoEducativo empleadoEducativo,
+      Designacion designacion,
+      Periodo periodo,
+      Integer secuencia) {
+    super(empleadoEducativo, designacion, periodo, secuencia);
+  }
 
-	public static Builder builder() {
-		return new Builder();
-	}
+  public static Builder builder() {
+    return new Builder();
+  }
 
-	@Override
-	public SituacionDeRevista getSituacionDeRevista() {
-		return SituacionDeRevista.TITULAR;
-	}
+  @Override
+  public SituacionDeRevista getSituacionDeRevista() {
+    return SituacionDeRevista.TITULAR;
+  }
 
-	@Override
-	public boolean puedeGenerarVacanteDefinitiva() {
-		return true;
-	}
+  @Override
+  public boolean puedeGenerarVacanteDefinitiva() {
+    return true;
+  }
 
-	public static class Builder {
+  public static class Builder {
 
-		private EmpleadoEducativo empleadoEducativo;
-		private Designacion designacion;
-		private Periodo periodo;
-		private Integer secuencia;
+    private EmpleadoEducativo empleadoEducativo;
+    private Designacion designacion;
+    private Periodo periodo;
+    private Integer secuencia;
 
-		public Builder empleadoEducativo(EmpleadoEducativo empleadoEducativo) {
-			this.empleadoEducativo = empleadoEducativo;
-			return this;
-		}
+    public Builder empleadoEducativo(EmpleadoEducativo empleadoEducativo) {
+      this.empleadoEducativo = empleadoEducativo;
+      return this;
+    }
 
-		public Builder designacion(Designacion designacion) {
-			this.designacion = designacion;
-			return this;
-		}
+    public Builder designacion(Designacion designacion) {
+      this.designacion = designacion;
+      return this;
+    }
 
-		public Builder periodo(Periodo periodo) {
-			this.periodo = periodo;
-			return this;
-		}
+    public Builder periodo(Periodo periodo) {
+      this.periodo = periodo;
+      return this;
+    }
 
-		public Builder secuencia(Integer secuencia) {
-			this.secuencia = secuencia;
-			return this;
-		}
+    public Builder secuencia(Integer secuencia) {
+      this.secuencia = secuencia;
+      return this;
+    }
 
-		public AsignacionTitular build() {
-			return new AsignacionTitular(
-					empleadoEducativo,
-					designacion,
-					periodo,
-					secuencia
-			);
-		}
-	}
+    public AsignacionTitular build() {
+      return new AsignacionTitular(empleadoEducativo, designacion, periodo, secuencia);
+    }
+  }
 }

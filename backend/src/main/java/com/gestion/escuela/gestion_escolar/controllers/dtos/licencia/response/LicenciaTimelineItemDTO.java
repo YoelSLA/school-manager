@@ -4,9 +4,4 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.periodo.response.Per
 import com.gestion.escuela.gestion_escolar.models.enums.TipoPeriodoLicencia;
 
 public record LicenciaTimelineItemDTO(
-		Long id,
-		TipoPeriodoLicencia tipo,
-		PeriodoCerradoDTO periodo
-) {
-}
-
+    Long id, TipoPeriodoLicencia tipo, PeriodoCerradoDTO periodo) {}

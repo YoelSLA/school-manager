@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Breadcrumbs from "@/app/layouts/Breadcrumbs";
 import PageLayout from "@/app/layouts/PageLayout/PageLayout";
 import Button from "@/components/Button";
-import ConfirmModal from "@/components/ModalConfirm";
+import ConfirmModal from "@/components/Modal/ModalConfirm";
 import LicenciaRenovarModal from "../../components/LicenciaRenovarModal";
 import useDeleteLicencia from "../../hooks/useDeleteLicencia";
 import { useLicenciaDetalle } from "../../hooks/useLicenciaDetalle";
@@ -15,157 +15,157 @@ import LicenciaHeaderStack from "./LicenciaHeaderGrid";
 import LicenciaTimelineList from "./LicenciaTimelineList";
 
 export default function LicenciaDetallePage() {
-	const { licenciaId } = useParams<{ licenciaId: string }>();
+  const { licenciaId } = useParams<{ licenciaId: string }>();
 
-	const licenciasNav = useLicenciasNavigation();
+  const licenciasNav = useLicenciasNavigation();
 
-	const licenciaIdNumber = Number(licenciaId);
+  const licenciaIdNumber = Number(licenciaId);
 
-	/* =================================
-		 STATE
-	================================= */
+  /* =================================
+     STATE
+  ================================= */
 
-	const [renovarVisible, setRenovarVisible] = useState(false);
+  const [renovarVisible, setRenovarVisible] = useState(false);
 
-	const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
-	/* =================================
-		 QUERY
-	================================= */
+  /* =================================
+     QUERY
+  ================================= */
 
-	const { licencia, isLoading, isError } = useLicenciaDetalle(licenciaIdNumber);
+  const { licencia, isLoading, isError } = useLicenciaDetalle(licenciaIdNumber);
 
-	const {
-		data: timeline = [],
-		isLoading: timelineLoading,
-		isError: timelineError,
-	} = useLicenciaTimeline(licenciaIdNumber);
+  const {
+    data: timeline = [],
+    isLoading: timelineLoading,
+    isError: timelineError,
+  } = useLicenciaTimeline(licenciaIdNumber);
 
-	const puedeRenovar = useUltimaLicencia(timeline, licenciaIdNumber);
+  const puedeRenovar = useUltimaLicencia(timeline, licenciaIdNumber);
 
-	/* =================================
-		 DELETE
-	================================= */
+  /* =================================
+     DELETE
+  ================================= */
 
-	const { mutate: deleteLicencia, isPending: isDeleting } = useDeleteLicencia();
+  const { mutate: deleteLicencia, isPending: isDeleting } = useDeleteLicencia();
 
-	const handleDelete = () => {
-		if (!licencia) return;
-		deleteLicencia(licencia.id, {
-			onSuccess: () => {
-				setDeleteModalOpen(false);
+  const handleDelete = () => {
+    if (!licencia) return;
+    deleteLicencia(licencia.id, {
+      onSuccess: () => {
+        setDeleteModalOpen(false);
 
-				licenciasNav.listado();
-			},
-		});
-	};
+        licenciasNav.listado();
+      },
+    });
+  };
 
-	/* =================================
-		 STATES
-	================================= */
+  /* =================================
+     STATES
+  ================================= */
 
-	if (isLoading) {
-		return <div className="page-loading">Cargando licencia…</div>;
-	}
+  if (isLoading) {
+    return <div className="page-loading">Cargando licencia…</div>;
+  }
 
-	if (isError) {
-		return <div className="page-error">{isError}</div>;
-	}
+  if (isError) {
+    return <div className="page-error">{isError}</div>;
+  }
 
-	if (!licencia) {
-		return <div className="page-error">Licencia no encontrada</div>;
-	}
+  if (!licencia) {
+    return <div className="page-error">Licencia no encontrada</div>;
+  }
 
-	return (
-		<PageLayout breadcrumbs={<Breadcrumbs />}>
-			<div className={styles.page}>
-				{/* =================================
+  return (
+    <PageLayout breadcrumbs={<Breadcrumbs />}>
+      <div className={styles.page}>
+        {/* =================================
 				    CONTENT
 				================================= */}
-				<div className={styles.content}>
-					{/* =================================
+        <div className={styles.content}>
+          {/* =================================
 					    HEADER
 					================================= */}
-					<div className={styles.header}>
-						<LicenciaHeaderStack licencia={licencia} />
-					</div>
+          <div className={styles.header}>
+            <LicenciaHeaderStack licencia={licencia} />
+          </div>
 
-					{/* =================================
+          {/* =================================
 					    TIMELINE
 					================================= */}
-					<div className={styles.timeline}>
-						{timelineLoading && <p>Cargando timeline…</p>}
+          <div className={styles.timeline}>
+            {timelineLoading && <p>Cargando timeline…</p>}
 
-						{timelineError && <p>Error al cargar timeline</p>}
+            {timelineError && <p>Error al cargar timeline</p>}
 
-						{!timelineLoading && !timelineError && (
-							<LicenciaTimelineList
-								timeline={timeline}
-								licenciaActualId={licencia.id}
-								onNavigate={licenciasNav.verDetalle}
-							/>
-						)}
-					</div>
-				</div>
+            {!timelineLoading && !timelineError && (
+              <LicenciaTimelineList
+                timeline={timeline}
+                licenciaActualId={licencia.id}
+                onNavigate={licenciasNav.verDetalle}
+              />
+            )}
+          </div>
+        </div>
 
-				{/* =================================
+        {/* =================================
 				    ACTIONS BAR
 				================================= */}
-				<div className={styles.actionsBar}>
-					{/* DESIGNACIONES */}
-					<Button
-						variant="secondary"
-						onClick={() => {
-							licenciasNav.verDesignaciones(
-								licencia.id,
-								licencia.empleado,
-								licencia,
-							);
-						}}
-					>
-						Designaciones
-					</Button>
+        <div className={styles.actionsBar}>
+          {/* DESIGNACIONES */}
+          <Button
+            variant="secondary"
+            onClick={() => {
+              licenciasNav.verDesignaciones(
+                licencia.id,
+                licencia.empleado,
+                licencia,
+              );
+            }}
+          >
+            Designaciones
+          </Button>
 
-					{/* RENOVAR */}
-					{puedeRenovar && (
-						<Button variant="primary" onClick={() => setRenovarVisible(true)}>
-							Renovar licencia
-						</Button>
-					)}
+          {/* RENOVAR */}
+          {puedeRenovar && (
+            <Button variant="primary" onClick={() => setRenovarVisible(true)}>
+              Renovar licencia
+            </Button>
+          )}
 
-					{/* ELIMINAR */}
-					<Button variant="danger" onClick={() => setDeleteModalOpen(true)}>
-						Eliminar
-					</Button>
-				</div>
-			</div>
+          {/* ELIMINAR */}
+          <Button variant="danger" onClick={() => setDeleteModalOpen(true)}>
+            Eliminar
+          </Button>
+        </div>
+      </div>
 
-			{/* =================================
+      {/* =================================
 			    MODAL RENOVAR
 			================================= */}
-			{renovarVisible && (
-				<LicenciaRenovarModal
-					licenciaId={licencia.id}
-					onClose={() => setRenovarVisible(false)}
-					onSuccess={() => setRenovarVisible(false)}
-				/>
-			)}
+      {renovarVisible && (
+        <LicenciaRenovarModal
+          licenciaId={licencia.id}
+          onClose={() => setRenovarVisible(false)}
+          onSuccess={() => setRenovarVisible(false)}
+        />
+      )}
 
-			{/* =================================
+      {/* =================================
 			    MODAL DELETE
 			================================= */}
-			{deleteModalOpen && (
-				<ConfirmModal
-					open
-					title="Eliminar licencia"
-					description={`¿Seguro que querés eliminar la licencia ${licencia.normativa.codigo}?`}
-					confirmText="Eliminar"
-					cancelText="Cancelar"
-					onConfirm={handleDelete}
-					onCancel={() => setDeleteModalOpen(false)}
-					loading={isDeleting}
-				/>
-			)}
-		</PageLayout>
-	);
+      {deleteModalOpen && (
+        <ConfirmModal
+          open
+          title="Eliminar licencia"
+          description={`¿Seguro que querés eliminar la licencia ${licencia.normativa.codigo}?`}
+          confirmText="Eliminar"
+          cancelText="Cancelar"
+          onConfirm={handleDelete}
+          onCancel={() => setDeleteModalOpen(false)}
+          loading={isDeleting}
+        />
+      )}
+    </PageLayout>
+  );
 }

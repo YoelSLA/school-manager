@@ -19,3 +19,8 @@ export type MateriaNombreDTO = {
 	id: number;
 	nombre: string;
 };
+
+export type MateriaSelectDTO = {
+	id: number;
+	nombre: string;
+};

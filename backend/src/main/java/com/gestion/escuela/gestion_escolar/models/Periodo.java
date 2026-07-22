@@ -5,117 +5,110 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalido
 import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 import com.gestion.escuela.gestion_escolar.models.exceptions.periodo.PeriodoAbiertoException;
 import jakarta.persistence.Embeddable;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-
-/**
- * Representa un período de tiempo inclusivo en ambos extremos.
- */
+/** Representa un período de tiempo inclusivo en ambos extremos. */
 @EqualsAndHashCode
 @Embeddable
 @Getter
 public class Periodo {
 
-	private LocalDate fechaDesde;
-	private LocalDate fechaHasta;
+  private LocalDate fechaDesde;
+  private LocalDate fechaHasta;
 
-	protected Periodo() {
-	}
+  protected Periodo() {}
 
-	private Periodo(LocalDate fechaDesde, LocalDate fechaHasta) {
+  private Periodo(LocalDate fechaDesde, LocalDate fechaHasta) {
 
-		validarCrearPeriodo(fechaDesde, fechaHasta);
+    validarCrearPeriodo(fechaDesde, fechaHasta);
 
-		this.fechaDesde = fechaDesde;
-		this.fechaHasta = fechaHasta;
-	}
+    this.fechaDesde = fechaDesde;
+    this.fechaHasta = fechaHasta;
+  }
 
-	public static Periodo abierto(LocalDate fechaDesde) {
-		return new Periodo(fechaDesde, null);
-	}
+  public static Periodo abierto(LocalDate fechaDesde) {
+    return new Periodo(fechaDesde, null);
+  }
 
-	public static Periodo cerrado(LocalDate fechaDesde, LocalDate fechaHasta) {
-		return new Periodo(fechaDesde, fechaHasta);
-	}
+  public static Periodo cerrado(LocalDate fechaDesde, LocalDate fechaHasta) {
+    return new Periodo(fechaDesde, fechaHasta);
+  }
 
-	public boolean seSuperponeCon(Periodo otro) {
-		if (otro == null) {
-			return false;
-		}
+  public boolean seSuperponeCon(Periodo otro) {
+    if (otro == null) {
+      return false;
+    }
 
-		LocalDate finThis = this.fechaHasta != null ? this.fechaHasta : LocalDate.MAX;
-		LocalDate finOtro = otro.fechaHasta != null ? otro.fechaHasta : LocalDate.MAX;
+    LocalDate finThis = this.fechaHasta != null ? this.fechaHasta : LocalDate.MAX;
+    LocalDate finOtro = otro.fechaHasta != null ? otro.fechaHasta : LocalDate.MAX;
 
-		return !this.fechaDesde.isAfter(finOtro) && !otro.fechaDesde.isAfter(finThis);
-	}
+    return !this.fechaDesde.isAfter(finOtro) && !otro.fechaDesde.isAfter(finThis);
+  }
 
-	public boolean esAbierto() {
-		return fechaHasta == null;
-	}
+  public boolean esAbierto() {
+    return fechaHasta == null;
+  }
 
-	public boolean esCerrado() {
-		return fechaHasta != null;
-	}
+  public boolean esCerrado() {
+    return fechaHasta != null;
+  }
 
-	public boolean estaVigenteEn(LocalDate fecha) {
-		return contiene(fecha);
-	}
+  public boolean estaVigenteEn(LocalDate fecha) {
+    return contiene(fecha);
+  }
 
-	public int dias() {
+  public int dias() {
 
-		if (fechaHasta == null) {
-			throw new PeriodoAbiertoException();
-		}
+    if (fechaHasta == null) {
+      throw new PeriodoAbiertoException();
+    }
 
-		long dias = ChronoUnit.DAYS.between(fechaDesde, fechaHasta) + 1;
+    long dias = ChronoUnit.DAYS.between(fechaDesde, fechaHasta) + 1;
 
-		return (int) dias;
-	}
+    return (int) dias;
+  }
 
-	public Periodo cerrarEn(LocalDate fechaCierre) {
-		if (fechaCierre == null) {
-			throw new CampoObligatorioException("fechaCierre");
-		}
+  public Periodo cerrarEn(LocalDate fechaCierre) {
+    if (fechaCierre == null) {
+      throw new CampoObligatorioException("fechaCierre");
+    }
 
-		if (fechaCierre.isBefore(fechaDesde)) {
-			throw new RangoFechasInvalidoException(fechaDesde, fechaCierre);
-		}
+    if (fechaCierre.isBefore(fechaDesde)) {
+      throw new RangoFechasInvalidoException(fechaDesde, fechaCierre);
+    }
 
-		if (this.fechaHasta != null && fechaCierre.isAfter(this.fechaHasta)) {
-			throw new RangoFechasInvalidoException(fechaDesde, fechaCierre);
-		}
+    if (this.fechaHasta != null && fechaCierre.isAfter(this.fechaHasta)) {
+      throw new RangoFechasInvalidoException(fechaDesde, fechaCierre);
+    }
 
-		return new Periodo(this.fechaDesde, fechaCierre);
-	}
+    return new Periodo(this.fechaDesde, fechaCierre);
+  }
 
-	@Override
-	public String toString() {
-		return fechaDesde + " → " + (esAbierto() ? "abierto" : fechaHasta);
-	}
+  @Override
+  public String toString() {
+    return fechaDesde + " → " + (esAbierto() ? "abierto" : fechaHasta);
+  }
 
-	public boolean contiene(LocalDate fecha) {
-		if (fecha == null) {
-			return false;
-		}
+  public boolean contiene(LocalDate fecha) {
+    if (fecha == null) {
+      return false;
+    }
 
-		boolean despuesDelInicio = !fecha.isBefore(fechaDesde);
-		boolean antesDelFin = fechaHasta == null || !fecha.isAfter(fechaHasta);
+    boolean despuesDelInicio = !fecha.isBefore(fechaDesde);
+    boolean antesDelFin = fechaHasta == null || !fecha.isAfter(fechaHasta);
 
-		return despuesDelInicio && antesDelFin;
-	}
+    return despuesDelInicio && antesDelFin;
+  }
 
-	private void validarCrearPeriodo(LocalDate fechaDesde, LocalDate fechaHasta) {
+  private void validarCrearPeriodo(LocalDate fechaDesde, LocalDate fechaHasta) {
 
-		Validaciones.noNulo(fechaDesde, "fechaDesde");
+    Validaciones.noNulo(fechaDesde, "fechaDesde");
 
-		if (fechaHasta != null && fechaDesde.isAfter(fechaHasta)) {
-			throw new RangoFechasInvalidoException(fechaDesde, fechaHasta);
-		}
-
-	}
-
-
+    if (fechaHasta != null && fechaDesde.isAfter(fechaHasta)) {
+      throw new RangoFechasInvalidoException(fechaDesde, fechaHasta);
+    }
+  }
 }

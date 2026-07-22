@@ -5,8 +5,10 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.response.PageRespons
 import com.gestion.escuela.gestion_escolar.controllers.mappers.LicenciaMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
-import com.gestion.escuela.gestion_escolar.services.LicenciaService;
+import com.gestion.escuela.gestion_escolar.models.enums.EstadoLicencia;
+import com.gestion.escuela.gestion_escolar.services.licencia.LicenciaService;
 import com.gestion.escuela.gestion_escolar.web.PaginationUtils;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,42 +22,22 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class EscuelaLicenciaControllerREST {
 
-	private final LicenciaService licenciaService;
+  private final LicenciaService licenciaService;
 
-	@GetMapping
-	public PageResponse<LicenciaResumenDTO> listar(
-			@PathVariable Long escuelaId,
-			Pageable pageable
-	) {
-		Pageable limitedPageable = PaginationUtils.limit(pageable);
+  @GetMapping
+  public PageResponse<LicenciaResumenDTO> listar(@PathVariable Long escuelaId, Pageable pageable) {
+    Pageable limitedPageable = PaginationUtils.limit(pageable);
 
-		long inicioQuery = System.currentTimeMillis();
+    Page<Licencia> licencias = licenciaService.buscarPorEscuela(escuelaId, limitedPageable);
 
-		Page<Licencia> licencias = licenciaService.buscarPorEscuela(
-				escuelaId,
-				limitedPageable
-		);
+    // TODO: Reemplazar EstadoLicencia.TODO por el cálculo del estado cuando
+    // se implemente el servicio correspondiente.
+    PageResponse<LicenciaResumenDTO> response =
+        PageMapper.toPageResponse(
+            licencias,
+            licencia ->
+                LicenciaMapper.toResumen(licencia, EstadoLicencia.NO_VIGENTE, LocalDate.now()));
 
-		System.out.println(
-				"SERVICE+QUERY -> "
-						+ (System.currentTimeMillis() - inicioQuery)
-						+ " ms"
-		);
-
-		long inicioMapper = System.currentTimeMillis();
-
-		PageResponse<LicenciaResumenDTO> response =
-				PageMapper.toPageResponse(
-						licencias,
-						LicenciaMapper::toResumen
-				);
-
-		System.out.println(
-				"MAPPER -> "
-						+ (System.currentTimeMillis() - inicioMapper)
-						+ " ms"
-		);
-
-		return response;
-	}
+    return response;
+  }
 }

@@ -4,7 +4,7 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarExcep
 
 public class AnioInvalidoException extends GestionEscolarException {
 
-	public AnioInvalidoException(Integer anio) {
-		super("El año debe ser mayor a 0. Valor recibido: " + anio);
-	}
+  public AnioInvalidoException(Integer anio) {
+    super("El año debe ser mayor a 0. Valor recibido: " + anio);
+  }
 }

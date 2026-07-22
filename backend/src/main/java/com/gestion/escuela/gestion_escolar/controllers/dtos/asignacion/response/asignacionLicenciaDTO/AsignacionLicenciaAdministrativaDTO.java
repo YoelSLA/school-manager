@@ -5,11 +5,10 @@ import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista;
 
 public record AsignacionLicenciaAdministrativaDTO(
-		Long id,
-		Integer secuencia,
-		Integer cupof,
-		RolEducativo rolEducativo,
-		SituacionDeRevista situacionDeRevista,
-		PeriodoDTO periodo
-) implements AsignacionLicenciaDTO {
-}
+    Long id,
+    Integer secuencia,
+    Integer cupof,
+    RolEducativo rolEducativo,
+    SituacionDeRevista situacionDeRevista,
+    PeriodoDTO periodo)
+    implements AsignacionLicenciaDTO {}
