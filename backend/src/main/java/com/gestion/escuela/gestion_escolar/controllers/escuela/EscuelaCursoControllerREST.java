@@ -11,13 +11,12 @@ import com.gestion.escuela.gestion_escolar.models.enums.Turno;
 import com.gestion.escuela.gestion_escolar.services.curso.CursoService;
 import com.gestion.escuela.gestion_escolar.web.PaginationUtils;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/escuelas/{escuelaId}/cursos")
@@ -69,8 +68,7 @@ public class EscuelaCursoControllerREST {
   @GetMapping("/select")
   public List<CursoSelectDTO> listarParaSelect(@PathVariable Long escuelaId) {
     return cursoService.listarCursosPorEscuela(escuelaId).stream()
-            .map(CursoMapper::toSelect)
-            .toList();
+        .map(CursoMapper::toSelect)
+        .toList();
   }
-
 }

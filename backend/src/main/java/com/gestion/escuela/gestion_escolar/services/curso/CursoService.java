@@ -2,10 +2,9 @@ package com.gestion.escuela.gestion_escolar.services.curso;
 
 import com.gestion.escuela.gestion_escolar.models.Curso;
 import com.gestion.escuela.gestion_escolar.models.enums.Turno;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 
 public interface CursoService {
 
@@ -22,5 +21,4 @@ public interface CursoService {
   List<Curso> listarCursosPorEscuela(Long escuelaId);
 
   Page<Curso> listarCursosPorEscuela(Long escuelaId, Turno turno, Pageable pageable);
-
 }

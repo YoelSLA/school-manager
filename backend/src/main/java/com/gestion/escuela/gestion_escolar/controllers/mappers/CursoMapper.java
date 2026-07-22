@@ -20,8 +20,6 @@ public final class CursoMapper {
   }
 
   public static CursoSelectDTO toSelect(Curso c) {
-    return new CursoSelectDTO(
-            c.getId(),
-            c.anioDivision());
+    return new CursoSelectDTO(c.getId(), c.anioDivision());
   }
 }

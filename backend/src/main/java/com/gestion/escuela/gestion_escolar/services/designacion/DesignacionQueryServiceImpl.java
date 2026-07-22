@@ -11,12 +11,6 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontrado
 import com.gestion.escuela.gestion_escolar.persistence.AsignacionRepository;
 import com.gestion.escuela.gestion_escolar.persistence.DesignacionRepository;
 import com.gestion.escuela.gestion_escolar.persistence.EscuelaRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +18,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -97,15 +96,9 @@ public class DesignacionQueryServiceImpl implements DesignacionQueryService {
 
   @Override
   public List<Asignacion> obtenerOtrosCargos(
-          Long designacionId,
-          EstadoAsignacion estado,
-          LocalDate fecha) {
+      Long designacionId, EstadoAsignacion estado, LocalDate fecha) {
 
-    return asignacionRepository.findOtrosCargos(
-            designacionId,
-            estado,
-            fecha
-    );
+    return asignacionRepository.findOtrosCargos(designacionId, estado, fecha);
   }
 
   @Override

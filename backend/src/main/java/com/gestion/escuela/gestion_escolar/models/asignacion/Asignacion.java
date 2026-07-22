@@ -1,5 +1,7 @@
 package com.gestion.escuela.gestion_escolar.models.asignacion;
 
+import static com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista.PROVISIONAL;
+
 import com.gestion.escuela.gestion_escolar.models.BajaAsignacion;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Periodo;
@@ -11,11 +13,8 @@ import com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista;
 import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 import com.gestion.escuela.gestion_escolar.models.exceptions.asignacion.AsignacionYaDadaDeBajaException;
 import jakarta.persistence.*;
-import lombok.Getter;
-
 import java.time.LocalDate;
-
-import static com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista.PROVISIONAL;
+import lombok.Getter;
 
 @Entity
 @Table(name = "asignacion")
@@ -142,7 +141,7 @@ public abstract class Asignacion {
       EmpleadoEducativo empleado,
       LocalDate fechaTomaPosesion,
       LocalDate fechaCese,
-      Integer secuencia) {   
+      Integer secuencia) {
     if (this.getSituacionDeRevista() == PROVISIONAL) {
       Validaciones.noNulo(fechaCese, "fecha de cese");
     }

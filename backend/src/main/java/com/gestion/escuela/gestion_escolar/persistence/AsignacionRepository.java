@@ -4,15 +4,14 @@ import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionSuplente;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface AsignacionRepository extends JpaRepository<Asignacion, Long> {
 
@@ -124,7 +123,8 @@ public interface AsignacionRepository extends JpaRepository<Asignacion, Long> {
 
   List<Asignacion> findByEmpleadoEducativoId(Long empleadoId);
 
-	@Query("""
+  @Query(
+      """
 select a
 from Asignacion a
 where a.designacion.id = :designacionId
@@ -201,8 +201,8 @@ and (
     )
 )
 """)
-	List<Asignacion> findOtrosCargos(
-			@Param("designacionId") Long designacionId,
-			@Param("estado") EstadoAsignacion estado,
-			@Param("fecha") LocalDate fecha);
+  List<Asignacion> findOtrosCargos(
+      @Param("designacionId") Long designacionId,
+      @Param("estado") EstadoAsignacion estado,
+      @Param("fecha") LocalDate fecha);
 }

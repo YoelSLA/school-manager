@@ -20,8 +20,6 @@ public class MateriaMapper {
   }
 
   public static MateriaSelectDTO toSelect(Materia m) {
-    return new MateriaSelectDTO(
-            m.getId(),
-            m.getNombre());
+    return new MateriaSelectDTO(m.getId(), m.getNombre());
   }
 }
