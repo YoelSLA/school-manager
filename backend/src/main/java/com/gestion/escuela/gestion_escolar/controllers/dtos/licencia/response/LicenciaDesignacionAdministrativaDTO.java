@@ -6,17 +6,16 @@ import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 
 public record LicenciaDesignacionAdministrativaDTO(
-		Long designacionId,
-		Integer cupof,
-		EstadoDesignacion estado,
-		RolEducativo rolEducativo,
-		AsignacionDetalleDTO cobertura
-) implements LicenciaDesignacionDTO {
+    Long designacionId,
+    Integer cupof,
+    EstadoDesignacion estado,
+    RolEducativo rolEducativo,
+    AsignacionDetalleDTO cobertura)
+    implements LicenciaDesignacionDTO {
 
-	@Override
-	@JsonProperty("tipo")
-	public String tipo() {
-		return "ADMINISTRATIVA";
-	}
+  @Override
+  @JsonProperty("tipo")
+  public String tipo() {
+    return "ADMINISTRATIVA";
+  }
 }
-

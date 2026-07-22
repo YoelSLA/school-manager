@@ -1,4 +1,4 @@
-@use "@/styles/form-control.base.scss" as *;
+@use "@/styles/base" as *;
 
 .form-select {
 	@include form-field;

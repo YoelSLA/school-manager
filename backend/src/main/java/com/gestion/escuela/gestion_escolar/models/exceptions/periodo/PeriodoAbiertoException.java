@@ -4,11 +4,11 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarExcep
 
 public class PeriodoAbiertoException extends GestionEscolarException {
 
-	public PeriodoAbiertoException() {
-		super("El período se encuentra abierto.");
-	}
+  public PeriodoAbiertoException() {
+    super("El período se encuentra abierto.");
+  }
 
-	public PeriodoAbiertoException(String mensaje) {
-		super(mensaje);
-	}
+  public PeriodoAbiertoException(String mensaje) {
+    super(mensaje);
+  }
 }

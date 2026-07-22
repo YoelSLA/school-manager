@@ -9,81 +9,75 @@ import lombok.Getter;
 
 @Entity
 @Table(
-		name = "curso",
-		uniqueConstraints = {
-				@UniqueConstraint(columnNames = {"escuela_id", "anio", "grado", "turno"})
-		}
-)
+    name = "curso",
+    uniqueConstraints = {@UniqueConstraint(columnNames = {"escuela_id", "anio", "grado", "turno"})})
 @Getter
 public class Curso {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	@Column(nullable = false)
-	private Integer anio;
+  @Column(nullable = false)
+  private Integer anio;
 
-	@Column(nullable = false)
-	private Integer grado;
+  @Column(nullable = false)
+  private Integer grado;
 
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "escuela_id", nullable = false)
-	private Escuela escuela;
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "escuela_id", nullable = false)
+  private Escuela escuela;
 
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
-	private Turno turno;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private Turno turno;
 
-	protected Curso() {
-	}
+  protected Curso() {}
 
-	public Curso(Turno turno, Integer anio, Integer grado) {
+  public Curso(Turno turno, Integer anio, Integer grado) {
 
-		validarCrearOActualizar(turno, anio, grado);
+    validarCrearOActualizar(turno, anio, grado);
 
-		this.turno = turno;
-		this.anio = anio;
-		this.grado = grado;
-	}
+    this.turno = turno;
+    this.anio = anio;
+    this.grado = grado;
+  }
 
-	public void actualizar(Turno turno, Integer anio, Integer grado) {
+  public void actualizar(Turno turno, Integer anio, Integer grado) {
 
-		validarCrearOActualizar(turno, anio, grado);
+    validarCrearOActualizar(turno, anio, grado);
 
-		this.turno = turno;
-		this.anio = anio;
-		this.grado = grado;
-	}
+    this.turno = turno;
+    this.anio = anio;
+    this.grado = grado;
+  }
 
-	public void setEscuela(Escuela escuela) {
-		Validaciones.noNulo(escuela, "escuela");
-		this.escuela = escuela;
-	}
+  public void setEscuela(Escuela escuela) {
+    Validaciones.noNulo(escuela, "escuela");
+    this.escuela = escuela;
+  }
 
-	public String anioDivision() {
-		return anio + "° " + grado;
-	}
+  public String anioDivision() {
+    return anio + "° " + grado;
+  }
 
-	@Override
-	public String toString() {
-		return anioDivision() + " - " + turno.getNombre();
-	}
+  @Override
+  public String toString() {
+    return anioDivision() + " - " + turno.getNombre();
+  }
 
-	private void validarCrearOActualizar(Turno turno, Integer anio, Integer grado) {
+  private void validarCrearOActualizar(Turno turno, Integer anio, Integer grado) {
 
-		Validaciones.noNulo(turno, "turno");
-		Validaciones.noNulo(anio, "anio");
-		Validaciones.noNulo(grado, "grado");
+    Validaciones.noNulo(turno, "turno");
+    Validaciones.noNulo(anio, "anio");
+    Validaciones.noNulo(grado, "grado");
 
-		if (anio <= 0) {
-			throw new AnioInvalidoException(anio);
-		}
+    if (anio <= 0) {
+      throw new AnioInvalidoException(anio);
+    }
 
-		if (grado <= 0) {
-			throw new GradoInvalidoException(grado);
-		}
-	}
-
+    if (grado <= 0) {
+      throw new GradoInvalidoException(grado);
+    }
+  }
 }
-

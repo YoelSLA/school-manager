@@ -5,14 +5,9 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarExcep
 
 public class EmpleadoInactivoException extends GestionEscolarException {
 
-	public EmpleadoInactivoException(EmpleadoEducativo empleado) {
-		super(
-				"El empleadoEducativoBasico %s %s (CUIL: %s) se encuentra inactivo"
-						.formatted(
-								empleado.getApellido(),
-								empleado.getNombre(),
-								empleado.getCuil()
-						)
-		);
-	}
+  public EmpleadoInactivoException(EmpleadoEducativo empleado) {
+    super(
+        "El empleadoEducativoBasico %s %s (CUIL: %s) se encuentra inactivo"
+            .formatted(empleado.getApellido(), empleado.getNombre(), empleado.getCuil()));
+  }
 }

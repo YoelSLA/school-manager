@@ -5,18 +5,13 @@ import org.springframework.data.domain.Pageable;
 
 public final class PaginationUtils {
 
-	private static final int MAX_PAGE_SIZE = 20;
+  private static final int MAX_PAGE_SIZE = 20;
 
-	private PaginationUtils() {
-	}
+  private PaginationUtils() {}
 
-	public static Pageable limit(Pageable pageable) {
-		int pageSize = Math.min(pageable.getPageSize(), MAX_PAGE_SIZE);
+  public static Pageable limit(Pageable pageable) {
+    int pageSize = Math.min(pageable.getPageSize(), MAX_PAGE_SIZE);
 
-		return PageRequest.of(
-				pageable.getPageNumber(),
-				pageSize,
-				pageable.getSort()
-		);
-	}
+    return PageRequest.of(pageable.getPageNumber(), pageSize, pageable.getSort());
+  }
 }

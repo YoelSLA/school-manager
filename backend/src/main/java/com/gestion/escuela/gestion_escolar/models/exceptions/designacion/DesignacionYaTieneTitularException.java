@@ -5,12 +5,12 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarExcep
 
 public class DesignacionYaTieneTitularException extends GestionEscolarException {
 
-	public DesignacionYaTieneTitularException(Designacion designacion) {
-		super(
-				"La designación CUPOF " +
-						designacion.getCupof() +
-						" (" + designacion.getRolEducativo() +
-						") ya tiene un titular activo"
-		);
-	}
+  public DesignacionYaTieneTitularException(Designacion designacion) {
+    super(
+        "La designación CUPOF "
+            + designacion.getCupof()
+            + " ("
+            + designacion.getRolEducativo()
+            + ") ya tiene un titular activo");
+  }
 }

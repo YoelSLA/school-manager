@@ -9,7 +9,7 @@ import type {
 
 // FILTROS
 export type CursoFiltro = "TODOS" | "MANIANA" | "TARDE" | "VESPERTINO";
-export type FiltroCargos = "LICENCIA" | "FINALIZADA" | "BAJA";
+export type FiltroCargos = "FINALIZADA" | "BAJA";
 export type Tab = "DOCENTE" | "ADMINISTRATIVO";
 export type EmpleadoEducativoFiltro = "TODOS" | "ACTIVOS" | "INACTIVOS";
 export type DesignacionFiltro = "ADMIN" | "CURSO";

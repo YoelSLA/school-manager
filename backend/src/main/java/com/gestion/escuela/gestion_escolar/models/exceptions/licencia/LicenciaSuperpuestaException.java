@@ -4,7 +4,8 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarExcep
 
 public class LicenciaSuperpuestaException extends GestionEscolarException {
 
-	public LicenciaSuperpuestaException() {
-		super("El empleadoEducativoBasico ya posee una licencia que se superpone con el período indicado");
-	}
+  public LicenciaSuperpuestaException() {
+    super(
+        "El empleadoEducativoBasico ya posee una licencia que se superpone con el período indicado");
+  }
 }

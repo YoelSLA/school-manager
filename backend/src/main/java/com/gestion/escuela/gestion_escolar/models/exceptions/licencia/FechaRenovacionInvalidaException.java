@@ -4,7 +4,7 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarExcep
 
 public class FechaRenovacionInvalidaException extends GestionEscolarException {
 
-	public FechaRenovacionInvalidaException(String mensaje) {
-		super(mensaje);
-	}
+  public FechaRenovacionInvalidaException(String mensaje) {
+    super(mensaje);
+  }
 }

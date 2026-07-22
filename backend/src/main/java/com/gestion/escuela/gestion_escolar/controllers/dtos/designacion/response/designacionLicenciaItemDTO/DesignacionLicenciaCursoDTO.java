@@ -4,11 +4,10 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.curso.response.Curso
 import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.response.MateriaDetalleDTO;
 
 public record DesignacionLicenciaCursoDTO(
-		Long id,
-		Integer cupof,
-		String rolEducativo,
-		MateriaDetalleDTO materia,
-		CursoDetalleDTO curso,
-		String orientacion
-) implements DesignacionLicenciaDTO {
-}
+    Long id,
+    Integer cupof,
+    String rolEducativo,
+    MateriaDetalleDTO materia,
+    CursoDetalleDTO curso,
+    String orientacion)
+    implements DesignacionLicenciaDTO {}

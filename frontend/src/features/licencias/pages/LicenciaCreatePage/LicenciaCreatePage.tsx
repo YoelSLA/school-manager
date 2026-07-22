@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FormProvider } from "react-hook-form";
 import Breadcrumbs from "@/app/layouts/Breadcrumbs";
 import PageLayout from "@/app/layouts/PageLayout/PageLayout";
-import ErrorModal from "@/components/ModalError";
+import ErrorModal from "@/components/Modal/ModalError";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
 import { useAsignacionesActivas } from "@/features/empleadosEducativos/hooks/useAsignacionesActivas";
 import { getErrorMessage } from "@/shared/api/errorHandler";
@@ -10,8 +10,8 @@ import type {
   LicenciaCreateDTO,
   LicenciaCreateFormValues,
 } from "@/shared/types";
-import LicenciaDatosSection from "../../components/LicenciaForm";
 import AsignacionesSelector from "../../components/AsignacionesSelector";
+import LicenciaDatosSection from "../../components/LicenciaForm";
 import { useLicenciaForm } from "../../form/useLicenciaForm";
 import { useCrearLicencia } from "../../hooks/useCrearLicencia";
 import styles from "./LicenciaCreatePage.module.scss";

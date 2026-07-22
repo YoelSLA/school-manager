@@ -3,15 +3,13 @@ package com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.response;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
 
 public sealed interface LicenciaDesignacionDTO
-		permits LicenciaDesignacionAdministrativaDTO,
-		LicenciaDesignacionCursoDTO {
+    permits LicenciaDesignacionAdministrativaDTO, LicenciaDesignacionCursoDTO {
 
-	Long designacionId();
+  Long designacionId();
 
-	Integer cupof();
+  Integer cupof();
 
-	EstadoDesignacion estado();
+  EstadoDesignacion estado();
 
-	String tipo();
+  String tipo();
 }
-

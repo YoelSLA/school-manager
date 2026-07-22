@@ -12,193 +12,140 @@ import com.gestion.escuela.gestion_escolar.controllers.mappers.DesignacionMapper
 import com.gestion.escuela.gestion_escolar.models.FranjaHoraria;
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
+import com.gestion.escuela.gestion_escolar.models.domainServices.ServicioEstadoDesignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
-import com.gestion.escuela.gestion_escolar.services.DesignacionService;
+import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
+import com.gestion.escuela.gestion_escolar.services.designacion.DesignacionCommandService;
+import com.gestion.escuela.gestion_escolar.services.designacion.DesignacionQueryService;
 import jakarta.validation.Valid;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 @RestController
 @RequestMapping("/api/designaciones")
 @RequiredArgsConstructor
 public class DesignacionControllerREST {
 
-	private final DesignacionService designacionService;
+  private final DesignacionCommandService designacionCommandService;
+  private final DesignacionQueryService designacionQueryService;
+  private final ServicioEstadoDesignacion servicioEstadoDesignacion;
 
-	@PostMapping("/{designacionId}/cubrir/titular")
-	@ResponseStatus(HttpStatus.CREATED)
-	public AsignacionDetalleDTO cubrirConTitular(
-			@PathVariable Long designacionId,
-			@Valid @RequestBody AsignacionTitularCreateDTO dto
-	) {
-		Asignacion asignacion = designacionService.cubrirConTitular(
-				designacionId,
-				dto.empleadoId(),
-				dto.fechaTomaPosesion(),
-				dto.secuencia()
-		);
+  @PostMapping("/{designacionId}/cubrir/titular")
+  @ResponseStatus(HttpStatus.CREATED)
+  public AsignacionDetalleDTO cubrirConTitular(
+      @PathVariable Long designacionId, @Valid @RequestBody AsignacionTitularCreateDTO dto) {
+    Asignacion asignacion =
+        designacionCommandService.cubrirConTitular(
+            designacionId, dto.empleadoId(), dto.fechaTomaPosesion(), dto.secuencia());
 
-		return AsignacionMapper.toDetalle(asignacion);
-	}
+    return AsignacionMapper.toDetalle(asignacion, asignacion.getEstadoEn(LocalDate.now()));
+  }
 
-	@PostMapping("/{designacionId}/cubrir/provisional")
-	@ResponseStatus(HttpStatus.CREATED)
-	public AsignacionDetalleDTO cubrirConProvisional(
-			@PathVariable Long designacionId,
-			@Valid @RequestBody AsignacionProvisionalCreateDTO dto
-	) {
-		Asignacion asignacion = designacionService.cubrirConProvisional(
-				designacionId,
-				dto.empleadoId(),
-				dto.fechaTomaPosesion(),
-				dto.fechaCese(),
-				dto.secuencia()
-		);
+  @PostMapping("/{designacionId}/cubrir/provisional")
+  @ResponseStatus(HttpStatus.CREATED)
+  public AsignacionDetalleDTO cubrirConProvisional(
+      @PathVariable Long designacionId, @Valid @RequestBody AsignacionProvisionalCreateDTO dto) {
+    Asignacion asignacion =
+        designacionCommandService.cubrirConProvisional(
+            designacionId,
+            dto.empleadoId(),
+            dto.fechaTomaPosesion(),
+            dto.fechaCese(),
+            dto.secuencia());
 
-		return AsignacionMapper.toDetalle(asignacion);
-	}
+    return AsignacionMapper.toDetalle(asignacion, asignacion.getEstadoEn(LocalDate.now()));
+  }
 
-	@GetMapping("/{designacionId}")
-	@ResponseStatus(HttpStatus.OK)
-	public DesignacionDetalleDTO obtenerDetalle(@PathVariable Long designacionId) {
-		Designacion designacion = designacionService.obtenerPorId(designacionId);
-		return DesignacionMapper.toDetalle(designacion);
-	}
+  @GetMapping("/{designacionId}")
+  @ResponseStatus(HttpStatus.OK)
+  public DesignacionDetalleDTO obtenerDetalle(@PathVariable Long designacionId) {
+    Designacion designacion = designacionQueryService.obtenerPorId(designacionId);
+    EstadoDesignacion estado = servicioEstadoDesignacion.getEstadoEn(designacion, LocalDate.now());
+    return DesignacionMapper.toDetalle(designacion, estado);
+  }
 
-	@GetMapping("/{designacionId}/cargo-activo")
-	public ResponseEntity<AsignacionDetalleDTO> obtenerCargoActivo(
-			@PathVariable Long designacionId
-	) {
-		long inicio = System.currentTimeMillis();
+  @GetMapping("/{designacionId}/cargo-activo")
+  public ResponseEntity<AsignacionDetalleDTO> obtenerCargoActivo(@PathVariable Long designacionId) {
 
-		var cargoActivo = designacionService.obtenerCargoActivo(designacionId);
+    var cargoActivo = designacionQueryService.obtenerCargoActivo(designacionId, LocalDate.now());
 
-		long despuesService = System.currentTimeMillis();
+    return cargoActivo
+        .map(a -> AsignacionMapper.toDetalle(a, a.getEstadoEn(LocalDate.now())))
+        .map(ResponseEntity::ok)
+        .orElseGet(() -> ResponseEntity.noContent().build());
+  }
 
-		ResponseEntity<AsignacionDetalleDTO> response = cargoActivo
-				.map(AsignacionMapper::toDetalle)
-				.map(ResponseEntity::ok)
-				.orElseGet(() -> ResponseEntity.noContent().build());
+  @GetMapping("/{designacionId}/cargos")
+  @ResponseStatus(HttpStatus.OK)
+  public List<AsignacionDetalleDTO> obtenerOtrosCargos(
+      @PathVariable Long designacionId,
+      @RequestParam(required = false) EstadoAsignacion estado,
+      @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+          LocalDate fecha) {
+    LocalDate referencia = fecha != null ? fecha : LocalDate.now();
 
-		long fin = System.currentTimeMillis();
+    return designacionQueryService.obtenerOtrosCargos(designacionId, estado, referencia).stream()
+        .map(a -> AsignacionMapper.toDetalle(a, a.getEstadoEn(LocalDate.now())))
+        .toList();
+  }
 
-		System.out.printf(
-				"""
-				/designaciones/%d/cargo-activo
-				  service: %d ms
-				  mapper : %d ms
-				  total  : %d ms
-				""",
-				designacionId,
-				(despuesService - inicio),
-				(fin - despuesService),
-				(fin - inicio)
-		);
+  @PutMapping("/{designacionId}/curso")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void actualizarDesignacionCurso(
+      @PathVariable Long designacionId, @Valid @RequestBody DesignacionCursoDTO dto) {
 
-		return response;
-	}
+    Set<FranjaHoraria> franjas =
+        dto.franjasHorarias().stream()
+            .map(f -> new FranjaHoraria(f.dia(), f.horaDesde(), f.horaHasta()))
+            .collect(Collectors.toSet());
 
-	@GetMapping("/{designacionId}/cargos")
-	@ResponseStatus(HttpStatus.OK)
-	public List<AsignacionDetalleDTO> obtenerOtrosCargos(
-			@PathVariable Long designacionId,
-			@RequestParam(required = false) EstadoAsignacion estado,
-			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha
-	) {
-		LocalDate referencia = fecha != null ? fecha : LocalDate.now();
+    designacionCommandService.actualizarDesignacionCurso(
+        designacionId, dto.cupof(), dto.materiaId(), dto.cursoId(), dto.orientacion(), franjas);
+  }
 
-		return designacionService
-				.obtenerOtrosCargos(designacionId, estado, referencia)
-				.stream()
-				.map(AsignacionMapper::toDetalle)
-				.toList();
-	}
+  @PutMapping("/{designacionId}/administrativa")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void actualizarDesignacionAdministrativa(
+      @PathVariable Long designacionId, @Valid @RequestBody DesignacionAdministrativaDTO dto) {
 
-	@PutMapping("/{designacionId}/curso")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void actualizarDesignacionCurso(
-			@PathVariable Long designacionId,
-			@Valid @RequestBody DesignacionCursoDTO dto
-	) {
+    Set<FranjaHoraria> franjas =
+        dto.franjasHorarias().stream()
+            .map(f -> new FranjaHoraria(f.dia(), f.horaDesde(), f.horaHasta()))
+            .collect(Collectors.toSet());
 
-		Set<FranjaHoraria> franjas = dto.franjasHorarias()
-				.stream()
-				.map(f -> new FranjaHoraria(
-						f.dia(),
-						f.horaDesde(),
-						f.horaHasta()
-				))
-				.collect(Collectors.toSet());
+    designacionCommandService.actualizarDesignacionAdministrativa(
+        designacionId, dto.cupof(), dto.rolEducativo(), franjas);
+  }
 
-		designacionService.actualizarDesignacionCurso(
-				designacionId,
-				dto.cupof(),
-				dto.materiaId(),
-				dto.cursoId(),
-				dto.orientacion(),
-				franjas
-		);
-	}
+  @PutMapping("/{designacionId}/asignaciones/{asignacionId}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public AsignacionDetalleDTO actualizarAsignacion(
+      @PathVariable Long designacionId,
+      @PathVariable Long asignacionId,
+      @Valid @RequestBody AsignacionUpdateDTO dto) {
+    Asignacion asignacion =
+        designacionCommandService.actualizarAsignacion(
+            designacionId,
+            asignacionId,
+            dto.empleadoId(),
+            dto.fechaTomaPosesion(),
+            dto.fechaCese(),
+            dto.secuencia());
 
-	@PutMapping("/{designacionId}/administrativa")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void actualizarDesignacionAdministrativa(
-			@PathVariable Long designacionId,
-			@Valid @RequestBody DesignacionAdministrativaDTO dto
-	) {
+    return AsignacionMapper.toDetalle(asignacion, asignacion.getEstadoEn(LocalDate.now()));
+  }
 
-		Set<FranjaHoraria> franjas = dto.franjasHorarias()
-				.stream()
-				.map(f -> new FranjaHoraria(
-						f.dia(),
-						f.horaDesde(),
-						f.horaHasta()
-				))
-				.collect(Collectors.toSet());
-
-		designacionService.actualizarDesignacionAdministrativa(
-				designacionId,
-				dto.cupof(),
-				dto.rolEducativo(),
-				franjas
-		);
-	}
-
-	@PutMapping("/{designacionId}/asignaciones/{asignacionId}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public AsignacionDetalleDTO actualizarAsignacion(
-			@PathVariable Long designacionId,
-			@PathVariable Long asignacionId,
-			@Valid @RequestBody AsignacionUpdateDTO dto
-	) {
-		Asignacion asignacion = designacionService.actualizarAsignacion(
-				designacionId,
-				asignacionId,
-				dto.empleadoId(),
-				dto.fechaTomaPosesion(),
-				dto.fechaCese(),
-				dto.secuencia()
-		);
-
-		return AsignacionMapper.toDetalle(asignacion);
-	}
-
-	@DeleteMapping("/{designacionId}/asignaciones/{asignacionId}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void eliminarAsignacion(
-			@PathVariable Long designacionId,
-			@PathVariable Long asignacionId
-	) {
-		designacionService.eliminarAsignacion(designacionId, asignacionId);
-	}
-
-
+  @DeleteMapping("/{designacionId}/asignaciones/{asignacionId}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void eliminarAsignacion(
+      @PathVariable Long designacionId, @PathVariable Long asignacionId) {
+    designacionCommandService.eliminarAsignacion(designacionId, asignacionId);
+  }
 }

@@ -7,12 +7,10 @@ import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.SituacionDeRevista;
 
 public record AsignacionDetalleDTO(
-		Long id,
-		PeriodoDTO periodo,
-		SituacionDeRevista situacionDeRevista,
-		EstadoAsignacion estadoAsignacion,
-		BajaAsignacionDTO bajaAsignacion,
-		Integer secuencia,
-		EmpleadoEducativoBasicoDTO empleadoEducativoBasico
-) {
-}
+    Long id,
+    PeriodoDTO periodo,
+    SituacionDeRevista situacionDeRevista,
+    EstadoAsignacion estadoAsignacion,
+    BajaAsignacionDTO bajaAsignacion,
+    Integer secuencia,
+    EmpleadoEducativoBasicoDTO empleadoEducativoBasico) {}

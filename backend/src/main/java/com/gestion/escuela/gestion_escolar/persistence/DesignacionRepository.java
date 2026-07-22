@@ -18,105 +18,257 @@ import java.util.Set;
 
 public interface DesignacionRepository extends JpaRepository<Designacion, Long> {
 
-	@Query("""
-				select d
-				from Designacion d
-				where d.escuela.id = :escuelaId
-				and type(d) = DesignacionCurso
-			""")
-	Page<DesignacionCurso> findCursosByEscuelaId(
-			@Param("escuelaId") Long escuelaId,
-			Pageable pageable
-	);
-
-	@Query("""
+  @Query(
+      """
 				select d
 				from Designacion d
 				where d.escuela.id = :escuelaId
 				and type(d) = DesignacionAdministrativa
 			""")
-	Page<DesignacionAdministrativa> findAdministrativasByEscuelaId(
-			@Param("escuelaId") Long escuelaId,
-			Pageable pageable
-	);
+  Page<DesignacionAdministrativa> findAdministrativasByEscuelaId(
+      @Param("escuelaId") Long escuelaId, Pageable pageable);
 
-	boolean existsByEscuelaIdAndCupof(Long escuelaId, Integer cupof);
+  boolean existsByEscuelaIdAndCupof(Long escuelaId, Integer cupof);
 
-	boolean existsByEscuelaIdAndCupofAndIdNot(Long escuelaId, Integer cupof, Long designacionId);
+  boolean existsByEscuelaIdAndCupofAndIdNot(Long escuelaId, Integer cupof, Long designacionId);
 
-	List<Designacion> findByEscuelaIdAndCupofIn(Long escuelaId, Set<Integer> cupofs);
+  List<Designacion> findByEscuelaIdAndCupofIn(Long escuelaId, Set<Integer> cupofs);
 
-	/* =====================================================
-	   CURSOS CON FILTRO (CURSO / MATERIA / ORIENTACION / ESTADO)
-	===================================================== */
-
-	@Query("""
-			select d
-			from DesignacionCurso d
-			where d.escuela.id = :escuelaId
-			  and (:cursoId is null or d.curso.id = :cursoId)
-			  and (:materiaId is null or d.materia.id = :materiaId)
-			  and (:orientacion is null or d.orientacion = :orientacion)
-			order by
-			    d.curso.anio asc,
-			    d.curso.grado asc,
-			    d.materia.nombre asc,
-			    d.cupof asc
+  @Query(
+      """
+		select d
+		from DesignacionCurso d
+		where d.id = :id
 			""")
-	List<DesignacionCurso> buscarCursosConFiltro(
-			Long escuelaId,
-			Long cursoId,
-			Long materiaId,
-			String orientacion
-	);
+  Optional<DesignacionCurso> findCursoById(@Param("id") Long id);
 
-	/* =====================================================
-	   CONSULTAS SIMPLES
-	===================================================== */
-
-	@Query("""
-				select d
-				from DesignacionCurso d
-				where d.escuela.id = :escuelaId
+  @Query(
+      """
+		select d
+		from DesignacionAdministrativa d
+		where d.id = :id
 			""")
-	List<DesignacionCurso> findCursosByEscuelaIdList(Long escuelaId);
+  Optional<DesignacionAdministrativa> findAdministrativaById(@Param("id") Long id);
 
-	@Query("""
-				select d
-				from DesignacionCurso d
-				where d.id = :id
-			""")
-	Optional<DesignacionCurso> findCursoById(@Param("id") Long id);
+  @EntityGraph(
+      attributePaths = {
+        "asignaciones",
+        "asignaciones.empleadoEducativo",
+        "asignaciones.empleadoEducativo.licencias"
+      })
+  Optional<Designacion> findById(Long id);
 
-	@Query("""
-				select d
-				from DesignacionAdministrativa d
-				where d.id = :id
-			""")
-	Optional<DesignacionAdministrativa> findAdministrativaById(@Param("id") Long id);
+  @Query(
+      """
+    select a
+    from Asignacion a
+    where a.designacion.id = :designacionId
 
-	/* =====================================================
-	   ASIGNACION ACTIVA
-	===================================================== */
+      and a.periodo.fechaDesde <= :fecha
 
-	@Query("""
-				select a
-				from Asignacion a
-				where a.designacion.id = :designacionId
-				  and a.periodo.fechaDesde <= :fecha
-				  and (a.periodo.fechaHasta is null or a.periodo.fechaHasta >= :fecha)
-			""")
-	Optional<Asignacion> findAsignacionActiva(
-			@Param("designacionId") Long designacionId,
-			@Param("fecha") LocalDate fecha
-	);
+      and (
+            a.periodo.fechaHasta is null
+            or a.periodo.fechaHasta >= :fecha
+      )
 
-	@EntityGraph(attributePaths = {
-			"asignaciones",
-			"asignaciones.empleadoEducativo",
-			"asignaciones.empleadoEducativo.licencias"
-	})
-	@Override
-	Optional<Designacion> findById(Long id);
+      and (
+            a.bajaAsignacion is null
+            or a.bajaAsignacion.fechaBaja > :fecha
+      )
+
+      and not exists (
+
+            select 1
+            from Licencia l
+
+            join l.asignaciones la
+
+            where la = a
+
+              and l.periodo.fechaDesde <= :fecha
+
+              and (
+                    l.periodo.fechaHasta is null
+                    or l.periodo.fechaHasta >= :fecha
+              )
+      )
+""")
+  Optional<Asignacion> findAsignacionQueEjerceEn(
+      @Param("designacionId") Long designacionId, @Param("fecha") LocalDate fecha);
+
+  @Query(
+      """
+select d
+from DesignacionCurso d
+where d.escuela.id = :escuelaId
+
+  and (:cursoId is null or d.curso.id = :cursoId)
+  and (:materiaId is null or d.materia.id = :materiaId)
+  and (:orientacion is null or d.orientacion = :orientacion)
+
+order by
+    d.curso.anio,
+    d.curso.grado,
+    d.materia.nombre,
+    d.cupof
+""")
+  Page<DesignacionCurso> buscarCursosSinEstado(
+      @Param("escuelaId") Long escuelaId,
+      @Param("cursoId") Long cursoId,
+      @Param("materiaId") Long materiaId,
+      @Param("orientacion") String orientacion,
+      Pageable pageable);
+
+  @Query(
+      """
+select d
+from DesignacionCurso d
+where d.escuela.id = :escuelaId
+
+  and (:cursoId is null or d.curso.id = :cursoId)
+  and (:materiaId is null or d.materia.id = :materiaId)
+  and (:orientacion is null or d.orientacion = :orientacion)
+
+  and exists (
+      select 1
+      from Asignacion a
+      where a.designacion.id = d.id
+
+        and a.periodo.fechaDesde <= :fecha
+
+        and (
+            a.periodo.fechaHasta is null
+            or a.periodo.fechaHasta >= :fecha
+        )
+
+        and (
+            a.bajaAsignacion is null
+            or a.bajaAsignacion.fechaBaja > :fecha
+        )
+
+        and not exists (
+            select 1
+            from Licencia l
+            join l.asignaciones la
+            where la = a
+              and l.periodo.fechaDesde <= :fecha
+              and (
+                    l.periodo.fechaHasta is null
+                    or l.periodo.fechaHasta >= :fecha
+              )
+        )
+  )
+
+order by
+    d.curso.anio,
+    d.curso.grado,
+    d.materia.nombre,
+    d.cupof
+""")
+  Page<DesignacionCurso> buscarCursosCubiertos(
+      @Param("escuelaId") Long escuelaId,
+      @Param("cursoId") Long cursoId,
+      @Param("materiaId") Long materiaId,
+      @Param("orientacion") String orientacion,
+      @Param("fecha") LocalDate fecha,
+      Pageable pageable);
+
+  @Query(
+      """
+select d
+from DesignacionCurso d
+where d.escuela.id = :escuelaId
+
+  and (:cursoId is null or d.curso.id = :cursoId)
+  and (:materiaId is null or d.materia.id = :materiaId)
+  and (:orientacion is null or d.orientacion = :orientacion)
+
+  and not exists (
+      select 1
+      from Asignacion a
+      where a.designacion.id = d.id
+
+        and a.periodo.fechaDesde <= :fecha
+
+        and (
+            a.periodo.fechaHasta is null
+            or a.periodo.fechaHasta >= :fecha
+        )
+
+        and (
+            a.bajaAsignacion is null
+            or a.bajaAsignacion.fechaBaja > :fecha
+        )
+
+        and not exists (
+            select 1
+            from Licencia l
+            join l.asignaciones la
+            where la = a
+              and l.periodo.fechaDesde <= :fecha
+              and (
+                    l.periodo.fechaHasta is null
+                    or l.periodo.fechaHasta >= :fecha
+              )
+        )
+  )
+
+order by
+    d.curso.anio,
+    d.curso.grado,
+    d.materia.nombre,
+    d.cupof
+""")
+  Page<DesignacionCurso> buscarCursosVacantes(
+      @Param("escuelaId") Long escuelaId,
+      @Param("cursoId") Long cursoId,
+      @Param("materiaId") Long materiaId,
+      @Param("orientacion") String orientacion,
+      @Param("fecha") LocalDate fecha,
+      Pageable pageable);
+
+  @Query(
+      """
+select distinct d.id
+from Designacion d
+where d.id in :designacionIds
+
+  and exists (
+      select 1
+      from Asignacion a
+      where a.designacion = d
+
+        and a.periodo.fechaDesde <= :fecha
+
+        and (
+            a.periodo.fechaHasta is null
+            or a.periodo.fechaHasta >= :fecha
+        )
+
+        and (
+            a.bajaAsignacion is null
+            or a.bajaAsignacion.fechaBaja > :fecha
+        )
+
+        and not exists (
+            select 1
+            from Licencia l
+            join l.asignaciones la
+            where la = a
+              and l.periodo.fechaDesde <= :fecha
+              and (
+                    l.periodo.fechaHasta is null
+                    or l.periodo.fechaHasta >= :fecha
+              )
+        )
+  )
+""")
+  Set<Long> buscarDesignacionesCubiertas(
+      @Param("designacionIds") Set<Long> designacionIds, @Param("fecha") LocalDate fecha);
+
+
+
 
 }
+
+

@@ -13,16 +13,14 @@ import lombok.Setter;
 @Setter
 public class DesignacionAdministrativa extends Designacion {
 
-	protected DesignacionAdministrativa() {
-	}
+  protected DesignacionAdministrativa() {}
 
-	public DesignacionAdministrativa(Escuela escuela, Integer cupof, RolEducativo rolEducativo) {
-		super(escuela, cupof, rolEducativo);
-	}
+  public DesignacionAdministrativa(Escuela escuela, Integer cupof, RolEducativo rolEducativo) {
+    super(escuela, cupof, rolEducativo);
+  }
 
-	@Override
-	public String toString() {
-		return super.toString();
-	}
-
+  @Override
+  public String toString() {
+    return super.toString();
+  }
 }

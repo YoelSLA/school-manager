@@ -1,7 +1,0 @@
-@use "./config" as config;
-
-@mixin debug($color) {
-	@if config.$debug {
-		background-color: $color;
-	}
-}

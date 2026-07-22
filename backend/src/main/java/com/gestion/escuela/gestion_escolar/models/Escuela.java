@@ -1,150 +1,44 @@
 package com.gestion.escuela.gestion_escolar.models;
 
-import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
-import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(
-		name = "escuela",
-		uniqueConstraints = {
-				@UniqueConstraint(columnNames = {"nombre", "localidad"})
-		}
-)
+    name = "escuela",
+    uniqueConstraints = {@UniqueConstraint(columnNames = {"nombre", "localidad"})})
 @Getter
 public class Escuela {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	private String direccion;
-	private String telefono;
+  private String direccion;
+  private String telefono;
 
-	@Column(nullable = false)
-	private String localidad;
+  @Column(nullable = false)
+  private String localidad;
 
-	@Column(nullable = false)
-	private String nombre;
+  @Column(nullable = false)
+  private String nombre;
 
-	@Column(nullable = false)
-	private boolean activa;
+  @Column(nullable = false)
+  private boolean activa;
 
-	@OneToMany(mappedBy = "escuela", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<EmpleadoEducativo> empleadosEducativos;
+  protected Escuela() {
+    this.activa = true;
+  }
 
-	@OneToMany(mappedBy = "escuela", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Designacion> designaciones;
+  public Escuela(String nombre, String localidad, String direccion, String telefono) {
+    this.nombre = nombre;
+    this.localidad = localidad;
+    this.direccion = direccion;
+    this.telefono = telefono;
+    this.activa = true;
+  }
 
-	@OneToMany(mappedBy = "escuela", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Materia> materias;
-
-	@OneToMany(mappedBy = "escuela", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Curso> cursos;
-
-	/* ==========================
-	   CONSTRUCTORES
-	   ========================== */
-
-	protected Escuela() {
-		this.activa = true;
-		inicializarColecciones();
-	}
-
-	public Escuela(String nombre, String localidad, String direccion, String telefono) {
-		this.nombre = nombre;
-		this.localidad = localidad;
-		this.direccion = direccion;
-		this.telefono = telefono;
-		this.activa = true;
-		inicializarColecciones();
-	}
-
-	/* ==========================
-	   RELACIONES
-	   ========================== */
-
-	public void agregarDesignacion(Designacion designacion) {
-		if (designacion == null) {
-			throw new IllegalArgumentException("La designación no puede ser null");
-		}
-		designacion.setEscuela(this);
-		this.designaciones.add(designacion);
-	}
-
-	public void removerDesignacion(Designacion designacion) {
-		if (designacion == null) {
-			return;
-		}
-		this.designaciones.remove(designacion);
-	}
-
-	public void agregarEmpleado(EmpleadoEducativo empleado) {
-		if (empleado == null) {
-			throw new IllegalArgumentException("El empleadoEducativoBasico no puede ser null");
-		}
-		empleado.setEscuela(this);
-		this.empleadosEducativos.add(empleado);
-	}
-
-	public void removerEmpleado(EmpleadoEducativo empleado) {
-		if (empleado == null) {
-			return;
-		}
-		this.empleadosEducativos.remove(empleado);
-		empleado.setEscuela(null);
-	}
-
-	public void agregarMateria(Materia materia) {
-		Validaciones.noNulo(materia, "materia");
-
-		materia.setEscuela(this);
-		this.materias.add(materia);
-	}
-
-	public void removerMateria(Materia materia) {
-		if (materia == null)
-			return;
-
-		this.materias.remove(materia);
-	}
-
-	public void agregarCurso(Curso curso) {
-		Validaciones.noNulo(curso, "curso");
-
-		curso.setEscuela(this);
-		this.cursos.add(curso);
-	}
-
-	public void removerCurso(Curso curso) {
-		if (curso == null) {
-			return;
-		}
-		this.cursos.remove(curso);
-	}
-
-	/* ==========================
-	   ESTADO
-	   ========================== */
-
-	public boolean estaActiva() {
-		return activa;
-	}
-
-	public void desactivar() {
-		this.activa = false;
-	}
-
-	private void inicializarColecciones() {
-		this.empleadosEducativos = new ArrayList<>();
-		this.designaciones = new ArrayList<>();
-		this.materias = new ArrayList<>();
-		this.cursos = new ArrayList<>();
-	}
-
+  public void desactivar() {
+    this.activa = false;
+  }
 }
-

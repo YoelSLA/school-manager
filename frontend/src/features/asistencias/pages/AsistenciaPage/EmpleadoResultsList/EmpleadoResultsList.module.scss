@@ -1,8 +1,6 @@
-@use "@/styles/breakpoints" as *;
-@use "@/styles/_debug.mixins" as debug;
+@use "@/styles/abstracts" as *;
 
 .list {
-	@include debug.debug(red);
 
 	height: 100%;
 	display: grid;
@@ -18,8 +16,6 @@
 
 @include desktop-width-small {
 	.list {
-		@include debug.debug(blue);
-
 		grid-template-columns: repeat(3, 1fr);
 
 		/* 3 filas visibles aprox */
@@ -33,7 +29,6 @@
 
 @include desktop-width-medium {
 	.list {
-		@include debug.debug(green);
 
 		grid-template-columns: repeat(3, 1fr);
 
@@ -47,7 +42,7 @@
 
 @include desktop-width-large {
 	.list {
-		@include debug.debug(purple);
+
 
 		grid-template-columns: repeat(4, 1fr);
 
@@ -60,7 +55,7 @@
 ========================= */
 
 .empty {
-	@include debug.debug(orange);
+
 
 	grid-column: 1 / -1;
 

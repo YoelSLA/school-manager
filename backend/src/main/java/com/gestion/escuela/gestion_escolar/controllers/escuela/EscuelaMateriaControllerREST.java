@@ -3,11 +3,12 @@ package com.gestion.escuela.gestion_escolar.controllers.escuela;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.request.MateriaCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.request.MateriaUpdateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.response.MateriaDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.response.MateriaSelectDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.response.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.MateriaMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.Materia;
-import com.gestion.escuela.gestion_escolar.services.MateriaService;
+import com.gestion.escuela.gestion_escolar.services.materia.MateriaService;
 import com.gestion.escuela.gestion_escolar.web.PaginationUtils;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,64 +24,55 @@ import java.util.List;
 @AllArgsConstructor
 public class EscuelaMateriaControllerREST {
 
-	private final MateriaService materiaService;
+  private final MateriaService materiaService;
 
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public MateriaDetalleDTO crear(
-			@PathVariable Long escuelaId,
-			@Valid @RequestBody MateriaCreateDTO dto
-	) {
-		Materia materia = materiaService.crear(escuelaId, MateriaMapper.toEntity(dto));
-		return MateriaMapper.toResponse(materia);
-	}
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  public MateriaDetalleDTO crear(
+      @PathVariable Long escuelaId, @Valid @RequestBody MateriaCreateDTO dto) {
+    Materia materia = materiaService.crear(escuelaId, MateriaMapper.toEntity(dto));
+    return MateriaMapper.toResponse(materia);
+  }
 
-	@PostMapping("/batch")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void crearBatch(
-			@PathVariable Long escuelaId,
-			@RequestBody List<MateriaCreateDTO> materiasDTOs
-	) {
-		List<Materia> materias = materiasDTOs.stream()
-				.map(MateriaMapper::toEntity)
-				.toList();
+  @PostMapping("/batch")
+  @ResponseStatus(HttpStatus.CREATED)
+  public void crearBatch(
+      @PathVariable Long escuelaId, @RequestBody List<MateriaCreateDTO> materiasDTOs) {
+    List<Materia> materias = materiasDTOs.stream().map(MateriaMapper::toEntity).toList();
 
-		materiaService.crearBatch(escuelaId, materias);
-	}
+    materiaService.crearBatch(escuelaId, materias);
+  }
 
-	@PutMapping("/{materiaId}")
-	public MateriaDetalleDTO actualizar(
-			@PathVariable Long escuelaId,
-			@PathVariable Long materiaId,
-			@Valid @RequestBody MateriaUpdateDTO dto
-	) {
-		Materia guardada = materiaService.actualizar(
-				escuelaId,
-				materiaId,
-				dto.nombre(),
-				dto.abreviatura(),
-				dto.cantidadModulos());
+  @PutMapping("/{materiaId}")
+  public MateriaDetalleDTO actualizar(
+      @PathVariable Long escuelaId,
+      @PathVariable Long materiaId,
+      @Valid @RequestBody MateriaUpdateDTO dto) {
+    Materia guardada =
+        materiaService.actualizar(
+            escuelaId, materiaId, dto.nombre(), dto.abreviatura(), dto.cantidadModulos());
 
-		return MateriaMapper.toResponse(guardada);
-	}
+    return MateriaMapper.toResponse(guardada);
+  }
 
-	@DeleteMapping("/{materiaId}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void eliminar(
-			@PathVariable Long escuelaId,
-			@PathVariable Long materiaId
-	) {
-		materiaService.eliminar(escuelaId, materiaId);
-	}
+  @DeleteMapping("/{materiaId}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void eliminar(@PathVariable Long escuelaId, @PathVariable Long materiaId) {
+    materiaService.eliminar(escuelaId, materiaId);
+  }
 
-	@GetMapping
-	public PageResponse<MateriaDetalleDTO> listar(
-			@PathVariable Long escuelaId,
-			Pageable pageable
-	) {
-		Pageable limitedPageable = PaginationUtils.limit(pageable);
-		Page<Materia> materias = materiaService.listarMateriasPorEscuela(escuelaId, limitedPageable);
+  @GetMapping
+  public PageResponse<MateriaDetalleDTO> listar(@PathVariable Long escuelaId, Pageable pageable) {
+    Pageable limitedPageable = PaginationUtils.limit(pageable);
+    Page<Materia> materias = materiaService.listarMateriasPorEscuela(escuelaId, limitedPageable);
 
-		return PageMapper.toPageResponse(materias, MateriaMapper::toResponse);
-	}
+    return PageMapper.toPageResponse(materias, MateriaMapper::toResponse);
+  }
+
+  @GetMapping("/select")
+  public List<MateriaSelectDTO> listarParaSelect(@PathVariable Long escuelaId) {
+    return materiaService.listarMateriasPorEscuela(escuelaId).stream()
+            .map(MateriaMapper::toSelect)
+            .toList();
+  }
 }

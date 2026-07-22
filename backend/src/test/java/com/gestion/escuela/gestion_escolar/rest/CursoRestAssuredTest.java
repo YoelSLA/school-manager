@@ -1,5 +1,9 @@
 package com.gestion.escuela.gestion_escolar.rest;
 
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
+
 import com.gestion.escuela.gestion_escolar.AbstractIntegrationTest;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.curso.request.CursoDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.escuela.request.EscuelaCreateDTO;
@@ -11,97 +15,79 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasItem;
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CursoRestAssuredTest extends AbstractIntegrationTest {
 
-	@LocalServerPort
-	int port;
+  @LocalServerPort int port;
 
-	@BeforeEach
-	void setup() {
-		RestAssured.port = port;
-		RestAssured.baseURI = "http://localhost";
-	}
+  @BeforeEach
+  void setup() {
+    RestAssured.port = port;
+    RestAssured.baseURI = "http://localhost";
+  }
 
-	@Test
-	void flujoCompletoCurso() {
+  @Test
+  void flujoCompletoCurso() {
 
-		EscuelaCreateDTO escuelaCreateDTO =
-				new EscuelaCreateDTO(
-						"Escuela N°77",
-						"Quilmes",
-						"Rivadavia 1234",
-						"12345678"
-				);
+    EscuelaCreateDTO escuelaCreateDTO =
+        new EscuelaCreateDTO("Escuela N°77", "Quilmes", "Rivadavia 1234", "12345678");
 
-		// 1️ Crear escuela
-		long escuelaId =
-				given()
-						.contentType(ContentType.JSON)
-						.body(escuelaCreateDTO)
-						.when()
-						.post("/api/escuelas")
-						.then()
-						.statusCode(201)
-						.extract()
-						.jsonPath()
-						.getLong("id");
+    // 1️ Crear escuela
+    long escuelaId =
+        given()
+            .contentType(ContentType.JSON)
+            .body(escuelaCreateDTO)
+            .when()
+            .post("/api/escuelas")
+            .then()
+            .statusCode(201)
+            .extract()
+            .jsonPath()
+            .getLong("id");
 
-		// 2️ Crear curso
+    // 2️ Crear curso
 
-		CursoDTO cursoCreateDTO = new CursoDTO(
-						Turno.MANIANA,
-						1,
-						1
-				);
+    CursoDTO cursoCreateDTO = new CursoDTO(Turno.MANIANA, 1, 1);
 
-		long cursoId = given()
-						.contentType(ContentType.JSON)
-						.body(cursoCreateDTO)
-						.when()
-						.post("/api/escuelas/" + escuelaId + "/cursos")
-						.then()
-						.statusCode(201)
-						.extract()
-						.jsonPath()
-						.getLong("id");
+    long cursoId =
+        given()
+            .contentType(ContentType.JSON)
+            .body(cursoCreateDTO)
+            .when()
+            .post("/api/escuelas/" + escuelaId + "/cursos")
+            .then()
+            .statusCode(201)
+            .extract()
+            .jsonPath()
+            .getLong("id");
 
-		// 3️ Listar curso
-		given()
-				.when()
-				.get("/api/escuelas/" + escuelaId + "/cursos")
-				.then()
-				.statusCode(200)
-				.body("content.grado", hasItem(1));
+    // 3️ Listar curso
+    given()
+        .when()
+        .get("/api/escuelas/" + escuelaId + "/cursos")
+        .then()
+        .statusCode(200)
+        .body("content.grado", hasItem(1));
 
-		// 4️ Actualizar curso
-		CursoDTO cursoUpdateDTO =
-				new CursoDTO(
-						Turno.MANIANA,
-						1,
-						3
-				);
+    // 4️ Actualizar curso
+    CursoDTO cursoUpdateDTO = new CursoDTO(Turno.MANIANA, 1, 3);
 
-		given()
-				.contentType(ContentType.JSON)
-				.body(cursoUpdateDTO)
-				.when()
-				.put("/api/escuelas/" + escuelaId + "/cursos/" + cursoId)
-				.then()
-				.statusCode(200)
-				.body("turno", equalTo("MANIANA"))
-				.body("anio", equalTo(1))
-				.body("grado", equalTo(3));
+    given()
+        .contentType(ContentType.JSON)
+        .body(cursoUpdateDTO)
+        .when()
+        .put("/api/escuelas/" + escuelaId + "/cursos/" + cursoId)
+        .then()
+        .statusCode(200)
+        .body("turno", equalTo("MANIANA"))
+        .body("anio", equalTo(1))
+        .body("grado", equalTo(3));
 
-		// 5️⃣ Eliminar curso
-		given()
-				.when()
-				.delete("/api/escuelas/" + escuelaId + "/cursos/" + cursoId)
-				.then()
-				.statusCode(204);
-	}
+    // 5️⃣ Eliminar curso
+    given()
+        .when()
+        .delete("/api/escuelas/" + escuelaId + "/cursos/" + cursoId)
+        .then()
+        .statusCode(204);
+  }
 }

@@ -20,6 +20,8 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.periodo.PeriodoAbie
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -30,225 +32,161 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import java.time.LocalDateTime;
-import java.util.stream.Collectors;
-
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-	private static final Logger log =
-			LoggerFactory.getLogger(GlobalExceptionHandler.class);
+  private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-	// =========================
-	// 404 NOT FOUND
-	// =========================
-	@ExceptionHandler(RecursoNoEncontradoException.class)
-	public ResponseEntity<ApiError> handleNotFound(
-			RecursoNoEncontradoException ex,
-			HttpServletRequest request
-	) {
-		return ResponseEntity.status(HttpStatus.NOT_FOUND)
-				.body(buildError(
-						HttpStatus.NOT_FOUND,
-						"RESOURCE_NOT_FOUND",
-						ex.getMessage(),
-						request
-				));
-	}
-	// =========================
-	// 409 CONFLICT
-	// =========================
-	@ExceptionHandler({
-			RecursoDuplicadoException.class,
-			AsignacionSuperpuestaException.class,
-			DesignacionYaCubiertaException.class,
-			LicenciaSuperpuestaException.class,
-			DesignacionYaTieneTitularException.class
-	})
-	public ResponseEntity<ApiError> handleConflict(
-			GestionEscolarException ex,
-			HttpServletRequest request
-	) {
-		return ResponseEntity.status(HttpStatus.CONFLICT)
-				.body(buildError(
-						HttpStatus.CONFLICT,
-						"CONFLICT",
-						ex.getMessage(),
-						request
-				));
-	}
-	// =========================
-	// 400 BAD REQUEST - DOMINIO
-	// =========================
-	@ExceptionHandler({
-			AnioInvalidoException.class,
-			GradoInvalidoException.class,
-			RangoHorarioInvalidoException.class,
-			RangoFechasInvalidoException.class,
-			CantidadModulosInvalidaException.class,
+  // =========================
+  // 404 NOT FOUND
+  // =========================
+  @ExceptionHandler(RecursoNoEncontradoException.class)
+  public ResponseEntity<ApiError> handleNotFound(
+      RecursoNoEncontradoException ex, HttpServletRequest request) {
+    return ResponseEntity.status(HttpStatus.NOT_FOUND)
+        .body(buildError(HttpStatus.NOT_FOUND, "RESOURCE_NOT_FOUND", ex.getMessage(), request));
+  }
 
-			CampoObligatorioException.class,
-			CuilInvalidoException.class,
-			EmailInvalidoException.class,
+  // =========================
+  // 409 CONFLICT
+  // =========================
+  @ExceptionHandler({
+    RecursoDuplicadoException.class,
+    AsignacionSuperpuestaException.class,
+    DesignacionYaCubiertaException.class,
+    LicenciaSuperpuestaException.class,
+    DesignacionYaTieneTitularException.class
+  })
+  public ResponseEntity<ApiError> handleConflict(
+      GestionEscolarException ex, HttpServletRequest request) {
+    return ResponseEntity.status(HttpStatus.CONFLICT)
+        .body(buildError(HttpStatus.CONFLICT, "CONFLICT", ex.getMessage(), request));
+  }
 
-			EstadoInvalidoException.class,
-			ReglaCicloLectivoException.class,
-			PeriodoAbiertoException.class,
+  // =========================
+  // 400 BAD REQUEST - DOMINIO
+  // =========================
+  @ExceptionHandler({
+    AnioInvalidoException.class,
+    GradoInvalidoException.class,
+    RangoHorarioInvalidoException.class,
+    RangoFechasInvalidoException.class,
+    CantidadModulosInvalidaException.class,
+    CampoObligatorioException.class,
+    CuilInvalidoException.class,
+    EmailInvalidoException.class,
+    EstadoInvalidoException.class,
+    ReglaCicloLectivoException.class,
+    PeriodoAbiertoException.class,
+    EmpleadoNoPerteneceAEscuelaException.class,
+    EmpleadoEnLicenciaException.class,
+    EmpleadoInactivoException.class,
+    AsistenciaNoEditableException.class,
+    AsignacionYaDadaDeBajaException.class,
+    DesignacionNoActivaDelEmpleadoException.class,
+    DesignacionNoAfectadaPorLicenciaException.class,
+    DesignacionNoVacantePorLicenciaException.class,
+    CoberturaNoEncontradaException.class,
+    CoberturaNoPerteneceALicenciaException.class,
+    FechaRenovacionInvalidaException.class,
+  })
+  public ResponseEntity<ApiError> handleBadRequest(
+      GestionEscolarException ex, HttpServletRequest request) {
+    return ResponseEntity.badRequest()
+        .body(buildError(HttpStatus.BAD_REQUEST, "BAD_REQUEST", ex.getMessage(), request));
+  }
 
-			EmpleadoNoPerteneceAEscuelaException.class,
-			EmpleadoEnLicenciaException.class,
-			EmpleadoInactivoException.class,
+  // =========================
+  // 400 BAD REQUEST - VALIDACION
+  // =========================
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity<ApiError> handleValidation(
+      MethodArgumentNotValidException ex, HttpServletRequest request) {
 
-			AsistenciaNoEditableException.class,
+    String message =
+        ex.getBindingResult().getFieldErrors().stream()
+            .map(error -> error.getField() + ": " + error.getDefaultMessage())
+            .collect(Collectors.joining(", "));
 
-			AsignacionYaDadaDeBajaException.class,
+    return ResponseEntity.badRequest()
+        .body(buildError(HttpStatus.BAD_REQUEST, "VALIDATION_ERROR", message, request));
+  }
 
-			DesignacionNoActivaDelEmpleadoException.class,
-			DesignacionNoAfectadaPorLicenciaException.class,
-			DesignacionNoVacantePorLicenciaException.class,
+  @ExceptionHandler(ConstraintViolationException.class)
+  public ResponseEntity<ApiError> handleConstraintViolation(
+      ConstraintViolationException ex, HttpServletRequest request) {
 
-			CoberturaNoEncontradaException.class,
-			CoberturaNoPerteneceALicenciaException.class,
-			FechaRenovacionInvalidaException.class,
-	})
-	public ResponseEntity<ApiError> handleBadRequest(
-			GestionEscolarException ex,
-			HttpServletRequest request
-	) {
-		return ResponseEntity.badRequest()
-				.body(buildError(
-						HttpStatus.BAD_REQUEST,
-						"BAD_REQUEST",
-						ex.getMessage(),
-						request
-				));
-	}
-	// =========================
-	// 400 BAD REQUEST - VALIDACION
-	// =========================
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<ApiError> handleValidation(
-			MethodArgumentNotValidException ex,
-			HttpServletRequest request
-	) {
+    String message =
+        ex.getConstraintViolations().stream()
+            .map(ConstraintViolation::getMessage)
+            .collect(Collectors.joining(", "));
 
-		String message = ex.getBindingResult()
-				.getFieldErrors()
-				.stream()
-				.map(error -> error.getField() + ": " + error.getDefaultMessage())
-				.collect(Collectors.joining(", "));
+    return ResponseEntity.badRequest()
+        .body(buildError(HttpStatus.BAD_REQUEST, "VALIDATION_ERROR", message, request));
+  }
 
-		return ResponseEntity.badRequest()
-				.body(buildError(
-						HttpStatus.BAD_REQUEST,
-						"VALIDATION_ERROR",
-						message,
-						request
-				));
-	}
+  @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+  public ResponseEntity<ApiError> handleTypeMismatch(
+      MethodArgumentTypeMismatchException ex, HttpServletRequest request) {
+    return ResponseEntity.badRequest()
+        .body(
+            buildError(
+                HttpStatus.BAD_REQUEST,
+                "INVALID_PARAMETER",
+                "El parámetro '" + ex.getName() + "' tiene un valor inválido",
+                request));
+  }
 
-	@ExceptionHandler(ConstraintViolationException.class)
-	public ResponseEntity<ApiError> handleConstraintViolation(
-			ConstraintViolationException ex,
-			HttpServletRequest request
-	) {
+  @ExceptionHandler(IllegalArgumentException.class)
+  public ResponseEntity<ApiError> handleIllegalArgument(
+      IllegalArgumentException ex, HttpServletRequest request) {
+    return ResponseEntity.badRequest()
+        .body(buildError(HttpStatus.BAD_REQUEST, "INVALID_ARGUMENT", ex.getMessage(), request));
+  }
 
-		String message = ex.getConstraintViolations()
-				.stream()
-				.map(ConstraintViolation::getMessage)
-				.collect(Collectors.joining(", "));
+  // =========================
+  // BASE DE DATOS
+  // =========================
+  @ExceptionHandler(DataIntegrityViolationException.class)
+  public ResponseEntity<ApiError> handleDataIntegrity(
+      DataIntegrityViolationException ex, HttpServletRequest request) {
 
-		return ResponseEntity.badRequest()
-				.body(buildError(
-						HttpStatus.BAD_REQUEST,
-						"VALIDATION_ERROR",
-						message,
-						request
-				));
-	}
+    log.error("Error de integridad de datos", ex);
 
-	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
-	public ResponseEntity<ApiError> handleTypeMismatch(
-			MethodArgumentTypeMismatchException ex,
-			HttpServletRequest request
-	) {
-		return ResponseEntity.badRequest()
-				.body(buildError(
-						HttpStatus.BAD_REQUEST,
-						"INVALID_PARAMETER",
-						"El parámetro '" + ex.getName() + "' tiene un valor inválido",
-						request
-				));
-	}
+    return ResponseEntity.status(HttpStatus.CONFLICT)
+        .body(
+            buildError(
+                HttpStatus.CONFLICT,
+                "DATA_INTEGRITY_VIOLATION",
+                "La operación viola restricciones de integridad de datos",
+                request));
+  }
 
-	@ExceptionHandler(IllegalArgumentException.class)
-	public ResponseEntity<ApiError> handleIllegalArgument(
-			IllegalArgumentException ex,
-			HttpServletRequest request
-	) {
-		return ResponseEntity.badRequest()
-				.body(buildError(
-						HttpStatus.BAD_REQUEST,
-						"INVALID_ARGUMENT",
-						ex.getMessage(),
-						request
-				));
-	}
-	// =========================
-	// BASE DE DATOS
-	// =========================
-	@ExceptionHandler(DataIntegrityViolationException.class)
-	public ResponseEntity<ApiError> handleDataIntegrity(
-			DataIntegrityViolationException ex,
-			HttpServletRequest request
-	) {
+  // =========================
+  // FALLBACK
+  // =========================
+  @ExceptionHandler(Exception.class)
+  public ResponseEntity<ApiError> handleUnexpected(Exception ex, HttpServletRequest request) {
 
-		log.error("Error de integridad de datos", ex);
+    log.error("Error inesperado", ex);
 
-		return ResponseEntity.status(HttpStatus.CONFLICT)
-				.body(buildError(
-						HttpStatus.CONFLICT,
-						"DATA_INTEGRITY_VIOLATION",
-						"La operación viola restricciones de integridad de datos",
-						request
-				));
-	}
-	// =========================
-	// FALLBACK
-	// =========================
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<ApiError> handleUnexpected(
-			Exception ex,
-			HttpServletRequest request
-	) {
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .body(
+            buildError(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                "INTERNAL_SERVER_ERROR",
+                "Ocurrió un error inesperado",
+                request));
+  }
 
-		log.error("Error inesperado", ex);
-
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-				.body(buildError(
-						HttpStatus.INTERNAL_SERVER_ERROR,
-						"INTERNAL_SERVER_ERROR",
-						"Ocurrió un error inesperado",
-						request
-				));
-	}
-
-	private ApiError buildError(
-			HttpStatus status,
-			String code,
-			String message,
-			HttpServletRequest request
-	) {
-		return new ApiError(
-				LocalDateTime.now(),
-				status.value(),
-				status.getReasonPhrase(),
-				code,
-				message,
-				request.getRequestURI()
-		);
-	}
+  private ApiError buildError(
+      HttpStatus status, String code, String message, HttpServletRequest request) {
+    return new ApiError(
+        LocalDateTime.now(),
+        status.value(),
+        status.getReasonPhrase(),
+        code,
+        message,
+        request.getRequestURI());
+  }
 }
-
-
-

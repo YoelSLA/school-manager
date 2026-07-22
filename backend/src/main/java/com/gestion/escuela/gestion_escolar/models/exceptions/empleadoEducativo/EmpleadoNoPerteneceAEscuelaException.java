@@ -4,9 +4,11 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.GestionEscolarExcep
 
 public class EmpleadoNoPerteneceAEscuelaException extends GestionEscolarException {
 
-	public EmpleadoNoPerteneceAEscuelaException(Long empleadoId, Long escuelaId) {
-		super("El empleadoEducativoBasico con id " + empleadoId +
-				" no pertenece a la escuela con id " + escuelaId);
-	}
+  public EmpleadoNoPerteneceAEscuelaException(Long empleadoId, Long escuelaId) {
+    super(
+        "El empleadoEducativoBasico con id "
+            + empleadoId
+            + " no pertenece a la escuela con id "
+            + escuelaId);
+  }
 }
-

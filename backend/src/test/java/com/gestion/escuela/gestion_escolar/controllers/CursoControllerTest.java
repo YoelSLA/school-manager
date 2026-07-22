@@ -1,11 +1,22 @@
 package com.gestion.escuela.gestion_escolar.controllers;
 
+import static com.gestion.escuela.gestion_escolar.models.enums.Turno.MANIANA;
+import static com.gestion.escuela.gestion_escolar.models.enums.Turno.TARDE;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.curso.request.CursoDTO;
 import com.gestion.escuela.gestion_escolar.controllers.escuela.EscuelaCursoControllerREST;
 import com.gestion.escuela.gestion_escolar.models.Curso;
 import com.gestion.escuela.gestion_escolar.models.enums.Turno;
-import com.gestion.escuela.gestion_escolar.services.CursoService;
+import com.gestion.escuela.gestion_escolar.services.curso.CursoService;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -19,142 +30,116 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
-
-import static com.gestion.escuela.gestion_escolar.models.enums.Turno.MANIANA;
-import static com.gestion.escuela.gestion_escolar.models.enums.Turno.TARDE;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @WebMvcTest(EscuelaCursoControllerREST.class)
 @WithMockUser
 class CursoControllerTest {
 
-	@Autowired
-	private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
-	@MockitoBean
-	private CursoService cursoService;
+  @MockitoBean private CursoService cursoService;
 
-	@Autowired
-	private ObjectMapper objectMapper;
+  @Autowired private ObjectMapper objectMapper;
 
-	@Test
-	void debeCrearCurso() throws Exception {
+  @Test
+  void debeCrearCurso() throws Exception {
 
-		Curso cursoModelo = new Curso(MANIANA, 1, 1);
-		ReflectionTestUtils.setField(cursoModelo, "id", 1L);
+    Curso cursoModelo = new Curso(MANIANA, 1, 1);
+    ReflectionTestUtils.setField(cursoModelo, "id", 1L);
 
-		when(cursoService.crear(eq(1L), any(Curso.class))).thenReturn(cursoModelo);
+    when(cursoService.crear(eq(1L), any(Curso.class))).thenReturn(cursoModelo);
 
-		CursoDTO dto = new CursoDTO(MANIANA, 1, 1);
+    CursoDTO dto = new CursoDTO(MANIANA, 1, 1);
 
-		mockMvc.perform(post("/api/escuelas/1/cursos")
-						.with(csrf())
-						.contentType(MediaType.APPLICATION_JSON)
-						.content(objectMapper.writeValueAsString(dto)))
-				.andExpect(status().isCreated())
-				.andExpect(jsonPath("$.id").value(1))
-				.andExpect(jsonPath("$.anio").value(1))
-				.andExpect(jsonPath("$.grado").value(1))
-				.andExpect(jsonPath("$.turno").value("MANIANA"));
-	}
+    mockMvc
+        .perform(
+            post("/api/escuelas/1/cursos")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(dto)))
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.id").value(1))
+        .andExpect(jsonPath("$.anio").value(1))
+        .andExpect(jsonPath("$.grado").value(1))
+        .andExpect(jsonPath("$.turno").value("MANIANA"));
+  }
 
-	@Test
-	void debeCrearCursosEnBatch() throws Exception {
+  @Test
+  void debeCrearCursosEnBatch() throws Exception {
 
-		List<CursoDTO> dtos = List.of(
-				new CursoDTO(MANIANA, 1, 1),
-				new CursoDTO(TARDE, 2, 2)
-		);
+    List<CursoDTO> dtos = List.of(new CursoDTO(MANIANA, 1, 1), new CursoDTO(TARDE, 2, 2));
 
-		mockMvc.perform(post("/api/escuelas/1/cursos/batch")
-						.with(csrf())
-						.contentType(MediaType.APPLICATION_JSON)
-						.content(objectMapper.writeValueAsString(dtos)))
-				.andExpect(status().isCreated());
+    mockMvc
+        .perform(
+            post("/api/escuelas/1/cursos/batch")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(dtos)))
+        .andExpect(status().isCreated());
 
-		verify(cursoService).crearBatch(
-				eq(1L),
-				argThat(lista ->
-						lista.size() == 2 &&
-								lista.getFirst().getGrado().equals(1) &&
-								lista.get(1).getGrado().equals(2)
-				)
-		);
-	}
+    verify(cursoService)
+        .crearBatch(
+            eq(1L),
+            argThat(
+                lista ->
+                    lista.size() == 2
+                        && lista.getFirst().getGrado().equals(1)
+                        && lista.get(1).getGrado().equals(2)));
+  }
 
-	@Test
-	void debeActualizarCurso() throws Exception {
+  @Test
+  void debeActualizarCurso() throws Exception {
 
-		Curso cursoActualizado = new Curso(TARDE, 3, 1);
-		ReflectionTestUtils.setField(cursoActualizado, "id", 10L);
+    Curso cursoActualizado = new Curso(TARDE, 3, 1);
+    ReflectionTestUtils.setField(cursoActualizado, "id", 10L);
 
-		when(cursoService.actualizar(
-				eq(1L),
-				eq(10L),
-				eq(3),
-				eq(2),
-				eq(Turno.TARDE)
-		)).thenReturn(cursoActualizado);
+    when(cursoService.actualizar(eq(1L), eq(10L), eq(3), eq(2), eq(Turno.TARDE)))
+        .thenReturn(cursoActualizado);
 
-		CursoDTO dto = new CursoDTO(TARDE, 3, 2);
+    CursoDTO dto = new CursoDTO(TARDE, 3, 2);
 
-		mockMvc.perform(put("/api/escuelas/1/cursos/10")
-						.with(csrf())
-						.contentType(MediaType.APPLICATION_JSON)
-						.content(objectMapper.writeValueAsString(dto)))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.id").value(10))
-				.andExpect(jsonPath("$.anio").value(3))
-				.andExpect(jsonPath("$.grado").value(1))
-				.andExpect(jsonPath("$.turno").value("TARDE"));
-	}
+    mockMvc
+        .perform(
+            put("/api/escuelas/1/cursos/10")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(dto)))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value(10))
+        .andExpect(jsonPath("$.anio").value(3))
+        .andExpect(jsonPath("$.grado").value(1))
+        .andExpect(jsonPath("$.turno").value("TARDE"));
+  }
 
-	@Test
-	void debeEliminarCurso() throws Exception {
+  @Test
+  void debeEliminarCurso() throws Exception {
 
-		mockMvc.perform(delete("/api/escuelas/1/cursos/10")
-						.with(csrf()))
-				.andExpect(status().isNoContent());
+    mockMvc
+        .perform(delete("/api/escuelas/1/cursos/10").with(csrf()))
+        .andExpect(status().isNoContent());
 
-		verify(cursoService).eliminar(1L, 10L);
-	}
+    verify(cursoService).eliminar(1L, 10L);
+  }
 
-	@Test
-	void debeListarCursosPaginados() throws Exception {
+  @Test
+  void debeListarCursosPaginados() throws Exception {
 
-		Curso c1 = new Curso(MANIANA, 1, 1);
-		Curso c2 = new Curso(MANIANA, 2, 1);
+    Curso c1 = new Curso(MANIANA, 1, 1);
+    Curso c2 = new Curso(MANIANA, 2, 1);
 
-		ReflectionTestUtils.setField(c1, "id", 1L);
-		ReflectionTestUtils.setField(c2, "id", 2L);
+    ReflectionTestUtils.setField(c1, "id", 1L);
+    ReflectionTestUtils.setField(c2, "id", 2L);
 
-		Page<Curso> page = new PageImpl<>(
-				List.of(c1, c2),
-				PageRequest.of(0, 10),
-				2
-		);
+    Page<Curso> page = new PageImpl<>(List.of(c1, c2), PageRequest.of(0, 10), 2);
 
-		when(cursoService.listarCursosPorEscuela(
-				eq(1L),
-				isNull(),
-				any(Pageable.class)
-		)).thenReturn(page);
+    when(cursoService.listarCursosPorEscuela(eq(1L), isNull(), any(Pageable.class)))
+        .thenReturn(page);
 
-		mockMvc.perform(get("/api/escuelas/1/cursos")
-						.param("page", "0")
-						.param("size", "10"))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.content.length()").value(2))
-				.andExpect(jsonPath("$.content[0].id").value(1))
-				.andExpect(jsonPath("$.content[0].anio").value(1))
-				.andExpect(jsonPath("$.totalElements").value(2));
-	}
-
+    mockMvc
+        .perform(get("/api/escuelas/1/cursos").param("page", "0").param("size", "10"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.content.length()").value(2))
+        .andExpect(jsonPath("$.content[0].id").value(1))
+        .andExpect(jsonPath("$.content[0].anio").value(1))
+        .andExpect(jsonPath("$.totalElements").value(2));
+  }
 }

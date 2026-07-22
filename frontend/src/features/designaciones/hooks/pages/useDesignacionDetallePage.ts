@@ -22,7 +22,7 @@ export function useDesignacionDetallePage() {
 	);
 	const [tipoAsignacionCrear, setTipoAsignacionCrear] =
 		useState<TipoAsignacion | null>(null);
-	const [filtroCargos, setFiltroCargos] = useState<FiltroCargos>("LICENCIA");
+	const [filtroCargos, setFiltroCargos] = useState<FiltroCargos>("BAJA");
 
 	/* =========================
 			 QUERIES

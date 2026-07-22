@@ -3,6 +3,7 @@ import type {
 	CursoCreateDTO,
 	CursoDetalleDTO,
 	CursoFiltro,
+	CursoSelectDTO,
 	PageResponse,
 } from "@/shared/types";
 
@@ -24,6 +25,16 @@ export async function listarCursos(
 	const response = await http.get<PageResponse<CursoDetalleDTO>>(
 		`/escuelas/${escuelaId}/cursos`,
 		{ params },
+	);
+
+	return response.data;
+}
+
+export async function listarCursosSelect(
+	escuelaId: number,
+): Promise<CursoSelectDTO[]> {
+	const response = await http.get<CursoSelectDTO[]>(
+		`/escuelas/${escuelaId}/cursos/select`,
 	);
 
 	return response.data;

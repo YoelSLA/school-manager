@@ -1,0 +1,227 @@
+@use "@/styles/abstracts" as *;
+
+.appHeader {
+	box-sizing: border-box;
+	flex-shrink: 0;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	height: 64px;
+	padding: 0 $space-12;
+
+	border-radius: $radius-xl;
+
+	background: $primary-900;
+	box-shadow: $shadow-md;
+
+	@include desktop-height-small {
+		height: 56px;
+		padding: 0 $space-8;
+	}
+
+	@include desktop-height-large {
+		height: 72px;
+		padding: 0 $space-16;
+	}
+
+	/* ================= LEFT ================= */
+
+	&__left {
+		flex: 1;
+
+		display: flex;
+		align-items: center;
+		gap: $space-8;
+
+		min-width: 0;
+	}
+
+	&__logo {
+		display: flex;
+		align-items: center;
+
+		color: $text-inverse;
+
+		font-size: $font-size-md;
+		font-weight: $font-weight-bold;
+		letter-spacing: .2px;
+
+		white-space: nowrap;
+		user-select: none;
+	}
+
+	&__schoolButton {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+
+		height: 32px;
+		padding: 0 $space-10;
+
+		border: none;
+		border-radius: $radius-full;
+
+		background: rgba(255,255,255,.08);
+
+		color: rgba(255,255,255,.85);
+
+		font-size: $font-size-xs;
+		font-weight: $font-weight-medium;
+
+		cursor: pointer;
+
+		transition: .2s;
+
+		&:hover {
+			background: rgba(255,255,255,.14);
+			color: white;
+		}
+
+		@include desktop-height-small {
+			height: 28px;
+		}
+
+		@include desktop-height-large {
+			height: 36px;
+		}
+	}
+
+	/* ================= CENTER ================= */
+
+	&__nav {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		flex-shrink: 0;
+
+		gap: $space-2;
+	}
+
+	&__link {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		height: 34px;
+		padding: 0 $space-10;
+
+		border-radius: $radius-full;
+
+		text-decoration: none;
+
+		font-size: $font-size-xs;
+		font-weight: $font-weight-medium;
+
+		color: rgba(255,255,255,.65);
+
+		transition:
+			color .18s ease,
+			background .18s ease;
+
+		&:hover {
+			color: white;
+			background: rgba(255,255,255,.08);
+		}
+
+		@include desktop-height-small {
+			height: 30px;
+		}
+
+		@include desktop-height-large {
+			height: 38px;
+		}
+	}
+
+	&__linkActive {
+		background: rgba(255,255,255,.16);
+
+		color: white;
+		font-weight: $font-weight-semibold;
+	}
+
+	/* ================= RIGHT ================= */
+
+	&__right {
+		flex: 1;
+
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+
+	&__user {
+		display: flex;
+		align-items: center;
+		gap: $space-8;
+
+		padding: 4px;
+
+		border: none;
+
+		background: transparent;
+
+		cursor: pointer;
+
+		border-radius: $radius-full;
+
+		transition: background .18s ease;
+
+		&:hover {
+			background: rgba(255,255,255,.08);
+		}
+	}
+
+	&__avatar {
+		width: 32px;
+		height: 32px;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		border-radius: 50%;
+
+		background: rgba(255,255,255,.14);
+
+		color: white;
+
+		font-size: $font-size-sm;
+		font-weight: $font-weight-bold;
+
+		flex-shrink: 0;
+
+		@include desktop-height-small {
+			width: 28px;
+			height: 28px;
+		}
+
+		@include desktop-height-large {
+			width: 36px;
+			height: 36px;
+		}
+	}
+
+	&__userInfo {
+		display: flex;
+		flex-direction: column;
+
+		line-height: 1.15;
+	}
+
+	&__userName {
+		color: white;
+
+		font-size: $font-size-xs;
+		font-weight: $font-weight-semibold;
+	}
+
+	&__userRole {
+		color: rgba(255,255,255,.55);
+
+		font-size: 11px;
+		font-weight: $font-weight-regular;
+	}
+}

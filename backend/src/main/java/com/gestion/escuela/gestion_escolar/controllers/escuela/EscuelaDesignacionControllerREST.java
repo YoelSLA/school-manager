@@ -15,121 +15,133 @@ import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.Materia;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
-import com.gestion.escuela.gestion_escolar.services.CursoService;
-import com.gestion.escuela.gestion_escolar.services.DesignacionService;
-import com.gestion.escuela.gestion_escolar.services.EscuelaService;
-import com.gestion.escuela.gestion_escolar.services.MateriaService;
+import com.gestion.escuela.gestion_escolar.models.domainServices.ServicioEstadoDesignacion;
+import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
+import com.gestion.escuela.gestion_escolar.services.curso.CursoService;
+import com.gestion.escuela.gestion_escolar.services.designacion.DesignacionCommandService;
+import com.gestion.escuela.gestion_escolar.services.designacion.DesignacionQueryService;
+import com.gestion.escuela.gestion_escolar.services.escuela.EscuelaService;
+import com.gestion.escuela.gestion_escolar.services.materia.MateriaService;
 import com.gestion.escuela.gestion_escolar.web.PaginationUtils;
 import jakarta.validation.Valid;
+import java.time.LocalDate;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/escuelas/{escuelaId}/designaciones")
 @AllArgsConstructor
 public class EscuelaDesignacionControllerREST {
 
-	private final EscuelaService escuelaService;
-	private final DesignacionService designacionService;
-	private final MateriaService materiaService;
-	private final CursoService cursoService;
+  private final EscuelaService escuelaService;
+  private final DesignacionCommandService designacionCommandService;
+  private final DesignacionQueryService designacionQueryService;
+  private final MateriaService materiaService;
+  private final CursoService cursoService;
+  private final ServicioEstadoDesignacion servicioEstadoDesignacion;
 
-	@PostMapping("/administrativas")
-	@ResponseStatus(HttpStatus.CREATED)
-	public DesignacionAdministrativaDetalleDTO crearAdministrativa(
-			@PathVariable Long escuelaId,
-			@Valid @RequestBody DesignacionAdministrativaDTO dto
-	) {
-		Escuela escuela = escuelaService.obtenerPorId(escuelaId);
-		DesignacionAdministrativa designacion = DesignacionMapper.toEntity(dto, escuela);
-		DesignacionAdministrativa creada = designacionService.crear(designacion);
+  @PostMapping("/administrativas")
+  @ResponseStatus(HttpStatus.CREATED)
+  public DesignacionAdministrativaDetalleDTO crearAdministrativa(
+      @PathVariable Long escuelaId, @Valid @RequestBody DesignacionAdministrativaDTO dto) {
+    Escuela escuela = escuelaService.obtenerPorId(escuelaId);
 
-		return DesignacionMapper.toDetalle(creada);
-	}
+    DesignacionAdministrativa designacion = DesignacionMapper.toEntity(dto, escuela);
 
-	@PostMapping("/administrativas/batch")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void crearAdministrativasBatch(
-			@PathVariable Long escuelaId,
-			@RequestBody List<DesignacionAdministrativaDTO> administrativasDTOs
-	) {
-		Escuela escuela = escuelaService.obtenerPorId(escuelaId);
-		List<DesignacionAdministrativa> administrativas = administrativasDTOs.stream()
-				.map(dto -> DesignacionMapper.toEntity(dto, escuela))
-				.toList();
+    DesignacionAdministrativa creada = designacionCommandService.crear(designacion);
 
-		designacionService.crearBatch(administrativas);
-	}
+    EstadoDesignacion estado = servicioEstadoDesignacion.getEstadoEn(creada, LocalDate.now());
 
+    return DesignacionMapper.toDetalle(creada, estado);
+  }
 
-	@GetMapping("/administrativas")
-	public PageResponse<DesignacionAdministrativaCardDTO> listarAdministrativas(
-			@PathVariable Long escuelaId,
-			Pageable pageable
-	) {
-		Pageable limitedPageable = PaginationUtils.limit(pageable);
-		Page<DesignacionAdministrativa> designaciones =
-				designacionService.obtenerDesignacionesAdministrativasPorEscuela(
-						escuelaId,
-						limitedPageable
-				);
+  @PostMapping("/administrativas/batch")
+  @ResponseStatus(HttpStatus.CREATED)
+  public void crearAdministrativasBatch(
+      @PathVariable Long escuelaId,
+      @RequestBody List<DesignacionAdministrativaDTO> administrativasDTOs) {
+    Escuela escuela = escuelaService.obtenerPorId(escuelaId);
+    List<DesignacionAdministrativa> administrativas =
+        administrativasDTOs.stream().map(dto -> DesignacionMapper.toEntity(dto, escuela)).toList();
 
-		return PageMapper.toPageResponse(designaciones, DesignacionMapper::toResumen);
-	}
+    designacionCommandService.crearBatch(administrativas);
+  }
 
-	@PostMapping("/cursos")
-	@ResponseStatus(HttpStatus.CREATED)
-	public DesignacionCursoDetalleDTO crearCurso(
-			@PathVariable Long escuelaId,
-			@Valid @RequestBody DesignacionCursoDTO dto
-	) {
-		Escuela escuela = escuelaService.obtenerPorId(escuelaId);
-		Materia materia = materiaService.obtenerPorId(dto.materiaId());
-		Curso curso = cursoService.obtenerPorId(dto.cursoId());
+  @GetMapping("/administrativas")
+  public PageResponse<DesignacionAdministrativaCardDTO> listarAdministrativas(
+      @PathVariable Long escuelaId, Pageable pageable) {
+    Pageable limitedPageable = PaginationUtils.limit(pageable);
 
-		DesignacionCurso designacion = DesignacionMapper.toEntity(dto, escuela, curso, materia, dto.orientacion());
-		DesignacionCurso creada = designacionService.crear(designacion);
+    Page<DesignacionAdministrativa> designaciones =
+        designacionQueryService.obtenerDesignacionesAdministrativasPorEscuela(
+            escuelaId, limitedPageable);
 
-		return DesignacionMapper.toDetalle(creada);
-	}
+    LocalDate hoy = LocalDate.now();
 
-	@PostMapping("/cursos/batch")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void crearCursosBatch(
-			@PathVariable Long escuelaId,
-			@RequestBody List<@Valid DesignacionCursoDTO> cursosDTOs
-	) {
-		Escuela escuela = escuelaService.obtenerPorId(escuelaId);
-		List<DesignacionCurso> cursos = cursosDTOs.stream()
-				.map(dto -> {
-					Curso curso = cursoService.obtenerPorId(dto.cursoId());
-					Materia materia = materiaService.obtenerPorId(dto.materiaId());
-					return DesignacionMapper.toEntity(dto, escuela, curso, materia, dto.orientacion());
-				})
-				.toList();
+    // TODO: Evitar N+1. Resolver los estados de las designaciones en una consulta batch.
+    return PageMapper.toPageResponse(
+        designaciones,
+        d ->
+            DesignacionMapper.toResumen(
+                d, designacionQueryService.obtenerEstadoEn(d.getId(), hoy)));
+  }
 
-		designacionService.crearBatch(cursos);
-	}
+  @PostMapping("/cursos")
+  @ResponseStatus(HttpStatus.CREATED)
+  public DesignacionCursoDetalleDTO crearCurso(
+      @PathVariable Long escuelaId, @Valid @RequestBody DesignacionCursoDTO dto) {
+    Escuela escuela = escuelaService.obtenerPorId(escuelaId);
+    Materia materia = materiaService.obtenerPorId(dto.materiaId());
+    Curso curso = cursoService.obtenerPorId(dto.cursoId());
 
-	@GetMapping("/cursos")
-	public PageResponse<DesignacionCursoCardDTO> listarCursos(
-			@PathVariable Long escuelaId,
-			DesignacionCursoFilterDTO filter,
-			Pageable pageable
-	) {
-		Pageable limitedPageable = PaginationUtils.limit(pageable);
-		Page<DesignacionCurso> designaciones =
-				designacionService.obtenerDesignacionesCursoPorEscuela(
-						escuelaId,
-						filter,
-						limitedPageable
-				);
+    DesignacionCurso designacion =
+        DesignacionMapper.toEntity(dto, escuela, curso, materia, dto.orientacion());
+    DesignacionCurso creada = designacionCommandService.crear(designacion);
 
-		return PageMapper.toPageResponse(designaciones, DesignacionMapper::toResumen);
-	}
+    EstadoDesignacion estado = servicioEstadoDesignacion.getEstadoEn(creada, LocalDate.now());
+
+    return DesignacionMapper.toDetalle(creada, estado);
+  }
+
+  @PostMapping("/cursos/batch")
+  @ResponseStatus(HttpStatus.CREATED)
+  public void crearCursosBatch(
+      @PathVariable Long escuelaId, @RequestBody List<@Valid DesignacionCursoDTO> cursosDTOs) {
+    Escuela escuela = escuelaService.obtenerPorId(escuelaId);
+    List<DesignacionCurso> cursos =
+        cursosDTOs.stream()
+            .map(
+                dto -> {
+                  Curso curso = cursoService.obtenerPorId(dto.cursoId());
+                  Materia materia = materiaService.obtenerPorId(dto.materiaId());
+                  return DesignacionMapper.toEntity(
+                      dto, escuela, curso, materia, dto.orientacion());
+                })
+            .toList();
+
+    designacionCommandService.crearBatch(cursos);
+  }
+
+  @GetMapping("/cursos")
+  public PageResponse<DesignacionCursoCardDTO> listarCursos(
+      @PathVariable Long escuelaId, DesignacionCursoFilterDTO filter, Pageable pageable) {
+    Pageable limitedPageable = PaginationUtils.limit(pageable);
+
+    Page<DesignacionCurso> designaciones =
+        designacionQueryService.obtenerDesignacionesCursoPorEscuela(
+            escuelaId, filter, limitedPageable);
+
+    LocalDate hoy = LocalDate.now();
+
+    // TODO: Evitar N+1. Resolver los estados de las designaciones en una consulta batch.
+    return PageMapper.toPageResponse(
+        designaciones,
+        d ->
+            DesignacionMapper.toResumen(
+                d, designacionQueryService.obtenerEstadoEn(d.getId(), hoy)));
+  }
 }

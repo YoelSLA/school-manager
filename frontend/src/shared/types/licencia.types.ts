@@ -1,5 +1,7 @@
 import type z from "zod";
+import type { createLicencia } from "@/features/licencias/form/createLicencia.schema";
 import type { cubrirDesignacionesConSuplenteSchema } from "@/features/licencias/form/cubrirDesignacionesConSuplente.schema";
+import type { LicenciaEstatutariaResponseDTO } from "@/shared/types/licenciaEstatutaria.types";
 import type { TipoLicencia } from "@/shared/types/ui.types";
 import type { AsignacionDetalleDTO } from "./asignaciones.types";
 import type {
@@ -9,7 +11,6 @@ import type {
 } from "./common.types";
 import type { EmpleadoEducativoBasicoDTO } from "./empleadoEducativo.types";
 import type { EstadoDesignacion, EstadoLicencia, RolEducativo } from "./enums";
-import { createLicencia } from "@/features/licencias/form/createLicencia.schema";
 
 export type LicenciaCreateFormValues = z.input<typeof createLicencia>;
 
@@ -36,8 +37,7 @@ export type LicenciaDetalleDTO = {
 export interface LicenciaResumenDTO {
 	id: number;
 	empleado: EmpleadoEducativoBasicoDTO;
-	normativa: NormativaDTO;
-	descripcion: string;
+	licenciaEstatutaria: LicenciaEstatutariaResponseDTO;
 	periodo: PeriodoCerradoDTO;
 	estadoLicencia: EstadoLicencia;
 	diasRestantes: number;
