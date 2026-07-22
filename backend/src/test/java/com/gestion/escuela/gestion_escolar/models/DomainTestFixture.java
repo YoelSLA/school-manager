@@ -1,17 +1,16 @@
 package com.gestion.escuela.gestion_escolar.models;
 
-import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
-import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
-import org.junit.jupiter.api.BeforeEach;
-
-import java.time.LocalDate;
-import java.time.Month;
-
 import static com.gestion.escuela.gestion_escolar.models.enums.RolEducativo.DIRECCION;
 import static com.gestion.escuela.gestion_escolar.models.enums.Turno.MANIANA;
 import static com.gestion.escuela.gestion_escolar.models.enums.Turno.TARDE;
 import static java.time.Month.MAY;
 import static java.time.Month.NOVEMBER;
+
+import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
+import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
+import java.time.LocalDate;
+import java.time.Month;
+import org.junit.jupiter.api.BeforeEach;
 
 public abstract class DomainTestFixture {
 
@@ -30,27 +29,30 @@ public abstract class DomainTestFixture {
 
     escuelaN65 = new Escuela("Escuela N°65", "Bernal", "Brown 5066", "42573309");
 
-    perezJuan = EmpleadoEducativo.builder()
-                    .escuela(escuelaN65)
-                    .cuil("20-30123456-7")
-                    .nombre("Juan")
-                    .apellido("Pérez")
-                    .fechaDeNacimiento(LocalDate.of(1980, NOVEMBER, 10))
-                    .fechaDeIngreso(LocalDate.of(2010, Month.MARCH, 1))
-                    .email("juan.perez@gmail.com")
-                    .build();
+    perezJuan =
+        EmpleadoEducativo.builder()
+            .escuela(escuelaN65)
+            .cuil("20-30123456-7")
+            .nombre("Juan")
+            .apellido("Pérez")
+            .fechaDeNacimiento(LocalDate.of(1980, NOVEMBER, 10))
+            .fechaDeIngreso(LocalDate.of(2010, Month.MARCH, 1))
+            .email("juan.perez@gmail.com")
+            .build();
 
-    gomezMaria = EmpleadoEducativo.builder()
-                    .escuela(escuelaN65)
-                    .cuil("27-28987654-3")
-                    .nombre("María")
-                    .apellido("Gómez")
-                    .fechaDeNacimiento(LocalDate.of(1985, NOVEMBER, 10))
-                    .fechaDeIngreso(LocalDate.of(2012, MAY, 7))
-                    .email("maria.gomez@gmail.com")
-                    .build();
+    gomezMaria =
+        EmpleadoEducativo.builder()
+            .escuela(escuelaN65)
+            .cuil("27-28987654-3")
+            .nombre("María")
+            .apellido("Gómez")
+            .fechaDeNacimiento(LocalDate.of(1985, NOVEMBER, 10))
+            .fechaDeIngreso(LocalDate.of(2012, MAY, 7))
+            .email("maria.gomez@gmail.com")
+            .build();
 
-    fernandezLucas = EmpleadoEducativo.builder()
+    fernandezLucas =
+        EmpleadoEducativo.builder()
             .escuela(escuelaN65)
             .cuil("20-35678901-2")
             .nombre("Lucas")

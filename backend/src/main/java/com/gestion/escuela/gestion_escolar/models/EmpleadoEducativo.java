@@ -13,13 +13,12 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo.E
 import com.gestion.escuela.gestion_escolar.models.exceptions.licencia.LicenciaSuperpuestaException;
 import com.gestion.escuela.gestion_escolar.models.records.DatosEmpleado;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.*;
 import java.util.stream.Collectors;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(
@@ -129,13 +128,13 @@ public class EmpleadoEducativo {
   public void actualizar(DatosEmpleado datos) {
 
     validarCrearOActualizar(
-            escuela,
-            datos.cuil(),
-            datos.nombre(),
-            datos.apellido(),
-            datos.email(),
-            datos.fechaDeNacimiento(),
-            datos.fechaDeIngreso());
+        escuela,
+        datos.cuil(),
+        datos.nombre(),
+        datos.apellido(),
+        datos.email(),
+        datos.fechaDeNacimiento(),
+        datos.fechaDeIngreso());
 
     this.cuil = datos.cuil();
     this.nombre = datos.nombre();
@@ -152,7 +151,7 @@ public class EmpleadoEducativo {
     Validaciones.noNulo(fechaBaja, "fecha de bajaAsignacion");
     this.activo = false;
     asignacionesAfectadasPorBaja(fechaBaja)
-            .forEach(a -> a.finalizarPorBajaDefinitiva(causaBaja, fechaBaja));
+        .forEach(a -> a.finalizarPorBajaDefinitiva(causaBaja, fechaBaja));
   }
 
   // =========================================================
@@ -172,7 +171,6 @@ public class EmpleadoEducativo {
     // Mantiene sincronizada la relación
     // Asignacion -> EmpleadoEducativo
     asignacion.setEmpleadoEducativo(this);
-
   }
 
   public void eliminarAsignacion(Asignacion asignacion) {
@@ -183,8 +181,8 @@ public class EmpleadoEducativo {
     Validaciones.noNulo(fecha, "fecha");
 
     return asignaciones.stream()
-            .filter(a -> a.estaActivaEn(fecha))
-            .collect(Collectors.toUnmodifiableSet());
+        .filter(a -> a.estaActivaEn(fecha))
+        .collect(Collectors.toUnmodifiableSet());
   }
 
   public Set<Asignacion> asignacionesEnLicenciaEn(LocalDate fecha) {
@@ -194,8 +192,8 @@ public class EmpleadoEducativo {
     }
 
     return asignaciones.stream()
-            .filter(a -> estaEnLicenciaPara(a, fecha))
-            .collect(Collectors.toUnmodifiableSet());
+        .filter(a -> estaEnLicenciaPara(a, fecha))
+        .collect(Collectors.toUnmodifiableSet());
   }
 
   public Set<Asignacion> asignacionesAfectadasPorBaja(LocalDate fecha) {
@@ -208,10 +206,10 @@ public class EmpleadoEducativo {
   public List<RolEducativo> rolesActivosEn(LocalDate fecha) {
 
     return asignaciones.stream()
-            .filter(a -> a.estaActivaEn(fecha))
-            .map(Asignacion::getRolEducativo)
-            .distinct()
-            .toList();
+        .filter(a -> a.estaActivaEn(fecha))
+        .map(Asignacion::getRolEducativo)
+        .distinct()
+        .toList();
   }
 
   // =========================================================
@@ -265,7 +263,7 @@ public class EmpleadoEducativo {
   }
 
   public void validarNuevaLicencia(
-          LicenciaEstatutaria licenciaEstatutaria, Periodo periodo, Set<Asignacion> asignaciones) {
+      LicenciaEstatutaria licenciaEstatutaria, Periodo periodo, Set<Asignacion> asignaciones) {
     Validaciones.noNulo(licenciaEstatutaria, "licencia estatutaria");
     Validaciones.noNulo(periodo, "periodo");
     Validaciones.noVacio(asignaciones, "asignaciones");

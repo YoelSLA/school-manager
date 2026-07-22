@@ -1,8 +1,8 @@
 package com.gestion.escuela.gestion_escolar.models;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 class EscuelaTest {
 

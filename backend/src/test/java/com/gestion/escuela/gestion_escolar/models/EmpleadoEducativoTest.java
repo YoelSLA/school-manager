@@ -1,5 +1,13 @@
 package com.gestion.escuela.gestion_escolar.models;
 
+import static com.gestion.escuela.gestion_escolar.models.Periodo.cerrado;
+import static java.time.Month.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
 import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
@@ -11,23 +19,14 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalido
 import com.gestion.escuela.gestion_escolar.models.exceptions.asignacion.AsignacionNoPerteneceAlEmpleadoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo.EmpleadoInactivoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.licencia.LicenciaSuperpuestaException;
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.junit.jupiter.params.provider.ValueSource;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
-import static com.gestion.escuela.gestion_escolar.models.Periodo.cerrado;
-import static java.time.Month.*;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class EmpleadoEducativoTest extends DomainTestFixture {
 
@@ -37,14 +36,14 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 
     private EmpleadoEducativo.Builder builderValido() {
       return EmpleadoEducativo.builder()
-              .escuela(mock(Escuela.class))
-              .cuil("27-14762038-7")
-              .nombre("Nora Rosa")
-              .apellido("Giardino")
-              .domicilio("Calle Falsa 123")
-              .telefono("1122334455")
-              .email("mail@test.com")
-              .fechaDeNacimiento(LocalDate.of(1990, JANUARY, 12));
+          .escuela(mock(Escuela.class))
+          .cuil("27-14762038-7")
+          .nombre("Nora Rosa")
+          .apellido("Giardino")
+          .domicilio("Calle Falsa 123")
+          .telefono("1122334455")
+          .email("mail@test.com")
+          .fechaDeNacimiento(LocalDate.of(1990, JANUARY, 12));
     }
 
     @Test
@@ -73,7 +72,6 @@ class EmpleadoEducativoTest extends DomainTestFixture {
       EmpleadoEducativo empleado = builderValido().fechaDeIngreso(null).build();
       assertThat(empleado).isNotNull();
     }
-
   }
 
   @Nested
@@ -196,8 +194,6 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 
       assertThrows(RangoFechasInvalidoException.class, builder::build);
     }
-
-
   }
 
   @Nested
@@ -210,7 +206,6 @@ class EmpleadoEducativoTest extends DomainTestFixture {
     void setUp() {
       LocalDate fechaTomaPosesion = LocalDate.of(1998, FEBRUARY, 28);
       titularPerezJuan = plg2467775.registrarTitular(perezJuan, fechaTomaPosesion, 1);
-
     }
 
     private LicenciaEstatutaria licenciaEstatutaria() {
@@ -218,9 +213,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
     }
 
     private Periodo periodoValido() {
-      return cerrado(
-              LocalDate.of(2026, MARCH, 1),
-              LocalDate.of(2026, MARCH, 15));
+      return cerrado(LocalDate.of(2026, MARCH, 1), LocalDate.of(2026, MARCH, 15));
     }
 
     private Set<Asignacion> asignacionesValidas() {
@@ -242,7 +235,8 @@ class EmpleadoEducativoTest extends DomainTestFixture {
     @DisplayName("Debe fallar si la licencia es null")
     void deberiaFallarSiAgregaLicenciaNull() {
 
-      assertThatThrownBy(() -> perezJuan.agregarLicencia(null)).isInstanceOf(CampoObligatorioException.class);
+      assertThatThrownBy(() -> perezJuan.agregarLicencia(null))
+          .isInstanceOf(CampoObligatorioException.class);
     }
 
     @Test
@@ -277,9 +271,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
     @DisplayName("Debe retornar true cuando existe una licencia superpuesta")
     void deberiaRetornarTrueCuandoHayLicenciaSuperpuesta() {
 
-      Periodo periodo = cerrado(
-              LocalDate.of(2026, MARCH, 10),
-              LocalDate.of(2026, MARCH, 20));
+      Periodo periodo = cerrado(LocalDate.of(2026, MARCH, 10), LocalDate.of(2026, MARCH, 20));
 
       Licencia licencia = mock(Licencia.class);
 
@@ -294,9 +286,7 @@ class EmpleadoEducativoTest extends DomainTestFixture {
     @DisplayName("Debe retornar false cuando no existe una licencia superpuesta")
     void deberiaRetornarFalseCuandoNoHayLicenciaSuperpuesta() {
 
-      Periodo periodo = cerrado(
-              LocalDate.of(2026, MARCH, 10),
-              LocalDate.of(2026, MARCH, 20));
+      Periodo periodo = cerrado(LocalDate.of(2026, MARCH, 10), LocalDate.of(2026, MARCH, 20));
 
       Licencia licencia = mock(Licencia.class);
 
@@ -384,17 +374,17 @@ class EmpleadoEducativoTest extends DomainTestFixture {
       assertThat(perezJuan.estaEnLicenciaPara(asignacion, fecha)).isFalse();
     }
 
-//    @Test
-//    @DisplayName("Debe validar una nueva licencia")
-//    void deberiaValidarNuevaLicencia() {
-//
-//      assertThatCode(() ->
-//              perezJuan.validarNuevaLicencia(
-//                      licenciaEstatutaria(),
-//                      periodoValido(),
-//                      asignacionesValidas()))
-//              .doesNotThrowAnyException();
-//    }
+    //    @Test
+    //    @DisplayName("Debe validar una nueva licencia")
+    //    void deberiaValidarNuevaLicencia() {
+    //
+    //      assertThatCode(() ->
+    //              perezJuan.validarNuevaLicencia(
+    //                      licenciaEstatutaria(),
+    //                      periodoValido(),
+    //                      asignacionesValidas()))
+    //              .doesNotThrowAnyException();
+    //    }
 
     @Test
     @DisplayName("Debe fallar si la licencia estatutaria es null")
@@ -403,12 +393,8 @@ class EmpleadoEducativoTest extends DomainTestFixture {
       Periodo periodo = periodoValido();
       Set<Asignacion> asignaciones = asignacionesValidas();
 
-      assertThatThrownBy(() ->
-              perezJuan.validarNuevaLicencia(
-                      null,
-                      periodo,
-                      asignaciones))
-              .isInstanceOf(CampoObligatorioException.class);
+      assertThatThrownBy(() -> perezJuan.validarNuevaLicencia(null, periodo, asignaciones))
+          .isInstanceOf(CampoObligatorioException.class);
     }
 
     @Test
@@ -418,12 +404,9 @@ class EmpleadoEducativoTest extends DomainTestFixture {
       LicenciaEstatutaria licenciaEstatutaria = licenciaEstatutaria();
       Set<Asignacion> asignaciones = asignacionesValidas();
 
-      assertThatThrownBy(() ->
-              perezJuan.validarNuevaLicencia(
-                      licenciaEstatutaria,
-                      null,
-                      asignaciones))
-              .isInstanceOf(CampoObligatorioException.class);
+      assertThatThrownBy(
+              () -> perezJuan.validarNuevaLicencia(licenciaEstatutaria, null, asignaciones))
+          .isInstanceOf(CampoObligatorioException.class);
     }
 
     @Test
@@ -433,12 +416,8 @@ class EmpleadoEducativoTest extends DomainTestFixture {
       LicenciaEstatutaria licenciaEstatutaria = licenciaEstatutaria();
       Periodo periodo = periodoValido();
 
-      assertThatThrownBy(() ->
-              perezJuan.validarNuevaLicencia(
-                      licenciaEstatutaria,
-                      periodo,
-                      null))
-              .isInstanceOf(CampoObligatorioException.class);
+      assertThatThrownBy(() -> perezJuan.validarNuevaLicencia(licenciaEstatutaria, periodo, null))
+          .isInstanceOf(CampoObligatorioException.class);
     }
 
     @Test
@@ -448,32 +427,24 @@ class EmpleadoEducativoTest extends DomainTestFixture {
       LicenciaEstatutaria licenciaEstatutaria = licenciaEstatutaria();
       Periodo periodo = periodoValido();
 
-      assertThatThrownBy(() ->
-              perezJuan.validarNuevaLicencia(
-                      licenciaEstatutaria,
-                      periodo,
-                      Set.of()))
-              .isInstanceOf(CampoObligatorioException.class);
+      assertThatThrownBy(
+              () -> perezJuan.validarNuevaLicencia(licenciaEstatutaria, periodo, Set.of()))
+          .isInstanceOf(CampoObligatorioException.class);
     }
 
     @Test
     @DisplayName("Debe fallar si el empleado está inactivo")
     void deberiaFallarSiEmpleadoEstaInactivo() {
 
-      perezJuan.darDeBajaDefinitiva(
-              CausaBaja.RENUNCIA,
-              LocalDate.of(2025, DECEMBER, 1));
+      perezJuan.darDeBajaDefinitiva(CausaBaja.RENUNCIA, LocalDate.of(2025, DECEMBER, 1));
 
       LicenciaEstatutaria licenciaEstatutaria = licenciaEstatutaria();
       Periodo periodo = periodoValido();
       Set<Asignacion> asignaciones = asignacionesValidas();
 
-      assertThatThrownBy(() ->
-              perezJuan.validarNuevaLicencia(
-                      licenciaEstatutaria,
-                      periodo,
-                      asignaciones))
-              .isInstanceOf(EmpleadoInactivoException.class);
+      assertThatThrownBy(
+              () -> perezJuan.validarNuevaLicencia(licenciaEstatutaria, periodo, asignaciones))
+          .isInstanceOf(EmpleadoInactivoException.class);
     }
 
     @Test
@@ -489,12 +460,9 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 
       perezJuan.agregarLicencia(licencia);
 
-      assertThatThrownBy(() ->
-              perezJuan.validarNuevaLicencia(
-                      licenciaEstatutaria,
-                      periodo,
-                      asignaciones))
-              .isInstanceOf(LicenciaSuperpuestaException.class);
+      assertThatThrownBy(
+              () -> perezJuan.validarNuevaLicencia(licenciaEstatutaria, periodo, asignaciones))
+          .isInstanceOf(LicenciaSuperpuestaException.class);
     }
 
     @Test
@@ -506,17 +474,12 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 
       Asignacion asignacion = mock(Asignacion.class);
 
-      assertThatThrownBy(() ->
-              perezJuan.validarNuevaLicencia(
-                      licenciaEstatutaria,
-                      periodo,
-                      Set.of(asignacion)))
-              .isInstanceOf(AsignacionNoPerteneceAlEmpleadoException.class);
+      assertThatThrownBy(
+              () ->
+                  perezJuan.validarNuevaLicencia(licenciaEstatutaria, periodo, Set.of(asignacion)))
+          .isInstanceOf(AsignacionNoPerteneceAlEmpleadoException.class);
     }
-
   }
-
-
 
   @Nested
   @DisplayName("Asignaciones del empleado ")
@@ -535,23 +498,23 @@ class EmpleadoEducativoTest extends DomainTestFixture {
     void deberiaFallarSiAsignacionEsNull() {
 
       assertThatThrownBy(() -> perezJuan.agregarAsignacion(null))
-              .isInstanceOf(CampoObligatorioException.class);
+          .isInstanceOf(CampoObligatorioException.class);
     }
 
-//    @Test
-//    @DisplayName("Debe fallar si la asignación se superpone con otra")
-//    void deberiaFallarSiAsignacionSeSuperpone() {
-//
-//      Asignacion asignacion = mock(Asignacion.class);
-//      Designacion designacion = mock(Designacion.class);
-//
-//      when(asignacion.getDesignacion()).thenReturn(designacion);
-//      when(titularPerez.getDesignacion()).thenReturn(designacion);
-//      when(titularPerez.seSuperponeCon(asignacion)).thenReturn(true);
-//
-//      assertThatThrownBy(() -> perezJuan.agregarAsignacion(asignacion))
-//              .isInstanceOf(AsignacionSuperpuestaException.class);
-//    }
+    //    @Test
+    //    @DisplayName("Debe fallar si la asignación se superpone con otra")
+    //    void deberiaFallarSiAsignacionSeSuperpone() {
+    //
+    //      Asignacion asignacion = mock(Asignacion.class);
+    //      Designacion designacion = mock(Designacion.class);
+    //
+    //      when(asignacion.getDesignacion()).thenReturn(designacion);
+    //      when(titularPerez.getDesignacion()).thenReturn(designacion);
+    //      when(titularPerez.seSuperponeCon(asignacion)).thenReturn(true);
+    //
+    //      assertThatThrownBy(() -> perezJuan.agregarAsignacion(asignacion))
+    //              .isInstanceOf(AsignacionSuperpuestaException.class);
+    //    }
 
     @Test
     @DisplayName("Debe retornar un conjunto vacío cuando no hay asignaciones activas")
@@ -562,23 +525,24 @@ class EmpleadoEducativoTest extends DomainTestFixture {
       assertThat(resultado).isEmpty();
     }
 
-//    @Test
-//    @DisplayName("Debe retornar las asignaciones afectadas por la baja")
-//    void deberiaRetornarAsignacionesAfectadasPorBaja() {
-//
-//      Set<Asignacion> resultado = perezJuan.asignacionesAfectadasPorBaja(LocalDate.of(2026, MARCH, 1));
-//
-//      assertThat(resultado).containsExactly(titularPerez);
-//    }
+    //    @Test
+    //    @DisplayName("Debe retornar las asignaciones afectadas por la baja")
+    //    void deberiaRetornarAsignacionesAfectadasPorBaja() {
+    //
+    //      Set<Asignacion> resultado = perezJuan.asignacionesAfectadasPorBaja(LocalDate.of(2026,
+    // MARCH, 1));
+    //
+    //      assertThat(resultado).containsExactly(titularPerez);
+    //    }
 
-//    @Test
-//    @DisplayName("Debe retornar los roles activos del empleado")
-//    void deberiaRetornarRolesActivos() {
-//
-//      List<RolEducativo> resultado = perezJuan.rolesActivosEn(LocalDate.of(2026, MARCH, 1));
-//
-//      assertThat(resultado).containsExactly(RolEducativo.DOCENTE);
-//    }
+    //    @Test
+    //    @DisplayName("Debe retornar los roles activos del empleado")
+    //    void deberiaRetornarRolesActivos() {
+    //
+    //      List<RolEducativo> resultado = perezJuan.rolesActivosEn(LocalDate.of(2026, MARCH, 1));
+    //
+    //      assertThat(resultado).containsExactly(RolEducativo.DOCENTE);
+    //    }
 
     @Test
     @DisplayName("Debe retornar una lista vacía cuando no existen roles activos")
@@ -596,16 +560,13 @@ class EmpleadoEducativoTest extends DomainTestFixture {
 
       Licencia licencia = mock(Licencia.class);
 
-      when(licencia.afectaA(titularPerez, LocalDate.of(2026, MARCH, 5)))
-              .thenReturn(true);
+      when(licencia.afectaA(titularPerez, LocalDate.of(2026, MARCH, 5))).thenReturn(true);
 
       perezJuan.agregarLicencia(licencia);
 
-      Set<Asignacion> resultado =
-              perezJuan.asignacionesEnLicenciaEn(LocalDate.of(2026, MARCH, 5));
+      Set<Asignacion> resultado = perezJuan.asignacionesEnLicenciaEn(LocalDate.of(2026, MARCH, 5));
 
       assertThat(resultado).containsExactly(titularPerez);
     }
-
   }
 }
