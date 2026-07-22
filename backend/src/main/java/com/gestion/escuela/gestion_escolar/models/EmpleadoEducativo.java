@@ -11,13 +11,15 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.asignacion.Asignaci
 import com.gestion.escuela.gestion_escolar.models.exceptions.asignacion.AsignacionSuperpuestaException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo.EmpleadoInactivoException;
 import com.gestion.escuela.gestion_escolar.models.exceptions.licencia.LicenciaSuperpuestaException;
+import com.gestion.escuela.gestion_escolar.models.records.DatosEmpleado;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.*;
 import java.util.stream.Collectors;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(
@@ -30,13 +32,30 @@ import lombok.Setter;
 @Setter
 public class EmpleadoEducativo {
 
+  // =========================================================
+  // IDENTIDAD
+  // =========================================================
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  // =========================================================
+  // RELACIONES
+  // =========================================================
+
   @ManyToOne(optional = false)
   @JoinColumn(name = "escuela_id")
   private Escuela escuela;
+
+  @OneToMany(mappedBy = "empleadoEducativo")
+  private Set<Asignacion> asignaciones;
+
+  @OneToMany(mappedBy = "empleadoEducativo", cascade = CascadeType.ALL, orphanRemoval = true)
+  private Set<Licencia> licencias;
+
+  // =========================================================
+  // DATOS PERSONALES
+  // =========================================================
 
   @Column(nullable = false)
   private String cuil;
@@ -48,10 +67,15 @@ public class EmpleadoEducativo {
   private String apellido;
 
   private String domicilio;
+
   private String telefono;
 
   @Column(nullable = false)
   private String email;
+
+  // =========================================================
+  // ESTADO
+  // =========================================================
 
   @Column(nullable = false)
   private boolean activo = true;
@@ -61,11 +85,9 @@ public class EmpleadoEducativo {
 
   private LocalDate fechaDeIngreso;
 
-  @OneToMany(mappedBy = "empleadoEducativo")
-  private Set<Asignacion> asignaciones;
-
-  @OneToMany(mappedBy = "empleadoEducativo", cascade = CascadeType.ALL, orphanRemoval = true)
-  private Set<Licencia> licencias;
+  // =========================================================
+  // CONSTRUCTORES
+  // =========================================================
 
   protected EmpleadoEducativo() {
     this.asignaciones = new HashSet<>();
@@ -73,7 +95,6 @@ public class EmpleadoEducativo {
   }
 
   private EmpleadoEducativo(Builder builder) {
-
     validarCrearOActualizar(
         builder.escuela,
         builder.cuil,
@@ -102,27 +123,42 @@ public class EmpleadoEducativo {
   }
 
   // =========================================================
-  // LICENCIAS
+  // DATOS PERSONALES
   // =========================================================
 
-  public void eliminarLicencia(Licencia licencia) {
-    licencias.remove(licencia);
+  public void actualizar(DatosEmpleado datos) {
+
+    validarCrearOActualizar(
+            escuela,
+            datos.cuil(),
+            datos.nombre(),
+            datos.apellido(),
+            datos.email(),
+            datos.fechaDeNacimiento(),
+            datos.fechaDeIngreso());
+
+    this.cuil = datos.cuil();
+    this.nombre = datos.nombre();
+    this.apellido = datos.apellido();
+    this.domicilio = datos.domicilio();
+    this.telefono = datos.telefono();
+    this.fechaDeNacimiento = datos.fechaDeNacimiento();
+    this.fechaDeIngreso = datos.fechaDeIngreso();
+    this.email = datos.email();
   }
 
-  public Optional<Licencia> licenciaActivaEn(LocalDate fecha) {
-    if (fecha == null) {
-      return Optional.empty();
-    }
-    return licencias.stream().filter(l -> l.estaVigenteEn(fecha)).findFirst();
-  }
-
-  public boolean estaEnLicenciaPara(Asignacion asignacion, LocalDate fecha) {
-    return licencias.stream().anyMatch(l -> l.afectaA(asignacion, fecha));
+  public void darDeBajaDefinitiva(CausaBaja causaBaja, LocalDate fechaBaja) {
+    Validaciones.noNulo(causaBaja, "causa bajaAsignacion");
+    Validaciones.noNulo(fechaBaja, "fecha de bajaAsignacion");
+    this.activo = false;
+    asignacionesAfectadasPorBaja(fechaBaja)
+            .forEach(a -> a.finalizarPorBajaDefinitiva(causaBaja, fechaBaja));
   }
 
   // =========================================================
   // ASIGNACIONES
   // =========================================================
+
   public void agregarAsignacion(Asignacion asignacion) {
 
     // Valida que la asignación no sea null
@@ -136,6 +172,7 @@ public class EmpleadoEducativo {
     // Mantiene sincronizada la relación
     // Asignacion -> EmpleadoEducativo
     asignacion.setEmpleadoEducativo(this);
+
   }
 
   public void eliminarAsignacion(Asignacion asignacion) {
@@ -146,8 +183,8 @@ public class EmpleadoEducativo {
     Validaciones.noNulo(fecha, "fecha");
 
     return asignaciones.stream()
-        .filter(a -> a.estaActivaEn(fecha))
-        .collect(Collectors.toUnmodifiableSet());
+            .filter(a -> a.estaActivaEn(fecha))
+            .collect(Collectors.toUnmodifiableSet());
   }
 
   public Set<Asignacion> asignacionesEnLicenciaEn(LocalDate fecha) {
@@ -157,8 +194,8 @@ public class EmpleadoEducativo {
     }
 
     return asignaciones.stream()
-        .filter(a -> estaEnLicenciaPara(a, fecha))
-        .collect(Collectors.toUnmodifiableSet());
+            .filter(a -> estaEnLicenciaPara(a, fecha))
+            .collect(Collectors.toUnmodifiableSet());
   }
 
   public Set<Asignacion> asignacionesAfectadasPorBaja(LocalDate fecha) {
@@ -168,76 +205,33 @@ public class EmpleadoEducativo {
     return resultado;
   }
 
-  // =========================================================
-  // ASISTENCIA / JORNADA LABORAL
-  // =========================================================
-  public Set<DiaDeSemana> diasLaborablesEn(LocalDate fecha) {
-    return asignaciones.stream()
-        .filter(a -> a.estaActivaEn(fecha))
-        .map(Asignacion::getDesignacion)
-        .flatMap(d -> d.getFranjasHorarias().stream())
-        .map(FranjaHoraria::getDia)
-        .collect(Collectors.toSet());
-  }
-
-  public List<LocalDate> diasQueDebeAsistir(YearMonth yearMonth) {
-
-    LocalDate inicio = yearMonth.atDay(1);
-    LocalDate fin = yearMonth.atEndOfMonth();
-
-    return inicio.datesUntil(fin.plusDays(1)).filter(this::debeAsistirEn).toList();
-  }
-
-  public EstadoAsistenciaDia estadoAsistenciaEn(
-      LocalDate fecha, Map<LocalDate, Asistencia> manualesPorFecha) {
-    Asistencia manual = manualesPorFecha.get(fecha);
-    if (manual != null) {
-      return EstadoAsistenciaDia.manual(manual);
-    }
-    return EstadoAsistenciaDia.presente(fecha);
-  }
-
   public List<RolEducativo> rolesActivosEn(LocalDate fecha) {
 
     return asignaciones.stream()
-        .filter(a -> a.estaActivaEn(fecha))
-        .map(Asignacion::getRolEducativo)
-        .distinct()
-        .toList();
+            .filter(a -> a.estaActivaEn(fecha))
+            .map(Asignacion::getRolEducativo)
+            .distinct()
+            .toList();
   }
 
   // =========================================================
-  // ESTADO DEL EMPLEADO EDUCATIVO
+  // LICENCIAS
   // =========================================================
-  public void darDeBajaDefinitiva(CausaBaja causaBaja, LocalDate fechaBaja) {
-    Validaciones.noNulo(causaBaja, "causa bajaAsignacion");
-    Validaciones.noNulo(fechaBaja, "fecha de bajaAsignacion");
-    this.activo = false;
-    asignacionesAfectadasPorBaja(fechaBaja)
-        .forEach(a -> a.finalizarPorBajaDefinitiva(causaBaja, fechaBaja));
+
+  public void agregarLicencia(Licencia licencia) {
+    Validaciones.noNulo(licencia, "licencia");
+    licencias.add(licencia);
   }
 
-  public void actualizar(
-      String cuil,
-      String nombre,
-      String apellido,
-      String domicilio,
-      String telefono,
-      LocalDate fechaDeNacimiento,
-      LocalDate fechaDeIngreso,
-      String email) {
+  public void eliminarLicencia(Licencia licencia) {
+    licencias.remove(licencia);
+  }
 
-    validarCrearOActualizar(
-        this.escuela, cuil, nombre, apellido, email, fechaDeNacimiento, fechaDeIngreso);
-
-    this.cuil = cuil;
-    this.nombre = nombre;
-    this.apellido = apellido;
-    this.domicilio = domicilio;
-    this.telefono = telefono;
-    this.fechaDeNacimiento = fechaDeNacimiento;
-    this.fechaDeIngreso = fechaDeIngreso;
-    this.email = email;
+  public Optional<Licencia> licenciaActivaEn(LocalDate fecha) {
+    if (fecha == null) {
+      return Optional.empty();
+    }
+    return licencias.stream().filter(l -> l.estaVigenteEn(fecha)).findFirst();
   }
 
   /**
@@ -265,6 +259,66 @@ public class EmpleadoEducativo {
   public boolean tieneLicenciaEn(LocalDate fecha) {
     return licencias.stream().anyMatch(l -> l.contiene(fecha));
   }
+
+  public boolean estaEnLicenciaPara(Asignacion asignacion, LocalDate fecha) {
+    return licencias.stream().anyMatch(l -> l.afectaA(asignacion, fecha));
+  }
+
+  public void validarNuevaLicencia(
+          LicenciaEstatutaria licenciaEstatutaria, Periodo periodo, Set<Asignacion> asignaciones) {
+    Validaciones.noNulo(licenciaEstatutaria, "licencia estatutaria");
+    Validaciones.noNulo(periodo, "periodo");
+    Validaciones.noVacio(asignaciones, "asignaciones");
+
+    if (!isActivo()) {
+      throw new EmpleadoInactivoException(this);
+    }
+
+    if (tieneLicenciaSuperpuestaEn(periodo)) {
+      throw new LicenciaSuperpuestaException();
+    }
+
+    if (!pertenecenAlEmpleado(asignaciones)) {
+      throw new AsignacionNoPerteneceAlEmpleadoException();
+    }
+
+    if (!estanActivasEn(asignaciones, periodo.getFechaDesde())) {
+      throw new AsignacionNoActivaDelEmpleadoException();
+    }
+  }
+
+  // =========================================================
+  // ASISTENCIA
+  // =========================================================
+  public Set<DiaDeSemana> diasLaborablesEn(LocalDate fecha) {
+    return asignaciones.stream()
+        .filter(a -> a.estaActivaEn(fecha))
+        .map(Asignacion::getDesignacion)
+        .flatMap(d -> d.getFranjasHorarias().stream())
+        .map(FranjaHoraria::getDia)
+        .collect(Collectors.toSet());
+  }
+
+  public List<LocalDate> diasQueDebeAsistir(YearMonth yearMonth) {
+
+    LocalDate inicio = yearMonth.atDay(1);
+    LocalDate fin = yearMonth.atEndOfMonth();
+
+    return inicio.datesUntil(fin.plusDays(1)).filter(this::debeAsistirEn).toList();
+  }
+
+  public EstadoAsistenciaDia estadoAsistenciaEn(
+      LocalDate fecha, Map<LocalDate, Asistencia> manualesPorFecha) {
+    Asistencia manual = manualesPorFecha.get(fecha);
+    if (manual != null) {
+      return EstadoAsistenciaDia.manual(manual);
+    }
+    return EstadoAsistenciaDia.presente(fecha);
+  }
+
+  // =========================================================
+  // MÉTODOS AUXILIARES
+  // =========================================================
 
   private boolean pertenecenAlEmpleado(Set<Asignacion> asignaciones) {
     return this.asignaciones.containsAll(asignaciones);
@@ -322,34 +376,6 @@ public class EmpleadoEducativo {
     }
   }
 
-  public void agregarLicencia(Licencia licencia) {
-    Validaciones.noNulo(licencia, "licencia");
-    licencias.add(licencia);
-  }
-
-  public void validarNuevaLicencia(
-      LicenciaEstatutaria licenciaEstatutaria, Periodo periodo, Set<Asignacion> asignaciones) {
-    Validaciones.noNulo(licenciaEstatutaria, "licencia estatutaria");
-    Validaciones.noNulo(periodo, "periodo");
-    Validaciones.noVacio(asignaciones, "asignaciones");
-
-    if (!isActivo()) {
-      throw new EmpleadoInactivoException(this);
-    }
-
-    if (tieneLicenciaSuperpuestaEn(periodo)) {
-      throw new LicenciaSuperpuestaException();
-    }
-
-    if (!pertenecenAlEmpleado(asignaciones)) {
-      throw new AsignacionNoPerteneceAlEmpleadoException();
-    }
-
-    if (!estanActivasEn(asignaciones, periodo.getFechaDesde())) {
-      throw new AsignacionNoActivaDelEmpleadoException();
-    }
-  }
-
   // =========================================================
   // BUILDER
   // =========================================================
@@ -366,7 +392,6 @@ public class EmpleadoEducativo {
     private LocalDate fechaDeIngreso;
 
     public Builder escuela(Escuela escuela) {
-
       this.escuela = escuela;
       return this;
     }

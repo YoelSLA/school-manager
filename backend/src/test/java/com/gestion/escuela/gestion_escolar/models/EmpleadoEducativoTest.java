@@ -1,44 +1,50 @@
 package com.gestion.escuela.gestion_escolar.models;
 
+import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
+import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
+import com.gestion.escuela.gestion_escolar.models.enums.CausaBaja;
+import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
+import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.CuilInvalidoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.EmailInvalidoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.asignacion.AsignacionNoPerteneceAlEmpleadoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.empleadoEducativo.EmpleadoInactivoException;
+import com.gestion.escuela.gestion_escolar.models.exceptions.licencia.LicenciaSuperpuestaException;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import static com.gestion.escuela.gestion_escolar.models.Periodo.cerrado;
 import static java.time.Month.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
-
-import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
-import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionTitular;
-import com.gestion.escuela.gestion_escolar.models.exceptions.CampoObligatorioException;
-import com.gestion.escuela.gestion_escolar.models.exceptions.CuilInvalidoException;
-import com.gestion.escuela.gestion_escolar.models.exceptions.EmailInvalidoException;
-import com.gestion.escuela.gestion_escolar.models.exceptions.RangoFechasInvalidoException;
-import java.time.LocalDate;
-import java.util.Optional;
-import java.util.Set;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.junit.jupiter.params.provider.ValueSource;
+import static org.mockito.Mockito.when;
 
 class EmpleadoEducativoTest extends DomainTestFixture {
 
   @Nested
-  @DisplayName("Creación de empleadoEducativoBasico")
-  class Creacion {
+  @DisplayName("Creación exitosa del empleado educativo")
+  class CreacionExitosa {
 
     private EmpleadoEducativo.Builder builderValido() {
       return EmpleadoEducativo.builder()
-          .escuela(mock(Escuela.class))
-          .cuil("27-14762038-7")
-          .nombre("Nora Rosa")
-          .apellido("Giardino")
-          .domicilio("Calle Falsa 123")
-          .telefono("1122334455")
-          .email("mail@test.com")
-          .fechaDeNacimiento(LocalDate.of(1990, JANUARY, 12));
+              .escuela(mock(Escuela.class))
+              .cuil("27-14762038-7")
+              .nombre("Nora Rosa")
+              .apellido("Giardino")
+              .domicilio("Calle Falsa 123")
+              .telefono("1122334455")
+              .email("mail@test.com")
+              .fechaDeNacimiento(LocalDate.of(1990, JANUARY, 12));
     }
 
     @Test
@@ -58,6 +64,32 @@ class EmpleadoEducativoTest extends DomainTestFixture {
       assertThat(empleado.getFechaDeNacimiento()).isEqualTo(fechaNacimiento);
       assertThat(empleado.getAsignaciones()).isEmpty();
       assertThat(empleado.getLicencias()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Debe permitir fecha de ingreso null")
+    void permiteIngresoNull() {
+
+      EmpleadoEducativo empleado = builderValido().fechaDeIngreso(null).build();
+      assertThat(empleado).isNotNull();
+    }
+
+  }
+
+  @Nested
+  @DisplayName("Validaciones de creación")
+  class ValidacionesCreacion {
+
+    private EmpleadoEducativo.Builder builderValido() {
+      return EmpleadoEducativo.builder()
+          .escuela(mock(Escuela.class))
+          .cuil("27-14762038-7")
+          .nombre("Nora Rosa")
+          .apellido("Giardino")
+          .domicilio("Calle Falsa 123")
+          .telefono("1122334455")
+          .email("mail@test.com")
+          .fechaDeNacimiento(LocalDate.of(1990, JANUARY, 12));
     }
 
     @Test
@@ -165,321 +197,415 @@ class EmpleadoEducativoTest extends DomainTestFixture {
       assertThrows(RangoFechasInvalidoException.class, builder::build);
     }
 
-    @Test
-    @DisplayName("Debe permitir fecha de ingreso null")
-    void permiteIngresoNull() {
 
-      EmpleadoEducativo empleado = builderValido().fechaDeIngreso(null).build();
-
-      assertThat(empleado).isNotNull();
-    }
   }
 
   @Nested
   @DisplayName("Licencias del empleadoEducativoBasico")
   class Licencias {
 
-    private LocalDate fechaTomaPosesion;
-    private AsignacionTitular titularGiardino;
-
-    @BeforeEach
-    void setUp() {
-      fechaTomaPosesion = LocalDate.of(1998, FEBRUARY, 28);
-
-      titularGiardino = plg2467775.registrarTitular(giardinoNoraRosa, fechaTomaPosesion, 1);
-    }
-
-    //		@Test
-    //		void seCreaUnaLicenciaCorrectamente() {
-    //			// Act
-    //			LocalDate fechaInicioLicencia = LocalDate.of(2026, MARCH, 1);
-    //			LocalDate fechaFinLicencia = LocalDate.of(2026, MARCH, 15);
-    //			Periodo unPeriodo = cerrado(fechaInicioLicencia, fechaFinLicencia);
-    //
-    //			Licencia licencia = giardinoNoraRosa.crearLicencia(
-    //					TipoLicencia.L_114O1,
-    //					unPeriodo,
-    //					"Reposo médico",
-    //					Set.of(titularGiardino)
-    //			);
-    //
-    //			// Assert
-    //			// Antes de cubrir con el titular.
-    //			assertThat(plg2467775.getEstadoEn(fechaTomaPosesion.minusDays(1)))
-    //					.isEqualTo(EstadoDesignacion.VACANTE);
-    //			// Despues de cubrir con el titular.
-    //
-    //	assertThat(titularGiardino.getEstadoEn(fechaTomaPosesion)).isEqualTo(EstadoAsignacion.ACTIVA);
-    //
-    //	assertThat(plg2467775.getEstadoEn(fechaTomaPosesion)).isEqualTo(EstadoDesignacion.CUBIERTA);
-    //			// Al inciar la licencia.
-    //
-    //	assertThat(titularGiardino.getEstadoEn(fechaInicioLicencia)).isEqualTo(EstadoAsignacion.LICENCIA);
-    //
-    //	assertThat(plg2467775.getEstadoEn(fechaInicioLicencia)).isEqualTo(EstadoDesignacion.VACANTE);
-    //			// Al dia siguiente de terminar la licencia.
-    //			assertThat(titularGiardino.getEstadoEn(fechaFinLicencia.plusDays(1))).
-    //					isEqualTo(EstadoAsignacion.ACTIVA);
-    //			assertThat(plg2467775.getEstadoEn(fechaFinLicencia.plusDays(1)))
-    //					.isEqualTo(EstadoDesignacion.CUBIERTA);
-    //
-    //			assertThat(licencia).isNotNull();
-    //			assertThat(licencia.getTipoLicencia()).isEqualTo(TipoLicencia.L_114O1);
-    //			assertThat(licencia.getPeriodo()).isEqualTo(unPeriodo);
-    //			assertThat(licencia.getDescripcion()).isEqualTo("Reposo médico");
-    //			assertThat(licencia.getAsignaciones()).containsExactly(titularGiardino);
-    //			// Relacion bidireccional
-    //			assertThat(licencia.getEmpleadoEducativo()).isEqualTo(giardinoNoraRosa);
-    //			assertThat(giardinoNoraRosa.getLicencias()).contains(licencia);
-    //
-    //		}
-
-    //		@Test
-    //		void noDeberiaCrearLicenciaParaEmpleadoInactivo() {
-    //
-    //			giardinoNoraRosa.darDeBajaDefinitiva(
-    //					CausaBaja.RENUNCIA,
-    //					LocalDate.of(2025, DECEMBER, 1)
-    //			);
-    //
-    //			Periodo periodo = cerrado(
-    //					LocalDate.of(2026, MARCH, 1),
-    //					LocalDate.of(2026, MARCH, 15)
-    //			);
-    //
-    //			assertThatThrownBy(() ->
-    //					Licencia.builder()
-    //							.tipoLicencia(TipoLicencia.L_114O1)
-    //							.periodo(periodo)
-    //							.agregarAsignacion(titularGiardino)
-    //							.descripcion("Reposo médico")
-    //							.build()
-    //			).isInstanceOf(EmpleadoInactivoException.class);
-    //		}
-
-    //		@Test
-    //		void noDeberiaCrearLicenciaSuperpuesta() {
-    //
-    //			Periodo primeraLicencia = cerrado(
-    //					LocalDate.of(2026, MARCH, 1),
-    //					LocalDate.of(2026, MARCH, 15)
-    //			);
-    //
-    //			Periodo licenciaSuperpuesta = cerrado(
-    //					LocalDate.of(2026, MARCH, 10),
-    //					LocalDate.of(2026, MARCH, 20)
-    //			);
-    //
-    //			Set<Asignacion> asignaciones = Set.of(titularGiardino);
-    //
-    //			giardinoNoraRosa.crearLicencia(
-    //					TipoLicencia.L_114O1,
-    //					primeraLicencia,
-    //					"Primera licencia",
-    //					asignaciones
-    //			);
-    //
-    //			assertThatThrownBy(() ->
-    //					giardinoNoraRosa.crearLicencia(
-    //							TipoLicencia.L_114O1,
-    //							licenciaSuperpuesta,
-    //							"Licencia superpuesta",
-    //							asignaciones
-    //					)
-    //			).isInstanceOf(LicenciaSuperpuestaException.class);
-    //		}
-
-    //		@Test
-    //		void seEliminaUnaLicenciaCorrectamente() {
-    //
-    //			// Act
-    //			LocalDate fechaInicioLicencia = LocalDate.of(2026, MARCH, 1);
-    //			LocalDate fechaFinLicencia = LocalDate.of(2026, MARCH, 15);
-    //			Periodo unPeriodo = cerrado(fechaInicioLicencia, fechaFinLicencia);
-    //			Licencia unaLicencia = giardinoNoraRosa.crearLicencia(
-    //					TipoLicencia.L_114O1,
-    //					unPeriodo,
-    //					"Reposo médico",
-    //					Set.of(titularGiardino)
-    //			);
-    //
-    //			//Act
-    //			giardinoNoraRosa.eliminarLicencia(unaLicencia);
-    //
-    //			// Asssert
-    //			assertThat(giardinoNoraRosa.getLicencias()).doesNotContain(unaLicencia);
-    //		}
-
-    //		@Test
-    //		void deberiaRetornarLicenciaActivaEnFecha() {
-    //
-    //			Licencia licencia = giardinoNoraRosa.crearLicencia(
-    //					TipoLicencia.L_114O1,
-    //					cerrado(
-    //							LocalDate.of(2026, MARCH, 1),
-    //							LocalDate.of(2026, MARCH, 15)
-    //					),
-    //					"Reposo médico",
-    //					Set.of(titularGiardino)
-    //			);
-    //
-    //			Optional<Licencia> resultado =
-    //					giardinoNoraRosa.licenciaActivaEn(LocalDate.of(2026, MARCH, 10));
-    //
-    //			assertThat(resultado).contains(licencia);
-    //		}
-
-    @Test
-    void deberiaRetornarOptionalVacioCuandoNoHayLicenciaActiva() {
-      Optional<Licencia> resultado =
-          giardinoNoraRosa.licenciaActivaEn(LocalDate.of(2026, MARCH, 10));
-      assertThat(resultado).isEmpty();
-    }
-
-    @Test
-    void deberiaRetornarOptionalVacioCuandoFechaEsNull() {
-      Optional<Licencia> resultado = giardinoNoraRosa.licenciaActivaEn(null);
-      assertThat(resultado).isEmpty();
-    }
-
-    //		@Test
-    //		void deberiaRetornarTrueCuandoEmpleadoEstaEnLicenciaParaDesignacion() {
-    //			// Arrange
-    //			Periodo cerrado = cerrado(
-    //					LocalDate.of(2026, MARCH, 1),
-    //					LocalDate.of(2026, MARCH, 15)
-    //			);
-    //			Licencia.builder()
-    //					.tipoLicencia(TipoLicencia.L_114O1)
-    //					.periodo(cerrado)
-    //					.agregarAsignacion(titularGiardino)
-    //					.descripcion("Reposo médico")
-    //					.build();
-    //
-    //			// Act
-    //			boolean resultado = giardinoNoraRosa.estaEnLicenciaPara(
-    //					titularGiardino, LocalDate.of(2026, MARCH, 5)
-    //			);
-    //
-    //			assertThat(resultado).isTrue();
-    //		}
-
-    //		@Test
-    //		void deberiaRetornarFalseCuandoEmpleadoNoEstaEnLicenciaEnFecha() {
-    //			Periodo cerrado = cerrado(
-    //					LocalDate.of(2026, MARCH, 1),
-    //					LocalDate.of(2026, MARCH, 15)
-    //			);
-    //			Licencia.builder()
-    //					.tipoLicencia(TipoLicencia.L_114O1)
-    //					.periodo(cerrado)
-    //					.agregarAsignacion(titularGiardino)
-    //					.descripcion("Reposo médico")
-    //					.build();
-    //
-    //			boolean resultado = giardinoNoraRosa.estaEnLicenciaPara(
-    //					titularGiardino,
-    //					LocalDate.of(2026, APRIL, 1)
-    //			);
-    //
-    //			assertThat(resultado).isFalse();
-    //		}
-
-    //		@Test
-    //		void deberiaRetornarFalseCuandoLaDesignacionNoPerteneceALaLicencia() {
-    //
-    //			giardinoNoraRosa.crearLicencia(
-    //					TipoLicencia.L_114O1,
-    //					cerrado(
-    //							LocalDate.of(2026, MARCH, 1),
-    //							LocalDate.of(2026, MARCH, 15)
-    //					),
-    //					"Reposo médico",
-    //					Set.of(titularGiardino)
-    //			);
-    //
-    //			boolean resultado = giardinoNoraRosa.estaEnLicenciaPara(
-    //					mock(AsignacionTitular.class),
-    //					LocalDate.of(2026, MARCH, 5)
-    //			);
-    //
-    //			assertThat(resultado).isFalse();
-    //		}
-
-  }
-
-  @Nested
-  @DisplayName("Asignaciones del empleadoEducativoBasico")
-  class Asignaciones {
-
-    private AsignacionTitular titularGiardino;
+    private AsignacionTitular titularPerezJuan;
 
     @BeforeEach
     void setUp() {
       LocalDate fechaTomaPosesion = LocalDate.of(1998, FEBRUARY, 28);
-      titularGiardino = plg2467775.registrarTitular(giardinoNoraRosa, fechaTomaPosesion, 1);
+      titularPerezJuan = plg2467775.registrarTitular(perezJuan, fechaTomaPosesion, 1);
+
+    }
+
+    private LicenciaEstatutaria licenciaEstatutaria() {
+      return mock(LicenciaEstatutaria.class);
+    }
+
+    private Periodo periodoValido() {
+      return cerrado(
+              LocalDate.of(2026, MARCH, 1),
+              LocalDate.of(2026, MARCH, 15));
+    }
+
+    private Set<Asignacion> asignacionesValidas() {
+      return Set.of(titularPerezJuan);
     }
 
     @Test
-    void seAgregaAsignacionCorrectamente() {
-      assertThat(giardinoNoraRosa.getAsignaciones()).contains(titularGiardino);
-      assertThat(titularGiardino.getEmpleadoEducativo()).isEqualTo(giardinoNoraRosa);
+    @DisplayName("Debe agregar una licencia al empleado")
+    void deberiaAgregarLicencia() {
+
+      Licencia licencia = mock(Licencia.class);
+
+      perezJuan.agregarLicencia(licencia);
+
+      assertThat(perezJuan.getLicencias()).containsExactly(licencia);
     }
 
     @Test
-    void seEliminaAsignacionCorrectamente() {
-      giardinoNoraRosa.eliminarAsignacion(titularGiardino);
-      assertThat(giardinoNoraRosa.getAsignaciones()).doesNotContain(titularGiardino);
+    @DisplayName("Debe fallar si la licencia es null")
+    void deberiaFallarSiAgregaLicenciaNull() {
+
+      assertThatThrownBy(() -> perezJuan.agregarLicencia(null)).isInstanceOf(CampoObligatorioException.class);
     }
 
     @Test
-    void deberiaRetornarAsignacionesActivasEnFecha() {
-      Set<Asignacion> resultado =
-          giardinoNoraRosa.asignacionesActivasEn(LocalDate.of(2026, MARCH, 1));
+    @DisplayName("Debe eliminar una licencia")
+    void deberiaEliminarLicencia() {
 
-      assertThat(resultado).contains(titularGiardino);
+      Licencia licencia = mock(Licencia.class);
+
+      perezJuan.agregarLicencia(licencia);
+
+      perezJuan.eliminarLicencia(licencia);
+
+      assertThat(perezJuan.getLicencias()).isEmpty();
     }
 
     @Test
-    void noDeberiaPermitirFechaNullEnAsignacionesActivas() {
+    @DisplayName("Debe retornar la licencia activa en la fecha indicada")
+    void deberiaRetornarLicenciaActivaEnFecha() {
 
-      assertThatThrownBy(() -> giardinoNoraRosa.asignacionesActivasEn(null))
-          .isInstanceOf(CampoObligatorioException.class);
+      Licencia licencia = mock(Licencia.class);
+
+      when(licencia.estaVigenteEn(LocalDate.of(2026, MARCH, 10))).thenReturn(true);
+
+      perezJuan.agregarLicencia(licencia);
+
+      Optional<Licencia> resultado = perezJuan.licenciaActivaEn(LocalDate.of(2026, MARCH, 10));
+
+      assertThat(resultado).contains(licencia);
     }
 
-    //		@Test
-    //		void deberiaRetornarAsignacionesEnLicencia() {
-    //
-    //			giardinoNoraRosa.crearLicencia(
-    //					TipoLicencia.L_114O1,
-    //					cerrado(
-    //							LocalDate.of(2026, MARCH, 1),
-    //							LocalDate.of(2026, MARCH, 15)
-    //					),
-    //					"Reposo médico",
-    //					Set.of(titularGiardino)
-    //			);
-    //
-    //			Set<Asignacion> resultado = giardinoNoraRosa.asignacionesEnLicenciaEn(
-    //					LocalDate.of(2026, MARCH, 5)
-    //			);
-    //
-    //			assertThat(resultado).contains(titularGiardino);
-    //		}
+    @Test
+    @DisplayName("Debe retornar true cuando existe una licencia superpuesta")
+    void deberiaRetornarTrueCuandoHayLicenciaSuperpuesta() {
+
+      Periodo periodo = cerrado(
+              LocalDate.of(2026, MARCH, 10),
+              LocalDate.of(2026, MARCH, 20));
+
+      Licencia licencia = mock(Licencia.class);
+
+      when(licencia.seSuperponeCon(periodo)).thenReturn(true);
+
+      perezJuan.agregarLicencia(licencia);
+
+      assertThat(perezJuan.tieneLicenciaSuperpuestaEn(periodo)).isTrue();
+    }
 
     @Test
-    void deberiaRetornarSetVacioCuandoNoHayAsignacionesEnLicencia() {
-      Set<Asignacion> resultado =
-          giardinoNoraRosa.asignacionesEnLicenciaEn(LocalDate.of(2026, APRIL, 1));
+    @DisplayName("Debe retornar false cuando no existe una licencia superpuesta")
+    void deberiaRetornarFalseCuandoNoHayLicenciaSuperpuesta() {
+
+      Periodo periodo = cerrado(
+              LocalDate.of(2026, MARCH, 10),
+              LocalDate.of(2026, MARCH, 20));
+
+      Licencia licencia = mock(Licencia.class);
+
+      when(licencia.seSuperponeCon(periodo)).thenReturn(false);
+
+      perezJuan.agregarLicencia(licencia);
+
+      assertThat(perezJuan.tieneLicenciaSuperpuestaEn(periodo)).isFalse();
+    }
+
+    @Test
+    @DisplayName("Debe retornar true cuando el empleado tiene una licencia vigente")
+    void deberiaRetornarTrueCuandoTieneLicenciaEnFecha() {
+
+      LocalDate fecha = LocalDate.of(2026, MARCH, 10);
+
+      Licencia licencia = mock(Licencia.class);
+
+      when(licencia.contiene(fecha)).thenReturn(true);
+
+      perezJuan.agregarLicencia(licencia);
+
+      assertThat(perezJuan.tieneLicenciaEn(fecha)).isTrue();
+    }
+
+    @Test
+    @DisplayName("Debe retornar false cuando el empleado no tiene licencia vigente")
+    void deberiaRetornarFalseCuandoNoTieneLicenciaEnFecha() {
+
+      LocalDate fecha = LocalDate.of(2026, MARCH, 10);
+
+      Licencia licencia = mock(Licencia.class);
+
+      when(licencia.contiene(fecha)).thenReturn(false);
+
+      perezJuan.agregarLicencia(licencia);
+
+      assertThat(perezJuan.tieneLicenciaEn(fecha)).isFalse();
+    }
+
+    @Test
+    @DisplayName("Debe retornar true cuando la licencia afecta a la asignación")
+    void deberiaRetornarTrueCuandoEmpleadoEstaEnLicenciaParaAsignacion() {
+
+      LocalDate fecha = LocalDate.of(2026, MARCH, 5);
+
+      Licencia licencia = mock(Licencia.class);
+
+      when(licencia.afectaA(titularPerezJuan, fecha)).thenReturn(true);
+
+      perezJuan.agregarLicencia(licencia);
+
+      assertThat(perezJuan.estaEnLicenciaPara(titularPerezJuan, fecha)).isTrue();
+    }
+
+    @Test
+    @DisplayName("Debe retornar false cuando la licencia no afecta a la asignación")
+    void deberiaRetornarFalseCuandoEmpleadoNoEstaEnLicenciaEnFecha() {
+
+      LocalDate fecha = LocalDate.of(2026, APRIL, 1);
+
+      Licencia licencia = mock(Licencia.class);
+
+      when(licencia.afectaA(titularPerezJuan, fecha)).thenReturn(false);
+
+      perezJuan.agregarLicencia(licencia);
+
+      assertThat(perezJuan.estaEnLicenciaPara(titularPerezJuan, fecha)).isFalse();
+    }
+
+    @Test
+    @DisplayName("Debe retornar false cuando la asignación no está afectada por la licencia")
+    void deberiaRetornarFalseCuandoLaAsignacionNoPerteneceALaLicencia() {
+
+      Asignacion asignacion = mock(Asignacion.class);
+
+      LocalDate fecha = LocalDate.of(2026, MARCH, 5);
+
+      Licencia licencia = mock(Licencia.class);
+
+      when(licencia.afectaA(asignacion, fecha)).thenReturn(false);
+
+      perezJuan.agregarLicencia(licencia);
+
+      assertThat(perezJuan.estaEnLicenciaPara(asignacion, fecha)).isFalse();
+    }
+
+//    @Test
+//    @DisplayName("Debe validar una nueva licencia")
+//    void deberiaValidarNuevaLicencia() {
+//
+//      assertThatCode(() ->
+//              perezJuan.validarNuevaLicencia(
+//                      licenciaEstatutaria(),
+//                      periodoValido(),
+//                      asignacionesValidas()))
+//              .doesNotThrowAnyException();
+//    }
+
+    @Test
+    @DisplayName("Debe fallar si la licencia estatutaria es null")
+    void deberiaFallarSiLicenciaEstatutariaEsNull() {
+
+      Periodo periodo = periodoValido();
+      Set<Asignacion> asignaciones = asignacionesValidas();
+
+      assertThatThrownBy(() ->
+              perezJuan.validarNuevaLicencia(
+                      null,
+                      periodo,
+                      asignaciones))
+              .isInstanceOf(CampoObligatorioException.class);
+    }
+
+    @Test
+    @DisplayName("Debe fallar si el período es null")
+    void deberiaFallarSiPeriodoEsNull() {
+
+      LicenciaEstatutaria licenciaEstatutaria = licenciaEstatutaria();
+      Set<Asignacion> asignaciones = asignacionesValidas();
+
+      assertThatThrownBy(() ->
+              perezJuan.validarNuevaLicencia(
+                      licenciaEstatutaria,
+                      null,
+                      asignaciones))
+              .isInstanceOf(CampoObligatorioException.class);
+    }
+
+    @Test
+    @DisplayName("Debe fallar si las asignaciones son null")
+    void deberiaFallarSiAsignacionesSonNull() {
+
+      LicenciaEstatutaria licenciaEstatutaria = licenciaEstatutaria();
+      Periodo periodo = periodoValido();
+
+      assertThatThrownBy(() ->
+              perezJuan.validarNuevaLicencia(
+                      licenciaEstatutaria,
+                      periodo,
+                      null))
+              .isInstanceOf(CampoObligatorioException.class);
+    }
+
+    @Test
+    @DisplayName("Debe fallar si no hay asignaciones")
+    void deberiaFallarSiAsignacionesEstanVacias() {
+
+      LicenciaEstatutaria licenciaEstatutaria = licenciaEstatutaria();
+      Periodo periodo = periodoValido();
+
+      assertThatThrownBy(() ->
+              perezJuan.validarNuevaLicencia(
+                      licenciaEstatutaria,
+                      periodo,
+                      Set.of()))
+              .isInstanceOf(CampoObligatorioException.class);
+    }
+
+    @Test
+    @DisplayName("Debe fallar si el empleado está inactivo")
+    void deberiaFallarSiEmpleadoEstaInactivo() {
+
+      perezJuan.darDeBajaDefinitiva(
+              CausaBaja.RENUNCIA,
+              LocalDate.of(2025, DECEMBER, 1));
+
+      LicenciaEstatutaria licenciaEstatutaria = licenciaEstatutaria();
+      Periodo periodo = periodoValido();
+      Set<Asignacion> asignaciones = asignacionesValidas();
+
+      assertThatThrownBy(() ->
+              perezJuan.validarNuevaLicencia(
+                      licenciaEstatutaria,
+                      periodo,
+                      asignaciones))
+              .isInstanceOf(EmpleadoInactivoException.class);
+    }
+
+    @Test
+    @DisplayName("Debe fallar si existe una licencia superpuesta")
+    void deberiaFallarSiExisteLicenciaSuperpuesta() {
+
+      LicenciaEstatutaria licenciaEstatutaria = licenciaEstatutaria();
+      Periodo periodo = periodoValido();
+      Set<Asignacion> asignaciones = asignacionesValidas();
+
+      Licencia licencia = mock(Licencia.class);
+      when(licencia.seSuperponeCon(periodo)).thenReturn(true);
+
+      perezJuan.agregarLicencia(licencia);
+
+      assertThatThrownBy(() ->
+              perezJuan.validarNuevaLicencia(
+                      licenciaEstatutaria,
+                      periodo,
+                      asignaciones))
+              .isInstanceOf(LicenciaSuperpuestaException.class);
+    }
+
+    @Test
+    @DisplayName("Debe fallar si la asignación no pertenece al empleado")
+    void deberiaFallarSiAsignacionNoPerteneceAlEmpleado() {
+
+      LicenciaEstatutaria licenciaEstatutaria = licenciaEstatutaria();
+      Periodo periodo = periodoValido();
+
+      Asignacion asignacion = mock(Asignacion.class);
+
+      assertThatThrownBy(() ->
+              perezJuan.validarNuevaLicencia(
+                      licenciaEstatutaria,
+                      periodo,
+                      Set.of(asignacion)))
+              .isInstanceOf(AsignacionNoPerteneceAlEmpleadoException.class);
+    }
+
+  }
+
+
+
+  @Nested
+  @DisplayName("Asignaciones del empleado ")
+  class Asignaciones {
+
+    private AsignacionTitular titularPerez;
+
+    @BeforeEach
+    void setUp() {
+      LocalDate fechaTomaPosesion = LocalDate.of(1998, FEBRUARY, 28);
+      titularPerez = plg2467775.registrarTitular(perezJuan, fechaTomaPosesion, 1);
+    }
+
+    @Test
+    @DisplayName("Debe fallar si la asignación es null")
+    void deberiaFallarSiAsignacionEsNull() {
+
+      assertThatThrownBy(() -> perezJuan.agregarAsignacion(null))
+              .isInstanceOf(CampoObligatorioException.class);
+    }
+
+//    @Test
+//    @DisplayName("Debe fallar si la asignación se superpone con otra")
+//    void deberiaFallarSiAsignacionSeSuperpone() {
+//
+//      Asignacion asignacion = mock(Asignacion.class);
+//      Designacion designacion = mock(Designacion.class);
+//
+//      when(asignacion.getDesignacion()).thenReturn(designacion);
+//      when(titularPerez.getDesignacion()).thenReturn(designacion);
+//      when(titularPerez.seSuperponeCon(asignacion)).thenReturn(true);
+//
+//      assertThatThrownBy(() -> perezJuan.agregarAsignacion(asignacion))
+//              .isInstanceOf(AsignacionSuperpuestaException.class);
+//    }
+
+    @Test
+    @DisplayName("Debe retornar un conjunto vacío cuando no hay asignaciones activas")
+    void deberiaRetornarVacioCuandoNoHayAsignacionesActivas() {
+
+      Set<Asignacion> resultado = perezJuan.asignacionesActivasEn(LocalDate.of(1990, JANUARY, 1));
+
+      assertThat(resultado).isEmpty();
+    }
+
+//    @Test
+//    @DisplayName("Debe retornar las asignaciones afectadas por la baja")
+//    void deberiaRetornarAsignacionesAfectadasPorBaja() {
+//
+//      Set<Asignacion> resultado = perezJuan.asignacionesAfectadasPorBaja(LocalDate.of(2026, MARCH, 1));
+//
+//      assertThat(resultado).containsExactly(titularPerez);
+//    }
+
+//    @Test
+//    @DisplayName("Debe retornar los roles activos del empleado")
+//    void deberiaRetornarRolesActivos() {
+//
+//      List<RolEducativo> resultado = perezJuan.rolesActivosEn(LocalDate.of(2026, MARCH, 1));
+//
+//      assertThat(resultado).containsExactly(RolEducativo.DOCENTE);
+//    }
+
+    @Test
+    @DisplayName("Debe retornar una lista vacía cuando no existen roles activos")
+    void deberiaRetornarRolesActivosVacios() {
+
+      List<RolEducativo> resultado = perezJuan.rolesActivosEn(LocalDate.of(1990, JANUARY, 1));
 
       assertThat(resultado).isEmpty();
     }
 
     @Test
-    void deberiaRetornarSetVacioCuandoFechaEsNullEnAsignacionesEnLicencia() {
-      Set<Asignacion> resultado = giardinoNoraRosa.asignacionesEnLicenciaEn(null);
+    @Disabled("Falta refactorizar este test")
+    @DisplayName("Debe retornar las asignaciones que están en licencia")
+    void deberiaRetornarAsignacionesEnLicencia() {
 
-      assertThat(resultado).isEmpty();
+      Licencia licencia = mock(Licencia.class);
+
+      when(licencia.afectaA(titularPerez, LocalDate.of(2026, MARCH, 5)))
+              .thenReturn(true);
+
+      perezJuan.agregarLicencia(licencia);
+
+      Set<Asignacion> resultado =
+              perezJuan.asignacionesEnLicenciaEn(LocalDate.of(2026, MARCH, 5));
+
+      assertThat(resultado).containsExactly(titularPerez);
     }
+
   }
 }

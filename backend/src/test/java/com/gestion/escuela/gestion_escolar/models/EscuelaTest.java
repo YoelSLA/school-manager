@@ -1,10 +1,10 @@
 package com.gestion.escuela.gestion_escolar.models;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
 
-public class EscuelaTest {
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+class EscuelaTest {
 
   @Test
   void escuelaSeCreaActiva() {

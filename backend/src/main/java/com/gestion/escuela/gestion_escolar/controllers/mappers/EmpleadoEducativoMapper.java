@@ -9,10 +9,12 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.response.Li
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
-import java.util.List;
-import java.util.Set;
+import com.gestion.escuela.gestion_escolar.models.records.DatosEmpleado;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EmpleadoEducativoMapper {
@@ -88,15 +90,17 @@ public class EmpleadoEducativoMapper {
         .build();
   }
 
-  public static void actualizarEntidad(EmpleadoEducativo empleado, EmpleadoEducativoUpdateDTO dto) {
-    empleado.actualizar(
-        dto.cuil(),
-        dto.nombre(),
-        dto.apellido(),
-        dto.domicilio(),
-        dto.telefono(),
-        dto.fechaDeNacimiento(),
-        dto.fechaDeIngreso(),
-        dto.email());
+  public static void actualizarEntidad(EmpleadoEducativo e, EmpleadoEducativoUpdateDTO d) {
+    e.actualizar(new DatosEmpleado(
+            d.cuil(),
+            d.nombre(),
+            d.apellido(),
+            d.domicilio(),
+            d.telefono(),
+            d.fechaDeNacimiento(),
+            d.fechaDeIngreso(),
+            d.email())
+    );
+
   }
 }
