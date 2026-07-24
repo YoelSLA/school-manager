@@ -1,6 +1,5 @@
 import {
   BookOpen,
-  Briefcase,
   CheckCircle,
   GraduationCap,
   Trash2,
@@ -39,7 +38,7 @@ export default function DesignacionCursoFilters({
   const hasFilters =
     !!filters.materiaId ||
     !!filters.cursoId ||
-    !!filters.cargo ||
+    // !!filters.cargo ||
     !!filters.estado;
 
   return (
@@ -75,7 +74,7 @@ export default function DesignacionCursoFilters({
           ))}
         </SelectField>
 
-        <SelectField
+        {/* <SelectField
           icon={<Briefcase size={14} />}
           value={filters.cargo}
           onChange={(v) => updateFilter("cargo", v || undefined)}
@@ -85,7 +84,7 @@ export default function DesignacionCursoFilters({
           <option value="TITULAR">Titular</option>
           <option value="PROVISIONAL">Provisional</option>
           <option value="SUPLENTE">Suplente</option>
-        </SelectField>
+        </SelectField> */}
 
         <SelectField
           icon={<CheckCircle size={14} />}

@@ -1,5 +1,5 @@
 import type { UseQueryResult } from "@tanstack/react-query";
-import CursoDesignacionesTable from "@/features/designaciones/pages/DesignacionesPage/DesignacionesView/CursosDesignacionesTable";
+import CursoDesignacionesTable from "@/features/designaciones/pages/DesignacionesPage/CursosDesignacionesPage/CursosDesignacionesTable";
 import AdministrativasDesignacionesList from "@/features/designaciones/pages/DesignacionesPage/DesignacionesView/DesignacionesList/AdministrativasDesignacionesList";
 import type {
   DesignacionAdministrativaCardDTO,

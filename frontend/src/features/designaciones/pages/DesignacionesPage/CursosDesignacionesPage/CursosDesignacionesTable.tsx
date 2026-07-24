@@ -4,7 +4,7 @@ import type {
   PageResponse,
 } from "@/shared/types";
 
-import DesignacionesList from "../DesignacionesList/DesignacionesList";
+import DesignacionesList from "../DesignacionesView/DesignacionesList/DesignacionesList";
 import CursoDesignacionesHeader from "./CursosDesignacionesHeader";
 import styles from "./CursosDesignacionesTable.module.scss";
 

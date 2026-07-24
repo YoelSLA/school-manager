@@ -1,6 +1,6 @@
 
 import ListContainer from "@/app/layouts/ListContainer";
-import DesignacionCursoRow from "@/features/designaciones/pages/DesignacionesPage/DesignacionesView/CursosDesignacionesTable/DesignacionCursoRow";
+import DesignacionCursoRow from "@/features/designaciones/pages/DesignacionesPage/CursosDesignacionesPage/DesignacionCursoRow";
 import type {
   DesignacionAdministrativaCardDTO,
   DesignacionCursoCardDTO,
