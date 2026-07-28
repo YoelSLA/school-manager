@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FormProvider } from "react-hook-form";
-import Breadcrumbs from "@/app/layouts/Breadcrumbs";
-import PageLayout from "@/app/layouts/PageLayout/PageLayout";
+import PageLayout from "@/app/layouts/pages/BreadcrumbPageLayout/BreadcrumbPageLayout";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import ErrorModal from "@/components/Modal/ModalError";
 import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
 import { useAsignacionesActivas } from "@/features/empleadosEducativos/hooks/useAsignacionesActivas";

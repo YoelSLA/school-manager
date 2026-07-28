@@ -1,0 +1,16 @@
+@use "@/styles/abstracts" as *;
+
+.authLayout {
+	/* 🏗️ LAYOUT */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	min-height: 100vh;
+
+	/* 📦 BOX MODEL */
+	padding: $space-4;
+
+	/* 🎨 VISUAL */
+	background-color: $page-background;
+}

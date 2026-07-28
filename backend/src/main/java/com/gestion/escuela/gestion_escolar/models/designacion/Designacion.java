@@ -13,12 +13,13 @@ import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.exceptions.Validaciones;
 import com.gestion.escuela.gestion_escolar.models.exceptions.franjaHoraria.RangoHorarioInvalidoException;
 import jakarta.persistence.*;
+import lombok.Getter;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import lombok.Getter;
 
 @Entity
 @Table(
@@ -398,5 +399,9 @@ public abstract class Designacion {
     if (haySolapamiento) {
       throw new RangoHorarioInvalidoException(nueva.getHoraDesde(), nueva.getHoraHasta());
     }
+  }
+
+  public int cantidadFranjasHorarias() {
+    return franjasHorarias.size();
   }
 }

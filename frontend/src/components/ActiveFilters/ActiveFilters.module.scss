@@ -1,0 +1,35 @@
+@use "@/styles/abstracts" as *;
+
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: $space-8;
+
+	width: 100%;
+	height: 32px;
+
+	padding: 0 $space-16;
+
+	background: yellow;
+	border-radius: 20px;
+
+	@include desktop-height-small {
+		height: 28px;
+		padding: 0 $space-12;
+	}
+
+	@include desktop-height-large {
+		height: 36px;
+		padding: 0 $space-20;
+	}
+}
+
+.empty {
+	font-size: $font-size-sm;
+	font-weight: $font-weight-medium;
+	color: $text-secondary;
+	font-style: italic;
+	user-select: none;
+}

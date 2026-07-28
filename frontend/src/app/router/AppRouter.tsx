@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import AppLayout from "@/app/layouts/AppLayout/AppLayout";
+import AppLayout from "@/app/layouts/application/AppLayout/AppLayout";
 import SeleccionarEscuelaPage from "@/features/escuelas/pages";
 import UpdateBanner from "@/infrastructure/UpdateBanner";
 import { useUpdater } from "@/infrastructure/useUpdater";

@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Breadcrumbs from "@/app/layouts/Breadcrumbs";
-import PageLayout from "@/app/layouts/PageLayout";
+import PageLayout from "@/app/layouts/pages/BreadcrumbPageLayout";
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
 import type { EmpleadoEducativoUpdateDTO } from "@/shared/types";
 import EmpleadoEducativoUpdateForm from "../../components/EmpleadoEducativoUpdateForm";
@@ -14,116 +14,116 @@ import { useEmpleadoNavigation } from "../../hooks/useEmpleadoNavigation";
 import styles from "./EmpleadoEducativoUpdatePage.module.scss";
 
 export default function EmpleadoEducativoUpdatePage() {
-	const { empleadoId } = useParams();
-	const escuelaActiva = useAppSelector(selectEscuelaActiva);
-	const eId = Number(empleadoId);
+  const { empleadoId } = useParams();
+  const escuelaActiva = useAppSelector(selectEscuelaActiva);
+  const eId = Number(empleadoId);
 
-	/* =========================
-		 QUERY
-	========================= */
+  /* =========================
+     QUERY
+  ========================= */
 
-	const { data: empleado, isLoading } = useEmpleadoEducativo(eId);
+  const { data: empleado, isLoading } = useEmpleadoEducativo(eId);
 
-	/* =========================
-		 FORM
-	========================= */
+  /* =========================
+     FORM
+  ========================= */
 
-	const { form } = useEmpleadoEducativoEditForm();
-	const { reset } = form;
+  const { form } = useEmpleadoEducativoEditForm();
+  const { reset } = form;
 
-	/* =========================
-		 MUTATION
-	========================= */
+  /* =========================
+     MUTATION
+  ========================= */
 
-	const editarMutation = useEditarEmpleadoEducativo();
+  const editarMutation = useEditarEmpleadoEducativo();
 
-	const empleadoNav = useEmpleadoNavigation();
+  const empleadoNav = useEmpleadoNavigation();
 
-	/* =========================
-		 MAP DATA → FORM
-	========================= */
+  /* =========================
+     MAP DATA → FORM
+  ========================= */
 
-	useEffect(() => {
-		if (empleado) {
-			reset({
-				cuil: empleado.cuil,
-				nombre: empleado.nombre,
-				apellido: empleado.apellido,
-				domicilio: empleado.domicilio ?? "",
-				telefono: empleado.telefono ?? "",
-				email: empleado.email,
-				fechaDeNacimiento: empleado.fechaDeNacimiento,
-				fechaDeIngreso: empleado.fechaDeIngreso ?? "",
-			});
-		}
-	}, [reset, empleado]);
+  useEffect(() => {
+    if (empleado) {
+      reset({
+        cuil: empleado.cuil,
+        nombre: empleado.nombre,
+        apellido: empleado.apellido,
+        domicilio: empleado.domicilio ?? "",
+        telefono: empleado.telefono ?? "",
+        email: empleado.email,
+        fechaDeNacimiento: empleado.fechaDeNacimiento,
+        fechaDeIngreso: empleado.fechaDeIngreso ?? "",
+      });
+    }
+  }, [reset, empleado]);
 
-	/* =========================
-		 HANDLERS
-	========================= */
+  /* =========================
+     HANDLERS
+  ========================= */
 
-	const onSubmit = (formData: EmpleadoEducativoUpdateDTO) => {
-		if (!escuelaActiva) return;
+  const onSubmit = (formData: EmpleadoEducativoUpdateDTO) => {
+    if (!escuelaActiva) return;
 
-		editarMutation.mutate(
-			{
-				escuelaId: escuelaActiva.id,
-				empleadoId: eId,
-				data: formData,
-			},
-			{
-				onSuccess: () => {
-					if (empleado) {
-						empleadoNav.verDetalle(empleado);
-					}
-				},
-			},
-		);
-	};
+    editarMutation.mutate(
+      {
+        escuelaId: escuelaActiva.id,
+        empleadoId: eId,
+        data: formData,
+      },
+      {
+        onSuccess: () => {
+          if (empleado) {
+            empleadoNav.verDetalle(empleado);
+          }
+        },
+      },
+    );
+  };
 
-	const handleCancel = () => {
-		if (empleado) {
-			empleadoNav.verDetalle(empleado);
-		}
-	};
+  const handleCancel = () => {
+    if (empleado) {
+      empleadoNav.verDetalle(empleado);
+    }
+  };
 
-	/* =========================
-		 LOADING
-	========================= */
+  /* =========================
+     LOADING
+  ========================= */
 
-	if (isLoading) {
-		return (
-			<PageLayout>
-				<div className={styles.loading}>Cargando empleado...</div>
-			</PageLayout>
-		);
-	}
+  if (isLoading) {
+    return (
+      <PageLayout>
+        <div className={styles.loading}>Cargando empleado...</div>
+      </PageLayout>
+    );
+  }
 
-	return (
-		<PageLayout breadcrumbs={<Breadcrumbs />}>
-			<div className={styles.page}>
-				<form onSubmit={form.handleSubmit(onSubmit)}>
-					{/* ================= FORM BODY ================= */}
-					<EmpleadoEducativoUpdateForm form={form} />
+  return (
+    <PageLayout breadcrumbs={<Breadcrumbs />}>
+      <div className={styles.page}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          {/* ================= FORM BODY ================= */}
+          <EmpleadoEducativoUpdateForm form={form} />
 
-					{/* ================= ACTIONS ================= */}
+          {/* ================= ACTIONS ================= */}
 
-					<div className={styles.actions}>
-						<Button type="button" variant="danger" onClick={handleCancel}>
-							Cancelar
-						</Button>
+          <div className={styles.actions}>
+            <Button type="button" variant="danger" onClick={handleCancel}>
+              Cancelar
+            </Button>
 
-						<Button
-							type="submit"
-							variant="primary"
-							loading={editarMutation.isPending}
-							disabled={editarMutation.isPending}
-						>
-							Guardar cambios
-						</Button>
-					</div>
-				</form>
-			</div>
-		</PageLayout>
-	);
+            <Button
+              type="submit"
+              variant="primary"
+              loading={editarMutation.isPending}
+              disabled={editarMutation.isPending}
+            >
+              Guardar cambios
+            </Button>
+          </div>
+        </form>
+      </div>
+    </PageLayout>
+  );
 }

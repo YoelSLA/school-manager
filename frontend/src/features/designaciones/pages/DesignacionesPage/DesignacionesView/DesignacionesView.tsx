@@ -1,19 +1,15 @@
 import type { UseQueryResult } from "@tanstack/react-query";
-import CursoDesignacionesTable from "@/features/designaciones/pages/DesignacionesPage/DesignacionesView/CursosDesignacionesTable";
-import AdministrativasDesignacionesList from "@/features/designaciones/pages/DesignacionesPage/DesignacionesView/DesignacionesList/AdministrativasDesignacionesList";
-import type {
-  DesignacionAdministrativaCardDTO,
-  DesignacionCursoCardDTO,
-  PageResponse,
-} from "@/shared/types";
+import AdministrativasDesignacionesTable from "@/features/designaciones/pages/DesignacionesPage/AdministrativasDesignacionesPage/AdministrativasDesignacionesTable/AdministrativasDesignacionesTable";
+import CursosDesignacionesTable from "@/features/designaciones/pages/DesignacionesPage/CursosDesignacionesPage/CursosDesignacionesTable/CursosDesignacionesTable";
+import type { DesignacionAdministrativaRowDTO, DesignacionCursoRowDTO, PageResponse } from "@/shared/types";
 
 type Props = {
   isAdmin: boolean;
-  adminQuery: UseQueryResult<PageResponse<DesignacionAdministrativaCardDTO>>;
-  cursoQuery: UseQueryResult<PageResponse<DesignacionCursoCardDTO>>;
+  adminQuery: UseQueryResult<PageResponse<DesignacionAdministrativaRowDTO>>;
+  cursoQuery: UseQueryResult<PageResponse<DesignacionCursoRowDTO>>;
   onVerDetalle:
-  | ((designacion: DesignacionAdministrativaCardDTO) => void)
-  | ((designacion: DesignacionCursoCardDTO) => void);
+  | ((designacion: DesignacionAdministrativaRowDTO) => void)
+  | ((designacion: DesignacionCursoRowDTO) => void);
 };
 
 export default function DesignacionesView({
@@ -24,18 +20,20 @@ export default function DesignacionesView({
 }: Props) {
   if (isAdmin) {
     return (
-      <AdministrativasDesignacionesList
+      <AdministrativasDesignacionesTable
         query={adminQuery}
-        onVerDetalle={onVerDetalle as (d: DesignacionAdministrativaCardDTO) => void}
+        onVerDetalle={
+          onVerDetalle as (d: DesignacionAdministrativaRowDTO) => void
+        }
       />
     );
   }
 
   return (
-    <CursoDesignacionesTable
+    <CursosDesignacionesTable
       query={cursoQuery}
       onVerDetalle={
-        onVerDetalle as (d: DesignacionCursoCardDTO) => void
+        onVerDetalle as (d: DesignacionCursoRowDTO) => void
       }
     />
   );

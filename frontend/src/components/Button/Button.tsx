@@ -1,5 +1,9 @@
-import type { MouseEvent, ReactNode } from "react";
-import { useState } from "react";
+import {
+  forwardRef,
+  type MouseEvent,
+  type ReactNode,
+  useState,
+} from "react";
 import styles from "./Button.module.scss";
 import type {
   ButtonSize,
@@ -40,51 +44,55 @@ type Props = {
   dropdownItems?: DropdownItem[];
 };
 
-export default function Button({
-  children,
-  onClick,
-  variant = "primary",
-  size = "md",
-  disabled = false,
-  loading = false,
-  active = false,
-  type = "button",
-  className = "",
-  leftIcon,
-  rightIcon,
-  title,
-  id,
-  fullWidth = false,
-  dropdownItems,
-}: Props) {
-  const [open, setOpen] = useState(false);
+const Button = forwardRef<HTMLButtonElement, Props>(
+  (
+    {
+      children,
+      onClick,
+      variant = "primary",
+      size = "md",
+      disabled = false,
+      loading = false,
+      active = false,
+      type = "button",
+      className = "",
+      leftIcon,
+      rightIcon,
+      title,
+      id,
+      fullWidth = false,
+      dropdownItems,
+    },
+    ref
+  ) => {
+    const [open, setOpen] = useState(false);
 
-  const isDisabled = disabled || loading;
+    const isDisabled = disabled || loading;
 
-  const classes = [
-    styles.btn,
-    variantClass[variant],
-    sizeClass[size],
-    active && styles.isActive,
-    loading && styles.isLoading,
-    fullWidth && styles.fullWidth,
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+    const classes = [
+      styles.btn,
+      variantClass[variant],
+      sizeClass[size],
+      active && styles.isActive,
+      loading && styles.isLoading,
+      fullWidth && styles.fullWidth,
+      className,
+    ]
+      .filter(Boolean)
+      .join(" ");
 
-  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-    if (dropdownItems) {
-      setOpen((prev) => !prev);
-      return;
-    }
+    const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+      if (dropdownItems) {
+        setOpen((prev) => !prev);
+        return;
+      }
 
-    onClick?.(e);
-  };
+      onClick?.(e);
+    };
 
-  return (
-    <div className={styles.wrapper}>
+    const button = (
       <button
+        ref={ref}
         id={id}
         title={title}
         type={type}
@@ -97,47 +105,72 @@ export default function Button({
         {loading && <span className={styles.spinner} />}
 
         <span className={styles.content}>
-          {leftIcon && <span className={styles.icon}>{leftIcon}</span>}
+          {leftIcon && (
+            <span className={styles.icon}>
+              {leftIcon}
+            </span>
+          )}
 
           <span>{children}</span>
 
           {dropdownItems ? (
             <span className={styles.icon}>▾</span>
           ) : (
-            rightIcon && <span className={styles.icon}>{rightIcon}</span>
+            rightIcon && (
+              <span className={styles.icon}>
+                {rightIcon}
+              </span>
+            )
           )}
         </span>
       </button>
+    );
 
-      {dropdownItems && open && (
-        <div className={styles.dropdown}>
-          {dropdownItems.map((item) => (
-            <button
-              key={item.label}
-              type="button"
-              className={[
-                styles.dropdownItem,
-                item.danger && styles.dropdownItemDanger,
-              ]
-                .filter(Boolean)
-                .join(" ")}
-              disabled={item.disabled}
-              onClick={() => {
-                if (item.disabled) return;
+    if (!dropdownItems) {
+      return button;
+    }
 
-                item.onClick();
-                setOpen(false);
-              }}
-            >
-              {item.icon && (
-                <span className={styles.icon}>{item.icon}</span>
-              )}
+    return (
+      <div className={styles.wrapper}>
+        {button}
 
-              <span>{item.label}</span>
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
+        {open && (
+          <div className={styles.dropdown}>
+            {dropdownItems.map((item) => (
+              <button
+                key={item.label}
+                type="button"
+                className={[
+                  styles.dropdownItem,
+                  item.danger &&
+                  styles.dropdownItemDanger,
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+                disabled={item.disabled}
+                onClick={() => {
+                  if (item.disabled) return;
+
+                  item.onClick();
+                  setOpen(false);
+                }}
+              >
+                {item.icon && (
+                  <span className={styles.icon}>
+                    {item.icon}
+                  </span>
+                )}
+
+                <span>{item.label}</span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+);
+
+Button.displayName = "Button";
+
+export default Button;

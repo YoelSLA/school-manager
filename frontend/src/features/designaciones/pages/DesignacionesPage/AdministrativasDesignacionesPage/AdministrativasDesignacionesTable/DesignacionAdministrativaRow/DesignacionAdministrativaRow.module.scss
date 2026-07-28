@@ -1,0 +1,66 @@
+@use "@/styles/abstracts" as *;
+@use "../../../row";
+
+/* =================================
+   ROL EDUCATIVO
+================================= */
+
+.role {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  min-width: 0;
+
+  color: var(--color-text);
+  font-weight: 500;
+
+  svg {
+    flex-shrink: 0;
+    color: var(--color-primary);
+  }
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+/* =================================
+   BREAKPOINTS
+================================= */
+
+@include desktop-height-small {
+  .role {
+    font-size: 12px;
+  }
+
+  .role svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@include desktop-height-medium {
+  .role {
+    font-size: 13px;
+  }
+
+  .role svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@include desktop-height-large {
+  .role {
+    font-size: 14px;
+  }
+
+  .role svg {
+    width: 20px;
+    height: 20px;
+  }
+}
