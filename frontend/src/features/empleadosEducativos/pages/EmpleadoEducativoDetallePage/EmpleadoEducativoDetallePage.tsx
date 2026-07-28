@@ -1,5 +1,5 @@
-import Breadcrumbs from "@/app/layouts/Breadcrumbs";
-import PageLayout from "@/app/layouts/PageLayout/PageLayout";
+import PageLayout from "@/app/layouts/pages/BreadcrumbPageLayout/BreadcrumbPageLayout";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 import ConfirmModal from "@/components/Modal/ModalConfirm";
 

@@ -1,0 +1,128 @@
+@use "@/styles/abstracts" as *;
+@use "./table" as *;
+
+.row {
+  display: grid;
+  grid-template-columns: $row-columns;
+  column-gap: $row-gap;
+
+  align-items: center;
+
+  min-height: $row-height;
+
+  padding-block: $row-padding-block;
+  padding-inline: $row-padding-inline;
+
+  background: #fff;
+
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+
+  cursor: pointer;
+
+  transition:
+    background-color .15s ease,
+    border-color .15s ease,
+    box-shadow .15s ease,
+    transform .15s ease;
+
+  &:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-primary-200);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .06);
+    transform: translateY(-1px);
+  }
+}
+
+.position,
+.employee,
+.status,
+.hours,
+.cupof,
+.actions {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.position {
+  justify-content: flex-start;
+}
+
+.employee {
+  justify-content: flex-start;
+}
+
+.status {
+  justify-content: center;
+}
+
+.hours {
+  justify-content: center;
+  gap: 6px;
+
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.cupof {
+  justify-content: center;
+  gap: 6px;
+
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.actions {
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    background-color .15s ease,
+    color .15s ease;
+}
+
+@include desktop-height-small {
+  .row {
+    min-height: $row-height-small;
+
+    padding-block: $row-padding-block-small;
+    padding-inline: $row-padding-inline-small;
+  }
+
+  .position,
+  .status,
+  .hours,
+  .cupof {
+    font-size: 12px;
+  }
+}
+
+@include desktop-height-medium {
+  .position,
+  .status,
+  .hours,
+  .cupof {
+    font-size: 13px;
+  }
+}
+
+@include desktop-height-large {
+  .position,
+  .status,
+  .hours,
+  .cupof {
+    font-size: 14px;
+  }
+}

@@ -16,7 +16,7 @@ spring:
       ddl-auto: validate
 
     # Muestra las consultas SQL generadas por Hibernate.
-    show-sql: true
+    show-sql: false
 
     # Evita mantener la sesión abierta durante el renderizado de respuestas.
     open-in-view: true

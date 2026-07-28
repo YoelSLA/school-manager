@@ -40,6 +40,11 @@ export interface AsignacionUpdateDTO {
 	fechaCese: string | null;
 }
 
+export interface AsignacionActivaRowDTO {
+	empleadoEducativo: EmpleadoEducativoBasicoDTO;
+	situacionDeRevista: SituacionDeRevista;
+}
+
 // RESPONSE
 export interface AsignacionDetalleDTO {
 	id: number;

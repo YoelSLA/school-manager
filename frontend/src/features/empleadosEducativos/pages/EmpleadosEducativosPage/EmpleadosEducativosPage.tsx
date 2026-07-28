@@ -1,10 +1,10 @@
 import { useState } from "react";
-import GridListState from "@/app/layouts/GridListState";
 import ListPageLayout from "@/app/layouts/ListPageLayout";
-import Pagination from "@/app/layouts/Pagination";
-import SidebarPageLayout from "@/app/layouts/SidebarPageLayout/SidebarPageLayout";
-import Sidebar from "@/app/layouts/Toolbar";
+import SidebarPageLayout from "@/app/layouts/pages/ToolbarPageLayout/ToolbarPageLayout";
 import FilterPillGroup from "@/components/FilterPillGroup";
+import GridListState from "@/components/GridListState";
+import Pagination from "@/components/Pagination";
+import Sidebar from "@/components/Toolbar";
 import type { EmpleadoEducativoFiltro, SortState } from "@/shared/types";
 import { usePagination } from "@/shared/utils/hooks/usePagination";
 import EmpleadoEducativoCard from "../../components/EmpleadoEducativoCard";

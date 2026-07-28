@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import Breadcrumbs from "@/app/layouts/Breadcrumbs";
-import PageLayout from "@/app/layouts/PageLayout/PageLayout";
+import PageLayout from "@/app/layouts/pages/BreadcrumbPageLayout/BreadcrumbPageLayout";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
 import ConfirmModal from "@/components/Modal/ModalConfirm";
 import LicenciaRenovarModal from "../../components/LicenciaRenovarModal";

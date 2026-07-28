@@ -5,7 +5,10 @@ import type { updateDesignacionAdministrativaSchema } from "@/features/designaci
 import type { updateDesignacionCursoSchema } from "@/features/designaciones/form/schemas/updateDesignacionCurso.schema";
 import type { CursoDetalleDTO } from "@/shared/types";
 import type { MateriaDetalleDTO } from "@/shared/types/materia.types";
-import type { AsignacionDetalleDTO } from "./asignaciones.types";
+import type {
+	AsignacionActivaRowDTO,
+	AsignacionDetalleDTO,
+} from "./asignaciones.types";
 import type { FranjaHorariaMinimoDTO } from "./common.types";
 import type { EstadoDesignacion, RolEducativo } from "./enums";
 
@@ -71,21 +74,29 @@ export type DesignacionDetalleDTO =
 	| DesignacionCursoDetalleDTO;
 
 // ----------------------------------------------------------------------------------
-interface DesignacionCardDTO {
+interface BaseDesignacionRowDTO {
 	id: number;
 	cupof: number;
 	cantidadFranjasHorarias: number;
 	estadoDesignacion: EstadoDesignacion;
 	rolEducativo: RolEducativo;
+	asignacionActiva: AsignacionActivaRowDTO;
 }
 
-export interface DesignacionAdministrativaCardDTO extends DesignacionCardDTO {}
+export interface DesignacionAdministrativaRowDTO extends BaseDesignacionRowDTO {
+	tipo: "ADMINISTRATIVA";
+}
 
-export interface DesignacionCursoCardDTO extends DesignacionCardDTO {
+export interface DesignacionCursoRowDTO extends BaseDesignacionRowDTO {
+	tipo: "CURSO";
 	nombreMateria: string;
 	nombreCurso: string;
 	orientacion: string;
 }
+
+export type DesignacionRowDTO =
+	| DesignacionAdministrativaRowDTO
+	| DesignacionCursoRowDTO;
 
 // ----------------------------------------------------------------------------------
 export interface DesignacionCursoFilterDTO {

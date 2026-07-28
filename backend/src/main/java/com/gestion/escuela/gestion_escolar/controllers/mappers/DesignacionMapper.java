@@ -3,8 +3,8 @@ package com.gestion.escuela.gestion_escolar.controllers.mappers;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response.AsignacionDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionAdministrativaDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionCursoDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionAdministrativaCardDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionCursoCardDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionAdministrativaRowDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionCursoRowDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionAsignacionDTO.DesignacionAdministrativaAsignacionDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionAsignacionDTO.DesignacionAsignacionDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionAsignacionDTO.DesignacionCursoAsignacionDTO;
@@ -18,14 +18,16 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.franjaHoraria.respon
 import com.gestion.escuela.gestion_escolar.models.Curso;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.Materia;
+import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
-import java.time.LocalDate;
-import java.util.List;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DesignacionMapper {
@@ -93,28 +95,36 @@ public class DesignacionMapper {
     throw new IllegalStateException("Tipo de designación no soportado");
   }
 
-  public static DesignacionAdministrativaCardDTO toResumen(
-      DesignacionAdministrativa d, EstadoDesignacion estadoDesignacion) {
+  public static DesignacionAdministrativaRowDTO toRow(
+          DesignacionAdministrativa d,
+          EstadoDesignacion estadoDesignacion,
+          Asignacion cargoActivo) {
 
-    return new DesignacionAdministrativaCardDTO(
-        d.getId(),
-        d.getCupof(),
-        d.getFranjasHorarias().size(),
-        estadoDesignacion,
-        d.getRolEducativo());
+    return new DesignacionAdministrativaRowDTO(
+            d.getId(),
+            d.getCupof(),
+            d.cantidadFranjasHorarias(),
+            estadoDesignacion,
+            d.getRolEducativo(),
+            AsignacionMapper.toRow(cargoActivo));
+
   }
 
-  public static DesignacionCursoCardDTO toResumen(
-      DesignacionCurso d, EstadoDesignacion estadoDesignacion) {
-    return new DesignacionCursoCardDTO(
-        d.getId(),
-        d.getCupof(),
-        d.getFranjasHorarias().size(),
-        estadoDesignacion,
-        d.getRolEducativo(),
-        d.getMateria().getNombre(),
-        d.getCurso().anioDivision(),
-        d.getOrientacion());
+  public static DesignacionCursoRowDTO toRow(
+          DesignacionCurso d,
+          EstadoDesignacion estadoDesignacion,
+          Asignacion cargoActivo) {
+
+    return new DesignacionCursoRowDTO(
+            d.getId(),
+            d.getCupof(),
+            d.cantidadFranjasHorarias(),
+            estadoDesignacion,
+            d.getRolEducativo(),
+            d.getMateria().getNombre(),
+            d.getCurso().anioDivision(),
+            d.getOrientacion(),
+            AsignacionMapper.toRow(cargoActivo));
   }
 
   // ---------------------------

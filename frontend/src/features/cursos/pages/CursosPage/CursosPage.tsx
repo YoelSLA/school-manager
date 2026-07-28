@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import GridListState from "@/app/layouts/GridListState";
 import ListPageLayout from "@/app/layouts/ListPageLayout";
-import Pagination from "@/app/layouts/Pagination";
-import SidebarPageLayout from "@/app/layouts/SidebarPageLayout/SidebarPageLayout";
-import Sidebar from "@/app/layouts/Toolbar";
+import SidebarPageLayout from "@/app/layouts/pages/ToolbarPageLayout/ToolbarPageLayout";
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
 import FilterPillGroup from "@/components/FilterPillGroup";
+import GridListState from "@/components/GridListState";
+import Pagination from "@/components/Pagination";
+import Sidebar from "@/components/Toolbar";
 import type {
   CursoCreateDTO,
   CursoDetalleDTO,

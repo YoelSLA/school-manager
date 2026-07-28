@@ -1,12 +1,12 @@
 import { useState } from "react";
-import GridListState from "@/app/layouts/GridListState";
 import ListPageLayout from "@/app/layouts/ListPageLayout";
-import Pagination from "@/app/layouts/Pagination";
-import SidebarPageLayout from "@/app/layouts/SidebarPageLayout";
-import Sidebar from "@/app/layouts/Toolbar";
+import SidebarPageLayout from "@/app/layouts/pages/ToolbarPageLayout";
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
+import GridListState from "@/components/GridListState";
 import ConfirmModal from "@/components/Modal/ModalConfirm";
+import Pagination from "@/components/Pagination";
+import Sidebar from "@/components/Toolbar";
 import type { LicenciaResumenDTO } from "@/shared/types";
 import { usePagination } from "@/shared/utils/hooks/usePagination";
 import LicenciaCard from "../../components/LicenciaCard";

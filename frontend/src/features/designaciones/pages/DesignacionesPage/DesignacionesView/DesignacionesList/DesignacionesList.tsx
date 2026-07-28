@@ -1,26 +1,23 @@
 
-import ListContainer from "@/app/layouts/ListContainer";
-import DesignacionCursoRow from "@/features/designaciones/pages/DesignacionesPage/CursosDesignacionesPage/DesignacionCursoRow";
-import type {
-  DesignacionAdministrativaCardDTO,
-  DesignacionCursoCardDTO,
-} from "@/shared/types";
-import DesignacionAdministrativaCard from "../../../../components/DesignacionAdministrativa/DesignacionAdministrativaCard";
+import ListContainer from "@/components/ListContainer";
+import DesignacionAdministrativaRow from "@/features/designaciones/pages/DesignacionesPage/AdministrativasDesignacionesPage/AdministrativasDesignacionesTable/DesignacionAdministrativaRow";
+import DesignacionCursoRow from "@/features/designaciones/pages/DesignacionesPage/CursosDesignacionesPage/CursosDesignacionesTable/DesignacionCursoRow/DesignacionCursoRow";
+import type { DesignacionAdministrativaRowDTO, DesignacionCursoRowDTO } from "@/shared/types";
 
 type Props =
   | {
-    designaciones: DesignacionAdministrativaCardDTO[];
+    designaciones: DesignacionAdministrativaRowDTO[];
     filtro: "ADMIN";
     isLoading: boolean;
     isError: boolean;
-    onVerDetalle: (d: DesignacionAdministrativaCardDTO) => void;
+    onVerDetalle: (d: DesignacionAdministrativaRowDTO) => void;
   }
   | {
-    designaciones: DesignacionCursoCardDTO[];
+    designaciones: DesignacionCursoRowDTO[];
     filtro: "CURSO";
     isLoading: boolean;
     isError: boolean;
-    onVerDetalle: (d: DesignacionCursoCardDTO) => void;
+    onVerDetalle: (d: DesignacionCursoRowDTO) => void;
   };
 
 export default function DesignacionesList(props: Props) {
@@ -35,7 +32,7 @@ export default function DesignacionesList(props: Props) {
         errorMessage="No se pudieron cargar las designaciones"
         getKey={(d) => d.id}
         renderItem={(d) => (
-          <DesignacionAdministrativaCard
+          <DesignacionAdministrativaRow
             designacion={d}
             onVerDetalle={props.onVerDetalle}
           />

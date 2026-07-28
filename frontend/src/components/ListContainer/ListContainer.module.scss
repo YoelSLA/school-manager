@@ -1,0 +1,69 @@
+@use "@/styles/abstracts" as *;
+
+.container {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 8px;
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.state {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* =================================
+   BREAKPOINTS
+================================= */
+
+@include desktop-height-small {
+  .container {
+    gap: 8px;
+  }
+
+  .body {
+    gap: 8px;
+  }
+}
+
+@include desktop-height-medium {
+  .container {
+    gap: 12px;
+  }
+
+  .body {
+    gap: 12px;
+  }
+}
+
+@include desktop-height-large {
+  .container {
+    gap: 16px;
+  }
+
+  .body {
+    gap: 16px;
+  }
+}
