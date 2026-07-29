@@ -1,5 +1,5 @@
 @use "@/styles/abstracts" as *;
-@use "../../../row";
+@use "../DesignacionRow.module.scss";
 
 /* =================================
    MATERIA
@@ -45,6 +45,13 @@
 }
 
 @include desktop-height-small {
+  .position,
+  .status,
+  .hours,
+  .cupof {
+    font-size: 12px;
+  }
+
   .subjectTitle {
     font-size: 13px;
   }
@@ -60,6 +67,13 @@
 }
 
 @include desktop-height-medium {
+  .position,
+  .status,
+  .hours,
+  .cupof {
+    font-size: 13px;
+  }
+
   .subjectTitle {
     font-size: 14px;
   }
@@ -75,6 +89,13 @@
 }
 
 @include desktop-height-large {
+  .position,
+  .status,
+  .hours,
+  .cupof {
+    font-size: 14px;
+  }
+
   .subjectTitle {
     font-size: 15px;
   }

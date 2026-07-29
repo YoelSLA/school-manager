@@ -1,9 +1,8 @@
 import qs from "qs";
 import { http } from "@/shared/api/http";
 import type {
-  AsignacionLicenciaDTO,
+	AsignacionLicenciaDTO,
 	BajaDefinitivaDTO,
-	DesignacionLicenciaDTO,
 	EmpleadoEducativoAsignacionesDTO,
 	EmpleadoEducativoBasicoDTO,
 	EmpleadoEducativoCreateDTO,
@@ -66,6 +65,8 @@ export const getEmpleadosPorEscuela = async (
 				qs.stringify(params, { arrayFormat: "repeat" }),
 		},
 	);
+
+	console.log("EMPLEADOS API", data);
 
 	return data;
 };

@@ -1,0 +1,143 @@
+@use "@/styles/abstracts" as *;
+
+$row-columns:
+  minmax(280px, 3fr)
+  170px
+  170px
+  minmax(240px, 2fr)
+  120px
+  48px;
+
+.row {
+  grid-template-columns: $row-columns;
+  column-gap: $row-gap;
+}
+
+/* =================================
+   CELDAS
+================================= */
+
+.employee,
+.cuil,
+.entryDate,
+.roles,
+.status,
+.actions {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.employee,
+.cuil,
+.entryDate,
+.roles {
+  justify-content: flex-start;
+}
+
+.status,
+.actions {
+  justify-content: center;
+}
+
+.employee {
+  gap: 12px;
+}
+
+.employeeContent {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+}
+
+.employeeTitle {
+  font-weight: 600;
+  color: var(--color-text-primary);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.employeeIcon {
+  flex-shrink: 0;
+  color: var(--color-primary-600);
+}
+
+.cuil,
+.entryDate,
+.roles {
+  gap: 6px;
+
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.entryDate,
+.roles {
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+/* =================================
+   ACCIONES
+================================= */
+
+.actions {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 10px;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    background-color .15s ease,
+    color .15s ease;
+
+  &:hover {
+    background: var(--color-surface-hover);
+  }
+}
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@include desktop-height-small {
+  .employeeTitle,
+  .cuil,
+  .entryDate,
+  .roles {
+    font-size: 12px;
+  }
+}
+
+@include desktop-height-medium {
+  .employeeTitle,
+  .cuil,
+  .entryDate,
+  .roles {
+    font-size: 13px;
+  }
+}
+
+@include desktop-height-large {
+  .employeeTitle,
+  .cuil,
+  .entryDate,
+  .roles {
+    font-size: 14px;
+  }
+}

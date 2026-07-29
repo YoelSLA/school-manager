@@ -94,9 +94,17 @@ public class DesignacionQueryServiceImpl implements DesignacionQueryService {
 
   @Override
   public List<Asignacion> obtenerOtrosCargos(
-      Long designacionId, EstadoAsignacion estado, LocalDate fecha) {
+          Long designacionId,
+          EstadoAsignacion estado,
+          LocalDate fecha) {
 
-    return asignacionRepository.findOtrosCargos(designacionId, estado, fecha);
+    return switch (estado) {
+      case PENDIENTE -> asignacionRepository.findOtrosCargosPendientes(designacionId, fecha);
+      case ACTIVA -> asignacionRepository.findOtrosCargosActivos(designacionId, fecha);
+      case FINALIZADA -> asignacionRepository.findOtrosCargosFinalizados(designacionId, fecha);
+      case BAJA -> asignacionRepository.findOtrosCargosBaja(designacionId, fecha);
+      case null -> asignacionRepository.findOtrosCargos(designacionId, fecha);
+    };
   }
 
   @Override

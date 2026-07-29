@@ -2,7 +2,6 @@ package com.gestion.escuela.gestion_escolar.persistence;
 
 import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
 import com.gestion.escuela.gestion_escolar.models.asignacion.AsignacionSuplente;
-import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -124,8 +123,7 @@ public interface AsignacionRepository extends JpaRepository<Asignacion, Long> {
 
   List<Asignacion> findByEmpleadoEducativoId(Long empleadoId);
 
-  @Query(
-      """
+  @Query("""
 select a
 from Asignacion a
 where a.designacion.id = :designacionId
@@ -157,57 +155,173 @@ and not (
     )
 )
 
+and a.periodo.fechaDesde > :fecha
+""")
+  List<Asignacion> findOtrosCargosPendientes(
+		  @Param("designacionId") Long designacionId,
+		  @Param("fecha") LocalDate fecha);
+
+  @Query("""
+select a
+from Asignacion a
+where a.designacion.id = :designacionId
+
+and not (
+
+    a.periodo.fechaDesde <= :fecha
+
+    and (
+        a.periodo.fechaHasta is null
+        or a.periodo.fechaHasta >= :fecha
+    )
+
+    and (
+        a.bajaAsignacion is null
+        or a.bajaAsignacion.fechaBaja > :fecha
+    )
+
+    and not exists (
+        select 1
+        from Licencia l
+        join l.asignaciones la
+        where la = a
+          and l.periodo.fechaDesde <= :fecha
+          and (
+                l.periodo.fechaHasta is null
+                or l.periodo.fechaHasta >= :fecha
+          )
+    )
+)
+
+and a.periodo.fechaDesde <= :fecha
+
 and (
+    a.periodo.fechaHasta is null
+    or a.periodo.fechaHasta >= :fecha
+)
 
-    :estado is null
+and (
+    a.bajaAsignacion is null
+    or a.bajaAsignacion.fechaBaja > :fecha
+)
+""")
+  List<Asignacion> findOtrosCargosActivos(
+		  @Param("designacionId") Long designacionId,
+		  @Param("fecha") LocalDate fecha);
 
-    or (
+  @Query("""
+select a
+from Asignacion a
+where a.designacion.id = :designacionId
 
-        :estado = com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion.PENDIENTE
+and not (
 
-        and a.periodo.fechaDesde > :fecha
+    a.periodo.fechaDesde <= :fecha
+
+    and (
+        a.periodo.fechaHasta is null
+        or a.periodo.fechaHasta >= :fecha
     )
 
-    or (
-
-        :estado = com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion.ACTIVA
-
-        and a.periodo.fechaDesde <= :fecha
-
-        and (
-            a.periodo.fechaHasta is null
-            or a.periodo.fechaHasta >= :fecha
-        )
-
-        and (
-            a.bajaAsignacion is null
-            or a.bajaAsignacion.fechaBaja > :fecha
-        )
+    and (
+        a.bajaAsignacion is null
+        or a.bajaAsignacion.fechaBaja > :fecha
     )
 
-    or (
+    and not exists (
+        select 1
+        from Licencia l
+        join l.asignaciones la
+        where la = a
+          and l.periodo.fechaDesde <= :fecha
+          and (
+                l.periodo.fechaHasta is null
+                or l.periodo.fechaHasta >= :fecha
+          )
+    )
+)
 
-        :estado = com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion.FINALIZADA
+and a.periodo.fechaHasta is not null
+and a.periodo.fechaHasta < :fecha
+""")
+  List<Asignacion> findOtrosCargosFinalizados(
+		  @Param("designacionId") Long designacionId,
+		  @Param("fecha") LocalDate fecha);
 
-        and a.periodo.fechaHasta is not null
-        and a.periodo.fechaHasta < :fecha
+  @Query("""
+select a
+from Asignacion a
+where a.designacion.id = :designacionId
+
+and not (
+
+    a.periodo.fechaDesde <= :fecha
+
+    and (
+        a.periodo.fechaHasta is null
+        or a.periodo.fechaHasta >= :fecha
     )
 
-    or (
+    and (
+        a.bajaAsignacion is null
+        or a.bajaAsignacion.fechaBaja > :fecha
+    )
 
-        :estado = com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion.BAJA
+    and not exists (
+        select 1
+        from Licencia l
+        join l.asignaciones la
+        where la = a
+          and l.periodo.fechaDesde <= :fecha
+          and (
+                l.periodo.fechaHasta is null
+                or l.periodo.fechaHasta >= :fecha
+          )
+    )
+)
 
-        and a.bajaAsignacion is not null
-        and a.bajaAsignacion.fechaBaja <= :fecha
+and a.bajaAsignacion is not null
+and a.bajaAsignacion.fechaBaja <= :fecha
+""")
+  List<Asignacion> findOtrosCargosBaja(
+		  @Param("designacionId") Long designacionId,
+		  @Param("fecha") LocalDate fecha);
+
+  @Query("""
+select a
+from Asignacion a
+where a.designacion.id = :designacionId
+
+and not (
+
+    a.periodo.fechaDesde <= :fecha
+
+    and (
+        a.periodo.fechaHasta is null
+        or a.periodo.fechaHasta >= :fecha
+    )
+
+    and (
+        a.bajaAsignacion is null
+        or a.bajaAsignacion.fechaBaja > :fecha
+    )
+
+    and not exists (
+        select 1
+        from Licencia l
+        join l.asignaciones la
+        where la = a
+          and l.periodo.fechaDesde <= :fecha
+          and (
+                l.periodo.fechaHasta is null
+                or l.periodo.fechaHasta >= :fecha
+          )
     )
 )
 """)
   List<Asignacion> findOtrosCargos(
-      @Param("designacionId") Long designacionId,
-      @Param("estado") EstadoAsignacion estado,
-      @Param("fecha") LocalDate fecha);
-}
+		  @Param("designacionId") Long designacionId,
+		  @Param("fecha") LocalDate fecha);
 
-
-
+  }
 

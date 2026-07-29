@@ -4,6 +4,7 @@ import {
   MoreVertical,
   Tag,
 } from "lucide-react";
+import Row from "@/components/Table/Row";
 import BadgeSituacionRevista from "@/shared/components/BadgeSituacionRevista/BadgeSituacionRevista";
 import BadgeEstadoDesignacion from "@/shared/components/BagdeEstadoDesignacion";
 import EmpleadoInfo from "@/shared/components/EmpleadoInfo";
@@ -47,18 +48,9 @@ export default function DesignacionAdministrativaRow({
       : `${cantidadFranjasHorarias} franjas`;
 
   return (
-    // biome-ignore lint/a11y/useSemanticElements: Row with nested interactive actions
-    <div
+    <Row
       className={styles.row}
-      role="button"
-      tabIndex={0}
-      onClick={() => onVerDetalle(designacion)}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          onVerDetalle(designacion);
-        }
-      }}
+      onOpen={() => onVerDetalle(designacion)}
     >
       {/* Rol educativo */}
 
@@ -119,6 +111,6 @@ export default function DesignacionAdministrativaRow({
       >
         <MoreVertical size={18} />
       </button>
-    </div>
+    </Row>
   );
 }

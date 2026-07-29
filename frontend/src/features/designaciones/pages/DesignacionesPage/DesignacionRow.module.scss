@@ -1,0 +1,87 @@
+@use "@/styles/abstracts" as *;
+
+$row-columns:
+  minmax(320px, 3fr)  // Rol/Materia
+  160px               // Situación de revista
+  minmax(240px, 2fr)  // Empleado
+  140px               // Estado
+  120px               // Franjas
+  110px               // CUPOF
+  48px;               // Acciones
+
+.row {
+  grid-template-columns: $row-columns;
+  column-gap: $row-gap;
+}
+
+/* =================================
+   CELDAS COMUNES
+================================= */
+
+.position,
+.employee {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.status,
+.hours,
+.cupof,
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.hours,
+.cupof {
+  gap: 6px;
+
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+/* =================================
+   ACCIONES
+================================= */
+
+.actions {
+  width: 100%;
+  min-width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 10px;
+
+  background: transparent;
+  color: var(--color-text);
+
+  cursor: pointer;
+
+  flex-shrink: 0;
+
+  transition:
+    background-color .15s ease,
+    color .15s ease;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    background: var(--color-surface-hover);
+  }
+}
