@@ -1,25 +1,17 @@
-@use "../../../table" as *;
+@use "@/styles/abstracts" as *;
 
 .header {
-  display: grid;
-  grid-template-columns: $row-columns;
+  grid-template-columns:
+  minmax(320px, 3fr)  // Rol/Materia
+  160px               // Situación de revista
+  minmax(240px, 2fr)  // Empleado
+  140px               // Estado
+  120px               // Franjas
+  110px               // CUPOF
+  48px;               // Acciones
+
   column-gap: $row-gap;
-
-  align-items: center;
-
-  min-height: 44px;
-
   padding-inline: $row-padding-inline;
-  margin-bottom: 8px;
-
-  color: var(--color-text-secondary);
-
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-
-  user-select: none;
 
   > * {
     display: flex;

@@ -4,8 +4,8 @@ import FilterMenu from "@/components/FilterMenu";
 import FilterPillGroup from "@/components/FilterPillGroup";
 import Toolbar from "@/components/Toolbar";
 import type { useDesignacionesPage } from "@/features/designaciones/hooks/pages/useDesignacionesPage";
+import AdministrativasDesignacionesTable from "@/features/designaciones/pages/DesignacionesPage/AdministrativasDesignacionesPage/AdministrativasDesignacionesTable";
 import { FILTROS_DESIGNACIONES } from "@/shared/utils";
-import DesignacionesView from "../DesignacionesView";
 
 type Props = {
   vm: ReturnType<typeof useDesignacionesPage>;
@@ -47,10 +47,8 @@ export default function AdministrativasDesignacionesPage({
       totalPages={vm.totalPages}
       onPageChange={vm.handlePageChange}
     >
-      <DesignacionesView
-        isAdmin
-        adminQuery={vm.adminQuery}
-        cursoQuery={vm.cursoQuery}
+      <AdministrativasDesignacionesTable
+        query={vm.adminQuery}
         onVerDetalle={vm.navigation.verDetalle}
       />
     </ToolbarPageLayout>

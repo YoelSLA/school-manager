@@ -32,13 +32,7 @@ export function useEmpleadosEducativos(
 				throw new Error("Escuela no definida");
 			}
 
-			return getEmpleadosPorEscuela(
-				escuelaId,
-				estado,
-				page,
-				size,
-				sort, // 👈 PASAMOS EL OBJETO
-			);
+			return getEmpleadosPorEscuela(escuelaId, estado, page, size, sort);
 		},
 
 		enabled: !!escuelaId,

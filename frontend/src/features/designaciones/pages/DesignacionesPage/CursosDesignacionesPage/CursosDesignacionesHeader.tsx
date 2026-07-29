@@ -1,8 +1,9 @@
-import styles from "./CursosDesignacionesHeader.module.scss";
+import TableHeader from "@/components/Table/TableHeader";
+import styles from "../DesignacionesHeader.module.scss";
 
 export default function CursosDesignacionesHeader() {
   return (
-    <div className={styles.header}>
+    <TableHeader className={styles.header}>
       <span>Materia</span>
       <span>Situación de Revista</span>
       <span>Docente</span>
@@ -10,6 +11,6 @@ export default function CursosDesignacionesHeader() {
       <span>Franjas</span>
       <span>CUPOF</span>
       <span>Acciones</span>
-    </div>
+    </TableHeader>
   );
 }

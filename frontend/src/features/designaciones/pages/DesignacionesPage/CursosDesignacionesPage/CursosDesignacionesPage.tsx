@@ -5,8 +5,8 @@ import FilterPillGroup from "@/components/FilterPillGroup";
 import Toolbar from "@/components/Toolbar";
 import type { useDesignacionesPage } from "@/features/designaciones/hooks/pages/useDesignacionesPage";
 import { useCursoActiveFilters } from "@/features/designaciones/hooks/useCursoActiveFilters";
+import CursosDesignacionesTable from "@/features/designaciones/pages/DesignacionesPage/CursosDesignacionesPage/CursosDesignacionesTable";
 import { FILTROS_DESIGNACIONES } from "@/shared/utils";
-import DesignacionesView from "../DesignacionesView";
 import DesignacionCursoFilters from "./DesignacionCursoFilters/DesignacionCursoFilters";
 
 type Props = {
@@ -59,10 +59,8 @@ export default function CursosDesignacionesPage({ vm }: Props) {
       totalPages={vm.totalPages}
       onPageChange={vm.handlePageChange}
     >
-      <DesignacionesView
-        isAdmin={false}
-        cursoQuery={vm.cursoQuery}
-        adminQuery={vm.adminQuery}
+      <CursosDesignacionesTable
+        query={vm.cursoQuery}
         onVerDetalle={vm.navigation.verDetalle}
       />
     </ToolbarPageLayout>

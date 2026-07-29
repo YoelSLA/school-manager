@@ -1,15 +1,10 @@
-@use "../../../table" as *;
-
 .header {
   display: grid;
-  grid-template-columns: $row-columns;
-  column-gap: $row-gap;
 
   align-items: center;
 
   min-height: 44px;
 
-  padding-inline: $row-padding-inline;
   margin-bottom: 8px;
 
   color: var(--color-text-secondary);
@@ -27,18 +22,5 @@
 
     width: 100%;
     min-width: 0;
-  }
-
-  > :nth-child(1),
-  > :nth-child(2),
-  > :nth-child(3) {
-    justify-content: flex-start;
-  }
-
-  > :nth-child(4),
-  > :nth-child(5),
-  > :nth-child(6),
-  > :nth-child(7) {
-    justify-content: center;
   }
 }

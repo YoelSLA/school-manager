@@ -1,5 +1,5 @@
 @use "@/styles/abstracts" as *;
-@use "../../../row";
+@use "../DesignacionRow.module.scss";
 
 /* =================================
    ROL EDUCATIVO
@@ -28,39 +28,35 @@
   }
 }
 
-/* =================================
-   BREAKPOINTS
-================================= */
-
 @include desktop-height-small {
   .role {
     font-size: 12px;
-  }
 
-  .role svg {
-    width: 16px;
-    height: 16px;
+    svg {
+      width: 16px;
+      height: 16px;
+    }
   }
 }
 
 @include desktop-height-medium {
   .role {
     font-size: 13px;
-  }
 
-  .role svg {
-    width: 18px;
-    height: 18px;
+    svg {
+      width: 18px;
+      height: 18px;
+    }
   }
 }
 
 @include desktop-height-large {
   .role {
     font-size: 14px;
-  }
 
-  .role svg {
-    width: 20px;
-    height: 20px;
+    svg {
+      width: 20px;
+      height: 20px;
+    }
   }
 }
