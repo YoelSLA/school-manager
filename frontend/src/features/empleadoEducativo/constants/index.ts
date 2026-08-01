@@ -1,0 +1,1 @@
+export { empleadoEducativoQueryKeys } from "./queryKeys";

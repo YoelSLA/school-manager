@@ -1,0 +1,116 @@
+@use "@/styles/abstracts" as *;
+
+$row-columns:
+  140px
+  140px
+  minmax(220px, 1fr)
+  180px
+  48px;
+
+.row {
+  grid-template-columns: $row-columns;
+  column-gap: $row-gap;
+}
+
+/* =================================
+   CELDAS
+================================= */
+
+.anio,
+.grado,
+.division,
+.turno,
+.actions {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.anio,
+.grado,
+.division,
+.turno {
+  justify-content: flex-start;
+}
+
+.actions {
+  justify-content: center;
+}
+
+.anio,
+.grado,
+.division,
+.turno {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.division {
+  font-weight: 600;
+  color: var(--color-text-primary);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =================================
+   ACCIONES
+================================= */
+
+.actions {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 10px;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    background-color .15s ease,
+    color .15s ease;
+
+  &:hover {
+    background: var(--color-surface-hover);
+  }
+}
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@include desktop-height-small {
+  .anio,
+  .grado,
+  .division,
+  .turno {
+    font-size: 12px;
+  }
+}
+
+@include desktop-height-medium {
+  .anio,
+  .grado,
+  .division,
+  .turno {
+    font-size: 13px;
+  }
+}
+
+@include desktop-height-large {
+  .anio,
+  .grado,
+  .division,
+  .turno {
+    font-size: 14px;
+  }
+}

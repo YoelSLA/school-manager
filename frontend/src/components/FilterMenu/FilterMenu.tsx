@@ -1,7 +1,7 @@
 import * as Popover from "@radix-ui/react-popover";
 import { Filter } from "lucide-react";
 import type { ReactNode } from "react";
-import Button from "@/components/Button";
+import Button from "@/shared/components/Button";
 import styles from "./FilterMenu.module.scss";
 
 type Props = {

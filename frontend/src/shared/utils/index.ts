@@ -1,7 +1,9 @@
+import type { AsignacionEmpleadoEducativoRowDTO } from "@/features/asignaciones/types/asignaciones.types";
 import type {
-	AsignacionAdministrativaEmpleadoEducativoRowDTO,
-	AsignacionCursoEmpleadoEducativoRowDTO,
-	AsignacionEmpleadoEducativoRowDTO,
+	DesignacionAdministrativaAsignacionDTO,
+	DesignacionCursoAsignacionDTO,
+} from "@/features/designaciones/types/designacion.types";
+import type {
 	BajaAsignacionDTO,
 	DesignacionFiltro,
 	TipoLicencia,
@@ -186,14 +188,18 @@ export function toDateString(date: Date) {
 
 export function esAsignacionCurso(
 	asignacion: AsignacionEmpleadoEducativoRowDTO,
-): asignacion is AsignacionCursoEmpleadoEducativoRowDTO {
-	return asignacion.tipo === "CURSO";
+): asignacion is Omit<AsignacionEmpleadoEducativoRowDTO, "designacion"> & {
+	designacion: DesignacionCursoAsignacionDTO;
+} {
+	return asignacion.designacion.tipo === "CURSO";
 }
 
 export function esAsignacionAdministrativa(
 	asignacion: AsignacionEmpleadoEducativoRowDTO,
-): asignacion is AsignacionAdministrativaEmpleadoEducativoRowDTO {
-	return asignacion.tipo === "ADMINISTRATIVA";
+): asignacion is Omit<AsignacionEmpleadoEducativoRowDTO, "designacion"> & {
+	designacion: DesignacionAdministrativaAsignacionDTO;
+} {
+	return asignacion.designacion.tipo === "ADMINISTRATIVA";
 }
 
 export function tieneBaja(
@@ -201,11 +207,11 @@ export function tieneBaja(
 ): asignacion is AsignacionEmpleadoEducativoRowDTO & {
 	baja: BajaAsignacionDTO;
 } {
-	return asignacion.baja !== null;
+	return asignacion.bajaAsigacion !== null;
 }
 
 export function esAsignacionActiva(
 	asignacion: AsignacionEmpleadoEducativoRowDTO,
 ): boolean {
-	return asignacion.baja === null;
+	return asignacion.bajaAsigacion === null;
 }

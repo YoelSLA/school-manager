@@ -172,6 +172,7 @@ public class DesignacionMapper {
           curso.getId(),
           curso.getCupof(),
           estadoDesignacion,
+          curso.getRolEducativo(),
           curso.getMateria().getNombre(),
           curso.getCurso().toString(),
           curso.getOrientacion());

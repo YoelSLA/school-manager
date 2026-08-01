@@ -1,0 +1,80 @@
+.container {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+
+	height: 52px;
+	padding: 0 16px;
+
+	border: 1px solid #e5e7eb;
+	border-radius: 14px;
+
+	background: #fff;
+}
+
+.person {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+
+	flex: 1;
+	min-width: 0;
+}
+
+.name {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+
+	font-size: 14px;
+	font-weight: 600;
+
+	color: #111827;
+}
+
+.cuil {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+
+	flex-shrink: 0;
+
+	font-size: 13px;
+	font-weight: 500;
+
+	color: #6b7280;
+}
+
+.icon {
+	flex-shrink: 0;
+	color: #9ca3af;
+}
+
+.remove {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 32px;
+	height: 32px;
+
+	flex-shrink: 0;
+
+	border: none;
+	border-radius: 8px;
+
+	background: transparent;
+
+	cursor: pointer;
+
+	color: #dc2626;
+
+	transition:
+		background-color .15s ease,
+		color .15s ease;
+
+	&:hover {
+		background: #fef2f2;
+		color: #b91c1c;
+	}
+}

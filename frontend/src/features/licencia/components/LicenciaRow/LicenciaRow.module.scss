@@ -1,0 +1,142 @@
+@use "@/styles/abstracts" as *;
+
+$row-columns:
+  minmax(320px, 3fr)
+  140px
+  minmax(260px, 2fr)
+  140px
+  140px
+  48px;
+
+.row {
+  grid-template-columns: $row-columns;
+  column-gap: $row-gap;
+}
+
+/* =================================
+   CELDAS
+================================= */
+
+.employee,
+.licencia,
+.periodo,
+.dias,
+.estado,
+.actions {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.employee,
+.licencia,
+.periodo,
+.dias {
+  justify-content: flex-start;
+}
+
+.estado,
+.actions {
+  justify-content: center;
+}
+
+/* =================================
+   EMPLEADO
+================================= */
+
+.employee {
+  min-width: 0;
+}
+
+/* =================================
+   LICENCIA
+================================= */
+
+.codigo {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 4px 10px;
+
+  border-radius: 999px;
+
+  background: var(--color-primary-50);
+  color: var(--color-primary-700);
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* =================================
+   PERÍODO
+================================= */
+
+.periodo,
+.dias {
+  gap: 6px;
+
+  color: var(--color-text-secondary);
+  font-weight: 500;
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+/* =================================
+   ACCIONES
+================================= */
+
+.actions {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 10px;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    background-color .15s ease,
+    color .15s ease;
+
+  &:hover {
+    background: var(--color-surface-hover);
+  }
+}
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@include desktop-height-small {
+  .codigo,
+  .periodo,
+  .dias {
+    font-size: 12px;
+  }
+}
+
+@include desktop-height-medium {
+  .codigo,
+  .periodo,
+  .dias {
+    font-size: 13px;
+  }
+}
+
+@include desktop-height-large {
+  .codigo,
+  .periodo,
+  .dias {
+    font-size: 14px;
+  }
+}

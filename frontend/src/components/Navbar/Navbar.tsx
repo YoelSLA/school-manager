@@ -1,9 +1,9 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
-import Button from "@/components/Button";
 import { NAV_ITEMS } from "@/shared/utils";
 import styles from "./Navbar.module.scss";
+import Button from "@/shared/components/Button";
 
 export default function Navbar() {
   const navigate = useNavigate();

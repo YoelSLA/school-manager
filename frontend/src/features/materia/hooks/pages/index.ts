@@ -1,0 +1,1 @@
+export { useMateriasPage } from "./useMateriasPage";

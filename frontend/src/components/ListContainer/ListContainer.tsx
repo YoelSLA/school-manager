@@ -1,5 +1,6 @@
-import Button from "@/components/Button";
-import ListState from "@/components/ListState";
+import type { ReactNode } from "react";
+
+import Button from "@/shared/components/Button";
 import styles from "./ListContainer.module.scss";
 
 type Props<T> = {
@@ -13,7 +14,7 @@ type Props<T> = {
 
   onRetry?: () => void;
 
-  renderItem: (item: T, index: number) => React.ReactNode;
+  renderItem: (item: T, index: number) => ReactNode;
   getKey?: (item: T, index: number) => React.Key;
 };
 
@@ -28,14 +29,18 @@ export default function ListContainer<T>({
   renderItem,
   getKey,
 }: Props<T>) {
+  const renderState = (message: ReactNode) => (
+    <div className={styles.listState}>{message}</div>
+  );
+
   if (isLoading) {
-    return <ListState>{loadingMessage}</ListState>;
+    return renderState(loadingMessage);
   }
 
   if (isError) {
     return (
       <div className={styles.state}>
-        <ListState>{errorMessage}</ListState>
+        {renderState(errorMessage)}
 
         {onRetry && (
           <Button size="sm" onClick={onRetry}>
@@ -47,7 +52,7 @@ export default function ListContainer<T>({
   }
 
   if (items.length === 0) {
-    return <ListState>{emptyMessage}</ListState>;
+    return renderState(emptyMessage);
   }
 
   return (

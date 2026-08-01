@@ -1,53 +1,58 @@
 @use "@/styles/abstracts" as *;
 
 .layout {
-	/* 🧩 VARIABLES */
-	--layout-gap: 8px;
+  /* 🧩 VARIABLES */
+  --layout-gap: 8px;
 
-	/* 🏗️ LAYOUT */
-	display: flex;
-	flex-direction: column;
-	flex: 1;
-	min-height: 0;
+  /* 🏗️ LAYOUT */
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
 
-	/* 📦 BOX MODEL */
-	gap: var(--layout-gap);
+  /* 📦 BOX MODEL */
+  gap: var(--layout-gap);
 
-	/* ================= HEADER ================= */
+  /* ================= HEADER ================= */
 
-	&__header {
-		flex-shrink: 0;
-	}
+  &__header {
+    flex-shrink: 0;
 
-	/* ================= CONTENT ================= */
+    overflow: hidden;
 
-	&__content {
-		flex: 1;
-		min-height: 0;
+    border-radius: $radius-xl;
+  }
 
-		display: flex;
-		flex-direction: column;
-		gap: var(--layout-gap);
-	}
+  /* ================= CONTENT ================= */
+
+  &__content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+
+    gap: var(--layout-gap);
+
+    overflow: hidden;
+  }
 }
 
 /* ================= RESPONSIVE ================= */
 
 @include desktop-height-small {
-	.layout {
-		--layout-gap: 8px;
-    background-color: red;
-	}
+  .layout {
+    --layout-gap: 8px;
+  }
 }
 
 @include desktop-height-medium {
-	.layout {
-		--layout-gap: 12px;
-	}
+  .layout {
+    --layout-gap: 12px;
+  }
 }
 
 @include desktop-height-large {
-	.layout {
-		--layout-gap: 16px;
-	}
+  .layout {
+    --layout-gap: 16px;
+  }
 }

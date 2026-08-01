@@ -1,0 +1,32 @@
+
+import Button from "@/shared/components/Button";
+import type { DesignacionFiltro } from "@/shared/types";
+import styles from "./DesignacionTabs.module.scss";
+
+type Props = {
+  value: DesignacionFiltro;
+  onChange: (value: DesignacionFiltro) => void;
+};
+
+export default function DesignacionTabs({ value, onChange }: Props) {
+  return (
+    <div className={styles["designacion-create__tabs"]}>
+      <Button
+        variant="filter"
+        active={value === "ADMIN"}
+        onClick={() => onChange("ADMIN")}
+        className={styles["designacion-create__tab"]}
+      >
+        Administrativa
+      </Button>
+      <Button
+        variant="filter"
+        active={value === "CURSO"}
+        onClick={() => onChange("CURSO")}
+        className={styles["designacion-create__tab"]}
+      >
+        Curso
+      </Button>
+    </div>
+  );
+}

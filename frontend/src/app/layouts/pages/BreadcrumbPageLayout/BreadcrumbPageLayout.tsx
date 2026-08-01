@@ -1,20 +1,21 @@
 import type { ReactNode } from "react";
+import Breadcrumbs from "@/shared/components/Breadcrumbs";
 import styles from "./BreadcrumbPageLayout.module.scss";
 
 type Props = {
   children: ReactNode;
-  breadcrumbs?: ReactNode;
+  showBreadcrumbs?: boolean;
 };
 
 export default function BreadcrumbPageLayout({
   children,
-  breadcrumbs,
+  showBreadcrumbs = true,
 }: Props) {
   return (
     <section className={styles.layout}>
-      {breadcrumbs && (
+      {showBreadcrumbs && (
         <header className={styles.layout__header}>
-          {breadcrumbs}
+          <Breadcrumbs />
         </header>
       )}
 

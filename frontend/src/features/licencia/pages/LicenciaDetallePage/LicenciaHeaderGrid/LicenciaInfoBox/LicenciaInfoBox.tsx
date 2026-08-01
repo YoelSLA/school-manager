@@ -1,0 +1,95 @@
+import { Calendar, Clock, FileText, Hash } from "lucide-react";
+import BadgeEstadoLicencia from "@/shared/components/BagdeEstadoLicencia";
+import { diasRestantes, formatPeriodo } from "@/shared/utils";
+import type { LicenciaDetalleDTO } from "../../../../types";
+import styles from "./LicenciaInfoBox.module.scss";
+
+type Props = {
+  licencia: LicenciaDetalleDTO;
+};
+
+export default function LicenciaInfoBox({ licencia }: Props) {
+  return (
+    <section className={styles.box}>
+      {/* =====================
+			   HEADER (IDENTIDAD)
+			===================== */}
+      <header className={styles.header}>
+        <div className={styles.titleBlock}>
+          <div className={styles.titleRow}>
+            <h2 className={styles.articulo}>
+              <FileText size={16} />
+              {licencia.licenciaEstatutaria.articulo}
+            </h2>
+
+            <span className={styles.codigo}>
+              <Hash size={14} />
+              {licencia.licenciaEstatutaria.codigo}
+            </span>
+          </div>
+        </div>
+
+        <BadgeEstadoLicencia value={licencia.estadoLicencia} />
+      </header>
+
+      {/* =====================
+			   DESCRIPCIÓN NORMATIVA
+			===================== */}
+      <div className={styles.descripcionWrapper}>
+        <span className={styles.descripcionCodigo}>
+          {licencia.licenciaEstatutaria.descripcion}
+        </span>
+      </div>
+
+      <div className={styles.divider} />
+
+      {/* =====================
+			   SUMMARY
+			===================== */}
+      <div className={styles.summary}>
+        <div className={styles.item}>
+          <Calendar size={14} />
+          <div>
+            <span className={styles.label}>Período</span>
+            <span className={styles.value}>
+              {formatPeriodo(
+                licencia.periodo.fechaDesde,
+                licencia.periodo.fechaHasta,
+              )}
+            </span>
+          </div>
+        </div>
+
+        <div className={styles.item}>
+          <Clock size={14} />
+          <div>
+            <span className={styles.label}>Duración</span>
+            <span className={styles.value}>
+              {licencia.periodo.dias ?? "—"} días ·{" "}
+              {licencia.periodo.fechaHasta
+                ? `${diasRestantes(licencia.periodo.fechaHasta)} restantes`
+                : "Vigente"}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* =====================
+			   DESCRIPCIÓN ADMIN
+			===================== */}
+      {licencia.descripcion && (
+        <>
+          <div className={styles.divider} />
+
+          <div className={styles.detalle}>
+            <h4>
+              <FileText size={14} />
+              Descripción administrativa
+            </h4>
+            <p>{licencia.descripcion}</p>
+          </div>
+        </>
+      )}
+    </section>
+  );
+}

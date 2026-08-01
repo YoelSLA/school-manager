@@ -1,0 +1,9 @@
+import type { BadgeVariant } from "@/shared/components/Badge/Badge.types";
+import type { EstadoLicencia } from "@/shared/types/enums";
+
+export const ESTADO_LICENCIA_BADGE = {
+	PENDIENTE: "pendiente",
+	CUBIERTA: "cubierta",
+	DESCUBIERTA: "descubierta",
+	NO_VIGENTE: "no_vigente",
+} as const satisfies Record<EstadoLicencia, BadgeVariant>;

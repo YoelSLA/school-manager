@@ -1,0 +1,78 @@
+import {
+  Calendar,
+  Flag,
+  Hourglass,
+  MoreVertical,
+} from "lucide-react";
+import Row from "@/components/Table/Row";
+import EmpleadoInfo from "@/features/empleadoEducativo/components/EmpleadoInfo";
+import BadgeEstadoLicencia from "@/shared/components/BagdeEstadoLicencia";
+import { formatearFecha } from "@/shared/utils";
+import type { LicenciaRowDTO } from "../../types";
+import styles from "./LicenciaRow.module.scss";
+
+type Props = {
+  licencia: LicenciaRowDTO;
+  onVerDetalle: (licencia: LicenciaRowDTO) => void;
+  onDelete?: () => void;
+};
+
+export default function LicenciaRow({
+  licencia,
+  onVerDetalle,
+  onDelete,
+}: Props) {
+  return (
+    <Row
+      className={styles.row}
+      onOpen={() => onVerDetalle(licencia)}
+    >
+      {/* EMPLEADO */}
+      <div className={styles.employee}>
+        <EmpleadoInfo empleado={licencia.empleado} />
+      </div>
+
+      {/* LICENCIA */}
+      <div className={styles.licencia}>
+        <span className={styles.codigo}>
+          {licencia.licenciaEstatutaria.codigo}
+        </span>
+      </div>
+
+      {/* PERÍODO */}
+      <div className={styles.periodo}>
+        <Calendar size={16} />
+        {formatearFecha(licencia.periodo.fechaDesde)}
+
+        <Flag size={16} />
+
+        {formatearFecha(licencia.periodo.fechaHasta)}
+      </div>
+
+      {/* DÍAS */}
+      <div className={styles.dias}>
+        <Hourglass size={16} />
+        {licencia.periodo.dias} días
+      </div>
+
+      {/* ESTADO */}
+      <div className={styles.estado}>
+        <BadgeEstadoLicencia
+          value={licencia.estadoLicencia}
+        />
+      </div>
+
+      {/* ACCIONES */}
+      <button
+        type="button"
+        className={styles.actions}
+        onClick={(e) => {
+          e.stopPropagation();
+          onDelete?.();
+        }}
+      >
+        <MoreVertical size={18} />
+      </button>
+    </Row>
+  );
+}

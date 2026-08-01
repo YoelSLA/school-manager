@@ -1,0 +1,18 @@
+/* ===============================
+   LICENCIA RENOVAR MODAL
+================================ */
+
+.licencia-renovar-modal {
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px 20px;
+  }
+
+  @media (max-width: 480px) {
+    &__body {
+      gap: 12px;
+    }
+  }
+}
