@@ -1,12 +1,11 @@
 import { useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
-import FormInputField from "@/components/FormInputField/FormInputField";
-import FormSelectField from "@/components/FormSelectField";
-import Modal from "@/components/Modal/Modal";
-import type { CubrirProvisionalDTO, CubrirTitularDTO } from "@/features/asignaciones/types/asignaciones.types";
-import { CARACTERISTICA_ASIGNACION_OPTIONS } from "@/features/asignaciones/utils/asignacion.utils";
-import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
-import type { EmpleadoEducativoBasicoDTO } from "@/features/empleadosEducativos/types/empleadoEducativo.types";
+import { EmpleadoSelector } from "@/features/empleadoEducativo/components";
+import type { EmpleadoEducativoBasicoDTO } from "@/features/empleadoEducativo/types";
+import { FormInput, FormSelect, Modal, Select } from "@/shared/components";
+import type { CubrirProvisionalDTO, CubrirTitularDTO } from "../../types";
+import { CARACTERISTICA_ASIGNACION_OPTIONS } from "../../utils/asignacion.utils";
+
 import styles from "./AsignacionModalBase.module.scss";
 
 type Props = {
@@ -68,34 +67,37 @@ export default function AsignacionModalBase({
           </div>
 
           <div className={styles.right}>
-            <FormSelectField
+            <Select
               label="SITUACIÓN DE REVISTA"
               value={tipoAsignacion}
               onChange={(e) =>
-                setTipoAsignacion(e.target.value as "TITULAR" | "PROVISIONAL")
+                setTipoAsignacion(
+                  e.target.value as "TITULAR" | "PROVISIONAL",
+                )
               }
             >
               <option value="TITULAR">Titular</option>
               <option value="PROVISIONAL">Provisional</option>
-            </FormSelectField>
+            </Select>
 
-            {/* FORM TITULAR */}
             {tipoAsignacion === "TITULAR" && (
               <>
-                <FormSelectField<CubrirTitularDTO>
+                <FormSelect<CubrirTitularDTO>
                   label="CARACTERÍSTICA"
                   name="caracteristica"
                   register={titularForm.register}
-                  error={titularForm.formState.errors.caracteristica?.message}
+                  error={
+                    titularForm.formState.errors.caracteristica?.message
+                  }
                 >
                   {CARACTERISTICA_ASIGNACION_OPTIONS.map((opt) => (
                     <option key={opt.value} value={opt.value}>
                       {opt.label}
                     </option>
                   ))}
-                </FormSelectField>
+                </FormSelect>
 
-                <FormInputField<CubrirTitularDTO>
+                <FormInput<CubrirTitularDTO>
                   label="Fecha de toma de posesión"
                   name="fechaTomaPosesion"
                   type="date"
@@ -107,10 +109,9 @@ export default function AsignacionModalBase({
               </>
             )}
 
-            {/* FORM PROVISIONAL */}
             {tipoAsignacion === "PROVISIONAL" && (
               <>
-                <FormInputField<CubrirProvisionalDTO>
+                <FormInput<CubrirProvisionalDTO>
                   label="Fecha de toma de posesión"
                   name="fechaTomaPosesion"
                   type="date"
@@ -120,12 +121,14 @@ export default function AsignacionModalBase({
                   }
                 />
 
-                <FormInputField<CubrirProvisionalDTO>
+                <FormInput<CubrirProvisionalDTO>
                   label="Fecha de cese"
                   name="fechaCese"
                   type="date"
                   register={provisionalForm.register}
-                  error={provisionalForm.formState.errors.fechaCese?.message}
+                  error={
+                    provisionalForm.formState.errors.fechaCese?.message
+                  }
                 />
               </>
             )}

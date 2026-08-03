@@ -1,9 +1,9 @@
-import Pagination from "@/components/Pagination";
+import Pagination from "@/shared/components/Pagination";
+import AsistenciasSidebar from "../../components/AsistenciasSidebar";
+import EmpleadoResultsList from "../../components/EmpleadoResultsList";
+import EmpleadoSearchBar from "../../components/EmpleadoSearchBar";
 import { useAsistenciasPage } from "../../hooks/pages/useAsistenciasPage";
 import styles from "./AsistenciasPage.module.scss";
-import AsistenciasSidebar from "./AsistenciasSidebar";
-import EmpleadoResultsList from "./EmpleadoResultsList";
-import EmpleadoSearchBar from "./EmpleadoSearchBar";
 
 export default function AsistenciasPage() {
   const {

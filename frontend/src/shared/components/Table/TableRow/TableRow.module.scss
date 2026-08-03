@@ -1,0 +1,41 @@
+@use "@/styles/abstracts" as *;
+
+.row {
+  display: grid;
+
+  align-items: center;
+
+  min-height: 72px;
+
+  padding-block: 12px;
+  padding-inline: 20px;
+
+  background: #fff;
+
+  border: 2px solid blue;
+  border-radius: 20px;
+
+  cursor: pointer;
+
+  transition:
+    background-color .15s ease,
+    border-color .15s ease,
+    box-shadow .15s ease,
+    transform .15s ease;
+
+  &:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-primary-200);
+    box-shadow: 0 4px 14px rgb(0 0 0 / 6%);
+    transform: translateY(-1px);
+  }
+}
+
+@include desktop-height-small {
+  .row {
+    min-height: 60px;
+
+    padding-block: 8px;
+    padding-inline: 16px;
+  }
+}

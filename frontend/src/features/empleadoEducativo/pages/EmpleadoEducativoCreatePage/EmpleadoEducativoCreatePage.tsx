@@ -6,17 +6,17 @@ import BreadcrumbPageLayout from "@/app/layouts/pages/BreadcrumbPageLayout/Bread
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
 
-import FormActions from "@/components/FormActions";
-import Modal from "@/components/Modal/Modal";
+import FormActions from "@/shared/components/form/FormActions";
 import Button from "@/shared/components/Button";
+import Modal from "@/shared/components/Modal/Modal";
 import { getApiError, getErrorMessage } from "@/shared/http/errorHandler";
 import { getTodayArgentinaISO } from "@/shared/utils";
 import ContactoSection from "../../components/EmpleadoEducativoCreateForm/ContactoSection";
 import DatosPersonalesSection from "../../components/EmpleadoEducativoCreateForm/DatosPersonalesSection";
 import IngresoSection from "../../components/EmpleadoEducativoCreateForm/IngresoSection";
 import { crearEmpleadoEducativoSchema, type EmpleadoEducativoCreateDTO } from "../../form/schemas/crearEmpleadoEducativo.schema";
+import { useCrearEmpleadoEducativo } from "../../hooks/mutations/useCrearEmpleadoEducativo";
 import { useEmpleadoNavigation } from "../../hooks/navigation/useEmpleadoNavigation";
-import { useCrearEmpleadoEducativo } from "../../hooks/useCrearEmpleadoEducativo";
 import styles from "./EmpleadoEducativoCreatePage.module.scss";
 
 export default function EmpleadoEducativoCreatePage() {

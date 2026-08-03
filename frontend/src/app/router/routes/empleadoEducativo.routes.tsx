@@ -1,16 +1,15 @@
 import { Route } from "react-router-dom";
-import EmpleadoEducativoUpdatePage from "@/features/empleadosEducativos/pages/EmpeladoEducativoUpdatePage";
-import EquipoEducativoCreatePage from "@/features/empleadosEducativos/pages/EmpleadoEducativoCreatePage";
-import EmpleadoEducativoDetallePage from "@/features/empleadosEducativos/pages/EmpleadoEducativoDetallePage/EmpleadoEducativoDetallePage";
-import EmpleadosEducativosPage from "@/features/empleadosEducativos/pages/EmpleadosEducativosPage";
+import { EmpleadoEducativoCreatePage, EmpleadoEducativoDetallePage, EmpleadoEducativoPage } from "@/features/empleadoEducativo/pages";
+import EmpleadoEducativoUpdatePage from "@/features/empleadoEducativo/pages/EmpeladoEducativoUpdatePage";
+
 
 export function EmpleadoEducativoRoutes() {
   return (
     <>
-      <Route path="empleadosEducativos" element={<EmpleadosEducativosPage />} />
+      <Route path="empleadosEducativos" element={<EmpleadoEducativoPage />} />
       <Route
         path="empleadosEducativos/crear"
-        element={<EquipoEducativoCreatePage />}
+        element={<EmpleadoEducativoCreatePage />}
       />
       <Route
         path="empleadosEducativos/:empleadoId"

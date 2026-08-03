@@ -1,6 +1,6 @@
-import type { AsignacionEmpleadoEducativoRowDTO } from "@/features/asignaciones/types/asignaciones.types";
 import type { FiltroCargos } from "@/shared/types";
 import { CaracteristicaAsignacion } from "@/shared/types/enums";
+import type { AsignacionEmpleadoEducativoRowDTO } from "../types";
 
 export const TIPO_ASIGNACION_OPTIONS = [
 	{ value: "TITULAR", label: "Titular" },

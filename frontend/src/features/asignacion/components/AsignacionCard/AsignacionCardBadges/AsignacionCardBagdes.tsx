@@ -1,5 +1,5 @@
-import BadgeSituacionRevista from "@/shared/components/BadgeSituacionRevista/BadgeSituacionRevista";
-import BadgeEstadoAsignacion from "@/shared/components/BagdeEstadoAsignacion";
+import BadgeSituacionRevista from "@/shared/components/badges/BadgeSituacionRevista/BadgeSituacionRevista";
+import BadgeEstadoAsignacion from "@/shared/components/badges/BagdeEstadoAsignacion";
 import type {
 	EstadoAsignacion,
 	SituacionDeRevista,

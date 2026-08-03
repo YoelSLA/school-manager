@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import type { EmpleadoEducativoBasicoDTO } from "@/features/empleadosEducativos/types/empleadoEducativo.types";
-import EmpleadoAutocompleteBase from "./EmpleadoAutocompleteBase";
-import EmpleadoSelected from "./EmpleadoSelected";
+import type { EmpleadoEducativoBasicoDTO } from "../../types";
+import EmpleadoAutocompleteBase from "./EmpleadoAutocompleteBase/EmpleadoAutocompleteBase";
+import EmpleadoSelected from "./EmpleadoSelected/EmpleadoSelected";
 import styles from "./EmpleadoSelector.module.scss";
 
 type Props = {

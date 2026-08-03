@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { designacionesQueryKeys } from "@/features/designacion/constants";
+import { designacionQueryKeys } from "@/features/designacion/constants";
 import { empleadoEducativoQueryKeys } from "@/features/empleadoEducativo/constants";
 import { licenciaQueryKeys } from "../../constants";
 import { licenciaService } from "../../services";
@@ -33,7 +33,7 @@ export function useCrearLicencia() {
 
 			// 🏫 3. Designaciones impactadas
 			queryClient.invalidateQueries({
-				queryKey: designacionesQueryKeys.all,
+				queryKey: designacionQueryKeys.all,
 			});
 
 			// 🔙 Volver

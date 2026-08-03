@@ -3,13 +3,13 @@ import { useParams } from "react-router-dom";
 import BreadcrumbPageLayout from "@/app/layouts/pages/BreadcrumbPageLayout";
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
-import type { EmpleadoEducativoUpdateDTO } from "@/features/empleadosEducativos/types/empleadoEducativo.types";
 import Button from "@/shared/components/Button";
 import EmpleadoEducativoUpdateForm from "../../components/EmpleadoEducativoUpdateForm";
 import { useEmpleadoEducativoEditForm } from "../../form/hooks/useEmpleadoEducativoEditForm";
+import { useEditarEmpleadoEducativo } from "../../hooks/mutations/useEditarEmpleadoEducativo";
 import { useEmpleadoNavigation } from "../../hooks/navigation/useEmpleadoNavigation";
-import { useEditarEmpleadoEducativo } from "../../hooks/useEditarEmpleadoEducativo";
-import { useEmpleadoEducativo } from "../../hooks/useEmpleadoEducativo";
+import { useEmpleadoEducativo } from "../../hooks/queries/useEmpleadoEducativo";
+import type { EmpleadoEducativoUpdateDTO } from "../../types";
 import styles from "./EmpleadoEducativoUpdatePage.module.scss";
 
 export default function EmpleadoEducativoUpdatePage() {

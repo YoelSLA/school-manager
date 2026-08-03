@@ -5,9 +5,9 @@ import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
 
 import { toDateString } from "../../utils";
-import { useAsistenciasEmpleadoMes } from "../reactQuery/useAsistenciasEmpleadoMes";
-import { useEliminarInasistencias } from "../reactQuery/useEliminarInasistencias";
-import { useRegistrarInasistencias } from "../reactQuery/useRegistrarInasistencias";
+import { useEliminarInasistencias } from "../mutations/useEliminarInasistencias";
+import { useRegistrarInasistencias } from "../mutations/useRegistrarInasistencias";
+import { useAsistenciasEmpleadoMes } from "../queries/useAsistenciasEmpleadoMes";
 
 export default function useAsistenciaDetallePage() {
 	const { empleadoId } = useParams<{ empleadoId: string }>();

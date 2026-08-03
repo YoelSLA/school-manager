@@ -5,12 +5,12 @@ import type {
   UseFieldArrayRemove,
   UseFormRegister,
 } from "react-hook-form";
-import ErrorModal from "@/components/Modal/ModalError";
-import type { DesignacionAdministrativaFormValues } from "@/features/designaciones/types/designacion.types";
-import { DEFAULT_FRANJA } from "@/features/designaciones/utils/designacion.utils";
+import Button from "@/shared/components/Button";
+import ErrorModal from "@/shared/components/Modal/ModalError";
+import type { DesignacionAdministrativaFormValues } from "../../../types";
+import { DEFAULT_FRANJA } from "../../../utils/designacion.utils"
 import styles from "../../FranjasHorariasBox.module.scss";
 import FranjasHorariasListAdministrativa from "./FranjasHorariasListAdministrativa";
-import Button from "@/shared/components/Button";
 
 type Props = {
   fields: FieldArrayWithId<

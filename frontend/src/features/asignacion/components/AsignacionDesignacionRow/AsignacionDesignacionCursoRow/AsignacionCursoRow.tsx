@@ -1,6 +1,6 @@
-import type { CargoDesignacionCursoDTO } from "@/features/asignaciones/types/asignaciones.types";
-import type { EmpleadoEducativoAsignacionItemDTO } from "@/features/empleadosEducativos/types/empleadoEducativo.types";
-import BadgeEstadoAsignacion from "@/shared/components/BagdeEstadoAsignacion";
+import type { EmpleadoEducativoAsignacionItemDTO } from "@/features/empleadoEducativo/types";
+import BadgeEstadoAsignacion from "@/shared/components/badges/BagdeEstadoAsignacion";
+import type { CargoDesignacionCursoDTO } from "../../../types";
 import AsignacionRowFooter from "../../AsignacionRowFooter/AsignacionRowFooter";
 import AsignacionRowLayout from "../../AsignacionRowLayout";
 

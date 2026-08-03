@@ -3,13 +3,13 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
+import type { DesignacionFiltro } from "@/shared/types";
 import type {
 	DesignacionAdministrativaCreateDTO,
 	DesignacionCursoCreateDTO,
-} from "@/features/designaciones/types/designacion.types";
-import type { DesignacionFiltro } from "@/shared/types";
-import { useCrearDesignacionAdministrativa } from "../useCrearDesignacionAdministrativa";
-import { useCrearDesignacionCurso } from "../useCrearDesignacionCurso";
+} from "../../types";
+import { useCrearDesignacionAdministrativa } from "../mutations/useCrearDesignacionAdministrativa";
+import { useCrearDesignacionCurso } from "../mutations/useCrearDesignacionCurso";
 
 type ErrorModalState = {
 	title: string;

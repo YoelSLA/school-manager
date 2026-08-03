@@ -1,11 +1,11 @@
 import BreadcrumbPageLayout from "@/app/layouts/pages/BreadcrumbPageLayout/BreadcrumbPageLayout";
-import ConfirmModal from "@/components/Modal/ModalConfirm";
+import ConfirmModal from "@/shared/components/Modal/ModalConfirm";
+import AsistenciaCalendar from "../../components/AsistenciaCalendar/AsistenciaCalendar";
+import AsistenciaHeader from "../../components/AsistenciaHeader/AsistenciaHeader";
+import AsistenciaStats from "../../components/AsistenciaStats";
 import RegistrarInasistenciaModal from "../../components/RegistrarInasistenciaModal/RegistrarInasistenciaModal";
 import useAsistenciaDetallePage from "../../hooks/pages/useAsistenciaDetallePage";
-import AsistenciaCalendar from "./AsistenciaCalendar/AsistenciaCalendar";
 import styles from "./AsistenciaDetallePage.module.scss";
-import AsistenciaHeader from "./AsistenciaHeader/AsistenciaHeader";
-import AsistenciaStats from "./AsistenciaStats";
 
 export default function AsistenciaDetallePage() {
   const {

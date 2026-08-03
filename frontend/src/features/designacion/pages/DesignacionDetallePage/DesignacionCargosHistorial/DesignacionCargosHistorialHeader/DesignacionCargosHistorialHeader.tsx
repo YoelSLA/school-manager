@@ -1,7 +1,7 @@
 
-import FilterPillGroup from "@/components/FilterPillGroup/FilterPillGroup";
-import { FILTROS_CARGOS } from "@/features/asignaciones/utils/asignacion.utils";
+import { FILTROS_CARGOS } from "@/features/asignacion/utils/asignacion.utils";
 import Button from "@/shared/components/Button";
+import FilterPillGroup from "@/shared/components/filters/FilterPillGroup/FilterPillGroup";
 import type { FiltroCargos } from "@/shared/types";
 import styles from "./DesignacionCargosHistorialHeader.module.scss";
 

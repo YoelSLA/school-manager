@@ -1,5 +1,5 @@
-import type { EmpleadoEducativoBasicoDTO } from "@/features/empleadosEducativos/types/empleadoEducativo.types";
-import type { LicenciaResumenDTO } from "@/features/licencias/types/licencia.types";
+import type { EmpleadoEducativoBasicoDTO } from "@/features/empleadoEducativo/types";
+import type { LicenciaResumenDTO } from "@/features/licencia/types";
 import type { RolEducativo, TipoLicencia } from "@/shared/types";
 
 // REQUEST

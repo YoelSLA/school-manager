@@ -1,10 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
+import { Dia, RolEducativo } from "@/shared/types/enums";
 import type {
 	DesignacionAdministrativaCreateDTO,
 	DesignacionAdministrativaFormValues,
-} from "@/features/designaciones/types/designacion.types";
-import { Dia, RolEducativo } from "@/shared/types/enums";
+} from "../../types";
 import { createDesignacionAdministrativaSchema } from "../schemas/createDesignacionAdministrativa.schema";
 
 export function useCreateDesignacionAdministrativaForm() {

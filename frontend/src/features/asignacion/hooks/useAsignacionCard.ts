@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useDeleteAsignacion } from "@/features/asignaciones/hooks/mutations/useDeleteAsignacion";
-import type { AsignacionDetalleDTO } from "@/features/asignaciones/types/asignaciones.types";
+import { useDeleteAsignacion } from "../hooks/mutations/useDeleteAsignacion";
+import type { AsignacionDetalleDTO } from "../types";
 
 type Props = {
 	cargo: AsignacionDetalleDTO;

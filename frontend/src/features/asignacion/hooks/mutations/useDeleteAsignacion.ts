@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { designacionesQueryKeys } from "@/features/designaciones/designaciones.queryKeys";
-import { eliminarAsignacion } from "@/features/designaciones/services/designacion.service";
-import { asistenciasQueryKeys } from "@/shared/utils/queryKeys/asistencias.queryKeys";
+import { asistenciaQueryKeys } from "@/features/asistencia/constants";
+import { designacionQueryKeys } from "@/features/designacion/constants";
+import { designacionService } from "@/features/designacion/services";
 import {
 	mapAsignacionError,
 	type UserError,
@@ -23,15 +23,15 @@ export function useDeleteAsignacion({
 
 	const mutation = useMutation({
 		mutationFn: (asignacionId: number) =>
-			eliminarAsignacion(designacionId, asignacionId),
+			designacionService.eliminarAsignacion(designacionId, asignacionId),
 
 		onSuccess: () => {
 			queryClient.invalidateQueries({
-				queryKey: designacionesQueryKeys.all,
+				queryKey: designacionQueryKeys.all,
 			});
 
 			queryClient.invalidateQueries({
-				queryKey: asistenciasQueryKeys.all,
+				queryKey: asistenciaQueryKeys.all,
 			});
 
 			onSuccess();

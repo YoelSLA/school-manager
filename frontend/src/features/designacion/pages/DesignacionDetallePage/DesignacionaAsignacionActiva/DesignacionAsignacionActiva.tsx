@@ -1,5 +1,6 @@
-import AsignacionCard from "@/features/asignaciones/components/AsignacionCard";
-import type { AsignacionDetalleDTO } from "@/features/asignaciones/types/asignaciones.types";
+
+import { AsignacionCard } from "@/features/asignacion/components";
+import type { AsignacionDetalleDTO } from "@/features/asignacion/types";
 import styles from "./DesignacionAsignacionActiva.module.scss";
 
 type Props = {

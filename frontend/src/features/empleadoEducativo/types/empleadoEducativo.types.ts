@@ -14,6 +14,7 @@ import type {
 	SituacionDeRevista,
 } from "@/shared/types";
 import type { crearEmpleadoEducativoSchema } from "../form/schemas/crearEmpleadoEducativo.schema";
+import type { darBajaEmpleadoEducativo } from "../form/schemas/darBajaEmpleadoEducativo.schema";
 import type { editarEmpleadoEducativoSchema } from "../form/schemas/editarEmpleadoEducativo.schema";
 
 // REQUEST
@@ -92,3 +93,5 @@ export type EmpleadoEducativoAsignacionItemDTO = {
 	cupof: number;
 	designacion: CargoDesignacionDTO;
 };
+
+export type BajaDefinitivaDTO = z.infer<typeof darBajaEmpleadoEducativo>;

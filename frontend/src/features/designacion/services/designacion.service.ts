@@ -4,7 +4,13 @@ import type {
 	CubrirTitularDTO,
 	EditarProvisionalDTO,
 	EditarTitularDTO,
-} from "@/features/asignaciones/types/asignaciones.types";
+} from "@/features/asignacion/types";
+import { http } from "@/shared/http/http";
+import type {
+	DesignacionCursoFilter,
+	EstadoCargo,
+	PageResponse,
+} from "@/shared/types";
 import type {
 	DesignacionAdministrativaCreateDTO,
 	DesignacionAdministrativaRowDTO,
@@ -12,59 +18,17 @@ import type {
 	DesignacionCursoDetalleDTO,
 	DesignacionCursoRowDTO,
 	DesignacionDetalleDTO,
-} from "@/features/designaciones/types/designacion.types";
-import { http } from "@/shared/http/http";
-import type {
-	DesignacionCursoFilter,
-	EstadoCargo,
-	PageResponse,
-} from "@/shared/types";
+} from "../types";
 
-/* ======================
-	 Crear
-====================== */
+/* =========================================================
+   QUERIES
+========================================================= */
 
-export async function crearDesignacionAdministrativa(
+const listarDesignacionesAdministrativas = async (
 	escuelaId: number,
-	data: DesignacionAdministrativaCreateDTO,
-): Promise<void> {
-	await http.post(`/escuelas/${escuelaId}/designaciones/administrativas`, data);
-}
-
-export async function crearDesignacionCurso(
-	escuelaId: number,
-	data: DesignacionCursoCreateDTO,
-): Promise<void> {
-	await http.post(`/escuelas/${escuelaId}/designaciones/cursos`, data);
-}
-
-/* ======================
-	 Editar
-====================== */
-
-export async function actualizarDesignacionAdministrativa(
-	designacionId: number,
-	data: DesignacionAdministrativaCreateDTO,
-): Promise<void> {
-	await http.put(`/designaciones/${designacionId}/administrativa`, data);
-}
-
-export async function actualizarDesignacionCurso(
-	designacionId: number,
-	data: DesignacionCursoCreateDTO,
-): Promise<void> {
-	await http.put(`/designaciones/${designacionId}/curso`, data);
-}
-
-/* ======================
-	 Listar
-====================== */
-
-export async function listarDesignacionesAdministrativas(
-	escuelaId: number,
-	page: number = 0,
-	size: number = 10,
-): Promise<PageResponse<DesignacionAdministrativaRowDTO>> {
+	page = 0,
+	size = 10,
+): Promise<PageResponse<DesignacionAdministrativaRowDTO>> => {
 	const { data } = await http.get<
 		PageResponse<DesignacionAdministrativaRowDTO>
 	>(`/escuelas/${escuelaId}/designaciones/administrativas`, {
@@ -72,14 +36,14 @@ export async function listarDesignacionesAdministrativas(
 	});
 
 	return data;
-}
+};
 
-export async function listarDesignacionesCursos(
+const listarDesignacionesCursos = async (
 	escuelaId: number,
-	page: number = 0,
-	size: number = 10,
+	page = 0,
+	size = 10,
 	filter?: DesignacionCursoFilter,
-): Promise<PageResponse<DesignacionCursoRowDTO>> {
+): Promise<PageResponse<DesignacionCursoRowDTO>> => {
 	const { data } = await http.get<PageResponse<DesignacionCursoRowDTO>>(
 		`/escuelas/${escuelaId}/designaciones/cursos`,
 		{
@@ -92,13 +56,9 @@ export async function listarDesignacionesCursos(
 	);
 
 	return data;
-}
+};
 
-/* ======================
-	 Detalle
-====================== */
-
-export const obtenerDesignacionDetalle = async (
+const obtenerDesignacionDetalle = async (
 	designacionId: number,
 ): Promise<DesignacionDetalleDTO> => {
 	const { data } = await http.get<DesignacionCursoDetalleDTO>(
@@ -108,43 +68,78 @@ export const obtenerDesignacionDetalle = async (
 	return data;
 };
 
-/* ======================
-	 Cargos
-====================== */
-
-export async function listarCargosPorDesignacion(
+const listarCargosPorDesignacion = async (
 	designacionId: number,
 	estado?: EstadoCargo,
-) {
+) => {
 	const { data } = await http.get(`/designaciones/${designacionId}/cargos`, {
 		params: estado ? { estado } : undefined,
 	});
 
 	return data;
-}
+};
 
-export async function obtenerCargoActivo(
+const obtenerCargoActivo = async (
 	designacionId: number,
-): Promise<AsignacionDetalleDTO> {
+): Promise<AsignacionDetalleDTO> => {
 	const { data } = await http.get<AsignacionDetalleDTO>(
 		`/designaciones/${designacionId}/cargo-activo`,
 	);
 
 	return data;
-}
+};
 
-/* ======================
-	 Cubrir
-====================== */
+const obtenerAsignacionDetalle = async (
+	designacionId: number,
+	asignacionId: number,
+): Promise<AsignacionDetalleDTO> => {
+	const { data } = await http.get<AsignacionDetalleDTO>(
+		`/designaciones/${designacionId}/asignaciones/${asignacionId}`,
+	);
 
-export const cubrirConTitular = async (
+	return data;
+};
+
+/* =========================================================
+   MUTATIONS
+========================================================= */
+
+const crearDesignacionAdministrativa = async (
+	escuelaId: number,
+	data: DesignacionAdministrativaCreateDTO,
+): Promise<void> => {
+	await http.post(`/escuelas/${escuelaId}/designaciones/administrativas`, data);
+};
+
+const crearDesignacionCurso = async (
+	escuelaId: number,
+	data: DesignacionCursoCreateDTO,
+): Promise<void> => {
+	await http.post(`/escuelas/${escuelaId}/designaciones/cursos`, data);
+};
+
+const actualizarDesignacionAdministrativa = async (
+	designacionId: number,
+	data: DesignacionAdministrativaCreateDTO,
+): Promise<void> => {
+	await http.put(`/designaciones/${designacionId}/administrativa`, data);
+};
+
+const actualizarDesignacionCurso = async (
+	designacionId: number,
+	data: DesignacionCursoCreateDTO,
+): Promise<void> => {
+	await http.put(`/designaciones/${designacionId}/curso`, data);
+};
+
+const cubrirConTitular = async (
 	designacionId: number,
 	payload: CubrirTitularDTO,
 ): Promise<void> => {
 	await http.post(`/designaciones/${designacionId}/cubrir/titular`, payload);
 };
 
-export const cubrirConProvisional = async (
+const cubrirConProvisional = async (
 	designacionId: number,
 	payload: CubrirProvisionalDTO,
 ): Promise<void> => {
@@ -154,56 +149,58 @@ export const cubrirConProvisional = async (
 	);
 };
 
-/* ======================
-	Editar asignación
-====================== */
-
-export function actualizarAsignacionTitular(
+const actualizarAsignacionTitular = async (
 	designacionId: number,
 	asignacionId: number,
 	payload: EditarTitularDTO,
-) {
-	return http.put(
+): Promise<void> => {
+	await http.put(
 		`/designaciones/${designacionId}/asignaciones/${asignacionId}`,
 		payload,
 	);
-}
+};
 
-export function actualizarAsignacionProvisional(
+const actualizarAsignacionProvisional = async (
 	designacionId: number,
 	asignacionId: number,
 	payload: EditarProvisionalDTO,
-) {
-	return http.put(
+): Promise<void> => {
+	await http.put(
 		`/designaciones/${designacionId}/asignaciones/${asignacionId}`,
 		payload,
 	);
-}
+};
 
-/* ======================
-	Editar asignación
-====================== */
-
-export function eliminarAsignacion(
+const eliminarAsignacion = async (
 	designacionId: number,
 	asignacionId: number,
-) {
-	return http.delete(
+): Promise<void> => {
+	await http.delete(
 		`/designaciones/${designacionId}/asignaciones/${asignacionId}`,
 	);
-}
+};
 
-/* ======================
-	 Asignación detalle
-====================== */
+/* =========================================================
+   SERVICE
+========================================================= */
 
-export async function obtenerAsignacionDetalle(
-	designacionId: number,
-	asignacionId: number,
-): Promise<AsignacionDetalleDTO> {
-	const { data } = await http.get<AsignacionDetalleDTO>(
-		`/designaciones/${designacionId}/asignaciones/${asignacionId}`,
-	);
+export const designacionService = {
+	// Queries
+	listarDesignacionesAdministrativas,
+	listarDesignacionesCursos,
+	obtenerDesignacionDetalle,
+	listarCargosPorDesignacion,
+	obtenerCargoActivo,
+	obtenerAsignacionDetalle,
 
-	return data;
-}
+	// Mutations
+	crearDesignacionAdministrativa,
+	crearDesignacionCurso,
+	actualizarDesignacionAdministrativa,
+	actualizarDesignacionCurso,
+	cubrirConTitular,
+	cubrirConProvisional,
+	actualizarAsignacionTitular,
+	actualizarAsignacionProvisional,
+	eliminarAsignacion,
+};

@@ -1,7 +1,7 @@
-import type { CargoDesignacionAdministrativaDTO } from "@/features/asignaciones/types/asignaciones.types";
-import { formatRol } from "@/features/asignaciones/utils/asignacion.utils";
-import type { EmpleadoEducativoAsignacionItemDTO } from "@/features/empleadosEducativos/types/empleadoEducativo.types";
-import BadgeEstadoAsignacion from "@/shared/components/BagdeEstadoAsignacion";
+import type { EmpleadoEducativoAsignacionItemDTO } from "@/features/empleadoEducativo/types";
+import BadgeEstadoAsignacion from "@/shared/components/badges/BagdeEstadoAsignacion";
+import type { CargoDesignacionAdministrativaDTO } from "../../../types";
+import { formatRol } from "../../../utils/asignacion.utils";
 import AsignacionRowFooter from "../../AsignacionRowFooter/AsignacionRowFooter";
 import AsignacionRowLayout from "../../AsignacionRowLayout";
 

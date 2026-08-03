@@ -1,7 +1,7 @@
 import { FormProvider } from "react-hook-form";
 import BreadcrumbPageLayout from "@/app/layouts/pages/BreadcrumbPageLayout/BreadcrumbPageLayout";
-import ErrorModal from "@/components/Modal/ModalError";
 import { EmpleadoSelector } from "@/features/empleadoEducativo/components";
+import ErrorModal from "@/shared/components/Modal/ModalError";
 import AsignacionesSelector from "../../components/AsignacionesSelector";
 import LicenciaForm from "../../components/LicenciaForm";
 import useLicenciaCreatePage from "../../hooks/pages/useLicenciaCreatePage";

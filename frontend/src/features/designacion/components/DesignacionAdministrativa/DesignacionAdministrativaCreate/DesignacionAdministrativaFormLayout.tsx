@@ -4,8 +4,8 @@ import type {
   UseFieldArrayRemove,
   UseFormRegister,
 } from "react-hook-form";
-import type { DesignacionAdministrativaFormValues } from "@/features/designaciones/types/designacion.types";
 import Button from "@/shared/components/Button";
+import type { DesignacionAdministrativaFormValues } from "../../../types";
 import styles from "../../DesignacionFormLayout.module.scss";
 import FranjasHorariasBoxAdministrativa from "./FranjasHorariasBoxAdministrativa";
 

@@ -1,13 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-import type { CursoDetalleDTO } from "@/features/cursos/types/curso.types";
+import type { CursoDetalleDTO } from "@/features/curso/types";
+import type { MateriaNombreDTO } from "@/features/materia/types";
+import { Dia } from "@/shared/types/enums";
 import type {
 	DesignacionCursoCreateDTO,
 	DesignacionCursoFormValues,
-} from "@/features/designaciones/types/designacion.types";
-import type { MateriaNombreDTO } from "@/features/materias/types/materia.types";
-import { Dia } from "@/shared/types/enums";
+} from "../../types";
 import { createDesignacionCursoSchema } from "../schemas/createDesignacionCurso.schema";
 
 type Props = {

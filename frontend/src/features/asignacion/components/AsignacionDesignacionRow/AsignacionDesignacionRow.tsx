@@ -1,6 +1,6 @@
 
-import type { CargoDesignacionAdministrativaDTO, CargoDesignacionCursoDTO } from "@/features/asignaciones/types/asignaciones.types";
-import type { EmpleadoEducativoAsignacionItemDTO } from "@/features/empleadosEducativos/types/empleadoEducativo.types";
+import type { EmpleadoEducativoAsignacionItemDTO } from "@/features/empleadoEducativo/types";
+import type { CargoDesignacionAdministrativaDTO, CargoDesignacionCursoDTO } from "../../types";
 import AsignacionDesignacionAdministrativaRow from "./AsignacionDesignacionAdministrativaRow";
 import AsignacionDesignacionCursoRow from "./AsignacionDesignacionCursoRow";
 

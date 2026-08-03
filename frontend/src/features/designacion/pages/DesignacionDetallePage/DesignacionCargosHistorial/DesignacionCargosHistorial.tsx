@@ -1,5 +1,5 @@
 
-import type { EmpleadoEducativoAsignacionItemDTO } from "@/features/empleadosEducativos/types/empleadoEducativo.types";
+import type { EmpleadoEducativoAsignacionItemDTO } from "@/features/empleadoEducativo/types";
 import type { FiltroCargos } from "@/shared/types";
 import styles from "./DesignacionCargosHistorial.module.scss";
 import DesignacionCargosHistorialContent from "./DesignacionCargosHistorialContent/DesignacionCargosHistorialContent";

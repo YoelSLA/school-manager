@@ -1,23 +1,6 @@
-/* =========================================================
-   PAGES
-========================================================= */
-
-export { default as MateriasPage } from "./pages/MateriasPage";
-
-/* =========================================================
-   SERVICES
-========================================================= */
-
+export * from "./components";
+export * from "./constants";
+export * from "./hooks";
+export * from "./pages";
 export { materiaService } from "./services/materia.service";
-
-/* =========================================================
-   CONSTANTS
-========================================================= */
-
-export { materiaQueryKeys } from "./constants/queryKeys";
-
-/* =========================================================
-   TYPES
-========================================================= */
-
 export type * from "./types";

@@ -1,12 +1,11 @@
 import { Route } from "react-router-dom";
-import AsistenciaDetallePage from "@/features/asistencias/pages/AsistenciaDetallePage";
-import AsistenciasPage from "@/features/asistencias/pages/AsistenciaPage";
+import { AsistenciaDetallePage, AsistenciaPage } from "@/features/asistencia/pages";
 
 export function AsistenciaRoutes() {
   return (
     <>
       {/* Lista general */}
-      <Route path="asistencias" element={<AsistenciasPage />} />
+      <Route path="asistencias" element={<AsistenciaPage />} />
 
       {/* Perfil de asistencia (resumen anual) */}
       {/* <Route

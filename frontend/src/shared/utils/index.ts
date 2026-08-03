@@ -1,8 +1,8 @@
-import type { AsignacionEmpleadoEducativoRowDTO } from "@/features/asignaciones/types/asignaciones.types";
+import type { AsignacionEmpleadoEducativoRowDTO } from "@/features/asignacion/types";
 import type {
 	DesignacionAdministrativaAsignacionDTO,
 	DesignacionCursoAsignacionDTO,
-} from "@/features/designaciones/types/designacion.types";
+} from "@/features/designacion/types";
 import type {
 	BajaAsignacionDTO,
 	DesignacionFiltro,

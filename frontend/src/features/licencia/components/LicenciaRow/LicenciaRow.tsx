@@ -4,9 +4,9 @@ import {
   Hourglass,
   MoreVertical,
 } from "lucide-react";
-import Row from "@/components/Table/Row";
 import EmpleadoInfo from "@/features/empleadoEducativo/components/EmpleadoInfo";
-import BadgeEstadoLicencia from "@/shared/components/BagdeEstadoLicencia";
+import BadgeEstadoLicencia from "@/shared/components/badges/BagdeEstadoLicencia";
+import Row from "@/shared/components/Table/TableRow";
 import { formatearFecha } from "@/shared/utils";
 import type { LicenciaRowDTO } from "../../types";
 import styles from "./LicenciaRow.module.scss";

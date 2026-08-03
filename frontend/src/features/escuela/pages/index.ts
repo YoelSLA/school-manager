@@ -1,1 +1,1 @@
-export { default } from "./SeleccionarEscuelaPage";
+export { default } from "./EscuelaPage";

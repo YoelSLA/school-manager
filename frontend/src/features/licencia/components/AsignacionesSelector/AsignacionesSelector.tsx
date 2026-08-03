@@ -1,7 +1,7 @@
-import ListContainer from "@/components/ListContainer";
-import Table from "@/components/Table";
-import SectionHeader from "@/components/Table/SectionHeader";
 import type { AsignacionLicenciaDTO } from "@/features/asignacion/types";
+import ListContainer from "@/shared/components/ListContainer";
+import Table from "@/shared/components/Table";
+import SectionHeader from "@/shared/components/Table/TableSectionHeader";
 import DesignacionAdministrativaRow from "../LicenciaDesignacionRow/LicenciaDesignacionAdministrativaRow";
 import DesignacionCursoRow from "../LicenciaDesignacionRow/LicenciaDesignacionCursoRow";
 

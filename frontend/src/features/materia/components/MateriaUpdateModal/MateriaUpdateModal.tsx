@@ -1,6 +1,6 @@
-import FormInputField from "@/components/FormInputField";
-import FormSection from "@/components/FormSection";
-import Modal from "@/components/Modal/Modal";
+import FormInputField from "@/shared/components/form/FormInput";
+import FormSection from "@/shared/components/form/FormSection";
+import Modal from "@/shared/components/Modal/Modal";
 import { useUpdateMateriaForm } from "../../form/hooks/useUpdateMateriaForm";
 import type { MateriaUpdateDTO, MateriaUpdateFormValues } from "../../types";
 

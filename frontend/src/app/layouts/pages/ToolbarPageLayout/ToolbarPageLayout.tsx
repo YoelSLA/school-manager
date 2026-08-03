@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Pagination from "@/components/Pagination";
+import Pagination from "@/shared/components/Pagination";
 import styles from "./ToolbarPageLayout.module.scss";
 
 type Props = {

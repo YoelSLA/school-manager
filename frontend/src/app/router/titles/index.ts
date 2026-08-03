@@ -1,16 +1,16 @@
 import type { BreadcrumbResolver } from "@/app/layouts";
-import { asistenciasTitles } from "../../../features/asistencias/asistencias.titles";
-import { designacionesTitles } from "../../../features/designaciones/designaciones.titles";
-import { empleadosEducativosTitles } from "../../../features/empleadosEducativos/empleadosEducativos.titles";
-import { licenciasTitles } from "../../../features/licencias/constants/titles";
+import { asistenciaTitles } from "@/features/asistencia/constants";
+import { designacionTitles } from "@/features/designacion/constants";
+import { empleadoEducativoTitles } from "@/features/empleadoEducativo/constants";
+import { licenciaTitles } from "@/features/licencia/constants";
 import { academicoTitles } from "./academico.titles";
 
 export const routeTitles: Record<string, BreadcrumbResolver> = {
 	"/dashboard": [{ label: "Dashboard" }],
 
-	...empleadosEducativosTitles,
-	...asistenciasTitles,
+	...empleadoEducativoTitles,
+	...asistenciaTitles,
 	...academicoTitles,
-	...designacionesTitles,
-	...licenciasTitles,
+	...designacionTitles,
+	...licenciaTitles,
 };

@@ -1,7 +1,7 @@
 import type { UseFormReturn } from "react-hook-form";
-import FormInputField from "@/components/FormInputField/FormInputField";
-import FormSection from "@/components/FormSection";
-import type { EmpleadoEducativoUpdateDTO } from "@/features/empleadosEducativos/types/empleadoEducativo.types";
+import FormInputField from "@/shared/components/form/FormInput/FormInput";
+import FormSection from "@/shared/components/form/FormSection";
+import type { EmpleadoEducativoUpdateDTO } from "../../types";
 import styles from "./EmpleadoEducativoUpdateForm.module.scss";
 
 type Props = {

@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import type { CubrirProvisionalDTO } from "@/features/asignaciones/types/asignaciones.types";
-import { designacionesQueryKeys } from "@/features/designaciones/designaciones.queryKeys";
-import { actualizarAsignacionProvisional } from "@/features/designaciones/services/designacion.service";
-import { empleadosEducativosQueryKeys } from "@/features/empleadosEducativos/empleadosEducativos.queryKeys";
-import { asistenciasQueryKeys } from "@/shared/utils/queryKeys/asistencias.queryKeys";
+import { asistenciaQueryKeys } from "@/features/asistencia/constants";
+import { designacionQueryKeys } from "@/features/designacion/constants";
+import { designacionService } from "@/features/designacion/services";
+import { empleadoEducativoQueryKeys } from "@/features/empleadoEducativo/constants";
 import {
 	mapAsignacionError,
 	type UserError,
 } from "../../errors/asignacionErrorMapper";
+import type { CubrirProvisionalDTO } from "../../types";
 
 type Props = {
 	designacionId: number;
@@ -27,21 +27,25 @@ export function useUpdateProvisional({
 
 	const mutation = useMutation({
 		mutationFn: (data: CubrirProvisionalDTO) =>
-			actualizarAsignacionProvisional(designacionId, asignacionId, data),
+			designacionService.actualizarAsignacionProvisional(
+				designacionId,
+				asignacionId,
+				data,
+			),
 
 		onSuccess: (_, { empleadoId }) => {
 			queryClient.invalidateQueries({
-				queryKey: designacionesQueryKeys.all,
+				queryKey: designacionQueryKeys.all,
 			});
 
 			if (empleadoId) {
 				queryClient.invalidateQueries({
-					queryKey: empleadosEducativosQueryKeys.detail(empleadoId),
+					queryKey: empleadoEducativoQueryKeys.detail(empleadoId),
 				});
 			}
 
 			queryClient.invalidateQueries({
-				queryKey: asistenciasQueryKeys.all,
+				queryKey: asistenciaQueryKeys.all,
 			});
 
 			onSuccess();

@@ -1,7 +1,7 @@
-import CupofAdministrativaInputField from "@/features/designaciones/components/fields/CupofAdministrativaInputField";
-import RolEducativoSelectField from "@/features/designaciones/components/fields/RolEducativoSelectField";
-import { useCreateDesignacionAdministrativaForm } from "@/features/designaciones/form/hooks/useCreateDesignacionAdministrativaForm";
-import type { DesignacionAdministrativaCreateDTO } from "@/features/designaciones/types/designacion.types";
+import { useCreateDesignacionAdministrativaForm } from "../../../form/hooks/useCreateDesignacionAdministrativaForm";
+import type { DesignacionAdministrativaCreateDTO } from "../../../types";
+import CupofAdministrativaInputField from "../../FieldInputCupofAdministrativa";
+import RolEducativoSelectField from "../../FieldSelectRolEducativo";
 import DesignacionAdministrativaFormLayout from "../DesignacionAdministrativaCreate/DesignacionAdministrativaFormLayout";
 import styles from "./DesignacionAdministrativaCreateForm.module.scss";
 

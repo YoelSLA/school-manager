@@ -1,7 +1,6 @@
-import Modal from "@/components/Modal";
-import FechaField from "@/features/designaciones/components/fields/FechaInputField";
-import NumberField from "@/features/designaciones/components/fields/NumberInputField";
-import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
+import EmpleadoSelector from "@/features/empleadoEducativo/components/EmpleadoSelector";
+import { FormInputDate, FormInputNumber } from "@/shared/components";
+import Modal from "@/shared/components/Modal";
 import { useCubrirDesignacionesForm } from "../../form/hooks/useCubrirDesignacionesConSuplenteForm";
 import styles from "../LicenciaCoberturaModal.module.scss";
 
@@ -54,7 +53,7 @@ export default function LicenciaCubrirDesignacionesModal({
 
             <div className={styles.row}>
               <div className={styles.secuencia}>
-                <NumberField
+                <FormInputNumber
                   register={register}
                   name="secuencia"
                   label="Secuencia"
@@ -64,7 +63,7 @@ export default function LicenciaCubrirDesignacionesModal({
               </div>
 
               <div className={styles.fecha}>
-                <FechaField
+                <FormInputDate
                   register={register}
                   name="fechaTomaPosesion"
                   label="Fecha de toma de posesión"

@@ -1,5 +1,5 @@
 import { Edit, Trash2 } from "lucide-react";
-import Row from "@/components/Table/Row";
+import Row from "@/shared/components/Table/TableRow";
 import type { MateriaRowDTO } from "../../types";
 import styles from "./MateriaRow.module.scss";
 

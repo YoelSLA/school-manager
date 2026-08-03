@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
-import type { AsistenciaEmpleadoResumenDTO } from "@/features/asistencias/types/asistencia.types";
 import { getTodayArgentinaISO } from "@/shared/utils";
 import { useDynamicPageSize } from "@/shared/utils/hooks/useDynamicPageSize";
-import type { RolItem } from "../../pages/AsistenciaPage/AsistenciasSidebar/AsistenciasSidebar";
-import { useEmpleadosAsistencias } from "../reactQuery/useEmpleadosAsistencias";
-import { useRolesConAsistencias } from "../reactQuery/useRolesConAsistencias";
-import { useAsistenciasNavigation } from "../useAsistenciasNavigation";
+import type { RolItem } from "../../components/AsistenciasSidebar/AsistenciasSidebar";
+import type { AsistenciaEmpleadoResumenDTO } from "../../types";
+import { useAsistenciasNavigation } from "../navigation/useAsistenciasNavigation";
+import { useEmpleadosAsistencias } from "../queries/useEmpleadosAsistencias";
+import { useRolesConAsistencias } from "../queries/useRolesConAsistencias";
 export function useAsistenciasPage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 

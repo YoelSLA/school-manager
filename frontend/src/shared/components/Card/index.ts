@@ -1,2 +1,1 @@
-export { default as Card } from "./Card";
-export { default as CardDivider } from "./CardDidiver";
+export { default } from "./Card";

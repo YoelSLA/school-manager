@@ -1,5 +1,5 @@
 import { Briefcase } from "lucide-react";
-import BadgeEstadoDesignacion from "@/shared/components/BagdeEstadoDesignacion";
+import BadgeEstadoDesignacion from "@/shared/components/badges/BagdeEstadoDesignacion";
 import type { LicenciaDesignacionDTO } from "../../types";
 import styles from "./LicenciaDesignacionInfo.module.scss";
 

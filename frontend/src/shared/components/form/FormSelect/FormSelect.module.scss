@@ -1,0 +1,26 @@
+@use "@/styles/base" as *;
+
+.formSelect {
+	position: relative;
+
+	&__errorIcon {
+		position: absolute;
+		right: 30px;
+		top: 42px;
+		transform: translateY(-50%);
+
+		font-size: 14px;
+		color: #dc2626;
+		pointer-events: none;
+	}
+
+	&__errorTooltip {
+		@include form-error-tooltip;
+	}
+
+	&:hover &__errorTooltip,
+	&:focus-within &__errorTooltip {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}

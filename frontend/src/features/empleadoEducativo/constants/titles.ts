@@ -1,6 +1,6 @@
 import type { BreadcrumbResolver } from "@/app/layouts";
 
-export const empleadosEducativosTitles: Record<string, BreadcrumbResolver> = {
+export const empleadoEducativoTitles: Record<string, BreadcrumbResolver> = {
 	"/empleadosEducativos": [{ label: "Empleados educativos" }],
 
 	"/empleadosEducativos/crear": [

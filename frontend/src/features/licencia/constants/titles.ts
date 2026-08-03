@@ -1,6 +1,6 @@
 import type { BreadcrumbResolver } from "@/app/layouts";
 
-export const licenciasTitles: Record<string, BreadcrumbResolver> = {
+export const licenciaTitles: Record<string, BreadcrumbResolver> = {
 	"/licencias": [{ label: "Licencias" }],
 
 	"/licencias/crear": [

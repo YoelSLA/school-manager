@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAsignacionesActivas } from "@/features/empleadosEducativos/hooks/useAsignacionesActivas";
+import { useAsignacionesActivas } from "@/features/empleadoEducativo/hooks";
 import { getErrorMessage } from "@/shared/http/errorHandler";
 import { useLicenciaForm } from "../../form/useLicenciaForm";
 import type { LicenciaCreateDTO, LicenciaCreateFormValues } from "../../types";

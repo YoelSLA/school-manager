@@ -1,8 +1,4 @@
-import type z from "zod";
-import type { darBajaEmpleadoEducativo } from "@/features/empleadosEducativos/form/schemas/darBajaEmpleadoEducativo.schema";
 import type { CausaBaja, Dia } from "./enums";
-
-export type BajaDefinitivaDTO = z.infer<typeof darBajaEmpleadoEducativo>;
 
 export interface BajaAsignacionDTO {
 	fecha: string;

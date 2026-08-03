@@ -1,11 +1,11 @@
 import { useCallback, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { designacionesPaths } from "@/app/router/paths";
-import type { AsignacionDetalleDTO } from "@/features/asignaciones/types/asignaciones.types";
+import { useCargoActivo } from "@/features/asignacion/hooks";
+import type { AsignacionDetalleDTO } from "@/features/asignacion/types";
 import type { FiltroCargos } from "@/shared/types";
-import { useCargoActivo } from "../../../asignaciones/hooks/queries/useCargoActivo";
-import { useCargosDesignacion } from "../useCargosDesignacion";
-import useDesignacionDetalle from "../useDesignacionDetalle";
+import { useCargosDesignacion } from "../queries/useCargosDesignacion";
+import useDesignacionDetalle from "../queries/useDesignacionDetalle";
 
 type TipoAsignacion = "TITULAR" | "PROVISIONAL";
 

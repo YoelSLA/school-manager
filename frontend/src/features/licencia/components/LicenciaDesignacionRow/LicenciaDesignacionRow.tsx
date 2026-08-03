@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import { Hash } from "lucide-react";
 import type { ReactNode } from "react";
-import Row from "@/components/Table/Row";
-import BadgeSituacionRevista from "@/shared/components/BadgeSituacionRevista";
+import BadgeSituacionRevista from "@/shared/components/badges/BadgeSituacionRevista";
 import PeriodoDisplay from "@/shared/components/PeriodoDisplay";
+import Row from "@/shared/components/Table/TableRow";
 import type {
   PeriodoDTO,
   SituacionDeRevista,

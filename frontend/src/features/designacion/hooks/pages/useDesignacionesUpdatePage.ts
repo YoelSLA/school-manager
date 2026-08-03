@@ -6,10 +6,10 @@ import { designacionesPaths } from "@/app/router/paths";
 import type {
 	DesignacionAdministrativaUpdateDTO,
 	DesignacionCursoUpdateDTO,
-} from "@/features/designaciones/types/designacion.types";
-import { useActualizarDesignacionAdministrativa } from "../useActualizarDesignacionAdministrativa";
-import { useActualizarDesignacionCurso } from "../useActualizarDesignacionCurso";
-import useDesignacionDetalle from "../useDesignacionDetalle";
+} from "../../types";
+import { useActualizarDesignacionAdministrativa } from "../mutations/useActualizarDesignacionAdministrativa";
+import { useActualizarDesignacionCurso } from "../mutations/useActualizarDesignacionCurso";
+import useDesignacionDetalle from "../queries/useDesignacionDetalle";
 
 export function useDesignacionUpdatePage() {
 	const { designacionId } = useParams<{

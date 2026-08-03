@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { TIPOS_LICENCIA } from "@/features/licencias/constants/tipoLicencia";
+import { TIPOS_LICENCIA } from "@/features/licencia/constants/tipoLicencia";
 import type {
 	RegistrarInasistenciaFormInput,
 	RegistrarInasistenciaFormOutput,

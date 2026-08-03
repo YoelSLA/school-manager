@@ -1,4 +1,4 @@
-import TableHeader from "@/components/Table/TableHeader";
+import TableHeader from "@/shared/components/Table/TableHeader";
 import styles from "./LicenciaHeader.module.scss";
 
 export default function LicenciaHeader() {

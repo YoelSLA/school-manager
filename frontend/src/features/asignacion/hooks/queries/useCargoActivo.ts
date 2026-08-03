@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { designacionesQueryKeys } from "../../../designaciones/designaciones.queryKeys";
-import { obtenerCargoActivo } from "../../../designaciones/services/designacion.service";
+import { designacionQueryKeys } from "@/features/designacion/constants";
+import { designacionService } from "@/features/designacion/services";
 
 export function useCargoActivo(designacionId?: number) {
 	const query = useQuery({
-		queryKey: designacionesQueryKeys.cargos.activo(designacionId ?? 0),
+		queryKey: designacionQueryKeys.cargos.activo(designacionId ?? 0),
 		queryFn: () => {
 			if (!designacionId) {
 				throw new Error("designacionId requerido");
 			}
-			return obtenerCargoActivo(designacionId);
+			return designacionService.obtenerCargoActivo(designacionId);
 		},
 		enabled: !!designacionId,
 		retry: false,

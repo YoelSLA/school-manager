@@ -1,6 +1,6 @@
 
-import type { AsignacionDetalleDTO } from "@/features/asignaciones/types/asignaciones.types";
 import { useAsignacionCard } from "../../hooks/useAsignacionCard";
+import type { AsignacionDetalleDTO } from "../../types";
 import styles from "./AsignacionCard.module.scss";
 import AsignacionCardBadges from "./AsignacionCardBadges";
 import AsignacionCardPeriod from "./AsignacionCardDetails";

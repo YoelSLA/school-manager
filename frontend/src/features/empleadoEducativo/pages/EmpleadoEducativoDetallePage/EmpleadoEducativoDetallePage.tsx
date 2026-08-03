@@ -1,17 +1,13 @@
 import BreadcrumbPageLayout from "@/app/layouts/pages/BreadcrumbPageLayout/BreadcrumbPageLayout";
-import ConfirmModal from "@/components/Modal/ModalConfirm";
-
+import ConfirmModal from "@/shared/components/Modal/ModalConfirm";
+import AsignacionesList from "../../components/AsignacionesList";
 import BajaDefinitivaModal from "../../components/BajaDefinitivaModal";
-
+import DatosPersonales from "../../components/DatosPersonales/DatosPersonales";
+import EmpleadoBottomBar from "../../components/EmpleadoBottomBar/EmpleadoBottomBar";
+import EmpleadoLicenciaSection from "../../components/EmpleadoLicenciaSection";
+import HeaderEmpleado from "../../components/HeaderEmpleado/HeaderEmpleado";
 import { useEmpleadoEducativoDetallePage } from "../../hooks/pages/useEmpleadoEducativoDetallePage";
-
-import AsignacionesList from "./AsignacionesList";
-import DatosPersonales from "./DatosPersonales/DatosPersonales";
-import EmpleadoBottomBar from "./EmpleadoBottomBar/EmpleadoBottomBar";
-
 import styles from "./EmpleadoEducativoDetallePage.module.scss";
-import EmpleadoLicenciaSection from "./EmpleadoLicenciaSection";
-import HeaderEmpleado from "./HeaderEmpleado/HeaderEmpleado";
 
 export default function EmpleadoEducativoDetallePage() {
   const {

@@ -1,0 +1,9 @@
+export { default as FieldInputFecha } from "../../../shared/components/form/FormInputDate";
+export { default as DesignacionDetalleActions } from "./DesignacionDetalleActions";
+export { default as FieldInputCupoAdministrativa } from "./FieldInputCupofAdministrativa";
+export { default as FieldInputCupoCurso } from "./FieldInputCupofCurso";
+export { default as FieldInputDescripcion } from "./FieldInputDescripcion";
+export { default as FieldSelectOrientacion } from "./FieldSelectOrientacion";
+export { default as FieldSelectRolEducativo } from "./FieldSelectRolEducativo";
+export { default as FormSelectCurso } from "./SelectCurso";
+export { default as FieldSelectMateria } from "./SelectMateria";

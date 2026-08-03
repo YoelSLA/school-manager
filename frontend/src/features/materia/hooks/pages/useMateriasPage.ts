@@ -10,9 +10,9 @@ import type {
 import {
 	useCreateMateria,
 	useDeleteMateria,
-	useListMaterias,
 	useUpdateMateria,
-} from "..";
+} from "../mutations";
+import { useListMaterias } from "../queries";
 
 export function useMateriasPage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);

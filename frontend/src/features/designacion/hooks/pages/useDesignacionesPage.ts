@@ -5,8 +5,8 @@ import { useAppSelector } from "@/app/store/hooks";
 import type { CursoFiltersState, DesignacionFiltro } from "@/shared/types";
 import { useDynamicPageSize } from "@/shared/utils/hooks/useDynamicPageSize";
 import { useDesignacionesNavigation } from "../navigation/useDesignacionesNavigation";
-import { useDesignacionesAdministrativas } from "../useDesignacionesAdministrativas";
-import { useDesignacionesCursos } from "../useDesignacionesCursos";
+import { useDesignacionesAdministrativas } from "../queries/useDesignacionesAdministrativas";
+import { useDesignacionesCursos } from "../queries/useDesignacionesCursos";
 
 export function useDesignacionesPage() {
 	const [searchParams, setSearchParams] = useSearchParams();

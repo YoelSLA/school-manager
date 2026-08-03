@@ -1,5 +1,5 @@
 import BreadcrumbPageLayout from "@/app/layouts/pages/BreadcrumbPageLayout/BreadcrumbPageLayout";
-import ErrorModal from "@/components/Modal/ModalError";
+import ErrorModal from "@/shared/components/Modal/ModalError";
 import DesignacionAdministrativaForm from "../../components/DesignacionAdministrativa/DesignacionAdministrativaCreateForm";
 import DesignacionCursoForm from "../../components/DesignacionCurso/DesignacionCursoCreateForm";
 import { useDesignacionCreatePage } from "../../hooks/pages/useDesignacionCreatePage";

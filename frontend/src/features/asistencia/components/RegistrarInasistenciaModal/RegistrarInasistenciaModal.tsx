@@ -1,23 +1,21 @@
-import Modal from "@/components/Modal/Modal";
-import TipoLicenciaSelect from "@/features/licencias/components/TipoLicenciaSelect/TipoLicenciaSelect";
-
+import { TipoLicenciaSelect } from "@/features/licencia/components";
+import Modal from "@/shared/components/Modal/Modal";
 import type { RegistrarInasistenciaFormOutput } from "../../form/asistencias.form.types";
 import { useRegistrarInasistenciaForm } from "../../form/useRegistrarInasistenciaForm";
-
 import styles from "./RegistrarInasistenciaModal.module.scss";
 
 type Props = {
-	open: boolean;
+  open: boolean;
 
-	diasSeleccionados: number;
+  diasSeleccionados: number;
 
-	fechasSeleccionadas: Date[];
+  fechasSeleccionadas: Date[];
 
-	isSubmitting: boolean;
+  isSubmitting: boolean;
 
-	onCancel: () => void;
+  onCancel: () => void;
 
-	onConfirm: (data: RegistrarInasistenciaFormOutput) => void;
+  onConfirm: (data: RegistrarInasistenciaFormOutput) => void;
 };
 
 /* =========================================================
@@ -25,11 +23,11 @@ type Props = {
  * =======================================================*/
 
 function formatFecha(date: Date) {
-	return date.toLocaleDateString("es-AR", {
-		day: "numeric",
-		month: "long",
-		year: "numeric",
-	});
+  return date.toLocaleDateString("es-AR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 }
 
 /* =========================================================
@@ -37,84 +35,84 @@ function formatFecha(date: Date) {
  * =======================================================*/
 
 export default function RegistrarInasistenciaModal({
-	open,
-	diasSeleccionados,
-	fechasSeleccionadas,
-	isSubmitting,
-	onCancel,
-	onConfirm,
+  open,
+  diasSeleccionados,
+  fechasSeleccionadas,
+  isSubmitting,
+  onCancel,
+  onConfirm,
 }: Props) {
-	const { form } = useRegistrarInasistenciaForm();
+  const { form } = useRegistrarInasistenciaForm();
 
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-		reset,
-	} = form;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = form;
 
-	/* =========================================================
-	 * TITLE
-	 * =======================================================*/
+  /* =========================================================
+   * TITLE
+   * =======================================================*/
 
-	const titulo =
-		fechasSeleccionadas.length === 1
-			? `Registrar inasistencia · ${formatFecha(fechasSeleccionadas[0])}`
-			: `Registrar inasistencia · ${diasSeleccionados} días`;
+  const titulo =
+    fechasSeleccionadas.length === 1
+      ? `Registrar inasistencia · ${formatFecha(fechasSeleccionadas[0])}`
+      : `Registrar inasistencia · ${diasSeleccionados} días`;
 
-	/* =========================================================
-	 * GUARDS
-	 * =======================================================*/
+  /* =========================================================
+   * GUARDS
+   * =======================================================*/
 
-	if (!open) {
-		return null;
-	}
+  if (!open) {
+    return null;
+  }
 
-	/* =========================================================
-	 * HANDLERS
-	 * =======================================================*/
+  /* =========================================================
+   * HANDLERS
+   * =======================================================*/
 
-	const handleCancel = () => {
-		reset();
+  const handleCancel = () => {
+    reset();
 
-		onCancel();
-	};
+    onCancel();
+  };
 
-	/* =========================================================
-	 * RENDER
-	 * =======================================================*/
+  /* =========================================================
+   * RENDER
+   * =======================================================*/
 
-	return (
-		<form onSubmit={handleSubmit(onConfirm)}>
-			<Modal
-				title={titulo}
-				onCancel={handleCancel}
-				confirmLabel="Registrar"
-				isSubmitting={isSubmitting}
-			>
-				<div className={styles.form}>
-					<TipoLicenciaSelect
-						register={register}
-						name="tipoLicencia"
-						error={errors.tipoLicencia?.message}
-					/>
+  return (
+    <form onSubmit={handleSubmit(onConfirm)}>
+      <Modal
+        title={titulo}
+        onCancel={handleCancel}
+        confirmLabel="Registrar"
+        isSubmitting={isSubmitting}
+      >
+        <div className={styles.form}>
+          <TipoLicenciaSelect
+            register={register}
+            name="tipoLicencia"
+            error={errors.tipoLicencia?.message}
+          />
 
-					<div className={styles.field}>
-						<label htmlFor="observacion">Observación</label>
+          <div className={styles.field}>
+            <label htmlFor="observacion">Observación</label>
 
-						<textarea
-							id="observacion"
-							{...register("observacion")}
-							rows={3}
-							placeholder="Observación opcional"
-						/>
-					</div>
+            <textarea
+              id="observacion"
+              {...register("observacion")}
+              rows={3}
+              placeholder="Observación opcional"
+            />
+          </div>
 
-					<p className={styles.helper}>
-						Se registrarán {diasSeleccionados} días
-					</p>
-				</div>
-			</Modal>
-		</form>
-	);
+          <p className={styles.helper}>
+            Se registrarán {diasSeleccionados} días
+          </p>
+        </div>
+      </Modal>
+    </form>
+  );
 }

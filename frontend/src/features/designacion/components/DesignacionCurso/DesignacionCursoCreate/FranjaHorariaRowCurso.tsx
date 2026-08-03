@@ -1,9 +1,9 @@
 import { Clock, Trash2 } from "lucide-react";
 import type { UseFormRegister } from "react-hook-form";
-import type { DesignacionCursoFormValues } from "@/features/designaciones/types/designacion.types";
-import { DIAS_SEMANA } from "@/shared/utils";
-import styles from "../../FranjaHorariaRow.module.scss";
 import Button from "@/shared/components/Button";
+import { DIAS_SEMANA } from "@/shared/utils";
+import type { DesignacionCursoFormValues } from "../../../types";
+import styles from "../../FranjaHorariaRow.module.scss";
 
 type Props = {
   index: number;

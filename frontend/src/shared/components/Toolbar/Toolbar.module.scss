@@ -1,0 +1,114 @@
+@use "@/styles/abstracts" as *;
+
+.toolbar {
+	display: flex;
+	flex-direction: column;
+
+	background: $surface-background;
+	border-radius: $radius-xl;
+  border: 2px solid green;
+
+	box-shadow: $shadow-sm;
+	overflow: hidden;
+
+	/* ================= HEADER ================= */
+
+	&__header {
+		display: grid;
+		grid-template-columns: minmax(280px, 340px) 1fr auto;
+		align-items: center;
+		column-gap: $space-16;
+
+		height: 56px;
+		padding: 0 $space-16;
+
+		background: $toolbar-background;
+
+		@include desktop-height-small {
+			height: 48px;
+			padding: 0 $space-12;
+		}
+
+		@include desktop-height-large {
+			height: 64px;
+			padding: 0 $space-20;
+		}
+	}
+
+	/* ================= FOOTER ================= */
+
+	&__footer {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: $space-8;
+
+		height: 40px;
+		padding: 0 $space-16;
+
+		background: $toolbar-footer-background;
+		border-top: 1px solid $border;
+
+		@include desktop-height-small {
+			height: 32px;
+			padding: 0 $space-12;
+		}
+
+		@include desktop-height-large {
+			height: 48px;
+			padding: 0 $space-20;
+		}
+	}
+
+	/* ================= TITLE ================= */
+
+	&__title {
+		display: flex;
+		align-items: center;
+
+		min-width: 0;
+
+		font-size: $font-size-xl;
+		font-weight: $font-weight-semibold;
+		color: $text-primary;
+
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	/* ================= CENTER ================= */
+
+	&__headerCenter {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		min-width: 0;
+		width: 100%;
+		padding: 0 $space-16;
+	}
+
+	/* ================= ACTIONS ================= */
+
+	&__headerActions {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: $space-8;
+
+		white-space: nowrap;
+	}
+
+	&__button {
+		display: flex;
+		align-items: center;
+		gap: $space-4;
+	}
+
+	/* ================= ANIMATION ================= */
+
+	&__spin {
+		animation: spin 1s linear infinite;
+	}
+}

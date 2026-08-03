@@ -1,14 +1,14 @@
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
-import CursoSelectField from "@/features/cursos/components/fields/CursoSelectField";
-import { useListarCursos } from "@/features/cursos/hooks/useListarCursos";
-import CupofCursoInputField from "@/features/designaciones/components/fields/CupofCursoInputField";
-import OrientacionSelectField from "@/features/designaciones/components/fields/OrientacionSelectField";
-import { useCreateDesignacionCursoForm } from "@/features/designaciones/form/hooks/useCreateDesignacionCursoForm";
-import type { DesignacionCursoCreateDTO } from "@/features/designaciones/types/designacion.types";
-import { ORIENTACIONES } from "@/features/designaciones/utils/designacion.utils";
-import MateriaSelectField from "@/features/materias/components/fields/MateriaSelectField";
-import { useListMaterias } from "@/features/materias/hooks/queries/useListMaterias";
+import { useListarCursos } from "@/features/curso/hooks";
+import { useListMaterias } from "@/features/materia/hooks";
+import { useCreateDesignacionCursoForm } from "../../../form/hooks/useCreateDesignacionCursoForm";
+import type { DesignacionCursoCreateDTO } from "../../../types";
+import { ORIENTACIONES } from "../../../utils/designacion.utils";
+import FieldInputCupofCurso from "../../FieldInputCupofCurso"
+import FieldSelectOrientacion from "../../FieldSelectOrientacion";
+import FormSelectCurso from "../../FormSelectCurso";
+import FormSelectMateria from "../../FormSelectMateria";
 import DesignacionCursoFormLayout from "../DesignacionCursoCreate/DesignacionCursoFormLayout";
 import styles from "./DesignacionCursoCreateForm.module.scss";
 
@@ -57,26 +57,27 @@ export default function DesignacionCursoCreateForm({
       <DesignacionCursoFormLayout
         left={
           <div className={styles.left}>
-            <CupofCursoInputField
+            <FieldInputCupofCurso
               register={register}
               error={errors.cupof?.message}
             />
 
-            <CursoSelectField
+            <FormSelectCurso
               register={register}
               cursos={cursos}
               isLoading={isLoadingCursos}
-              error={errors.cursoId?.message}
+              invalid={!!errors.cursoId}
             />
 
-            <MateriaSelectField
+
+            <FormSelectMateria
               register={register}
               materias={materias}
               isLoading={isLoadingMaterias}
-              error={errors.materiaId?.message}
+              invalid={!!errors.materiaId}
             />
 
-            <OrientacionSelectField
+            <FieldSelectOrientacion
               register={register}
               error={errors.orientacion?.message}
             />

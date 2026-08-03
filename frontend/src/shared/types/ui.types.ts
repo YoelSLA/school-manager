@@ -1,6 +1,6 @@
 import type { LucideIcon } from "lucide-react";
-import type { EmpleadoEducativoBasicoDTO } from "@/features/empleadosEducativos/types/empleadoEducativo.types";
-import type { LicenciaDetalleDTO } from "@/features/licencias/types/licencia.types";
+import type { EmpleadoEducativoBasicoDTO } from "@/features/empleadoEducativo/types";
+import type { LicenciaDetalleDTO } from "@/features/licencia/types";
 import type { BadgeVariant } from "@/shared/components/Badge/Badge.types";
 import type { FranjaHorariaDTO } from "@/shared/types/common.types";
 import type { RolEducativo } from "@/shared/types/enums";

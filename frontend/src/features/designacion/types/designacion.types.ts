@@ -2,18 +2,18 @@ import type z from "zod";
 import type {
 	AsignacionActivaRowDTO,
 	AsignacionDetalleDTO,
-} from "@/features/asignaciones/types/asignaciones.types";
-import type { CursoDetalleDTO } from "@/features/cursos/types/curso.types";
-import type { createDesignacionAdministrativaSchema } from "@/features/designaciones/form/schemas/createDesignacionAdministrativa.schema";
-import type { createDesignacionCursoSchema } from "@/features/designaciones/form/schemas/createDesignacionCurso.schema";
-import type { updateDesignacionAdministrativaSchema } from "@/features/designaciones/form/schemas/updateDesignacionAdministrativa.schema";
-import type { updateDesignacionCursoSchema } from "@/features/designaciones/form/schemas/updateDesignacionCurso.schema";
-import type { MateriaDetalleDTO } from "@/features/materias/types/materia.types";
+} from "@/features/asignacion/types";
+import type { CursoDetalleDTO } from "@/features/curso/types";
+import type { MateriaDetalleDTO } from "@/features/materia/types";
 import type {
 	EstadoDesignacion,
 	FranjaHorariaMinimoDTO,
 	RolEducativo,
 } from "@/shared/types";
+import type { createDesignacionAdministrativaSchema } from "../form/schemas/createDesignacionAdministrativa.schema";
+import type { createDesignacionCursoSchema } from "../form/schemas/createDesignacionCurso.schema";
+import type { updateDesignacionAdministrativaSchema } from "../form/schemas/updateDesignacionAdministrativa.schema";
+import type { updateDesignacionCursoSchema } from "../form/schemas/updateDesignacionCurso.schema";
 
 // REQUEST
 export type DesignacionAdministrativaCreateDTO = z.infer<

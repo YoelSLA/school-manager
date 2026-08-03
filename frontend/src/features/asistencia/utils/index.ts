@@ -1,5 +1,5 @@
-import type { AsistenciaDiaDTO } from "@/features/asistencias/types/asistencia.types";
 import type { EstadoVisual } from "@/shared/types";
+import type { AsistenciaDiaDTO } from "../types";
 
 // --------------------------------------------------------------------------------------------
 export function getCodigoAsistencia(asistencia?: AsistenciaDiaDTO) {

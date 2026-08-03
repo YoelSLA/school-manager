@@ -1,6 +1,5 @@
-import type { DesignacionDetalleDTO } from "@/features/designaciones/types/designacion.types";
-import RolEducativoBadge from "@/features/empleadosEducativos/components/RolEducativoBadge";
-import BadgeEstadoDesignacion from "@/shared/components/BagdeEstadoDesignacion";
+import { BadgeEstadoDesignacion, BadgeRolEducativo } from "@/shared/components";
+import type { DesignacionDetalleDTO } from "../../../types";
 import styles from "./DesignacionHeaderInfo.module.scss";
 
 type Props = {
@@ -16,7 +15,7 @@ export default function DesignacionHeaderInfo({ designacion }: Props) {
         <span className={styles.designacionHeaderInfoCupof}>#{cupof}</span>
 
         <div className={styles.designacionHeaderInfoCenter}>
-          <RolEducativoBadge value={rolEducativo} />
+          <BadgeRolEducativo rolEducativo={rolEducativo} />
         </div>
 
         <div className={styles.designacionHeaderInfoActions}>

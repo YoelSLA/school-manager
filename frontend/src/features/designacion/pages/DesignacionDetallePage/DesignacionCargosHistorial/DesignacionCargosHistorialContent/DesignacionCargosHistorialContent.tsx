@@ -1,5 +1,6 @@
-import AsignacionDesignacionRow from "@/features/asignaciones/components/AsignacionDesignacionRow";
-import type { EmpleadoEducativoAsignacionItemDTO } from "@/features/empleadosEducativos/types/empleadoEducativo.types";
+
+import { AsignacionDesignacionRow } from "@/features/asignacion/components";
+import type { EmpleadoEducativoAsignacionItemDTO } from "@/features/empleadoEducativo/types";
 import styles from "./DesignacionCargosHistorialContent.module.scss";
 
 type Props = {

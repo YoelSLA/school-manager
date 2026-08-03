@@ -6,7 +6,7 @@ import { DesignacionRoutes } from "@/app/router/routes/designacion.routes";
 import { EmpleadoEducativoRoutes } from "@/app/router/routes/empleadoEducativo.routes";
 import { LicenciaRoutes } from "@/app/router/routes/licencia.routes";
 import { MateriaRoutes } from "@/app/router/routes/materia.routes";
-import SeleccionarEscuelaPage from "@/features/escuelas/pages";
+import EscuelaPage from "@/features/escuela/pages";
 import UpdateBanner from "@/infrastructure/UpdateBanner";
 import { useUpdater } from "@/infrastructure/useUpdater";
 import RutaProtegida from "./RutaProtegida";
@@ -23,7 +23,7 @@ export default function AppRouter() {
       <Routes>
         <Route
           path="/seleccionar-escuela"
-          element={<SeleccionarEscuelaPage />}
+          element={<EscuelaPage />}
         />
 
         <Route

@@ -1,6 +1,6 @@
-import type { AsistenciaEmpleadoResumenDTO } from "@/features/asistencias/types/asistencia.types";
 import EmpleadoInfo from "@/features/empleadoEducativo/components/EmpleadoInfo";
-import BadgeRolEducativo from "@/shared/components/BadgeRolEducativo";
+import BadgeRolEducativo from "@/shared/components/badges/BadgeRolEducativo";
+import type { AsistenciaEmpleadoResumenDTO } from "../../types";
 import styles from "./AsistenciaEmpleadoCard.module.scss";
 
 type Props = {

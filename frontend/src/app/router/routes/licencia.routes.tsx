@@ -1,13 +1,11 @@
 import { Route } from "react-router-dom";
-import LicenciaCreatePage from "@/features/licencias/pages/LicenciaCreatePage";
-import LicenciaDetallePage from "@/features/licencias/pages/LicenciaDetallePage";
-import LicenciasDesignacionesPage from "@/features/licencias/pages/LicenciasDesignacionesPage";
-import LicenciasPage from "@/features/licencias/pages/LicenciasPage";
+import { LicenciaCreatePage, LicenciaDesignacionesPage, LicenciaDetallePage, LicenciaPage } from "@/features/licencia/pages";
+
 
 export function LicenciaRoutes() {
   return (
     <>
-      <Route path="licencias" element={<LicenciasPage />} />
+      <Route path="licencias" element={<LicenciaPage />} />
 
       <Route path="licencias/crear" element={<LicenciaCreatePage />} />
 
@@ -16,7 +14,7 @@ export function LicenciaRoutes() {
       {/* 👇 NUEVA RUTA */}
       <Route
         path="licencias/:licenciaId/designaciones"
-        element={<LicenciasDesignacionesPage />}
+        element={<LicenciaDesignacionesPage />}
       />
     </>
   );

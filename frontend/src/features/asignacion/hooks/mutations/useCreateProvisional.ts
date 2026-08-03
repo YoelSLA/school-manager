@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { cubrirConProvisional } from "@/features/designacion/services";
-import { designacionesQueryKeys } from "@/features/designaciones/designaciones.queryKeys";
-import { empleadosEducativosQueryKeys } from "@/features/empleadosEducativos/empleadosEducativos.queryKeys";
-import { asistenciasQueryKeys } from "@/shared/utils/queryKeys/asistencias.queryKeys";
+import { asistenciaQueryKeys } from "@/features/asistencia/constants";
+import { designacionQueryKeys } from "@/features/designacion/constants";
+import { designacionService } from "@/features/designacion/services";
+import { empleadoEducativoQueryKeys } from "@/features/empleadoEducativo/constants";
 import {
 	mapAsignacionError,
 	type UserError,
@@ -25,19 +25,19 @@ export function useCreateProvisional({
 
 	const mutation = useMutation({
 		mutationFn: (data: CubrirProvisionalDTO) =>
-			cubrirConProvisional(designacionId, data),
+			designacionService.cubrirConProvisional(designacionId, data),
 
 		onSuccess: (_, { empleadoId }) => {
 			queryClient.invalidateQueries({
-				queryKey: designacionesQueryKeys.all,
+				queryKey: designacionQueryKeys.all,
 			});
 
 			queryClient.invalidateQueries({
-				queryKey: empleadosEducativosQueryKeys.detail(empleadoId),
+				queryKey: empleadoEducativoQueryKeys.detail(empleadoId),
 			});
 
 			queryClient.invalidateQueries({
-				queryKey: asistenciasQueryKeys.all,
+				queryKey: asistenciaQueryKeys.all,
 			});
 
 			onSuccess();

@@ -1,9 +1,9 @@
-import ModalCreateAsignacionProvisional from "@/features/asignaciones/components/ModalCreateAsignacion/ModalCreateAsignacionProvisional/ModalCreateAsignacionProvisional";
-import ModalCreateAsignacionTitular from "@/features/asignaciones/components/ModalCreateAsignacion/ModalCreateAsignacionTitular/ModalCreateAsignacionTitular";
-import ModalUpdateAsignacionProvisional from "@/features/asignaciones/components/ModalUpdateAsignacion/ModalUpdateAsignacionProvisional";
-import ModalUpdateAsignacionTitular from "@/features/asignaciones/components/ModalUpdateAsignacion/ModalUpdateAsignacionTitular";
-import type { AsignacionDetalleDTO } from "@/features/asignaciones/types/asignaciones.types";
-import type { DesignacionDetalleDTO } from "@/features/designaciones/types/designacion.types";
+import type { AsignacionDetalleDTO } from "@/features/asignacion/types/";
+import type { DesignacionDetalleDTO } from "../../types";
+import ModalCreateAsignacionProvisional from "../ModalCreateAsignacion/ModalCreateAsignacionProvisional";
+import ModalCreateAsignacionTitular from "../ModalCreateAsignacion/ModalCreateAsignacionTitular";
+import ModalUpdateAsignacionProvisional from "../ModalUpdateAsignacion/ModalUpdateAsignacionProvisional";
+import ModalUpdateAsignacionTitular from "../ModalUpdateAsignacion/ModalUpdateAsignacionTitular";
 
 
 type Props = {

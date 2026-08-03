@@ -1,6 +1,6 @@
 import { Building2 } from "lucide-react";
 import type { AsignacionLicenciaAdministrativaDTO } from "@/features/asignacion/types";
-import BadgeRolEducativo from "@/shared/components/BadgeRolEducativo";
+import BadgeRolEducativo from "@/shared/components/badges/BadgeRolEducativo";
 import LicenciaDesignacionRow from "../LicenciaDesignacionRow";
 import styles from "./LicenciaDesignacionAdministrativaRow.module.scss";
 

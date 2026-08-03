@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
-import FormInputField from "@/components/FormInputField/FormInputField";
-import FormSelectField from "@/components/FormSelectField/FormSelectField";
-import Modal from "@/components/Modal/Modal";
+import FormInputField from "@/shared/components/form/FormInput/FormInput";
+import FormSelectField from "@/shared/components/form/FormSelect/FormSelect";
+import Modal from "@/shared/components/Modal/Modal";
 
 import { agruparPorArticulo } from "@/shared/utils";
 import { TIPOS_LICENCIA } from "../../constants/tipoLicencia";

@@ -1,6 +1,6 @@
 import BreadcrumbPageLayout from "@/app/layouts/pages/BreadcrumbPageLayout/BreadcrumbPageLayout";
-import ConfirmModal from "@/components/Modal/ModalConfirm";
 import Button from "@/shared/components/Button";
+import ConfirmModal from "@/shared/components/Modal/ModalConfirm";
 import LicenciaRenovarModal from "../../components/LicenciaRenovarModal/LicenciaRenovarModal";
 import useLicenciaDetallePage from "../../hooks/pages/useLicenciaDetallePage";
 import styles from "./LicenciaDetallePage.module.scss";

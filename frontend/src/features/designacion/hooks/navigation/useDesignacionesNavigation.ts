@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import type { DesignacionRowDTO } from "@/features/designaciones/types/designacion.types";
+import type { DesignacionRowDTO } from "../../types";
 
 export function useDesignacionesNavigation() {
 	const navigate = useNavigate();

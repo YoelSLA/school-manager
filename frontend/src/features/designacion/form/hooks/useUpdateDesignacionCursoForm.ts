@@ -5,7 +5,7 @@ import type {
 	DesignacionCursoFormValues,
 	DesignacionCursoUpdateDTO,
 	DesignacionDetalleDTO,
-} from "@/features/designaciones/types/designacion.types";
+} from "../../types";
 import { updateDesignacionCursoSchema } from "../schemas/updateDesignacionCurso.schema";
 
 type Props = {

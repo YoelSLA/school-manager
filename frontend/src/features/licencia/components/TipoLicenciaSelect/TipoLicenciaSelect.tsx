@@ -2,7 +2,7 @@ import { FileText } from "lucide-react";
 import type { FieldValues, Path, UseFormRegister } from "react-hook-form";
 
 import { agruparPorArticulo, formatLicenciaLabel } from "@/shared/utils";
-import FormSelectField from "../../../../components/FormSelectField/FormSelectField";
+import FormSelectField from "../../../../shared/components/form/FormSelect/FormSelect";
 import { TIPOS_LICENCIA } from "../../constants/tipoLicencia";
 
 type Props<T extends FieldValues> = {

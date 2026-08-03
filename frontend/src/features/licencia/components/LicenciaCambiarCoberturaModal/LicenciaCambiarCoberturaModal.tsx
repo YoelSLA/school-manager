@@ -1,8 +1,7 @@
-import Modal from "@/components/Modal";
-import FechaField from "@/features/designaciones/components/fields/FechaInputField";
-import NumberField from "@/features/designaciones/components/fields/NumberInputField";
+import { EmpleadoSelector } from "@/features/empleadoEducativo/components";
 import type { EmpleadoEducativoBasicoDTO } from "@/features/empleadoEducativo/types";
-import { EmpleadoSelector } from "@/features/empleadosEducativos/components/EmpleadoSelector";
+import { FormInputDate, FormInputNumber } from "@/shared/components";
+import Modal from "@/shared/components/Modal";
 import { useCambiarCoberturaForm } from "../../form/hooks/useCambiarCoberturaForm";
 import styles from "../LicenciaCoberturaModal.module.scss";
 
@@ -65,7 +64,7 @@ export default function LicenciaCambiarCoberturaModal({
 
             <div className={styles.row}>
               <div className={styles.secuencia}>
-                <NumberField
+                <FormInputNumber
                   register={register}
                   name="secuencia"
                   label="Secuencia"
@@ -75,7 +74,7 @@ export default function LicenciaCambiarCoberturaModal({
               </div>
 
               <div className={styles.fecha}>
-                <FechaField
+                <FormInputDate
                   register={register}
                   name="fechaTomaPosesion"
                   label="Fecha de toma de posesión"
