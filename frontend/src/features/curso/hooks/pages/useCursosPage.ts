@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
-import type { CursoFiltro } from "@/shared/types";
-import { usePagination } from "@/shared/utils/hooks/usePagination";
-import type { CursoCreateDTO, CursoDetalleDTO } from "../../types";
+import { usePagination } from "@/shared/hooks/usePagination";
+import type { CursoCreateDTO, CursoDetalleDTO, CursoFiltro } from "../../types";
 import { useCrearCurso } from "../mutations/useCrearCurso";
 import { useListarCursos } from "../queries/useListarCursos";
 
-export default function useCursosPage() {
+export function useCursosPage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 
 	const [filtro, setFiltro] = useState<CursoFiltro>("TODOS");

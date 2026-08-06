@@ -1,5 +1,5 @@
 import { Edit, Trash2 } from "lucide-react";
-import Row from "@/shared/components/Table/TableRow";
+import { TableRow } from "@/shared/components/Table";
 import type { MateriaRowDTO } from "../../types";
 import styles from "./MateriaRow.module.scss";
 
@@ -15,7 +15,7 @@ export default function MateriaRow({
   onDelete,
 }: Props) {
   return (
-    <Row className={styles.row}>
+    <TableRow className={styles.row}>
       <div className={styles.nombre}>
         {materia.nombre}
       </div>
@@ -45,6 +45,6 @@ export default function MateriaRow({
           <Trash2 size={18} />
         </button>
       </div>
-    </Row>
+    </TableRow>
   );
 }

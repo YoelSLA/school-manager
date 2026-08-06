@@ -1,5 +1,4 @@
-import type { CursoFiltro } from "@/shared/types";
-import type { CursoDetalleDTO } from "../types";
+import type { CursoDetalleDTO, CursoFiltro } from "../types";
 
 export const FILTROS_CURSOS: {
 	label: string;

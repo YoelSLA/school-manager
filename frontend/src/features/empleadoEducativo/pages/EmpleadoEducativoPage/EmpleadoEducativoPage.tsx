@@ -1,29 +1,13 @@
-import { useState } from "react";
-import ToolbarPageLayout from "@/app/layouts/pages/ToolbarPageLayout";
-import FilterPillGroup from "@/shared/components/filters/FilterPillGroup";
-import Toolbar from "@/shared/components/Toolbar";
-import type { EmpleadoEducativoFiltro, SortState } from "@/shared/types";
-import { usePagination } from "@/shared/utils/hooks/usePagination";
-import EmpleadosEducativosTable from "../../components/EmpleadoEducativoTable";
-import EmpleadoSortDropdown from "../../components/EmpleadoSortDropdown";
-import { useEmpleadoNavigation } from "../../hooks/navigation/useEmpleadoNavigation";
-import { useEmpleadosEducativos } from "../../hooks/queries/useEmpleadosEducativos";
+import { ToolbarPageLayout } from "@/app/layouts/pages";
+import { Toolbar } from "@/shared/components";
+import { FilterPillGroup } from "@/shared/components/filters";
+import { EmpleadoSortDropdown } from "../../components";
+import EmpleadoEducativoTable from "../../components/EmpleadoEducativoTable";
+import { useEmpleadosEducativosPage } from "../../hooks/pages";
 import { FILTROS_EMPLEADOS } from "../../utils/empleadosEducativos.utils";
 
 export default function EmpleadoEducativoPage() {
-  const [filtro, setFiltro] = useState<EmpleadoEducativoFiltro>("TODOS");
-  const [sort, setSort] = useState<SortState>({});
-
-  const { page, setPage, pageSize } = usePagination([filtro, sort]);
-
-  const query = useEmpleadosEducativos(
-    filtro,
-    page,
-    pageSize,
-    sort,
-  );
-
-  const empleadoNav = useEmpleadoNavigation();
+  const vm = useEmpleadosEducativosPage();
 
   return (
     <ToolbarPageLayout
@@ -33,29 +17,29 @@ export default function EmpleadoEducativoPage() {
           headerCenter={
             <FilterPillGroup
               items={FILTROS_EMPLEADOS}
-              value={filtro}
-              onChange={setFiltro}
+              value={vm.filters.filtro}
+              onChange={vm.filters.setFiltro}
             />
           }
           headerActions={
             <EmpleadoSortDropdown
-              value={sort}
-              onChange={setSort}
+              value={vm.filters.sort}
+              onChange={vm.filters.setSort}
             />
           }
-          onRefresh={query.refetch}
-          isFetching={query.isFetching}
-          onCreate={empleadoNav.crear}
+          onRefresh={vm.query.refetch}
+          isFetching={vm.query.isFetching}
+          onCreate={vm.navigation.crear}
           createLabel="Nuevo empleado"
         />
       }
-      page={page}
-      totalPages={query.data?.totalPages ?? 0}
-      onPageChange={setPage}
+      page={vm.pagination.page}
+      totalPages={vm.pagination.totalPages}
+      onPageChange={vm.pagination.setPage}
     >
-      <EmpleadosEducativosTable
-        query={query}
-        onVerDetalle={empleadoNav.verDetalle}
+      <EmpleadoEducativoTable
+        query={vm.query}
+        onVerDetalle={vm.navigation.verDetalle}
       />
     </ToolbarPageLayout>
   );

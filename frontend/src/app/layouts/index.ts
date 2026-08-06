@@ -1,5 +1,5 @@
 import { matchPath, type Params } from "react-router-dom";
-import { routeTitles } from "../router/titles";
+import { routeTitles } from "../router/routeTitles";
 
 /* =========================================================
    BREADCRUMB TYPES

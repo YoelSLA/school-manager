@@ -1,1 +1,3 @@
-export type * from "./designacion.types";
+export type * from "./dtos";
+export type * from "./filters";
+export type * from "./forms";

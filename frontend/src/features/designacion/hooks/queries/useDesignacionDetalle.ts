@@ -3,7 +3,7 @@ import { designacionQueryKeys } from "../../constants";
 import { designacionService } from "../../services/";
 import type { DesignacionDetalleDTO } from "../../types";
 
-export default function useDesignacionDetalle(designacionId?: number) {
+export function useDesignacionDetalle(designacionId?: number) {
 	const query = useQuery<DesignacionDetalleDTO>({
 		queryKey:
 			designacionId != null

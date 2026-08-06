@@ -1,19 +1,14 @@
 import qs from "qs";
-
 import type { AsignacionLicenciaDTO } from "@/features/asignacion/types";
-import { http } from "@/shared/http/http";
-import type {
-	EmpleadoEducativoFiltro,
-	PageResponse,
-	SortState,
-} from "@/shared/types";
-
+import { http } from "@/shared/http";
+import type { PageResponse, SortState } from "@/shared/types";
 import type {
 	BajaDefinitivaDTO,
 	EmpleadoEducativoAsignacionesDTO,
 	EmpleadoEducativoBasicoDTO,
 	EmpleadoEducativoCreateDTO,
 	EmpleadoEducativoDetalleDTO,
+	EmpleadoEducativoFiltro,
 	EmpleadoEducativoLicenciasDTO,
 	EmpleadoEducativoUpdateDTO,
 } from "../types";

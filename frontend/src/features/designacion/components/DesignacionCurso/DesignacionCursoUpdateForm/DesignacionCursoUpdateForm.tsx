@@ -8,7 +8,7 @@ import FieldInputCupofCurso from "../../FieldInputCupofCurso";
 import FieldSelectOrientacion from "../../FieldSelectOrientacion";
 import FormSelectCurso from "../../FormSelectCurso";
 import FormSelectMateria from "../../FormSelectMateria";
-import DesignacionCursoFormLayout from "../DesignacionCursoCreate/DesignacionCursoFormLayout";
+import DesignacionCursoFormLayout from "../DesignacionCursoCreateForm/DesignacionCursoFormLayout/DesignacionCursoFormLayout";
 import styles from "../DesignacionCursoCreateForm/DesignacionCursoCreateForm.module.scss";
 
 type Props = {

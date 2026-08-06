@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { licenciaQueryKeys } from "../../constants";
 import { licenciaService } from "../../services";
 
-export default function useDeleteLicencia() {
+export function useDeleteLicencia() {
 	const queryClient = useQueryClient();
 
 	return useMutation({

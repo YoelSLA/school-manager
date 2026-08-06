@@ -1,0 +1,1 @@
+export { useCursosPage } from "./useCursosPage";

@@ -1,4 +1,4 @@
-import TableHeader from "@/shared/components/Table/TableHeader";
+import { TableHeader } from "@/shared/components/Table";
 import styles from "./CursoHeader.module.scss";
 
 export default function CursoHeader() {

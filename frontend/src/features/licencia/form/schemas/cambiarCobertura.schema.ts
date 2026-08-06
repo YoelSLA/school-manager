@@ -1,5 +1,5 @@
 import z from "zod";
-import { requiredFechaISO } from "@/shared/utils/zod/schemas";
+import { requiredFechaISO } from "@/shared/validation/date";
 
 export const cambiarCoberturaSchema = z.object({
 	empleadoId: z.coerce
@@ -14,5 +14,3 @@ export const cambiarCoberturaSchema = z.object({
 		"La fecha de toma de posesión es obligatoria",
 	),
 });
-
-

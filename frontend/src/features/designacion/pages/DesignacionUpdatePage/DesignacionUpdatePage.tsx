@@ -1,7 +1,7 @@
-import BreadcrumbPageLayout from "@/app/layouts/pages/BreadcrumbPageLayout/BreadcrumbPageLayout";
+import { BreadcrumbPageLayout } from "@/app/layouts/pages";
 import DesignacionAdministrativaUpdateForm from "../../components/DesignacionAdministrativa/DesignacionAdministrativaUpdateForm";
 import DesignacionCursoUpdateForm from "../../components/DesignacionCurso/DesignacionCursoUpdateForm";
-import { useDesignacionUpdatePage } from "../../hooks/pages/useDesignacionesUpdatePage";
+import { useDesignacionUpdatePage } from "../../hooks/pages";
 import styles from "./DesignacionUpdatePage.module.scss";
 
 export default function DesignacionUpdatePage() {

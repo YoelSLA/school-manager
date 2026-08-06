@@ -1,5 +1,5 @@
 import type { z } from "zod";
-import { empleadoEducativoBaseSchema } from "./empleadoEducativoBaseSchema";
+import { empleadoEducativoBaseSchema } from "./empleadoEducativoBase.schema";
 
 export const editarEmpleadoEducativoSchema = empleadoEducativoBaseSchema
 	.partial({

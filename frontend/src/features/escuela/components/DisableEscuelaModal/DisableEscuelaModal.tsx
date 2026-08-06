@@ -1,4 +1,4 @@
-import ConfirmModal from "@/shared/components/Modal/ModalConfirm";
+import { ModalConfirm } from "@/shared/components/Modal";
 
 type Props = {
   open: boolean;
@@ -14,7 +14,7 @@ export default function DisableEscuelaModal({
   loading,
 }: Props) {
   return (
-    <ConfirmModal
+    <ModalConfirm
       open={open}
       title="¿Deshabilitar escuela?"
       description="La escuela dejará de estar disponible en el sistema, pero podrá volver a habilitarse más adelante."

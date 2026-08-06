@@ -1,8 +1,8 @@
 import type { EmpleadoEducativoAsignacionItemDTO } from "@/features/empleadoEducativo/types";
-import BadgeEstadoAsignacion from "@/shared/components/badges/BagdeEstadoAsignacion";
+import { BadgeEstadoAsignacion } from "@/shared/components/badges";
+import { formatEnumLabel } from "@/shared/utils";
 import type { CargoDesignacionAdministrativaDTO } from "../../../types";
-import { formatRol } from "../../../utils/asignacion.utils";
-import AsignacionRowFooter from "../../AsignacionRowFooter/AsignacionRowFooter";
+import AsignacionRowFooter from "../../AsignacionRowFooter";
 import AsignacionRowLayout from "../../AsignacionRowLayout";
 
 type Props = {
@@ -20,7 +20,7 @@ export default function AsignacionDesignacionAdministrativaRow({
   return (
     <AsignacionRowLayout
       variant="administrativa"
-      title={formatRol(designacion.rolEducativo)}
+      title={formatEnumLabel(designacion.rolEducativo)}
       status={<BadgeEstadoAsignacion value={estadoAsignacion} />}
       subtitle={<span>#{designacion.cupof}</span>}
       footer={

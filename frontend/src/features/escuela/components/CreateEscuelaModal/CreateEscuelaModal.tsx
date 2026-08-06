@@ -1,7 +1,6 @@
-import FormInputField from "@/shared/components/form/FormInput/FormInput";
-import FormSection from "@/shared/components/form/FormSection";
-import Modal from "@/shared/components/Modal/Modal";
-import { useCrearEscuelaForm } from "../../form/useCrearEscuelaForm";
+import { FormInput, FormSection } from "@/shared/components/form";
+import { Modal } from "@/shared/components/Modal";
+import { useCrearEscuelaForm } from "../../form/hooks";
 import type { EscuelaCreateDTO } from "../../types";
 
 type Props = {
@@ -34,28 +33,28 @@ export default function CreateEscuelaModal({
         isSubmitting={isSubmitting}
       >
         <FormSection layout="column">
-          <FormInputField<EscuelaCreateDTO>
+          <FormInput<EscuelaCreateDTO>
             label="Nombre"
             name="nombre"
             register={register}
             error={errors.nombre?.message}
           />
 
-          <FormInputField<EscuelaCreateDTO>
+          <FormInput<EscuelaCreateDTO>
             label="Localidad"
             name="localidad"
             register={register}
             error={errors.localidad?.message}
           />
 
-          <FormInputField<EscuelaCreateDTO>
+          <FormInput<EscuelaCreateDTO>
             label="Dirección"
             name="direccion"
             register={register}
             error={errors.direccion?.message}
           />
 
-          <FormInputField<EscuelaCreateDTO>
+          <FormInput<EscuelaCreateDTO>
             label="Teléfono"
             name="telefono"
             register={register}

@@ -3,8 +3,8 @@ import { useState } from "react";
 import type {
   AsignacionEmpleadoEducativoRowDTO,
 } from "@/features/asignacion/types";
-import type { Tab } from "@/shared/types";
-import { esAsignacionAdministrativa, esAsignacionCurso } from "@/shared/utils";
+import { esAsignacionAdministrativa, esAsignacionCurso } from "@/features/asignacion/utils";
+import type { DesignacionTab } from "@/features/designacion/types";
 import AsignacionesContent from "./AsignacionesContent";
 import styles from "./AsignacionesList.module.scss";
 import AsignacionesTabs from "./AsignacionesTabs";
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export default function AsignacionesList({ asignaciones }: Props) {
-  const [activeTab, setActiveTab] = useState<Tab>("DOCENTE");
+  const [activeTab, setActiveTab] = useState<DesignacionTab>("DOCENTE");
 
   const asignacionesDocentes = asignaciones.filter(esAsignacionCurso);
 

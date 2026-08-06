@@ -3,10 +3,10 @@ import {
   Trash2,
 } from "lucide-react";
 import { useListarCursosSelect } from "@/features/curso/hooks";
+import type { CursoFiltersState } from "@/features/curso/types";
 import { useListMateriasSelect } from "@/features/materia/hooks";
-import Button from "@/shared/components/Button";
+import { Button } from "@/shared/components";
 import SelectField from "@/shared/components/form/FieldSelect";
-import type { CursoFiltersState } from "@/shared/types";
 import SelectCurso from "../SelectCurso";
 import SelectMateria from "../SelectMateria";
 import styles from "./DesignacionCursoFilters.module.scss";

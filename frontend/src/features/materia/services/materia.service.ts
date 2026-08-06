@@ -1,4 +1,4 @@
-import { http } from "@/shared/http/http";
+import { http } from "@/shared/http";
 import type { PageResponse } from "@/shared/types";
 import type {
 	MateriaCreateDTO,

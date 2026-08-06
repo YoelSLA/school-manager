@@ -1,10 +1,9 @@
 import { FormProvider } from "react-hook-form";
-import BreadcrumbPageLayout from "@/app/layouts/pages/BreadcrumbPageLayout/BreadcrumbPageLayout";
+import { BreadcrumbPageLayout } from "@/app/layouts/pages";
 import { EmpleadoSelector } from "@/features/empleadoEducativo/components";
-import ErrorModal from "@/shared/components/Modal/ModalError";
-import AsignacionesSelector from "../../components/AsignacionesSelector";
-import LicenciaForm from "../../components/LicenciaForm";
-import useLicenciaCreatePage from "../../hooks/pages/useLicenciaCreatePage";
+import { ModalError } from "@/shared/components/Modal";
+import { AsignacionesSelector, LicenciaForm } from "../../components";
+import { useLicenciaCreatePage } from "../../hooks/pages";
 import styles from "./LicenciaCreatePage.module.scss";
 
 export default function LicenciaCreatePage() {
@@ -46,7 +45,7 @@ export default function LicenciaCreatePage() {
       </FormProvider>
 
       {vm.error.modal && (
-        <ErrorModal
+        <ModalError
           error={vm.error.modal}
           onClose={vm.error.close}
         />

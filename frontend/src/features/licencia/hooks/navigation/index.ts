@@ -1,0 +1,1 @@
+export { useLicenciaNavigation } from "./useLicenciaNavigation";

@@ -5,7 +5,7 @@ import type { CursoDetalleDTO } from "@/features/curso/types";
 import { ordenarCursos } from "@/features/curso/utils/cursos.utils";
 import type { DesignacionCursoFormValues } from "@/features/designacion/types";
 import Select from "@/shared/components/Select";
-import { TURNO_LABELS } from "@/shared/utils/enumLabels";
+import { TURNO_LABELS } from "@/shared/constants";
 
 type Props = {
   cursos: CursoDetalleDTO[];

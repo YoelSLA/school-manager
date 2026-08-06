@@ -2,7 +2,7 @@ import { MapPin, Pencil, Phone, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { setEscuelaActiva } from "@/app/store/escuela/escuelaSlice";
 import { useAppDispatch } from "@/app/store/hooks";
-import Card from "@/shared/components/Card/Card";
+import { Card } from "@/shared/components";
 import type { EscuelaResponseDTO } from "../../types";
 import styles from "./EscuelaCard.module.scss";
 

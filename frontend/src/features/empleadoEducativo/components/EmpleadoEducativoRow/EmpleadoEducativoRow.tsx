@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import BadgeEstadoEmpleado from "@/shared/components/badges/BagdeEstadoEmpleadoEducativo";
 import Row from "@/shared/components/Table/TableRow";
-import { formatFechaIngreso } from "@/shared/utils";
+import { formatFechaIngreso } from "@/shared/utils/date";
 import type { EmpleadoEducativoDetalleDTO } from "../../types";
 import styles from "./EmpleadoEducativoRow.module.scss";
 

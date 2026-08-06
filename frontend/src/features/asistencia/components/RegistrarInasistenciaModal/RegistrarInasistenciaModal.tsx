@@ -1,5 +1,5 @@
 import { TipoLicenciaSelect } from "@/features/licencia/components";
-import Modal from "@/shared/components/Modal/Modal";
+import Modal from "@/shared/components/Modal/Modal/Modal";
 import type { RegistrarInasistenciaFormOutput } from "../../form/asistencias.form.types";
 import { useRegistrarInasistenciaForm } from "../../form/useRegistrarInasistenciaForm";
 import styles from "./RegistrarInasistenciaModal.module.scss";

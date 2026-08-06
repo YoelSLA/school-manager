@@ -1,12 +1,7 @@
-import BreadcrumbPageLayout from "@/app/layouts/pages/BreadcrumbPageLayout/BreadcrumbPageLayout";
-import ConfirmModal from "@/shared/components/Modal/ModalConfirm";
-import AsignacionesList from "../../components/AsignacionesList";
-import BajaDefinitivaModal from "../../components/BajaDefinitivaModal";
-import DatosPersonales from "../../components/DatosPersonales/DatosPersonales";
-import EmpleadoBottomBar from "../../components/EmpleadoBottomBar/EmpleadoBottomBar";
-import EmpleadoLicenciaSection from "../../components/EmpleadoLicenciaSection";
-import HeaderEmpleado from "../../components/HeaderEmpleado/HeaderEmpleado";
-import { useEmpleadoEducativoDetallePage } from "../../hooks/pages/useEmpleadoEducativoDetallePage";
+import { BreadcrumbPageLayout } from "@/app/layouts/pages";
+import { ModalConfirm } from "@/shared/components/Modal";
+import { AsignacionesList, BajaDefinitivaModal, DatosPersonales, EmpleadoBottomBar, EmpleadoLicenciaSection, HeaderEmpleado } from "../../components";
+import { useEmpleadoEducativoDetallePage } from "../../hooks";
 import styles from "./EmpleadoEducativoDetallePage.module.scss";
 
 export default function EmpleadoEducativoDetallePage() {
@@ -76,7 +71,7 @@ export default function EmpleadoEducativoDetallePage() {
         isSubmitting={bajaMutation.isPending}
       />
 
-      <ConfirmModal
+      <ModalConfirm
         open={isReactivarModalOpen}
         title="Reactivar empleado"
         description="El empleado volverá a estar activo en el sistema."

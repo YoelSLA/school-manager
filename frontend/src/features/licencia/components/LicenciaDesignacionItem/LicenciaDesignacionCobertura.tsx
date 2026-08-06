@@ -1,6 +1,6 @@
 import { CalendarDays, User } from "lucide-react";
 import Button from "@/shared/components/Button";
-import { formatearFecha } from "@/shared/utils";
+import { formatDate } from "@/shared/utils/date";
 import type { LicenciaDesignacionDTO } from "../../types";
 import styles from "./LicenciaDesignacionCobertura.module.scss";
 
@@ -54,9 +54,9 @@ export default function LicenciaDesignacionCobertura({
             <CalendarDays size={16} />
 
             <span>
-              {formatearFecha(asignacion.periodo.fechaDesde)} →{" "}
+              {formatDate(asignacion.periodo.fechaDesde)} →{" "}
               {asignacion.periodo.fechaHasta
-                ? formatearFecha(asignacion.periodo.fechaHasta)
+                ? formatDate(asignacion.periodo.fechaHasta)
                 : "Sin fecha"}
             </span>
           </>

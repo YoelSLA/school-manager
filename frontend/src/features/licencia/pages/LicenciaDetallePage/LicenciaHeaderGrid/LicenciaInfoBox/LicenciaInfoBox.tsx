@@ -1,6 +1,6 @@
 import { Calendar, Clock, FileText, Hash } from "lucide-react";
 import BadgeEstadoLicencia from "@/shared/components/badges/BagdeEstadoLicencia";
-import { diasRestantes, formatPeriodo } from "@/shared/utils";
+import { diasRestantes, formatPeriod } from "@/shared/utils/date";
 import type { LicenciaDetalleDTO } from "../../../../types";
 import styles from "./LicenciaInfoBox.module.scss";
 
@@ -52,7 +52,7 @@ export default function LicenciaInfoBox({ licencia }: Props) {
           <div>
             <span className={styles.label}>Período</span>
             <span className={styles.value}>
-              {formatPeriodo(
+              {formatPeriod(
                 licencia.periodo.fechaDesde,
                 licencia.periodo.fechaHasta,
               )}

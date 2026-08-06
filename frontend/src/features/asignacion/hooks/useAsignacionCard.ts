@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDeleteAsignacion } from "../hooks/mutations/useDeleteAsignacion";
+import { useDeleteAsignacion } from "../hooks/mutations";
 import type { AsignacionDetalleDTO } from "../types";
 
 type Props = {

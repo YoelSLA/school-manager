@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
-import { usePagination } from "@/shared/utils/hooks/usePagination";
+import { usePagination } from "@/shared/hooks/usePagination";
 import type {
 	MateriaCreateDTO,
 	MateriaDetalleDTO,

@@ -2,9 +2,10 @@ import { useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import { EmpleadoSelector } from "@/features/empleadoEducativo/components";
 import type { EmpleadoEducativoBasicoDTO } from "@/features/empleadoEducativo/types";
-import { FormInput, FormSelect, Modal, Select } from "@/shared/components";
+import { FormInput, FormSelect, Select } from "@/shared/components";
+import { Modal } from "@/shared/components/Modal";
+import { CARACTERISTICA_ASIGNACION_OPTIONS } from "../../constants";
 import type { CubrirProvisionalDTO, CubrirTitularDTO } from "../../types";
-import { CARACTERISTICA_ASIGNACION_OPTIONS } from "../../utils/asignacion.utils";
 
 import styles from "./AsignacionModalBase.module.scss";
 

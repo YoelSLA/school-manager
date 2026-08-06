@@ -1,1 +1,2 @@
-export type * from "./asistencia.types";
+export type * from "./dtos";
+export type * from "./filters";

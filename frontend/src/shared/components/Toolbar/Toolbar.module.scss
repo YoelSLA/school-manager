@@ -6,7 +6,7 @@
 
 	background: $surface-background;
 	border-radius: $radius-xl;
-  border: 2px solid green;
+  border: 2px solid green; // TODO: DEBUG
 
 	box-shadow: $shadow-sm;
 	overflow: hidden;
@@ -22,7 +22,8 @@
 		height: 56px;
 		padding: 0 $space-16;
 
-		background: $toolbar-background;
+		// background: $toolbar-background;
+    border: 2px solid green; // TODO: DEBUG
 
 		@include desktop-height-small {
 			height: 48px;
@@ -46,8 +47,9 @@
 		height: 40px;
 		padding: 0 $space-16;
 
-		background: $toolbar-footer-background;
-		border-top: 1px solid $border;
+		// background: $toolbar-footer-background;
+		// border-top: 1px solid $border;
+    border: 2px solid blue; // TODO: DEBUG
 
 		@include desktop-height-small {
 			height: 32px;

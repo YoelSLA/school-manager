@@ -1,8 +1,8 @@
-import BreadcrumbPageLayout from "@/app/layouts/pages/BreadcrumbPageLayout/BreadcrumbPageLayout";
-import Button from "@/shared/components/Button";
-import ConfirmModal from "@/shared/components/Modal/ModalConfirm";
-import LicenciaRenovarModal from "../../components/LicenciaRenovarModal/LicenciaRenovarModal";
-import useLicenciaDetallePage from "../../hooks/pages/useLicenciaDetallePage";
+import { BreadcrumbPageLayout } from "@/app/layouts/pages";
+import { Button } from "@/shared/components";
+import { ModalConfirm } from "@/shared/components/Modal";
+import { LicenciaRenovarModal } from "../../components";
+import { useLicenciaDetallePage } from "../../hooks/pages";
 import styles from "./LicenciaDetallePage.module.scss";
 import LicenciaHeaderStack from "./LicenciaHeaderGrid";
 import LicenciaTimelineList from "./LicenciaTimelineList";
@@ -96,7 +96,7 @@ export default function LicenciaDetallePage() {
       )}
 
       {vm.delete.visible && (
-        <ConfirmModal
+        <ModalConfirm
           open
           title="Eliminar licencia"
           description={`¿Seguro que querés eliminar la licencia ${licencia.licenciaEstatutaria.codigo}?`}

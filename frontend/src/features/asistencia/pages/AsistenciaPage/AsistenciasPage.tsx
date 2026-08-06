@@ -1,8 +1,6 @@
-import Pagination from "@/shared/components/Pagination";
-import AsistenciasSidebar from "../../components/AsistenciasSidebar";
-import EmpleadoResultsList from "../../components/EmpleadoResultsList";
-import EmpleadoSearchBar from "../../components/EmpleadoSearchBar";
-import { useAsistenciasPage } from "../../hooks/pages/useAsistenciasPage";
+import { Pagination } from "@/shared/components";
+import { AsistenciasSidebar, EmpleadoResultsList, EmpleadoSearchBar } from "../../components";
+import { useAsistenciasPage } from "../../hooks/pages";
 import styles from "./AsistenciasPage.module.scss";
 
 export default function AsistenciasPage() {

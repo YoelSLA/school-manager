@@ -7,7 +7,7 @@ import {
 import EmpleadoInfo from "@/features/empleadoEducativo/components/EmpleadoInfo";
 import BadgeEstadoLicencia from "@/shared/components/badges/BagdeEstadoLicencia";
 import Row from "@/shared/components/Table/TableRow";
-import { formatearFecha } from "@/shared/utils";
+import { formatDate } from "@/shared/utils/date";
 import type { LicenciaRowDTO } from "../../types";
 import styles from "./LicenciaRow.module.scss";
 
@@ -42,11 +42,11 @@ export default function LicenciaRow({
       {/* PERÍODO */}
       <div className={styles.periodo}>
         <Calendar size={16} />
-        {formatearFecha(licencia.periodo.fechaDesde)}
+        {formatDate(licencia.periodo.fechaDesde)}
 
         <Flag size={16} />
 
-        {formatearFecha(licencia.periodo.fechaHasta)}
+        {formatDate(licencia.periodo.fechaHasta)}
       </div>
 
       {/* DÍAS */}

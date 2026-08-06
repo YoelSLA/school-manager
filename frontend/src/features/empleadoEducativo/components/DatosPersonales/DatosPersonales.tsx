@@ -1,6 +1,6 @@
 import { Calendar, IdCard, LocationEdit, Mail, Phone } from "lucide-react";
 import type { EmpleadoEducativoDetalleDTO } from "@/features/empleadoEducativo/types";
-import { formatearFecha } from "@/shared/utils";
+import { formatDate } from "@/shared/utils/date";
 import DatoPersonalItem from "./DatoPersonalItem";
 import styles from "./DatosPersonales.module.scss";
 
@@ -18,7 +18,7 @@ export default function DatosPersonales({ empleado }: Props) {
     {
       icon: Calendar,
       label: "Nacimiento",
-      value: formatearFecha(empleado.fechaDeNacimiento),
+      value: formatDate(empleado.fechaDeNacimiento),
     },
     {
       icon: Phone,
@@ -39,7 +39,7 @@ export default function DatosPersonales({ empleado }: Props) {
       icon: Calendar,
       label: "Fecha de ingreso",
       value: empleado.fechaDeIngreso
-        ? formatearFecha(empleado.fechaDeIngreso)
+        ? formatDate(empleado.fechaDeIngreso)
         : "No disponible",
     },
   ];

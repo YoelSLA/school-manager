@@ -8,8 +8,8 @@ import {
   useRef,
   useState,
 } from "react";
-import useDebounce from "../../../../../shared/utils/hooks/useDebounce";
-import useEmpleadoSearch from "../../../hooks/queries/useEmpleadoSearch";
+import useDebounce from "@/shared/hooks/useDebounce";
+import { useEmpleadoSearch } from "../../../hooks/queries";
 import type { EmpleadoEducativoBasicoDTO } from "../../../types";
 import styles from "./EmpleadoAutocompleteBase.module.scss";
 

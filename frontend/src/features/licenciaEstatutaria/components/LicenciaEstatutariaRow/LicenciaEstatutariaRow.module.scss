@@ -1,0 +1,187 @@
+@use "@/styles/abstracts" as *;
+
+$row-columns:
+	minmax(140px, 160px)
+	120px
+	minmax(280px, 1fr)
+	120px
+	96px;
+
+.row {
+	grid-template-columns: $row-columns;
+	column-gap: $row-gap;
+}
+
+/* =================================
+   CELDAS
+================================= */
+
+.articulo,
+.codigo,
+.nombre,
+.estado,
+.actions {
+	display: flex;
+	align-items: center;
+
+	width: 100%;
+	min-width: 0;
+}
+
+.articulo,
+.codigo {
+	justify-content: flex-start;
+}
+
+.nombre {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+
+	overflow: hidden;
+}
+
+.estado,
+.actions {
+	justify-content: center;
+}
+
+.articulo {
+	font-weight: 600;
+	color: var(--color-text-primary);
+}
+
+.codigo {
+	color: var(--color-text-secondary);
+	font-weight: 500;
+}
+
+.nombrePrincipal {
+	width: 100%;
+
+	font-weight: 600;
+	color: var(--color-text-primary);
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.descripcion {
+	width: 100%;
+
+	margin-top: 2px;
+
+	font-size: 12px;
+	font-weight: 400;
+	color: var(--color-text-secondary);
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* =================================
+   ESTADO
+================================= */
+
+.badge {
+	padding: 4px 10px;
+
+	border-radius: 999px;
+
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.activa {
+	background: var(--color-success-100);
+	color: var(--color-success-700);
+}
+
+.inactiva {
+	background: var(--color-error-100);
+	color: var(--color-error-700);
+}
+
+/* =================================
+   ACCIONES
+================================= */
+
+.actions {
+	gap: 8px;
+}
+
+.iconButton {
+	width: 40px;
+	height: 40px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	border: none;
+	border-radius: 10px;
+
+	background: transparent;
+	color: var(--color-text-secondary);
+
+	cursor: pointer;
+
+	transition:
+		background-color 0.15s ease,
+		color 0.15s ease;
+
+	&:hover {
+		background: var(--color-surface-hover);
+	}
+
+	&--edit:hover {
+		color: var(--color-primary-600);
+	}
+
+	&--danger:hover {
+		color: var(--color-error-600);
+	}
+}
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@include desktop-height-small {
+	.articulo,
+	.codigo,
+	.nombrePrincipal {
+		font-size: 12px;
+	}
+
+	.descripcion {
+		font-size: 11px;
+	}
+}
+
+@include desktop-height-medium {
+	.articulo,
+	.codigo,
+	.nombrePrincipal {
+		font-size: 13px;
+	}
+
+	.descripcion {
+		font-size: 12px;
+	}
+}
+
+@include desktop-height-large {
+	.articulo,
+	.codigo,
+	.nombrePrincipal {
+		font-size: 14px;
+	}
+
+	.descripcion {
+		font-size: 13px;
+	}
+}

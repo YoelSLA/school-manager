@@ -1,9 +1,9 @@
-import ToolbarPageLayout from "@/app/layouts/pages/ToolbarPageLayout";
-import FilterPillGroup from "@/shared/components/filters/FilterPillGroup";
+import { ToolbarPageLayout } from "@/app/layouts/pages";
+import { FilterPillGroup } from "@/shared/components/filters";
 import Toolbar from "@/shared/components/Toolbar";
 import CursoCreateModal from "../../components/CursoCreateModal";
-import CursosTable from "../../components/CursoTable";
-import useCursosPage from "../../hooks/pages/useCursosPage";
+import CursoTable from "../../components/CursoTable";
+import { useCursosPage } from "../../hooks/pages";
 import { FILTROS_CURSOS } from "../../utils/cursos.utils";
 
 export default function CursoPage() {
@@ -32,7 +32,7 @@ export default function CursoPage() {
         totalPages={vm.pagination.totalPages}
         onPageChange={vm.pagination.setPage}
       >
-        <CursosTable
+        <CursoTable
           query={vm.query}
           onVerDetalle={vm.navigation.verDetalle}
         />

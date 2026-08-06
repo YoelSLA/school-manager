@@ -1,10 +1,7 @@
-import BreadcrumbPageLayout from "@/app/layouts/pages/BreadcrumbPageLayout/BreadcrumbPageLayout";
-import ConfirmModal from "@/shared/components/Modal/ModalConfirm";
-import AsistenciaCalendar from "../../components/AsistenciaCalendar/AsistenciaCalendar";
-import AsistenciaHeader from "../../components/AsistenciaHeader/AsistenciaHeader";
-import AsistenciaStats from "../../components/AsistenciaStats";
-import RegistrarInasistenciaModal from "../../components/RegistrarInasistenciaModal/RegistrarInasistenciaModal";
-import useAsistenciaDetallePage from "../../hooks/pages/useAsistenciaDetallePage";
+import { BreadcrumbPageLayout } from "@/app/layouts/pages";
+import { ModalConfirm } from "@/shared/components/Modal";
+import { AsistenciaCalendar, AsistenciaHeader, AsistenciaStats, RegistrarInasistenciaModal } from "../../components";
+import { useAsistenciaDetallePage } from "../../hooks/pages";
 import styles from "./AsistenciaDetallePage.module.scss";
 
 export default function AsistenciaDetallePage() {
@@ -70,7 +67,7 @@ export default function AsistenciaDetallePage() {
         onConfirm={confirmarRegistro}
       />
 
-      <ConfirmModal
+      <ModalConfirm
         open={isDeleteModalOpen}
         title="Eliminar inasistencia"
         description="Esta acción eliminará la inasistencia manual registrada."

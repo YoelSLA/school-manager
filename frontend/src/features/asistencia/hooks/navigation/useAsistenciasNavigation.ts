@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { asistenciasPaths } from "@/app/router/paths";
+import { asistenciaPaths } from "../../constants";
 import type { AsistenciaEmpleadoResumenDTO } from "../../types";
 
 export function useAsistenciasNavigation() {
@@ -26,13 +26,13 @@ export function useAsistenciasNavigation() {
 			const anio = today.getFullYear();
 			const mes = today.getMonth() + 1;
 
-			navigate(asistenciasPaths.detail(empleado.empleadoBasico.id, anio, mes), {
+			navigate(asistenciaPaths.detail(empleado.empleadoBasico.id, anio, mes), {
 				state: buildState(empleado),
 			});
 		},
 
 		volverAlListado: () => {
-			navigate(asistenciasPaths.list);
+			navigate(asistenciaPaths.list);
 		},
 	};
 }

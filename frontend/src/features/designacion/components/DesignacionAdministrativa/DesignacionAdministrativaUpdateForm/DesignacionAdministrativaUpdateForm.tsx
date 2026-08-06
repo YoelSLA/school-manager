@@ -2,8 +2,8 @@ import { useUpdateDesignacionAdministrativaForm } from "../../../form/hooks/useU
 import type { DesignacionAdministrativaDetalleDTO, DesignacionAdministrativaUpdateDTO } from "../../../types";
 import CupofAdministrativaInputField from "../../FieldInputCupofAdministrativa";
 import RolEducativoSelectField from "../../FieldSelectRolEducativo";
-import DesignacionAdministrativaFormLayout from "../DesignacionAdministrativaCreate/DesignacionAdministrativaFormLayout";
 import styles from "../DesignacionAdministrativaCreateForm/DesignacionAdministrativaCreateForm.module.scss";
+import DesignacionAdministrativaFormLayout from "../DesignacionAdministrativaFormLayout";
 
 type Props = {
   designacion: DesignacionAdministrativaDetalleDTO;

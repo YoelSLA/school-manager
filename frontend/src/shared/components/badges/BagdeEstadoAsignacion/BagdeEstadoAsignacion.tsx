@@ -1,6 +1,6 @@
 import Badge from "@/shared/components/Badge";
 import type { EstadoAsignacion } from "@/shared/types/enums";
-import { ESTADO_ASIGNACION_CONFIG } from "@/shared/utils/bagdeConfig";
+import { ESTADO_ASIGNACION_CONFIG } from "./BagdeEstadoAsignacion.config";
 
 type Props = {
   value: EstadoAsignacion;

@@ -1,72 +1,45 @@
-import { useState } from "react";
-import CreateEscuelaModal from "../components/CreateEscuelaModal/CreateEscuelaModal";
-import DisableEscuelaModal from "../components/DisableEscuelaModal";
-import SeleccionarEscuelaEmpty from "../components/SeleccionarEscuelaEmpty/SeleccionarEscuelaEmpty";
-import SeleccionarEscuelaGrid from "../components/SeleccionarEscuelaGrid/SeleccionarEscuelaGrid";
-import SeleccionarEscuelaHeader from "../components/SeleccionarEscuelaHeader/SeleccionarEscuelaHeader";
-import { useCrearEscuela } from "../hooks/useCrearEscuela";
-import { useDeleteEscuela } from "../hooks/useDeleteEscuela";
-import { useGetAllEscuelas } from "../hooks/useGetAllEscuelas";
-import type { EscuelaCreateDTO, EscuelaResponseDTO } from "../types";
+import { CreateEscuelaModal, DisableEscuelaModal, SeleccionarEscuelaEmpty, SeleccionarEscuelaGrid, SeleccionarEscuelaHeader } from "../components";
+import { useEscuelaPage } from "../hooks/pages";
 import styles from "./EscuelaPage.module.scss";
 
 export default function EscuelaPage() {
-  const { escuelas, isLoading } = useGetAllEscuelas();
-  const deleteEscuela = useDeleteEscuela();
-  const { crearEscuela, isLoading: isCreating, error } = useCrearEscuela();
-
-  const [modalCrear, setModalCrear] = useState(false);
-  const [, setEditar] = useState<EscuelaResponseDTO | null>(null);
-  const [eliminar, setEliminar] = useState<EscuelaResponseDTO | null>(null);
-
-  const confirmarEliminar = async () => {
-    if (!eliminar) return;
-
-    await deleteEscuela.mutateAsync(eliminar.id);
-
-    setEliminar(null);
-  };
-
-  const handleCrearEscuela = async (data: EscuelaCreateDTO) => {
-    await crearEscuela(data);
-    setModalCrear(false);
-  };
+  const vm = useEscuelaPage();
 
   return (
     <div className={styles["seleccionar-escuela"]}>
       <SeleccionarEscuelaHeader
-        onCrear={() => setModalCrear(true)}
+        onCrear={vm.create.open}
         onRefresh={() => { }}
-        isLoading={isLoading}
+        isLoading={vm.query.isLoading}
       />
 
       <div className={styles["seleccionar-escuela__grid-wrapper"]}>
-        {isLoading ? null : escuelas.length === 0 ? (
-          <SeleccionarEscuelaEmpty onCrear={() => setModalCrear(true)} />
+        {vm.query.isLoading ? null : vm.query.escuelas.length === 0 ? (
+          <SeleccionarEscuelaEmpty onCrear={vm.create.open} />
         ) : (
           <SeleccionarEscuelaGrid
-            escuelas={escuelas}
-            onEditar={setEditar}
-            onEliminar={setEliminar}
+            escuelas={vm.query.escuelas}
+            onEditar={vm.edit.open}
+            onEliminar={vm.delete.open}
           />
         )}
       </div>
 
-      {modalCrear && (
+      {vm.create.isOpen && (
         <CreateEscuelaModal
-          onClose={() => setModalCrear(false)}
-          onSubmit={handleCrearEscuela}
-          isSubmitting={isCreating}
-          error={error ? "No se pudo crear la escuela" : null}
+          onClose={vm.create.close}
+          onSubmit={vm.create.submit}
+          isSubmitting={vm.create.isPending}
+          error={vm.create.error}
         />
       )}
 
-      {eliminar && (
+      {vm.delete.escuela && (
         <DisableEscuelaModal
-          open={!!eliminar}
-          onCancel={() => setEliminar(null)}
-          onConfirm={confirmarEliminar}
-          loading={deleteEscuela.isPending}
+          open
+          onCancel={vm.delete.close}
+          onConfirm={vm.delete.submit}
+          loading={vm.delete.isPending}
         />
       )}
     </div>

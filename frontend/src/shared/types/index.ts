@@ -1,3 +1,9 @@
-export * from "./common.types";
+export type * from "./api";
+export type * from "./baja";
 export * from "./enums";
-export * from "./ui.types";
+export type * from "./franjaHoraria";
+export type * from "./licencia";
+export type * from "./navigation";
+export type * from "./normativa";
+export type * from "./periodo";
+export type * from "./ui";

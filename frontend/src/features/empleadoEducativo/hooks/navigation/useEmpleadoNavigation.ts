@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { empleadosEducativosPaths } from "@/app/router/paths";
+import { empleadoEducativoPaths } from "../../constants";
 import type { EmpleadoEducativoDetalleDTO } from "../../types";
 
 export const useEmpleadoNavigation = () => {
@@ -12,28 +12,28 @@ export const useEmpleadoNavigation = () => {
 	});
 
 	return {
-		listar: () => navigate(empleadosEducativosPaths.base),
+		listar: () => navigate(empleadoEducativoPaths.base),
 
 		verDetalle: (empleado: EmpleadoEducativoDetalleDTO) =>
-			navigate(empleadosEducativosPaths.detail(empleado.id), {
+			navigate(empleadoEducativoPaths.detail(empleado.id), {
 				state: buildState(empleado),
 			}),
 
 		editar: (empleado: EmpleadoEducativoDetalleDTO) =>
-			navigate(empleadosEducativosPaths.edit(empleado.id), {
+			navigate(empleadoEducativoPaths.edit(empleado.id), {
 				state: buildState(empleado),
 			}),
 
-		crear: () => navigate(empleadosEducativosPaths.create),
+		crear: () => navigate(empleadoEducativoPaths.create),
 
 		// ✅ NUEVOS
 		crearCargo: (empleado: EmpleadoEducativoDetalleDTO) =>
-			navigate(empleadosEducativosPaths.crearCargo(empleado.id), {
+			navigate(empleadoEducativoPaths.crearCargo(empleado.id), {
 				state: buildState(empleado),
 			}),
 
 		crearLicencia: (empleado: EmpleadoEducativoDetalleDTO) =>
-			navigate(empleadosEducativosPaths.crearLicencia(empleado.id), {
+			navigate(empleadoEducativoPaths.crearLicencia(empleado.id), {
 				state: buildState(empleado),
 			}),
 	};

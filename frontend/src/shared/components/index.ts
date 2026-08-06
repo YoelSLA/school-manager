@@ -1,37 +1,14 @@
-/* =========================================================
-   LAYOUT
-========================================================= */
-
+export { default as Badge } from "./Badge";
 export { default as Breadcrumbs } from "./Breadcrumbs";
+export { default as Button } from "./Button";
+export * from "./badges";
+export { default as Card } from "./Card";
+export * from "./filters";
+export * from "./form";
 export { default as ListContainer } from "./ListContainer";
 export { default as Navbar } from "./Navbar";
 export { default as Pagination } from "./Pagination";
+export { default as PeriodoDisplay } from "./PeriodoDisplay";
+export { default as Select } from "./Select";
 export { default as Table } from "./Table";
 export { default as Toolbar } from "./Toolbar";
-
-/* =========================================================
-   FEEDBACK
-========================================================= */
-
-export { default as Badge } from "./Badge";
-export { default as Card } from "./Card";
-export { default as Modal } from "./Modal";
-export { default as Select } from "./Select";
-
-/* =========================================================
-   BADGES
-========================================================= */
-
-export * from "./badges";
-
-/* =========================================================
-   FILTERS
-========================================================= */
-
-export * from "./filters";
-
-/* =========================================================
-   FORM
-========================================================= */
-
-export * from "./form";

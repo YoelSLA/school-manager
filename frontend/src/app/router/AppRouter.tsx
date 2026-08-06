@@ -1,17 +1,18 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import AppLayout from "@/app/layouts/application/AppLayout/AppLayout";
-import { AsistenciaRoutes } from "@/app/router/routes/asistencia.routes";
-import { CursoRoutes } from "@/app/router/routes/curso.routes";
-import { DesignacionRoutes } from "@/app/router/routes/designacion.routes";
-import { EmpleadoEducativoRoutes } from "@/app/router/routes/empleadoEducativo.routes";
-import { LicenciaRoutes } from "@/app/router/routes/licencia.routes";
-import { MateriaRoutes } from "@/app/router/routes/materia.routes";
-import EscuelaPage from "@/features/escuela/pages";
-import UpdateBanner from "@/infrastructure/UpdateBanner";
-import { useUpdater } from "@/infrastructure/useUpdater";
+import AppLayout from "@/app/layouts/application/AppLayout";
+import UpdateBanner from "@/infrastructure/updater/components/UpdateBanner";
+import { useUpdater } from "@/infrastructure/updater/hooks/useUpdater";
 import RutaProtegida from "./RutaProtegida";
-
-
+import {
+  AdministracionRoutes,
+  AsistenciaRoutes,
+  CursoRoutes,
+  DesignacionRoutes,
+  EmpleadoEducativoRoutes,
+  EscuelaRoutes,
+  LicenciaRoutes,
+  MateriaRoutes,
+} from "./routes";
 
 export default function AppRouter() {
   const { updateAvailable } = useUpdater();
@@ -21,10 +22,7 @@ export default function AppRouter() {
       {updateAvailable && <UpdateBanner />}
 
       <Routes>
-        <Route
-          path="/seleccionar-escuela"
-          element={<EscuelaPage />}
-        />
+        {EscuelaRoutes()}
 
         <Route
           path="/"
@@ -43,6 +41,7 @@ export default function AppRouter() {
           {CursoRoutes()}
           {DesignacionRoutes()}
           {LicenciaRoutes()}
+          {AdministracionRoutes()}
         </Route>
       </Routes>
     </>

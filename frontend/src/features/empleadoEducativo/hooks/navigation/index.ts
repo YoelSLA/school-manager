@@ -1,0 +1,1 @@
+export { useEmpleadoNavigation } from "./useEmpleadoNavigation";

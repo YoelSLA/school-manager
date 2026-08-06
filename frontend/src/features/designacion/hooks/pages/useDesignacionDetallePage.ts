@@ -1,11 +1,12 @@
 import { useCallback, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { designacionesPaths } from "@/app/router/paths";
 import { useCargoActivo } from "@/features/asignacion/hooks";
-import type { AsignacionDetalleDTO } from "@/features/asignacion/types";
-import type { FiltroCargos } from "@/shared/types";
-import { useCargosDesignacion } from "../queries/useCargosDesignacion";
-import useDesignacionDetalle from "../queries/useDesignacionDetalle";
+import type {
+	AsignacionDetalleDTO,
+	FiltroCargos,
+} from "@/features/asignacion/types";
+import { designacionPaths } from "../../constants";
+import { useCargosDesignacion, useDesignacionDetalle } from "../queries";
 
 type TipoAsignacion = "TITULAR" | "PROVISIONAL";
 
@@ -49,7 +50,7 @@ export function useDesignacionDetallePage() {
 	========================= */
 
 	const handleEditar = () => {
-		navigate(designacionesPaths.edit(id));
+		navigate(designacionPaths.edit(id));
 	};
 
 	const handleEliminar = () => {

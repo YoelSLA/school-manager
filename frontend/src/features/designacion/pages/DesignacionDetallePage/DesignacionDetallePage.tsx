@@ -1,13 +1,8 @@
-import BreadcrumbPageLayout from "@/app/layouts/pages/BreadcrumbPageLayout/BreadcrumbPageLayout";
-import DesignacionDetalleActions from "../../components/DesignacionDetalleActions";
-import DesignacionDetalleModals from "../../components/DesignacionDetalleModals/DesignacionDetalleModals";
-import { useDesignacionDetallePage } from "../../hooks/pages/useDesignacionDetallePage";
-import DesignacionCargoActivo from "./DesignacionaAsignacionActiva/DesignacionAsignacionActiva";
-import DesignacionCargosHistorial from "./DesignacionCargosHistorial/DesignacionCargosHistorial";
-import DesignacionDatos from "./DesignacionDatos/DesignacionDatos";
+import { BreadcrumbPageLayout } from "@/app/layouts/pages";
+import { useDesignacionDetallePage } from "../../hooks/pages";
+import { DesignacionAsignacionActiva, DesignacionCargosHistorial, DesignacionDatos, DesignacionDetalleActions, DesignacionDetalleModals, DesignacionHeaderInfo, DesignacionHorarios } from "../../components";
+
 import styles from "./DesignacionDetallePage.module.scss";
-import DesignacionHeaderInfo from "./DesignacionHeaderInfo/DesignacionHeaderInfo";
-import DesignacionHorarios from "./DesignacionHorarios";
 
 export default function DesignacionDetallePage() {
   const vm = useDesignacionDetallePage();
@@ -34,7 +29,7 @@ export default function DesignacionDetallePage() {
         <div className={styles.body}>
           <div className={styles.content}>
             <div className={styles.cargoActivo}>
-              <DesignacionCargoActivo
+              <DesignacionAsignacionActiva
                 cargo={vm.cargoActivo}
                 designacionId={vm.id}
                 isLoading={vm.isLoadingActivo}

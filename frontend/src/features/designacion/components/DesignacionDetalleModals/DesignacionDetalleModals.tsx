@@ -1,10 +1,6 @@
-import type { AsignacionDetalleDTO } from "@/features/asignacion/types/";
+import { ModalCreateAsignacionProvisional, ModalCreateAsignacionTitular, ModalUpdateAsignacionProvisional, ModalUpdateAsignacionTitular } from "@/features/asignacion/components";
+import type { AsignacionDetalleDTO } from "@/features/asignacion/types";
 import type { DesignacionDetalleDTO } from "../../types";
-import ModalCreateAsignacionProvisional from "../ModalCreateAsignacion/ModalCreateAsignacionProvisional";
-import ModalCreateAsignacionTitular from "../ModalCreateAsignacion/ModalCreateAsignacionTitular";
-import ModalUpdateAsignacionProvisional from "../ModalUpdateAsignacion/ModalUpdateAsignacionProvisional";
-import ModalUpdateAsignacionTitular from "../ModalUpdateAsignacion/ModalUpdateAsignacionTitular";
-
 
 type Props = {
   id: number;

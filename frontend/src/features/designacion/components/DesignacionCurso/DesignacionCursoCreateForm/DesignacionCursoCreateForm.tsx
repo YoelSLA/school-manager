@@ -9,8 +9,8 @@ import FieldInputCupofCurso from "../../FieldInputCupofCurso"
 import FieldSelectOrientacion from "../../FieldSelectOrientacion";
 import FormSelectCurso from "../../FormSelectCurso";
 import FormSelectMateria from "../../FormSelectMateria";
-import DesignacionCursoFormLayout from "../DesignacionCursoCreate/DesignacionCursoFormLayout";
 import styles from "./DesignacionCursoCreateForm.module.scss";
+import DesignacionCursoFormLayout from "./DesignacionCursoFormLayout";
 
 type Props = {
   onSubmit: (data: DesignacionCursoCreateDTO) => Promise<void>;

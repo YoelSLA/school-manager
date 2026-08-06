@@ -1,8 +1,7 @@
-import FormInputField from "@/shared/components/form/FormInput";
-import FormSection from "@/shared/components/form/FormSection";
-import Modal from "@/shared/components/Modal/Modal";
-import { useCreateMateriaForm } from "../../form/hooks/useCreateMateriaForm";
-import type { MateriaCreateDTO, MateriaCreateFormValues } from "../../types";
+import { FormInput, FormSection } from "@/shared/components/form";
+import { Modal } from "@/shared/components/Modal";
+import { useCreateMateriaForm } from "../../form/hooks";
+import type { MateriaCreateDTO } from "../../types";
 
 type Props = {
   onClose: () => void;
@@ -15,24 +14,7 @@ export default function MateriaCreateModal({
   isSubmitting,
   onSubmit,
 }: Props) {
-  const { form } = useCreateMateriaForm();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = form;
-
-  const toMateriaCreateDTO = (
-    data: MateriaCreateFormValues,
-  ): MateriaCreateDTO => ({
-    nombre: data.nombre,
-    abreviatura: data.abreviatura,
-    cantidadModulos: Number(data.cantidadModulos),
-  });
-
-  const handleFormSubmit = (data: MateriaCreateFormValues) =>
-    onSubmit(toMateriaCreateDTO(data));
+  const { register, errors, handleFormSubmit } = useCreateMateriaForm(onSubmit);
 
   return (
     <Modal
@@ -41,23 +23,23 @@ export default function MateriaCreateModal({
       confirmLabel="Crear"
       isSubmitting={isSubmitting}
     >
-      <form onSubmit={handleSubmit(handleFormSubmit)}>
+      <form onSubmit={handleFormSubmit}>
         <FormSection layout="column">
-          <FormInputField
+          <FormInput
             label="Nombre"
             name="nombre"
             register={register}
             error={errors.nombre?.message}
           />
 
-          <FormInputField
+          <FormInput
             label="Abreviatura"
             name="abreviatura"
             register={register}
             error={errors.abreviatura?.message}
           />
 
-          <FormInputField
+          <FormInput
             label="Módulos"
             name="cantidadModulos"
             type="number"

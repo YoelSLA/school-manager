@@ -1,0 +1,6 @@
+export enum EstadoLicencia {
+	PENDIENTE = "PENDIENTE",
+	CUBIERTA = "CUBIERTA",
+	DESCUBIERTA = "DESCUBIERTA",
+	NO_VIGENTE = "NO_VIGENTE",
+}

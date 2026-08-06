@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { esUltimaLicencia } from "../../utils/licencia.utils";
-import useDeleteLicencia from "../mutations/useDeleteLicencia";
-import { useLicenciasNavigation } from "../navigation/useLicenciasNavigation";
+import { useDeleteLicencia } from "../mutations";
+import { useLicenciaNavigation } from "../navigation";
 import { useLicenciaDetalle } from "../queries/useLicenciaDetalle";
 import { useLicenciaTimeline } from "../queries/useLicenciaTimeline";
 
-export default function useLicenciaDetallePage() {
+export function useLicenciaDetallePage() {
 	const { licenciaId } = useParams<{ licenciaId: string }>();
 
 	const licenciaIdNumber = Number(licenciaId);
 
-	const navigation = useLicenciasNavigation();
+	const navigation = useLicenciaNavigation();
 
 	const [renovarVisible, setRenovarVisible] = useState(false);
 	const [deleteModalOpen, setDeleteModalOpen] = useState(false);

@@ -1,26 +1,35 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import type { MateriaUpdateFormValues } from "../../types";
+import type { MateriaUpdateDTO, MateriaUpdateFormValues } from "../../types";
 import { materiaUpdateSchema } from "../schemas/materiaUpdate.schema";
 
 type Props = {
-	materia: MateriaUpdateFormValues;
+	materia: MateriaUpdateDTO;
+	onSubmit: (data: MateriaUpdateDTO) => void;
 };
 
-export function useUpdateMateriaForm({ materia }: Props) {
+export function useUpdateMateriaForm({ materia, onSubmit }: Props) {
 	const form = useForm<MateriaUpdateFormValues>({
 		resolver: zodResolver(materiaUpdateSchema),
 		defaultValues: materia,
 	});
 
-	const { reset } = form;
-
 	useEffect(() => {
-		reset(materia);
-	}, [materia, reset]);
+		form.reset(materia);
+	}, [materia, form]);
+
+	const handleFormSubmit = form.handleSubmit((data) => {
+		onSubmit({
+			nombre: data.nombre,
+			abreviatura: data.abreviatura,
+			cantidadModulos: Number(data.cantidadModulos),
+		});
+	});
 
 	return {
-		form,
+		register: form.register,
+		errors: form.formState.errors,
+		handleFormSubmit,
 	};
 }

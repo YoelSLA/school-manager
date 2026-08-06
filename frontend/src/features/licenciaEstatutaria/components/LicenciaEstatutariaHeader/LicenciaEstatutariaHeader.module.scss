@@ -1,0 +1,25 @@
+@use "@/styles/abstracts" as *;
+
+$row-columns:
+	minmax(140px, 160px)
+	120px
+	minmax(280px, 1fr)
+	120px
+	96px;
+
+.header {
+	grid-template-columns: $row-columns;
+	column-gap: $row-gap;
+	padding-inline: $row-padding-inline;
+
+	> :nth-child(1),
+	> :nth-child(2),
+	> :nth-child(3) {
+		justify-content: flex-start;
+	}
+
+	> :nth-child(4),
+	> :nth-child(5) {
+		justify-content: center;
+	}
+}

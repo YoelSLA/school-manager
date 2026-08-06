@@ -1,9 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import type { MateriaCreateFormValues } from "../../types";
+import type { MateriaCreateDTO, MateriaCreateFormValues } from "../../types";
 import { materiaCreateSchema } from "../schemas/materiaCreate.schema";
 
-export function useCreateMateriaForm() {
+export function useCreateMateriaForm(
+	onSubmit: (data: MateriaCreateDTO) => void,
+) {
 	const form = useForm<MateriaCreateFormValues>({
 		resolver: zodResolver(materiaCreateSchema),
 		defaultValues: {
@@ -13,7 +15,17 @@ export function useCreateMateriaForm() {
 		},
 	});
 
+	const handleFormSubmit = form.handleSubmit((data) => {
+		onSubmit({
+			nombre: data.nombre,
+			abreviatura: data.abreviatura,
+			cantidadModulos: Number(data.cantidadModulos),
+		});
+	});
+
 	return {
-		form,
+		register: form.register,
+		errors: form.formState.errors,
+		handleFormSubmit,
 	};
 }

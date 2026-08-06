@@ -1,1 +1,1 @@
-export type * from "./licenciaEstatutaria.types";
+export type * from "./dtos";

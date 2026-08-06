@@ -1,4 +1,4 @@
-import { useDesignacionesPage } from "../../hooks/pages/useDesignacionesPage";
+import { useDesignacionesPage } from "../../hooks/pages/useDesignacionPage";
 import AdministrativasDesignacionesPage from "./AdministrativasDesignacionesPage";
 import CursosDesignacionesPage from "./CursoDesignacionPage";
 

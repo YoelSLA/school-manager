@@ -1,7 +1,7 @@
 import { EmpleadoSelector } from "@/features/empleadoEducativo/components";
 import type { EmpleadoEducativoBasicoDTO } from "@/features/empleadoEducativo/types";
 import { FormInputDate, FormInputNumber } from "@/shared/components";
-import Modal from "@/shared/components/Modal";
+import { Modal } from "@/shared/components/Modal";
 import { useCambiarCoberturaForm } from "../../form/hooks/useCambiarCoberturaForm";
 import styles from "../LicenciaCoberturaModal.module.scss";
 

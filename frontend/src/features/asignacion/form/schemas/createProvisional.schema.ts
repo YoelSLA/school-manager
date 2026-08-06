@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { requiredFechaISO } from "@/shared/utils/zod/schemas";
+import { requiredFechaISO } from "@/shared/validation/date";
 
 export const createProvisionalSchema = z
 	.object({

@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import Row from "@/shared/components/Table/TableRow";
+import { TableRow } from "@/shared/components/Table";
 import type { CursoRowDTO } from "../../types";
 import styles from "./CursoRow.module.scss";
 
@@ -13,7 +13,7 @@ export default function CursoRow({
   onVerDetalle,
 }: Props) {
   return (
-    <Row
+    <TableRow
       className={styles.row}
       onOpen={() => onVerDetalle(curso)}
     >
@@ -43,6 +43,6 @@ export default function CursoRow({
       >
         <ArrowRight size={18} />
       </button>
-    </Row>
+    </TableRow>
   );
 }

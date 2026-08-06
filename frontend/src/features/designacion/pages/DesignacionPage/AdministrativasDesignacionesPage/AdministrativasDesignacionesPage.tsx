@@ -3,9 +3,9 @@ import ActiveFilters from "@/shared/components/filters/ActiveFilters";
 import FilterMenu from "@/shared/components/filters/FilterMenu";
 import FilterPillGroup from "@/shared/components/filters/FilterPillGroup";
 import Toolbar from "@/shared/components/Toolbar";
-import { FILTROS_DESIGNACIONES } from "@/shared/utils";
 import DesignacionAdministrativaTable from "../../../components/DesignacionTable/DesignacionAdministrativaTable";
-import type { useDesignacionesPage } from "../../../hooks/pages/useDesignacionesPage";
+import { FILTROS_DESIGNACIONES } from "../../../constants";
+import type { useDesignacionesPage } from "../../../hooks/pages/useDesignacionPage";
 
 type Props = {
   vm: ReturnType<typeof useDesignacionesPage>;

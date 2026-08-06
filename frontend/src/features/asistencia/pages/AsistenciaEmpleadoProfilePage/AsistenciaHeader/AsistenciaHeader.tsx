@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { asistenciasPaths } from "@/app/router/paths";
-
 import BadgeRolEducativo from "@/shared/components/badges/BadgeRolEducativo";
 import type { RolEducativo } from "@/shared/types/enums";
+import { asistenciaPaths } from "../../../constants";
 import styles from "./AsistenciaHeader.module.scss";
 
 type Props = {
@@ -23,7 +22,7 @@ export default function AsistenciaHeader({ empleadoId, empleado }: Props) {
   const mes = now.getMonth() + 1;
 
   function handleVerMesActual() {
-    navigate(asistenciasPaths.month(empleadoId, anio, mes), {
+    navigate(asistenciaPaths.month(empleadoId, anio, mes), {
       state: {
         empleado,
       },

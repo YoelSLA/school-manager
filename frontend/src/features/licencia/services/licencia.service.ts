@@ -1,16 +1,12 @@
-import { http } from "@/shared/http/http";
+import { http } from "@/shared/http";
 import type { PageResponse } from "@/shared/types";
 import type {
 	CambiarCoberturaDTO,
 	CubrirDesignacionesConSuplente,
 	LicenciaCreateDTO,
-	LicenciaDesignacion,
 	LicenciaDesignacionDTO,
-	LicenciaDetalle,
 	LicenciaDetalleDTO,
-	LicenciaResumen,
 	LicenciaResumenDTO,
-	LicenciaTimelineItem,
 	LicenciaTimelineItemDTO,
 	RenovarLicenciaDTO,
 } from "../types";
@@ -23,7 +19,7 @@ const getLicenciasPorEscuela = async (
 	escuelaId: number,
 	page = 0,
 	size = 10,
-): Promise<PageResponse<LicenciaResumen>> => {
+): Promise<PageResponse<LicenciaResumenDTO>> => {
 	const { data } = await http.get<PageResponse<LicenciaResumenDTO>>(
 		`/escuelas/${escuelaId}/licencias`,
 		{
@@ -36,7 +32,7 @@ const getLicenciasPorEscuela = async (
 
 const getLicenciaDetalle = async (
 	licenciaId: number,
-): Promise<LicenciaDetalle> => {
+): Promise<LicenciaDetalleDTO> => {
 	const { data } = await http.get<LicenciaDetalleDTO>(
 		`/licencias/${licenciaId}`,
 	);
@@ -46,7 +42,7 @@ const getLicenciaDetalle = async (
 
 const getDesignacionesAfectadas = async (
 	licenciaId: number,
-): Promise<LicenciaDesignacion[]> => {
+): Promise<LicenciaDesignacionDTO[]> => {
 	const { data } = await http.get<LicenciaDesignacionDTO[]>(
 		`/licencias/${licenciaId}/designaciones-afectadas`,
 	);
@@ -56,7 +52,7 @@ const getDesignacionesAfectadas = async (
 
 const getLicenciaTimeline = async (
 	licenciaId: number,
-): Promise<LicenciaTimelineItem[]> => {
+): Promise<LicenciaTimelineItemDTO[]> => {
 	const { data } = await http.get<LicenciaTimelineItemDTO[]>(
 		`/licencias/${licenciaId}/timeline`,
 	);
@@ -71,7 +67,7 @@ const getLicenciaTimeline = async (
 const crearLicencia = async (
 	empleadoId: number,
 	body: LicenciaCreateDTO,
-): Promise<LicenciaDetalle> => {
+): Promise<LicenciaDetalleDTO> => {
 	const { data } = await http.post<LicenciaDetalleDTO>(
 		`/empleados/${empleadoId}`,
 		body,

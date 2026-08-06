@@ -2,7 +2,7 @@ import { useCreateDesignacionAdministrativaForm } from "../../../form/hooks/useC
 import type { DesignacionAdministrativaCreateDTO } from "../../../types";
 import CupofAdministrativaInputField from "../../FieldInputCupofAdministrativa";
 import RolEducativoSelectField from "../../FieldSelectRolEducativo";
-import DesignacionAdministrativaFormLayout from "../DesignacionAdministrativaCreate/DesignacionAdministrativaFormLayout";
+import DesignacionAdministrativaFormLayout from "../DesignacionAdministrativaFormLayout";
 import styles from "./DesignacionAdministrativaCreateForm.module.scss";
 
 type Props = {

@@ -1,0 +1,1 @@
+export { licenciaEstatutariaQueryKeys } from "./queryKeys";

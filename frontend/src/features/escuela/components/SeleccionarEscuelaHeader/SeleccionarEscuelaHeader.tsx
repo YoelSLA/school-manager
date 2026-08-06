@@ -1,5 +1,5 @@
 
-import Button from "@/shared/components/Button";
+import { Button } from "@/shared/components";
 import styles from "./SeleccionarEscuelaHeader.module.scss";
 
 type Props = {

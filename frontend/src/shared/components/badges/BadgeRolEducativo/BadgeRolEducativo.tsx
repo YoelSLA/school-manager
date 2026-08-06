@@ -1,6 +1,6 @@
 import Badge from "@/shared/components/Badge";
 import type { RolEducativo } from "@/shared/types/enums";
-import { ROL_EDUCATIVO_CONFIG } from "@/shared/utils/bagdeConfig";
+import { ROL_EDUCATIVO_CONFIG } from "./BadgeRolEducativo.config";
 
 type Props = {
   rolEducativo: RolEducativo;

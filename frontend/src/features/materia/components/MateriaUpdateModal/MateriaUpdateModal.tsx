@@ -1,9 +1,7 @@
-import FormInputField from "@/shared/components/form/FormInput";
-import FormSection from "@/shared/components/form/FormSection";
-import Modal from "@/shared/components/Modal/Modal";
-import { useUpdateMateriaForm } from "../../form/hooks/useUpdateMateriaForm";
-import type { MateriaUpdateDTO, MateriaUpdateFormValues } from "../../types";
-
+import { FormInput, FormSection } from "@/shared/components/form";
+import { Modal } from "@/shared/components/Modal";
+import { useUpdateMateriaForm } from "../../form/hooks";
+import type { MateriaUpdateDTO } from "../../types";
 
 type Props = {
   materia: MateriaUpdateDTO;
@@ -18,28 +16,17 @@ export default function MateriaUpdateModal({
   isSubmitting,
   onSubmit,
 }: Props) {
-  const { form } = useUpdateMateriaForm({ materia });
-
   const {
     register,
-    handleSubmit,
-    formState: { errors },
-  } = form;
-
-  const toMateriaUpdateDTO = (
-    data: MateriaUpdateFormValues,
-  ): MateriaUpdateDTO => ({
-    nombre: data.nombre,
-    abreviatura: data.abreviatura,
-    cantidadModulos: Number(data.cantidadModulos),
+    errors,
+    handleFormSubmit,
+  } = useUpdateMateriaForm({
+    materia,
+    onSubmit,
   });
 
-  const handleFormSubmit = (data: MateriaUpdateFormValues) => {
-    onSubmit(toMateriaUpdateDTO(data));
-  };
-
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)}>
+    <form onSubmit={handleFormSubmit}>
       <Modal
         title="Editar materia"
         onCancel={onClose}
@@ -47,21 +34,21 @@ export default function MateriaUpdateModal({
         isSubmitting={isSubmitting}
       >
         <FormSection layout="column">
-          <FormInputField
+          <FormInput
             label="Nombre"
             name="nombre"
             register={register}
             error={errors.nombre?.message}
           />
 
-          <FormInputField
+          <FormInput
             label="Abreviatura"
             name="abreviatura"
             register={register}
             error={errors.abreviatura?.message}
           />
 
-          <FormInputField
+          <FormInput
             label="Módulos"
             name="cantidadModulos"
             type="number"

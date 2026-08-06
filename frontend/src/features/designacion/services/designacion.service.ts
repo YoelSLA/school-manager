@@ -4,18 +4,16 @@ import type {
 	CubrirTitularDTO,
 	EditarProvisionalDTO,
 	EditarTitularDTO,
-} from "@/features/asignacion/types";
-import { http } from "@/shared/http/http";
-import type {
-	DesignacionCursoFilter,
 	EstadoCargo,
-	PageResponse,
-} from "@/shared/types";
+} from "@/features/asignacion/types";
+import { http } from "@/shared/http";
+import type { PageResponse } from "@/shared/types";
 import type {
 	DesignacionAdministrativaCreateDTO,
 	DesignacionAdministrativaRowDTO,
 	DesignacionCursoCreateDTO,
 	DesignacionCursoDetalleDTO,
+	DesignacionCursoFilter,
 	DesignacionCursoRowDTO,
 	DesignacionDetalleDTO,
 } from "../types";

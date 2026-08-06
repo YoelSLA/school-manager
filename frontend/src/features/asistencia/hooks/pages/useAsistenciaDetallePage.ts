@@ -9,7 +9,7 @@ import { useEliminarInasistencias } from "../mutations/useEliminarInasistencias"
 import { useRegistrarInasistencias } from "../mutations/useRegistrarInasistencias";
 import { useAsistenciasEmpleadoMes } from "../queries/useAsistenciasEmpleadoMes";
 
-export default function useAsistenciaDetallePage() {
+export function useAsistenciaDetallePage() {
 	const { empleadoId } = useParams<{ empleadoId: string }>();
 
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);

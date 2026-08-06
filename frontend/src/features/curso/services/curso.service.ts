@@ -1,6 +1,11 @@
-import { http } from "@/shared/http/http";
-import type { CursoFiltro, PageResponse } from "@/shared/types";
-import type { CursoCreateDTO, CursoDetalleDTO, CursoSelectDTO } from "../types";
+import { http } from "@/shared/http";
+import type { PageResponse } from "@/shared/types";
+import type {
+	CursoCreateDTO,
+	CursoDetalleDTO,
+	CursoFiltro,
+	CursoSelectDTO,
+} from "../types";
 
 /* =========================================================
    QUERIES

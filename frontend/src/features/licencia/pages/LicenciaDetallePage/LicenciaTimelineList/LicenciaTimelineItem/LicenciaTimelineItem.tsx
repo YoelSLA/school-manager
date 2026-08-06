@@ -1,6 +1,6 @@
 
 import Button from "@/shared/components/Button";
-import { formatearFecha } from "@/shared/utils";
+import { formatDate } from "@/shared/utils/date";
 import type { LicenciaTimelineItemDTO } from "../../../../types";
 import styles from "./LicenciaTimelineItem.module.scss";
 
@@ -35,9 +35,9 @@ export default function LicenciaTimelineItem({
           </div>
 
           <div className={styles["timeline-item__dates"]}>
-            {formatearFecha(item.periodo.fechaDesde)} ➡️{" "}
+            {formatDate(item.periodo.fechaDesde)} ➡️{" "}
             {item.periodo.fechaHasta
-              ? formatearFecha(item.periodo.fechaHasta)
+              ? formatDate(item.periodo.fechaHasta)
               : "Vigente"}
           </div>
         </div>

@@ -1,8 +1,6 @@
 import { es } from "date-fns/locale";
 import { DayPicker } from "react-day-picker";
-
 import "react-day-picker/dist/style.css";
-
 import { format } from "date-fns";
 import type { AsistenciaDiaDTO } from "../../types"
 import {

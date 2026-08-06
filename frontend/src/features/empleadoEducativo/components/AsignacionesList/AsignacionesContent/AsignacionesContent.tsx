@@ -1,10 +1,10 @@
 import type { AsignacionEmpleadoEducativoRowDTO } from "@/features/asignacion/types";
-import type { Tab } from "@/shared/types";
+import type { DesignacionTab } from "@/features/designacion/types";
 import EmpleadoEducativoAsignacionRow from "../../EmpleadoEducativoAsignacionRow";
 import styles from "./AsignacionesContent.module.scss";
 
 type Props = {
-  tab: Tab;
+  tab: DesignacionTab;
   asignaciones: AsignacionEmpleadoEducativoRowDTO[];
 };
 

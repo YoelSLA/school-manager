@@ -6,8 +6,8 @@ import {
 } from "lucide-react";
 import { useMemo } from "react";
 import { useListarCursosSelect } from "@/features/curso/hooks";
+import type { CursoFiltersState } from "@/features/curso/types";
 import { useListMateriasSelect } from "@/features/materia/hooks";
-import type { CursoFiltersState } from "@/shared/types";
 
 export type CursoActiveFilter = {
 	key: string;

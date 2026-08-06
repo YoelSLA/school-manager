@@ -1,0 +1,13 @@
+export enum Dia {
+	LUNES = "LUNES",
+	MARTES = "MARTES",
+	MIERCOLES = "MIERCOLES",
+	JUEVES = "JUEVES",
+	VIERNES = "VIERNES",
+}
+
+export enum Turno {
+	MANIANA = "MANIANA",
+	TARDE = "TARDE",
+	VESPERTINO = "VESPERTINO",
+}

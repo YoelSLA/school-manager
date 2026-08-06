@@ -3,14 +3,14 @@ import { useAsignacionesActivas } from "@/features/empleadoEducativo/hooks";
 import { getErrorMessage } from "@/shared/http/errorHandler";
 import { useLicenciaForm } from "../../form/useLicenciaForm";
 import type { LicenciaCreateDTO, LicenciaCreateFormValues } from "../../types";
-import { useCrearLicencia } from "../mutations/useCrearLicencia";
+import { useCrearLicencia } from "../mutations";
 
 type ErrorState = {
 	title: string;
 	message: string;
 } | null;
 
-export default function useLicenciaCreatePage() {
+export function useLicenciaCreatePage() {
 	const { crearLicencia, isLoading, error } = useCrearLicencia();
 	const { form } = useLicenciaForm();
 

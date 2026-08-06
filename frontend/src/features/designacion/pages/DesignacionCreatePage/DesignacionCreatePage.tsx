@@ -2,9 +2,9 @@ import BreadcrumbPageLayout from "@/app/layouts/pages/BreadcrumbPageLayout/Bread
 import ErrorModal from "@/shared/components/Modal/ModalError";
 import DesignacionAdministrativaForm from "../../components/DesignacionAdministrativa/DesignacionAdministrativaCreateForm";
 import DesignacionCursoForm from "../../components/DesignacionCurso/DesignacionCursoCreateForm";
-import { useDesignacionCreatePage } from "../../hooks/pages/useDesignacionCreatePage";
+import DesignacionTabs from "../../components/DesignacionTabs";
+import { useDesignacionCreatePage } from "../../hooks";
 import styles from "./DesignacionCreatePage.module.scss";
-import DesignacionTabs from "./DesignacionTabs/DesignacionTabs";
 
 export default function DesignacionCreatePage() {
   const vm = useDesignacionCreatePage();

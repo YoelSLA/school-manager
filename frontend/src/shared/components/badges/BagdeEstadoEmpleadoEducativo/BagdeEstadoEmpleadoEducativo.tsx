@@ -2,7 +2,7 @@ import Badge from "@/shared/components/Badge";
 import {
   ESTADO_EMPLEADO_CONFIG,
   getEstadoEmpleadoKey,
-} from "@/shared/utils/bagdeConfig";
+} from "./BagdeEstadoEmpleadoEducativo.config";
 
 type Props = {
   activo: boolean;

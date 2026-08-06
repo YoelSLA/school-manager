@@ -1,1 +1,1 @@
-export { default } from "./MateriaPage";
+export { default as MateriaPage } from "./MateriaPage";

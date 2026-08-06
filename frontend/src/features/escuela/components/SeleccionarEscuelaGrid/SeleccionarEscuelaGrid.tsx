@@ -1,6 +1,6 @@
 
 import type { EscuelaResponseDTO } from "../../types";
-import EscuelaCard from "../EscuelaCard/EscuelaCard";
+import EscuelaCard from "../EscuelaCard";
 import styles from "./SeleccionarEscuelaGrid.module.scss";
 
 type Props = {

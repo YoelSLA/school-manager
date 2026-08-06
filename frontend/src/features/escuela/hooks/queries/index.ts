@@ -1,0 +1,1 @@
+export { useGetAllEscuelas } from "./useGetAllEscuelas";

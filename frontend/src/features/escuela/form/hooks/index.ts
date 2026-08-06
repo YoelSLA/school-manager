@@ -1,0 +1,1 @@
+export { useCrearEscuelaForm } from "./useCrearEscuelaForm";

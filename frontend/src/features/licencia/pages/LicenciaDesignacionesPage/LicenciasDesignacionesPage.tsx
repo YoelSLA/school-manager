@@ -1,15 +1,11 @@
 import { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import PageLayout from "@/app/layouts/pages/BreadcrumbPageLayout/BreadcrumbPageLayout";
+import { PageLayout } from "@/app/layouts/pages";
 import type { CoberturaSeleccionada } from "@/features/asignacion/types";
-import Breadcrumbs from "@/shared/components/Breadcrumbs";
-import Button from "@/shared/components/Button";
+import { Breadcrumbs, Button } from "@/shared/components";
 import type { LocationState } from "@/shared/types";
-import LicenciaCambiarCoberturaModal from "../../components/LicenciaCambiarCoberturaModal/LicenciaCambiarCoberturaModal";
-import LicenciaCubrirDesignacionesModal from "../../components/LicenciaCubrirDesignacionesModal/LicenciaCubrirDesignacionesModal";
-import LicenciaDesignacionItem from "../../components/LicenciaDesignacionItem";
-import { useDesignacionesAfectadas } from "../../hooks/queries/useDesignacionesAfectadas";
-import LicenciasDesignacionesHeader from "./LicenciasDesignacionesHeader/LicenciasDesignacionesHeader";
+import { LicenciaCambiarCoberturaModal, LicenciaCubrirDesignacionesModal, LicenciaDesignacionItem, LicenciaDesignacionHeader } from "../../components";
+import { useDesignacionesAfectadas } from "../../hooks/queries";
 import styles from "./LicenciasDesignacionesPage.module.scss";
 
 export default function LicenciasDesignacionesPage() {
@@ -81,7 +77,7 @@ export default function LicenciasDesignacionesPage() {
   return (
     <PageLayout>
       <div className={styles.page}>
-        <LicenciasDesignacionesHeader empleado={empleado} licencia={licencia} />
+        <LicenciaDesignacionHeader empleado={empleado} licencia={licencia} />
 
         {isLoading && <p>Cargando...</p>}
 

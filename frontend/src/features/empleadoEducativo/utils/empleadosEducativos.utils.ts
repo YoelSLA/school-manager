@@ -1,8 +1,5 @@
-import {
-	CausaBaja,
-	type EmpleadoEducativoFiltro,
-	type SortState,
-} from "@/shared/types";
+import { CausaBaja, type SortState } from "@/shared/types";
+import type { EmpleadoEducativoFiltro } from "../types";
 
 export const FILTROS_EMPLEADOS: {
 	label: string;

@@ -1,5 +1,5 @@
 import type { UseQueryResult } from "@tanstack/react-query";
-import ListContainer from "@/shared/components/ListContainer";
+import { ListContainer } from "@/shared/components";
 import Table from "@/shared/components/Table";
 import type {
   PageResponse,

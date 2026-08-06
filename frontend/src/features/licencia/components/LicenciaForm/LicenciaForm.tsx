@@ -1,7 +1,6 @@
 import type { UseFormReturn } from "react-hook-form";
-import { FieldInputDescripcion, FieldInputFecha } from "@/features/designacion/components"
-import Button from "@/shared/components/Button";
-import FormSection from "@/shared/components/form/FormSection";
+import { Button } from "@/shared/components";
+import { FormInputDate, FormInputDescripcion, FormSection } from "@/shared/components/form";
 import type { LicenciaCreateFormValues } from "../../types";
 import TipoLicenciaSelect from "../TipoLicenciaSelect";
 import styles from "./LicenciaForm.module.scss";
@@ -46,7 +45,7 @@ export default function LicenciaForm({
           </div>
 
           <div className={styles.fechaDesde}>
-            <FieldInputFecha
+            <FormInputDate
               register={register}
               name="periodo.fechaDesde"
               label="FECHA DESDE"
@@ -55,7 +54,7 @@ export default function LicenciaForm({
           </div>
 
           <div className={styles.fechaHasta}>
-            <FieldInputFecha
+            <FormInputDate
               register={register}
               name="periodo.fechaHasta"
               label="FECHA HASTA"
@@ -64,7 +63,7 @@ export default function LicenciaForm({
           </div>
 
           <div className={styles.descripcion}>
-            <FieldInputDescripcion
+            <FormInputDescripcion
               register={register}
               name="descripcion"
               error={errors.descripcion?.message}

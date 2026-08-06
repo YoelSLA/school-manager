@@ -1,59 +1,10 @@
 @use "@/styles/abstracts" as *;
 
-.layout {
-	/* 🧩 VARIABLES */
-	--layout-gap: 8px;
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap);
 
-	/* 🏗️ LAYOUT */
-	display: flex;
-	flex-direction: column;
-	flex: 1;
-	min-height: 0;
-
-	/* 📦 BOX MODEL */
-	gap: var(--layout-gap);
-	border: 2px solid pink;
-
-	/* ================= HEADER ================= */
-
-	&__header {
-		flex-shrink: 0;
-		border: 2px solid red;
-	}
-
-	/* ================= CONTENT ================= */
-
-	&__content {
-		flex: 1;
-		min-height: 0;
-
-		display: flex;
-		flex-direction: column;
-
-		border: 2px solid red;
-	}
-
-	/* ================= FOOTER ================= */
-
-	&__footer {
-		flex-shrink: 0;
-	}
-}
-
-@include desktop-height-small {
-	.layout {
-		--layout-gap: 8px;
-	}
-}
-
-@include desktop-height-medium {
-	.layout {
-		--layout-gap: 12px;
-	}
-}
-
-@include desktop-height-large {
-	.layout {
-		--layout-gap: 16px;
-	}
+  overflow: hidden;
+  border-radius: $radius-xl;
 }

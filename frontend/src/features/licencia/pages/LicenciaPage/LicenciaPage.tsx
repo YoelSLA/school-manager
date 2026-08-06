@@ -1,11 +1,11 @@
-import ToolbarPageLayout from "@/app/layouts/pages/ToolbarPageLayout";
-import ConfirmModal from "@/shared/components/Modal/ModalConfirm";
-import Toolbar from "@/shared/components/Toolbar";
-import LicenciaTable from "../../components/LicenciaTable";
-import useLicenciasPage from "../../hooks/pages/useLicenciasPage";
+import { ToolbarPageLayout } from "@/app/layouts/pages";
+import { Toolbar } from "@/shared/components";
+import { ModalConfirm } from "@/shared/components/Modal";
+import { LicenciaTable } from "../../components";
+import { useLicenciaPage } from "../../hooks/pages";
 
 export default function LicenciasPage() {
-  const vm = useLicenciasPage();
+  const vm = useLicenciaPage();
 
   return (
     <>
@@ -31,7 +31,7 @@ export default function LicenciasPage() {
       </ToolbarPageLayout>
 
       {vm.delete.licencia && (
-        <ConfirmModal
+        <ModalConfirm
           open
           title="Eliminar licencia"
           description={`¿Seguro que querés eliminar la licencia ${vm.delete.licencia.licenciaEstatutaria.codigo}?`}

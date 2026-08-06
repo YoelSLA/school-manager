@@ -4,7 +4,7 @@ import {
 } from "lucide-react";
 import type { AsignacionLicenciaCursoDTO } from "@/features/asignacion/types";
 import BadgeRolEducativo from "@/shared/components/badges/BadgeRolEducativo";
-import { TURNO_LABELS } from "@/shared/utils/enumLabels";
+import { TURNO_LABELS } from "@/shared/constants";
 import LicenciaDesignacionRow from "../LicenciaDesignacionRow";
 import styles from "./LicenciaDesignacionCursoRow.module.scss";
 

@@ -6,7 +6,7 @@ import { empleadoEducativoQueryKeys } from "../../constants";
 import { empleadoEducativoService } from "../../services";
 import type { EmpleadoEducativoBasicoDTO } from "../../types";
 
-export default function useEmpleadoSearch(search: string) {
+export function useEmpleadoSearch(search: string) {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 	const escuelaId = escuelaActiva?.id;
 

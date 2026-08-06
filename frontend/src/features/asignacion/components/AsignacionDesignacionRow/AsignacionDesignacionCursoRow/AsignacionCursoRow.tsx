@@ -1,7 +1,7 @@
 import type { EmpleadoEducativoAsignacionItemDTO } from "@/features/empleadoEducativo/types";
-import BadgeEstadoAsignacion from "@/shared/components/badges/BagdeEstadoAsignacion";
+import { BadgeEstadoAsignacion } from "@/shared/components/badges";
 import type { CargoDesignacionCursoDTO } from "../../../types";
-import AsignacionRowFooter from "../../AsignacionRowFooter/AsignacionRowFooter";
+import AsignacionRowFooter from "../../AsignacionRowFooter";
 import AsignacionRowLayout from "../../AsignacionRowLayout";
 
 type Props = {
