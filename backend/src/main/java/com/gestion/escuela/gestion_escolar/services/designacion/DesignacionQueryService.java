@@ -7,11 +7,10 @@ import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdminis
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoAsignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 import java.time.LocalDate;
 import java.util.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface DesignacionQueryService {
 
@@ -29,15 +28,11 @@ public interface DesignacionQueryService {
 
   List<Asignacion> obtenerOtrosCargos(Long designacionId, EstadoAsignacion estado, LocalDate fecha);
 
-  Map<Long, Asignacion> obtenerCargosActivos(
-          Collection<Long> designacionIds,
-          LocalDate fecha);
+  Map<Long, Asignacion> obtenerCargosActivos(Collection<Long> designacionIds, LocalDate fecha);
 
   EstadoDesignacion obtenerEstadoEn(Long designacionId, LocalDate fecha);
 
   Map<Long, EstadoDesignacion> obtenerEstadosEn(Set<Long> designacionIds, LocalDate fecha);
 
-  Set<Long> obtenerDesignacionesCubiertas(
-          Collection<Long> designacionIds,
-          LocalDate fecha);
+  Set<Long> obtenerDesignacionesCubiertas(Collection<Long> designacionIds, LocalDate fecha);
 }

@@ -21,55 +21,47 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class LicenciaEstatutariaControllerREST {
 
-	private final LicenciaEstatutariaService licenciaEstatutariaService;
+  private final LicenciaEstatutariaService licenciaEstatutariaService;
 
-	@PostMapping
-	public LicenciaEstatutariaResponseDTO crear(
-			@Valid @RequestBody LicenciaEstatutariaCreateDTO dto) {
+  @PostMapping
+  public LicenciaEstatutariaResponseDTO crear(
+      @Valid @RequestBody LicenciaEstatutariaCreateDTO dto) {
 
-		return LicenciaEstatutariaMapper.toResponseDTO(
-				licenciaEstatutariaService.crear(
-						dto.articulo(),
-						dto.codigo(),
-						dto.nombre(),
-						dto.descripcion()));
-	}
+    return LicenciaEstatutariaMapper.toResponseDTO(
+        licenciaEstatutariaService.crear(
+            dto.articulo(), dto.codigo(), dto.nombre(), dto.descripcion()));
+  }
 
-	@PutMapping("/{id}")
-	public LicenciaEstatutariaResponseDTO actualizar(
-			@PathVariable Long id,
-			@Valid @RequestBody LicenciaEstatutariaUpdateDTO dto) {
+  @PutMapping("/{id}")
+  public LicenciaEstatutariaResponseDTO actualizar(
+      @PathVariable Long id, @Valid @RequestBody LicenciaEstatutariaUpdateDTO dto) {
 
-		return LicenciaEstatutariaMapper.toResponseDTO(
-				licenciaEstatutariaService.actualizar(
-						id,
-						dto.articulo(),
-						dto.codigo(),
-						dto.nombre(),
-						dto.descripcion(),
-				false)); // TODO: ARREGLAR
-	}
+    return LicenciaEstatutariaMapper.toResponseDTO(
+        licenciaEstatutariaService.actualizar(
+            id,
+            dto.articulo(),
+            dto.codigo(),
+            dto.nombre(),
+            dto.descripcion(),
+            false)); // TODO: ARREGLAR
+  }
 
-	@GetMapping("/{id}")
-	public LicenciaEstatutariaResponseDTO obtenerPorId(@PathVariable Long id) {
-		return LicenciaEstatutariaMapper.toResponseDTO(
-				licenciaEstatutariaService.obtenerPorId(id));
-	}
+  @GetMapping("/{id}")
+  public LicenciaEstatutariaResponseDTO obtenerPorId(@PathVariable Long id) {
+    return LicenciaEstatutariaMapper.toResponseDTO(licenciaEstatutariaService.obtenerPorId(id));
+  }
 
-	@GetMapping
-	public PageResponse<LicenciaEstatutariaRowDTO> listar(Pageable pageable) {
-		Pageable limitedPageable = PaginationUtils.limit(pageable);
+  @GetMapping
+  public PageResponse<LicenciaEstatutariaRowDTO> listar(Pageable pageable) {
+    Pageable limitedPageable = PaginationUtils.limit(pageable);
 
-		Page<LicenciaEstatutaria> licencias =
-				licenciaEstatutariaService.obtenerTodas(limitedPageable);
+    Page<LicenciaEstatutaria> licencias = licenciaEstatutariaService.obtenerTodas(limitedPageable);
 
-		return PageMapper.toPageResponse(
-				licencias,
-				LicenciaEstatutariaMapper::toRow);
-	}
+    return PageMapper.toPageResponse(licencias, LicenciaEstatutariaMapper::toRow);
+  }
 
-	@DeleteMapping("/{id}")
-	public void eliminar(@PathVariable Long id) {
-		licenciaEstatutariaService.eliminar(id);
-	}
+  @DeleteMapping("/{id}")
+  public void eliminar(@PathVariable Long id) {
+    licenciaEstatutariaService.eliminar(id);
+  }
 }

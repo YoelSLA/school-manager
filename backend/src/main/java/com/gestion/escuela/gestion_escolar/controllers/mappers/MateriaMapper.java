@@ -21,11 +21,8 @@ public class MateriaMapper {
   }
 
   public static MateriaRowDTO toRow(Materia m) {
-    return new MateriaRowDTO(
-            m.getId(), m.getNombre(), m.getAbreviatura(), m.getCantidadModulos());
+    return new MateriaRowDTO(m.getId(), m.getNombre(), m.getAbreviatura(), m.getCantidadModulos());
   }
-
-
 
   public static MateriaSelectDTO toSelect(Materia m) {
     return new MateriaSelectDTO(m.getId(), m.getNombre());

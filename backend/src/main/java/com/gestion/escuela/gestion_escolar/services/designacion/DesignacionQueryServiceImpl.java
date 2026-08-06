@@ -11,16 +11,15 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontrado
 import com.gestion.escuela.gestion_escolar.persistence.AsignacionRepository;
 import com.gestion.escuela.gestion_escolar.persistence.DesignacionRepository;
 import com.gestion.escuela.gestion_escolar.persistence.EscuelaRepository;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -94,9 +93,7 @@ public class DesignacionQueryServiceImpl implements DesignacionQueryService {
 
   @Override
   public List<Asignacion> obtenerOtrosCargos(
-          Long designacionId,
-          EstadoAsignacion estado,
-          LocalDate fecha) {
+      Long designacionId, EstadoAsignacion estado, LocalDate fecha) {
 
     return switch (estado) {
       case PENDIENTE -> asignacionRepository.findOtrosCargosPendientes(designacionId, fecha);
@@ -109,16 +106,10 @@ public class DesignacionQueryServiceImpl implements DesignacionQueryService {
 
   @Override
   public Map<Long, Asignacion> obtenerCargosActivos(
-          Collection<Long> designacionIds,
-          LocalDate fecha) {
+      Collection<Long> designacionIds, LocalDate fecha) {
 
-    return designacionRepository
-            .findAsignacionesQueEjercenEn(designacionIds, fecha)
-            .stream()
-            .collect(Collectors.toMap(
-                    a -> a.getDesignacion().getId(),
-                    Function.identity()
-            ));
+    return designacionRepository.findAsignacionesQueEjercenEn(designacionIds, fecha).stream()
+        .collect(Collectors.toMap(a -> a.getDesignacion().getId(), Function.identity()));
   }
 
   @Override
@@ -145,9 +136,7 @@ public class DesignacionQueryServiceImpl implements DesignacionQueryService {
   }
 
   @Override
-  public Set<Long> obtenerDesignacionesCubiertas(
-          Collection<Long> designacionIds,
-          LocalDate fecha) {
+  public Set<Long> obtenerDesignacionesCubiertas(Collection<Long> designacionIds, LocalDate fecha) {
 
     return new HashSet<>(designacionRepository.findDesignacionesCubiertas(designacionIds, fecha));
   }

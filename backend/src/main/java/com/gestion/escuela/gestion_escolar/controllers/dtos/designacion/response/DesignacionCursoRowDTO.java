@@ -5,12 +5,12 @@ import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 
 public record DesignacionCursoRowDTO(
-		Long id,
-		Integer cupof,
-		Integer cantidadFranjasHorarias,
-		EstadoDesignacion estadoDesignacion,
-		RolEducativo rolEducativo,
-		String nombreMateria,
-		String nombreCurso,
-		String orientacion,
-		AsignacionActivaRowDTO asignacionActiva) {}
+    Long id,
+    Integer cupof,
+    Integer cantidadFranjasHorarias,
+    EstadoDesignacion estadoDesignacion,
+    RolEducativo rolEducativo,
+    String nombreMateria,
+    String nombreCurso,
+    String orientacion,
+    AsignacionActivaRowDTO asignacionActiva) {}

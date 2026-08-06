@@ -19,18 +19,17 @@ import com.gestion.escuela.gestion_escolar.services.designacion.DesignacionQuery
 import com.gestion.escuela.gestion_escolar.services.empleadoEducativo.EmpleadoEducativoService;
 import com.gestion.escuela.gestion_escolar.services.licencia.LicenciaService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -73,30 +72,28 @@ public class EmpleadoEducativoControllerREST {
     EmpleadoEducativo empleado = empleadoEducativoService.obtenerPorId(empleadoId);
 
     Map<Long, EstadoDesignacion> estadosDesignacion =
-            empleado.getAsignaciones().stream()
-                    .map(a -> a.getDesignacion().getId())
-                    .distinct()
-                    .collect(
-                            Collectors.toMap(
-                                    Function.identity(),
-                                    id -> designacionQueryService.obtenerEstadoEn(id, fecha)));
+        empleado.getAsignaciones().stream()
+            .map(a -> a.getDesignacion().getId())
+            .distinct()
+            .collect(
+                Collectors.toMap(
+                    Function.identity(), id -> designacionQueryService.obtenerEstadoEn(id, fecha)));
 
     List<AsignacionEmpleadoEducativoRowDTO> items =
-            empleado.getAsignaciones().stream()
-                    .map(
-                            a ->
-                                    AsignacionMapper.toAsignacionRow(
-                                            a,
-                                            a.getEstadoEn(fecha),
-                                            estadosDesignacion.get(a.getDesignacion().getId())))
-                    .toList();
+        empleado.getAsignaciones().stream()
+            .map(
+                a ->
+                    AsignacionMapper.toAsignacionRow(
+                        a,
+                        a.getEstadoEn(fecha),
+                        estadosDesignacion.get(a.getDesignacion().getId())))
+            .toList();
 
     int total = items.size();
     int activas = (int) asignacionService.contarActivas(empleadoId, fecha);
     int finalizadas = total - activas;
 
-    return EmpleadoEducativoMapper.toAsignaciones(
-            empleado, items, total, activas, finalizadas);
+    return EmpleadoEducativoMapper.toAsignaciones(empleado, items, total, activas, finalizadas);
   }
 
   @GetMapping("/{empleadoId}/licencias")

@@ -40,6 +40,7 @@ public final class LicenciaEstatutariaMapper {
   }
 
   public static LicenciaEstatutariaRowDTO toRow(LicenciaEstatutaria l) {
-      return new LicenciaEstatutariaRowDTO(l.getId(), l.getArticulo(), l.getCodigo(), l.getNombre(), l.getDescripcion(), l.isActiva());
+    return new LicenciaEstatutariaRowDTO(
+        l.getId(), l.getArticulo(), l.getCodigo(), l.getNombre(), l.getDescripcion(), l.isActiva());
   }
 }

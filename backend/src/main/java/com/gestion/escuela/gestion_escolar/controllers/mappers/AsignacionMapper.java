@@ -88,7 +88,7 @@ public class AsignacionMapper {
     }
 
     return new AsignacionActivaRowDTO(
-            EmpleadoEducativoMapper.toBasico(cargoActivo.getEmpleadoEducativo()),
-            cargoActivo.getSituacionDeRevista());
+        EmpleadoEducativoMapper.toBasico(cargoActivo.getEmpleadoEducativo()),
+        cargoActivo.getSituacionDeRevista());
   }
 }

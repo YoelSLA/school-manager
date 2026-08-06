@@ -11,10 +11,9 @@ import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoLicencia;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoPeriodoLicencia;
+import java.time.LocalDate;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LicenciaMapper {
@@ -35,12 +34,12 @@ public class LicenciaMapper {
 
   public static LicenciaRowDTO toRow(Licencia l, EstadoLicencia estado, LocalDate fecha) {
     return new LicenciaRowDTO(
-            l.getId(),
-            EmpleadoEducativoMapper.toBasico(l.getEmpleadoEducativo()),
-            LicenciaEstatutariaMapper.toResponseDTO(l.getLicenciaEstatutaria()),
-            (PeriodoCerradoDTO) PeriodoMapper.toDTO(l.getPeriodo()),
-            estado,
-            l.diasRestantes(fecha));
+        l.getId(),
+        EmpleadoEducativoMapper.toBasico(l.getEmpleadoEducativo()),
+        LicenciaEstatutariaMapper.toResponseDTO(l.getLicenciaEstatutaria()),
+        (PeriodoCerradoDTO) PeriodoMapper.toDTO(l.getPeriodo()),
+        estado,
+        l.diasRestantes(fecha));
   }
 
   /* =========================

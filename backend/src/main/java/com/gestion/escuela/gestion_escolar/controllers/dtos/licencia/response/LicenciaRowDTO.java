@@ -6,9 +6,9 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.periodo.response.Per
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoLicencia;
 
 public record LicenciaRowDTO(
-		Long id,
-		EmpleadoEducativoBasicoDTO empleado,
-		LicenciaEstatutariaResponseDTO licenciaEstatutaria,
-		PeriodoCerradoDTO periodo,
-		EstadoLicencia estadoLicencia,
-		Long diasRestantes) {}
+    Long id,
+    EmpleadoEducativoBasicoDTO empleado,
+    LicenciaEstatutariaResponseDTO licenciaEstatutaria,
+    PeriodoCerradoDTO periodo,
+    EstadoLicencia estadoLicencia,
+    Long diasRestantes) {}

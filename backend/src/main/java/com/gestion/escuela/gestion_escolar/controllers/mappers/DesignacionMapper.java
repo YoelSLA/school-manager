@@ -23,11 +23,10 @@ import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DesignacionMapper {
@@ -96,35 +95,30 @@ public class DesignacionMapper {
   }
 
   public static DesignacionAdministrativaRowDTO toRow(
-          DesignacionAdministrativa d,
-          EstadoDesignacion estadoDesignacion,
-          Asignacion cargoActivo) {
+      DesignacionAdministrativa d, EstadoDesignacion estadoDesignacion, Asignacion cargoActivo) {
 
     return new DesignacionAdministrativaRowDTO(
-            d.getId(),
-            d.getCupof(),
-            d.cantidadFranjasHorarias(),
-            estadoDesignacion,
-            d.getRolEducativo(),
-            AsignacionMapper.toRow(cargoActivo));
-
+        d.getId(),
+        d.getCupof(),
+        d.cantidadFranjasHorarias(),
+        estadoDesignacion,
+        d.getRolEducativo(),
+        AsignacionMapper.toRow(cargoActivo));
   }
 
   public static DesignacionCursoRowDTO toRow(
-          DesignacionCurso d,
-          EstadoDesignacion estadoDesignacion,
-          Asignacion cargoActivo) {
+      DesignacionCurso d, EstadoDesignacion estadoDesignacion, Asignacion cargoActivo) {
 
     return new DesignacionCursoRowDTO(
-            d.getId(),
-            d.getCupof(),
-            d.cantidadFranjasHorarias(),
-            estadoDesignacion,
-            d.getRolEducativo(),
-            d.getMateria().getNombre(),
-            d.getCurso().anioDivision(),
-            d.getOrientacion(),
-            AsignacionMapper.toRow(cargoActivo));
+        d.getId(),
+        d.getCupof(),
+        d.cantidadFranjasHorarias(),
+        estadoDesignacion,
+        d.getRolEducativo(),
+        d.getMateria().getNombre(),
+        d.getCurso().anioDivision(),
+        d.getOrientacion(),
+        AsignacionMapper.toRow(cargoActivo));
   }
 
   // ---------------------------

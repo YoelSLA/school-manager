@@ -5,9 +5,9 @@ import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 
 public record DesignacionAdministrativaRowDTO(
-		Long id,
-		Integer cupof,
-		Integer cantidadFranjasHorarias,
-		EstadoDesignacion estadoDesignacion,
-		RolEducativo rolEducativo,
-		AsignacionActivaRowDTO asignacionActiva) {}
+    Long id,
+    Integer cupof,
+    Integer cantidadFranjasHorarias,
+    EstadoDesignacion estadoDesignacion,
+    RolEducativo rolEducativo,
+    AsignacionActivaRowDTO asignacionActiva) {}

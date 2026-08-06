@@ -59,12 +59,7 @@ public class LicenciaEstatutariaService implements LicenciaEstaturariaService {
   @Override
   public Page<LicenciaEstatutaria> obtenerTodas(Pageable pageable) {
     return licenciaEstatutariaRepository.findAll(
-            PageRequest.of(
-                    pageable.getPageNumber(),
-                    pageable.getPageSize(),
-                    Sort.by("codigo")
-            )
-    );
+        PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("codigo")));
   }
 
   @Override

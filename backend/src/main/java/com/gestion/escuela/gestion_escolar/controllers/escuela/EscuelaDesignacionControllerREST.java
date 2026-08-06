@@ -26,15 +26,14 @@ import com.gestion.escuela.gestion_escolar.services.escuela.EscuelaService;
 import com.gestion.escuela.gestion_escolar.services.materia.MateriaService;
 import com.gestion.escuela.gestion_escolar.web.PaginationUtils;
 import jakarta.validation.Valid;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/escuelas/{escuelaId}/designaciones")
@@ -77,31 +76,27 @@ public class EscuelaDesignacionControllerREST {
 
   @GetMapping("/administrativas")
   public PageResponse<DesignacionAdministrativaRowDTO> listarAdministrativas(
-          @PathVariable Long escuelaId, Pageable pageable) {
+      @PathVariable Long escuelaId, Pageable pageable) {
 
     Pageable limitedPageable = PaginationUtils.limit(pageable);
 
     Page<DesignacionAdministrativa> designaciones =
-            designacionQueryService.obtenerDesignacionesAdministrativasPorEscuela(
-                    escuelaId, limitedPageable);
+        designacionQueryService.obtenerDesignacionesAdministrativasPorEscuela(
+            escuelaId, limitedPageable);
 
     LocalDate hoy = LocalDate.now();
 
-    List<Long> ids =
-            designaciones.stream()
-                    .map(Designacion::getId)
-                    .toList();
+    List<Long> ids = designaciones.stream().map(Designacion::getId).toList();
 
-    Map<Long, Asignacion> cargosActivos =
-            designacionQueryService.obtenerCargosActivos(ids, hoy);
+    Map<Long, Asignacion> cargosActivos = designacionQueryService.obtenerCargosActivos(ids, hoy);
 
     return PageMapper.toPageResponse(
-            designaciones,
-            d ->
-                    DesignacionMapper.toRow(
-                            d,
-                            EstadoDesignacion.desdeCobertura(cargosActivos.containsKey(d.getId())),
-                            cargosActivos.get(d.getId())));
+        designaciones,
+        d ->
+            DesignacionMapper.toRow(
+                d,
+                EstadoDesignacion.desdeCobertura(cargosActivos.containsKey(d.getId())),
+                cargosActivos.get(d.getId())));
   }
 
   @PostMapping("/cursos")
@@ -142,32 +137,26 @@ public class EscuelaDesignacionControllerREST {
 
   @GetMapping("/cursos")
   public PageResponse<DesignacionCursoRowDTO> listarCursos(
-          @PathVariable Long escuelaId,
-          DesignacionCursoFilterDTO filter,
-          Pageable pageable) {
+      @PathVariable Long escuelaId, DesignacionCursoFilterDTO filter, Pageable pageable) {
 
     Pageable limitedPageable = PaginationUtils.limit(pageable);
 
     Page<DesignacionCurso> designaciones =
-            designacionQueryService.obtenerDesignacionesCursoPorEscuela(
-                    escuelaId, filter, limitedPageable);
+        designacionQueryService.obtenerDesignacionesCursoPorEscuela(
+            escuelaId, filter, limitedPageable);
 
     LocalDate hoy = LocalDate.now();
 
-    List<Long> ids =
-            designaciones.stream()
-                    .map(Designacion::getId)
-                    .toList();
+    List<Long> ids = designaciones.stream().map(Designacion::getId).toList();
 
-    Map<Long, Asignacion> cargosActivos =
-            designacionQueryService.obtenerCargosActivos(ids, hoy);
+    Map<Long, Asignacion> cargosActivos = designacionQueryService.obtenerCargosActivos(ids, hoy);
 
     return PageMapper.toPageResponse(
-            designaciones,
-            d ->
-                    DesignacionMapper.toRow(
-                            d,
-                            EstadoDesignacion.desdeCobertura(cargosActivos.containsKey(d.getId())),
-                            cargosActivos.get(d.getId())));
+        designaciones,
+        d ->
+            DesignacionMapper.toRow(
+                d,
+                EstadoDesignacion.desdeCobertura(cargosActivos.containsKey(d.getId())),
+                cargosActivos.get(d.getId())));
   }
 }
