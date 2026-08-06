@@ -1,8 +1,6 @@
 package com.gestion.escuela.gestion_escolar.persistence;
 
 import com.gestion.escuela.gestion_escolar.models.Licencia;
-import java.time.LocalDate;
-import java.util.Set;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -10,19 +8,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
+import java.util.Set;
+
 public interface LicenciaRepository extends JpaRepository<Licencia, Long> {
 
-  @EntityGraph(
-      attributePaths = {
-        "empleadoEducativo",
-        "asignaciones",
-        "asignaciones.empleadoEducativo",
-        "asignaciones.empleadoEducativo.licencias",
-        "asignaciones.designacion",
-        "asignaciones.designacion.asignaciones",
-        "asignaciones.designacion.asignaciones.empleadoEducativo",
-        "asignaciones.designacion.asignaciones.empleadoEducativo.licencias"
-      })
+  @EntityGraph(attributePaths = {
+          "empleadoEducativo",
+          "asignaciones",
+          "asignaciones.designacion"
+  })
   @Query(
       value =
           """
