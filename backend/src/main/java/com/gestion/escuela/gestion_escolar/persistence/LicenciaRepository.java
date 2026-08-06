@@ -2,6 +2,8 @@ package com.gestion.escuela.gestion_escolar.persistence;
 
 import com.gestion.escuela.gestion_escolar.models.Licencia;
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +31,24 @@ public interface LicenciaRepository extends JpaRepository<Licencia, Long> {
                       and l.licenciaAnterior is null
                     """)
   Page<Licencia> buscarRaicesPorEscuelaId(@Param("escuelaId") Long escuelaId, Pageable pageable);
+
+  @Query(
+      """
+    select l.id
+    from Licencia l
+    where l.empleadoEducativo.escuela.id = :escuelaId
+      and l.licenciaAnterior is null
+    """)
+  Page<Long> buscarIdsRaicesPorEscuelaId(@Param("escuelaId") Long escuelaId, Pageable pageable);
+
+  @EntityGraph(attributePaths = {"empleadoEducativo", "asignaciones", "asignaciones.designacion"})
+  @Query(
+      """
+    select distinct l
+    from Licencia l
+    where l.id in :ids
+    """)
+  List<Licencia> buscarPorIds(@Param("ids") Collection<Long> ids);
 
   @Query(
       """

@@ -18,6 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,7 +80,15 @@ public class LicenciaServiceImpl implements LicenciaService {
         .findById(escuelaId)
         .orElseThrow(() -> new RecursoNoEncontradoException("escuela", escuelaId));
 
-    return licenciaRepository.buscarRaicesPorEscuelaId(escuelaId, pageable);
+    Page<Long> pageIds = licenciaRepository.buscarIdsRaicesPorEscuelaId(escuelaId, pageable);
+
+    if (pageIds.isEmpty()) {
+      return Page.empty(pageable);
+    }
+
+    List<Licencia> licencias = licenciaRepository.buscarPorIds(pageIds.getContent());
+
+    return new PageImpl<>(licencias, pageable, pageIds.getTotalElements());
   }
 
   @Override
