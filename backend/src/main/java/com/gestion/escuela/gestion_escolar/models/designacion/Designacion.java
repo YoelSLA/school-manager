@@ -399,4 +399,8 @@ public abstract class Designacion {
       throw new RangoHorarioInvalidoException(nueva.getHoraDesde(), nueva.getHoraHasta());
     }
   }
+
+  public int cantidadFranjasHorarias() {
+    return franjasHorarias.size();
+  }
 }

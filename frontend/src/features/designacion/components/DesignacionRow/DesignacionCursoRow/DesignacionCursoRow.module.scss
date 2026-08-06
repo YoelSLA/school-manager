@@ -1,0 +1,111 @@
+@use "@/styles/abstracts" as *;
+@use "../DesignacionRow.module.scss";
+
+/* =================================
+   MATERIA
+================================= */
+
+.subject {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.subjectIcon {
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+
+.subjectContent {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.subjectTitle {
+  font-weight: 600;
+  color: var(--color-text);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.subjectSubtitle {
+  margin-top: 2px;
+
+  color: var(--color-text-secondary);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@include desktop-height-small {
+  .position,
+  .status,
+  .hours,
+  .cupof {
+    font-size: 12px;
+  }
+
+  .subjectTitle {
+    font-size: 13px;
+  }
+
+  .subjectSubtitle {
+    font-size: 12px;
+  }
+
+  .subjectIcon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@include desktop-height-medium {
+  .position,
+  .status,
+  .hours,
+  .cupof {
+    font-size: 13px;
+  }
+
+  .subjectTitle {
+    font-size: 14px;
+  }
+
+  .subjectSubtitle {
+    font-size: 13px;
+  }
+
+  .subjectIcon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@include desktop-height-large {
+  .position,
+  .status,
+  .hours,
+  .cupof {
+    font-size: 14px;
+  }
+
+  .subjectTitle {
+    font-size: 15px;
+  }
+
+  .subjectSubtitle {
+    font-size: 14px;
+  }
+
+  .subjectIcon {
+    width: 20px;
+    height: 20px;
+  }
+}

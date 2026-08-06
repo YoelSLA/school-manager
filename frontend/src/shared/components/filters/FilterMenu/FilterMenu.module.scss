@@ -1,0 +1,95 @@
+@use "@/styles/abstracts" as *;
+
+.trigger {
+	position: relative;
+	display: inline-flex;
+}
+
+.badge {
+	position: absolute;
+	top: -6px;
+	right: -6px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	min-width: 18px;
+	height: 18px;
+	padding: 0 $space-4;
+
+	border-radius: 999px;
+
+	background: $primary-600;
+	color: $text-inverse;
+
+	font-size: $font-size-xs;
+	font-weight: $font-weight-semibold;
+	line-height: 1;
+
+	box-shadow: var(--shadow-sm);
+
+	pointer-events: none;
+}
+
+.content {
+	width: 320px;
+	max-width: calc(100vw - 32px);
+
+	padding: $space-20;
+
+	background: $surface-0;
+	border: 1px solid $border;
+	border-radius: $radius-xl;
+
+	box-shadow: var(--shadow-xl);
+
+	z-index: 1000;
+
+	animation: popoverIn .18s ease;
+	transform-origin: var(--radix-popover-content-transform-origin);
+}
+
+.header {
+	margin-bottom: $space-16;
+	padding-bottom: $space-16;
+
+	border-bottom: 1px solid $border;
+}
+
+.title {
+	margin: 0;
+
+	font-size: $font-size-lg;
+	font-weight: $font-weight-semibold;
+	color: $text-primary;
+}
+
+.subtitle {
+	margin: $space-4 0 0;
+
+	font-size: $font-size-sm;
+	color: $text-secondary;
+}
+
+.body {
+	display: flex;
+	flex-direction: column;
+	gap: $space-16;
+}
+
+.arrow {
+	fill: $surface-0;
+}
+
+@keyframes popoverIn {
+	from {
+		opacity: 0;
+		transform: translateY(-6px) scale(.97);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}

@@ -1,0 +1,23 @@
+.info {
+	display: flex;
+	align-items: center;
+
+	flex: 1;
+	min-width: 0;
+}
+
+.tipo {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+
+	font-size: 14px;
+	font-weight: 700;
+
+	color: #111827;
+
+	svg {
+		color: #2563eb;
+		flex-shrink: 0;
+	}
+}

@@ -1,0 +1,11 @@
+import type { LicenciaTimelineItemDTO } from "../types";
+
+export function esUltimaLicencia(
+	timeline: LicenciaTimelineItemDTO[],
+	licenciaActualId: number,
+) {
+	if (timeline.length === 0) return false;
+
+	const ultima = timeline.at(-1);
+	return ultima?.id === licenciaActualId;
+}

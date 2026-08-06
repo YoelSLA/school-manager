@@ -1,0 +1,14 @@
+export { default as DesignacionDetalleActions } from "./DesignacionDetalleActions";
+export { default as FieldInputCupoAdministrativa } from "./FieldInputCupofAdministrativa";
+export { default as FieldInputCupoCurso } from "./FieldInputCupofCurso";
+export { default as FieldInputDescripcion } from "../../../shared/components/form/FormInputDescripcion";
+export { default as FieldSelectOrientacion } from "./FieldSelectOrientacion";
+export { default as FieldSelectRolEducativo } from "./FieldSelectRolEducativo";
+export { default as FormSelectCurso } from "./SelectCurso";
+export { default as FieldSelectMateria } from "./SelectMateria";
+export { default as DesignacionAsignacionActiva } from "./DesignacionAsignacionActiva";
+export { default as DesignacionCargosHistorial } from "./DesignacionCargosHistorial";
+export { default as DesignacionDatos } from "./DesignacionDatos";
+export { default as DesignacionDetalleModals } from "./DesignacionDetalleModals";
+export { default as DesignacionHeaderInfo } from "./DesignacionHeaderInfo";
+export { default as DesignacionHorarios } from "./DesignacionHorarios";

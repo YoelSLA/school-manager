@@ -1,5 +1,6 @@
 package com.gestion.escuela.gestion_escolar.controllers.mappers;
 
+import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response.AsignacionActivaRowDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response.AsignacionDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response.AsignacionEmpleadoEducativoRowDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.asignacion.response.asignacionLicenciaDTO.AsignacionLicenciaAdministrativaDTO;
@@ -79,5 +80,15 @@ public class AsignacionMapper {
     }
 
     return new BajaAsignacionDTO(a.getFechaBaja(), a.getCausaBaja());
+  }
+
+  public static AsignacionActivaRowDTO toRow(Asignacion cargoActivo) {
+    if (cargoActivo == null) {
+      return null;
+    }
+
+    return new AsignacionActivaRowDTO(
+        EmpleadoEducativoMapper.toBasico(cargoActivo.getEmpleadoEducativo()),
+        cargoActivo.getSituacionDeRevista());
   }
 }

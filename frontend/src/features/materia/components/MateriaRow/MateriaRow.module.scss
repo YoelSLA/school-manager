@@ -1,0 +1,121 @@
+@use "@/styles/abstracts" as *;
+
+$row-columns:
+  minmax(320px, 1fr)
+  160px
+  140px
+  96px;
+
+.row {
+  grid-template-columns: $row-columns;
+  column-gap: $row-gap;
+}
+
+/* =================================
+   CELDAS
+================================= */
+
+.nombre,
+.abreviatura,
+.modulos,
+.actions {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.nombre,
+.abreviatura,
+.modulos {
+  justify-content: flex-start;
+}
+
+.actions {
+  justify-content: center;
+}
+
+.nombre {
+  font-weight: 600;
+  color: var(--color-text-primary);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.abreviatura,
+.modulos {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+/* =================================
+   ACCIONES
+================================= */
+
+.actions {
+  gap: 8px;
+}
+
+.iconButton {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 10px;
+
+  background: transparent;
+  color: var(--color-text-secondary);
+
+  cursor: pointer;
+
+  transition:
+    background-color .15s ease,
+    color .15s ease;
+
+  &:hover {
+    background: var(--color-surface-hover);
+  }
+
+  &--edit:hover {
+    color: var(--color-primary-600);
+  }
+
+  &--danger:hover {
+    color: var(--color-error-600);
+  }
+}
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@include desktop-height-small {
+  .nombre,
+  .abreviatura,
+  .modulos {
+    font-size: 12px;
+  }
+}
+
+@include desktop-height-medium {
+  .nombre,
+  .abreviatura,
+  .modulos {
+    font-size: 13px;
+  }
+}
+
+@include desktop-height-large {
+  .nombre,
+  .abreviatura,
+  .modulos {
+    font-size: 14px;
+  }
+}

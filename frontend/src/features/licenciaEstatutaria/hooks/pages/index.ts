@@ -1,0 +1,1 @@
+export { useLicenciasEstatutariasPage } from "./useLicenciasEstatutariasPage";

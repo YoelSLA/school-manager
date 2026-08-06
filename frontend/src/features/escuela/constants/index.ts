@@ -1,0 +1,1 @@
+export { escuelaQueryKeys } from "./queryKeys";

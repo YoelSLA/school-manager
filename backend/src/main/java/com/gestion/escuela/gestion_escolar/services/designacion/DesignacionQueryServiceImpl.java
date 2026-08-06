@@ -12,10 +12,7 @@ import com.gestion.escuela.gestion_escolar.persistence.AsignacionRepository;
 import com.gestion.escuela.gestion_escolar.persistence.DesignacionRepository;
 import com.gestion.escuela.gestion_escolar.persistence.EscuelaRepository;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -98,7 +95,21 @@ public class DesignacionQueryServiceImpl implements DesignacionQueryService {
   public List<Asignacion> obtenerOtrosCargos(
       Long designacionId, EstadoAsignacion estado, LocalDate fecha) {
 
-    return asignacionRepository.findOtrosCargos(designacionId, estado, fecha);
+    return switch (estado) {
+      case PENDIENTE -> asignacionRepository.findOtrosCargosPendientes(designacionId, fecha);
+      case ACTIVA -> asignacionRepository.findOtrosCargosActivos(designacionId, fecha);
+      case FINALIZADA -> asignacionRepository.findOtrosCargosFinalizados(designacionId, fecha);
+      case BAJA -> asignacionRepository.findOtrosCargosBaja(designacionId, fecha);
+      case null -> asignacionRepository.findOtrosCargos(designacionId, fecha);
+    };
+  }
+
+  @Override
+  public Map<Long, Asignacion> obtenerCargosActivos(
+      Collection<Long> designacionIds, LocalDate fecha) {
+
+    return designacionRepository.findAsignacionesQueEjercenEn(designacionIds, fecha).stream()
+        .collect(Collectors.toMap(a -> a.getDesignacion().getId(), Function.identity()));
   }
 
   @Override
@@ -122,5 +133,11 @@ public class DesignacionQueryServiceImpl implements DesignacionQueryService {
                     cubiertas.contains(id)
                         ? EstadoDesignacion.CUBIERTA
                         : EstadoDesignacion.VACANTE));
+  }
+
+  @Override
+  public Set<Long> obtenerDesignacionesCubiertas(Collection<Long> designacionIds, LocalDate fecha) {
+
+    return new HashSet<>(designacionRepository.findDesignacionesCubiertas(designacionIds, fecha));
   }
 }

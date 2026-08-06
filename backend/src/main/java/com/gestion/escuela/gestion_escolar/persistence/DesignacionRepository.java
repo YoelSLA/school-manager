@@ -5,6 +5,7 @@ import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -264,4 +265,75 @@ where d.id in :designacionIds
 """)
   Set<Long> buscarDesignacionesCubiertas(
       @Param("designacionIds") Set<Long> designacionIds, @Param("fecha") LocalDate fecha);
+
+  @Query(
+      """
+    select distinct a.designacion.id
+    from Asignacion a
+    where a.designacion.id in :designacionIds
+
+      and a.periodo.fechaDesde <= :fecha
+
+      and (
+            a.periodo.fechaHasta is null
+            or a.periodo.fechaHasta >= :fecha
+      )
+
+      and (
+            a.bajaAsignacion is null
+            or a.bajaAsignacion.fechaBaja > :fecha
+      )
+
+      and not exists (
+            select 1
+            from Licencia l
+            join l.asignaciones la
+            where la = a
+              and l.periodo.fechaDesde <= :fecha
+              and (
+                    l.periodo.fechaHasta is null
+                    or l.periodo.fechaHasta >= :fecha
+              )
+      )
+""")
+  List<Long> findDesignacionesCubiertas(
+      @Param("designacionIds") Collection<Long> designacionIds, @Param("fecha") LocalDate fecha);
+
+  @Query(
+      """
+    select a
+    from Asignacion a
+    where a.designacion.id in :designacionIds
+
+      and a.periodo.fechaDesde <= :fecha
+
+      and (
+            a.periodo.fechaHasta is null
+            or a.periodo.fechaHasta >= :fecha
+      )
+
+      and (
+            a.bajaAsignacion is null
+            or a.bajaAsignacion.fechaBaja > :fecha
+      )
+
+      and not exists (
+
+            select 1
+            from Licencia l
+
+            join l.asignaciones la
+
+            where la = a
+
+              and l.periodo.fechaDesde <= :fecha
+
+              and (
+                    l.periodo.fechaHasta is null
+                    or l.periodo.fechaHasta >= :fecha
+              )
+      )
+""")
+  List<Asignacion> findAsignacionesQueEjercenEn(
+      @Param("designacionIds") Collection<Long> designacionIds, @Param("fecha") LocalDate fecha);
 }

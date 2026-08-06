@@ -2,9 +2,9 @@ package com.gestion.escuela.gestion_escolar.controllers.escuela;
 
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionAdministrativaDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.request.DesignacionCursoDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionAdministrativaCardDTO;
-import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionCursoCardDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionAdministrativaRowDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionCursoFilterDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.DesignacionCursoRowDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionDetalleDTO.DesignacionAdministrativaDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.designacion.response.designacionDetalleDTO.DesignacionCursoDetalleDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.response.PageResponse;
@@ -13,6 +13,8 @@ import com.gestion.escuela.gestion_escolar.controllers.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.Curso;
 import com.gestion.escuela.gestion_escolar.models.Escuela;
 import com.gestion.escuela.gestion_escolar.models.Materia;
+import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
+import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionAdministrativa;
 import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
 import com.gestion.escuela.gestion_escolar.models.domainServices.ServicioEstadoDesignacion;
@@ -26,6 +28,7 @@ import com.gestion.escuela.gestion_escolar.web.PaginationUtils;
 import jakarta.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -72,8 +75,9 @@ public class EscuelaDesignacionControllerREST {
   }
 
   @GetMapping("/administrativas")
-  public PageResponse<DesignacionAdministrativaCardDTO> listarAdministrativas(
+  public PageResponse<DesignacionAdministrativaRowDTO> listarAdministrativas(
       @PathVariable Long escuelaId, Pageable pageable) {
+
     Pageable limitedPageable = PaginationUtils.limit(pageable);
 
     Page<DesignacionAdministrativa> designaciones =
@@ -82,12 +86,17 @@ public class EscuelaDesignacionControllerREST {
 
     LocalDate hoy = LocalDate.now();
 
-    // TODO: Evitar N+1. Resolver los estados de las designaciones en una consulta batch.
+    List<Long> ids = designaciones.stream().map(Designacion::getId).toList();
+
+    Map<Long, Asignacion> cargosActivos = designacionQueryService.obtenerCargosActivos(ids, hoy);
+
     return PageMapper.toPageResponse(
         designaciones,
         d ->
-            DesignacionMapper.toResumen(
-                d, designacionQueryService.obtenerEstadoEn(d.getId(), hoy)));
+            DesignacionMapper.toRow(
+                d,
+                EstadoDesignacion.desdeCobertura(cargosActivos.containsKey(d.getId())),
+                cargosActivos.get(d.getId())));
   }
 
   @PostMapping("/cursos")
@@ -127,8 +136,9 @@ public class EscuelaDesignacionControllerREST {
   }
 
   @GetMapping("/cursos")
-  public PageResponse<DesignacionCursoCardDTO> listarCursos(
+  public PageResponse<DesignacionCursoRowDTO> listarCursos(
       @PathVariable Long escuelaId, DesignacionCursoFilterDTO filter, Pageable pageable) {
+
     Pageable limitedPageable = PaginationUtils.limit(pageable);
 
     Page<DesignacionCurso> designaciones =
@@ -137,11 +147,16 @@ public class EscuelaDesignacionControllerREST {
 
     LocalDate hoy = LocalDate.now();
 
-    // TODO: Evitar N+1. Resolver los estados de las designaciones en una consulta batch.
+    List<Long> ids = designaciones.stream().map(Designacion::getId).toList();
+
+    Map<Long, Asignacion> cargosActivos = designacionQueryService.obtenerCargosActivos(ids, hoy);
+
     return PageMapper.toPageResponse(
         designaciones,
         d ->
-            DesignacionMapper.toResumen(
-                d, designacionQueryService.obtenerEstadoEn(d.getId(), hoy)));
+            DesignacionMapper.toRow(
+                d,
+                EstadoDesignacion.desdeCobertura(cargosActivos.containsKey(d.getId())),
+                cargosActivos.get(d.getId())));
   }
 }

@@ -1,0 +1,36 @@
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+
+import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
+import { useAppSelector } from "@/app/store/hooks";
+import { empleadoEducativoQueryKeys } from "../../constants";
+import { empleadoEducativoService } from "../../services";
+import type { EmpleadoEducativoBasicoDTO } from "../../types";
+
+export function useEmpleadoSearch(search: string) {
+	const escuelaActiva = useAppSelector(selectEscuelaActiva);
+	const escuelaId = escuelaActiva?.id;
+
+	if (!escuelaId) {
+		throw new Error("empleadoId es requerido");
+	}
+
+	const enabled = !!escuelaId && search.length >= 2;
+
+	const query = useQuery<EmpleadoEducativoBasicoDTO[]>({
+		queryKey: enabled
+			? empleadoEducativoQueryKeys.search(escuelaId, search)
+			: empleadoEducativoQueryKeys.lists(),
+
+		queryFn: () =>
+			empleadoEducativoService.buscarEmpleadosPorEscuela(escuelaId, search),
+
+		enabled,
+		staleTime: 30_000,
+		placeholderData: keepPreviousData,
+	});
+
+	return {
+		empleados: query.data ?? [],
+		loading: query.isFetching,
+	};
+}

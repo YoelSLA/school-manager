@@ -1,0 +1,1 @@
+export { empleadoEducativoService } from "./empleadoEducativo.service";

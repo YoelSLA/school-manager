@@ -23,6 +23,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -72,12 +73,11 @@ public class EmpleadoEducativoControllerREST {
 
     Map<Long, EstadoDesignacion> estadosDesignacion =
         empleado.getAsignaciones().stream()
+            .map(a -> a.getDesignacion().getId())
+            .distinct()
             .collect(
                 Collectors.toMap(
-                    a -> a.getDesignacion().getId(),
-                    a ->
-                        designacionQueryService.obtenerEstadoEn(
-                            a.getDesignacion().getId(), fecha)));
+                    Function.identity(), id -> designacionQueryService.obtenerEstadoEn(id, fecha)));
 
     List<AsignacionEmpleadoEducativoRowDTO> items =
         empleado.getAsignaciones().stream()

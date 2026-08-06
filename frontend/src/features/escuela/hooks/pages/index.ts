@@ -1,0 +1,1 @@
+export { useEscuelaPage } from "./useEscuelaPage";

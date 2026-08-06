@@ -1,7 +1,8 @@
 package com.gestion.escuela.gestion_escolar.services.licenciaEstatutaria;
 
 import com.gestion.escuela.gestion_escolar.models.LicenciaEstatutaria;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface LicenciaEstaturariaService {
 
@@ -12,7 +13,7 @@ public interface LicenciaEstaturariaService {
 
   LicenciaEstatutaria obtenerPorId(Long id);
 
-  List<LicenciaEstatutaria> obtenerTodas();
+  Page<LicenciaEstatutaria> obtenerTodas(Pageable pageable);
 
   void eliminar(Long id);
 }

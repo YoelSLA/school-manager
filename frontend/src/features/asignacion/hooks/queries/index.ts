@@ -1,0 +1,2 @@
+export { useCargoActivo } from "./useCargoActivo";
+

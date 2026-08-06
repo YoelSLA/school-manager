@@ -1,0 +1,193 @@
+.item {
+  display: flex;
+  flex-direction: column;
+
+  background: #fff;
+
+  border: 1px solid #dbe7f3;
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  transition:
+    border-color .2s,
+    box-shadow .2s;
+
+  cursor: pointer;
+}
+
+.item:hover:not(.disabled) {
+  border-color: #bfdbfe;
+
+  box-shadow: 0 8px 20px rgba(15, 23, 42, .06);
+}
+
+.selected {
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 3px rgba(37,99,235,.12),
+    0 8px 20px rgba(37,99,235,.12);
+}
+
+.disabled {
+  opacity: .85;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  padding: 20px 24px 0;
+}
+
+.role {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  svg {
+    color: #2563eb;
+  }
+}
+
+.label {
+  display: block;
+
+  margin-bottom: 2px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: .08em;
+
+  color: #94a3b8;
+}
+
+.role strong {
+  font-size: 16px;
+  color: #0f172a;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  padding: 20px 24px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #475569;
+
+  svg {
+    color: #94a3b8;
+    flex-shrink: 0;
+  }
+
+  span {
+    font-size: 14px;
+  }
+}
+
+.divider {
+  height: 1px;
+
+  margin: 0 24px;
+
+  background: #e2e8f0;
+}
+
+.cobertura {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  padding: 20px 24px;
+}
+
+.person {
+  display: flex;
+  gap: 12px;
+
+  svg {
+    color: #7c3aed;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  strong {
+    font-size: 15px;
+    color: #0f172a;
+  }
+
+  span {
+    font-size: 13px;
+    color: #64748b;
+  }
+}
+
+.periodo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  svg {
+    color: #64748b;
+  }
+
+  span {
+    font-size: 13px;
+    color: #334155;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+
+  padding-top: 12px;
+
+  border-top: 1px solid #e2e8f0;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 28px 24px;
+
+  text-align: center;
+
+  svg {
+    color: #94a3b8;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  strong {
+    color: #0f172a;
+  }
+
+  span {
+    font-size: 13px;
+    color: #64748b;
+  }
+}

@@ -3,6 +3,7 @@ package com.gestion.escuela.gestion_escolar.controllers.escuela;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.request.MateriaCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.request.MateriaUpdateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.response.MateriaDetalleDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.response.MateriaRowDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.materia.response.MateriaSelectDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.response.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.MateriaMapper;
@@ -61,11 +62,11 @@ public class EscuelaMateriaControllerREST {
   }
 
   @GetMapping
-  public PageResponse<MateriaDetalleDTO> listar(@PathVariable Long escuelaId, Pageable pageable) {
+  public PageResponse<MateriaRowDTO> listar(@PathVariable Long escuelaId, Pageable pageable) {
     Pageable limitedPageable = PaginationUtils.limit(pageable);
     Page<Materia> materias = materiaService.listarMateriasPorEscuela(escuelaId, limitedPageable);
 
-    return PageMapper.toPageResponse(materias, MateriaMapper::toResponse);
+    return PageMapper.toPageResponse(materias, MateriaMapper::toRow);
   }
 
   @GetMapping("/select")

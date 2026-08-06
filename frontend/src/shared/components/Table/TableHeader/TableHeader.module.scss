@@ -1,0 +1,21 @@
+.header {
+  display: grid;
+  align-items: center;
+  min-height: 44px;
+  margin-bottom: 8px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  user-select: none;
+  border: 2px solid orange;
+  border-radius: 20px;
+  > * {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    min-width: 0;
+  }
+}

@@ -32,6 +32,16 @@ public class LicenciaMapper {
         l.diasRestantes(fecha));
   }
 
+  public static LicenciaRowDTO toRow(Licencia l, EstadoLicencia estado, LocalDate fecha) {
+    return new LicenciaRowDTO(
+        l.getId(),
+        EmpleadoEducativoMapper.toBasico(l.getEmpleadoEducativo()),
+        LicenciaEstatutariaMapper.toResponseDTO(l.getLicenciaEstatutaria()),
+        (PeriodoCerradoDTO) PeriodoMapper.toDTO(l.getPeriodo()),
+        estado,
+        l.diasRestantes(fecha));
+  }
+
   /* =========================
   DETALLE
   ========================= */

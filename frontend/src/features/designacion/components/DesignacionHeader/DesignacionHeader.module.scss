@@ -1,0 +1,36 @@
+@use "@/styles/abstracts" as *;
+
+.header {
+  grid-template-columns:
+  minmax(320px, 3fr)  // Rol/Materia
+  160px               // Situación de revista
+  minmax(240px, 2fr)  // Empleado
+  140px               // Estado
+  120px               // Franjas
+  110px               // CUPOF
+  48px;               // Acciones
+
+  column-gap: $row-gap;
+  padding-inline: $row-padding-inline;
+
+  > * {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    min-width: 0;
+  }
+
+  > :nth-child(1),
+  > :nth-child(2),
+  > :nth-child(3) {
+    justify-content: flex-start;
+  }
+
+  > :nth-child(4),
+  > :nth-child(5),
+  > :nth-child(6),
+  > :nth-child(7) {
+    justify-content: center;
+  }
+}

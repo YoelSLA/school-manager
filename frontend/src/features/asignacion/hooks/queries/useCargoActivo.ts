@@ -1,0 +1,24 @@
+import { useQuery } from "@tanstack/react-query";
+import { designacionQueryKeys } from "@/features/designacion/constants";
+import { designacionService } from "@/features/designacion/services";
+
+export function useCargoActivo(designacionId?: number) {
+	const query = useQuery({
+		queryKey: designacionQueryKeys.cargos.activo(designacionId ?? 0),
+		queryFn: () => {
+			if (!designacionId) {
+				throw new Error("designacionId requerido");
+			}
+			return designacionService.obtenerCargoActivo(designacionId);
+		},
+		enabled: !!designacionId,
+		retry: false,
+	});
+
+	return {
+		cargoActivo: query.data ?? null,
+		isLoading: query.isPending,
+		error: query.isError ? "No se pudo cargar el cargo activo" : null,
+		refetch: query.refetch,
+	};
+}
