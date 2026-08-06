@@ -18,14 +18,13 @@ import com.gestion.escuela.gestion_escolar.services.designacion.DesignacionComma
 import com.gestion.escuela.gestion_escolar.services.designacion.DesignacionQueryService;
 import com.gestion.escuela.gestion_escolar.services.licencia.LicenciaService;
 import jakarta.validation.Valid;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/licencias")
@@ -97,50 +96,41 @@ public class LicenciaControllerREST {
 
     Licencia licencia = licenciaService.obtenerPorId(licenciaId);
 
-    Map<Long, EstadoDesignacion> estados = licenciaService
-            .obtenerDesignacionesAfectadas(licenciaId)
-            .stream()
-            .collect(Collectors.toMap(
+    Map<Long, EstadoDesignacion> estados =
+        licenciaService.obtenerDesignacionesAfectadas(licenciaId).stream()
+            .collect(
+                Collectors.toMap(
                     Designacion::getId,
                     designacion ->
-                            designacionQueryService
-                                    .obtenerCargoActivo(
-                                            designacion.getId(),
-                                            licencia.getPeriodo().getFechaDesde())
-                                    .isPresent()
-                                    ? EstadoDesignacion.CUBIERTA
-                                    : EstadoDesignacion.VACANTE
-            ));
+                        designacionQueryService
+                                .obtenerCargoActivo(
+                                    designacion.getId(), licencia.getPeriodo().getFechaDesde())
+                                .isPresent()
+                            ? EstadoDesignacion.CUBIERTA
+                            : EstadoDesignacion.VACANTE));
 
     EstadoLicencia estado =
-            licenciaService.obtenerEstadoEn(
-                    licencia,
-                    estados,
-                    licencia.getPeriodo().getFechaDesde());
+        licenciaService.obtenerEstadoEn(licencia, estados, licencia.getPeriodo().getFechaDesde());
 
     return LicenciaMapper.toDetalle(licencia, estado);
   }
 
   @GetMapping("/{licenciaId}/designaciones-afectadas")
-  public List<LicenciaDesignacionDTO> obtenerDesignacionesAfectadas(
-          @PathVariable Long licenciaId) {
+  public List<LicenciaDesignacionDTO> obtenerDesignacionesAfectadas(@PathVariable Long licenciaId) {
 
     Licencia licencia = licenciaService.obtenerPorId(licenciaId);
 
     return licenciaService.obtenerDesignacionesAfectadas(licenciaId).stream()
-            .map(d -> {
+        .map(
+            d -> {
               Asignacion asignacionQueEjerce =
-                      designacionQueryService
-                              .obtenerCargoActivo(
-                                      d.getId(),
-                                      licencia.getPeriodo().getFechaDesde())
-                              .orElse(null);
+                  designacionQueryService
+                      .obtenerCargoActivo(d.getId(), licencia.getPeriodo().getFechaDesde())
+                      .orElse(null);
 
-              return LicenciaMapper.toDesignacionDTO(
-                      d,
-                      asignacionQueEjerce);
+              return LicenciaMapper.toDesignacionDTO(d, asignacionQueEjerce);
             })
-            .toList();
+        .toList();
   }
 
   @GetMapping("/{licenciaId}/timeline")

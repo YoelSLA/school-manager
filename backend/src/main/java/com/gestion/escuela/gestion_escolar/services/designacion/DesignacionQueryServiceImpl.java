@@ -11,16 +11,15 @@ import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontrado
 import com.gestion.escuela.gestion_escolar.persistence.AsignacionRepository;
 import com.gestion.escuela.gestion_escolar.persistence.DesignacionRepository;
 import com.gestion.escuela.gestion_escolar.persistence.EscuelaRepository;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -93,13 +92,9 @@ public class DesignacionQueryServiceImpl implements DesignacionQueryService {
   }
 
   @Override
-  public Optional<Asignacion> obtenerCargoVigenteEn(
-          Long designacionId,
-          LocalDate fecha) {
+  public Optional<Asignacion> obtenerCargoVigenteEn(Long designacionId, LocalDate fecha) {
 
-    return designacionRepository.findAsignacionVigenteEn(
-            designacionId,
-            fecha);
+    return designacionRepository.findAsignacionVigenteEn(designacionId, fecha);
   }
 
   @Override

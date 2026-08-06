@@ -12,12 +12,11 @@ import com.gestion.escuela.gestion_escolar.models.LicenciaEstatutaria;
 import com.gestion.escuela.gestion_escolar.services.licenciaEstatutaria.LicenciaEstatutariaService;
 import com.gestion.escuela.gestion_escolar.web.PaginationUtils;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/licencias-estatutarias")
@@ -71,7 +70,7 @@ public class LicenciaEstatutariaControllerREST {
   @GetMapping("/select")
   public List<LicenciaEstatutariaSelectDTO> listarParaSelect() {
     return licenciaEstatutariaService.obtenerActivas().stream()
-            .map(LicenciaEstatutariaMapper::toSelectDTO)
-            .toList();
+        .map(LicenciaEstatutariaMapper::toSelectDTO)
+        .toList();
   }
 }

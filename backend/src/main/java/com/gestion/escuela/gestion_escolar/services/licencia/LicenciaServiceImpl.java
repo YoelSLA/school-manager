@@ -10,16 +10,15 @@ import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoLicencia;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
 import com.gestion.escuela.gestion_escolar.persistence.*;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -39,15 +38,13 @@ public class LicenciaServiceImpl implements LicenciaService {
         .orElseThrow(() -> new RecursoNoEncontradoException("licencia", licenciaId));
   }
 
-
-
   @Override
   public Licencia crear(
-          Long empleadoId,
-          Long licenciaEstatutariaId,
-          Periodo periodo,
-          String descripcion,
-          Set<Long> asignacionIds) {
+      Long empleadoId,
+      Long licenciaEstatutariaId,
+      Periodo periodo,
+      String descripcion,
+      Set<Long> asignacionIds) {
 
     EmpleadoEducativo empleado =
         empleadoEducativoRepository
@@ -61,11 +58,12 @@ public class LicenciaServiceImpl implements LicenciaService {
     }
 
     LicenciaEstatutaria licenciaEstatutaria =
-            licenciaEstatutariaRepository
-                    .findById(licenciaEstatutariaId)
-                    .orElseThrow(
-                            () -> new RecursoNoEncontradoException(
-                                            "licencia estatutaria", licenciaEstatutariaId));
+        licenciaEstatutariaRepository
+            .findById(licenciaEstatutariaId)
+            .orElseThrow(
+                () ->
+                    new RecursoNoEncontradoException(
+                        "licencia estatutaria", licenciaEstatutariaId));
 
     empleado.validarNuevaLicencia(licenciaEstatutaria, periodo, asignaciones);
 
@@ -102,19 +100,16 @@ public class LicenciaServiceImpl implements LicenciaService {
 
   @Override
   public Licencia renovarLicencia(
-          Long licenciaId,
-          Long licenciaEstatutariaId,
-          LocalDate nuevoHasta,
-          String descripcion) {
+      Long licenciaId, Long licenciaEstatutariaId, LocalDate nuevoHasta, String descripcion) {
 
     Licencia original = obtenerPorId(licenciaId);
 
-    LicenciaEstatutaria licenciaEstatutaria = licenciaEstatutariaRepository
+    LicenciaEstatutaria licenciaEstatutaria =
+        licenciaEstatutariaRepository
             .findById(licenciaEstatutariaId)
             .orElseThrow(() -> new RecursoNoEncontradoException("licencia", licenciaId));
 
-    Licencia renovada =
-            original.renovar(licenciaEstatutaria, nuevoHasta, descripcion);
+    Licencia renovada = original.renovar(licenciaEstatutaria, nuevoHasta, descripcion);
 
     return licenciaRepository.save(renovada);
   }

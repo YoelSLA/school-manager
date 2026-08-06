@@ -11,10 +11,9 @@ import com.gestion.escuela.gestion_escolar.models.designacion.DesignacionCurso;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoLicencia;
 import com.gestion.escuela.gestion_escolar.models.enums.TipoPeriodoLicencia;
+import java.time.LocalDate;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LicenciaMapper {
@@ -58,43 +57,36 @@ public class LicenciaMapper {
   }
 
   public static LicenciaDesignacionDTO toDesignacionDTO(
-          Designacion d, Asignacion asignacionQueEjerce) {
+      Designacion d, Asignacion asignacionQueEjerce) {
 
     EstadoDesignacion estado =
-            asignacionQueEjerce != null
-                    ? EstadoDesignacion.CUBIERTA
-                    : EstadoDesignacion.VACANTE;
+        asignacionQueEjerce != null ? EstadoDesignacion.CUBIERTA : EstadoDesignacion.VACANTE;
 
     AsignacionDetalleDTO asignacionActiva =
-            asignacionQueEjerce != null
-                    ? AsignacionMapper.toDetalle(
-                    asignacionQueEjerce,
-                    asignacionQueEjerce.getEstadoEn(LocalDate.now()))
-                    : null;
+        asignacionQueEjerce != null
+            ? AsignacionMapper.toDetalle(
+                asignacionQueEjerce, asignacionQueEjerce.getEstadoEn(LocalDate.now()))
+            : null;
 
     if (d instanceof DesignacionAdministrativa da) {
       return new LicenciaDesignacionAdministrativaDTO(
-              da.getId(),
-              da.getCupof(),
-              estado,
-              da.getRolEducativo(),
-              asignacionActiva);
+          da.getId(), da.getCupof(), estado, da.getRolEducativo(), asignacionActiva);
     }
 
     if (d instanceof DesignacionCurso dc) {
       return new LicenciaDesignacionCursoDTO(
-              dc.getId(),
-              dc.getCupof(),
-              estado,
-              dc.getRolEducativo(),
-              dc.getMateria().getNombre(),
-              dc.getCurso().anioDivision(),
-              dc.getOrientacion(),
-              asignacionActiva);
+          dc.getId(),
+          dc.getCupof(),
+          estado,
+          dc.getRolEducativo(),
+          dc.getMateria().getNombre(),
+          dc.getCurso().anioDivision(),
+          dc.getOrientacion(),
+          asignacionActiva);
     }
 
     throw new IllegalStateException(
-            "Tipo de designación no soportado: " + d.getClass().getSimpleName());
+        "Tipo de designación no soportado: " + d.getClass().getSimpleName());
   }
 
   public static LicenciaTimelineItemDTO toTimelineItem(Licencia l) {
