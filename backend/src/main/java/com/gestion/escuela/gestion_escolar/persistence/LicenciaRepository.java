@@ -12,17 +12,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface LicenciaRepository extends JpaRepository<Licencia, Long> {
 
-  @EntityGraph(
-      attributePaths = {
-        "empleadoEducativo",
-        "asignaciones",
-        "asignaciones.empleadoEducativo",
-        "asignaciones.empleadoEducativo.licencias",
-        "asignaciones.designacion",
-        "asignaciones.designacion.asignaciones",
-        "asignaciones.designacion.asignaciones.empleadoEducativo",
-        "asignaciones.designacion.asignaciones.empleadoEducativo.licencias"
-      })
+  @EntityGraph(attributePaths = {"empleadoEducativo", "asignaciones", "asignaciones.designacion"})
   @Query(
       value =
           """
