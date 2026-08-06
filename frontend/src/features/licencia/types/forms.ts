@@ -7,7 +7,8 @@ import type { cubrirDesignacionesConSuplenteSchema } from "../form/schemas/cubri
  * FORM VALUES
  * ========================================================================== */
 
-export type LicenciaCreateFormValues = z.input<typeof createLicencia>;
+export type LicenciaCreateFormInput = z.input<typeof createLicencia>;
+export type LicenciaCreateFormValues = z.output<typeof createLicencia>; // o z.infer
 
 export type CambiarCoberturaDTO = z.infer<typeof cambiarCoberturaSchema>;
 

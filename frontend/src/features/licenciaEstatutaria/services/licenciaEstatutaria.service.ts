@@ -3,6 +3,7 @@ import type { PageResponse } from "@/shared/types";
 import type {
 	LicenciaEstatutariaCreateDTO,
 	LicenciaEstatutariaResponseDTO,
+	LicenciaEstatutariaSelectDTO,
 	LicenciaEstatutariaUpdateDTO,
 } from "../types";
 
@@ -19,6 +20,16 @@ const listLicenciasEstatutarias = async (
 		{
 			params: { page, size },
 		},
+	);
+
+	return data;
+};
+
+const listLicenciasEstatutariasSelect = async (): Promise<
+	LicenciaEstatutariaSelectDTO[]
+> => {
+	const { data } = await http.get<LicenciaEstatutariaSelectDTO[]>(
+		"/licencias-estatutarias/select",
 	);
 
 	return data;
@@ -78,6 +89,7 @@ const deleteLicenciaEstatutaria = async (id: number): Promise<void> => {
 export const licenciaEstatutariaService = {
 	// Queries
 	listLicenciasEstatutarias,
+	listLicenciasEstatutariasSelect,
 	getLicenciaEstatutaria,
 
 	// Mutations

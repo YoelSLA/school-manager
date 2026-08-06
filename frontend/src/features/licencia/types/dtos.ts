@@ -15,7 +15,7 @@ import type {
  * ========================================================================== */
 
 export interface LicenciaCreateDTO {
-	tipoLicencia: string;
+	licenciaEstatutariaId: number;
 	periodo: PeriodoCreateDTO;
 	descripcion?: string;
 	asignacionesIds: number[];
@@ -29,7 +29,7 @@ export interface CubrirDesignacionesRequest {
 
 export interface RenovarLicenciaDTO {
 	nuevoHasta: string;
-	tipoLicencia: string;
+	licenciaEstatutariaId: number;
 	descripcion?: string;
 }
 

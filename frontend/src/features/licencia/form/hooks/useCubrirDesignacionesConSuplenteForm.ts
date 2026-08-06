@@ -12,7 +12,7 @@ type Props = {
 	onSuccess: () => void;
 };
 
-export function useCubrirDesignacionesForm({
+export function useCubrirDesignacionesConSuplenteForm({
 	licenciaId,
 	designacionIds,
 	onSuccess,

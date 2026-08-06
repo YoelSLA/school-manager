@@ -69,7 +69,7 @@ const crearLicencia = async (
 	body: LicenciaCreateDTO,
 ): Promise<LicenciaDetalleDTO> => {
 	const { data } = await http.post<LicenciaDetalleDTO>(
-		`/empleados/${empleadoId}`,
+		`/licencias/empleados/${empleadoId}`,
 		body,
 	);
 

@@ -12,11 +12,13 @@
 
   /* 📦 BOX MODEL */
   gap: var(--layout-gap);
+  border: 2px solid blue; // TODO: DEBUG
 
   /* ================= HEADER ================= */
 
   &__header {
     flex-shrink: 0;
+    border: 2px solid green; // TODO: DEBUG
   }
 
   /* ================= CONTENT ================= */
@@ -26,6 +28,7 @@
     flex: 1;
     flex-direction: column;
     min-height: 0;
+    border: 2px solid orangered; // TODO: DEBUG
   }
 
   /* ================= FOOTER ================= */

@@ -6,11 +6,13 @@ import styles from "./LicenciaDesignacionCobertura.module.scss";
 
 type Props = {
   designacion: LicenciaDesignacionDTO;
-  onCambiarCobertura: (id: number) => void;
+  onCubrir: () => void;
+  onCambiarCobertura: () => void;
 };
 
 export default function LicenciaDesignacionCobertura({
   designacion,
+  onCubrir,
   onCambiarCobertura,
 }: Props) {
   const asignacion = designacion.cobertura;
@@ -29,6 +31,7 @@ export default function LicenciaDesignacionCobertura({
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
+            onCubrir();
           }}
         >
           Cubrir →
@@ -62,6 +65,7 @@ export default function LicenciaDesignacionCobertura({
           </>
         )}
       </div>
+
       <Button
         variant="ghost"
         size="sm"
@@ -69,8 +73,7 @@ export default function LicenciaDesignacionCobertura({
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
-
-          onCambiarCobertura(designacion.designacionId);
+          onCambiarCobertura();
         }}
       >
         Cambiar cobertura

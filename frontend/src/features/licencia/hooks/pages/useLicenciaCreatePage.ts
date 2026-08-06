@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAsignacionesActivas } from "@/features/empleadoEducativo/hooks";
 import { getErrorMessage } from "@/shared/http/errorHandler";
-import { useLicenciaForm } from "../../form/useLicenciaForm";
+import { useLicenciaCreateForm } from "../../form/hooks";
 import type { LicenciaCreateDTO, LicenciaCreateFormValues } from "../../types";
 import { useCrearLicencia } from "../mutations";
 
@@ -12,7 +12,7 @@ type ErrorState = {
 
 export function useLicenciaCreatePage() {
 	const { crearLicencia, isLoading, error } = useCrearLicencia();
-	const { form } = useLicenciaForm();
+	const { form } = useLicenciaCreateForm();
 
 	const [empleadoId, setEmpleadoId] = useState<number | null>(null);
 	const [empleadoError, setEmpleadoError] = useState<string | null>(null);
