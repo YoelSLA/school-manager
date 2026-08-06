@@ -98,6 +98,27 @@ public interface DesignacionRepository extends JpaRepository<Designacion, Long> 
 
   @Query(
       """
+    select a
+    from Asignacion a
+    where a.designacion.id = :designacionId
+
+      and a.periodo.fechaDesde <= :fecha
+
+      and (
+            a.periodo.fechaHasta is null
+            or a.periodo.fechaHasta >= :fecha
+      )
+
+      and (
+            a.bajaAsignacion is null
+            or a.bajaAsignacion.fechaBaja > :fecha
+      )
+""")
+  Optional<Asignacion> findAsignacionVigenteEn(
+      @Param("designacionId") Long designacionId, @Param("fecha") LocalDate fecha);
+
+  @Query(
+      """
 select d
 from DesignacionCurso d
 where d.escuela.id = :escuelaId

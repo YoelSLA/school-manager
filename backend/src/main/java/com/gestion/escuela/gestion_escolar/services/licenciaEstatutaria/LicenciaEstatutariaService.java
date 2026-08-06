@@ -1,7 +1,9 @@
 package com.gestion.escuela.gestion_escolar.services.licenciaEstatutaria;
 
 import com.gestion.escuela.gestion_escolar.models.LicenciaEstatutaria;
+import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
 import com.gestion.escuela.gestion_escolar.persistence.LicenciaEstatutariaRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -53,13 +55,18 @@ public class LicenciaEstatutariaService implements LicenciaEstaturariaService {
   public LicenciaEstatutaria obtenerPorId(Long id) {
     return licenciaEstatutariaRepository
         .findById(id)
-        .orElseThrow(() -> new RuntimeException("Licencia estatutaria no encontrada."));
+        .orElseThrow(() -> new RecursoNoEncontradoException("Licencia estatutaria.", id));
   }
 
   @Override
   public Page<LicenciaEstatutaria> obtenerTodas(Pageable pageable) {
     return licenciaEstatutariaRepository.findAll(
         PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("codigo")));
+  }
+
+  @Override
+  public List<LicenciaEstatutaria> obtenerActivas() {
+    return licenciaEstatutariaRepository.findByActivaTrue();
   }
 
   @Override

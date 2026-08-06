@@ -4,6 +4,7 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.licenciaEstatutaria.
 import com.gestion.escuela.gestion_escolar.controllers.dtos.licenciaEstatutaria.request.LicenciaEstatutariaUpdateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.licenciaEstatutaria.response.LicenciaEstatutariaResponseDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.licenciaEstatutaria.response.LicenciaEstatutariaRowDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licenciaEstatutaria.response.LicenciaEstatutariaSelectDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.response.PageResponse;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.LicenciaEstatutariaMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.PageMapper;
@@ -11,6 +12,7 @@ import com.gestion.escuela.gestion_escolar.models.LicenciaEstatutaria;
 import com.gestion.escuela.gestion_escolar.services.licenciaEstatutaria.LicenciaEstatutariaService;
 import com.gestion.escuela.gestion_escolar.web.PaginationUtils;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -63,5 +65,12 @@ public class LicenciaEstatutariaControllerREST {
   @DeleteMapping("/{id}")
   public void eliminar(@PathVariable Long id) {
     licenciaEstatutariaService.eliminar(id);
+  }
+
+  @GetMapping("/select")
+  public List<LicenciaEstatutariaSelectDTO> listarParaSelect() {
+    return licenciaEstatutariaService.obtenerActivas().stream()
+        .map(LicenciaEstatutariaMapper::toSelectDTO)
+        .toList();
   }
 }

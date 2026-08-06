@@ -3,6 +3,7 @@ package com.gestion.escuela.gestion_escolar.controllers.mappers;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.licenciaEstatutaria.request.LicenciaEstatutariaCreateDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.licenciaEstatutaria.response.LicenciaEstatutariaResponseDTO;
 import com.gestion.escuela.gestion_escolar.controllers.dtos.licenciaEstatutaria.response.LicenciaEstatutariaRowDTO;
+import com.gestion.escuela.gestion_escolar.controllers.dtos.licenciaEstatutaria.response.LicenciaEstatutariaSelectDTO;
 import com.gestion.escuela.gestion_escolar.models.LicenciaEstatutaria;
 
 public final class LicenciaEstatutariaMapper {
@@ -42,5 +43,10 @@ public final class LicenciaEstatutariaMapper {
   public static LicenciaEstatutariaRowDTO toRow(LicenciaEstatutaria l) {
     return new LicenciaEstatutariaRowDTO(
         l.getId(), l.getArticulo(), l.getCodigo(), l.getNombre(), l.getDescripcion(), l.isActiva());
+  }
+
+  public static LicenciaEstatutariaSelectDTO toSelectDTO(LicenciaEstatutaria licencia) {
+    return new LicenciaEstatutariaSelectDTO(
+        licencia.getId(), licencia.getArticulo(), licencia.getCodigo(), licencia.getDescripcion());
   }
 }

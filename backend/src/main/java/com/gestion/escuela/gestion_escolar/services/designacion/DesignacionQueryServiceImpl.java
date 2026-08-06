@@ -92,6 +92,12 @@ public class DesignacionQueryServiceImpl implements DesignacionQueryService {
   }
 
   @Override
+  public Optional<Asignacion> obtenerCargoVigenteEn(Long designacionId, LocalDate fecha) {
+
+    return designacionRepository.findAsignacionVigenteEn(designacionId, fecha);
+  }
+
+  @Override
   public List<Asignacion> obtenerOtrosCargos(
       Long designacionId, EstadoAsignacion estado, LocalDate fecha) {
 

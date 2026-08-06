@@ -10,14 +10,17 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.licencia.response.Li
 import com.gestion.escuela.gestion_escolar.controllers.mappers.LicenciaMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.PeriodoMapper;
 import com.gestion.escuela.gestion_escolar.models.Licencia;
+import com.gestion.escuela.gestion_escolar.models.asignacion.Asignacion;
+import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoLicencia;
 import com.gestion.escuela.gestion_escolar.services.designacion.DesignacionCommandService;
 import com.gestion.escuela.gestion_escolar.services.designacion.DesignacionQueryService;
 import com.gestion.escuela.gestion_escolar.services.licencia.LicenciaService;
 import jakarta.validation.Valid;
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +43,7 @@ public class LicenciaControllerREST {
     Licencia licencia =
         licenciaService.crear(
             empleadoId,
-            dto.tipoLicencia(),
+            dto.licenciaEstatutariaId(),
             PeriodoMapper.toEntity(dto.periodo()),
             dto.descripcion(),
             dto.asignacionesIds());
@@ -79,10 +82,10 @@ public class LicenciaControllerREST {
 
   @PostMapping("/{licenciaId}/renovaciones")
   public ResponseEntity<LicenciaDetalleDTO> renovarLicencia(
-      @PathVariable Long licenciaId, @Valid @RequestBody RenovarLicenciaDTO request) {
+      @PathVariable Long licenciaId, @Valid @RequestBody RenovarLicenciaDTO dto) {
     Licencia renovada =
         licenciaService.renovarLicencia(
-            licenciaId, request.tipoLicencia(), request.nuevoHasta(), request.descripcion());
+            licenciaId, dto.licenciaEstatutariaId(), dto.nuevoHasta(), dto.descripcion());
 
     return ResponseEntity.status(HttpStatus.CREATED)
         .body(LicenciaMapper.toDetalle(renovada, EstadoLicencia.CUBIERTA));
@@ -90,23 +93,27 @@ public class LicenciaControllerREST {
 
   @GetMapping("/{licenciaId}")
   public LicenciaDetalleDTO obtenerDetalle(@PathVariable Long licenciaId) {
-    Licencia licencia = licenciaService.obtenerPorId(licenciaId);
-    return LicenciaMapper.toDetalle(licencia, EstadoLicencia.CUBIERTA);
-  }
 
-  //	@GetMapping("/{licenciaId}/designaciones-afectadas")
-  //	public List<LicenciaDesignacionDTO> obtenerDesignacionesAfectadas(
-  //			@PathVariable Long licenciaId
-  //	) {
-  //
-  //		Licencia licencia = licenciaService.obtenerPorId(licenciaId);
-  //
-  //		return licenciaService.obtenerDesignacionesAfectadas(licenciaId)
-  //				.stream()
-  //				.map(d -> LicenciaMapper.toDesignacionDTO(
-  //						d, licencia.getPeriodo()))
-  //				.toList();
-  //	}
+    Licencia licencia = licenciaService.obtenerPorId(licenciaId);
+
+    Map<Long, EstadoDesignacion> estados =
+        licenciaService.obtenerDesignacionesAfectadas(licenciaId).stream()
+            .collect(
+                Collectors.toMap(
+                    Designacion::getId,
+                    designacion ->
+                        designacionQueryService
+                                .obtenerCargoActivo(
+                                    designacion.getId(), licencia.getPeriodo().getFechaDesde())
+                                .isPresent()
+                            ? EstadoDesignacion.CUBIERTA
+                            : EstadoDesignacion.VACANTE));
+
+    EstadoLicencia estado =
+        licenciaService.obtenerEstadoEn(licencia, estados, licencia.getPeriodo().getFechaDesde());
+
+    return LicenciaMapper.toDetalle(licencia, estado);
+  }
 
   @GetMapping("/{licenciaId}/designaciones-afectadas")
   public List<LicenciaDesignacionDTO> obtenerDesignacionesAfectadas(@PathVariable Long licenciaId) {
@@ -115,11 +122,14 @@ public class LicenciaControllerREST {
 
     return licenciaService.obtenerDesignacionesAfectadas(licenciaId).stream()
         .map(
-            d ->
-                LicenciaMapper.toDesignacionDTO(
-                    d,
-                    EstadoDesignacion.CUBIERTA,
-                    designacionQueryService.obtenerCargoActivo(d.getId(), LocalDate.now()).get()))
+            d -> {
+              Asignacion asignacionQueEjerce =
+                  designacionQueryService
+                      .obtenerCargoActivo(d.getId(), licencia.getPeriodo().getFechaDesde())
+                      .orElse(null);
+
+              return LicenciaMapper.toDesignacionDTO(d, asignacionQueEjerce);
+            })
         .toList();
   }
 

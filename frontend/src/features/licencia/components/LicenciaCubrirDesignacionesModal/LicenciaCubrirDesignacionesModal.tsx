@@ -1,7 +1,7 @@
 import EmpleadoSelector from "@/features/empleadoEducativo/components/EmpleadoSelector";
 import { FormInputDate, FormInputNumber } from "@/shared/components";
 import { Modal } from "@/shared/components/Modal";
-import { useCubrirDesignacionesForm } from "../../form/hooks/useCubrirDesignacionesConSuplenteForm";
+import { useCubrirDesignacionesConSuplenteForm } from "../../form/hooks";
 import styles from "../LicenciaCoberturaModal.module.scss";
 
 type Props = {
@@ -23,7 +23,7 @@ export default function LicenciaCubrirDesignacionesModal({
     onSubmit,
     setSuplente,
     isPending,
-  } = useCubrirDesignacionesForm({
+  } = useCubrirDesignacionesConSuplenteForm({
     licenciaId,
     designacionIds,
     onSuccess,

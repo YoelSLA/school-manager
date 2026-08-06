@@ -28,3 +28,10 @@ export interface LicenciaEstatutariaRowDTO {
 	descripcion: string;
 	activa: boolean;
 }
+
+export interface LicenciaEstatutariaSelectDTO {
+	id: number;
+	articulo: string;
+	codigo: string;
+	descripcion: string;
+}

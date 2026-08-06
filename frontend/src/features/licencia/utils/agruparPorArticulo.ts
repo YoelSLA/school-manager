@@ -1,11 +1,13 @@
-import type { TipoLicencia } from "@/shared/types";
+import type { LicenciaEstatutariaSelectDTO } from "@/features/licenciaEstatutaria/types";
 
-export function agruparPorArticulo(tipos: TipoLicencia[]) {
-	return tipos.reduce<Record<string, TipoLicencia[]>>((acc, tipo) => {
-		const articulo = tipo.articulo ?? "Sin artículo";
-		acc[articulo] ??= [];
-		acc[articulo].push(tipo);
-		return acc;
-	}, {});
+export function agruparPorArticulo(licencias: LicenciaEstatutariaSelectDTO[]) {
+	return licencias.reduce<Record<string, LicenciaEstatutariaSelectDTO[]>>(
+		(acc, licencia) => {
+			const articulo = licencia.articulo || "Sin artículo";
+			acc[articulo] ??= [];
+			acc[articulo].push(licencia);
+			return acc;
+		},
+		{},
+	);
 }
-

@@ -1,12 +1,10 @@
 import { useForm } from "react-hook-form";
 import FormInputField from "@/shared/components/form/FormInput/FormInput";
-import FormSelectField from "@/shared/components/form/FormSelect/FormSelect";
 import Modal from "@/shared/components/Modal/Modal/Modal";
-import { TIPOS_LICENCIA } from "../../constants/tipoLicencia";
 import { useRenovarLicencia } from "../../hooks/mutations/useRenovarLicencia";
 import type { RenovarLicenciaDTO } from "../../types";
-import { agruparPorArticulo } from "../../utils";
-import styles from "./LicenciaRenovarModal.module.scss";
+import TipoLicenciaSelect from "../TipoLicenciaSelect";
+import styles from "./LicenciaModalRenovarModal.module.scss";
 
 type Props = {
   licenciaId: number;
@@ -14,7 +12,7 @@ type Props = {
   onSuccess: () => void;
 };
 
-export default function LicenciaRenovarModal({
+export default function LicenciaModalRenovarModal({
   licenciaId,
   onClose,
   onSuccess,
@@ -26,7 +24,7 @@ export default function LicenciaRenovarModal({
   } = useForm<RenovarLicenciaDTO>({
     defaultValues: {
       nuevoHasta: "",
-      tipoLicencia: "",
+      licenciaEstatutariaId: undefined,
       descripcion: "",
     },
   });
@@ -60,20 +58,11 @@ export default function LicenciaRenovarModal({
             error={errors.nuevoHasta?.message}
           />
 
-          <FormSelectField<RenovarLicenciaDTO>
-            label="Tipo de licencia"
-            name="tipoLicencia"
+          <TipoLicenciaSelect
             register={register}
-            error={errors.tipoLicencia?.message}
-          >
-            {Object.values(agruparPorArticulo(TIPOS_LICENCIA))
-              .flat()
-              .map((t) => (
-                <option key={t.enumValue} value={t.enumValue}>
-                  {t.codigo} — {t.descripcion}
-                </option>
-              ))}
-          </FormSelectField>
+            name="licenciaEstatutariaId"
+            error={errors.licenciaEstatutariaId?.message}
+          />
 
           <FormInputField<RenovarLicenciaDTO>
             label="Descripción (opcional)"

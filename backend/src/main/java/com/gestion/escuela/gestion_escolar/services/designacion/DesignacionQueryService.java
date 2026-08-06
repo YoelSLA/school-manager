@@ -26,6 +26,8 @@ public interface DesignacionQueryService {
 
   Optional<Asignacion> obtenerCargoActivo(Long designacionId, LocalDate fecha);
 
+  Optional<Asignacion> obtenerCargoVigenteEn(Long designacionId, LocalDate fecha);
+
   List<Asignacion> obtenerOtrosCargos(Long designacionId, EstadoAsignacion estado, LocalDate fecha);
 
   Map<Long, Asignacion> obtenerCargosActivos(Collection<Long> designacionIds, LocalDate fecha);

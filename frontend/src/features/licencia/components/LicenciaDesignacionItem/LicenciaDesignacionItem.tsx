@@ -8,13 +8,15 @@ type Props = {
   designacion: LicenciaDesignacionDTO;
   selected: boolean;
   onSelect: (id: number) => void;
-  onCambiarCobertura: (id: number) => void;
+  onCubrir: (id: number) => void;
+  onCambiarCobertura: () => void;
 };
 
 export default function LicenciaDesignacionItem({
   designacion,
   selected,
   onSelect,
+  onCubrir,
   onCambiarCobertura,
 }: Props) {
   const estaCubierta = designacion.estado === "CUBIERTA";
@@ -52,6 +54,7 @@ export default function LicenciaDesignacionItem({
 
       <LicenciaDesignacionCobertura
         designacion={designacion}
+        onCubrir={() => onCubrir(designacion.designacionId)}
         onCambiarCobertura={onCambiarCobertura}
       />
     </article>

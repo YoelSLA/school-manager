@@ -9,10 +9,7 @@ import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoLicencia;
 import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
-import com.gestion.escuela.gestion_escolar.persistence.AsignacionRepository;
-import com.gestion.escuela.gestion_escolar.persistence.EmpleadoEducativoRepository;
-import com.gestion.escuela.gestion_escolar.persistence.EscuelaRepository;
-import com.gestion.escuela.gestion_escolar.persistence.LicenciaRepository;
+import com.gestion.escuela.gestion_escolar.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -32,7 +29,9 @@ public class LicenciaServiceImpl implements LicenciaService {
   private final EscuelaRepository escuelaRepository;
   private final AsignacionRepository asignacionRepository;
   private final EmpleadoEducativoRepository empleadoEducativoRepository;
+  private final LicenciaEstatutariaRepository licenciaEstatutariaRepository;
 
+  @Override
   public Licencia obtenerPorId(Long licenciaId) {
     return licenciaRepository
         .findById(licenciaId)
@@ -42,7 +41,7 @@ public class LicenciaServiceImpl implements LicenciaService {
   @Override
   public Licencia crear(
       Long empleadoId,
-      LicenciaEstatutaria licenciaEstatutaria,
+      Long licenciaEstatutariaId,
       Periodo periodo,
       String descripcion,
       Set<Long> asignacionIds) {
@@ -57,6 +56,14 @@ public class LicenciaServiceImpl implements LicenciaService {
     if (asignaciones.size() != asignacionIds.size()) {
       throw new RecursoNoEncontradoException("Alguna asignación no existe", asignacionIds.size());
     }
+
+    LicenciaEstatutaria licenciaEstatutaria =
+        licenciaEstatutariaRepository
+            .findById(licenciaEstatutariaId)
+            .orElseThrow(
+                () ->
+                    new RecursoNoEncontradoException(
+                        "licencia estatutaria", licenciaEstatutariaId));
 
     empleado.validarNuevaLicencia(licenciaEstatutaria, periodo, asignaciones);
 
@@ -93,12 +100,14 @@ public class LicenciaServiceImpl implements LicenciaService {
 
   @Override
   public Licencia renovarLicencia(
-      Long licenciaId,
-      LicenciaEstatutaria licenciaEstatutaria,
-      LocalDate nuevoHasta,
-      String descripcion) {
+      Long licenciaId, Long licenciaEstatutariaId, LocalDate nuevoHasta, String descripcion) {
 
     Licencia original = obtenerPorId(licenciaId);
+
+    LicenciaEstatutaria licenciaEstatutaria =
+        licenciaEstatutariaRepository
+            .findById(licenciaEstatutariaId)
+            .orElseThrow(() -> new RecursoNoEncontradoException("licencia", licenciaId));
 
     Licencia renovada = original.renovar(licenciaEstatutaria, nuevoHasta, descripcion);
 
@@ -123,7 +132,7 @@ public class LicenciaServiceImpl implements LicenciaService {
     return licencia.cadenaCompleta();
   }
 
-  @Transactional
+  @Override
   public void eliminarLicencia(Long licenciaId) {
     Licencia licencia =
         licenciaRepository

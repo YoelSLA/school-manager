@@ -5,8 +5,8 @@ export { default as LicenciaCubrirDesignacionesModal } from "./LicenciaCubrirDes
 export { default as LicenciaDesignacionHeader } from "./LicenciaDesignacionHeader";
 export { default as LicenciaDesignacionItem } from "./LicenciaDesignacionItem";
 export { default as LicenciaDesignacionRow } from "./LicenciaDesignacionRow";
-export { default as LicenciaForm } from "./LicenciaForm";
-export { default as LicenciaRenovarModal } from "./LicenciaRenovarModal";
+export { default as LicenciaForm } from "./LicenciaCreateForm";
+export { default as LicenciaRenovarModal } from "./LicenciaModalRenovarModal";
 export { default as LicenciaRow } from "./LicenciaRow";
 export { default as LicenciaTable } from "./LicenciaTable";
 export { default as TipoLicenciaSelect } from "./TipoLicenciaSelect";

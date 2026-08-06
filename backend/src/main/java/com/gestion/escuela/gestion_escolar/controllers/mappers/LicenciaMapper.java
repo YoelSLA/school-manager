@@ -57,7 +57,11 @@ public class LicenciaMapper {
   }
 
   public static LicenciaDesignacionDTO toDesignacionDTO(
-      Designacion d, EstadoDesignacion estado, Asignacion asignacionQueEjerce) {
+      Designacion d, Asignacion asignacionQueEjerce) {
+
+    EstadoDesignacion estado =
+        asignacionQueEjerce != null ? EstadoDesignacion.CUBIERTA : EstadoDesignacion.VACANTE;
+
     AsignacionDetalleDTO asignacionActiva =
         asignacionQueEjerce != null
             ? AsignacionMapper.toDetalle(

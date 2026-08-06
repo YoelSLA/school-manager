@@ -1,12 +1,12 @@
 import type { UseFormReturn } from "react-hook-form";
 import { Button } from "@/shared/components";
 import { FormInputDate, FormInputDescripcion, FormSection } from "@/shared/components/form";
-import type { LicenciaCreateFormValues } from "../../types";
+import type { LicenciaCreateFormInput, } from "../../types";
 import TipoLicenciaSelect from "../TipoLicenciaSelect";
-import styles from "./LicenciaForm.module.scss";
+import styles from "./LicenciaCreateForm.module.scss";
 
 type Props = {
-  form: UseFormReturn<LicenciaCreateFormValues>;
+  form: UseFormReturn<LicenciaCreateFormInput>;
   isSubmitting: boolean;
 };
 
@@ -39,8 +39,8 @@ export default function LicenciaForm({
           <div className={styles.tipo}>
             <TipoLicenciaSelect
               register={register}
-              name="tipoLicencia"
-              error={errors.tipoLicencia?.message}
+              name="licenciaEstatutariaId"
+              error={errors.licenciaEstatutariaId?.message}
             />
           </div>
 

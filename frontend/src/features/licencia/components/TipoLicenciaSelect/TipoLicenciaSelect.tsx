@@ -1,7 +1,7 @@
 import { FileText } from "lucide-react";
 import type { FieldValues, Path, UseFormRegister } from "react-hook-form";
+import { useListLicenciasEstatutariasSelect } from "@/features/licenciaEstatutaria/hooks/queries";
 import FormSelectField from "@/shared/components/form/FormSelect/FormSelect";
-import { TIPOS_LICENCIA } from "../../constants/tipoLicencia";
 import { agruparPorArticulo, formatLicenciaLabel } from "../../utils";
 
 type Props<T extends FieldValues> = {
@@ -17,6 +17,9 @@ export default function TipoLicenciaSelect<T extends FieldValues>({
   error,
   disabled = false,
 }: Props<T>) {
+  const { data: licencias = [], isLoading } =
+    useListLicenciasEstatutariasSelect();
+
   return (
     <FormSelectField<T>
       label={
@@ -28,14 +31,17 @@ export default function TipoLicenciaSelect<T extends FieldValues>({
       name={name}
       register={register}
       error={error}
-      disabled={disabled}
+      disabled={disabled || isLoading}
     >
-      {Object.entries(agruparPorArticulo(TIPOS_LICENCIA)).map(
-        ([articulo, licencias]) => (
+      {Object.entries(agruparPorArticulo(licencias)).map(
+        ([articulo, licenciasArticulo]) => (
           <optgroup key={articulo} label={articulo}>
-            {licencias.map((t) => (
-              <option key={t.enumValue} value={t.enumValue}>
-                {formatLicenciaLabel(t.codigo, t.descripcion)}
+            {licenciasArticulo.map((licencia) => (
+              <option key={licencia.id} value={licencia.id}>
+                {formatLicenciaLabel(
+                  licencia.codigo,
+                  licencia.descripcion,
+                )}
               </option>
             ))}
           </optgroup>

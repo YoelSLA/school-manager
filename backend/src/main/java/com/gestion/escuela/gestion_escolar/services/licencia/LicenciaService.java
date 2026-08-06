@@ -1,7 +1,6 @@
 package com.gestion.escuela.gestion_escolar.services.licencia;
 
 import com.gestion.escuela.gestion_escolar.models.Licencia;
-import com.gestion.escuela.gestion_escolar.models.LicenciaEstatutaria;
 import com.gestion.escuela.gestion_escolar.models.Periodo;
 import com.gestion.escuela.gestion_escolar.models.designacion.Designacion;
 import com.gestion.escuela.gestion_escolar.models.enums.EstadoDesignacion;
@@ -20,18 +19,15 @@ public interface LicenciaService {
 
   Licencia crear(
       Long empleadoId,
-      LicenciaEstatutaria licenciaEstatutaria,
+      Long licenciaEstatutariaId,
       Periodo periodo,
       String descripcion,
-      Set<Long> designacionIds);
+      Set<Long> asignacionIds);
 
   Page<Licencia> buscarPorEscuela(Long escuelaId, Pageable pageable);
 
   Licencia renovarLicencia(
-      Long licenciaId,
-      LicenciaEstatutaria licenciaEstatutaria,
-      LocalDate nuevoHasta,
-      String descripcion);
+      Long licenciaId, Long licenciaEstatutariaId, LocalDate nuevoHasta, String descripcion);
 
   Set<Designacion> obtenerDesignacionesAfectadas(Long licenciaId);
 
