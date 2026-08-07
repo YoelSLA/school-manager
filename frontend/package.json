@@ -1,6 +1,6 @@
 {
 	"name": "frontend",
-	"version": "1.2.9",
+	"version": "1.2.10",
 	"main": "electron/main.cjs",
 	"scripts": {
 		"dev": "vite",
@@ -33,6 +33,16 @@
 			"target": "nsis",
 			"icon": "assets/school.ico"
 		},
+		"nsis": {
+			"oneClick": false,
+			"perMachine": false,
+			"allowElevation": true,
+			"allowToChangeInstallationDirectory": true,
+			"createDesktopShortcut": true,
+			"createStartMenuShortcut": true,
+			"deleteAppDataOnUninstall": false,
+			"runAfterFinish": true
+		},
 		"publish": [
 			{
 				"provider": "github",
@@ -63,6 +73,7 @@
 		"axios": "^1.13.2",
 		"clsx": "^2.1.1",
 		"date-fns": "^4.3.0",
+		"electron-log": "^5.4.4",
 		"electron-updater": "^6.7.3",
 		"lucide-react": "^0.562.0",
 		"qs": "^6.15.0",

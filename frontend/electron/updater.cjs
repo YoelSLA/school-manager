@@ -1,6 +1,20 @@
 const { autoUpdater } = require("electron-updater");
 const { app } = require("electron");
+const log = require("electron-log");
 const { getMainWindow } = require("./windowManager.cjs");
+
+// ==============================
+// Logger
+// ==============================
+
+autoUpdater.logger = log;
+log.transports.file.level = "debug";
+
+log.info("========================================");
+log.info("Aplicación iniciada");
+log.info("Versión:", app.getVersion());
+log.info("Ruta del log:", log.transports.file.getFile().path);
+log.info("========================================");
 
 let updaterState = {
 	status: "idle",
@@ -19,22 +33,26 @@ function sendUpdaterState() {
 
 function setupAutoUpdater() {
 	if (!app.isPackaged) {
-		console.log("[updater] Modo desarrollo, updater deshabilitado");
+		log.info("[updater] Modo desarrollo, updater deshabilitado");
 		return;
 	}
 
-	console.log("[updater] Inicializando updater...");
-	console.log("[updater] Versión actual:", app.getVersion());
+	log.info("[updater] Inicializando updater...");
+	log.info("[updater] Versión actual:", app.getVersion());
 
 	autoUpdater.autoDownload = false;
 	autoUpdater.autoInstallOnAppQuit = false;
 
 	autoUpdater.on("checking-for-update", () => {
-		console.log("[updater] Buscando actualización...");
+		log.info("[updater] Buscando actualización...");
+
+		updaterState.status = "checking";
+		sendUpdaterState();
 	});
 
 	autoUpdater.on("update-available", (info) => {
-		console.log("[updater] Actualización encontrada:", info);
+		log.info("[updater] Actualización encontrada");
+		log.info(info);
 
 		updaterState = {
 			status: "available",
@@ -47,12 +65,22 @@ function setupAutoUpdater() {
 	});
 
 	autoUpdater.on("update-not-available", (info) => {
-		console.log("[updater] No hay actualizaciones disponibles", info);
+		log.info("[updater] No hay actualizaciones");
+		log.info(info);
+
+		updaterState = {
+			status: "idle",
+			progress: 0,
+			version: null,
+			notes: null,
+		};
+
+		sendUpdaterState();
 	});
 
 	autoUpdater.on("download-progress", (progress) => {
-		console.log(
-			`[updater] Descargando: ${Math.round(progress.percent)}% (${progress.transferred}/${progress.total})`,
+		log.info(
+			`[updater] Descargando ${Math.round(progress.percent)}% (${progress.transferred}/${progress.total})`,
 		);
 
 		updaterState.status = "downloading";
@@ -62,7 +90,8 @@ function setupAutoUpdater() {
 	});
 
 	autoUpdater.on("update-downloaded", (info) => {
-		console.log("[updater] Actualización descargada:", info);
+		log.info("[updater] Actualización descargada");
+		log.info(info);
 
 		updaterState.status = "downloaded";
 
@@ -70,26 +99,51 @@ function setupAutoUpdater() {
 	});
 
 	autoUpdater.on("error", (error) => {
-		console.error("[updater] Error:", error);
+		log.error("[updater] Error");
+		log.error(error);
 
 		updaterState.status = "error";
 
 		sendUpdaterState();
 	});
 
-	setTimeout(() => {
-		console.log("[updater] Ejecutando checkForUpdates()");
-		autoUpdater.checkForUpdates();
+	setTimeout(async () => {
+		log.info("[updater] Ejecutando checkForUpdates()");
+
+		try {
+			const result = await autoUpdater.checkForUpdates();
+
+			log.info("[updater] Resultado:");
+			log.info(result);
+
+			if (result?.updateInfo) {
+				log.info("[updater] UpdateInfo:");
+				log.info(result.updateInfo);
+			}
+		} catch (error) {
+			log.error("[updater] Error completo durante checkForUpdates()");
+			log.error(error);
+		}
 	}, 5000);
 }
 
 function startDownload() {
-	console.log("[updater] Iniciando descarga manual...");
-	autoUpdater.downloadUpdate();
+	log.info("[updater] Iniciando descarga manual");
+
+	autoUpdater
+		.downloadUpdate()
+		.then(() => {
+			log.info("[updater] downloadUpdate() finalizó");
+		})
+		.catch((error) => {
+			log.error("[updater] Error al descargar");
+			log.error(error);
+		});
 }
 
 function restartApp() {
-	console.log("[updater] Reiniciando e instalando actualización...");
+	log.info("[updater] Reiniciando e instalando actualización");
+
 	autoUpdater.quitAndInstall();
 }
 
