@@ -1,5 +1,5 @@
 import type { UseFormRegister } from "react-hook-form";
-import FormSelectField from "@/shared/components/form/FormSelect/FormSelect";
+import FormSelectField from "@/shared/components/Select/SelectForm/SelectForm";
 import { RolEducativo } from "@/shared/types/enums";
 import type { DesignacionAdministrativaFormValues } from "../../types";
 import { ROL_EDUCATIVO_LABELS } from "../../utils/designacion.utils";

@@ -1,5 +1,5 @@
-import type { EmpleadoEducativoBasicoDTO } from "@/features/empleadoEducativo";
-import type { LicenciaDetalleDTO } from "@/features/licencia";
+import type { EmpleadoEducativoBasicoDTO } from "@/features/empleadoEducativo/types";
+import type { LicenciaDetalleDTO } from "@/features/licencia/types";
 import type { RolEducativo } from "./enums";
 
 export type LocationState = {

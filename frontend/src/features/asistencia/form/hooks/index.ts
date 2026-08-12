@@ -1,0 +1,1 @@
+export { useCreateaAsistenciaForm } from "./useCreateaAsistenciaForm";

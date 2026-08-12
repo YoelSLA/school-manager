@@ -1,13 +1,13 @@
-import { useDesignacionesPage } from "../../hooks/pages/useDesignacionPage";
-import AdministrativasDesignacionesPage from "./AdministrativasDesignacionesPage";
-import CursosDesignacionesPage from "./CursoDesignacionPage";
+import { useDesignacionPage } from "../../hooks/pages";
+import DesignacionAdministrativaPage from "./DesignacionAdministrativaPage";
+import DesignacionCursoPage from "./DesignacionCursoPage";
 
 export default function DesignacionPage() {
-  const vm = useDesignacionesPage();
+  const vm = useDesignacionPage();
 
   return vm.isAdmin ? (
-    <AdministrativasDesignacionesPage vm={vm} />
+    <DesignacionAdministrativaPage vm={vm} />
   ) : (
-    <CursosDesignacionesPage vm={vm} />
+    <DesignacionCursoPage vm={vm} />
   );
 }

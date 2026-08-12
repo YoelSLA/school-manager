@@ -1,10 +1,8 @@
 import { BreadcrumbPageLayout } from "@/app/layouts/pages";
 import { Button } from "@/shared/components";
-import { FormActions } from "@/shared/components/form";
+import { FormActions } from "@/shared/components/Form";
 import { Modal } from "@/shared/components/Modal";
-import ContactoSection from "../../components/EmpleadoEducativoCreateForm/ContactoSection";
-import DatosPersonalesSection from "../../components/EmpleadoEducativoCreateForm/DatosPersonalesSection";
-import IngresoSection from "../../components/EmpleadoEducativoCreateForm/IngresoSection";
+import { ContactoSection, DatosPersonalesSection, IngresoSection } from "../../components/EmpleadoEducativoFormCreate";
 import { useEmpleadoEducativoCreatePage } from "../../hooks/pages";
 import styles from "./EmpleadoEducativoCreatePage.module.scss";
 

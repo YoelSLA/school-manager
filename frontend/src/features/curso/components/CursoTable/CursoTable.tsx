@@ -5,8 +5,8 @@ import type {
   PageResponse,
 } from "@/shared/types";
 import type { CursoRowDTO } from "../../types";
-import CursoHeader from "../CursoHeader";
-import CursoRow from "../CursoRow";
+import CursoTableHeader from "./CursoTableHeader";
+import CursoTableRow from "./CursoTableRow";
 
 type Props = {
   query: UseQueryResult<PageResponse<CursoRowDTO>>;
@@ -18,7 +18,7 @@ export default function CursoTable({
   onVerDetalle,
 }: Props) {
   return (
-    <Table header={<CursoHeader />}>
+    <Table header={<CursoTableHeader />}>
       <ListContainer
         isLoading={query.isLoading}
         isError={query.isError}
@@ -29,7 +29,7 @@ export default function CursoTable({
         onRetry={() => void query.refetch()}
         getKey={(curso) => curso.id}
         renderItem={(curso) => (
-          <CursoRow
+          <CursoTableRow
             curso={curso}
             onVerDetalle={onVerDetalle}
           />

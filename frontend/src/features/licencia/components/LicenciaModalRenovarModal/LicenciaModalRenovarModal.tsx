@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import FormInputField from "@/shared/components/form/FormInput/FormInput";
+import FormInputField from "@/shared/components/Form/FormInput/FormInput";
 import Modal from "@/shared/components/Modal/Modal/Modal";
 import { useRenovarLicencia } from "../../hooks/mutations/useRenovarLicencia";
 import type { RenovarLicenciaDTO } from "../../types";
-import TipoLicenciaSelect from "../TipoLicenciaSelect";
+import TipoLicenciaSelect from "../SelectTipoLicencia";
 import styles from "./LicenciaModalRenovarModal.module.scss";
 
 type Props = {

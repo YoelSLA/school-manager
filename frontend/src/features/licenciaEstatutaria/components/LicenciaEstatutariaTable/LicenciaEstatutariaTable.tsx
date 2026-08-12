@@ -3,17 +3,13 @@ import { ListContainer } from "@/shared/components";
 import Table from "@/shared/components/Table";
 import type { PageResponse } from "@/shared/types";
 import type { LicenciaEstatutariaRowDTO } from "../../types";
-import LicenciaEstatutariaHeader from "../LicenciaEstatutariaHeader";
-import LicenciaEstatutariaRow from "../LicenciaEstatutariaRow";
+import LicenciaEstatutariaHeader from "./LicenciaEstatutariaTableHeader";
+import LicenciaEstatutariaRow from "./LicenciaEstatutariaTableRow";
 
 type Props = {
   query: UseQueryResult<PageResponse<LicenciaEstatutariaRowDTO>>;
-  onEdit: (
-    licenciaEstatutaria: LicenciaEstatutariaRowDTO,
-  ) => void;
-  onDelete: (
-    licenciaEstatutaria: LicenciaEstatutariaRowDTO,
-  ) => void;
+  onEdit: (licenciaEstatutaria: LicenciaEstatutariaRowDTO) => void;
+  onDelete: (licenciaEstatutaria: LicenciaEstatutariaRowDTO) => void;
 };
 
 export default function LicenciaEstatutariaTable({

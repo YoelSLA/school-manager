@@ -1,9 +1,9 @@
 import { CalendarDays, FileText, User } from "lucide-react";
 import type { EmpleadoEducativoBasicoDTO } from "@/features/empleadoEducativo/types";
-import { BadgeEstadoLicencia } from "@/shared/components/badges";
+import { BadgeEstadoLicencia } from "@/shared/components/Badge";
 import { formatDate } from "@/shared/utils/date";
 import type { LicenciaDetalleDTO } from "../../types";
-import styles from "./LicenciaDesignacionesHeader.module.scss";
+import styles from "../LicenciaDesignacionHeader/LicenciaDesignacionHeader.module.scss";
 
 type Props = {
   empleado: EmpleadoEducativoBasicoDTO;
@@ -53,7 +53,7 @@ export default function LicenciaDesignacionHeader({
         </div>
       </div>
 
-      <BadgeEstadoLicencia value={licencia.estadoLicencia} />
+          <BadgeEstadoLicencia value={licencia.estadoLicencia} />
     </header>
   );
 }

@@ -1,4 +1,4 @@
-import type { Dia } from "@/shared/types";
+import type { Dia } from "../types";
 
 export const DIA_LABELS: Record<Dia, string> = {
 	LUNES: "Lunes",

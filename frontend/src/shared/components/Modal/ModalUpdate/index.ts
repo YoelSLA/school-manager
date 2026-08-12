@@ -1,1 +1,1 @@
-export { default } from "./UpdateModal";
+export { default } from "./ModalUpdate";

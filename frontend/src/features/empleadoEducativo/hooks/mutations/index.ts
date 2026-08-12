@@ -1,4 +1,4 @@
-export { useCrearEmpleadoEducativo } from "./useCrearEmpleadoEducativo";
-export { useDarDeBajaDefinitiva } from "./useDarDeBajaDefinitiva";
-export { useEditarEmpleadoEducativo } from "./useEditarEmpleadoEducativo";
-export { useReactivarEmpleado } from "./useReactivarEmpleado";
+export { useCreateEmpleadoEducativo } from "./useCreateEmpleadoEducativo";
+export { useDeleteEmpleadoEducativo } from "./useDeleteEmpleadoEducativo";
+export { useReactivateEmpleadoEducativo } from "./useReactivateEmpleadoEducativo";
+export { useUpdateEmpleadoEducativo } from "./useUpdateEmpleadoEducativo";

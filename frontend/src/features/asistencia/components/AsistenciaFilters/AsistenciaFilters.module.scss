@@ -1,0 +1,64 @@
+@use "@/styles/abstracts" as *;
+
+.filtersRow {
+  width: 100%;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  max-height: 400px;
+}
+
+.content {
+  flex: 1;
+  min-height: 0;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding-right: $space-8;
+}
+
+.content h3 {
+  margin: 0 0 $space-12;
+
+  font-size: $font-size-sm;
+  font-weight: 500;
+}
+
+.roles {
+  display: flex;
+  flex-direction: column;
+  gap: $space-8;
+}
+
+.role {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+
+  cursor: pointer;
+
+  font-size: $font-size-sm;
+  line-height: 1.4;
+}
+
+.role input {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+
+  flex-shrink: 0;
+
+  margin-top: $space-8;
+  padding-top: $space-8;
+
+  border-top: 1px solid $border;
+}

@@ -1,0 +1,38 @@
+@use "@/styles/abstracts" as *;
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 8px;
+
+  width: 100%;
+  height: 32px;
+
+  padding: 0 16px;
+
+  background: #ffff00;
+  border-radius: 20px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  > * {
+    flex-shrink: 0;
+  }
+}
+
+.empty {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  font-style: italic;
+  user-select: none;
+}

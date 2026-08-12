@@ -1,5 +1,5 @@
 import { Route } from "react-router-dom";
-import { DesignacionCreatePage, DesignacionDetallePage, DesignacionPage, DesignacionUpdatePage } from "@/features/designacion";
+import { DesignacionCreatePage, DesignacionDetallePage, DesignacionPage, DesignacionUpdatePage } from "@/features/designacion/pages";
 
 
 export function DesignacionRoutes() {

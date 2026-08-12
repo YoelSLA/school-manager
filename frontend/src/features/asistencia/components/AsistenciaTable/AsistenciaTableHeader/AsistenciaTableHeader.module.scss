@@ -1,0 +1,21 @@
+$row-columns:
+  minmax(280px, 3fr)
+  minmax(300px, 3fr)
+  140px
+  minmax(220px, 2fr);
+
+.header {
+  grid-template-columns: $row-columns;
+  column-gap: 24px;
+  padding-inline: 20px;
+
+  > :nth-child(1),
+  > :nth-child(2),
+  > :nth-child(4) {
+    justify-content: flex-start;
+  }
+
+  > :nth-child(3) {
+    justify-content: center;
+  }
+}

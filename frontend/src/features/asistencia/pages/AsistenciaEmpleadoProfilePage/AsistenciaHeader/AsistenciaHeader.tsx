@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import BadgeRolEducativo from "@/shared/components/badges/BadgeRolEducativo";
+import BadgeRolEducativo from "@/shared/components/Badge/BadgeRolEducativo";
 import type { RolEducativo } from "@/shared/types/enums";
 import { asistenciaPaths } from "../../../constants";
 import styles from "./AsistenciaHeader.module.scss";

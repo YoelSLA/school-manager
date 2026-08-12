@@ -9,8 +9,10 @@ type Props = {
 export default function Table({ header, children }: Props) {
   return (
     <div className={styles.table}>
-      {header}
-      {children}
+      <div className={styles.content}>
+        {header}
+        {children}
+      </div>
     </div>
   );
 }

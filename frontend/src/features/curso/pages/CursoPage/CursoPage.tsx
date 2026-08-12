@@ -1,7 +1,7 @@
 import { ToolbarPageLayout } from "@/app/layouts/pages";
-import { FilterPillGroup } from "@/shared/components/filters";
+import { FilterPillGroup } from "@/shared/components/Filter";
 import Toolbar from "@/shared/components/Toolbar";
-import CursoCreateModal from "../../components/CursoCreateModal";
+import CursoCreateModal from "../../components/CursoModalCreate";
 import CursoTable from "../../components/CursoTable";
 import { useCursosPage } from "../../hooks/pages";
 import { FILTROS_CURSOS } from "../../utils/cursos.utils";

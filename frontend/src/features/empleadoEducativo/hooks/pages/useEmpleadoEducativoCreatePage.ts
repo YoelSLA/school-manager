@@ -8,13 +8,13 @@ import { getApiError, getErrorMessage } from "@/shared/http/errorHandler";
 import { getTodayArgentinaISO } from "@/shared/utils/date";
 import { crearEmpleadoEducativoSchema } from "../../form/schemas";
 import type { EmpleadoEducativoCreateDTO } from "../../types";
-import { useCrearEmpleadoEducativo } from "../mutations";
+import { useCreateEmpleadoEducativo } from "../mutations";
 import { useEmpleadoNavigation } from "../navigation";
 
 export function useEmpleadoEducativoCreatePage() {
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 
-	const crearEmpleado = useCrearEmpleadoEducativo();
+	const crearEmpleado = useCreateEmpleadoEducativo();
 	const empleadoNav = useEmpleadoNavigation();
 
 	const hoy = getTodayArgentinaISO();

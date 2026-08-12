@@ -8,8 +8,8 @@ import {
   useRef,
   useState,
 } from "react";
-import useDebounce from "@/shared/hooks/useDebounce";
-import { useEmpleadoSearch } from "../../../hooks/queries";
+import { useDebounce } from "@/shared/hooks";
+import { useSearchEmpleadoEducativo } from "../../../hooks/queries";
 import type { EmpleadoEducativoBasicoDTO } from "../../../types";
 import styles from "./EmpleadoAutocompleteBase.module.scss";
 
@@ -43,7 +43,7 @@ export default function EmpleadoAutocompleteBase({
   const shouldSearch =
     !disabled && debouncedSearch.trim().length > 0;
 
-  const { empleados, loading } = useEmpleadoSearch(
+  const { empleados, loading } = useSearchEmpleadoEducativo(
     shouldSearch ? debouncedSearch : "",
   );
 

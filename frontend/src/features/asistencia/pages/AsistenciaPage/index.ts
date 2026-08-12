@@ -1,1 +1,1 @@
-export { default } from "./AsistenciasPage";
+export { default } from "./AsistenciaPage";

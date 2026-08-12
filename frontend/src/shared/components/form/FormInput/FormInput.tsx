@@ -5,7 +5,6 @@ import type {
   RegisterOptions,
   UseFormRegister,
 } from "react-hook-form";
-
 import styles from "./FormInput.module.scss";
 
 type Props<T extends FieldValues> = {

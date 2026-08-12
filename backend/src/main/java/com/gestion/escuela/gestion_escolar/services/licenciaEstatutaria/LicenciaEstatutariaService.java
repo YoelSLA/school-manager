@@ -1,82 +1,22 @@
 package com.gestion.escuela.gestion_escolar.services.licenciaEstatutaria;
 
 import com.gestion.escuela.gestion_escolar.models.LicenciaEstatutaria;
-import com.gestion.escuela.gestion_escolar.models.exceptions.RecursoNoEncontradoException;
-import com.gestion.escuela.gestion_escolar.persistence.LicenciaEstatutariaRepository;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-@Service
-@Transactional
-@RequiredArgsConstructor
-public class LicenciaEstatutariaService implements LicenciaEstaturariaService {
+public interface LicenciaEstatutariaService {
 
-  private final LicenciaEstatutariaRepository licenciaEstatutariaRepository;
+  LicenciaEstatutaria crear(String articulo, String codigo, String nombre, String descripcion);
 
-  @Override
-  public LicenciaEstatutaria crear(
-      String articulo, String codigo, String nombre, String descripcion) {
+  LicenciaEstatutaria actualizar(
+      Long id, String articulo, String codigo, String nombre, String descripcion, boolean activa);
 
-    validarCodigoDisponible(codigo);
+  LicenciaEstatutaria obtenerPorId(Long id);
 
-    LicenciaEstatutaria licencia =
-        LicenciaEstatutaria.builder()
-            .articulo(articulo)
-            .codigo(codigo)
-            .nombre(nombre)
-            .descripcion(descripcion)
-            .build();
+  Page<LicenciaEstatutaria> obtenerTodas(Pageable pageable);
 
-    return licenciaEstatutariaRepository.save(licencia);
-  }
+  List<LicenciaEstatutaria> obtenerActivas();
 
-  @Override
-  public LicenciaEstatutaria actualizar(
-      Long id, String articulo, String codigo, String nombre, String descripcion, boolean activa) {
-
-    LicenciaEstatutaria licencia = obtenerPorId(id);
-
-    if (!licencia.getCodigo().equals(codigo)) {
-      validarCodigoDisponible(codigo);
-    }
-
-    licencia.actualizar(articulo, codigo, nombre, descripcion, activa);
-
-    return licenciaEstatutariaRepository.save(licencia);
-  }
-
-  @Override
-  public LicenciaEstatutaria obtenerPorId(Long id) {
-    return licenciaEstatutariaRepository
-        .findById(id)
-        .orElseThrow(() -> new RecursoNoEncontradoException("Licencia estatutaria.", id));
-  }
-
-  @Override
-  public Page<LicenciaEstatutaria> obtenerTodas(Pageable pageable) {
-    return licenciaEstatutariaRepository.findAll(
-        PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("codigo")));
-  }
-
-  @Override
-  public List<LicenciaEstatutaria> obtenerActivas() {
-    return licenciaEstatutariaRepository.findByActivaTrue();
-  }
-
-  @Override
-  public void eliminar(Long id) {
-    licenciaEstatutariaRepository.delete(obtenerPorId(id));
-  }
-
-  private void validarCodigoDisponible(String codigo) {
-    if (licenciaEstatutariaRepository.existsByCodigo(codigo)) {
-      throw new RuntimeException("Ya existe una licencia con ese código.");
-    }
-  }
+  void eliminar(Long id);
 }

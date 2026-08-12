@@ -2,7 +2,7 @@ import { FormProvider } from "react-hook-form";
 import { BreadcrumbPageLayout } from "@/app/layouts/pages";
 import { EmpleadoSelector } from "@/features/empleadoEducativo/components";
 import { ModalError } from "@/shared/components/Modal";
-import { AsignacionesSelector, LicenciaForm } from "../../components";
+import { AsignacionesTable, LicenciaFormCreate } from "../../components";
 import { useLicenciaCreatePage } from "../../hooks/pages";
 import styles from "./LicenciaCreatePage.module.scss";
 
@@ -27,7 +27,7 @@ export default function LicenciaCreatePage() {
           </section>
 
           <section className={styles.asignaciones}>
-            <AsignacionesSelector
+            <AsignacionesTable
               asignaciones={vm.asignaciones.data ?? []}
               loading={vm.asignaciones.isLoading}
               value={vm.asignaciones.selectedIds}
@@ -36,7 +36,7 @@ export default function LicenciaCreatePage() {
           </section>
 
           <section className={styles.datos}>
-            <LicenciaForm
+            <LicenciaFormCreate
               form={vm.form}
               isSubmitting={vm.create.isPending}
             />

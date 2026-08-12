@@ -1,1 +1,1 @@
-export { default as LicenciaEstatutariaPage } from "./LicenciaEstaturariaPage";
+export { default as LicenciaEstatutariaPage } from "./LicenciaEstatutariaPage";

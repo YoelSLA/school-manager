@@ -1,5 +1,5 @@
 import { PeriodoDisplay } from "@/shared/components";
-import { BadgeSituacionRevista } from "@/shared/components/badges";
+import { BadgeSituacionRevista } from "@/shared/components/Badge";
 import type { PeriodoDTO } from "@/shared/types";
 import type { SituacionDeRevista } from "@/shared/types/enums";
 import styles from "./AsignacionRowFooter.module.scss";

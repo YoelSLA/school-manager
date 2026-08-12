@@ -8,15 +8,14 @@ import com.gestion.escuela.gestion_escolar.controllers.dtos.response.PageRespons
 import com.gestion.escuela.gestion_escolar.controllers.mappers.AsistenciaMapper;
 import com.gestion.escuela.gestion_escolar.controllers.mappers.PageMapper;
 import com.gestion.escuela.gestion_escolar.models.EmpleadoEducativo;
+import com.gestion.escuela.gestion_escolar.models.LicenciaEstatutaria;
 import com.gestion.escuela.gestion_escolar.models.enums.RolEducativo;
 import com.gestion.escuela.gestion_escolar.models.records.EmpleadoAsistenciaResumen;
 import com.gestion.escuela.gestion_escolar.models.records.RolCount;
 import com.gestion.escuela.gestion_escolar.services.asistencia.AsistenciaService;
 import com.gestion.escuela.gestion_escolar.services.empleadoEducativo.EmpleadoEducativoService;
+import com.gestion.escuela.gestion_escolar.services.licenciaEstatutaria.LicenciaEstatutariaService;
 import jakarta.validation.Valid;
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +25,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/escuelas/{escuelaId}/asistencias")
 @RequiredArgsConstructor
@@ -33,19 +36,41 @@ public class AsistenciaControllerREST {
 
   private final AsistenciaService asistenciaService;
   private final EmpleadoEducativoService empleadoEducativoService;
+  private final LicenciaEstatutariaService licenciaEstaturariaService;
 
   @PostMapping
   public ResponseEntity<Void> registrarInasistencias(
-      @PathVariable Long escuelaId, @Valid @RequestBody RegistrarInasistenciasManualDTO request) {
+          @PathVariable Long escuelaId,
+          @Valid @RequestBody RegistrarInasistenciasManualDTO request) {
 
-    EmpleadoEducativo empleado = empleadoEducativoService.obtenerPorId(request.empleadoId());
+    System.out.println("========================================");
+    System.out.println("Registrar inasistencias");
+    System.out.println("Escuela ID: " + escuelaId);
+    System.out.println("Request: " + request);
+    System.out.println("Empleado ID: " + request.empleadoId());
+    System.out.println("Licencia ID: " + request.licenciaEstatutariaId());
+    System.out.println("Fechas: " + request.fechas());
+    System.out.println("Observación: " + request.observacion());
+
+    EmpleadoEducativo empleado =
+            empleadoEducativoService.obtenerPorId(request.empleadoId());
+
+    System.out.println("Empleado obtenido: " + empleado);
+
+    LicenciaEstatutaria licenciaEstatutaria =
+            licenciaEstaturariaService.obtenerPorId(request.licenciaEstatutariaId());
+
+    System.out.println("Licencia obtenida: " + licenciaEstatutaria);
 
     asistenciaService.registrarInasistencias(
-        escuelaId,
-        empleado,
-        request.fechas(),
-        request.licenciaEstatutaria(),
-        request.observacion());
+            escuelaId,
+            empleado,
+            request.fechas(),
+            licenciaEstatutaria,
+            request.observacion());
+
+    System.out.println("Inasistencias registradas correctamente.");
+    System.out.println("========================================");
 
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
@@ -111,4 +136,6 @@ public class AsistenciaControllerREST {
         .map(AsistenciaMapper::toDiaDTO)
         .toList();
   }
+
+
 }

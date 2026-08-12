@@ -1,6 +1,6 @@
 import { EmpleadoSelector } from "@/features/empleadoEducativo/components";
 import type { EmpleadoEducativoBasicoDTO } from "@/features/empleadoEducativo/types";
-import { FormInputDate, FormInputNumber } from "@/shared/components/form";
+import { FormInputDate, FormInputNumber } from "@/shared/components/Form";
 import { Modal } from "@/shared/components/Modal";
 import { useUpdateTitularForm } from "../../../form/hooks";
 import { useUpdateTitular } from "../../../hooks/mutations";
@@ -62,7 +62,7 @@ export default function ModalUpdateAsignacionTitular({
     <form onSubmit={handleFormSubmit}>
       <Modal
         title="Editar asignación titular"
-        size="medium"
+        size="xlarge"
         onCancel={onClose}
         confirmLabel={
           actualizarTitular.isPending

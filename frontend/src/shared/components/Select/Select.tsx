@@ -1,5 +1,4 @@
 import type { ReactNode, SelectHTMLAttributes } from "react";
-
 import styles from "./Select.module.scss";
 
 type Props = {

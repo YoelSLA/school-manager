@@ -1,6 +1,6 @@
 import { Calendar } from "lucide-react";
 import type { FieldValues, Path, UseFormRegister } from "react-hook-form";
-import FormInputField from "@/shared/components/form/FormInput/FormInput";
+import FormInput from "../FormInput";
 
 type Props<T extends FieldValues> = {
   register: UseFormRegister<T>;
@@ -16,7 +16,7 @@ export default function FormInputDate<T extends FieldValues>({
   error,
 }: Props<T>) {
   return (
-    <FormInputField<T>
+    <FormInput<T>
       label={
         <>
           <Calendar size={14} />

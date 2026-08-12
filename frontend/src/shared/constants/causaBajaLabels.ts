@@ -1,4 +1,4 @@
-import type { CausaBaja } from "@/shared/types";
+import type { CausaBaja } from "../types";
 
 export const CAUSA_BAJA_LABELS: Record<CausaBaja, string> = {
 	RENUNCIA: "Renuncia por causas particulares",

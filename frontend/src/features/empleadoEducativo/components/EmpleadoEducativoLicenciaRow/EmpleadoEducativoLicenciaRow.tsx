@@ -1,7 +1,7 @@
 import { FileText, Hash } from "lucide-react";
 import type { LicenciaEmpleadoEducativoRowDTO } from "@/features/licencia/types";
-import BadgeEstadoLicencia from "@/shared/components/badges/BagdeEstadoLicencia";
-import PeriodoDisplay from "@/shared/components/PeriodoDisplay";
+import { PeriodoDisplay } from "@/shared/components";
+import { BadgeEstadoLicencia } from "@/shared/components/Badge";
 import styles from "./EmpleadoEducativoLicenciaRow.module.scss";
 
 type Props = {

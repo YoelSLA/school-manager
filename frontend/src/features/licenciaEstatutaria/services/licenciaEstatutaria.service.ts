@@ -52,13 +52,7 @@ const getLicenciaEstatutaria = async (
 const createLicenciaEstatutaria = async (
 	payload: LicenciaEstatutariaCreateDTO,
 ): Promise<LicenciaEstatutariaResponseDTO> => {
-	const { data } = await http.post<LicenciaEstatutariaResponseDTO>(
-		"/licencias-estatutarias",
-		null,
-		{
-			params: payload,
-		},
-	);
+	const { data } = await http.post("/licencias-estatutarias", payload);
 
 	return data;
 };

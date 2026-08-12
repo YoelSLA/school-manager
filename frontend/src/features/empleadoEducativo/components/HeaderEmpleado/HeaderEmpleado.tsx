@@ -1,4 +1,7 @@
-import { BadgeEstadoEmpleado, BadgeRolEducativo } from "@/shared/components";
+import {
+  BadgeEstadoEmpleadoEducativo,
+  BadgeRolEducativo,
+} from "@/shared/components/Badge";
 import type { EmpleadoEducativoDetalleDTO } from "../../types";
 import styles from "./HeaderEmpleado.module.scss";
 
@@ -19,7 +22,7 @@ export default function HeaderEmpleado({ empleado }: Props) {
             {nombreOrdenado}
           </h1>
 
-          <BadgeEstadoEmpleado activo={empleado.activo} />
+      <BadgeEstadoEmpleadoEducativo activo={empleado.activo} />
         </div>
       </div>
       <div className={styles["header-empleado__badges"]}>

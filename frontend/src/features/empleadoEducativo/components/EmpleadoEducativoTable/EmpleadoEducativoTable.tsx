@@ -1,10 +1,10 @@
 import type { UseQueryResult } from "@tanstack/react-query";
-import ListContainer from "@/shared/components/ListContainer";
+import { ListContainer } from "@/shared/components";
 import Table from "@/shared/components/Table";
 import type { PageResponse } from "@/shared/types";
 import type { EmpleadoEducativoDetalleDTO } from "../../types";
-import EmpleadoEducativoHeader from "../EmpleadoEducativoHeader";
-import EmpleadoEducativoRow from "../EmpleadoEducativoRow";
+import EmpleadoEducativoTableHeader from "./EmpleadoEducativoTableHeader";
+import EmpleadoEducativoTableRow from "./EmpleadoEducativoTableRow";
 
 type Props = {
   query: UseQueryResult<PageResponse<EmpleadoEducativoDetalleDTO>>;
@@ -16,7 +16,7 @@ export default function EmpleadoEducativoTable({
   onVerDetalle,
 }: Props) {
   return (
-    <Table header={<EmpleadoEducativoHeader />}>
+    <Table header={<EmpleadoEducativoTableHeader />}>
       <ListContainer
         isLoading={query.isLoading}
         isError={query.isError}
@@ -27,7 +27,7 @@ export default function EmpleadoEducativoTable({
         onRetry={() => void query.refetch()}
         getKey={(empleado) => empleado.id}
         renderItem={(empleado) => (
-          <EmpleadoEducativoRow
+          <EmpleadoEducativoTableRow
             empleado={empleado}
             onVerDetalle={onVerDetalle}
           />

@@ -1,2 +1,2 @@
 export { useAsistenciaDetallePage } from "./useAsistenciaDetallePage";
-export { useAsistenciasPage } from "./useAsistenciasPage";
+export { useAsistenciaPage } from "./useAsistenciaPage";

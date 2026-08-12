@@ -3,10 +3,10 @@ import { BreadcrumbPageLayout, PageLayout } from "@/app/layouts/pages";
 import { Breadcrumbs, Button } from "@/shared/components";
 import type { LocationState } from "@/shared/types";
 import {
-  LicenciaCambiarCoberturaModal,
-  LicenciaCubrirDesignacionesModal,
   LicenciaDesignacionHeader,
   LicenciaDesignacionItem,
+  LicenciaModalCambiarCobertura,
+  LicenciaModalCubrirDesignaciones,
 } from "../../components";
 import { useLicenciaDesignacionesPage } from "../../hooks/pages";
 import { useDesignacionesAfectadas } from "../../hooks/queries";
@@ -110,7 +110,7 @@ export default function LicenciasDesignacionesPage() {
       </div>
 
       {cubrirModalOpen && (
-        <LicenciaCubrirDesignacionesModal
+        <LicenciaModalCubrirDesignaciones
           licenciaId={id}
           designacionIds={designacionIds}
           onClose={cerrarCubrir}
@@ -119,7 +119,7 @@ export default function LicenciasDesignacionesPage() {
       )}
 
       {coberturaSeleccionada && (
-        <LicenciaCambiarCoberturaModal
+        <LicenciaModalCambiarCobertura
           licenciaId={id}
           designacionId={coberturaSeleccionada.designacionId}
           secuencia={coberturaSeleccionada.secuencia}

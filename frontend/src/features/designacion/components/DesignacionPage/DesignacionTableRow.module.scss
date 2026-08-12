@@ -1,0 +1,63 @@
+@use "@/styles/abstracts" as *;
+@use "./DesignacionTable.shared" as table;
+
+.row {
+  @include table.table-grid;
+}
+
+.employee {
+  @include table.cell-start;
+
+  background-color: chocolate;
+}
+
+.status,
+.hours,
+.cupof,
+.actions,
+.position {
+  @include table.cell-center;
+
+  background-color: chocolate;
+}
+
+.hours,
+.cupof {
+  gap: 6px;
+
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+/* =================================
+   ACCIONES
+================================= */
+
+.actions {
+  width: 100%;
+  min-width: 40px;
+  height: 40px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: chocolate;
+  color: var(--color-text);
+
+  cursor: pointer;
+  flex-shrink: 0;
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    background: var(--color-surface-hover);
+  }
+}

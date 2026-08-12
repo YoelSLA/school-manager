@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
-
-import Button from "@/shared/components/Button";
+import Button from "../Button";
 import styles from "./ListContainer.module.scss";
 
 type Props<T> = {

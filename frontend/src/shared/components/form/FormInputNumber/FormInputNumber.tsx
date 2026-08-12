@@ -1,6 +1,6 @@
 import { Hash } from "lucide-react";
 import type { FieldValues, Path, UseFormRegister } from "react-hook-form";
-import FormInputField from "@/shared/components/form/FormInput/FormInput";
+import FormInput from "../FormInput";
 
 type Props<T extends FieldValues> = {
   register: UseFormRegister<T>;
@@ -18,7 +18,7 @@ export default function FormInputNumber<T extends FieldValues>({
   min,
 }: Props<T>) {
   return (
-    <FormInputField<T>
+    <FormInput<T>
       label={
         <>
           <Hash size={14} />

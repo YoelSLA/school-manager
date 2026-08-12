@@ -44,7 +44,7 @@ export default function ModalCreateAsignacionProvisional({
     <form onSubmit={handleFormSubmit}>
       <Modal
         title="Cubrir cargo para provisional"
-        size="medium"
+        size="xlarge"
         onCancel={onClose}
         confirmLabel={
           cubrirProvisional.isPending ? "Creando…" : "Crear asignación"

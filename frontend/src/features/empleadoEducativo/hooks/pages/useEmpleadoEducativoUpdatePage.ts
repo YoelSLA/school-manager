@@ -4,7 +4,7 @@ import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
 import { useEmpleadoEducativoEditForm } from "../../form/hooks";
 import type { EmpleadoEducativoUpdateDTO } from "../../types";
-import { useEditarEmpleadoEducativo } from "../mutations";
+import { useUpdateEmpleadoEducativo } from "../mutations";
 import { useEmpleadoNavigation } from "../navigation";
 import { useEmpleadoEducativo } from "../queries";
 
@@ -50,7 +50,7 @@ export function useEmpleadoEducativoUpdatePage() {
      UPDATE
   ========================= */
 
-	const mutation = useEditarEmpleadoEducativo();
+	const mutation = useUpdateEmpleadoEducativo();
 
 	const updateEmpleado = (data: EmpleadoEducativoUpdateDTO) => {
 		if (!escuelaActiva) return;

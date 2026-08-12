@@ -1,4 +1,4 @@
-import { FormInput, FormSection } from "@/shared/components/form";
+import { FormInput, FormSection } from "@/shared/components/Form";
 import { Modal } from "@/shared/components/Modal";
 import { useCrearEscuelaForm } from "../../form/hooks";
 import type { EscuelaCreateDTO } from "../../types";

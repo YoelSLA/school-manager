@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { usePagination } from "@/shared/hooks/usePagination";
+
 import type {
   LicenciaEstatutariaCreateDTO,
   LicenciaEstatutariaResponseDTO,
   LicenciaEstatutariaUpdateDTO,
 } from "../../types";
+
 import {
   useCreateLicenciaEstatutaria,
   useDeleteLicenciaEstatutaria,
   useUpdateLicenciaEstatutaria,
 } from "../mutations";
+
 import { useListLicenciasEstatutarias } from "../queries";
 
 export function useLicenciasEstatutariasPage() {
@@ -17,7 +20,7 @@ export function useLicenciasEstatutariasPage() {
 
   /* =========================
      MODALES
-  ========================= */
+     ========================= */
 
   const [isCreateOpen, setIsCreateOpen] = useState(false);
 
@@ -29,7 +32,7 @@ export function useLicenciasEstatutariasPage() {
 
   /* =========================
      QUERY
-  ========================= */
+     ========================= */
 
   const query = useListLicenciasEstatutarias(page, pageSize);
 
@@ -38,7 +41,7 @@ export function useLicenciasEstatutariasPage() {
 
   /* =========================
      CREATE
-  ========================= */
+     ========================= */
 
   const create = useCreateLicenciaEstatutaria();
 
@@ -50,7 +53,7 @@ export function useLicenciasEstatutariasPage() {
 
   /* =========================
      EDIT
-  ========================= */
+     ========================= */
 
   const update = useUpdateLicenciaEstatutaria();
 
@@ -70,7 +73,7 @@ export function useLicenciasEstatutariasPage() {
 
   /* =========================
      DELETE
-  ========================= */
+     ========================= */
 
   const remove = useDeleteLicenciaEstatutaria();
 

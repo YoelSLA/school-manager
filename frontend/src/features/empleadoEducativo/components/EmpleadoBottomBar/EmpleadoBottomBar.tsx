@@ -1,4 +1,4 @@
-import Button from "@/shared/components/Button";
+import { Button } from "@/shared/components";
 import styles from "./EmpleadoBottomBar.module.scss";
 
 type Props = {

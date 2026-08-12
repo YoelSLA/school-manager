@@ -1,5 +1,5 @@
 import type { EmpleadoEducativoAsignacionItemDTO } from "@/features/empleadoEducativo/types";
-import { BadgeEstadoAsignacion } from "@/shared/components/badges";
+import { BadgeEstadoAsignacion } from "@/shared/components/Badge";
 import { formatEnumLabel } from "@/shared/utils";
 import type { CargoDesignacionAdministrativaDTO } from "../../../types";
 import AsignacionRowFooter from "../../AsignacionRowFooter";
