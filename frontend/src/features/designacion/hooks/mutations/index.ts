@@ -1,4 +1,4 @@
-export { useActualizarDesignacionAdministrativa } from "./useActualizarDesignacionAdministrativa";
-export { useActualizarDesignacionCurso } from "./useActualizarDesignacionCurso";
-export { useCrearDesignacionAdministrativa } from "./useCrearDesignacionAdministrativa";
-export { useCrearDesignacionCurso } from "./useCrearDesignacionCurso";
+export { useDesignacionAdministrativaCreate } from "./useDesignacionAdministrativaCreate";
+export { useDesignacionAdministrativaUpdate } from "./useDesignacionAdministrativaUpdate";
+export { useDesignacionCursoCreate } from "./useDesignacionCursoCreate";
+export { useDesignacionCursoUpdate } from "./useDesignacionCursoUpdate";

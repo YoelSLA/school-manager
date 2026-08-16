@@ -1,6 +1,6 @@
 import type { FieldValues, Path, UseFormRegister } from "react-hook-form";
 
-import FormSelectField from "@/shared/components/form/FormSelect/FormSelect";
+import { SelectForm } from "@/shared/components/Select";
 import { CAUSAS_BAJA } from "../../../utils/empleadosEducativos.utils";
 
 type Props<TFormValues extends FieldValues> = {
@@ -15,7 +15,7 @@ export default function CausaBajaSelectField<TFormValues extends FieldValues>({
   name,
 }: Props<TFormValues>) {
   return (
-    <FormSelectField
+    <SelectForm
       label="Motivo de baja"
       name={name}
       register={register}
@@ -26,6 +26,6 @@ export default function CausaBajaSelectField<TFormValues extends FieldValues>({
           {c.label}
         </option>
       ))}
-    </FormSelectField>
+    </SelectForm>
   );
 }

@@ -4,8 +4,8 @@ import type {
   PageResponse,
 } from "@/shared/types";
 import type { MateriaRowDTO } from "../../types";
-import MateriaHeader from "../MateriaHeader";
-import MateriaRow from "../MateriaRow";
+import MateriaHeader from "./MateriaTableHeader";
+import MateriaRow from "./MateriaTableRow";
 
 type Props = {
   query: UseQueryResult<PageResponse<MateriaRowDTO>>;

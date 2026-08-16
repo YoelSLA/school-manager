@@ -6,10 +6,12 @@ import type { CursoFiltersState } from "@/features/curso";
 import { useDynamicPageSize } from "@/shared/hooks/useDynamicPageSize";
 import type { DesignacionFiltro } from "../../types";
 import { useDesignacionNavigation } from "../navigation";
-import { useDesignacionesCursos } from "../queries";
-import { useDesignacionesAdministrativas } from "../queries/useDesignacionesAdministrativas";
+import {
+	useDesignacionesAdministrativasPage,
+	useDesignacionesCursosPage,
+} from "../queries";
 
-export function useDesignacionesPage() {
+export function useDesignacionPage() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 	const navigation = useDesignacionNavigation();
@@ -51,13 +53,13 @@ export function useDesignacionesPage() {
 			 QUERIES
 	========================= */
 
-	const adminQuery = useDesignacionesAdministrativas(
+	const adminQuery = useDesignacionesAdministrativasPage(
 		escuelaActiva?.id,
 		page,
 		pageSize,
 	);
 
-	const cursoQuery = useDesignacionesCursos(
+	const cursoQuery = useDesignacionesCursosPage(
 		escuelaActiva?.id,
 		page,
 		pageSize,

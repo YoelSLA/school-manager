@@ -1,6 +1,6 @@
 import { AlertTriangle, CheckCircle2 } from "lucide-react";
 import { type ReactNode, useEffect } from "react";
-import Button from "@/shared/components/Button";
+import Button from "../../Button";
 import styles from "./Modal.module.scss";
 
 type Props = {

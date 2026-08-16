@@ -5,8 +5,8 @@ import type {
   UseFieldArrayRemove,
   UseFormRegister,
 } from "react-hook-form";
-import Button from "@/shared/components/Button";
-import ErrorModal from "@/shared/components/Modal/ModalError";
+import { Button } from "@/shared/components";
+import { ModalError } from "@/shared/components/Modal";
 import type { DesignacionAdministrativaFormValues } from "../../../types";
 import { DEFAULT_FRANJA } from "../../../utils/designacion.utils"
 import styles from "../../FranjasHorariasBox.module.scss";
@@ -73,7 +73,7 @@ export default function FranjasHorariasBoxAdministrativa({
         </div>
       </section>
 
-      {error && <ErrorModal error={error} onClose={() => setError(null)} />}
+      {error && <ModalError error={error} onClose={() => setError(null)} />}
     </>
   );
 }

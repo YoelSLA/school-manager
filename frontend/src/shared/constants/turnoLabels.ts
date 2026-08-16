@@ -1,4 +1,4 @@
-import type { Turno } from "@/shared/types";
+import type { Turno } from "../types";
 
 export const TURNO_LABELS: Record<Turno, string> = {
 	MANIANA: "Mañana",

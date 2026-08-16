@@ -1,5 +1,5 @@
 import type z from "zod";
-import type { cursoCreateSchema } from "../form/cursoCreate.schema";
+import type { cursoCreateSchema } from "../form/schemas/cursoCreate.schema";
 
 export type CursoCreateFormValues = z.input<typeof cursoCreateSchema>;
 

@@ -142,10 +142,10 @@ export function useAsistenciaDetallePage() {
 	 * REGISTER
 	 * =======================================================*/
 	const confirmarRegistro = ({
-		tipoLicencia,
+		licenciaEstatutariaId,
 		observacion,
 	}: {
-		tipoLicencia: string;
+		licenciaEstatutariaId: number;
 		observacion?: string;
 	}) => {
 		if (!selectedDate) {
@@ -158,7 +158,7 @@ export function useAsistenciaDetallePage() {
 			{
 				empleadoId: empleadoIdNumber,
 				fechas: [fecha],
-				tipoLicencia,
+				licenciaEstatutariaId,
 				observacion,
 			},
 			{

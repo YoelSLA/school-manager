@@ -1,14 +1,12 @@
-// features/empleadosEducativos/hooks/useEmpleadoEducativoDetallePage.ts
-
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-
 import { selectEscuelaActiva } from "@/app/store/escuela/escuelaSelectors";
 import { useAppSelector } from "@/app/store/hooks";
-
 import type { BajaDefinitivaDTO } from "../../types";
-import { useDarDeBajaDefinitiva } from "../mutations/useDarDeBajaDefinitiva";
-import { useReactivarEmpleado } from "../mutations/useReactivarEmpleado";
+import {
+	useDeleteEmpleadoEducativo,
+	useReactivateEmpleadoEducativo,
+} from "../mutations";
 import { useEmpleadoNavigation } from "../navigation/useEmpleadoNavigation";
 import { useEmpleadoEducativo } from "../queries/useEmpleadoEducativo";
 import { useEmpleadoEducativoAsignaciones } from "../queries/useEmpleadoEducativoAsignaciones";
@@ -41,9 +39,9 @@ export function useEmpleadoEducativoDetallePage() {
 		 MUTATIONS
 	========================= */
 
-	const bajaMutation = useDarDeBajaDefinitiva();
+	const bajaMutation = useDeleteEmpleadoEducativo();
 
-	const reactivarMutation = useReactivarEmpleado();
+	const reactivarMutation = useReactivateEmpleadoEducativo();
 
 	/* =========================
 		 DATA

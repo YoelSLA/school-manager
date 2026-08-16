@@ -1,6 +1,6 @@
 import { Clock, Trash2 } from "lucide-react";
 import type { UseFormRegister } from "react-hook-form";
-import Button from "@/shared/components/Button";
+import { Button } from "@/shared/components";
 import { DIAS_SEMANA } from "@/shared/constants";
 import type { DesignacionAdministrativaFormValues } from "../../../types"
 import styles from "../../FranjaHorariaRow.module.scss";

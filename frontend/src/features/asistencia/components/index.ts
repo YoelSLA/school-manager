@@ -1,9 +1,9 @@
 export { default as AsistenciaCalendar } from "./AsistenciaCalendar";
-export { default as AsistenciaEmpleadoCard } from "./AsistenciaEmpleadoCard";
+export { default as AsistenciaFilters } from "./AsistenciaFilters";
 export { default as AsistenciaHeader } from "./AsistenciaHeader";
 export { default as AsistenciaStats } from "./AsistenciaStats";
-export { default as AsistenciasSidebar } from "./AsistenciasSidebar";
-export { default as CalendayDay } from "./CalendayDay";
-export { default as EmpleadoResultsList } from "./EmpleadoResultsList";
+export { default as AsistenciaTable } from "./AsistenciaTable";
+export { default as AsistenciaEmpleadoCard } from "./AsistenciaTable/AsistenciaEmpleadoEducativoTableRow";
+export { default as CalendarDay } from "./CalendarDay";
 export { default as EmpleadoSearchBar } from "./EmpleadoSearchBar";
-export { default as RegistrarInasistenciaModal } from "./RegistrarInasistenciaModal";
+export { default as RegistrarInasistenciaModal } from "./AsistenciaModalCreate";

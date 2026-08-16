@@ -1,6 +1,6 @@
 import type { LicenciaDetalleDTO } from "@/features/licencia/types";
-import BadgeEstadoLicencia from "@/shared/components/badges/BagdeEstadoLicencia";
-import PeriodoDisplay from "@/shared/components/PeriodoDisplay";
+import { PeriodoDisplay } from "@/shared/components";
+import { BadgeEstadoLicencia } from "@/shared/components/Badge";
 import styles from "./EmpleadoLicenciaCard.module.scss";
 
 type Props = {

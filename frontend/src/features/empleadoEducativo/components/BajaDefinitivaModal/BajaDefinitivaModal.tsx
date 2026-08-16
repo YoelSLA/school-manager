@@ -1,5 +1,5 @@
-import Modal from "@/shared/components/Modal/Modal/Modal";
-import { useBajaDefinitivaForm } from "../../form/hooks/useBajaDefinitivaForm";
+import { Modal } from "@/shared/components/Modal";
+import { useBajaDefinitivaForm } from "../../form/hooks";
 import type { BajaDefinitivaDTO } from "../../types";
 import CausaBajaSelectField from "../fields/CausaBajaSelectField";
 

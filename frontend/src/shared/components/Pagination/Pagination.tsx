@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Button from "@/shared/components/Button";
+import Button from "../Button";
 import styles from "./Pagination.module.scss";
 
 type Props = {

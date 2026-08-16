@@ -1,12 +1,12 @@
 import type { UseQueryResult } from "@tanstack/react-query";
-import ListContainer from "@/shared/components/ListContainer";
+import { ListContainer } from "@/shared/components";
 import Table from "@/shared/components/Table";
 import type {
   PageResponse,
 } from "@/shared/types";
 import type { LicenciaRowDTO } from "../../types";
-import LicenciaRow from "../LicenciaRow/LicenciaRow";
-import LicenciasHeader from "../LicenciasHeader/LicenciaHeader";
+import LicenciaTableHeader from "./LicenciaTableHeader";
+import LicenciaTableRow from "./LicenciaTableRow";
 
 type Props = {
   query: UseQueryResult<PageResponse<LicenciaRowDTO>>;
@@ -20,7 +20,7 @@ export default function LicenciaTable({
   onDelete,
 }: Props) {
   return (
-    <Table header={<LicenciasHeader />}>
+    <Table header={<LicenciaTableHeader />}>
       <ListContainer
         isLoading={query.isLoading}
         isError={query.isError}
@@ -31,7 +31,7 @@ export default function LicenciaTable({
         onRetry={() => void query.refetch()}
         getKey={(licencia) => licencia.id}
         renderItem={(licencia) => (
-          <LicenciaRow
+          <LicenciaTableRow
             licencia={licencia}
             onVerDetalle={() => onVerDetalle(licencia.id)}
             onDelete={() => onDelete(licencia)}

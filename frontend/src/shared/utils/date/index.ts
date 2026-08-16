@@ -3,7 +3,7 @@ export * from "./createArgentinaDate";
 export * from "./diasRestantes";
 export * from "./formatDate";
 export * from "./formatDiaLabel";
-export * from "./formaterTime";
+export * from "./formatTime";
 export * from "./formatFechaIngreso";
 export * from "./formatPeriod";
 export * from "./getTodayArgentinaISO";

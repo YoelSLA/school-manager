@@ -1,6 +1,6 @@
 import { Plus, RefreshCw } from "lucide-react";
 import type { ReactNode } from "react";
-import Button from "@/shared/components/Button";
+import Button from "../Button";
 import styles from "./Toolbar.module.scss";
 
 type Props = {

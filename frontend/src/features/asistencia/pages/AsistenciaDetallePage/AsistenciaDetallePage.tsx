@@ -25,6 +25,8 @@ export default function AsistenciaDetallePage() {
     confirmarEliminacion,
   } = useAsistenciaDetallePage();
 
+  console.log(asistencias, "ASISTENCIAS")
+
   if (isLoading) {
     return (
       <BreadcrumbPageLayout>

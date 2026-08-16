@@ -1,0 +1,1 @@
+export { useAsistenciasNavigation } from "./useAsistenciasNavigation";

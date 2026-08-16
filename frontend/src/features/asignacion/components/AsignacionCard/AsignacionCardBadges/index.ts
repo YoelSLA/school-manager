@@ -1,1 +1,1 @@
-export { default } from "./AsignacionCardBagdes";
+export { default } from "./AsignacionCardBadges";

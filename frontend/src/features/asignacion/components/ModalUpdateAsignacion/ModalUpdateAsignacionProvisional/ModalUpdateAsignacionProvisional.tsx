@@ -1,6 +1,6 @@
 import { EmpleadoSelector } from "@/features/empleadoEducativo/components";
 import type { EmpleadoEducativoBasicoDTO } from "@/features/empleadoEducativo/types";
-import { FormInputDate, FormInputNumber } from "@/shared/components/form";
+import { FormInputDate, FormInputNumber } from "@/shared/components/Form";
 import { Modal } from "@/shared/components/Modal";
 import { useUpdateProvisionalForm } from "../../../form/hooks";
 import { useUpdateProvisional } from "../../../hooks/mutations";
@@ -66,7 +66,7 @@ export default function ModalUpdateAsignacionProvisional({
     <form onSubmit={handleFormSubmit}>
       <Modal
         title="Editar asignación provisional"
-        size="medium"
+        size="xlarge"
         onCancel={onClose}
         confirmLabel={
           actualizarProvisional.isPending

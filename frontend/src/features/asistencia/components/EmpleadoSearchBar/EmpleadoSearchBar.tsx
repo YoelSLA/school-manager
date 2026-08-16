@@ -1,33 +1,29 @@
 import styles from "./EmpleadoSearchBar.module.scss";
 
 type Props = {
-	value: string;
-	onChange: (value: string) => void;
-	placeholder?: string;
-	autoFocus?: boolean;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  autoFocus?: boolean;
 };
 
 export default function EmpleadoSearchBar({
-	value,
-	onChange,
-	placeholder = "Buscar Empleado",
+  value,
+  onChange,
+  placeholder = "Apellido, nombre o CUIL",
+  autoFocus = false,
 }: Props) {
-	const inputId = "empleado-search-input";
+  return (
+    <div className={styles.search}>
+      <span className={styles.icon}>🔍</span>
 
-	return (
-		<div className={styles.search}>
-			<label htmlFor={inputId} className={styles.search__label}>
-				🔍 {placeholder}
-			</label>
-
-			<input
-				id={inputId}
-				type="text"
-				className={styles.search__input}
-				value={value}
-				onChange={(e) => onChange(e.target.value)}
-				placeholder="Apellido, nombre o CUIL"
-			/>
-		</div>
-	);
+      <input
+        type="text"
+        className={styles.input}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+      />
+    </div>
+  );
 }

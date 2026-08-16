@@ -1,6 +1,6 @@
 
-import Button from "@/shared/components/Button";
-import BadgeRolEducativo from "@/shared/components/badges/BadgeRolEducativo";
+import { Button } from "@/shared/components";
+import { BadgeRolEducativo } from "@/shared/components/Badge";
 import type { RolEducativo } from "@/shared/types/enums";
 import styles from "./AsistenciaHeader.module.scss";
 

@@ -59,7 +59,7 @@ export default function ModalCreateAsignacionTitular({
     <form onSubmit={handleFormSubmit}>
       <Modal
         title="Crear asignación titular"
-        size="medium"
+        size="xlarge"
         onCancel={onClose}
         confirmLabel={cubrirTitular.isPending ? "Creando…" : "Confirmar"}
         isSubmitting={cubrirTitular.isPending}

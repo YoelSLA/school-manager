@@ -14,7 +14,7 @@ export interface EliminarInasistenciasManualDTO {
 export interface RegistrarInasistenciasManualDTO {
 	empleadoId: number;
 	fechas: string[];
-	tipoLicencia: string;
+	licenciaEstatutariaId: number;
 	observacion?: string;
 }
 

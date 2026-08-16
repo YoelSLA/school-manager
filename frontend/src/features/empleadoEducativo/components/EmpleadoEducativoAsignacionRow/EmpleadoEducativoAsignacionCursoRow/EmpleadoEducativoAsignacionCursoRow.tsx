@@ -1,8 +1,6 @@
 import { BookOpen, GraduationCap, Hash, Shapes } from "lucide-react";
-
 import type { AsignacionEmpleadoEducativoRowDTO } from "@/features/asignacion/types";
-import BadgeEstadoAsignacion from "@/shared/components/badges/BagdeEstadoAsignacion";
-
+import { BadgeEstadoAsignacion } from "@/shared/components/Badge";
 import AsignacionRowFooter from "../../../../asignacion/components/AsignacionRowFooter";
 import AsignacionRowLayout from "../../../../asignacion/components/AsignacionRowLayout";
 import styles from "./EmpleadoEducativoAsignacionCursoRow.module.scss";

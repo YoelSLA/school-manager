@@ -1,7 +1,7 @@
 import { BreadcrumbPageLayout } from "@/app/layouts/pages";
 import { Button } from "@/shared/components";
 import { ModalConfirm } from "@/shared/components/Modal";
-import { LicenciaRenovarModal } from "../../components";
+import { LicenciaModalRenovarModal } from "../../components";
 import { useLicenciaDetallePage } from "../../hooks/pages";
 import styles from "./LicenciaDetallePage.module.scss";
 import LicenciaHeaderStack from "./LicenciaHeaderGrid";
@@ -88,7 +88,7 @@ export default function LicenciaDetallePage() {
       </BreadcrumbPageLayout>
 
       {vm.renovar.visible && (
-        <LicenciaRenovarModal
+        <LicenciaModalRenovarModal
           licenciaId={licencia.id}
           onClose={vm.renovar.close}
           onSuccess={vm.renovar.close}

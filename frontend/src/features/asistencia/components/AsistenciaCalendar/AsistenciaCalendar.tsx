@@ -7,7 +7,7 @@ import {
   getCodigoAsistencia,
   getEstadoVisual,
 } from "../../utils";
-import CalendarDay from "../CalendayDay";
+import CalendarDay from "../CalendarDay";
 import styles from "./AsistenciaCalendar.module.scss";
 
 type Props = {
