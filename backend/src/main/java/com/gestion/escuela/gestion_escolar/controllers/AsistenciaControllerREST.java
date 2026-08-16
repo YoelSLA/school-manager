@@ -16,6 +16,9 @@ import com.gestion.escuela.gestion_escolar.services.asistencia.AsistenciaService
 import com.gestion.escuela.gestion_escolar.services.empleadoEducativo.EmpleadoEducativoService;
 import com.gestion.escuela.gestion_escolar.services.licenciaEstatutaria.LicenciaEstatutariaService;
 import jakarta.validation.Valid;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,10 +27,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/escuelas/{escuelaId}/asistencias")
@@ -40,8 +39,7 @@ public class AsistenciaControllerREST {
 
   @PostMapping
   public ResponseEntity<Void> registrarInasistencias(
-          @PathVariable Long escuelaId,
-          @Valid @RequestBody RegistrarInasistenciasManualDTO request) {
+      @PathVariable Long escuelaId, @Valid @RequestBody RegistrarInasistenciasManualDTO request) {
 
     System.out.println("========================================");
     System.out.println("Registrar inasistencias");
@@ -52,22 +50,17 @@ public class AsistenciaControllerREST {
     System.out.println("Fechas: " + request.fechas());
     System.out.println("Observación: " + request.observacion());
 
-    EmpleadoEducativo empleado =
-            empleadoEducativoService.obtenerPorId(request.empleadoId());
+    EmpleadoEducativo empleado = empleadoEducativoService.obtenerPorId(request.empleadoId());
 
     System.out.println("Empleado obtenido: " + empleado);
 
     LicenciaEstatutaria licenciaEstatutaria =
-            licenciaEstaturariaService.obtenerPorId(request.licenciaEstatutariaId());
+        licenciaEstaturariaService.obtenerPorId(request.licenciaEstatutariaId());
 
     System.out.println("Licencia obtenida: " + licenciaEstatutaria);
 
     asistenciaService.registrarInasistencias(
-            escuelaId,
-            empleado,
-            request.fechas(),
-            licenciaEstatutaria,
-            request.observacion());
+        escuelaId, empleado, request.fechas(), licenciaEstatutaria, request.observacion());
 
     System.out.println("Inasistencias registradas correctamente.");
     System.out.println("========================================");
@@ -136,6 +129,4 @@ public class AsistenciaControllerREST {
         .map(AsistenciaMapper::toDiaDTO)
         .toList();
   }
-
-
 }
