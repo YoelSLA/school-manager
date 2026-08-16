@@ -1,6 +1,6 @@
 import type { FieldArrayWithId, UseFormRegister } from "react-hook-form";
 import type { DesignacionCursoFormValues } from "../../../../types";
-import styles from "../../FranjasHorariasList.module.scss";
+import styles from "../../../FranjasHorariasList.module.scss";
 import FranjaHorariaRowCurso from "./FranjaHorariaRowCurso/FranjaHorariaRowCurso";
 
 type Props = {

@@ -1,4 +1,3 @@
-export { default as FieldInputDescripcion } from "../../../shared/components/Form/FormInputDescripcion";
 export * from "./DesignacionPageCreate";
 export { default as DesignacionAsignacionActiva } from "./DesignacionPageDetalle/DesignacionAsignacionActiva";
 export { default as DesignacionCargosHistorial } from "./DesignacionPageDetalle/DesignacionCargosHistorial";

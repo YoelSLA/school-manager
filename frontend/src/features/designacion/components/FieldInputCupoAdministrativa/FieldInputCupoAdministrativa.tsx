@@ -1,5 +1,5 @@
 import type { UseFormRegister } from "react-hook-form";
-import FormInputField from "@/shared/components/Form/FormInput";
+import { FormInput } from "@/shared/components/Form";
 import type { DesignacionAdministrativaFormValues } from "../../types";
 
 type Props = {
@@ -12,7 +12,7 @@ export default function FieldInputCupoAdministrativa({
   error,
 }: Props) {
   return (
-    <FormInputField<DesignacionAdministrativaFormValues>
+    <FormInput<DesignacionAdministrativaFormValues>
       label="CUPOF"
       name="cupof"
       type="number"

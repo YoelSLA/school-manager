@@ -9,7 +9,7 @@ import { Button } from "@/shared/components";
 import { ModalError } from "@/shared/components/Modal";
 import type { DesignacionCursoFormValues } from "../../../../types";
 import { DEFAULT_FRANJA } from "../../../../utils/designacion.utils";
-import styles from "../../FranjasHorariasBox.module.scss";
+import styles from "../../../FranjasHorariasBox.module.scss";
 import FranjasHorariasListCurso from "../FranjasHorariasListCurso";
 
 type Props = {

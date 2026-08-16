@@ -8,7 +8,6 @@
 .employee {
   @include table.cell-start;
 
-  background-color: chocolate;
 }
 
 .status,
@@ -18,7 +17,6 @@
 .position {
   @include table.cell-center;
 
-  background-color: chocolate;
 }
 
 .hours,
@@ -41,7 +39,6 @@
   border: none;
   border-radius: 10px;
 
-  background: chocolate;
   color: var(--color-text);
 
   cursor: pointer;

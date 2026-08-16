@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
-import FormInputField from "@/shared/components/Form/FormInput/FormInput";
-import Modal from "@/shared/components/Modal/Modal/Modal";
-import { useRenovarLicencia } from "../../hooks/mutations/useRenovarLicencia";
+import { FormInput } from "@/shared/components/Form";
+import { Modal } from "@/shared/components/Modal";
+import { useRenovarLicencia } from "../../hooks/mutations";
 import type { RenovarLicenciaDTO } from "../../types";
 import TipoLicenciaSelect from "../SelectTipoLicencia";
 import styles from "./LicenciaModalRenovarModal.module.scss";
@@ -50,7 +50,7 @@ export default function LicenciaModalRenovarModal({
         isSubmitting={isPending}
       >
         <section className={styles.body}>
-          <FormInputField<RenovarLicenciaDTO>
+          <FormInput<RenovarLicenciaDTO>
             label="Nueva fecha de finalización"
             name="nuevoHasta"
             type="date"
@@ -64,7 +64,7 @@ export default function LicenciaModalRenovarModal({
             error={errors.licenciaEstatutariaId?.message}
           />
 
-          <FormInputField<RenovarLicenciaDTO>
+          <FormInput<RenovarLicenciaDTO>
             label="Descripción (opcional)"
             name="descripcion"
             register={register}

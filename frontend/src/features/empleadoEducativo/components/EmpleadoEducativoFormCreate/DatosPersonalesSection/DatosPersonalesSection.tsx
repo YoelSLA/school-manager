@@ -1,7 +1,7 @@
 import { Calendar, IdCard, User, UserRound } from "lucide-react";
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
 import { FormInput, FormSection } from "@/shared/components/Form";
-import styles from "@/shared/components/form/FormSection/FormSection.module.scss";
+import styles from "@/shared/components/Form/FormSection/FormSection.module.scss";
 import type { EmpleadoEducativoCreateDTO } from "../../../types";
 
 
