@@ -1,18 +1,4 @@
 #!/bin/bash
 
-echo "🔧 Ejecutando Spotless..."
-
-cd backend || exit 1
-
-./gradlew spotlessApply --no-daemon
-
-if [ $? -ne 0 ]; then
-    echo "❌ Spotless falló. Commit cancelado."
-    exit 1
-fi
-
-cd ..
-
-git add backend
-
-echo "✅ Código formateado correctamente."
+.githooks/pre-commit-spotless || exit 1
+.githooks/pre-commit-biome || exit 1

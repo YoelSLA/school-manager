@@ -3,7 +3,6 @@ import { licenciaQueryKeys } from "../../constants";
 import { licenciaService } from "../../services";
 import type { LicenciaDetalleDTO } from "../../types";
 
-
 export function useLicenciaDetalle(licenciaId?: number) {
 	const query = useQuery<LicenciaDetalleDTO>({
 		queryKey:

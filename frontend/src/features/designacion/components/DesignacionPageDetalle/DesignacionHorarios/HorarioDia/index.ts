@@ -1,1 +1,1 @@
-export {default} from "./HorarioDia"
+export { default } from "./HorarioDia";

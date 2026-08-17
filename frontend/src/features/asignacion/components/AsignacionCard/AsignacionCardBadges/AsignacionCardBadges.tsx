@@ -1,27 +1,27 @@
 import {
-  BadgeEstadoAsignacion,
-  BadgeSituacionRevista,
+	BadgeEstadoAsignacion,
+	BadgeSituacionRevista,
 } from "@/shared/components/Badge";
 import type {
-  EstadoAsignacion,
-  SituacionDeRevista,
+	EstadoAsignacion,
+	SituacionDeRevista,
 } from "@/shared/types/enums";
 import styles from "./AsignacionCardBadges.module.scss";
 
 type Props = {
-  situacionDeRevista: SituacionDeRevista;
-  estadoAsignacion: EstadoAsignacion;
+	situacionDeRevista: SituacionDeRevista;
+	estadoAsignacion: EstadoAsignacion;
 };
 
 export default function AsignacionCardBadges({
-  situacionDeRevista,
-  estadoAsignacion,
+	situacionDeRevista,
+	estadoAsignacion,
 }: Props) {
-  return (
-    <div className={styles.badges}>
-      <BadgeSituacionRevista value={situacionDeRevista} />
+	return (
+		<div className={styles.badges}>
+			<BadgeSituacionRevista value={situacionDeRevista} />
 
-      <BadgeEstadoAsignacion value={estadoAsignacion} />
-    </div>
-  );
+			<BadgeEstadoAsignacion value={estadoAsignacion} />
+		</div>
+	);
 }

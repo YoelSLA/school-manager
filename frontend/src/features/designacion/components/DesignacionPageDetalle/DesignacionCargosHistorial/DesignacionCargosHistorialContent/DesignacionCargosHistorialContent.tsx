@@ -1,44 +1,43 @@
-
 import { AsignacionDesignacionRow } from "@/features/asignacion/components";
 import type { EmpleadoEducativoAsignacionItemDTO } from "@/features/empleadoEducativo/types";
 import styles from "./DesignacionCargosHistorialContent.module.scss";
 
 type Props = {
-  cargos: EmpleadoEducativoAsignacionItemDTO[];
+	cargos: EmpleadoEducativoAsignacionItemDTO[];
 
-  isLoading: boolean;
+	isLoading: boolean;
 
-  emptyMessage: string;
+	emptyMessage: string;
 };
 
 export default function DesignacionCargosHistorialContent({
-  cargos,
-  isLoading,
-  emptyMessage,
+	cargos,
+	isLoading,
+	emptyMessage,
 }: Props) {
-  if (isLoading) {
-    return (
-      <div className={styles.content}>
-        <p className={styles.loading}>Cargando cargos…</p>
-      </div>
-    );
-  }
+	if (isLoading) {
+		return (
+			<div className={styles.content}>
+				<p className={styles.loading}>Cargando cargos…</p>
+			</div>
+		);
+	}
 
-  if (cargos.length === 0) {
-    return (
-      <div className={styles.content}>
-        <p className={styles.empty}>{emptyMessage}</p>
-      </div>
-    );
-  }
+	if (cargos.length === 0) {
+		return (
+			<div className={styles.content}>
+				<p className={styles.empty}>{emptyMessage}</p>
+			</div>
+		);
+	}
 
-  return (
-    <div className={styles.content}>
-      <div className={styles.list}>
-        {cargos.map((cargo) => (
-          <AsignacionDesignacionRow key={cargo.id} asignacion={cargo} />
-        ))}
-      </div>
-    </div>
-  );
+	return (
+		<div className={styles.content}>
+			<div className={styles.list}>
+				{cargos.map((cargo) => (
+					<AsignacionDesignacionRow key={cargo.id} asignacion={cargo} />
+				))}
+			</div>
+		</div>
+	);
 }

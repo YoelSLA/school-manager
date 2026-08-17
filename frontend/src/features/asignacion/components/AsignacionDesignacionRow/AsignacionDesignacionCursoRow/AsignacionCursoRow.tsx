@@ -5,43 +5,43 @@ import AsignacionRowFooter from "../../AsignacionRowFooter";
 import AsignacionRowLayout from "../../AsignacionRowLayout";
 
 type Props = {
-  asignacion: EmpleadoEducativoAsignacionItemDTO & {
-    designacion: CargoDesignacionCursoDTO;
-  };
+	asignacion: EmpleadoEducativoAsignacionItemDTO & {
+		designacion: CargoDesignacionCursoDTO;
+	};
 };
 
 export default function AsignacionDesignacionCursoRow({ asignacion }: Props) {
-  const { periodo, situacionDeRevista, estadoAsignacion, designacion } =
-    asignacion;
+	const { periodo, situacionDeRevista, estadoAsignacion, designacion } =
+		asignacion;
 
-  return (
-    <AsignacionRowLayout
-      variant="curso"
-      title={designacion.materia}
-      status={<BadgeEstadoAsignacion value={estadoAsignacion} />}
-      subtitle={
-        <>
-          <span>#{designacion.cupof}</span>
+	return (
+		<AsignacionRowLayout
+			variant="curso"
+			title={designacion.materia}
+			status={<BadgeEstadoAsignacion value={estadoAsignacion} />}
+			subtitle={
+				<>
+					<span>#{designacion.cupof}</span>
 
-          <span>·</span>
+					<span>·</span>
 
-          <span>{designacion.curso}</span>
+					<span>{designacion.curso}</span>
 
-          {designacion.orientacion && (
-            <>
-              <span>·</span>
+					{designacion.orientacion && (
+						<>
+							<span>·</span>
 
-              <span>{designacion.orientacion}</span>
-            </>
-          )}
-        </>
-      }
-      footer={
-        <AsignacionRowFooter
-          periodo={periodo}
-          situacionDeRevista={situacionDeRevista}
-        />
-      }
-    />
-  );
+							<span>{designacion.orientacion}</span>
+						</>
+					)}
+				</>
+			}
+			footer={
+				<AsignacionRowFooter
+					periodo={periodo}
+					situacionDeRevista={situacionDeRevista}
+				/>
+			}
+		/>
+	);
 }

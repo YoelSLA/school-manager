@@ -16,23 +16,23 @@ import { queryClient } from "./queryClient";
 const rootElement = document.getElementById("root");
 
 if (!rootElement) {
-  throw new Error("Root element #root not found");
+	throw new Error("Root element #root not found");
 }
 
 const Router =
-  window.location.protocol === "file:" ? HashRouter : BrowserRouter;
+	window.location.protocol === "file:" ? HashRouter : BrowserRouter;
 
 ReactDOM.createRoot(rootElement).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <Router>
-          <Toaster position="bottom-right" toastOptions={{ duration: 4000 }} />
-          <AppRouter />
-        </Router>
+	<React.StrictMode>
+		<Provider store={store}>
+			<QueryClientProvider client={queryClient}>
+				<Router>
+					<Toaster position="bottom-right" toastOptions={{ duration: 4000 }} />
+					<AppRouter />
+				</Router>
 
-        {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
-      </QueryClientProvider>
-    </Provider>
-  </React.StrictMode>,
+				{import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
+			</QueryClientProvider>
+		</Provider>
+	</React.StrictMode>,
 );

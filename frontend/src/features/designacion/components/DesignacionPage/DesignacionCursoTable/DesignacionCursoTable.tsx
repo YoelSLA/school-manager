@@ -7,32 +7,29 @@ import DesignacionCursoTableHeader from "./DesignacionCursoTableHeader";
 import DesignacionCursoTableRow from "./DesignacionCursoTableRow";
 
 type Props = {
-  query: UseQueryResult<PageResponse<DesignacionCursoRowDTO>>;
-  onVerDetalle: (designacion: DesignacionCursoRowDTO) => void;
+	query: UseQueryResult<PageResponse<DesignacionCursoRowDTO>>;
+	onVerDetalle: (designacion: DesignacionCursoRowDTO) => void;
 };
 
-export default function DesignacionCursoTable({
-  query,
-  onVerDetalle,
-}: Props) {
-  return (
-    <Table header={<DesignacionCursoTableHeader />}>
-      <ListContainer
-        isLoading={query.isLoading}
-        isError={query.isError}
-        items={query.data?.content ?? []}
-        loadingMessage="Cargando designaciones…"
-        emptyMessage="No hay designaciones para el filtro seleccionado."
-        errorMessage="No se pudieron cargar las designaciones."
-        onRetry={query.refetch}
-        getKey={(designacion) => designacion.id}
-        renderItem={(designacion) => (
-          <DesignacionCursoTableRow
-            designacion={designacion}
-            onVerDetalle={onVerDetalle}
-          />
-        )}
-      />
-    </Table>
-  );
+export default function DesignacionCursoTable({ query, onVerDetalle }: Props) {
+	return (
+		<Table header={<DesignacionCursoTableHeader />}>
+			<ListContainer
+				isLoading={query.isLoading}
+				isError={query.isError}
+				items={query.data?.content ?? []}
+				loadingMessage="Cargando designaciones…"
+				emptyMessage="No hay designaciones para el filtro seleccionado."
+				errorMessage="No se pudieron cargar las designaciones."
+				onRetry={query.refetch}
+				getKey={(designacion) => designacion.id}
+				renderItem={(designacion) => (
+					<DesignacionCursoTableRow
+						designacion={designacion}
+						onVerDetalle={onVerDetalle}
+					/>
+				)}
+			/>
+		</Table>
+	);
 }

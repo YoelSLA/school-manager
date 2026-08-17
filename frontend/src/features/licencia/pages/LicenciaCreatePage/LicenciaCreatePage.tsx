@@ -7,49 +7,44 @@ import { useLicenciaCreatePage } from "../../hooks/pages";
 import styles from "./LicenciaCreatePage.module.scss";
 
 export default function LicenciaCreatePage() {
-  const vm = useLicenciaCreatePage();
+	const vm = useLicenciaCreatePage();
 
-  return (
-    <BreadcrumbPageLayout>
-      <FormProvider {...vm.form}>
-        <form
-          onSubmit={vm.form.handleSubmit(vm.create.submit)}
-          className={styles.crearLicencia}
-        >
-          <section className={styles.empleado}>
-            <EmpleadoSelector onChange={vm.empleado.onChange} />
+	return (
+		<BreadcrumbPageLayout>
+			<FormProvider {...vm.form}>
+				<form
+					onSubmit={vm.form.handleSubmit(vm.create.submit)}
+					className={styles.crearLicencia}
+				>
+					<section className={styles.empleado}>
+						<EmpleadoSelector onChange={vm.empleado.onChange} />
 
-            {vm.empleado.error && (
-              <p className={styles.error}>
-                {vm.empleado.error}
-              </p>
-            )}
-          </section>
+						{vm.empleado.error && (
+							<p className={styles.error}>{vm.empleado.error}</p>
+						)}
+					</section>
 
-          <section className={styles.asignaciones}>
-            <AsignacionesTable
-              asignaciones={vm.asignaciones.data ?? []}
-              loading={vm.asignaciones.isLoading}
-              value={vm.asignaciones.selectedIds}
-              onChange={vm.asignaciones.onChange}
-            />
-          </section>
+					<section className={styles.asignaciones}>
+						<AsignacionesTable
+							asignaciones={vm.asignaciones.data ?? []}
+							loading={vm.asignaciones.isLoading}
+							value={vm.asignaciones.selectedIds}
+							onChange={vm.asignaciones.onChange}
+						/>
+					</section>
 
-          <section className={styles.datos}>
-            <LicenciaFormCreate
-              form={vm.form}
-              isSubmitting={vm.create.isPending}
-            />
-          </section>
-        </form>
-      </FormProvider>
+					<section className={styles.datos}>
+						<LicenciaFormCreate
+							form={vm.form}
+							isSubmitting={vm.create.isPending}
+						/>
+					</section>
+				</form>
+			</FormProvider>
 
-      {vm.error.modal && (
-        <ModalError
-          error={vm.error.modal}
-          onClose={vm.error.close}
-        />
-      )}
-    </BreadcrumbPageLayout>
-  );
+			{vm.error.modal && (
+				<ModalError error={vm.error.modal} onClose={vm.error.close} />
+			)}
+		</BreadcrumbPageLayout>
+	);
 }

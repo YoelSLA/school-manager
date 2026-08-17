@@ -5,49 +5,49 @@ import { FilterPillGroup } from "@/shared/components/Filter";
 import styles from "./DesignacionCargosHistorialHeader.module.scss";
 
 type Props = {
-  filtro: FiltroCargos;
+	filtro: FiltroCargos;
 
-  onChangeFiltro: (f: FiltroCargos) => void;
+	onChangeFiltro: (f: FiltroCargos) => void;
 
-  onNuevoCargo: (tipo: "TITULAR" | "PROVISIONAL") => void;
+	onNuevoCargo: (tipo: "TITULAR" | "PROVISIONAL") => void;
 };
 
 export default function DesignacionCargosHistorialHeader({
-  filtro,
-  onChangeFiltro,
-  onNuevoCargo,
+	filtro,
+	onChangeFiltro,
+	onNuevoCargo,
 }: Props) {
-  return (
-    <>
-      <h3 className={styles.title}>HISTORIAL DE CARGOS</h3>
+	return (
+		<>
+			<h3 className={styles.title}>HISTORIAL DE CARGOS</h3>
 
-      <div className={styles.header}>
-        <FilterPillGroup<FiltroCargos>
-          items={FILTROS_CARGOS}
-          value={filtro}
-          onChange={onChangeFiltro}
-        />
+			<div className={styles.header}>
+				<FilterPillGroup<FiltroCargos>
+					items={FILTROS_CARGOS}
+					value={filtro}
+					onChange={onChangeFiltro}
+				/>
 
-        <Button
-          variant="primary"
-          size="sm"
-          className={styles.create}
-          dropdownItems={[
-            {
-              label: "Titular",
+				<Button
+					variant="primary"
+					size="sm"
+					className={styles.create}
+					dropdownItems={[
+						{
+							label: "Titular",
 
-              onClick: () => onNuevoCargo("TITULAR"),
-            },
-            {
-              label: "Provisional",
+							onClick: () => onNuevoCargo("TITULAR"),
+						},
+						{
+							label: "Provisional",
 
-              onClick: () => onNuevoCargo("PROVISIONAL"),
-            },
-          ]}
-        >
-          Nuevo cargo
-        </Button>
-      </div>
-    </>
-  );
+							onClick: () => onNuevoCargo("PROVISIONAL"),
+						},
+					]}
+				>
+					Nuevo cargo
+				</Button>
+			</div>
+		</>
+	);
 }

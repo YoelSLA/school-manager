@@ -5,48 +5,48 @@ import { BadgeEstadoLicencia } from "@/shared/components/Badge";
 import styles from "./EmpleadoEducativoLicenciaRow.module.scss";
 
 type Props = {
-  licencia: LicenciaEmpleadoEducativoRowDTO;
+	licencia: LicenciaEmpleadoEducativoRowDTO;
 };
 
 export default function EmpleadoEducativoLicenciaRow({ licencia }: Props) {
-  const { descripcion, licenciaEstatutaria, periodo, estado } = licencia;
+	const { descripcion, licenciaEstatutaria, periodo, estado } = licencia;
 
-  return (
-    <article className={styles.card}>
-      {/* ================================
+	return (
+		<article className={styles.card}>
+			{/* ================================
 	    TOP
 	================================ */}
-      <div className={styles.top}>
-        <div className={styles.badges}>
-          <div className={styles.badge}>
-            <Hash size={14} />
+			<div className={styles.top}>
+				<div className={styles.badges}>
+					<div className={styles.badge}>
+						<Hash size={14} />
 
-            <span>{licenciaEstatutaria.codigo}</span>
-          </div>
+						<span>{licenciaEstatutaria.codigo}</span>
+					</div>
 
-          <div className={styles.badgeArticulo}>
-            <FileText size={14} />
+					<div className={styles.badgeArticulo}>
+						<FileText size={14} />
 
-            <span>{licenciaEstatutaria.articulo}</span>
-          </div>
-        </div>
+						<span>{licenciaEstatutaria.articulo}</span>
+					</div>
+				</div>
 
-        <div className={styles.status}>
-          <BadgeEstadoLicencia value={estado} />
-        </div>
-      </div>
+				<div className={styles.status}>
+					<BadgeEstadoLicencia value={estado} />
+				</div>
+			</div>
 
-      {/* ================================
+			{/* ================================
 	    TITLE
 	================================ */}
-      <h3 className={styles.title}>{descripcion}</h3>
+			<h3 className={styles.title}>{descripcion}</h3>
 
-      {/* ================================
+			{/* ================================
 	    FOOTER
 	================================ */}
-      <div className={styles.footer}>
-        <PeriodoDisplay periodo={periodo} />
-      </div>
-    </article>
-  );
+			<div className={styles.footer}>
+				<PeriodoDisplay periodo={periodo} />
+			</div>
+		</article>
+	);
 }

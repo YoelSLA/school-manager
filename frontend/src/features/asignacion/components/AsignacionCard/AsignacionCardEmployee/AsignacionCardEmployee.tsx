@@ -3,21 +3,21 @@ import type { EmpleadoEducativoBasicoDTO } from "@/features/empleadoEducativo/ty
 import styles from "./AsignacionCardEmployee.module.scss";
 
 type Props = {
-  empleado: EmpleadoEducativoBasicoDTO;
+	empleado: EmpleadoEducativoBasicoDTO;
 };
 
 export default function AsignacionCardEmployee({ empleado }: Props) {
-  return (
-    <div className={styles.row}>
-      <User size={16} />
+	return (
+		<div className={styles.row}>
+			<User size={16} />
 
-      <div>
-        <div className={styles.name}>
-          {empleado.apellido}, {empleado.nombre}
-        </div>
+			<div>
+				<div className={styles.name}>
+					{empleado.apellido}, {empleado.nombre}
+				</div>
 
-        <div className={styles.subtle}>{empleado.cuil}</div>
-      </div>
-    </div>
-  );
+				<div className={styles.subtle}>{empleado.cuil}</div>
+			</div>
+		</div>
+	);
 }

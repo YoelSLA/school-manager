@@ -1,41 +1,43 @@
-
 import type { EmpleadoEducativoAsignacionItemDTO } from "@/features/empleadoEducativo/types";
-import type { CargoDesignacionAdministrativaDTO, CargoDesignacionCursoDTO } from "../../types";
+import type {
+	CargoDesignacionAdministrativaDTO,
+	CargoDesignacionCursoDTO,
+} from "../../types";
 import AsignacionDesignacionAdministrativaRow from "./AsignacionDesignacionAdministrativaRow";
 import AsignacionDesignacionCursoRow from "./AsignacionDesignacionCursoRow";
 
 type AsignacionCurso = EmpleadoEducativoAsignacionItemDTO & {
-  designacion: CargoDesignacionCursoDTO;
+	designacion: CargoDesignacionCursoDTO;
 };
 
 type AsignacionAdministrativa = EmpleadoEducativoAsignacionItemDTO & {
-  designacion: CargoDesignacionAdministrativaDTO;
+	designacion: CargoDesignacionAdministrativaDTO;
 };
 
 function isCurso(
-  asignacion: EmpleadoEducativoAsignacionItemDTO,
+	asignacion: EmpleadoEducativoAsignacionItemDTO,
 ): asignacion is AsignacionCurso {
-  return asignacion.designacion.tipo === "CURSO";
+	return asignacion.designacion.tipo === "CURSO";
 }
 
 function isAdministrativa(
-  asignacion: EmpleadoEducativoAsignacionItemDTO,
+	asignacion: EmpleadoEducativoAsignacionItemDTO,
 ): asignacion is AsignacionAdministrativa {
-  return asignacion.designacion.tipo === "ADMINISTRATIVA";
+	return asignacion.designacion.tipo === "ADMINISTRATIVA";
 }
 
 type Props = {
-  asignacion: EmpleadoEducativoAsignacionItemDTO;
+	asignacion: EmpleadoEducativoAsignacionItemDTO;
 };
 
 export default function AsignacionDesignacionRow({ asignacion }: Props) {
-  if (isCurso(asignacion)) {
-    return <AsignacionDesignacionCursoRow asignacion={asignacion} />;
-  }
+	if (isCurso(asignacion)) {
+		return <AsignacionDesignacionCursoRow asignacion={asignacion} />;
+	}
 
-  if (isAdministrativa(asignacion)) {
-    return <AsignacionDesignacionAdministrativaRow asignacion={asignacion} />;
-  }
+	if (isAdministrativa(asignacion)) {
+		return <AsignacionDesignacionAdministrativaRow asignacion={asignacion} />;
+	}
 
-  return null;
+	return null;
 }

@@ -1,2 +1,1 @@
 export { useCargoActivo } from "./useCargoActivo";
-
