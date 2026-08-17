@@ -6,7 +6,6 @@
 
 	background: $surface-background;
 	border-radius: $radius-xl;
-  border: 2px solid green; // TODO: DEBUG
 
 	box-shadow: $shadow-sm;
 	overflow: hidden;
@@ -22,8 +21,7 @@
 		height: 56px;
 		padding: 0 $space-16;
 
-		// background: $toolbar-background;
-    border: 2px solid green; // TODO: DEBUG
+		background: $toolbar-background;
 
 		@include desktop-height-small {
 			height: 48px;
@@ -41,24 +39,22 @@
 	&__footer {
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		gap: $space-8;
+		justify-content: flex-start;
 
-		height: 40px;
-		padding: 0 $space-16;
+		min-height: 40px;
+		padding: $space-8 $space-16;
 
-		// background: $toolbar-footer-background;
-		// border-top: 1px solid $border;
-    border: 2px solid blue; // TODO: DEBUG
+		background: $toolbar-footer-background;
+		border-top: 1px solid $border;
 
 		@include desktop-height-small {
-			height: 32px;
-			padding: 0 $space-12;
+			min-height: 32px;
+			padding: $space-4 $space-12;
 		}
 
 		@include desktop-height-large {
-			height: 48px;
-			padding: 0 $space-20;
+			min-height: 48px;
+			padding: $space-8 $space-20;
 		}
 	}
 
