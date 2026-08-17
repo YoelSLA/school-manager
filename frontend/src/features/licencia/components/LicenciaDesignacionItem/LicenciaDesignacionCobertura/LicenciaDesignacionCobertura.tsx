@@ -1,7 +1,8 @@
 import { CalendarDays, User } from "lucide-react";
-import Button from "@/shared/components/Button";
+import { Button } from "@/shared/components";
+import { BadgeSituacionRevista } from "@/shared/components/Badge";
 import { formatDate } from "@/shared/utils/date";
-import type { LicenciaDesignacionDTO } from "../../types";
+import type { LicenciaDesignacionDTO } from "../../../types";
 import styles from "./LicenciaDesignacionCobertura.module.scss";
 
 type Props = {
@@ -20,9 +21,15 @@ export default function LicenciaDesignacionCobertura({
   if (!asignacion) {
     return (
       <section className={styles.cobertura}>
-        <div className={styles.main}>
-          <User size={16} />
-          <span>Sin cobertura asignada</span>
+        <div className={styles.content}>
+          <div className={styles.icon}>
+            <User size={17} />
+          </div>
+
+          <div className={styles.details}>
+            <strong>Sin cobertura asignada</strong>
+            <span>La designación todavía no tiene reemplazo</span>
+          </div>
         </div>
 
         <button
@@ -40,30 +47,39 @@ export default function LicenciaDesignacionCobertura({
     );
   }
 
+  const empleado = asignacion.empleadoEducativoBasico;
+
   return (
     <section className={styles.cobertura}>
-      <div className={styles.main}>
-        <User size={16} />
+      <div className={styles.content}>
+        <div className={styles.icon}>
+          <User size={17} />
+        </div>
 
-        <strong>
-          {asignacion.empleadoEducativoBasico.apellido},{" "}
-          {asignacion.empleadoEducativoBasico.nombre}
-        </strong>
+        <div className={styles.details}>
+          <div className={styles.name}>
+            <strong>
+              {empleado.apellido}, {empleado.nombre}
+            </strong>
+            <BadgeSituacionRevista value={asignacion.situacionDeRevista} />
+          </div>
 
-        <span>{asignacion.empleadoEducativoBasico.cuil}</span>
+          <div className={styles.meta}>
+            <span>{empleado.cuil}</span>
 
-        {"fechaHasta" in asignacion.periodo && (
-          <>
-            <CalendarDays size={16} />
+            <span className={styles.separator}>·</span>
+
+            <CalendarDays size={14} />
 
             <span>
               {formatDate(asignacion.periodo.fechaDesde)} →{" "}
-              {asignacion.periodo.fechaHasta
+              {"fechaHasta" in asignacion.periodo &&
+                asignacion.periodo.fechaHasta
                 ? formatDate(asignacion.periodo.fechaHasta)
                 : "Sin fecha"}
             </span>
-          </>
-        )}
+          </div>
+        </div>
       </div>
 
       <Button

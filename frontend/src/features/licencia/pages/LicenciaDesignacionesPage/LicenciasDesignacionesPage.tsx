@@ -26,14 +26,12 @@ export default function LicenciasDesignacionesPage() {
     seleccionadas,
     haySeleccionadas,
     toggleDesignacion,
-
     designacionIds,
     cubrirModalOpen,
     cubrirSeleccionadas,
     cubrirDesignacion,
     cerrarCubrir,
     cubrirSuccess,
-
     coberturaSeleccionada,
     seleccionarCobertura,
     cerrarCambiarCobertura,

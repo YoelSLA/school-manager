@@ -1,7 +1,7 @@
 import type { KeyboardEvent } from "react";
 import type { LicenciaDesignacionDTO } from "../../types";
 import LicenciaDesignacionCobertura from "./LicenciaDesignacionCobertura";
-import LicenciaDesignacionInfo from "./LicenciaDesignacionInfo";
+import LicenciaDesignacionInfo from "./LicenciaDesignacionInfo/LicenciaDesignacionInfo";
 import styles from "./LicenciaDesignacionItem.module.scss";
 
 type Props = {
@@ -48,15 +48,17 @@ export default function LicenciaDesignacionItem({
       onClick={handleSelect}
       onKeyDown={handleKeyDown}
     >
-      <LicenciaDesignacionInfo designacion={designacion} />
+      <div className={styles.designacion}>
+        <LicenciaDesignacionInfo designacion={designacion} />
+      </div>
 
-      <div className={styles.divider} />
-
-      <LicenciaDesignacionCobertura
-        designacion={designacion}
-        onCubrir={() => onCubrir(designacion.designacionId)}
-        onCambiarCobertura={onCambiarCobertura}
-      />
+      <div className={styles.cobertura}>
+        <LicenciaDesignacionCobertura
+          designacion={designacion}
+          onCubrir={() => onCubrir(designacion.designacionId)}
+          onCambiarCobertura={onCambiarCobertura}
+        />
+      </div>
     </article>
   );
 }
