@@ -1,4 +1,10 @@
 #!/bin/bash
 
+echo "🚀 Ejecutando pre-commit..."
+
 .githooks/pre-commit-spotless || exit 1
 .githooks/pre-commit-biome || exit 1
+
+git add backend frontend
+
+echo "✅ Pre-commit finalizado correctamente."

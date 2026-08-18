@@ -1,0 +1,33 @@
+#!/bin/bash
+
+COMMIT_MSG_FILE="$1"
+COMMIT_MSG=$(head -n 1 "$COMMIT_MSG_FILE")
+
+if [[ ! "$COMMIT_MSG" =~ ^(feat|fix|refactor|test|docs|style|chore|perf|build|ci|revert)(\(.+\))?:\ .+ ]]; then
+	echo "❌ Mensaje de commit inválido."
+	echo ""
+	echo "Formato esperado:"
+	echo "  tipo: descripción"
+	echo ""
+	echo "Tipos permitidos:"
+	echo "  feat      Nueva funcionalidad"
+	echo "  fix       Corrección de error"
+	echo "  refactor  Refactorización"
+	echo "  test      Tests"
+	echo "  docs      Documentación"
+	echo "  style     Formato/estilo"
+	echo "  chore     Mantenimiento"
+	echo "  perf      Rendimiento"
+	echo "  build     Build/dependencias"
+	echo "  ci        CI/CD"
+	echo "  revert    Revertir cambio"
+	echo ""
+	echo "Ejemplos:"
+	echo "  feat: agregar creación de licencias"
+	echo "  fix(licencia): corregir período"
+	echo "  refactor: simplificar servicio"
+	echo ""
+	exit 1
+fi
+
+echo "✅ Mensaje de commit válido."
