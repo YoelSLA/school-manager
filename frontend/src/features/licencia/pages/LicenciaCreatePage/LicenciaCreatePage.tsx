@@ -17,7 +17,10 @@ export default function LicenciaCreatePage() {
 					className={styles.crearLicencia}
 				>
 					<section className={styles.empleado}>
-						<EmpleadoSelector onChange={vm.empleado.onChange} />
+						<EmpleadoSelector
+							defaultEmpleado={vm.empleado.value}
+							onChange={vm.empleado.onChange}
+						/>
 
 						{vm.empleado.error && (
 							<p className={styles.error}>{vm.empleado.error}</p>

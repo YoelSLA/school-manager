@@ -9,6 +9,7 @@ export const useEmpleadoNavigation = () => {
 		dynamicLabels: {
 			[String(empleado.id)]: `${empleado.apellido}, ${empleado.nombre}`,
 		},
+		empleado,
 	});
 
 	return {
@@ -26,7 +27,6 @@ export const useEmpleadoNavigation = () => {
 
 		crear: () => navigate(empleadoEducativoPaths.create),
 
-		// ✅ NUEVOS
 		crearCargo: (empleado: EmpleadoEducativoDetalleDTO) =>
 			navigate(empleadoEducativoPaths.crearCargo(empleado.id), {
 				state: buildState(empleado),

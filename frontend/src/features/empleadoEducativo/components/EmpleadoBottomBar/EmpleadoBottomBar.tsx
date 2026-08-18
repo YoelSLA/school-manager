@@ -23,7 +23,7 @@ export default function EmpleadoBottomBar({
 					Crear cargo
 				</Button>
 
-				<Button variant="secondary" onClick={onCrearLicencia} disabled>
+				<Button variant="secondary" onClick={onCrearLicencia}>
 					Crear licencia
 				</Button>
 			</div>

@@ -13,9 +13,13 @@ export function LicenciaRoutes() {
 
 			<Route path="licencias/crear" element={<LicenciaCreatePage />} />
 
+			<Route
+				path="empleadosEducativos/:empleadoId/licencias/crear"
+				element={<LicenciaCreatePage />}
+			/>
+
 			<Route path="licencias/:licenciaId" element={<LicenciaDetallePage />} />
 
-			{/* 👇 NUEVA RUTA */}
 			<Route
 				path="licencias/:licenciaId/designaciones"
 				element={<LicenciaDesignacionesPage />}
