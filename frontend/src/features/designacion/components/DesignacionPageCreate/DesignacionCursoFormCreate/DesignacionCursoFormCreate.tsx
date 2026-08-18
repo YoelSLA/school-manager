@@ -13,82 +13,81 @@ import FormSelectCurso from "../../FormSelectCurso";
 import FormSelectMateria from "../../FormSelectMateria";
 
 type Props = {
-  onSubmit: (data: DesignacionCursoCreateDTO) => Promise<void>;
-  isSubmitting: boolean;
+	onSubmit: (data: DesignacionCursoCreateDTO) => Promise<void>;
+	isSubmitting: boolean;
 };
 
 export default function DesignacionCursoCreateForm({
-  onSubmit,
-  isSubmitting,
+	onSubmit,
+	isSubmitting,
 }: Props) {
-  const escuelaActiva = useAppSelector(selectEscuelaActiva);
+	const escuelaActiva = useAppSelector(selectEscuelaActiva);
 
-  const { data: materiasPage, isLoading: isLoadingMaterias } = useListMaterias(
-    escuelaActiva?.id,
-    0,
-    1000,
-  );
+	const { data: materiasPage, isLoading: isLoadingMaterias } = useListMaterias(
+		escuelaActiva?.id,
+		0,
+		1000,
+	);
 
-  const { data: cursosPage, isLoading: isLoadingCursos } = useListarCursos(
-    escuelaActiva?.id,
-    "TODOS",
-    0,
-    1000,
-  );
+	const { data: cursosPage, isLoading: isLoadingCursos } = useListarCursos(
+		escuelaActiva?.id,
+		"TODOS",
+		0,
+		1000,
+	);
 
-  const materias = materiasPage?.content ?? [];
-  const cursos = cursosPage?.content ?? [];
+	const materias = materiasPage?.content ?? [];
+	const cursos = cursosPage?.content ?? [];
 
-  const {
-    form: {
-      register,
-      handleSubmit,
-      formState: { errors },
-    },
-    franjas: { fields, append, remove },
-  } = useDesignacionCursoFormCreate({
-    materias,
-    cursos,
-    orientaciones: ORIENTACIONES.map((o) => o.value),
-  });
+	const {
+		form: {
+			register,
+			handleSubmit,
+			formState: { errors },
+		},
+		franjas: { fields, append, remove },
+	} = useDesignacionCursoFormCreate({
+		materias,
+		cursos,
+		orientaciones: ORIENTACIONES.map((o) => o.value),
+	});
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <DesignacionCursoFormLayout
-        left={
-          <div className={styles.left}>
-            <FieldInputCupoCurso
-              register={register}
-              error={errors.cupof?.message}
-            />
+	return (
+		<form onSubmit={handleSubmit(onSubmit)}>
+			<DesignacionCursoFormLayout
+				left={
+					<div className={styles.left}>
+						<FieldInputCupoCurso
+							register={register}
+							error={errors.cupof?.message}
+						/>
 
-            <FormSelectCurso
-              register={register}
-              cursos={cursos}
-              isLoading={isLoadingCursos}
-              invalid={!!errors.cursoId}
-            />
+						<FormSelectCurso
+							register={register}
+							cursos={cursos}
+							isLoading={isLoadingCursos}
+							invalid={!!errors.cursoId}
+						/>
 
+						<FormSelectMateria
+							register={register}
+							materias={materias}
+							isLoading={isLoadingMaterias}
+							invalid={!!errors.materiaId}
+						/>
 
-            <FormSelectMateria
-              register={register}
-              materias={materias}
-              isLoading={isLoadingMaterias}
-              invalid={!!errors.materiaId}
-            />
-
-            <FieldSelectOrientacion
-              register={register}
-              error={errors.orientacion?.message}
-            />
-          </div>
-        }
-        fields={fields}
-        register={register}
-        append={append}
-        remove={remove}
-        isSubmitting={isSubmitting}
-      />
-    </form>
-  );
+						<FieldSelectOrientacion
+							register={register}
+							error={errors.orientacion?.message}
+						/>
+					</div>
+				}
+				fields={fields}
+				register={register}
+				append={append}
+				remove={remove}
+				isSubmitting={isSubmitting}
+			/>
+		</form>
+	);
 }

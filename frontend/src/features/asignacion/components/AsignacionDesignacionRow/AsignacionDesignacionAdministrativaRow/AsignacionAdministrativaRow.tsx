@@ -6,29 +6,29 @@ import AsignacionRowFooter from "../../AsignacionRowFooter";
 import AsignacionRowLayout from "../../AsignacionRowLayout";
 
 type Props = {
-  asignacion: EmpleadoEducativoAsignacionItemDTO & {
-    designacion: CargoDesignacionAdministrativaDTO;
-  };
+	asignacion: EmpleadoEducativoAsignacionItemDTO & {
+		designacion: CargoDesignacionAdministrativaDTO;
+	};
 };
 
 export default function AsignacionDesignacionAdministrativaRow({
-  asignacion,
+	asignacion,
 }: Props) {
-  const { designacion, periodo, situacionDeRevista, estadoAsignacion } =
-    asignacion;
+	const { designacion, periodo, situacionDeRevista, estadoAsignacion } =
+		asignacion;
 
-  return (
-    <AsignacionRowLayout
-      variant="administrativa"
-      title={formatEnumLabel(designacion.rolEducativo)}
-      status={<BadgeEstadoAsignacion value={estadoAsignacion} />}
-      subtitle={<span>#{designacion.cupof}</span>}
-      footer={
-        <AsignacionRowFooter
-          periodo={periodo}
-          situacionDeRevista={situacionDeRevista}
-        />
-      }
-    />
-  );
+	return (
+		<AsignacionRowLayout
+			variant="administrativa"
+			title={formatEnumLabel(designacion.rolEducativo)}
+			status={<BadgeEstadoAsignacion value={estadoAsignacion} />}
+			subtitle={<span>#{designacion.cupof}</span>}
+			footer={
+				<AsignacionRowFooter
+					periodo={periodo}
+					situacionDeRevista={situacionDeRevista}
+				/>
+			}
+		/>
+	);
 }

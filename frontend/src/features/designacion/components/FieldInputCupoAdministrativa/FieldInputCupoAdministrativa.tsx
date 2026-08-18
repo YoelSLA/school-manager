@@ -3,22 +3,22 @@ import { FormInput } from "@/shared/components/Form";
 import type { DesignacionAdministrativaFormValues } from "../../types";
 
 type Props = {
-  register: UseFormRegister<DesignacionAdministrativaFormValues>;
-  error?: string;
+	register: UseFormRegister<DesignacionAdministrativaFormValues>;
+	error?: string;
 };
 
 export default function FieldInputCupoAdministrativa({
-  register,
-  error,
+	register,
+	error,
 }: Props) {
-  return (
-    <FormInput<DesignacionAdministrativaFormValues>
-      label="CUPOF"
-      name="cupof"
-      type="number"
-      register={register}
-      error={error}
-      inputProps={{ min: 1 }}
-    />
-  );
+	return (
+		<FormInput<DesignacionAdministrativaFormValues>
+			label="CUPOF"
+			name="cupof"
+			type="number"
+			register={register}
+			error={error}
+			inputProps={{ min: 1 }}
+		/>
+	);
 }

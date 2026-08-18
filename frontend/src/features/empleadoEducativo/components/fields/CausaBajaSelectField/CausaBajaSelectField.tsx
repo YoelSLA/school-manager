@@ -4,28 +4,28 @@ import { SelectForm } from "@/shared/components/Select";
 import { CAUSAS_BAJA } from "../../../utils/empleadosEducativos.utils";
 
 type Props<TFormValues extends FieldValues> = {
-  register: UseFormRegister<TFormValues>;
-  error?: string;
-  name: Path<TFormValues>;
+	register: UseFormRegister<TFormValues>;
+	error?: string;
+	name: Path<TFormValues>;
 };
 
 export default function CausaBajaSelectField<TFormValues extends FieldValues>({
-  register,
-  error,
-  name,
+	register,
+	error,
+	name,
 }: Props<TFormValues>) {
-  return (
-    <SelectForm
-      label="Motivo de baja"
-      name={name}
-      register={register}
-      error={error}
-    >
-      {CAUSAS_BAJA.map((c) => (
-        <option key={c.value} value={c.value}>
-          {c.label}
-        </option>
-      ))}
-    </SelectForm>
-  );
+	return (
+		<SelectForm
+			label="Motivo de baja"
+			name={name}
+			register={register}
+			error={error}
+		>
+			{CAUSAS_BAJA.map((c) => (
+				<option key={c.value} value={c.value}>
+					{c.label}
+				</option>
+			))}
+		</SelectForm>
+	);
 }

@@ -4,60 +4,56 @@ import { useUpdateMateriaForm } from "../../form/hooks";
 import type { MateriaUpdateDTO } from "../../types";
 
 type Props = {
-  materia: MateriaUpdateDTO;
-  onClose: () => void;
-  isSubmitting: boolean;
-  onSubmit: (data: MateriaUpdateDTO) => void;
+	materia: MateriaUpdateDTO;
+	onClose: () => void;
+	isSubmitting: boolean;
+	onSubmit: (data: MateriaUpdateDTO) => void;
 };
 
 export default function MateriaModalUpdate({
-  materia,
-  onClose,
-  isSubmitting,
-  onSubmit,
+	materia,
+	onClose,
+	isSubmitting,
+	onSubmit,
 }: Props) {
-  const {
-    register,
-    errors,
-    handleFormSubmit,
-  } = useUpdateMateriaForm({
-    materia,
-    onSubmit,
-  });
+	const { register, errors, handleFormSubmit } = useUpdateMateriaForm({
+		materia,
+		onSubmit,
+	});
 
-  return (
-    <form onSubmit={handleFormSubmit}>
-      <Modal
-        title="Editar materia"
-        onCancel={onClose}
-        confirmLabel="Guardar cambios"
-        isSubmitting={isSubmitting}
-      >
-        <FormSection layout="column">
-          <FormInput
-            label="Nombre"
-            name="nombre"
-            register={register}
-            error={errors.nombre?.message}
-          />
+	return (
+		<form onSubmit={handleFormSubmit}>
+			<Modal
+				title="Editar materia"
+				onCancel={onClose}
+				confirmLabel="Guardar cambios"
+				isSubmitting={isSubmitting}
+			>
+				<FormSection layout="column">
+					<FormInput
+						label="Nombre"
+						name="nombre"
+						register={register}
+						error={errors.nombre?.message}
+					/>
 
-          <FormInput
-            label="Abreviatura"
-            name="abreviatura"
-            register={register}
-            error={errors.abreviatura?.message}
-          />
+					<FormInput
+						label="Abreviatura"
+						name="abreviatura"
+						register={register}
+						error={errors.abreviatura?.message}
+					/>
 
-          <FormInput
-            label="Módulos"
-            name="cantidadModulos"
-            type="number"
-            register={register}
-            error={errors.cantidadModulos?.message}
-            inputProps={{ min: 1 }}
-          />
-        </FormSection>
-      </Modal>
-    </form>
-  );
+					<FormInput
+						label="Módulos"
+						name="cantidadModulos"
+						type="number"
+						register={register}
+						error={errors.cantidadModulos?.message}
+						inputProps={{ min: 1 }}
+					/>
+				</FormSection>
+			</Modal>
+		</form>
+	);
 }

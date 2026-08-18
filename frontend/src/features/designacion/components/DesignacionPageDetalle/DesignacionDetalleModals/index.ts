@@ -1,1 +1,1 @@
-export {default} from "./DesignacionDetalleModals"
+export { default } from "./DesignacionDetalleModals";

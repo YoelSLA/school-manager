@@ -3,25 +3,25 @@ import type { EmpleadoEducativoBasicoDTO } from "../../types";
 import styles from "./EmpleadoInfo.module.scss";
 
 type Props = {
-  empleado?: EmpleadoEducativoBasicoDTO | null;
+	empleado?: EmpleadoEducativoBasicoDTO | null;
 };
 
 export default function EmpleadoInfo({ empleado }: Props) {
-  return (
-    <div className={styles.info}>
-      <div className={styles.line}>
-        <User size={14} />
-        <span className={styles.nombre}>
-          {empleado
-            ? `${empleado.apellido}, ${empleado.nombre}`
-            : "Cargo vacante"}
-        </span>
-      </div>
+	return (
+		<div className={styles.info}>
+			<div className={styles.line}>
+				<User size={14} />
+				<span className={styles.nombre}>
+					{empleado
+						? `${empleado.apellido}, ${empleado.nombre}`
+						: "Cargo vacante"}
+				</span>
+			</div>
 
-      <div className={styles.line}>
-        <IdCard size={14} />
-        <span className={styles.cuil}>{empleado ? empleado.cuil : "—"}</span>
-      </div>
-    </div>
-  );
+			<div className={styles.line}>
+				<IdCard size={14} />
+				<span className={styles.cuil}>{empleado ? empleado.cuil : "—"}</span>
+			</div>
+		</div>
+	);
 }

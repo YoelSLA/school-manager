@@ -7,108 +7,97 @@ import { useUpdateTitular } from "../../../hooks/mutations";
 import styles from "../ModalUpdateAsignacion.module.scss";
 
 type Props = {
-  designacionId: number;
-  asignacionId: number;
-  secuencia: number;
-  empleadoInicial: EmpleadoEducativoBasicoDTO | null;
-  tomaPosesion: string;
-  onClose: () => void;
-  onSuccess: () => void;
+	designacionId: number;
+	asignacionId: number;
+	secuencia: number;
+	empleadoInicial: EmpleadoEducativoBasicoDTO | null;
+	tomaPosesion: string;
+	onClose: () => void;
+	onSuccess: () => void;
 };
 
 export default function ModalUpdateAsignacionTitular({
-  designacionId,
-  asignacionId,
-  secuencia,
-  empleadoInicial,
-  tomaPosesion,
-  onClose,
-  onSuccess,
+	designacionId,
+	asignacionId,
+	secuencia,
+	empleadoInicial,
+	tomaPosesion,
+	onClose,
+	onSuccess,
 }: Props) {
-  const actualizarTitular = useUpdateTitular({
-    designacionId,
-    asignacionId,
-    onClose,
-    onSuccess,
-  });
+	const actualizarTitular = useUpdateTitular({
+		designacionId,
+		asignacionId,
+		onClose,
+		onSuccess,
+	});
 
-  const {
-    register,
-    errors,
-    setValue,
-    handleFormSubmit,
-  } = useUpdateTitularForm({
-    defaultValues: {
-      empleadoId: empleadoInicial?.id,
-      fechaTomaPosesion: tomaPosesion,
-      secuencia: secuencia ?? 1,
-    },
-    onSubmit: async (data) => {
-      if (!data.empleadoId) return;
+	const { register, errors, setValue, handleFormSubmit } = useUpdateTitularForm(
+		{
+			defaultValues: {
+				empleadoId: empleadoInicial?.id,
+				fechaTomaPosesion: tomaPosesion,
+				secuencia: secuencia ?? 1,
+			},
+			onSubmit: async (data) => {
+				if (!data.empleadoId) return;
 
-      await actualizarTitular.mutateAsync({
-        empleadoId: data.empleadoId,
-        fechaTomaPosesion: data.fechaTomaPosesion,
-        secuencia: data.secuencia,
-        caracteristica:
-          data.caracteristica === "NORMAL"
-            ? undefined
-            : data.caracteristica,
-      });
-    },
-  });
+				await actualizarTitular.mutateAsync({
+					empleadoId: data.empleadoId,
+					fechaTomaPosesion: data.fechaTomaPosesion,
+					secuencia: data.secuencia,
+					caracteristica:
+						data.caracteristica === "NORMAL" ? undefined : data.caracteristica,
+				});
+			},
+		},
+	);
 
-  return (
-    <form onSubmit={handleFormSubmit}>
-      <Modal
-        title="Editar asignación titular"
-        size="xlarge"
-        onCancel={onClose}
-        confirmLabel={
-          actualizarTitular.isPending
-            ? "Guardando…"
-            : "Guardar cambios"
-        }
-        isSubmitting={actualizarTitular.isPending}
-      >
-        <div className={styles.body}>
-          <div className={`${styles.sectionCard} ${styles.sectionEmpleado}`}>
-            <EmpleadoSelector
-              defaultEmpleado={empleadoInicial}
-              onChange={(empleado) =>
-                setValue("empleadoId", empleado?.id)
-              }
-            />
-          </div>
+	return (
+		<form onSubmit={handleFormSubmit}>
+			<Modal
+				title="Editar asignación titular"
+				size="xlarge"
+				onCancel={onClose}
+				confirmLabel={
+					actualizarTitular.isPending ? "Guardando…" : "Guardar cambios"
+				}
+				isSubmitting={actualizarTitular.isPending}
+			>
+				<div className={styles.body}>
+					<div className={`${styles.sectionCard} ${styles.sectionEmpleado}`}>
+						<EmpleadoSelector
+							defaultEmpleado={empleadoInicial}
+							onChange={(empleado) => setValue("empleadoId", empleado?.id)}
+						/>
+					</div>
 
-          <div className={`${styles.sectionCard} ${styles.sectionDatos}`}>
-            <div className={styles.row}>
-              <div className={styles.field}>
-                <FormInputNumber
-                  register={register}
-                  name="secuencia"
-                  label="Secuencia"
-                  min={1}
-                  error={errors.secuencia?.message}
-                />
-              </div>
+					<div className={`${styles.sectionCard} ${styles.sectionDatos}`}>
+						<div className={styles.row}>
+							<div className={styles.field}>
+								<FormInputNumber
+									register={register}
+									name="secuencia"
+									label="Secuencia"
+									min={1}
+									error={errors.secuencia?.message}
+								/>
+							</div>
 
-              <div className={styles.field}>
-                <FormInputDate
-                  register={register}
-                  name="fechaTomaPosesion"
-                  label="Toma de posesión"
-                  error={errors.fechaTomaPosesion?.message}
-                />
-              </div>
-            </div>
-          </div>
+							<div className={styles.field}>
+								<FormInputDate
+									register={register}
+									name="fechaTomaPosesion"
+									label="Toma de posesión"
+									error={errors.fechaTomaPosesion?.message}
+								/>
+							</div>
+						</div>
+					</div>
 
-          {errors.root && (
-            <p className={styles.error}>{errors.root.message}</p>
-          )}
-        </div>
-      </Modal>
-    </form>
-  );
+					{errors.root && <p className={styles.error}>{errors.root.message}</p>}
+				</div>
+			</Modal>
+		</form>
+	);
 }

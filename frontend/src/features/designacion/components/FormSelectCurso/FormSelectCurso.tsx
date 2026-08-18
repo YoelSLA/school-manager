@@ -8,40 +8,40 @@ import Select from "@/shared/components/Select";
 import { TURNO_LABELS } from "@/shared/constants";
 
 type Props = {
-  cursos: CursoDetalleDTO[];
-  register: UseFormRegister<DesignacionCursoFormValues>;
-  invalid?: boolean;
-  isLoading?: boolean;
+	cursos: CursoDetalleDTO[];
+	register: UseFormRegister<DesignacionCursoFormValues>;
+	invalid?: boolean;
+	isLoading?: boolean;
 };
 
 export default function FormSelectCurso({
-  cursos,
-  register,
-  invalid = false,
-  isLoading = false,
+	cursos,
+	register,
+	invalid = false,
+	isLoading = false,
 }: Props) {
-  const cursosOrdenados = useMemo(
-    () => [...cursos].sort(ordenarCursos),
-    [cursos]
-  );
+	const cursosOrdenados = useMemo(
+		() => [...cursos].sort(ordenarCursos),
+		[cursos],
+	);
 
-  return (
-    <Select
-      label="Curso"
-      disabled={isLoading}
-      invalid={invalid}
-      {...register("cursoId")}
-    >
-      <option value="" disabled>
-        {isLoading ? "Cargando cursos..." : "Seleccione un curso"}
-      </option>
+	return (
+		<Select
+			label="Curso"
+			disabled={isLoading}
+			invalid={invalid}
+			{...register("cursoId")}
+		>
+			<option value="" disabled>
+				{isLoading ? "Cargando cursos..." : "Seleccione un curso"}
+			</option>
 
-      {!isLoading &&
-        cursosOrdenados.map((curso) => (
-          <option key={curso.id} value={curso.id}>
-            {curso.division} - {TURNO_LABELS[curso.turno] ?? curso.turno}
-          </option>
-        ))}
-    </Select>
-  );
+			{!isLoading &&
+				cursosOrdenados.map((curso) => (
+					<option key={curso.id} value={curso.id}>
+						{curso.division} - {TURNO_LABELS[curso.turno] ?? curso.turno}
+					</option>
+				))}
+		</Select>
+	);
 }

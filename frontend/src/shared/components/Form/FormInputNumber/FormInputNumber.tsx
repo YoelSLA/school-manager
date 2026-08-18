@@ -3,39 +3,39 @@ import type { FieldValues, Path, UseFormRegister } from "react-hook-form";
 import FormInput from "../FormInput";
 
 type Props<T extends FieldValues> = {
-  register: UseFormRegister<T>;
-  name: Path<T>;
-  label: string;
-  error?: string;
-  min?: number;
+	register: UseFormRegister<T>;
+	name: Path<T>;
+	label: string;
+	error?: string;
+	min?: number;
 };
 
 export default function FormInputNumber<T extends FieldValues>({
-  register,
-  name,
-  label,
-  error,
-  min,
+	register,
+	name,
+	label,
+	error,
+	min,
 }: Props<T>) {
-  return (
-    <FormInput<T>
-      label={
-        <>
-          <Hash size={14} />
-          {label}
-        </>
-      }
-      name={name}
-      type="number"
-      register={register}
-      registerOptions={{
-        valueAsNumber: true,
-        ...(min !== undefined ? { min } : {}),
-      }}
-      inputProps={{
-        min,
-      }}
-      error={error}
-    />
-  );
+	return (
+		<FormInput<T>
+			label={
+				<>
+					<Hash size={14} />
+					{label}
+				</>
+			}
+			name={name}
+			type="number"
+			register={register}
+			registerOptions={{
+				valueAsNumber: true,
+				...(min !== undefined ? { min } : {}),
+			}}
+			inputProps={{
+				min,
+			}}
+			error={error}
+		/>
+	);
 }

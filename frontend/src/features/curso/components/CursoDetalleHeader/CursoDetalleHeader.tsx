@@ -1,19 +1,18 @@
-
 import type { CursoDetalleDTO } from "../../types";
 import styles from "./CursoDetalleHeader.module.scss";
 
 type Props = {
-  curso: CursoDetalleDTO;
+	curso: CursoDetalleDTO;
 };
 
 export default function CursoDetalleHeader({ curso }: Props) {
-  return (
-    <header className={styles.header}>
-      <h1 className={styles.title}>
-        {curso.anio}° {curso.grado} {curso.division}
-      </h1>
+	return (
+		<header className={styles.header}>
+			<h1 className={styles.title}>
+				{curso.anio}° {curso.grado} {curso.division}
+			</h1>
 
-      <span className={styles.turno}>Turno {curso.turno}</span>
-    </header>
-  );
+			<span className={styles.turno}>Turno {curso.turno}</span>
+		</header>
+	);
 }

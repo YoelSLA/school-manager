@@ -3,11 +3,11 @@ import DesignacionAdministrativaPage from "./DesignacionAdministrativaPage";
 import DesignacionCursoPage from "./DesignacionCursoPage";
 
 export default function DesignacionPage() {
-  const vm = useDesignacionPage();
+	const vm = useDesignacionPage();
 
-  return vm.isAdmin ? (
-    <DesignacionAdministrativaPage vm={vm} />
-  ) : (
-    <DesignacionCursoPage vm={vm} />
-  );
+	return vm.isAdmin ? (
+		<DesignacionAdministrativaPage vm={vm} />
+	) : (
+		<DesignacionCursoPage vm={vm} />
+	);
 }

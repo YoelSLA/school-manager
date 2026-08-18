@@ -1,125 +1,110 @@
-import {
-  BookOpen,
-  Clock3,
-  MoreVertical,
-  Tag,
-} from "lucide-react";
+import { BookOpen, Clock3, MoreVertical, Tag } from "lucide-react";
 import { EmpleadoInfo } from "@/features/empleadoEducativo/components";
 import {
-  BadgeEstadoDesignacion,
-  BadgeSituacionRevista,
+	BadgeEstadoDesignacion,
+	BadgeSituacionRevista,
 } from "@/shared/components/Badge";
 import { TableRow } from "@/shared/components/Table";
 import type { DesignacionCursoRowDTO } from "../../../../types";
 import styles from "./DesignacionCursoTableRow.module.scss";
 
 type Props = {
-  designacion: DesignacionCursoRowDTO;
-  onVerDetalle: (designacion: DesignacionCursoRowDTO) => void;
-  onAcciones?: (designacion: DesignacionCursoRowDTO) => void;
+	designacion: DesignacionCursoRowDTO;
+	onVerDetalle: (designacion: DesignacionCursoRowDTO) => void;
+	onAcciones?: (designacion: DesignacionCursoRowDTO) => void;
 };
 
 export default function DesignacionCursoTableRow({
-  designacion,
-  onVerDetalle,
-  onAcciones,
+	designacion,
+	onVerDetalle,
+	onAcciones,
 }: Props) {
-  const {
-    cupof,
-    cantidadFranjasHorarias,
-    estadoDesignacion,
-    nombreMateria,
-    nombreCurso,
-    orientacion,
-    asignacionActiva,
-  } = designacion;
+	const {
+		cupof,
+		cantidadFranjasHorarias,
+		estadoDesignacion,
+		nombreMateria,
+		nombreCurso,
+		orientacion,
+		asignacionActiva,
+	} = designacion;
 
-  const empleado = asignacionActiva?.empleadoEducativo
-    ? {
-      ...asignacionActiva.empleadoEducativo,
-      situacionDeRevista:
-        asignacionActiva.situacionDeRevista,
-    }
-    : undefined;
+	const empleado = asignacionActiva?.empleadoEducativo
+		? {
+				...asignacionActiva.empleadoEducativo,
+				situacionDeRevista: asignacionActiva.situacionDeRevista,
+			}
+		: undefined;
 
-  const franjasLabel =
-    cantidadFranjasHorarias === 1
-      ? "1 franja"
-      : `${cantidadFranjasHorarias} franjas`;
+	const franjasLabel =
+		cantidadFranjasHorarias === 1
+			? "1 franja"
+			: `${cantidadFranjasHorarias} franjas`;
 
-  return (
-    <TableRow
-      className={styles.row}
-      onOpen={() => onVerDetalle(designacion)}
-    >
-      {/* Materia */}
+	return (
+		<TableRow className={styles.row} onOpen={() => onVerDetalle(designacion)}>
+			{/* Materia */}
 
-      <div className={styles.subject}>
-        <BookOpen className={styles.subjectIcon} />
+			<div className={styles.subject}>
+				<BookOpen className={styles.subjectIcon} />
 
-        <div className={styles.subjectContent}>
-          <span className={styles.subjectTitle}>
-            {nombreMateria}
-          </span>
+				<div className={styles.subjectContent}>
+					<span className={styles.subjectTitle}>{nombreMateria}</span>
 
-          <span className={styles.subjectSubtitle}>
-            {nombreCurso} · {orientacion}
-          </span>
-        </div>
-      </div>
+					<span className={styles.subjectSubtitle}>
+						{nombreCurso} · {orientacion}
+					</span>
+				</div>
+			</div>
 
-      {/* Situación de revista */}
+			{/* Situación de revista */}
 
-      <div className={styles.position}>
-        {empleado ? (
-          <BadgeSituacionRevista
-            value={empleado.situacionDeRevista}
-          />
-        ) : (
-          <span>-</span>
-        )}
-      </div>
+			<div className={styles.position}>
+				{empleado ? (
+					<BadgeSituacionRevista value={empleado.situacionDeRevista} />
+				) : (
+					<span>-</span>
+				)}
+			</div>
 
-      {/* Docente */}
+			{/* Docente */}
 
-      <div className={styles.employee}>
-        <EmpleadoInfo empleado={empleado} />
-      </div>
+			<div className={styles.employee}>
+				<EmpleadoInfo empleado={empleado} />
+			</div>
 
-      {/* Estado */}
+			{/* Estado */}
 
-      <div className={styles.status}>
-                <BadgeEstadoDesignacion
-          value={estadoDesignacion}
-        />
-      </div>
+			<div className={styles.status}>
+				<BadgeEstadoDesignacion value={estadoDesignacion} />
+			</div>
 
-      {/* Franjas */}
+			{/* Franjas */}
 
-      <div className={styles.hours}>
-        <Clock3 size={16} />
-        <span>{franjasLabel}</span>
-      </div>
+			<div className={styles.hours}>
+				<Clock3 size={16} />
+				<span>{franjasLabel}</span>
+			</div>
 
-      {/* CUPOF */}
+			{/* CUPOF */}
 
-      <div className={styles.cupof}>
-        <Tag size={15} />
-        <span>#{cupof}</span>
-      </div>
+			<div className={styles.cupof}>
+				<Tag size={15} />
+				<span>#{cupof}</span>
+			</div>
 
-      {/* Acciones */}
+			{/* Acciones */}
 
-      <button
-        type="button"
-        className={styles.actions}
-        onClick={(e) => {
-          e.stopPropagation();
-          onAcciones?.(designacion);
-        }}
-      >
-        <MoreVertical size={18} />
-      </button>
-    </TableRow>
-  );
+			<button
+				type="button"
+				className={styles.actions}
+				onClick={(e) => {
+					e.stopPropagation();
+					onAcciones?.(designacion);
+				}}
+			>
+				<MoreVertical size={18} />
+			</button>
+		</TableRow>
+	);
 }

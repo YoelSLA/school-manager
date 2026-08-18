@@ -187,6 +187,15 @@ public class Licencia {
     return cadena;
   }
 
+  public Licencia ultimaRenovacion() {
+    Licencia actual = this;
+
+    while (actual.licenciaSiguiente != null) {
+      actual = actual.licenciaSiguiente;
+    }
+    return actual;
+  }
+
   // =========================================================
   // Superposición
   // =========================================================

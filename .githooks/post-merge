@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo "🔄 Merge completado."
+
+CHANGED_FILES=$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)
+
+if echo "$CHANGED_FILES" | grep -q "frontend/package-lock.json"; then
+	echo "📦 Se detectaron cambios en package-lock.json."
+	echo "👉 Revisá las dependencias del frontend."
+fi
+
+if echo "$CHANGED_FILES" | grep -qE "backend/(build.gradle|build.gradle.kts|gradle.properties)"; then
+	echo "📦 Se detectaron cambios en la configuración de Gradle."
+	echo "👉 Revisá las dependencias del backend."
+fi
+
+echo "✅ Post-merge finalizado."

@@ -1,18 +1,10 @@
 #!/bin/bash
 
-echo "🔧 Ejecutando Spotless..."
+echo "🚀 Ejecutando pre-commit..."
 
-cd backend || exit 1
+.githooks/pre-commit-spotless || exit 1
+.githooks/pre-commit-biome || exit 1
 
-./gradlew spotlessApply --no-daemon
+git add backend frontend
 
-if [ $? -ne 0 ]; then
-    echo "❌ Spotless falló. Commit cancelado."
-    exit 1
-fi
-
-cd ..
-
-git add backend
-
-echo "✅ Código formateado correctamente."
+echo "✅ Pre-commit finalizado correctamente."

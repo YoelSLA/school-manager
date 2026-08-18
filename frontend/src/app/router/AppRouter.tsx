@@ -4,46 +4,46 @@ import UpdateBanner from "@/infrastructure/updater/components/UpdateBanner";
 import { useUpdater } from "@/infrastructure/updater/hooks/useUpdater";
 import RutaProtegida from "./RutaProtegida";
 import {
-  AdministracionRoutes,
-  AsistenciaRoutes,
-  CursoRoutes,
-  DesignacionRoutes,
-  EmpleadoEducativoRoutes,
-  EscuelaRoutes,
-  LicenciaRoutes,
-  MateriaRoutes,
+	AdministracionRoutes,
+	AsistenciaRoutes,
+	CursoRoutes,
+	DesignacionRoutes,
+	EmpleadoEducativoRoutes,
+	EscuelaRoutes,
+	LicenciaRoutes,
+	MateriaRoutes,
 } from "./routes";
 
 export default function AppRouter() {
-  const { updateAvailable } = useUpdater();
+	const { updateAvailable } = useUpdater();
 
-  return (
-    <>
-      {updateAvailable && <UpdateBanner />}
+	return (
+		<>
+			{updateAvailable && <UpdateBanner />}
 
-      <Routes>
-        {EscuelaRoutes()}
+			<Routes>
+				{EscuelaRoutes()}
 
-        <Route
-          path="/"
-          element={
-            <RutaProtegida>
-              <AppLayout />
-            </RutaProtegida>
-          }
-        >
-          <Route index element={<Navigate to="dashboard" replace />} />
-          <Route path="dashboard" element={<div>Dashboard</div>} />
+				<Route
+					path="/"
+					element={
+						<RutaProtegida>
+							<AppLayout />
+						</RutaProtegida>
+					}
+				>
+					<Route index element={<Navigate to="dashboard" replace />} />
+					<Route path="dashboard" element={<div>Dashboard</div>} />
 
-          {EmpleadoEducativoRoutes()}
-          {AsistenciaRoutes()}
-          {MateriaRoutes()}
-          {CursoRoutes()}
-          {DesignacionRoutes()}
-          {LicenciaRoutes()}
-          {AdministracionRoutes()}
-        </Route>
-      </Routes>
-    </>
-  );
+					{EmpleadoEducativoRoutes()}
+					{AsistenciaRoutes()}
+					{MateriaRoutes()}
+					{CursoRoutes()}
+					{DesignacionRoutes()}
+					{LicenciaRoutes()}
+					{AdministracionRoutes()}
+				</Route>
+			</Routes>
+		</>
+	);
 }

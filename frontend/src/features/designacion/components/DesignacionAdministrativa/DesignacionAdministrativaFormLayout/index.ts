@@ -1,1 +1,1 @@
-export {default} from "./DesignacionAdministrativaFormLayout"
+export { default } from "./DesignacionAdministrativaFormLayout";

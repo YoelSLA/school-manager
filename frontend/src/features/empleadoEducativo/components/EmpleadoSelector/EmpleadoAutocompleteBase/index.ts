@@ -1,1 +1,1 @@
-export {default} from "./EmpleadoAutocompleteBase"
+export { default } from "./EmpleadoAutocompleteBase";

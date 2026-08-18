@@ -1,23 +1,27 @@
 import { Route } from "react-router-dom";
-import { DesignacionCreatePage, DesignacionDetallePage, DesignacionPage, DesignacionUpdatePage } from "@/features/designacion/pages";
-
+import {
+	DesignacionCreatePage,
+	DesignacionDetallePage,
+	DesignacionPage,
+	DesignacionUpdatePage,
+} from "@/features/designacion/pages";
 
 export function DesignacionRoutes() {
-  return (
-    <>
-      <Route path="designaciones" element={<DesignacionPage />} />
+	return (
+		<>
+			<Route path="designaciones" element={<DesignacionPage />} />
 
-      <Route path="designaciones/crear" element={<DesignacionCreatePage />} />
+			<Route path="designaciones/crear" element={<DesignacionCreatePage />} />
 
-      <Route
-        path="designaciones/:designacionId"
-        element={<DesignacionDetallePage />}
-      />
+			<Route
+				path="designaciones/:designacionId"
+				element={<DesignacionDetallePage />}
+			/>
 
-      <Route
-        path="designaciones/:designacionId/editar"
-        element={<DesignacionUpdatePage />}
-      />
-    </>
-  );
+			<Route
+				path="designaciones/:designacionId/editar"
+				element={<DesignacionUpdatePage />}
+			/>
+		</>
+	);
 }

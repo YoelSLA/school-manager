@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo "🔧 Ejecutando Biome..."
+
+cd frontend || exit 1
+
+npm run biome:fix
+
+if [ $? -ne 0 ]; then
+	echo "❌ Biome falló. Commit cancelado."
+	exit 1
+fi
+
+cd ..
+
+git add frontend
+
+echo "✅ Código del frontend formateado correctamente."

@@ -1,1 +1,1 @@
-export { default } from "./DesignacionCursoFormLayout"
+export { default } from "./DesignacionCursoFormLayout";
