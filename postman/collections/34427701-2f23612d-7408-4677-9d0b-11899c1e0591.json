@@ -1677,7 +1677,39 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/licencias?page=0&size=20&sort=periodo.fechaDesde,asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"licencias"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "sort",
+									"value": "periodo.fechaDesde,asc",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Obtiene las licencias asociadas a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nQuery Params:\n\n- page: opcional. Número de página.\n    \n- size: opcional. Cantidad de resultados.\n    \n- sort: opcional. Campo y dirección de ordenamiento."
 					},
 					"response": []
 				},
