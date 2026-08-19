@@ -70,6 +70,32 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Crear empleado educativo",
+					"id": "34427701-41fc1c46-4671-4b9a-aa20-e7e1c203c62a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"empleadosEducativos"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"id": "34427701-a0687162-099f-458f-9b6f-8b67f5aa90ba"
