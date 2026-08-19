@@ -14,7 +14,7 @@
 			"name": "empleados educativos",
 			"item": [
 				{
-					"name": "New Request",
+					"name": "Obtener empleados educativos",
 					"id": "34427701-6313d0fe-cf70-447d-acc7-4ff56eb77cf3",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
