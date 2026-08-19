@@ -856,12 +856,72 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/designaciones/cursos?cursoId=1&materiaId=1&orientacion=Bachiller de Ciclo Basico&estado=ACTIVA&page=0&size=20&sort=cupof.asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"designaciones",
+								"cursos"
+							],
+							"query": [
+								{
+									"key": "cursoId",
+									"value": "1",
+									"description": "Filtrar por curso",
+									"type": "text"
+								},
+								{
+									"key": "materiaId",
+									"value": "1",
+									"description": "Filtrar por materia",
+									"type": "text"
+								},
+								{
+									"key": "orientacion",
+									"value": "Bachiller de Ciclo Basico",
+									"description": "Filtrar por orientación",
+									"type": "text"
+								},
+								{
+									"key": "estado",
+									"value": "ACTIVA",
+									"description": "Filtrar por estado de designación",
+									"type": "text"
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Número de página",
+									"type": "text"
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"description": "Cantidad de resultados",
+									"type": "text"
+								},
+								{
+									"key": "sort",
+									"value": "cupof.asc",
+									"description": "Ordenamiento",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Obtiene las designaciones de curso de una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nQuery Params:\n\n- cursoId: opcional. Identificador del curso.\n    \n- materiaId: opcional. Identificador de la materia.\n    \n- orientacion: opcional. Orientación del curso.\n    \n- estado: opcional. Estado de la designación.\n    \n- page: opcional. Número de página.\n    \n- size: opcional. Cantidad de resultados.\n    \n- sort: opcional. Campo y dirección de ordenamiento."
 					},
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Obtener designación",
 					"id": "34427701-6a3bd082-4a56-4882-a344-b580809910f2",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
