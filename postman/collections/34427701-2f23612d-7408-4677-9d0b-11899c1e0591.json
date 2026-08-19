@@ -953,13 +953,38 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"empleadoId\": 1,\n  \"fechaTomaPosesion\": \"2026-08-19\",\n  \"secuencia\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/cubrir/titular",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"cubrir",
+								"titular"
+							]
+						},
+						"description": "Cubre una designación mediante una asignación titular.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado educativo.\n    \n- fechaTomaPosesion: obligatorio. Fecha de toma de posesión.\n    \n- secuencia: opcional. Debe ser mayor a 0."
 					},
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Cubrir con provisional",
 					"id": "34427701-52b093a1-3ca8-4b2f-b962-8c94ab839e64",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
