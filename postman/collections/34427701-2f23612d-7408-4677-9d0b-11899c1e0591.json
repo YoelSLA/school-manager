@@ -711,6 +711,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"cupof\": 12345,\n    \"rolEducativo\": \"DOCENTE\",\n    \"franjasHorarias\": [\n      {\n        \"dia\": \"LUNES\",\n        \"horaDesde\": \"08:00\",\n        \"horaHasta\": \"12:00\"\n      }\n    ]\n  },\n  {\n    \"cupof\": 12346,\n    \"rolEducativo\": \"DOCENTE\",\n    \"franjasHorarias\": [\n      {\n        \"dia\": \"MARTES\",\n        \"horaDesde\": \"08:00\",\n        \"horaHasta\": \"12:00\"\n      }\n    ]\n  }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8080/api/escuelas/1/designaciones/administrativas/batch",
 							"protocol": "http",
@@ -732,7 +741,7 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Listar designaciones administrativas",
 					"id": "34427701-1b0019e7-bc1f-4f07-9b6b-a44fd5d7ce03",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
