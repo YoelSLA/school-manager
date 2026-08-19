@@ -1667,6 +1667,120 @@
 			"id": "34427701-e3bc46bd-5d3e-4300-8aa6-820d0b53aa66"
 		},
 		{
+			"name": "licencias",
+			"item": [
+				{
+					"name": "New Request",
+					"id": "34427701-65f0e7f4-6f99-446d-9014-cea933b632a0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-d12d7cd8-53d8-495e-af7b-24984571ae5c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-45987bed-c4b8-4090-b62c-63e0cdc4aa94",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-c63b8f51-ecb0-4459-9c0c-4ce800e63063",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-fc6bc56e-22d9-40d8-9060-41685e3de2ba",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-4b1faafe-aff0-4032-bb87-89992cfb8016",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-8937bdb4-b97e-4998-94e4-164613900069",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-1a0002d8-00f9-4f2e-83aa-2a31c91fe2a4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-0d7557c3-0e58-4b4b-8dec-19c46f052cd4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
+			"id": "34427701-0943d3d4-0d72-4c48-a650-80ec83fdee48"
+		},
+		{
 			"name": "licencias estatutarias",
 			"item": [
 				{
