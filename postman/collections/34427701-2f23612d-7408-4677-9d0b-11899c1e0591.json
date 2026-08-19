@@ -385,6 +385,31 @@
 								"api",
 								"escuelas"
 							]
+						},
+						"description": "Crea una nueva escuela.\n\nBody:\n\n- nombre: obligatorio. Nombre de la escuela.\n    \n- localidad: obligatorio. Localidad donde se encuentra la escuela.\n    \n- direccion: opcional. Dirección de la escuela.\n    \n- telefono: opcional. Teléfono de contacto de la escuela."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar escuelas",
+					"id": "34427701-f27f0003-d640-4fd0-b9b2-391e58aa6aa8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas"
+							]
 						}
 					},
 					"response": []
