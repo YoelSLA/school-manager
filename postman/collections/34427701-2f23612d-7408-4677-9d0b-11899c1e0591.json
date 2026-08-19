@@ -323,6 +323,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"causa\": \"RENUNCIA\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8080/api/empleadosEducativos/1/baja-definitiva",
 							"protocol": "http",
@@ -336,7 +345,8 @@
 								"1",
 								"baja-definitiva"
 							]
-						}
+						},
+						"description": "Da de baja definitivamente a un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo.\n    \n\nBody:\n\n- causa: causa de la baja definitiva."
 					},
 					"response": []
 				}
