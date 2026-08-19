@@ -807,6 +807,116 @@
 					"response": []
 				},
 				{
+					"name": "Cubrir con titular",
+					"id": "34427701-e2afd503-5a6c-4e93-9f0c-71e34e6c7467",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"empleadoId\": 1,\n  \"fechaTomaPosesion\": \"2026-08-19\",\n  \"secuencia\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/cubrir/titular",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"cubrir",
+								"titular"
+							]
+						},
+						"description": "Cubre una designación mediante una asignación titular.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado educativo.\n    \n- fechaTomaPosesion: obligatorio. Fecha de toma de posesión.\n    \n- secuencia: opcional. Debe ser mayor a 0."
+					},
+					"response": []
+				},
+				{
+					"name": "Cubrir con provisional",
+					"id": "34427701-52b093a1-3ca8-4b2f-b962-8c94ab839e64",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"empleadoId\": 1,\n  \"fechaTomaPosesion\": \"2026-08-19\",\n  \"fechaCese\": \"2026-12-20\",\n  \"secuencia\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/cubrir/provisional",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"cubrir",
+								"provisional"
+							]
+						},
+						"description": "Cubre una designación mediante una asignación provisional.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado educativo.\n    \n- fechaTomaPosesion: obligatorio. Fecha de toma de posesión.\n    \n- fechaCese: obligatorio. Fecha de cese.\n    \n- secuencia: opcional. Debe ser mayor a 0."
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar designación de curso",
+					"id": "34427701-5fa5b10b-ed4d-463e-a62c-d22c0dabbd16",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cupof\": 12345,\n  \"materiaId\": 1,\n  \"cursoId\": 1,\n  \"orientacion\": \"Informática\",\n  \"franjasHorarias\": [\n    {\n      \"dia\": \"LUNES\",\n      \"horaDesde\": \"08:00\",\n      \"horaHasta\": \"12:00\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/curso",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"curso"
+							]
+						},
+						"description": "Actualiza una designación de curso.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- cupof: obligatorio.\n    \n- materiaId: obligatorio.\n    \n- cursoId: obligatorio.\n    \n- orientacion: obligatorio.\n    \n- franjasHorarias: obligatorio. Debe contener al menos un horario."
+					},
+					"response": []
+				},
+				{
 					"name": "Listar designaciones administrativas",
 					"id": "34427701-1b0019e7-bc1f-4f07-9b6b-a44fd5d7ce03",
 					"protocolProfileBehavior": {
@@ -947,80 +1057,6 @@
 					"response": []
 				},
 				{
-					"name": "Cubrir con titular",
-					"id": "34427701-e2afd503-5a6c-4e93-9f0c-71e34e6c7467",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"empleadoId\": 1,\n  \"fechaTomaPosesion\": \"2026-08-19\",\n  \"secuencia\": 1\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/designaciones/1/cubrir/titular",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"designaciones",
-								"1",
-								"cubrir",
-								"titular"
-							]
-						},
-						"description": "Cubre una designación mediante una asignación titular.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado educativo.\n    \n- fechaTomaPosesion: obligatorio. Fecha de toma de posesión.\n    \n- secuencia: opcional. Debe ser mayor a 0."
-					},
-					"response": []
-				},
-				{
-					"name": "Cubrir con provisional",
-					"id": "34427701-52b093a1-3ca8-4b2f-b962-8c94ab839e64",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"empleadoId\": 1,\n  \"fechaTomaPosesion\": \"2026-08-19\",\n  \"fechaCese\": \"2026-12-20\",\n  \"secuencia\": 1\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/designaciones/1/cubrir/provisional",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"designaciones",
-								"1",
-								"cubrir",
-								"provisional"
-							]
-						},
-						"description": "Cubre una designación mediante una asignación provisional.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado educativo.\n    \n- fechaTomaPosesion: obligatorio. Fecha de toma de posesión.\n    \n- fechaCese: obligatorio. Fecha de cese.\n    \n- secuencia: opcional. Debe ser mayor a 0."
-					},
-					"response": []
-				},
-				{
 					"name": "Obtener cargo activo",
 					"id": "34427701-258f1c77-d2ad-4e6f-acbe-9c82f18d2120",
 					"protocolProfileBehavior": {
@@ -1083,42 +1119,6 @@
 							]
 						},
 						"description": "Obtiene los cargos de una designación.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nQuery Params:\n\n- estado: opcional. Filtra los cargos por estado.\n    \n- fecha: opcional. Fecha de referencia para determinar el estado de los cargos. Formato YYYY-MM-DD."
-					},
-					"response": []
-				},
-				{
-					"name": "Actualizar designación de curso",
-					"id": "34427701-5fa5b10b-ed4d-463e-a62c-d22c0dabbd16",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"cupof\": 12345,\n  \"materiaId\": 1,\n  \"cursoId\": 1,\n  \"orientacion\": \"Informática\",\n  \"franjasHorarias\": [\n    {\n      \"dia\": \"LUNES\",\n      \"horaDesde\": \"08:00\",\n      \"horaHasta\": \"12:00\"\n    }\n  ]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/designaciones/1/curso",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"designaciones",
-								"1",
-								"curso"
-							]
-						},
-						"description": "Actualiza una designación de curso.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- cupof: obligatorio.\n    \n- materiaId: obligatorio.\n    \n- cursoId: obligatorio.\n    \n- orientacion: obligatorio.\n    \n- franjasHorarias: obligatorio. Debe contener al menos un horario."
 					},
 					"response": []
 				},
