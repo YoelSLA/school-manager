@@ -174,7 +174,7 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Obtener asistencias del mes",
 					"id": "34427701-3a1eecee-8c3a-4794-b1f9-d312aec21292",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -197,7 +197,8 @@
 								"empleados",
 								"1"
 							]
-						}
+						},
+						"description": "Obtiene el estado de asistencia mensual de un empleado educativo.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n- empleadoId: identificador del empleado educativo.\n    \n\nQuery Params:\n\n- anio: obligatorio. Año a consultar.\n    \n- mes: obligatorio. Mes a consultar, de 1 a 12."
 					},
 					"response": []
 				}
