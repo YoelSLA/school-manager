@@ -666,14 +666,29 @@
 			"name": "designaciones",
 			"item": [
 				{
-					"name": "New Request",
+					"name": "Crear designación administrativa",
 					"id": "34427701-0c447c44-09c8-44eb-8e50-e5484b76ac58",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/designaciones/administrativas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"designaciones",
+								"administrativas"
+							]
+						}
 					},
 					"response": []
 				},
