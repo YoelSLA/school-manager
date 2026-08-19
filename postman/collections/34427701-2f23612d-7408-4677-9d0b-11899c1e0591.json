@@ -1814,14 +1814,28 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Eliminar licencia",
 					"id": "34427701-fc6bc56e-22d9-40d8-9060-41685e3de2ba",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/licencias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias",
+								"1"
+							]
+						},
+						"description": "Elimina una licencia.\n\nPath Variables:\n\n- licenciaId: identificador de la licencia."
 					},
 					"response": []
 				},
