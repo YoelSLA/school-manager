@@ -172,6 +172,34 @@
 						"description": "Elimina inasistencias manuales registradas para un empleado educativo.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- Datos del empleado y fechas de las inasistencias a eliminar."
 					},
 					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-3a1eecee-8c3a-4794-b1f9-d312aec21292",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/asistencias/empleados/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"asistencias",
+								"empleados",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"id": "34427701-9acced92-c547-416a-b421-d50419dd25a4"
