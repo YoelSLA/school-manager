@@ -311,20 +311,60 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"turno\": \"TARDE\",\n  \"anio\": 2026,\n  \"grado\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/cursos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"cursos",
+								"1"
+							]
+						},
+						"description": "Actualiza los datos de un curso perteneciente a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n- cursoId: identificador del curso.\n    \n\nBody:\n\n- turno: obligatorio. Turno del curso.\n    \n- anio: obligatorio. Año del curso. Debe ser mayor o igual a 1.\n    \n- grado: obligatorio. Grado del curso. Debe ser mayor o igual a 1."
 					},
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Eliminar curso",
 					"id": "34427701-25dec0b0-98fd-4bdd-95fe-74ebcf560988",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/cursos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"cursos",
+								"1"
+							]
+						}
 					},
 					"response": []
 				}
