@@ -1561,14 +1561,39 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Eliminar materia",
 					"id": "34427701-0dad493e-b834-4ccd-ab36-0d648f09e565",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/materias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"materias",
+								"1"
+							]
+						},
+						"description": "Elimina una materia perteneciente a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n- materiaId: identificador de la materia."
 					},
 					"response": []
 				},
