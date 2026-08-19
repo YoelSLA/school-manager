@@ -1029,15 +1029,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "Obtiene el cargo activo de una designación.\n\nPath Variables:\n- designacionId: identificador de la designación.\n\nResponse:\n- Devuelve el cargo activo si existe.\n- Devuelve 204 No Content si la designación no tiene un cargo activo.",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "http://localhost:8080/api/designaciones/1/cargo-activo",
 							"protocol": "http",
@@ -1051,7 +1042,20 @@
 								"1",
 								"cargo-activo"
 							]
-						}
+						},
+						"description": "Obtiene el cargo activo de una designación.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nResponse:\n\n- Devuelve el cargo activo si existe.\n    \n- Devuelve 204 No Content si la designación no tiene un cargo activo."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener cargos",
+					"id": "34427701-c7503e66-cfe2-42f0-92ee-c52cec3a65e3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
