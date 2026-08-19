@@ -228,7 +228,20 @@
 								"empleadosEducativos",
 								"1"
 							]
-						}
+						},
+						"description": "Obtiene el detalle de un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-469c11c2-c3c5-45a3-9948-e05868fda273",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
