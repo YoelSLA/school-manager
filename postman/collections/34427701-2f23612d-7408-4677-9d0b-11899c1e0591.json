@@ -1121,6 +1121,54 @@
 						"description": "Actualiza una designación de curso.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- cupof: obligatorio.\n    \n- materiaId: obligatorio.\n    \n- cursoId: obligatorio.\n    \n- orientacion: obligatorio.\n    \n- franjasHorarias: obligatorio. Debe contener al menos un horario."
 					},
 					"response": []
+				},
+				{
+					"name": "Actualizar designación administrativa",
+					"id": "34427701-b86cca30-0dac-41f8-9fe7-755191fd5d4d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cupof\": 12345,\n  \"rolEducativo\": \"DOCENTE\",\n  \"franjasHorarias\": [\n    {\n      \"dia\": \"LUNES\",\n      \"horaDesde\": \"08:00\",\n      \"horaHasta\": \"12:00\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/administrativa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"administrativa"
+							]
+						},
+						"description": "Actualiza una designación administrativa.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- cupof: obligatorio.\n    \n- rolEducativo: obligatorio.\n    \n- franjasHorarias: obligatorio. Debe contener al menos un horario."
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-3f0eac4d-fd32-4b19-9d50-483055b7fe21",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			],
 			"id": "34427701-b30a19ec-aa7c-4428-8a91-ed830fea02da"
