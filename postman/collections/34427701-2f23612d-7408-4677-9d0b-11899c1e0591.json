@@ -674,6 +674,15 @@
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cupof\": 12345,\n  \"rolEducativo\": \"DOCENTE\",\n  \"franjasHorarias\": [\n    {\n      \"dia\": \"LUNES\",\n      \"horaDesde\": \"08:00\",\n      \"horaHasta\": \"12:00\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8080/api/escuelas/1/designaciones/administrativas",
 							"protocol": "http",
@@ -688,7 +697,8 @@
 								"designaciones",
 								"administrativas"
 							]
-						}
+						},
+						"description": "Crea una designación administrativa asociada a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- cupof: obligatorio. CUPoF de la designación.\n    \n- franjasHorarias: obligatorio. Debe contener al menos un horario.\n    \n- rolEducativo: obligatorio. Rol educativo de la designación."
 					},
 					"response": []
 				},
