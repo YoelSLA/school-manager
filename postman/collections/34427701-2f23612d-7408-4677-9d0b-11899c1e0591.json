@@ -22,6 +22,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cuil\": \"20-12345678-9\",\n  \"nombre\": \"Juan\",\n  \"apellido\": \"Pérez\",\n  \"domicilio\": \"Av. Siempre Viva 123\",\n  \"telefono\": \"+5491123456789\",\n  \"email\": \"juan.perez@example.com\",\n  \"fechaDeNacimiento\": \"1990-05-15\",\n  \"fechaDeIngreso\": \"2020-03-01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos",
 							"protocol": "http",
