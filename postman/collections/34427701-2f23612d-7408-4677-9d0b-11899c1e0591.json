@@ -1750,14 +1750,38 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Cubrir designaciones",
 					"id": "34427701-45987bed-c4b8-4090-b62c-63e0cdc4aa94",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"empleadoId\": 2,\n  \"designacionesIds\": [\n    1,\n    2\n  ],\n  \"fechaTomaPosesion\": \"2026-08-19\",\n  \"secuencia\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/licencias/1/coberturas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias",
+								"1",
+								"coberturas"
+							]
+						},
+						"description": "Cubre las designaciones afectadas por una licencia mediante un empleado suplente.\n\nPath Variables:\n\n- licenciaId: identificador de la licencia.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado suplente.\n    \n- designacionesIds: obligatorio. Identificadores de las designaciones que serán cubiertas. Debe contener al menos una.\n    \n- fechaTomaPosesion: obligatorio. Fecha de toma de posesión del suplente.\n    \n- secuencia: opcional. Secuencia de la asignación."
 					},
 					"response": []
 				},
