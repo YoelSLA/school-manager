@@ -234,14 +234,54 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Obtener asignaciones activas",
 					"id": "34427701-469c11c2-c3c5-45a3-9948-e05868fda273",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/empleadosEducativos/1/asignaciones-activas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"empleadosEducativos",
+								"1",
+								"asignaciones-activas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener asignaciones",
+					"id": "34427701-bf848e23-bbd2-4aae-a03b-b0735b3ff5e4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/empleadosEducativos/1/asignaciones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"empleadosEducativos",
+								"1",
+								"asignaciones"
+							]
+						}
 					},
 					"response": []
 				}
