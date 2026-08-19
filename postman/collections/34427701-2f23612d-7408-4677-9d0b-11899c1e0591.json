@@ -54,7 +54,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/escuelas/1/asistencias/roles",
+							"raw": "http://localhost:8080/api/escuelas/1/asistencias/roles?fecha=2026-08-19",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -66,8 +66,29 @@
 								"1",
 								"asistencias",
 								"roles"
+							],
+							"query": [
+								{
+									"key": "fecha",
+									"value": "2026-08-19",
+									"description": "Fecha para consultar los roles vigentes",
+									"type": "text"
+								}
 							]
-						}
+						},
+						"description": "Obtiene la cantidad de empleados por rol educativo vigente en una fecha determinada.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nQuery Params:\n\n- fecha: obligatorio. Fecha en la que se consultan los roles vigentes. Formato YYYY-MM-DD."
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar empleados",
+					"id": "34427701-2b10f544-acb1-4f06-a9a0-fdc1da514fc9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
