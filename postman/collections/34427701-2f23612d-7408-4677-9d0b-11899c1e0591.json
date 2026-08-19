@@ -9,6 +9,24 @@
 			"name": "asistencias",
 			"item": [],
 			"id": "34427701-9acced92-c547-416a-b421-d50419dd25a4"
+		},
+		{
+			"name": "empleados educativos",
+			"item": [
+				{
+					"name": "New Request",
+					"id": "34427701-6313d0fe-cf70-447d-acc7-4ff56eb77cf3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
+			"id": "34427701-a0687162-099f-458f-9b6f-8b67f5aa90ba"
 		}
 	]
 }
