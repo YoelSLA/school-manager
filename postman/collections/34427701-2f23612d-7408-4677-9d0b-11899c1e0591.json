@@ -192,7 +192,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/escuelas/1/asistencias/empleados/1?anio=2026&mes=8",
+							"raw": "http://localhost:8080/api/escuelas/1/asistencias/empleados/2?anio=2026&mes=8",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -204,20 +204,18 @@
 								"1",
 								"asistencias",
 								"empleados",
-								"1"
+								"2"
 							],
 							"query": [
 								{
 									"key": "anio",
 									"value": "2026",
-									"description": "Año a consultar",
-									"type": "text"
+									"description": "Año a consultar"
 								},
 								{
 									"key": "mes",
 									"value": "8",
-									"description": "Mes a consultar, de 1 a 12",
-									"type": "text"
+									"description": "Mes a consultar, de 1 a 12"
 								}
 							]
 						},
