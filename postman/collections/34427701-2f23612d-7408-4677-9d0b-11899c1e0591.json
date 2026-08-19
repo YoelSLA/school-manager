@@ -1670,19 +1670,41 @@
 			"name": "licencias estatutarias",
 			"item": [
 				{
-					"name": "New Request",
+					"name": "Crear licencia estatutaria",
 					"id": "34427701-92cf9d9a-3381-4d67-8a2f-058ad3bb1139",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"articulo\": \"Art. 12\",\n  \"codigo\": \"LIC-001\",\n  \"nombre\": \"Licencia por enfermedad\",\n  \"descripcion\": \"Licencia estatutaria correspondiente a inasistencias por enfermedad.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/licencias-estatutarias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias-estatutarias"
+							]
+						},
+						"description": "Crea una licencia estatutaria.\n\nBody:\n\n- articulo: opcional. Artículo asociado a la licencia. Máximo 20 caracteres.\n    \n- codigo: obligatorio. Código de la licencia. Máximo 30 caracteres.\n    \n- nombre: obligatorio. Nombre de la licencia. Máximo 150 caracteres.\n    \n- descripcion: obligatorio. Descripción de la licencia. Máximo 2000 caracteres."
 					},
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Actualizar licencia estatutaria",
 					"id": "34427701-5850ea58-58e6-4b54-97b6-132dfde95277",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
