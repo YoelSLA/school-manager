@@ -377,6 +377,59 @@
 					},
 					"request": {
 						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/cursos?turno=MANIANA&page=0&size=20&sort=anio,asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"cursos"
+							],
+							"query": [
+								{
+									"key": "turno",
+									"value": "MANIANA",
+									"description": "Filtrar por turno",
+									"type": "text"
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Número de página",
+									"type": "text"
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"description": "Cantidad de resultados",
+									"type": "text"
+								},
+								{
+									"key": "sort",
+									"value": "anio,asc",
+									"description": "Ordenamiento",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Obtiene los cursos de una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nQuery Params:\n\n- turno: opcional. Filtra los cursos por turno.\n    \n- page: opcional. Número de página.\n    \n- size: opcional. Cantidad de resultados.\n    \n- sort: opcional. Campo y dirección de ordenamiento."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar cursos para select",
+					"id": "34427701-e41d56ef-923f-446b-a45a-73a1d20d2cd4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
 						"header": []
 					},
 					"response": []
