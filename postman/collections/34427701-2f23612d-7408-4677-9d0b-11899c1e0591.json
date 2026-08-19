@@ -2154,7 +2154,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/dashboard",
+							"raw": "http://localhost:8080/api/dashboard/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2162,7 +2162,8 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"dashboard"
+								"dashboard",
+								"1"
 							]
 						}
 					},
