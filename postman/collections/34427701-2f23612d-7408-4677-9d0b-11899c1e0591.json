@@ -672,7 +672,7 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -703,14 +703,31 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Crear designaciones administrativas batch",
 					"id": "34427701-2a27f654-582d-41aa-a7cd-dafeb0ea6d5f",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/designaciones/administrativas/batch",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"designaciones",
+								"administrativas",
+								"batch"
+							]
+						},
+						"description": "Crea múltiples designaciones administrativas asociadas a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- Recibe una lista de designaciones administrativas.\n    \n- Cada designación debe cumplir las mismas validaciones que \"Crear designación administrativa\"."
 					},
 					"response": []
 				},
