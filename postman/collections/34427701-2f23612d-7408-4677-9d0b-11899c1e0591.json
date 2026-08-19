@@ -45,6 +45,42 @@
 					"response": []
 				},
 				{
+					"name": "Eliminar inasistencias manual",
+					"id": "34427701-95fe07d9-526b-4e1b-b4bb-43f35f9a7d40",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"empleadoId\": 1,\n  \"fechas\": [\n    \"2026-08-19\",\n    \"2026-08-20\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/asistencias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"asistencias"
+							]
+						},
+						"description": "Elimina inasistencias manuales registradas para un empleado educativo.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado educativo. Debe ser positivo.\n    \n- fechas: obligatorio. Lista de fechas de las inasistencias a eliminar. No puede estar vacía."
+					},
+					"response": []
+				},
+				{
 					"name": "Obtener roles vigentes",
 					"id": "34427701-5020634d-d881-4db2-92c5-d7dca4d56281",
 					"protocolProfileBehavior": {
@@ -143,42 +179,6 @@
 							]
 						},
 						"description": "Busca empleados educativos y obtiene su resumen de asistencia para una fecha determinada.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nQuery Params:\n\n- fecha: obligatorio. Fecha de consulta. Formato YYYY-MM-DD.\n    \n- roles: opcional. Filtra por uno o más roles educativos.\n    \n- q: opcional. Texto de búsqueda.\n    \n- page: opcional. Número de página.\n    \n- size: opcional. Cantidad de resultados. Máximo 20.\n    \n- sort: opcional. Campo y dirección de ordenamiento."
-					},
-					"response": []
-				},
-				{
-					"name": "Eliminar inasistencias manual",
-					"id": "34427701-95fe07d9-526b-4e1b-b4bb-43f35f9a7d40",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"empleadoId\": 1,\n  \"fechas\": [\n    \"2026-08-19\",\n    \"2026-08-20\"\n  ]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/escuelas/1/asistencias",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"escuelas",
-								"1",
-								"asistencias"
-							]
-						},
-						"description": "Elimina inasistencias manuales registradas para un empleado educativo.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado educativo. Debe ser positivo.\n    \n- fechas: obligatorio. Lista de fechas de las inasistencias a eliminar. No puede estar vacía."
 					},
 					"response": []
 				},
@@ -301,6 +301,42 @@
 							]
 						},
 						"description": "Crea múltiples empleados educativos asociados a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- Recibe una lista de empleados educativos.\n    \n- Cada empleado debe cumplir las mismas validaciones que el endpoint \"Crear empleado educativo\".\n    \n\nCada empleado contiene:\n\n- cuil: obligatorio. Formato XX-XXXXXXXX-X.\n    \n- nombre: obligatorio.\n    \n- apellido: obligatorio.\n    \n- domicilio: opcional. Máximo 150 caracteres.\n    \n- telefono: opcional. Formato +549XXXXXXXXXX o +54XXXXXXXXXX.\n    \n- email: obligatorio. Debe tener formato de email válido.\n    \n- fechaDeNacimiento: obligatorio. Debe ser una fecha pasada.\n    \n- fechaDeIngreso: opcional. No puede ser una fecha futura."
+					},
+					"response": []
+				},
+				{
+					"name": "Dar de baja definitiva",
+					"id": "34427701-5b8c6ce6-5357-4e08-8614-c0d1156ef5ad",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"causa\": \"RENUNCIA\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/empleadosEducativos/1/baja-definitiva",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"empleadosEducativos",
+								"1",
+								"baja-definitiva"
+							]
+						},
+						"description": "Da de baja definitivamente a un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo.\n    \n\nBody:\n\n- causa: obligatorio. Causa de la baja definitiva.\n    \n\nValores permitidos:\n\n- RENUNCIA: Renuncia por causas particulares.\n    \n- CESE_DE_FUNCIONES: Cese de funciones.\n    \n- JUBILACION: Jubilación.\n    \n- FALLECIMIENTO: Fallecimiento.\n    \n- PASE_A_PROVISIONAL: Pase de suplente a provisional.\n    \n- OTRA: Otra."
 					},
 					"response": []
 				},
@@ -529,42 +565,6 @@
 							]
 						},
 						"description": "Obtiene las licencias de un empleado educativo, incluyendo la licencia activa y el historial de licencias.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
-					},
-					"response": []
-				},
-				{
-					"name": "Dar de baja definitiva",
-					"id": "34427701-5b8c6ce6-5357-4e08-8614-c0d1156ef5ad",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"causa\": \"RENUNCIA\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/empleadosEducativos/1/baja-definitiva",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"empleadosEducativos",
-								"1",
-								"baja-definitiva"
-							]
-						},
-						"description": "Da de baja definitivamente a un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo.\n    \n\nBody:\n\n- causa: obligatorio. Causa de la baja definitiva.\n    \n\nValores permitidos:\n\n- RENUNCIA: Renuncia por causas particulares.\n    \n- CESE_DE_FUNCIONES: Cese de funciones.\n    \n- JUBILACION: Jubilación.\n    \n- FALLECIMIENTO: Fallecimiento.\n    \n- PASE_A_PROVISIONAL: Pase de suplente a provisional.\n    \n- OTRA: Otra."
 					},
 					"response": []
 				}
