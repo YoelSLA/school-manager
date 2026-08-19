@@ -7,7 +7,20 @@
 	"item": [
 		{
 			"name": "asistencias",
-			"item": [],
+			"item": [
+				{
+					"name": "Registrar inasistencias manual",
+					"id": "34427701-e5593691-7ba6-4e89-bf91-d92880190231",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
 			"id": "34427701-9acced92-c547-416a-b421-d50419dd25a4"
 		},
 		{
