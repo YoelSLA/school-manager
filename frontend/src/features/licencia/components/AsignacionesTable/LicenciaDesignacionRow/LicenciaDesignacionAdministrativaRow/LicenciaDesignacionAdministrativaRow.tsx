@@ -22,18 +22,13 @@ export default function LicenciaDesignacionAdministrativaRow({
 			cupof={asignacion.cupof}
 			situacion={asignacion.situacionDeRevista}
 			periodo={asignacion.periodo}
-			headerContent={
-				<>
-					<div className={styles.info}>
-						<span className={styles.tipo}>
-							<Building2 size={14} />
-							Administrativa
-						</span>
-					</div>
-
-					<BadgeRolEducativo rolEducativo={asignacion.rolEducativo} />
-				</>
+			mainContent={
+				<div className={styles.tipo}>
+					<Building2 size={14} />
+					<span>Administrativa</span>
+				</div>
 			}
+			rolContent={<BadgeRolEducativo rolEducativo={asignacion.rolEducativo} />}
 		/>
 	);
 }

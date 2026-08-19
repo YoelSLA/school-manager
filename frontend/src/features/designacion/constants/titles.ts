@@ -1,27 +1,67 @@
-import type { BreadcrumbResolver } from "@/app/layouts";
+import type { BreadcrumbResolver } from "@/shared/components";
 
 export const designacionTitles: Record<string, BreadcrumbResolver> = {
-	"/designaciones": [{ label: "Designaciones" }],
+	/* =========================================================
+	   LISTADO
+	========================================================= */
+
+	"/designaciones": [
+		{
+			label: "Designaciones",
+		},
+	],
+
+	/* =========================================================
+	   CREAR
+	========================================================= */
 
 	"/designaciones/crear": [
-		{ label: "Designaciones", to: "/designaciones" },
-		{ label: "Crear asignación" },
-	],
-
-	"/designaciones/:designacionId": (params) => [
-		{ label: "Designaciones", to: "/designaciones" },
 		{
-			label: `#${params.designacionId}`,
-			to: `/designaciones/${params.designacionId}`,
+			label: "Designaciones",
+			to: "/designaciones",
+		},
+		{
+			label: "Crear asignación",
 		},
 	],
 
-	"/designaciones/:designacionId/editar": (params) => [
-		{ label: "Designaciones", to: "/designaciones" },
-		{
-			label: `#${params.designacionId}`,
-			to: `/designaciones/${params.designacionId}`,
-		},
-		{ label: "Editar" },
-	],
+	/* =========================================================
+	   DETALLE
+	========================================================= */
+
+	"/designaciones/:designacionId": (params) => {
+		const designacionId = params.designacionId ?? "";
+
+		return [
+			{
+				label: "Designaciones",
+				to: "/designaciones",
+			},
+			{
+				label: `#${designacionId}`,
+			},
+		];
+	},
+
+	/* =========================================================
+	   EDITAR
+	========================================================= */
+
+	"/designaciones/:designacionId/editar": (params) => {
+		const designacionId = params.designacionId ?? "";
+
+		return [
+			{
+				label: "Designaciones",
+				to: "/designaciones",
+			},
+			{
+				label: `#${designacionId}`,
+				to: `/designaciones/${designacionId}`,
+			},
+			{
+				label: "Editar",
+			},
+		];
+	},
 };

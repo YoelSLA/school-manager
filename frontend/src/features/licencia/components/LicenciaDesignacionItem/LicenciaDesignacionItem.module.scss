@@ -1,6 +1,11 @@
 .item {
 	display: grid;
-	grid-template-columns: minmax(0, 1fr) minmax(420px, 1fr);
+
+	grid-template-columns:
+		minmax(0, 1fr)
+		minmax(420px, 1fr)
+		180px;
+
 	align-items: center;
 
 	width: 100%;
@@ -10,41 +15,97 @@
 	background: #fff;
 
 	border: 1px solid #dbe7f3;
+	border-left-width: 4px;
 	border-radius: 18px;
 
 	overflow: hidden;
 
 	transition:
 		border-color 0.2s,
+		background-color 0.2s,
 		box-shadow 0.2s;
 
 	cursor: pointer;
 }
 
+/* =====================================================
+   DESIGNACIÓN
+===================================================== */
+
 .designacion {
 	min-width: 0;
 }
 
+/* =====================================================
+   COBERTURA
+===================================================== */
+
 .cobertura {
 	min-width: 0;
+
+	align-self: stretch;
 
 	border-left: 1px solid #e2e8f0;
 }
 
-.item:hover:not(.disabled) {
-	border-color: #bfdbfe;
+/* =====================================================
+   ACCIONES
+===================================================== */
+
+.acciones {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	min-width: 0;
+
+	padding: 0 16px;
+
+	align-self: stretch;
+
+	border-left: 1px solid #e2e8f0;
+}
+
+/* =====================================================
+   ESTADO — CUBIERTA
+===================================================== */
+
+.covered {
+	border-left-color: #22c55e;
+}
+
+/* =====================================================
+   ESTADO — SIN CUBRIR
+===================================================== */
+
+.uncovered {
+	border-left-color: #ef4444;
+}
+
+/* =====================================================
+   HOVER
+===================================================== */
+
+.item:hover:not(.selected) {
+	border-top-color: #bfdbfe;
+	border-right-color: #bfdbfe;
+	border-bottom-color: #bfdbfe;
 
 	box-shadow: 0 8px 20px rgb(15 23 42 / 6%);
 }
 
+/* =====================================================
+   SELECCIONADA
+===================================================== */
+
 .selected {
-	border-color: #2563eb;
+	border-top-color: #2563eb;
+	border-right-color: #2563eb;
+	border-bottom-color: #2563eb;
+
+	background: #f8fbff;
 
 	box-shadow:
-		0 0 0 3px rgb(37 99 235 / 12%),
-		0 8px 20px rgb(37 99 235 / 12%);
-}
-
-.disabled {
-	opacity: 0.85;
+		0 0 0 3px rgb(37 99 235 / 22%),
+		0 8px 20px rgb(37 99 235 / 16%);
 }

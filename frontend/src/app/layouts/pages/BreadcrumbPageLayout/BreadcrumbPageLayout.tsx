@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Breadcrumbs from "@/shared/components/Breadcrumbs";
+import { Breadcrumbs } from "@/shared/components/Breadcrumbs";
 import PageLayout from "../PageLayout";
 
 type Props = {

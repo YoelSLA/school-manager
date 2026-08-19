@@ -1,4 +1,4 @@
-import type { BreadcrumbResolver } from "@/app/layouts";
+import type { BreadcrumbResolver } from "@/shared/components";
 
 export const administracionTitles: Record<string, BreadcrumbResolver> = {
 	"/administracion": [{ label: "Administración" }],

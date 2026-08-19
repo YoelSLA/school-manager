@@ -1,50 +1,28 @@
 .info {
 	display: flex;
 	align-items: center;
-	gap: 16px;
+	gap: 24px;
 
-	flex: 1;
 	min-width: 0;
 }
 
-.materia {
-	display: inline-flex;
-	align-items: center;
-	gap: 6px;
-
-	min-width: 0;
-
-	font-size: 14px;
-	font-weight: 700;
-
-	color: #111827;
-
-	svg {
-		color: #2563eb;
-		flex-shrink: 0;
-	}
-
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
+.materia,
 .curso {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
 
-	flex-shrink: 0;
-
 	font-size: 13px;
-	font-weight: 500;
-
-	color: #4b5563;
+	color: #374151;
 
 	white-space: nowrap;
 
 	svg {
-		color: #9ca3af;
 		flex-shrink: 0;
+		color: #6b7280;
 	}
+}
+
+.materia {
+	font-weight: 600;
 }

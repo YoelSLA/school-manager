@@ -1,4 +1,5 @@
 import type { KeyboardEvent } from "react";
+import { Button } from "@/shared/components";
 import type { LicenciaDesignacionDTO } from "../../types";
 import LicenciaDesignacionCobertura from "./LicenciaDesignacionCobertura";
 import LicenciaDesignacionInfo from "./LicenciaDesignacionInfo/LicenciaDesignacionInfo";
@@ -22,14 +23,10 @@ export default function LicenciaDesignacionItem({
 	const estaCubierta = designacion.estado === "CUBIERTA";
 
 	function handleSelect() {
-		if (!estaCubierta) {
-			onSelect(designacion.designacionId);
-		}
+		onSelect(designacion.designacionId);
 	}
 
 	function handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
-		if (estaCubierta) return;
-
 		if (e.key === "Enter" || e.key === " ") {
 			e.preventDefault();
 			onSelect(designacion.designacionId);
@@ -39,25 +36,61 @@ export default function LicenciaDesignacionItem({
 	return (
 		<article
 			className={`
-        ${styles.item}
-        ${selected && !estaCubierta ? styles.selected : ""}
-        ${estaCubierta ? styles.disabled : ""}
-      `}
-			tabIndex={estaCubierta ? -1 : 0}
-			aria-disabled={estaCubierta}
+				${styles.item}
+				${estaCubierta ? styles.covered : styles.uncovered}
+				${selected ? styles.selected : ""}
+			`}
 			onClick={handleSelect}
 			onKeyDown={handleKeyDown}
 		>
+			{/* =====================================================
+			    SECCIÓN 1 — INFORMACIÓN DE LA DESIGNACIÓN
+			===================================================== */}
+
 			<div className={styles.designacion}>
 				<LicenciaDesignacionInfo designacion={designacion} />
 			</div>
 
+			{/* =====================================================
+			    SECCIÓN 2 — INFORMACIÓN DE LA COBERTURA
+			===================================================== */}
+
 			<div className={styles.cobertura}>
-				<LicenciaDesignacionCobertura
-					designacion={designacion}
-					onCubrir={() => onCubrir(designacion.designacionId)}
-					onCambiarCobertura={onCambiarCobertura}
-				/>
+				<LicenciaDesignacionCobertura designacion={designacion} />
+			</div>
+
+			{/* =====================================================
+			    SECCIÓN 3 — ACCIONES
+			===================================================== */}
+
+			<div className={styles.acciones}>
+				{estaCubierta ? (
+					<Button
+						variant="ghost"
+						size="sm"
+						type="button"
+						onClick={(e) => {
+							e.preventDefault();
+							e.stopPropagation();
+							onCambiarCobertura();
+						}}
+					>
+						Cambiar cobertura
+					</Button>
+				) : (
+					<Button
+						variant="ghost"
+						size="sm"
+						type="button"
+						onClick={(e) => {
+							e.preventDefault();
+							e.stopPropagation();
+							onCubrir(designacion.designacionId);
+						}}
+					>
+						Cubrir
+					</Button>
+				)}
 			</div>
 		</article>
 	);

@@ -8,7 +8,7 @@ import LicenciaTableRow from "./LicenciaTableRow";
 
 type Props = {
 	query: UseQueryResult<PageResponse<LicenciaRowDTO>>;
-	onVerDetalle: (licenciaId: number) => void;
+	onVerDetalle: (licencia: LicenciaRowDTO) => void;
 	onDelete: (licencia: LicenciaRowDTO) => void;
 };
 
@@ -31,7 +31,7 @@ export default function LicenciaTable({
 				renderItem={(licencia) => (
 					<LicenciaTableRow
 						licencia={licencia}
-						onVerDetalle={() => onVerDetalle(licencia.id)}
+						onVerDetalle={() => onVerDetalle(licencia)}
 						onDelete={() => onDelete(licencia)}
 					/>
 				)}

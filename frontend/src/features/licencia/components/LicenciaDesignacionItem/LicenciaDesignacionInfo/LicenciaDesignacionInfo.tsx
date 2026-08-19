@@ -27,10 +27,10 @@ export default function LicenciaDesignacionInfo({ designacion }: Props) {
 					{esCurso ? (
 						<>
 							<span>
-								{designacion.curso} · {designacion.materia}
+								{designacion.curso} • {designacion.materia}
 							</span>
 
-							<span className={styles.separator}>·</span>
+							<span className={styles.separator}>•</span>
 
 							<span>{designacion.orientacion}</span>
 						</>

@@ -1,0 +1,2147 @@
+{
+	"info": {
+		"_postman_id": "34427701-2f23612d-7408-4677-9d0b-11899c1e0591",
+		"name": "school manager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "asistencias",
+			"item": [
+				{
+					"name": "Registrar inasistencias manual",
+					"id": "34427701-e5593691-7ba6-4e89-bf91-d92880190231",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"empleadoId\": 1,\n  \"fechas\": [\n    \"2026-08-19\",\n    \"2026-08-20\"\n  ],\n  \"licenciaEstatutariaId\": 1,\n  \"observacion\": \"Inasistencia por licencia.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/asistencias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"asistencias"
+							]
+						},
+						"description": "Registra inasistencias manuales para un empleado educativo.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado educativo.\n    \n- fechas: obligatorio. Lista de fechas a registrar. Máximo 31 fechas.\n    \n- licenciaEstatutariaId: obligatorio. Identificador del tipo de licencia estatutaria.\n    \n- observacion: opcional. Máximo 255 caracteres."
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar inasistencias manual",
+					"id": "34427701-95fe07d9-526b-4e1b-b4bb-43f35f9a7d40",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"empleadoId\": 1,\n  \"fechas\": [\n    \"2026-08-19\",\n    \"2026-08-20\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/asistencias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"asistencias"
+							]
+						},
+						"description": "Elimina inasistencias manuales registradas para un empleado educativo.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado educativo. Debe ser positivo.\n    \n- fechas: obligatorio. Lista de fechas de las inasistencias a eliminar. No puede estar vacía."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener roles vigentes",
+					"id": "34427701-5020634d-d881-4db2-92c5-d7dca4d56281",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/asistencias/roles?fecha=2026-08-19",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"asistencias",
+								"roles"
+							],
+							"query": [
+								{
+									"key": "fecha",
+									"value": "2026-08-19",
+									"description": "Fecha para consultar los roles vigentes",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Obtiene la cantidad de empleados por rol educativo vigente en una fecha determinada.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nQuery Params:\n\n- fecha: obligatorio. Fecha en la que se consultan los roles vigentes. Formato YYYY-MM-DD."
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar empleados",
+					"id": "34427701-2b10f544-acb1-4f06-a9a0-fdc1da514fc9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/asistencias/empleados?fecha=2026-08-19&roles=DOCENTE&q=Juan&page=0&size=20&sort=apellido,asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"asistencias",
+								"empleados"
+							],
+							"query": [
+								{
+									"key": "fecha",
+									"value": "2026-08-19",
+									"description": "Fecha de consulta",
+									"type": "text"
+								},
+								{
+									"key": "roles",
+									"value": "DOCENTE",
+									"description": "Filtrar por rol",
+									"type": "text"
+								},
+								{
+									"key": "q",
+									"value": "Juan",
+									"description": "Buscar por texto",
+									"type": "text"
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Número de página",
+									"type": "text"
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"description": "Cantidad de resultados",
+									"type": "text"
+								},
+								{
+									"key": "sort",
+									"value": "apellido,asc",
+									"description": "Ordenamiento",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Busca empleados educativos y obtiene su resumen de asistencia para una fecha determinada.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nQuery Params:\n\n- fecha: obligatorio. Fecha de consulta. Formato YYYY-MM-DD.\n    \n- roles: opcional. Filtra por uno o más roles educativos.\n    \n- q: opcional. Texto de búsqueda.\n    \n- page: opcional. Número de página.\n    \n- size: opcional. Cantidad de resultados. Máximo 20.\n    \n- sort: opcional. Campo y dirección de ordenamiento."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener asistencias del mes",
+					"id": "34427701-3a1eecee-8c3a-4794-b1f9-d312aec21292",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/asistencias/empleados/1?anio=2026&mes=8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"asistencias",
+								"empleados",
+								"1"
+							],
+							"query": [
+								{
+									"key": "anio",
+									"value": "2026",
+									"description": "Año a consultar",
+									"type": "text"
+								},
+								{
+									"key": "mes",
+									"value": "8",
+									"description": "Mes a consultar, de 1 a 12",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Obtiene el estado de asistencia mensual de un empleado educativo.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n- empleadoId: identificador del empleado educativo.\n    \n\nQuery Params:\n\n- anio: obligatorio. Año a consultar.\n    \n- mes: obligatorio. Mes a consultar, de 1 a 12."
+					},
+					"response": []
+				}
+			],
+			"id": "34427701-9acced92-c547-416a-b421-d50419dd25a4"
+		},
+		{
+			"name": "cursos",
+			"item": [
+				{
+					"name": "Crear curso",
+					"id": "34427701-144cc027-74ff-4c59-aab0-4f544aea528a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"turno\": \"MANIANA\",\n  \"anio\": 2026,\n  \"grado\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/cursos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"cursos"
+							]
+						},
+						"description": "Crea un curso asociado a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- turno: obligatorio. Turno del curso.\n    \n- anio: obligatorio. Año del curso. Debe ser mayor o igual a 1.\n    \n- grado: obligatorio. Grado del curso. Debe ser mayor o igual a 1."
+					},
+					"response": []
+				},
+				{
+					"name": "Crear cursos batch",
+					"id": "34427701-a6e4f434-5245-40c6-b480-402804678e3f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"turno\": \"MANIANA\",\n    \"anio\": 2026,\n    \"grado\": 1\n  },\n  {\n    \"turno\": \"TARDE\",\n    \"anio\": 2026,\n    \"grado\": 2\n  },\n  {\n    \"turno\": \"NOCHE\",\n    \"anio\": 2026,\n    \"grado\": 3\n  }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/cursos/batch",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"cursos",
+								"batch"
+							]
+						},
+						"description": "Crea múltiples cursos asociados a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- Recibe una lista de cursos.\n    \n- Cada curso debe contener:\n    \n    - turno: obligatorio.\n        \n    - anio: obligatorio. Debe ser mayor o igual a 1.\n        \n    - grado: obligatorio. Debe ser mayor o igual a 1."
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar curso",
+					"id": "34427701-ea3c8e68-e733-4431-8715-3921854bc7b7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"turno\": \"TARDE\",\n  \"anio\": 2026,\n  \"grado\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/cursos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"cursos",
+								"1"
+							]
+						},
+						"description": "Actualiza los datos de un curso perteneciente a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n- cursoId: identificador del curso.\n    \n\nBody:\n\n- turno: obligatorio. Turno del curso.\n    \n- anio: obligatorio. Año del curso. Debe ser mayor o igual a 1.\n    \n- grado: obligatorio. Grado del curso. Debe ser mayor o igual a 1."
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar curso",
+					"id": "34427701-25dec0b0-98fd-4bdd-95fe-74ebcf560988",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/cursos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"cursos",
+								"1"
+							]
+						},
+						"description": "Elimina un curso perteneciente a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n- cursoId: identificador del curso."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar cursos",
+					"id": "34427701-f03fd9a3-ad3b-4a97-88d4-4cf63ec55c80",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/cursos?turno=MANIANA&page=0&size=20&sort=anio,asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"cursos"
+							],
+							"query": [
+								{
+									"key": "turno",
+									"value": "MANIANA",
+									"description": "Filtrar por turno"
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Número de página"
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"description": "Cantidad de resultados"
+								},
+								{
+									"key": "sort",
+									"value": "anio,asc",
+									"description": "Ordenamiento"
+								}
+							]
+						},
+						"description": "Obtiene los cursos de una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nQuery Params:\n\n- turno: opcional. Filtra los cursos por turno.\n    \n    - MANIANA: Mañana.\n        \n    - TARDE: Tarde.\n        \n    - VESPERTINO: Vespertino.\n        \n- page: opcional. Número de página.\n    \n- size: opcional. Cantidad de resultados.\n    \n- sort: opcional. Campo y dirección de ordenamiento."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar cursos para select",
+					"id": "34427701-e41d56ef-923f-446b-a45a-73a1d20d2cd4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/cursos/select",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"cursos",
+								"select"
+							]
+						},
+						"description": "Obtiene los cursos de una escuela en un formato reducido para utilizar en campos de selección.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela."
+					},
+					"response": []
+				}
+			],
+			"id": "34427701-60791d02-520e-488a-8cd7-77ef22f76dbc"
+		},
+		{
+			"name": "designaciones",
+			"item": [
+				{
+					"name": "Crear designación administrativa",
+					"id": "34427701-0c447c44-09c8-44eb-8e50-e5484b76ac58",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cupof\": 12345,\n  \"rolEducativo\": \"DOCENTE\",\n  \"franjasHorarias\": [\n    {\n      \"dia\": \"LUNES\",\n      \"horaDesde\": \"08:00\",\n      \"horaHasta\": \"12:00\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/designaciones/administrativas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"designaciones",
+								"administrativas"
+							]
+						},
+						"description": "Crea una designación administrativa asociada a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- cupof: obligatorio. CUPoF de la designación.\n    \n- franjasHorarias: obligatorio. Debe contener al menos un horario.\n    \n- rolEducativo: obligatorio. Rol educativo de la designación."
+					},
+					"response": []
+				},
+				{
+					"name": "Crear designaciones administrativas batch",
+					"id": "34427701-2a27f654-582d-41aa-a7cd-dafeb0ea6d5f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"cupof\": 12345,\n    \"rolEducativo\": \"DOCENTE\",\n    \"franjasHorarias\": [\n      {\n        \"dia\": \"LUNES\",\n        \"horaDesde\": \"08:00\",\n        \"horaHasta\": \"12:00\"\n      }\n    ]\n  },\n  {\n    \"cupof\": 12346,\n    \"rolEducativo\": \"DOCENTE\",\n    \"franjasHorarias\": [\n      {\n        \"dia\": \"MARTES\",\n        \"horaDesde\": \"08:00\",\n        \"horaHasta\": \"12:00\"\n      }\n    ]\n  }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/designaciones/administrativas/batch",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"designaciones",
+								"administrativas",
+								"batch"
+							]
+						},
+						"description": "Crea múltiples designaciones administrativas asociadas a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- Recibe una lista de designaciones administrativas.\n    \n- Cada designación debe cumplir las mismas validaciones que \"Crear designación administrativa\"."
+					},
+					"response": []
+				},
+				{
+					"name": "Crear designación de curso",
+					"id": "34427701-84f756d1-6fc8-46c2-8945-29eb7cc12896",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cupof\": 12345,\n  \"materiaId\": 1,\n  \"cursoId\": 1,\n  \"orientacion\": \"Informática\",\n  \"franjasHorarias\": [\n    {\n      \"dia\": \"LUNES\",\n      \"horaDesde\": \"08:00\",\n      \"horaHasta\": \"12:00\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/designaciones/cursos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"designaciones",
+								"cursos"
+							]
+						},
+						"description": "Crea una designación de curso asociada a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- cupof: obligatorio. CUPoF de la designación.\n    \n- materiaId: obligatorio. Identificador de la materia.\n    \n- cursoId: obligatorio. Identificador del curso.\n    \n- orientacion: obligatorio. Orientación del curso.\n    \n- franjasHorarias: obligatorio. Debe contener al menos un horario."
+					},
+					"response": []
+				},
+				{
+					"name": "Crear designaciones de curso batch",
+					"id": "34427701-152a4296-c43d-4b5f-a074-bb7be0f736b2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/designaciones/cursos/batch",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"designaciones",
+								"cursos",
+								"batch"
+							]
+						},
+						"description": "Crea múltiples designaciones de curso asociadas a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- Recibe una lista de designaciones de curso.\n    \n- Cada designación debe cumplir las mismas validaciones que \"Crear designación de curso\"."
+					},
+					"response": []
+				},
+				{
+					"name": "Cubrir con titular",
+					"id": "34427701-e2afd503-5a6c-4e93-9f0c-71e34e6c7467",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"empleadoId\": 1,\n  \"fechaTomaPosesion\": \"2026-08-19\",\n  \"secuencia\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/cubrir/titular",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"cubrir",
+								"titular"
+							]
+						},
+						"description": "Cubre una designación mediante una asignación titular.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado educativo.\n    \n- fechaTomaPosesion: obligatorio. Fecha de toma de posesión.\n    \n- secuencia: opcional. Debe ser mayor a 0."
+					},
+					"response": []
+				},
+				{
+					"name": "Cubrir con provisional",
+					"id": "34427701-52b093a1-3ca8-4b2f-b962-8c94ab839e64",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"empleadoId\": 1,\n  \"fechaTomaPosesion\": \"2026-08-19\",\n  \"fechaCese\": \"2026-12-20\",\n  \"secuencia\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/cubrir/provisional",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"cubrir",
+								"provisional"
+							]
+						},
+						"description": "Cubre una designación mediante una asignación provisional.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado educativo.\n    \n- fechaTomaPosesion: obligatorio. Fecha de toma de posesión.\n    \n- fechaCese: obligatorio. Fecha de cese.\n    \n- secuencia: opcional. Debe ser mayor a 0."
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar designación de curso",
+					"id": "34427701-5fa5b10b-ed4d-463e-a62c-d22c0dabbd16",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cupof\": 12345,\n  \"materiaId\": 1,\n  \"cursoId\": 1,\n  \"orientacion\": \"Informática\",\n  \"franjasHorarias\": [\n    {\n      \"dia\": \"LUNES\",\n      \"horaDesde\": \"08:00\",\n      \"horaHasta\": \"12:00\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/curso",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"curso"
+							]
+						},
+						"description": "Actualiza una designación de curso.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- cupof: obligatorio.\n    \n- materiaId: obligatorio.\n    \n- cursoId: obligatorio.\n    \n- orientacion: obligatorio.\n    \n- franjasHorarias: obligatorio. Debe contener al menos un horario."
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar designación administrativa",
+					"id": "34427701-b86cca30-0dac-41f8-9fe7-755191fd5d4d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cupof\": 12345,\n  \"rolEducativo\": \"DOCENTE\",\n  \"franjasHorarias\": [\n    {\n      \"dia\": \"LUNES\",\n      \"horaDesde\": \"08:00\",\n      \"horaHasta\": \"12:00\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/administrativa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"administrativa"
+							]
+						},
+						"description": "Actualiza una designación administrativa.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- cupof: obligatorio.\n    \n- rolEducativo: obligatorio.\n    \n- franjasHorarias: obligatorio. Debe contener al menos un horario."
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar asignación",
+					"id": "34427701-3f0eac4d-fd32-4b19-9d50-483055b7fe21",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"empleadoId\": 1,\n  \"fechaTomaPosesion\": \"2026-08-19\",\n  \"secuencia\": 1,\n  \"fechaCese\": \"2026-12-20\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/asignaciones/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"asignaciones",
+								"1"
+							]
+						},
+						"description": "Actualiza una asignación perteneciente a una designación.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n- asignacionId: identificador de la asignación.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado educativo.\n    \n- fechaTomaPosesion: obligatorio.\n    \n- secuencia: opcional. Debe ser mayor a 0.\n    \n- fechaCese: opcional."
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar asignación",
+					"id": "34427701-cd5c9f1a-38a6-4f4a-9a07-713ef0b2cf1d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/asignaciones/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"asignaciones",
+								"1"
+							]
+						},
+						"description": "Elimina una asignación perteneciente a una designación.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n- asignacionId: identificador de la asignación."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar designaciones administrativas",
+					"id": "34427701-1b0019e7-bc1f-4f07-9b6b-a44fd5d7ce03",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/designaciones/administrativas?page=0&size=20&sort=cupof,asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"designaciones",
+								"administrativas"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								},
+								{
+									"key": "sort",
+									"value": "cupof,asc"
+								}
+							]
+						},
+						"description": "Obtiene las designaciones administrativas de una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nQuery Params:\n\n- page: opcional. Número de página.\n    \n- size: opcional. Cantidad de resultados.\n    \n- sort: opcional. Campo y dirección de ordenamiento."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar designaciones de curso",
+					"id": "34427701-07526d05-12af-4562-b0ed-318af8dffb48",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/designaciones/cursos?cursoId=1&materiaId=1&orientacion=Bachiller de Ciclo Basico&estado=ACTIVA&page=0&size=20&sort=cupof.asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"designaciones",
+								"cursos"
+							],
+							"query": [
+								{
+									"key": "cursoId",
+									"value": "1",
+									"description": "Filtrar por curso",
+									"type": "text"
+								},
+								{
+									"key": "materiaId",
+									"value": "1",
+									"description": "Filtrar por materia",
+									"type": "text"
+								},
+								{
+									"key": "orientacion",
+									"value": "Bachiller de Ciclo Basico",
+									"description": "Filtrar por orientación",
+									"type": "text"
+								},
+								{
+									"key": "estado",
+									"value": "ACTIVA",
+									"description": "Filtrar por estado de designación",
+									"type": "text"
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Número de página",
+									"type": "text"
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"description": "Cantidad de resultados",
+									"type": "text"
+								},
+								{
+									"key": "sort",
+									"value": "cupof.asc",
+									"description": "Ordenamiento",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Obtiene las designaciones de curso de una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nQuery Params:\n\n- cursoId: opcional. Identificador del curso.\n    \n- materiaId: opcional. Identificador de la materia.\n    \n- orientacion: opcional. Orientación del curso.\n    \n- estado: opcional. Estado de la designación.\n    \n- page: opcional. Número de página.\n    \n- size: opcional. Cantidad de resultados.\n    \n- sort: opcional. Campo y dirección de ordenamiento."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener designación",
+					"id": "34427701-6a3bd082-4a56-4882-a344-b580809910f2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1"
+							]
+						},
+						"description": "Obtiene el detalle de una designación.\n\nPath Variables:\n\n- designacionId: identificador de la designación."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener cargo activo",
+					"id": "34427701-258f1c77-d2ad-4e6f-acbe-9c82f18d2120",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/cargo-activo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"cargo-activo"
+							]
+						},
+						"description": "Obtiene el cargo activo de una designación.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nResponse:\n\n- Devuelve el cargo activo si existe.\n    \n- Devuelve 204 No Content si la designación no tiene un cargo activo."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener cargos",
+					"id": "34427701-c7503e66-cfe2-42f0-92ee-c52cec3a65e3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/cargos?estado=ACTIVA&fecha=2026-08-19",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"cargos"
+							],
+							"query": [
+								{
+									"key": "estado",
+									"value": "ACTIVA",
+									"type": "text"
+								},
+								{
+									"key": "fecha",
+									"value": "2026-08-19",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Obtiene los cargos de una designación.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nQuery Params:\n\n- estado: opcional. Filtra los cargos por estado.\n    \n- fecha: opcional. Fecha de referencia para determinar el estado de los cargos. Formato YYYY-MM-DD."
+					},
+					"response": []
+				}
+			],
+			"id": "34427701-b30a19ec-aa7c-4428-8a91-ed830fea02da"
+		},
+		{
+			"name": "empleados educativos",
+			"item": [
+				{
+					"name": "Crear empleado educativo",
+					"id": "34427701-41fc1c46-4671-4b9a-aa20-e7e1c203c62a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cuil\": \"20-12345678-9\",\n  \"nombre\": \"Juan\",\n  \"apellido\": \"Pérez\",\n  \"domicilio\": \"Av. Siempre Viva 123\",\n  \"telefono\": \"+5491123456789\",\n  \"email\": \"juan.perez@example.com\",\n  \"fechaDeNacimiento\": \"1990-05-15\",\n  \"fechaDeIngreso\": \"2020-03-01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"empleadosEducativos"
+							]
+						},
+						"description": "Crea un empleado educativo asociado a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- cuil: obligatorio. Formato XX-XXXXXXXX-X.\n    \n- nombre: obligatorio.\n    \n- apellido: obligatorio.\n    \n- domicilio: opcional. Máximo 150 caracteres.\n    \n- telefono: opcional. Formato +549XXXXXXXXXX o +54XXXXXXXXXX.\n    \n- email: obligatorio. Debe tener formato de email válido.\n    \n- fechaDeNacimiento: obligatorio. Debe ser una fecha pasada.\n    \n- fechaDeIngreso: opcional. No puede ser una fecha futura."
+					},
+					"response": []
+				},
+				{
+					"name": "Crear empleados educativos en batch",
+					"id": "34427701-04f05cc7-3857-42ba-bec7-b8523368ff36",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"cuil\": \"20-12345678-9\",\n    \"nombre\": \"Juan\",\n    \"apellido\": \"Pérez\",\n    \"domicilio\": \"Av. Siempre Viva 123\",\n    \"telefono\": \"+5491123456789\",\n    \"email\": \"juan.perez@example.com\",\n    \"fechaDeNacimiento\": \"1990-05-15\",\n    \"fechaDeIngreso\": \"2020-03-01\"\n  },\n  {\n    \"cuil\": \"27-87654321-3\",\n    \"nombre\": \"María\",\n    \"apellido\": \"Gómez\",\n    \"domicilio\": \"San Martín 456\",\n    \"telefono\": \"+5491167890123\",\n    \"email\": \"maria.gomez@example.com\",\n    \"fechaDeNacimiento\": \"1988-10-20\",\n    \"fechaDeIngreso\": \"2019-02-15\"\n  }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos/batch",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"empleadosEducativos",
+								"batch"
+							]
+						},
+						"description": "Crea múltiples empleados educativos asociados a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- Recibe una lista de empleados educativos.\n    \n- Cada empleado debe cumplir las mismas validaciones que el endpoint \"Crear empleado educativo\".\n    \n\nCada empleado contiene:\n\n- cuil: obligatorio. Formato XX-XXXXXXXX-X.\n    \n- nombre: obligatorio.\n    \n- apellido: obligatorio.\n    \n- domicilio: opcional. Máximo 150 caracteres.\n    \n- telefono: opcional. Formato +549XXXXXXXXXX o +54XXXXXXXXXX.\n    \n- email: obligatorio. Debe tener formato de email válido.\n    \n- fechaDeNacimiento: obligatorio. Debe ser una fecha pasada.\n    \n- fechaDeIngreso: opcional. No puede ser una fecha futura."
+					},
+					"response": []
+				},
+				{
+					"name": "Dar de baja definitiva",
+					"id": "34427701-5b8c6ce6-5357-4e08-8614-c0d1156ef5ad",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"causa\": \"RENUNCIA\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/empleadosEducativos/1/baja-definitiva",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"empleadosEducativos",
+								"1",
+								"baja-definitiva"
+							]
+						},
+						"description": "Da de baja definitivamente a un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo.\n    \n\nBody:\n\n- causa: obligatorio. Causa de la baja definitiva.\n    \n\nValores permitidos:\n\n- RENUNCIA: Renuncia por causas particulares.\n    \n- CESE_DE_FUNCIONES: Cese de funciones.\n    \n- JUBILACION: Jubilación.\n    \n- FALLECIMIENTO: Fallecimiento.\n    \n- PASE_A_PROVISIONAL: Pase de suplente a provisional.\n    \n- OTRA: Otra."
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar empleado educativo",
+					"id": "34427701-1d07d9fe-e5f4-4128-8cae-c7f61cb4ca42",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cuil\": \"20-12345678-9\",\n  \"nombre\": \"Juan\",\n  \"apellido\": \"Pérez\",\n  \"domicilio\": \"Av. Siempre Viva 123\",\n  \"telefono\": \"+5491123456789\",\n  \"email\": \"juan.perez@example.com\",\n  \"fechaDeNacimiento\": \"1990-05-15\",\n  \"fechaDeIngreso\": \"2020-03-01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"empleadosEducativos",
+								"1"
+							]
+						},
+						"description": "Actualiza los datos de un empleado educativo perteneciente a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n- empleadoId: identificador del empleado educativo.\n    \n\nBody:\n\n- cuil: obligatorio. Formato XX-XXXXXXXX-X.\n    \n- nombre: obligatorio.\n    \n- apellido: obligatorio.\n    \n- domicilio: opcional. Máximo 150 caracteres.\n    \n- telefono: opcional. Formato +549XXXXXXXXXX o +54XXXXXXXXXX.\n    \n- email: obligatorio. Debe tener formato de email válido.\n    \n- fechaDeNacimiento: obligatorio. Debe ser una fecha pasada.\n    \n- fechaDeIngreso: opcional. No puede ser una fecha futura."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar empleados educativos",
+					"id": "34427701-6313d0fe-cf70-447d-acc7-4ff56eb77cf3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"empleadosEducativos"
+							],
+							"query": [
+								{
+									"key": "estado",
+									"value": "ACTIVOS",
+									"description": "Filtrar empleados activos",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Número de página",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"description": "Cantidad de empleados",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "apellido,asc",
+									"description": "Ordenar por apellido",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar empleados educativos",
+					"id": "34427701-f2458419-904a-43ce-bd14-bf3853679ddb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos?search=Giardino",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"empleadosEducativos"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "Giardino"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener empleado educativo",
+					"id": "34427701-68e3be11-0f46-469c-97ac-ff1bd98a63c7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/empleadosEducativos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"empleadosEducativos",
+								"1"
+							]
+						},
+						"description": "Obtiene el detalle de un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener asignaciones activas",
+					"id": "34427701-469c11c2-c3c5-45a3-9948-e05868fda273",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/empleadosEducativos/1/asignaciones-activas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"empleadosEducativos",
+								"1",
+								"asignaciones-activas"
+							]
+						},
+						"description": "Obtiene las asignaciones activas de un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener asignaciones",
+					"id": "34427701-bf848e23-bbd2-4aae-a03b-b0735b3ff5e4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/empleadosEducativos/1/asignaciones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"empleadosEducativos",
+								"1",
+								"asignaciones"
+							]
+						},
+						"description": "Obtiene las asignaciones de un empleado educativo junto con su estado.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener licencias",
+					"id": "34427701-504500cf-f984-4402-9bae-61b929b05e39",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/empleadosEducativos/1/licencias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"empleadosEducativos",
+								"1",
+								"licencias"
+							]
+						},
+						"description": "Obtiene las licencias de un empleado educativo, incluyendo la licencia activa y el historial de licencias.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
+					},
+					"response": []
+				}
+			],
+			"id": "34427701-a0687162-099f-458f-9b6f-8b67f5aa90ba"
+		},
+		{
+			"name": "escuelas",
+			"item": [
+				{
+					"name": "Crear escuela",
+					"id": "34427701-124224b5-f8b7-4753-bcf2-8b4b518736d1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Escuela Técnica N° 1\",\n  \"localidad\": \"Quilmes\",\n  \"direccion\": \"Av. Mitre 1234\",\n  \"telefono\": \"011-4256-7890\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas"
+							]
+						},
+						"description": "Crea una nueva escuela.\n\nBody:\n\n- nombre: obligatorio. Nombre de la escuela.\n    \n- localidad: obligatorio. Localidad donde se encuentra la escuela.\n    \n- direccion: opcional. Dirección de la escuela.\n    \n- telefono: opcional. Teléfono de contacto de la escuela."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar escuelas",
+					"id": "34427701-f27f0003-d640-4fd0-b9b2-391e58aa6aa8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas"
+							]
+						},
+						"description": "Obtiene todas las escuelas registradas en el sistema."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener escuela",
+					"id": "34427701-804e203d-9998-4809-a596-ba1eb77c6e7a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1"
+							]
+						},
+						"description": "Obtiene el detalle de una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela."
+					},
+					"response": []
+				}
+			],
+			"id": "34427701-792502e5-6af2-43f9-9309-7ca14523cd8a"
+		},
+		{
+			"name": "materias",
+			"item": [
+				{
+					"name": "Crear materia",
+					"id": "34427701-b19cee8c-f32c-44ee-a060-9e4dd6882c59",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Matemática\",\n  \"abreviatura\": \"MAT\",\n  \"cantidadModulos\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/materias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"materias"
+							]
+						},
+						"description": "Crea una materia asociada a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- nombre: obligatorio. Nombre de la materia.\n    \n- abreviatura: obligatorio. Abreviatura de la materia.\n    \n- cantidadModulos: obligatorio. Cantidad de módulos de la materia. Debe ser mayor o igual a 1."
+					},
+					"response": []
+				},
+				{
+					"name": "Crear materias batch",
+					"id": "34427701-6dd0c4fa-1330-4375-887b-bc48666c8c43",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"nombre\": \"Matemática\",\n    \"abreviatura\": \"MAT\",\n    \"cantidadModulos\": 4\n  },\n  {\n    \"nombre\": \"Lengua\",\n    \"abreviatura\": \"LEN\",\n    \"cantidadModulos\": 4\n  },\n  {\n    \"nombre\": \"Historia\",\n    \"abreviatura\": \"HIS\",\n    \"cantidadModulos\": 3\n  }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/materias/batch",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"materias",
+								"batch"
+							]
+						},
+						"description": "Crea múltiples materias asociadas a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- Recibe una lista de materias.\n    \n- Cada materia debe cumplir las mismas validaciones que \"Crear materia\".\n    \n\nCada materia contiene:\n\n- nombre: obligatorio. Nombre de la materia.\n    \n- abreviatura: obligatorio. Abreviatura de la materia.\n    \n- cantidadModulos: obligatorio. Cantidad de módulos. Debe ser mayor o igual a 1."
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar materia",
+					"id": "34427701-e3d96ac4-525b-4c5e-98d3-24799b311598",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Matemática\",\n  \"abreviatura\": \"MAT\",\n  \"cantidadModulos\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/materias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"materias",
+								"1"
+							]
+						},
+						"description": "Actualiza los datos de una materia perteneciente a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n- materiaId: identificador de la materia.\n    \n\nBody:\n\n- nombre: obligatorio. Nombre de la materia.\n    \n- abreviatura: obligatorio. Abreviatura de la materia.\n    \n- cantidadModulos: obligatorio. Cantidad de módulos. Debe ser mayor o igual a 1."
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar materia",
+					"id": "34427701-0dad493e-b834-4ccd-ab36-0d648f09e565",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/materias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"materias",
+								"1"
+							]
+						},
+						"description": "Elimina una materia perteneciente a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n- materiaId: identificador de la materia."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar materias",
+					"id": "34427701-ff0e0949-db08-45e9-81ef-672069a1143e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/materias?page=0&size=20&sort=nombre,asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"materias"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Número de página",
+									"type": "text"
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"description": "Cantidad de resultados",
+									"type": "text"
+								},
+								{
+									"key": "sort",
+									"value": "nombre,asc",
+									"description": "Campo y dirección de ordenamiento",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Obtiene las materias de una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nQuery Params:\n\n- page: opcional. Número de página.\n    \n- size: opcional. Cantidad de resultados.\n    \n- sort: opcional. Campo y dirección de ordenamiento."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar materias para select",
+					"id": "34427701-f6156ed5-f5fb-4544-99ca-28b7adc44712",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/materias/select",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"materias",
+								"select"
+							]
+						},
+						"description": "Obtiene las materias de una escuela en un formato reducido para utilizar en campos de selección.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela."
+					},
+					"response": []
+				}
+			],
+			"id": "34427701-e3bc46bd-5d3e-4300-8aa6-820d0b53aa66"
+		},
+		{
+			"name": "licencias",
+			"item": [
+				{
+					"name": "Crear licencia",
+					"id": "34427701-d12d7cd8-53d8-495e-af7b-24984571ae5c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"periodo\": {\n    \"tipo\": \"CERRADO\",\n    \"fechaDesde\": \"2026-08-19\",\n    \"fechaHasta\": \"2026-09-19\"\n  },\n  \"licenciaEstatutariaId\": 1,\n  \"descripcion\": \"Licencia por enfermedad\",\n  \"asignacionesIds\": [\n    1,\n    2\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/licencias/empleados/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias",
+								"empleados",
+								"1"
+							]
+						},
+						"description": "Crea una licencia para un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo.\n    \n\nBody:\n\n- periodo: obligatorio. Período de vigencia de la licencia.\n    \n    - tipo: obligatorio. Puede ser ABIERTO o CERRADO.\n        \n    - fechaDesde: obligatorio. Fecha de inicio de la licencia.\n        \n    - fechaHasta: obligatorio únicamente cuando el tipo es CERRADO.\n        \n- licenciaEstatutariaId: obligatorio. Identificador del tipo de licencia estatutaria.\n    \n- descripcion: opcional. Máximo 255 caracteres.\n    \n- asignacionesIds: obligatorio. Identificadores de las asignaciones afectadas. Debe contener al menos una asignación."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar licencias de una escuela",
+					"id": "34427701-65f0e7f4-6f99-446d-9014-cea933b632a0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/licencias?page=0&size=20&sort=periodo.fechaDesde,asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"licencias"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "sort",
+									"value": "periodo.fechaDesde,asc",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Obtiene las licencias asociadas a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nQuery Params:\n\n- page: opcional. Número de página.\n    \n- size: opcional. Cantidad de resultados.\n    \n- sort: opcional. Campo y dirección de ordenamiento."
+					},
+					"response": []
+				},
+				{
+					"name": "Cubrir designaciones",
+					"id": "34427701-45987bed-c4b8-4090-b62c-63e0cdc4aa94",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"empleadoId\": 2,\n  \"designacionesIds\": [\n    1,\n    2\n  ],\n  \"fechaTomaPosesion\": \"2026-08-19\",\n  \"secuencia\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/licencias/1/coberturas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias",
+								"1",
+								"coberturas"
+							]
+						},
+						"description": "Cubre las designaciones afectadas por una licencia mediante un empleado suplente.\n\nPath Variables:\n\n- licenciaId: identificador de la licencia.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado suplente.\n    \n- designacionesIds: obligatorio. Identificadores de las designaciones que serán cubiertas. Debe contener al menos una.\n    \n- fechaTomaPosesion: obligatorio. Fecha de toma de posesión del suplente.\n    \n- secuencia: opcional. Secuencia de la asignación."
+					},
+					"response": []
+				},
+				{
+					"name": "Cambiar cobertura",
+					"id": "34427701-c63b8f51-ecb0-4459-9c0c-4ce800e63063",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/licencias/1/coberturas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias",
+								"1",
+								"coberturas",
+								"1"
+							]
+						},
+						"description": "Cambia el empleado suplente que cubre una designación afectada por una licencia.\n\nPath Variables:\n\n- licenciaId: identificador de la licencia.\n    \n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del nuevo empleado suplente.\n    \n- fechaTomaPosesion: obligatorio. Fecha de toma de posesión.\n    \n- secuencia: obligatorio. Debe ser mayor a 0."
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar licencia",
+					"id": "34427701-fc6bc56e-22d9-40d8-9060-41685e3de2ba",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/licencias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias",
+								"1"
+							]
+						},
+						"description": "Elimina una licencia.\n\nPath Variables:\n\n- licenciaId: identificador de la licencia."
+					},
+					"response": []
+				},
+				{
+					"name": "Renovar licencia",
+					"id": "34427701-4b1faafe-aff0-4032-bb87-89992cfb8016",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"licenciaEstatutariaId\": 1,\n  \"nuevoHasta\": \"2026-12-20\",\n  \"descripcion\": \"Renovación de licencia.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/licencias/1/renovaciones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias",
+								"1",
+								"renovaciones"
+							]
+						},
+						"description": "Renueva una licencia existente.\n\nPath Variables:\n\n- licenciaId: identificador de la licencia que se desea renovar.\n    \n\nBody:\n\n- licenciaEstatutariaId: obligatorio. Identificador del nuevo tipo de licencia estatutaria.\n    \n- nuevoHasta: obligatorio. Nueva fecha de finalización de la licencia.\n    \n- descripcion: opcional. Descripción de la renovación."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener licencia",
+					"id": "34427701-8937bdb4-b97e-4998-94e4-164613900069",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/licencias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias",
+								"1"
+							]
+						},
+						"description": "Obtiene el detalle de una licencia.\n\nPath Variables:\n\n- licenciaId: identificador de la licencia."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener designaciones afectadas",
+					"id": "34427701-1a0002d8-00f9-4f2e-83aa-2a31c91fe2a4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/licencias/1/designaciones-afectadas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias",
+								"1",
+								"designaciones-afectadas"
+							]
+						},
+						"description": "Obtiene las designaciones afectadas por una licencia.\n\nPath Variables:\n\n- licenciaId: identificador de la licencia."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener timeline",
+					"id": "34427701-0d7557c3-0e58-4b4b-8dec-19c46f052cd4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/licencias/1/timeline",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias",
+								"1",
+								"timeline"
+							]
+						},
+						"description": "Obtiene la línea de tiempo de una licencia, incluyendo sus renovaciones y eventos relacionados.\n\nPath Variables:\n\n- licenciaId: identificador de la licencia."
+					},
+					"response": []
+				}
+			],
+			"id": "34427701-0943d3d4-0d72-4c48-a650-80ec83fdee48"
+		},
+		{
+			"name": "licencias estatutarias",
+			"item": [
+				{
+					"name": "Crear licencia estatutaria",
+					"id": "34427701-92cf9d9a-3381-4d67-8a2f-058ad3bb1139",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"articulo\": \"Art. 12\",\n  \"codigo\": \"LIC-001\",\n  \"nombre\": \"Licencia por enfermedad\",\n  \"descripcion\": \"Licencia estatutaria correspondiente a inasistencias por enfermedad.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/licencias-estatutarias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias-estatutarias"
+							]
+						},
+						"description": "Crea una licencia estatutaria.\n\nBody:\n\n- articulo: opcional. Artículo asociado a la licencia. Máximo 20 caracteres.\n    \n- codigo: obligatorio. Código de la licencia. Máximo 30 caracteres.\n    \n- nombre: obligatorio. Nombre de la licencia. Máximo 150 caracteres.\n    \n- descripcion: obligatorio. Descripción de la licencia. Máximo 2000 caracteres."
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar licencia estatutaria",
+					"id": "34427701-5850ea58-58e6-4b54-97b6-132dfde95277",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"articulo\": \"Art. 12\",\n  \"codigo\": \"LIC-001\",\n  \"nombre\": \"Licencia por enfermedad actualizada\",\n  \"descripcion\": \"Descripción actualizada de la licencia estatutaria.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"description": "Actualiza los datos de una licencia estatutaria.\n\nPath Variables:\n\n- id: identificador de la licencia estatutaria.\n    \n\nBody:\n\n- articulo: opcional. Artículo asociado a la licencia. Máximo 20 caracteres.\n    \n- codigo: obligatorio. Código de la licencia. Máximo 30 caracteres.\n    \n- nombre: obligatorio. Nombre de la licencia. Máximo 150 caracteres.\n    \n- descripcion: obligatorio. Descripción de la licencia. Máximo 2000 caracteres."
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar licencia estatutaria",
+					"id": "34427701-bd71e499-77a1-483f-b194-c78ae0857941",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/licencias-estatutarias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias-estatutarias",
+								"1"
+							]
+						},
+						"description": "Elimina una licencia estatutaria.\n\nPath Variables:\n\n- id: identificador de la licencia estatutaria."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener licencia estatutaria",
+					"id": "34427701-1bbe124c-727a-4da5-9e87-e886a4927317",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/licencias-estatutarias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias-estatutarias",
+								"1"
+							]
+						},
+						"description": "Obtiene el detalle de una licencia estatutaria.\n\nPath Variables:\n\n- id: identificador de la licencia estatutaria."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar licencias estatutarias",
+					"id": "34427701-54c849e8-b5a9-42a2-ad7c-e451e8bec918",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/licencias-estatutarias?page=0&size=20&sort=nombre,asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias-estatutarias"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Número de página",
+									"type": "text"
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"description": "Cantidad de resultados",
+									"type": "text"
+								},
+								{
+									"key": "sort",
+									"value": "nombre,asc",
+									"description": "Campo y dirección de ordenamiento",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Obtiene todas las licencias estatutarias registradas.\n\nQuery Params:\n\n- page: opcional. Número de página.\n    \n- size: opcional. Cantidad de resultados.\n    \n- sort: opcional. Campo y dirección de ordenamiento."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar licencias estatutarias para select",
+					"id": "34427701-2cbf47d5-8233-4e5b-89bc-4b40b7cb718c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/licencias-estatutarias/select",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias-estatutarias",
+								"select"
+							]
+						},
+						"description": "Obtiene las licencias estatutarias activas en un formato reducido para utilizar en campos de selección."
+					},
+					"response": []
+				}
+			],
+			"id": "34427701-9a9bbfc6-d72e-4212-8096-cf745b5214a5"
+		}
+	]
+}

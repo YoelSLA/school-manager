@@ -23,26 +23,23 @@ export default function LicenciaDesignacionCursoRow({
 			cupof={asignacion.cupof}
 			situacion={asignacion.situacionDeRevista}
 			periodo={asignacion.periodo}
-			headerContent={
-				<>
-					<div className={styles.info}>
-						<div className={styles.materia}>
-							<BookOpen size={14} />
-							<span>{asignacion.materia.nombre}</span>
-						</div>
-
-						<div className={styles.curso}>
-							<GraduationCap size={14} />
-							<span>
-								{asignacion.curso.division} —{" "}
-								{TURNO_LABELS[asignacion.curso.turno]}
-							</span>
-						</div>
+			mainContent={
+				<div className={styles.info}>
+					<div className={styles.materia}>
+						<BookOpen size={14} />
+						<span>{asignacion.materia.nombre}</span>
 					</div>
 
-					<BadgeRolEducativo rolEducativo={asignacion.rolEducativo} />
-				</>
+					<div className={styles.curso}>
+						<GraduationCap size={14} />
+						<span>
+							{asignacion.curso.division} —{" "}
+							{TURNO_LABELS[asignacion.curso.turno]}
+						</span>
+					</div>
+				</div>
 			}
+			rolContent={<BadgeRolEducativo rolEducativo={asignacion.rolEducativo} />}
 		/>
 	);
 }
