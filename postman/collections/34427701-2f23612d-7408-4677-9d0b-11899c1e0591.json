@@ -1840,26 +1840,64 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Renovar licencia",
 					"id": "34427701-4b1faafe-aff0-4032-bb87-89992cfb8016",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"licenciaEstatutariaId\": 1,\n  \"nuevoHasta\": \"2026-12-20\",\n  \"descripcion\": \"Renovación de licencia.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/licencias/1/renovaciones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias",
+								"1",
+								"renovaciones"
+							]
+						},
+						"description": "Renueva una licencia existente.\n\nPath Variables:\n\n- licenciaId: identificador de la licencia que se desea renovar.\n    \n\nBody:\n\n- licenciaEstatutariaId: obligatorio. Identificador del nuevo tipo de licencia estatutaria.\n    \n- nuevoHasta: obligatorio. Nueva fecha de finalización de la licencia.\n    \n- descripcion: opcional. Descripción de la renovación."
 					},
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Obtener licencia",
 					"id": "34427701-8937bdb4-b97e-4998-94e4-164613900069",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/licencias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias",
+								"1"
+							]
+						},
+						"description": "Obtiene el detalle de una licencia.\n\nPath Variables:\n\n- licenciaId: identificador de la licencia."
 					},
 					"response": []
 				},
