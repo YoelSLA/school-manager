@@ -19,7 +19,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"empleadoId\": 2,\n  \"fechas\": [\n    \"2026-08-06\",\n  ],\n  \"licenciaEstatutariaId\": 1,\n  \"observacion\": \"Inasistencia por licencia.\"\n}",
+							"raw": "{\n  \"empleadoId\": 2,\n  \"fechas\": [\n    \"2026-08-06\"\n  ],\n  \"licenciaEstatutariaId\": 3,\n  \"observacion\": \"Inasistencia por licencia.\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
