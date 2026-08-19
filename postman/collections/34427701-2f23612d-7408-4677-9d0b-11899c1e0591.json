@@ -1902,19 +1902,34 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Obtener designaciones afectadas",
 					"id": "34427701-1a0002d8-00f9-4f2e-83aa-2a31c91fe2a4",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/licencias/1/designaciones-afectadas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias",
+								"1",
+								"designaciones-afectadas"
+							]
+						},
+						"description": "Obtiene las designaciones afectadas por una licencia.\n\nPath Variables:\n\n- licenciaId: identificador de la licencia."
 					},
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Obtener timeline",
 					"id": "34427701-0d7557c3-0e58-4b4b-8dec-19c46f052cd4",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
