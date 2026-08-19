@@ -1658,7 +1658,8 @@
 								"materias",
 								"select"
 							]
-						}
+						},
+						"description": "Obtiene las materias de una escuela en un formato reducido para utilizar en campos de selección.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela."
 					},
 					"response": []
 				}
