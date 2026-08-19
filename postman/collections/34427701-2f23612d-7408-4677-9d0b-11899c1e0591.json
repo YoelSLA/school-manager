@@ -1159,8 +1159,45 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Actualizar asignación",
 					"id": "34427701-3f0eac4d-fd32-4b19-9d50-483055b7fe21",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"empleadoId\": 1,\n  \"fechaTomaPosesion\": \"2026-08-19\",\n  \"secuencia\": 1,\n  \"fechaCese\": \"2026-12-20\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/asignaciones/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"asignaciones",
+								"1"
+							]
+						},
+						"description": "Actualiza una asignación perteneciente a una designación.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n- asignacionId: identificador de la asignación.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado educativo.\n    \n- fechaTomaPosesion: obligatorio.\n    \n- secuencia: opcional. Debe ser mayor a 0.\n    \n- fechaCese: opcional."
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-cd5c9f1a-38a6-4f4a-9a07-713ef0b2cf1d",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
