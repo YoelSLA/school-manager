@@ -120,6 +120,38 @@
 					"response": []
 				},
 				{
+					"name": "Listar empleados por estado",
+					"id": "34427701-ff30a4b2-9ed3-4af0-ae3b-07e1df7f1d65",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos?estado=ACTIVOS",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"empleadosEducativos"
+							],
+							"query": [
+								{
+									"key": "estado",
+									"value": "ACTIVOS"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Buscar empleados educativos",
 					"id": "34427701-f2458419-904a-43ce-bd14-bf3853679ddb",
 					"protocolProfileBehavior": {
@@ -145,38 +177,6 @@
 								{
 									"key": "search",
 									"value": "Giardino"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "New Request",
-					"id": "34427701-ff30a4b2-9ed3-4af0-ae3b-07e1df7f1d65",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos?estado=ACTIVOS",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"escuelas",
-								"1",
-								"empleadosEducativos"
-							],
-							"query": [
-								{
-									"key": "estado",
-									"value": "ACTIVOS"
 								}
 							]
 						}
