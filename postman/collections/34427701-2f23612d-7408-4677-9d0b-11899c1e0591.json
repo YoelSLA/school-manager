@@ -2154,7 +2154,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/dashboard/1",
+							"raw": "http://localhost:8080/api/dashboard/escuelaId=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2163,7 +2163,7 @@
 							"path": [
 								"api",
 								"dashboard",
-								"1"
+								"escuelaId=1"
 							]
 						}
 					},
