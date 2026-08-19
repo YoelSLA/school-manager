@@ -741,48 +741,6 @@
 					"response": []
 				},
 				{
-					"name": "Listar designaciones administrativas",
-					"id": "34427701-1b0019e7-bc1f-4f07-9b6b-a44fd5d7ce03",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/escuelas/1/designaciones/administrativas?page=0&size=20&sort=cupof,asc",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"escuelas",
-								"1",
-								"designaciones",
-								"administrativas"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "size",
-									"value": "20"
-								},
-								{
-									"key": "sort",
-									"value": "cupof,asc"
-								}
-							]
-						},
-						"description": "Obtiene las designaciones administrativas de una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nQuery Params:\n\n- page: opcional. Número de página.\n    \n- size: opcional. Cantidad de resultados.\n    \n- sort: opcional. Campo y dirección de ordenamiento."
-					},
-					"response": []
-				},
-				{
 					"name": "Crear designación de curso",
 					"id": "34427701-84f756d1-6fc8-46c2-8945-29eb7cc12896",
 					"protocolProfileBehavior": {
@@ -845,6 +803,48 @@
 							]
 						},
 						"description": "Crea múltiples designaciones de curso asociadas a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- Recibe una lista de designaciones de curso.\n    \n- Cada designación debe cumplir las mismas validaciones que \"Crear designación de curso\"."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar designaciones administrativas",
+					"id": "34427701-1b0019e7-bc1f-4f07-9b6b-a44fd5d7ce03",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/designaciones/administrativas?page=0&size=20&sort=cupof,asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"designaciones",
+								"administrativas"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								},
+								{
+									"key": "sort",
+									"value": "cupof,asc"
+								}
+							]
+						},
+						"description": "Obtiene las designaciones administrativas de una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nQuery Params:\n\n- page: opcional. Número de página.\n    \n- size: opcional. Cantidad de resultados.\n    \n- sort: opcional. Campo y dirección de ordenamiento."
 					},
 					"response": []
 				},
@@ -1196,14 +1196,30 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Eliminar asignación",
 					"id": "34427701-cd5c9f1a-38a6-4f4a-9a07-713ef0b2cf1d",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/asignaciones/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"asignaciones",
+								"1"
+							]
+						},
+						"description": "Elimina una asignación perteneciente a una designación.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n- asignacionId: identificador de la asignación."
 					},
 					"response": []
 				}
