@@ -820,14 +820,31 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Crear designaciones de curso batch",
 					"id": "34427701-152a4296-c43d-4b5f-a074-bb7be0f736b2",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/designaciones/cursos/batch",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"designaciones",
+								"cursos",
+								"batch"
+							]
+						},
+						"description": "Crea múltiples designaciones de curso asociadas a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- Recibe una lista de designaciones de curso.\n    \n- Cada designación debe cumplir las mismas validaciones que \"Crear designación de curso\"."
 					},
 					"response": []
 				},
