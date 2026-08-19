@@ -1670,7 +1670,7 @@
 			"name": "licencias",
 			"item": [
 				{
-					"name": "New Request",
+					"name": "Listar licencias de una escuela",
 					"id": "34427701-65f0e7f4-6f99-446d-9014-cea933b632a0",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
