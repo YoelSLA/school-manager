@@ -783,14 +783,39 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Crear designación de curso",
 					"id": "34427701-84f756d1-6fc8-46c2-8945-29eb7cc12896",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cupof\": 12345,\n  \"materiaId\": 1,\n  \"cursoId\": 1,\n  \"orientacion\": \"Informática\",\n  \"franjasHorarias\": [\n    {\n      \"dia\": \"LUNES\",\n      \"horaDesde\": \"08:00\",\n      \"horaHasta\": \"12:00\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/designaciones/cursos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"designaciones",
+								"cursos"
+							]
+						},
+						"description": "Crea una designación de curso asociada a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- cupof: obligatorio. CUPoF de la designación.\n    \n- materiaId: obligatorio. Identificador de la materia.\n    \n- cursoId: obligatorio. Identificador del curso.\n    \n- orientacion: obligatorio. Orientación del curso.\n    \n- franjasHorarias: obligatorio. Debe contener al menos un horario."
 					},
 					"response": []
 				},
