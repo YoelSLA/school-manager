@@ -1530,8 +1530,33 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Matemática\",\n  \"abreviatura\": \"MAT\",\n  \"cantidadModulos\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/materias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"materias",
+								"1"
+							]
+						},
+						"description": "Actualiza los datos de una materia perteneciente a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n- materiaId: identificador de la materia.\n    \n\nBody:\n\n- nombre: obligatorio. Nombre de la materia.\n    \n- abreviatura: obligatorio. Abreviatura de la materia.\n    \n- cantidadModulos: obligatorio. Cantidad de módulos. Debe ser mayor o igual a 1."
 					},
 					"response": []
 				},
