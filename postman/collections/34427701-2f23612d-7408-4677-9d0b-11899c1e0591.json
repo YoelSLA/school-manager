@@ -1797,7 +1797,7 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Eliminar licencia estatutaria",
 					"id": "34427701-bd71e499-77a1-483f-b194-c78ae0857941",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
