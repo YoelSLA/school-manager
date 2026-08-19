@@ -208,7 +208,7 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Obtener empleado educativo",
 					"id": "34427701-68e3be11-0f46-469c-97ac-ff1bd98a63c7",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
