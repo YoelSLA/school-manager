@@ -103,7 +103,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos?estado=ACTIVOS",
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -119,7 +119,8 @@
 								{
 									"key": "estado",
 									"value": "ACTIVOS",
-									"description": "Filtrar empleados activos"
+									"description": "Filtrar empleados activos",
+									"disabled": true
 								},
 								{
 									"key": "page",
