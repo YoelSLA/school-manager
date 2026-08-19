@@ -49,7 +49,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos?search=Juan",
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos?search=Giardino",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -64,7 +64,7 @@
 							"query": [
 								{
 									"key": "search",
-									"value": "Juan"
+									"value": "Giardino"
 								}
 							]
 						}
