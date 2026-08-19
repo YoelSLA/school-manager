@@ -103,7 +103,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos",
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos?estado=ACTIVOS&page=0&size=20&sort=apellido,asc",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -114,6 +114,32 @@
 								"escuelas",
 								"1",
 								"empleadosEducativos"
+							],
+							"query": [
+								{
+									"key": "estado",
+									"value": "ACTIVOS",
+									"description": "Filtrar empleados activos",
+									"type": "text"
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Número de página",
+									"type": "text"
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"description": "Cantidad de empleados",
+									"type": "text"
+								},
+								{
+									"key": "sort",
+									"value": "apellido,asc",
+									"description": "Ordenar por apellido",
+									"type": "text"
+								}
 							]
 						}
 					},
