@@ -1710,20 +1710,44 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"articulo\": \"Art. 12\",\n  \"codigo\": \"LIC-001\",\n  \"nombre\": \"Licencia por enfermedad actualizada\",\n  \"descripcion\": \"Descripción actualizada de la licencia estatutaria.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"description": "Actualiza los datos de una licencia estatutaria.\n\nPath Variables:\n\n- id: identificador de la licencia estatutaria.\n    \n\nBody:\n\n- articulo: opcional. Artículo asociado a la licencia. Máximo 20 caracteres.\n    \n- codigo: obligatorio. Código de la licencia. Máximo 30 caracteres.\n    \n- nombre: obligatorio. Nombre de la licencia. Máximo 150 caracteres.\n    \n- descripcion: obligatorio. Descripción de la licencia. Máximo 2000 caracteres."
 					},
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Obtener licencia estatutaria",
 					"id": "34427701-1bbe124c-727a-4da5-9e87-e886a4927317",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/licencias-estatutarias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias-estatutarias",
+								"1"
+							]
+						},
+						"description": "Obtiene el detalle de una licencia estatutaria.\n\nPath Variables:\n\n- id: identificador de la licencia estatutaria."
 					},
 					"response": []
 				},
