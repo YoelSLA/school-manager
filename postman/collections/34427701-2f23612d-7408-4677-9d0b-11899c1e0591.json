@@ -147,14 +147,29 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Eliminar inasistencias manual",
 					"id": "34427701-95fe07d9-526b-4e1b-b4bb-43f35f9a7d40",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/asistencias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"asistencias"
+							]
+						},
+						"description": "Elimina inasistencias manuales registradas para un empleado educativo.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- Datos del empleado y fechas de las inasistencias a eliminar."
 					},
 					"response": []
 				}
