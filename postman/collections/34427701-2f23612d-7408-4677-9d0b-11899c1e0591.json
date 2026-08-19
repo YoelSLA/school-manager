@@ -44,7 +44,8 @@
 								"1",
 								"empleadosEducativos"
 							]
-						}
+						},
+						"description": "Crea un empleado educativo asociado a una escuela.\n\nBody:\n\n- cuil: obligatorio. Formato XX-XXXXXXXX-X.\n    \n- nombre: obligatorio.\n    \n- apellido: obligatorio.\n    \n- domicilio: opcional. Máximo 150 caracteres.\n    \n- telefono: opcional. Formato +549XXXXXXXXXX o +54XXXXXXXXXX.\n    \n- email: obligatorio. Debe tener formato de email válido.\n    \n- fechaDeNacimiento: obligatorio. Debe ser una fecha pasada.\n    \n- fechaDeIngreso: opcional. No puede ser una fecha futura."
 					},
 					"response": []
 				},
