@@ -1726,6 +1726,32 @@
 					"response": []
 				},
 				{
+					"name": "Eliminar licencia estatutaria",
+					"id": "34427701-bd71e499-77a1-483f-b194-c78ae0857941",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/licencias-estatutarias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias-estatutarias",
+								"1"
+							]
+						},
+						"description": "Elimina una licencia estatutaria.\n\nPath Variables:\n\n- id: identificador de la licencia estatutaria."
+					},
+					"response": []
+				},
+				{
 					"name": "Obtener licencia estatutaria",
 					"id": "34427701-1bbe124c-727a-4da5-9e87-e886a4927317",
 					"protocolProfileBehavior": {
@@ -1797,16 +1823,16 @@
 					"response": []
 				},
 				{
-					"name": "Eliminar licencia estatutaria",
-					"id": "34427701-bd71e499-77a1-483f-b194-c78ae0857941",
+					"name": "Listar licencias estatutarias para select",
+					"id": "34427701-2cbf47d5-8233-4e5b-89bc-4b40b7cb718c",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "DELETE",
+						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/licencias-estatutarias/1",
+							"raw": "http://localhost:8080/api/licencias-estatutarias/select",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1815,22 +1841,10 @@
 							"path": [
 								"api",
 								"licencias-estatutarias",
-								"1"
+								"select"
 							]
 						},
-						"description": "Elimina una licencia estatutaria.\n\nPath Variables:\n\n- id: identificador de la licencia estatutaria."
-					},
-					"response": []
-				},
-				{
-					"name": "Listar licencias estatutarias para select",
-					"id": "34427701-2cbf47d5-8233-4e5b-89bc-4b40b7cb718c",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": []
+						"description": "Obtiene las licencias estatutarias activas en un formato reducido para utilizar en campos de selección."
 					},
 					"response": []
 				}
