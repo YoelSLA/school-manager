@@ -1786,14 +1786,30 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Cambiar cobertura",
 					"id": "34427701-c63b8f51-ecb0-4459-9c0c-4ce800e63063",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/licencias/1/coberturas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias",
+								"1",
+								"coberturas",
+								"1"
+							]
+						},
+						"description": "Cambia el empleado suplente que cubre una designación afectada por una licencia.\n\nPath Variables:\n\n- licenciaId: identificador de la licencia.\n    \n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del nuevo empleado suplente.\n    \n- fechaTomaPosesion: obligatorio. Fecha de toma de posesión.\n    \n- secuencia: obligatorio. Debe ser mayor a 0."
 					},
 					"response": []
 				},
