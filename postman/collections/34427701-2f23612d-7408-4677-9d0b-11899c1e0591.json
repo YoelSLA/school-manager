@@ -1493,13 +1493,38 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"nombre\": \"Matemática\",\n    \"abreviatura\": \"MAT\",\n    \"cantidadModulos\": 4\n  },\n  {\n    \"nombre\": \"Lengua\",\n    \"abreviatura\": \"LEN\",\n    \"cantidadModulos\": 4\n  },\n  {\n    \"nombre\": \"Historia\",\n    \"abreviatura\": \"HIS\",\n    \"cantidadModulos\": 3\n  }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/materias/batch",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"materias",
+								"batch"
+							]
+						},
+						"description": "Crea múltiples materias asociadas a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- Recibe una lista de materias.\n    \n- Cada materia debe cumplir las mismas validaciones que \"Crear materia\".\n    \n\nCada materia contiene:\n\n- nombre: obligatorio. Nombre de la materia.\n    \n- abreviatura: obligatorio. Abreviatura de la materia.\n    \n- cantidadModulos: obligatorio. Cantidad de módulos. Debe ser mayor o igual a 1."
 					},
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Actualizar materia",
 					"id": "34427701-e3d96ac4-525b-4c5e-98d3-24799b311598",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
