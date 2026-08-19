@@ -355,7 +355,41 @@
 		},
 		{
 			"name": "escuelas",
-			"item": [],
+			"item": [
+				{
+					"name": "Crear escuela",
+					"id": "34427701-124224b5-f8b7-4753-bcf2-8b4b518736d1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Escuela Técnica N° 1\",\n  \"localidad\": \"Quilmes\",\n  \"direccion\": \"Av. Mitre 1234\",\n  \"telefono\": \"011-4256-7890\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas"
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"id": "34427701-792502e5-6af2-43f9-9309-7ca14523cd8a"
 		}
 	]
