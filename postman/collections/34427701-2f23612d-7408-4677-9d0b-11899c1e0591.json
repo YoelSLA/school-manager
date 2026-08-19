@@ -1665,6 +1665,84 @@
 				}
 			],
 			"id": "34427701-e3bc46bd-5d3e-4300-8aa6-820d0b53aa66"
+		},
+		{
+			"name": "licencias estatutarias",
+			"item": [
+				{
+					"name": "New Request",
+					"id": "34427701-92cf9d9a-3381-4d67-8a2f-058ad3bb1139",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-5850ea58-58e6-4b54-97b6-132dfde95277",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-1bbe124c-727a-4da5-9e87-e886a4927317",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-54c849e8-b5a9-42a2-ad7c-e451e8bec918",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-bd71e499-77a1-483f-b194-c78ae0857941",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-2cbf47d5-8233-4e5b-89bc-4b40b7cb718c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
+			"id": "34427701-9a9bbfc6-d72e-4212-8096-cf745b5214a5"
 		}
 	]
 }
