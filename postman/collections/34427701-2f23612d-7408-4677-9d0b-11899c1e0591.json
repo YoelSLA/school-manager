@@ -849,7 +849,7 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Listar designaciones de curso",
 					"id": "34427701-07526d05-12af-4562-b0ed-318af8dffb48",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
