@@ -230,442 +230,72 @@
 		},
 		{
 			"name": "cursos",
-			"item": [],
+			"item": [
+				{
+					"name": "Crear curso",
+					"id": "34427701-144cc027-74ff-4c59-aab0-4f544aea528a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/cursos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"cursos"
+							]
+						},
+						"description": "Crea un curso asociado a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- turno: obligatorio. Turno del curso.\n    \n- anio: obligatorio. Año del curso. Debe ser mayor o igual a 1.\n    \n- grado: obligatorio. Grado del curso. Debe ser mayor o igual a 1."
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-a6e4f434-5245-40c6-b480-402804678e3f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-ea3c8e68-e733-4431-8715-3921854bc7b7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-25dec0b0-98fd-4bdd-95fe-74ebcf560988",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
 			"id": "34427701-60791d02-520e-488a-8cd7-77ef22f76dbc"
-		},
-		{
-			"name": "empleados educativos",
-			"item": [
-				{
-					"name": "Crear empleado educativo",
-					"id": "34427701-41fc1c46-4671-4b9a-aa20-e7e1c203c62a",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"cuil\": \"20-12345678-9\",\n  \"nombre\": \"Juan\",\n  \"apellido\": \"Pérez\",\n  \"domicilio\": \"Av. Siempre Viva 123\",\n  \"telefono\": \"+5491123456789\",\n  \"email\": \"juan.perez@example.com\",\n  \"fechaDeNacimiento\": \"1990-05-15\",\n  \"fechaDeIngreso\": \"2020-03-01\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"escuelas",
-								"1",
-								"empleadosEducativos"
-							]
-						},
-						"description": "Crea un empleado educativo asociado a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- cuil: obligatorio. Formato XX-XXXXXXXX-X.\n    \n- nombre: obligatorio.\n    \n- apellido: obligatorio.\n    \n- domicilio: opcional. Máximo 150 caracteres.\n    \n- telefono: opcional. Formato +549XXXXXXXXXX o +54XXXXXXXXXX.\n    \n- email: obligatorio. Debe tener formato de email válido.\n    \n- fechaDeNacimiento: obligatorio. Debe ser una fecha pasada.\n    \n- fechaDeIngreso: opcional. No puede ser una fecha futura."
-					},
-					"response": []
-				},
-				{
-					"name": "Crear empleados educativos en batch",
-					"id": "34427701-04f05cc7-3857-42ba-bec7-b8523368ff36",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n  {\n    \"cuil\": \"20-12345678-9\",\n    \"nombre\": \"Juan\",\n    \"apellido\": \"Pérez\",\n    \"domicilio\": \"Av. Siempre Viva 123\",\n    \"telefono\": \"+5491123456789\",\n    \"email\": \"juan.perez@example.com\",\n    \"fechaDeNacimiento\": \"1990-05-15\",\n    \"fechaDeIngreso\": \"2020-03-01\"\n  },\n  {\n    \"cuil\": \"27-87654321-3\",\n    \"nombre\": \"María\",\n    \"apellido\": \"Gómez\",\n    \"domicilio\": \"San Martín 456\",\n    \"telefono\": \"+5491167890123\",\n    \"email\": \"maria.gomez@example.com\",\n    \"fechaDeNacimiento\": \"1988-10-20\",\n    \"fechaDeIngreso\": \"2019-02-15\"\n  }\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos/batch",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"escuelas",
-								"1",
-								"empleadosEducativos",
-								"batch"
-							]
-						},
-						"description": "Crea múltiples empleados educativos asociados a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- Recibe una lista de empleados educativos.\n    \n- Cada empleado debe cumplir las mismas validaciones que el endpoint \"Crear empleado educativo\".\n    \n\nCada empleado contiene:\n\n- cuil: obligatorio. Formato XX-XXXXXXXX-X.\n    \n- nombre: obligatorio.\n    \n- apellido: obligatorio.\n    \n- domicilio: opcional. Máximo 150 caracteres.\n    \n- telefono: opcional. Formato +549XXXXXXXXXX o +54XXXXXXXXXX.\n    \n- email: obligatorio. Debe tener formato de email válido.\n    \n- fechaDeNacimiento: obligatorio. Debe ser una fecha pasada.\n    \n- fechaDeIngreso: opcional. No puede ser una fecha futura."
-					},
-					"response": []
-				},
-				{
-					"name": "Dar de baja definitiva",
-					"id": "34427701-5b8c6ce6-5357-4e08-8614-c0d1156ef5ad",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"causa\": \"RENUNCIA\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/empleadosEducativos/1/baja-definitiva",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"empleadosEducativos",
-								"1",
-								"baja-definitiva"
-							]
-						},
-						"description": "Da de baja definitivamente a un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo.\n    \n\nBody:\n\n- causa: obligatorio. Causa de la baja definitiva.\n    \n\nValores permitidos:\n\n- RENUNCIA: Renuncia por causas particulares.\n    \n- CESE_DE_FUNCIONES: Cese de funciones.\n    \n- JUBILACION: Jubilación.\n    \n- FALLECIMIENTO: Fallecimiento.\n    \n- PASE_A_PROVISIONAL: Pase de suplente a provisional.\n    \n- OTRA: Otra."
-					},
-					"response": []
-				},
-				{
-					"name": "Actualizar empleado educativo",
-					"id": "34427701-1d07d9fe-e5f4-4128-8cae-c7f61cb4ca42",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"cuil\": \"20-12345678-9\",\n  \"nombre\": \"Juan\",\n  \"apellido\": \"Pérez\",\n  \"domicilio\": \"Av. Siempre Viva 123\",\n  \"telefono\": \"+5491123456789\",\n  \"email\": \"juan.perez@example.com\",\n  \"fechaDeNacimiento\": \"1990-05-15\",\n  \"fechaDeIngreso\": \"2020-03-01\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"escuelas",
-								"1",
-								"empleadosEducativos",
-								"1"
-							]
-						},
-						"description": "Actualiza los datos de un empleado educativo perteneciente a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n- empleadoId: identificador del empleado educativo.\n    \n\nBody:\n\n- cuil: obligatorio. Formato XX-XXXXXXXX-X.\n    \n- nombre: obligatorio.\n    \n- apellido: obligatorio.\n    \n- domicilio: opcional. Máximo 150 caracteres.\n    \n- telefono: opcional. Formato +549XXXXXXXXXX o +54XXXXXXXXXX.\n    \n- email: obligatorio. Debe tener formato de email válido.\n    \n- fechaDeNacimiento: obligatorio. Debe ser una fecha pasada.\n    \n- fechaDeIngreso: opcional. No puede ser una fecha futura."
-					},
-					"response": []
-				},
-				{
-					"name": "Listar empleados educativos",
-					"id": "34427701-6313d0fe-cf70-447d-acc7-4ff56eb77cf3",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"escuelas",
-								"1",
-								"empleadosEducativos"
-							],
-							"query": [
-								{
-									"key": "estado",
-									"value": "ACTIVOS",
-									"description": "Filtrar empleados activos",
-									"disabled": true
-								},
-								{
-									"key": "page",
-									"value": "0",
-									"description": "Número de página",
-									"disabled": true
-								},
-								{
-									"key": "size",
-									"value": "20",
-									"description": "Cantidad de empleados",
-									"disabled": true
-								},
-								{
-									"key": "sort",
-									"value": "apellido,asc",
-									"description": "Ordenar por apellido",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Buscar empleados educativos",
-					"id": "34427701-f2458419-904a-43ce-bd14-bf3853679ddb",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos?search=Giardino",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"escuelas",
-								"1",
-								"empleadosEducativos"
-							],
-							"query": [
-								{
-									"key": "search",
-									"value": "Giardino"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Obtener empleado educativo",
-					"id": "34427701-68e3be11-0f46-469c-97ac-ff1bd98a63c7",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/empleadosEducativos/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"empleadosEducativos",
-								"1"
-							]
-						},
-						"description": "Obtiene el detalle de un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
-					},
-					"response": []
-				},
-				{
-					"name": "Obtener asignaciones activas",
-					"id": "34427701-469c11c2-c3c5-45a3-9948-e05868fda273",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/empleadosEducativos/1/asignaciones-activas",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"empleadosEducativos",
-								"1",
-								"asignaciones-activas"
-							]
-						},
-						"description": "Obtiene las asignaciones activas de un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
-					},
-					"response": []
-				},
-				{
-					"name": "Obtener asignaciones",
-					"id": "34427701-bf848e23-bbd2-4aae-a03b-b0735b3ff5e4",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/empleadosEducativos/1/asignaciones",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"empleadosEducativos",
-								"1",
-								"asignaciones"
-							]
-						},
-						"description": "Obtiene las asignaciones de un empleado educativo junto con su estado.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
-					},
-					"response": []
-				},
-				{
-					"name": "Obtener licencias",
-					"id": "34427701-504500cf-f984-4402-9bae-61b929b05e39",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/empleadosEducativos/1/licencias",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"empleadosEducativos",
-								"1",
-								"licencias"
-							]
-						},
-						"description": "Obtiene las licencias de un empleado educativo, incluyendo la licencia activa y el historial de licencias.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
-					},
-					"response": []
-				}
-			],
-			"id": "34427701-a0687162-099f-458f-9b6f-8b67f5aa90ba"
-		},
-		{
-			"name": "escuelas",
-			"item": [
-				{
-					"name": "Crear escuela",
-					"id": "34427701-124224b5-f8b7-4753-bcf2-8b4b518736d1",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"nombre\": \"Escuela Técnica N° 1\",\n  \"localidad\": \"Quilmes\",\n  \"direccion\": \"Av. Mitre 1234\",\n  \"telefono\": \"011-4256-7890\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/escuelas",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"escuelas"
-							]
-						},
-						"description": "Crea una nueva escuela.\n\nBody:\n\n- nombre: obligatorio. Nombre de la escuela.\n    \n- localidad: obligatorio. Localidad donde se encuentra la escuela.\n    \n- direccion: opcional. Dirección de la escuela.\n    \n- telefono: opcional. Teléfono de contacto de la escuela."
-					},
-					"response": []
-				},
-				{
-					"name": "Listar escuelas",
-					"id": "34427701-f27f0003-d640-4fd0-b9b2-391e58aa6aa8",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/escuelas",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"escuelas"
-							]
-						},
-						"description": "Obtiene todas las escuelas registradas en el sistema."
-					},
-					"response": []
-				},
-				{
-					"name": "Obtener escuela",
-					"id": "34427701-804e203d-9998-4809-a596-ba1eb77c6e7a",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/escuelas/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"escuelas",
-								"1"
-							]
-						},
-						"description": "Obtiene el detalle de una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela."
-					},
-					"response": []
-				}
-			],
-			"id": "34427701-792502e5-6af2-43f9-9309-7ca14523cd8a"
 		},
 		{
 			"name": "designaciones",
@@ -1230,6 +860,440 @@
 				}
 			],
 			"id": "34427701-b30a19ec-aa7c-4428-8a91-ed830fea02da"
+		},
+		{
+			"name": "empleados educativos",
+			"item": [
+				{
+					"name": "Crear empleado educativo",
+					"id": "34427701-41fc1c46-4671-4b9a-aa20-e7e1c203c62a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cuil\": \"20-12345678-9\",\n  \"nombre\": \"Juan\",\n  \"apellido\": \"Pérez\",\n  \"domicilio\": \"Av. Siempre Viva 123\",\n  \"telefono\": \"+5491123456789\",\n  \"email\": \"juan.perez@example.com\",\n  \"fechaDeNacimiento\": \"1990-05-15\",\n  \"fechaDeIngreso\": \"2020-03-01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"empleadosEducativos"
+							]
+						},
+						"description": "Crea un empleado educativo asociado a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- cuil: obligatorio. Formato XX-XXXXXXXX-X.\n    \n- nombre: obligatorio.\n    \n- apellido: obligatorio.\n    \n- domicilio: opcional. Máximo 150 caracteres.\n    \n- telefono: opcional. Formato +549XXXXXXXXXX o +54XXXXXXXXXX.\n    \n- email: obligatorio. Debe tener formato de email válido.\n    \n- fechaDeNacimiento: obligatorio. Debe ser una fecha pasada.\n    \n- fechaDeIngreso: opcional. No puede ser una fecha futura."
+					},
+					"response": []
+				},
+				{
+					"name": "Crear empleados educativos en batch",
+					"id": "34427701-04f05cc7-3857-42ba-bec7-b8523368ff36",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"cuil\": \"20-12345678-9\",\n    \"nombre\": \"Juan\",\n    \"apellido\": \"Pérez\",\n    \"domicilio\": \"Av. Siempre Viva 123\",\n    \"telefono\": \"+5491123456789\",\n    \"email\": \"juan.perez@example.com\",\n    \"fechaDeNacimiento\": \"1990-05-15\",\n    \"fechaDeIngreso\": \"2020-03-01\"\n  },\n  {\n    \"cuil\": \"27-87654321-3\",\n    \"nombre\": \"María\",\n    \"apellido\": \"Gómez\",\n    \"domicilio\": \"San Martín 456\",\n    \"telefono\": \"+5491167890123\",\n    \"email\": \"maria.gomez@example.com\",\n    \"fechaDeNacimiento\": \"1988-10-20\",\n    \"fechaDeIngreso\": \"2019-02-15\"\n  }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos/batch",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"empleadosEducativos",
+								"batch"
+							]
+						},
+						"description": "Crea múltiples empleados educativos asociados a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- Recibe una lista de empleados educativos.\n    \n- Cada empleado debe cumplir las mismas validaciones que el endpoint \"Crear empleado educativo\".\n    \n\nCada empleado contiene:\n\n- cuil: obligatorio. Formato XX-XXXXXXXX-X.\n    \n- nombre: obligatorio.\n    \n- apellido: obligatorio.\n    \n- domicilio: opcional. Máximo 150 caracteres.\n    \n- telefono: opcional. Formato +549XXXXXXXXXX o +54XXXXXXXXXX.\n    \n- email: obligatorio. Debe tener formato de email válido.\n    \n- fechaDeNacimiento: obligatorio. Debe ser una fecha pasada.\n    \n- fechaDeIngreso: opcional. No puede ser una fecha futura."
+					},
+					"response": []
+				},
+				{
+					"name": "Dar de baja definitiva",
+					"id": "34427701-5b8c6ce6-5357-4e08-8614-c0d1156ef5ad",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"causa\": \"RENUNCIA\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/empleadosEducativos/1/baja-definitiva",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"empleadosEducativos",
+								"1",
+								"baja-definitiva"
+							]
+						},
+						"description": "Da de baja definitivamente a un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo.\n    \n\nBody:\n\n- causa: obligatorio. Causa de la baja definitiva.\n    \n\nValores permitidos:\n\n- RENUNCIA: Renuncia por causas particulares.\n    \n- CESE_DE_FUNCIONES: Cese de funciones.\n    \n- JUBILACION: Jubilación.\n    \n- FALLECIMIENTO: Fallecimiento.\n    \n- PASE_A_PROVISIONAL: Pase de suplente a provisional.\n    \n- OTRA: Otra."
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar empleado educativo",
+					"id": "34427701-1d07d9fe-e5f4-4128-8cae-c7f61cb4ca42",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cuil\": \"20-12345678-9\",\n  \"nombre\": \"Juan\",\n  \"apellido\": \"Pérez\",\n  \"domicilio\": \"Av. Siempre Viva 123\",\n  \"telefono\": \"+5491123456789\",\n  \"email\": \"juan.perez@example.com\",\n  \"fechaDeNacimiento\": \"1990-05-15\",\n  \"fechaDeIngreso\": \"2020-03-01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"empleadosEducativos",
+								"1"
+							]
+						},
+						"description": "Actualiza los datos de un empleado educativo perteneciente a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n- empleadoId: identificador del empleado educativo.\n    \n\nBody:\n\n- cuil: obligatorio. Formato XX-XXXXXXXX-X.\n    \n- nombre: obligatorio.\n    \n- apellido: obligatorio.\n    \n- domicilio: opcional. Máximo 150 caracteres.\n    \n- telefono: opcional. Formato +549XXXXXXXXXX o +54XXXXXXXXXX.\n    \n- email: obligatorio. Debe tener formato de email válido.\n    \n- fechaDeNacimiento: obligatorio. Debe ser una fecha pasada.\n    \n- fechaDeIngreso: opcional. No puede ser una fecha futura."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar empleados educativos",
+					"id": "34427701-6313d0fe-cf70-447d-acc7-4ff56eb77cf3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"empleadosEducativos"
+							],
+							"query": [
+								{
+									"key": "estado",
+									"value": "ACTIVOS",
+									"description": "Filtrar empleados activos",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Número de página",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"description": "Cantidad de empleados",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "apellido,asc",
+									"description": "Ordenar por apellido",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar empleados educativos",
+					"id": "34427701-f2458419-904a-43ce-bd14-bf3853679ddb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos?search=Giardino",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"empleadosEducativos"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "Giardino"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener empleado educativo",
+					"id": "34427701-68e3be11-0f46-469c-97ac-ff1bd98a63c7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/empleadosEducativos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"empleadosEducativos",
+								"1"
+							]
+						},
+						"description": "Obtiene el detalle de un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener asignaciones activas",
+					"id": "34427701-469c11c2-c3c5-45a3-9948-e05868fda273",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/empleadosEducativos/1/asignaciones-activas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"empleadosEducativos",
+								"1",
+								"asignaciones-activas"
+							]
+						},
+						"description": "Obtiene las asignaciones activas de un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener asignaciones",
+					"id": "34427701-bf848e23-bbd2-4aae-a03b-b0735b3ff5e4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/empleadosEducativos/1/asignaciones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"empleadosEducativos",
+								"1",
+								"asignaciones"
+							]
+						},
+						"description": "Obtiene las asignaciones de un empleado educativo junto con su estado.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener licencias",
+					"id": "34427701-504500cf-f984-4402-9bae-61b929b05e39",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/empleadosEducativos/1/licencias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"empleadosEducativos",
+								"1",
+								"licencias"
+							]
+						},
+						"description": "Obtiene las licencias de un empleado educativo, incluyendo la licencia activa y el historial de licencias.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
+					},
+					"response": []
+				}
+			],
+			"id": "34427701-a0687162-099f-458f-9b6f-8b67f5aa90ba"
+		},
+		{
+			"name": "escuelas",
+			"item": [
+				{
+					"name": "Crear escuela",
+					"id": "34427701-124224b5-f8b7-4753-bcf2-8b4b518736d1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Escuela Técnica N° 1\",\n  \"localidad\": \"Quilmes\",\n  \"direccion\": \"Av. Mitre 1234\",\n  \"telefono\": \"011-4256-7890\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas"
+							]
+						},
+						"description": "Crea una nueva escuela.\n\nBody:\n\n- nombre: obligatorio. Nombre de la escuela.\n    \n- localidad: obligatorio. Localidad donde se encuentra la escuela.\n    \n- direccion: opcional. Dirección de la escuela.\n    \n- telefono: opcional. Teléfono de contacto de la escuela."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar escuelas",
+					"id": "34427701-f27f0003-d640-4fd0-b9b2-391e58aa6aa8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas"
+							]
+						},
+						"description": "Obtiene todas las escuelas registradas en el sistema."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener escuela",
+					"id": "34427701-804e203d-9998-4809-a596-ba1eb77c6e7a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1"
+							]
+						},
+						"description": "Obtiene el detalle de una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela."
+					},
+					"response": []
+				}
+			],
+			"id": "34427701-792502e5-6af2-43f9-9309-7ca14523cd8a"
 		}
 	]
 }
