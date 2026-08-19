@@ -14,6 +14,32 @@
 			"name": "empleados educativos",
 			"item": [
 				{
+					"name": "Crear empleado educativo",
+					"id": "34427701-41fc1c46-4671-4b9a-aa20-e7e1c203c62a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"empleadosEducativos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Listar empleados educativos",
 					"id": "34427701-6313d0fe-cf70-447d-acc7-4ff56eb77cf3",
 					"protocolProfileBehavior": {
@@ -66,32 +92,6 @@
 									"key": "search",
 									"value": "Giardino"
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Crear empleado educativo",
-					"id": "34427701-41fc1c46-4671-4b9a-aa20-e7e1c203c62a",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"escuelas",
-								"1",
-								"empleadosEducativos"
 							]
 						}
 					},
