@@ -286,6 +286,33 @@
 						"description": "Obtiene las asignaciones de un empleado educativo junto con su estado.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
 					},
 					"response": []
+				},
+				{
+					"name": "Obtener licencias",
+					"id": "34427701-504500cf-f984-4402-9bae-61b929b05e39",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/empleadosEducativos/1/licencias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"empleadosEducativos",
+								"1",
+								"licencias"
+							]
+						},
+						"description": "Obtiene las licencias de un empleado educativo, incluyendo la licencia activa y el historial de licencias.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
+					},
+					"response": []
 				}
 			],
 			"id": "34427701-a0687162-099f-458f-9b6f-8b67f5aa90ba"
