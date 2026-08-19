@@ -38,6 +38,38 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Buscar empleados educativos",
+					"id": "34427701-f2458419-904a-43ce-bd14-bf3853679ddb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos?search=Juan",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"empleadosEducativos"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "Juan"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"id": "34427701-a0687162-099f-458f-9b6f-8b67f5aa90ba"
