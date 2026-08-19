@@ -990,20 +990,68 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"empleadoId\": 1,\n  \"fechaTomaPosesion\": \"2026-08-19\",\n  \"fechaCese\": \"2026-12-20\",\n  \"secuencia\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/cubrir/provisional",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"cubrir",
+								"provisional"
+							]
+						},
+						"description": "Cubre una designación mediante una asignación provisional.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado educativo.\n    \n- fechaTomaPosesion: obligatorio. Fecha de toma de posesión.\n    \n- fechaCese: obligatorio. Fecha de cese.\n    \n- secuencia: opcional. Debe ser mayor a 0."
 					},
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Obtener cargo activo",
 					"id": "34427701-258f1c77-d2ad-4e6f-acbe-9c82f18d2120",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "Obtiene el cargo activo de una designación.\n\nPath Variables:\n- designacionId: identificador de la designación.\n\nResponse:\n- Devuelve el cargo activo si existe.\n- Devuelve 204 No Content si la designación no tiene un cargo activo.",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/cargo-activo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"cargo-activo"
+							]
+						}
 					},
 					"response": []
 				}
