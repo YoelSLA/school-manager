@@ -346,7 +346,7 @@
 								"baja-definitiva"
 							]
 						},
-						"description": "Da de baja definitivamente a un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo.\n    \n\nBody:\n\n- causa: causa de la baja definitiva."
+						"description": "Da de baja definitivamente a un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo.\n    \n\nBody:\n\n- causa: obligatorio. Causa de la baja definitiva.\n    \n\nValores permitidos:\n\n- RENUNCIA: Renuncia por causas particulares.\n    \n- CESE_DE_FUNCIONES: Cese de funciones.\n    \n- JUBILACION: Jubilación.\n    \n- FALLECIMIENTO: Fallecimiento.\n    \n- PASE_A_PROVISIONAL: Pase de suplente a provisional.\n    \n- OTRA: Otra."
 					},
 					"response": []
 				}
