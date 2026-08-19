@@ -748,7 +748,37 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/designaciones/administrativas?page=0&size=20&sort=cupof,asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"designaciones",
+								"administrativas"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								},
+								{
+									"key": "sort",
+									"value": "cupof,asc"
+								}
+							]
+						},
+						"description": "Obtiene las designaciones administrativas de una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nQuery Params:\n\n- page: opcional. Número de página.\n    \n- size: opcional. Cantidad de resultados.\n    \n- sort: opcional. Campo y dirección de ordenamiento."
 					},
 					"response": []
 				},
