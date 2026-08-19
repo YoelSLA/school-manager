@@ -1803,13 +1803,27 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/licencias-estatutarias/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias-estatutarias",
+								"1"
+							]
+						},
+						"description": "Elimina una licencia estatutaria.\n\nPath Variables:\n\n- id: identificador de la licencia estatutaria."
 					},
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Listar licencias estatutarias para select",
 					"id": "34427701-2cbf47d5-8233-4e5b-89bc-4b40b7cb718c",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
