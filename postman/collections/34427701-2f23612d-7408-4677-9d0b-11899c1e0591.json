@@ -364,7 +364,20 @@
 								"cursos",
 								"1"
 							]
-						}
+						},
+						"description": "Elimina un curso perteneciente a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n- cursoId: identificador del curso."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar cursos",
+					"id": "34427701-f03fd9a3-ad3b-4a97-88d4-4cf63ec55c80",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
