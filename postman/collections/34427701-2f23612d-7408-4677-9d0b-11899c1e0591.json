@@ -1458,7 +1458,31 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Matemática\",\n  \"abreviatura\": \"MAT\",\n  \"cantidadModulos\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/materias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"materias"
+							]
+						},
+						"description": "Crea una materia asociada a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- nombre: obligatorio. Nombre de la materia.\n    \n- abreviatura: obligatorio. Abreviatura de la materia.\n    \n- cantidadModulos: obligatorio. Cantidad de módulos de la materia. Debe ser mayor o igual a 1."
 					},
 					"response": []
 				},
