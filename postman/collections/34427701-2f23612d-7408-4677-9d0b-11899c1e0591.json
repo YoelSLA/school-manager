@@ -1759,7 +1759,40 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/licencias-estatutarias?page=0&size=20&sort=nombre,asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias-estatutarias"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Número de página",
+									"type": "text"
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"description": "Cantidad de resultados",
+									"type": "text"
+								},
+								{
+									"key": "sort",
+									"value": "nombre,asc",
+									"description": "Campo y dirección de ordenamiento",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Obtiene todas las licencias estatutarias registradas.\n\nQuery Params:\n\n- page: opcional. Número de página.\n    \n- size: opcional. Cantidad de resultados.\n    \n- sort: opcional. Campo y dirección de ordenamiento."
 					},
 					"response": []
 				},
