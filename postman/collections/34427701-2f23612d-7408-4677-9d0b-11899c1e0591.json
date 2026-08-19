@@ -395,30 +395,26 @@
 								{
 									"key": "turno",
 									"value": "MANIANA",
-									"description": "Filtrar por turno",
-									"type": "text"
+									"description": "Filtrar por turno"
 								},
 								{
 									"key": "page",
 									"value": "0",
-									"description": "Número de página",
-									"type": "text"
+									"description": "Número de página"
 								},
 								{
 									"key": "size",
 									"value": "20",
-									"description": "Cantidad de resultados",
-									"type": "text"
+									"description": "Cantidad de resultados"
 								},
 								{
 									"key": "sort",
 									"value": "anio,asc",
-									"description": "Ordenamiento",
-									"type": "text"
+									"description": "Ordenamiento"
 								}
 							]
 						},
-						"description": "Obtiene los cursos de una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nQuery Params:\n\n- turno: opcional. Filtra los cursos por turno.\n    \n- page: opcional. Número de página.\n    \n- size: opcional. Cantidad de resultados.\n    \n- sort: opcional. Campo y dirección de ordenamiento."
+						"description": "Obtiene los cursos de una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nQuery Params:\n\n- turno: opcional. Filtra los cursos por turno.\n    \n    - MANIANA: Mañana.\n        \n    - TARDE: Tarde.\n        \n    - VESPERTINO: Vespertino.\n        \n- page: opcional. Número de página.\n    \n- size: opcional. Cantidad de resultados.\n    \n- sort: opcional. Campo y dirección de ordenamiento."
 					},
 					"response": []
 				},
