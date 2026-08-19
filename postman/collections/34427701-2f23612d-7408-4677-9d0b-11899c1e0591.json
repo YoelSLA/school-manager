@@ -1254,7 +1254,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/empleadosEducativos/1",
+							"raw": "http://localhost:8080/api/empleadosEducativos/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1263,7 +1263,7 @@
 							"path": [
 								"api",
 								"empleadosEducativos",
-								"1"
+								"2"
 							]
 						},
 						"description": "Obtiene el detalle de un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
