@@ -1752,7 +1752,7 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Listar licencias estatutarias",
 					"id": "34427701-54c849e8-b5a9-42a2-ad7c-e451e8bec918",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
