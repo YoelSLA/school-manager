@@ -313,6 +313,32 @@
 						"description": "Obtiene las licencias de un empleado educativo, incluyendo la licencia activa y el historial de licencias.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
 					},
 					"response": []
+				},
+				{
+					"name": "Dar de baja definitiva",
+					"id": "34427701-5b8c6ce6-5357-4e08-8614-c0d1156ef5ad",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/empleadosEducativos/1/baja-definitiva",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"empleadosEducativos",
+								"1",
+								"baja-definitiva"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"id": "34427701-a0687162-099f-458f-9b6f-8b67f5aa90ba"
