@@ -1055,7 +1055,34 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/cargos?estado=ACTIVA&fecha=2026-08-19",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"cargos"
+							],
+							"query": [
+								{
+									"key": "estado",
+									"value": "ACTIVA",
+									"type": "text"
+								},
+								{
+									"key": "fecha",
+									"value": "2026-08-19",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Obtiene los cargos de una designación.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nQuery Params:\n\n- estado: opcional. Filtra los cargos por estado.\n    \n- fecha: opcional. Fecha de referencia para determinar el estado de los cargos. Formato YYYY-MM-DD."
 					},
 					"response": []
 				}
