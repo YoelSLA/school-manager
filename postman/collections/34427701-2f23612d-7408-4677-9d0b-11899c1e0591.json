@@ -103,58 +103,6 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos?estado=ACTIVOS&page=0&size=20&sort=apellido,asc",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"escuelas",
-								"1",
-								"empleadosEducativos"
-							],
-							"query": [
-								{
-									"key": "estado",
-									"value": "ACTIVOS",
-									"description": "Filtrar empleados activos",
-									"type": "text"
-								},
-								{
-									"key": "page",
-									"value": "0",
-									"description": "Número de página",
-									"type": "text"
-								},
-								{
-									"key": "size",
-									"value": "20",
-									"description": "Cantidad de empleados",
-									"type": "text"
-								},
-								{
-									"key": "sort",
-									"value": "apellido,asc",
-									"description": "Ordenar por apellido",
-									"type": "text"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Listar empleados por estado",
-					"id": "34427701-ff30a4b2-9ed3-4af0-ae3b-07e1df7f1d65",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
 							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos?estado=ACTIVOS",
 							"protocol": "http",
 							"host": [
@@ -170,7 +118,26 @@
 							"query": [
 								{
 									"key": "estado",
-									"value": "ACTIVOS"
+									"value": "ACTIVOS",
+									"description": "Filtrar empleados activos"
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Número de página",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"description": "Cantidad de empleados",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "apellido,asc",
+									"description": "Ordenar por apellido",
+									"disabled": true
 								}
 							]
 						}
