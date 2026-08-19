@@ -274,13 +274,38 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"turno\": \"MANIANA\",\n    \"anio\": 2026,\n    \"grado\": 1\n  },\n  {\n    \"turno\": \"TARDE\",\n    \"anio\": 2026,\n    \"grado\": 2\n  },\n  {\n    \"turno\": \"NOCHE\",\n    \"anio\": 2026,\n    \"grado\": 3\n  }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/cursos/batch",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"cursos",
+								"batch"
+							]
+						},
+						"description": "Crea múltiples cursos asociados a una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- Recibe una lista de cursos.\n    \n- Cada curso debe contener:\n    \n    - turno: obligatorio.\n        \n    - anio: obligatorio. Debe ser mayor o igual a 1.\n        \n    - grado: obligatorio. Debe ser mayor o igual a 1."
 					},
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Actualizar curso",
 					"id": "34427701-ea3c8e68-e733-4431-8715-3921854bc7b7",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
