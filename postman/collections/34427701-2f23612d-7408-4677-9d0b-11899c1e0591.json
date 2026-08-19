@@ -1720,8 +1720,32 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"periodo\": {\n    \"tipo\": \"CERRADO\",\n    \"fechaDesde\": \"2026-08-19\",\n    \"fechaHasta\": \"2026-09-19\"\n  },\n  \"licenciaEstatutariaId\": 1,\n  \"descripcion\": \"Licencia por enfermedad\",\n  \"asignacionesIds\": [\n    1,\n    2\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/licencias/empleados/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licencias",
+								"empleados",
+								"1"
+							]
+						},
+						"description": "Crea una licencia para un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo.\n    \n\nBody:\n\n- periodo: obligatorio. Período de vigencia de la licencia.\n    \n    - tipo: obligatorio. Puede ser ABIERTO o CERRADO.\n        \n    - fechaDesde: obligatorio. Fecha de inicio de la licencia.\n        \n    - fechaHasta: obligatorio únicamente cuando el tipo es CERRADO.\n        \n- licenciaEstatutariaId: obligatorio. Identificador del tipo de licencia estatutaria.\n    \n- descripcion: opcional. Máximo 255 caracteres.\n    \n- asignacionesIds: obligatorio. Identificadores de las asignaciones afectadas. Debe contener al menos una asignación."
 					},
 					"response": []
 				},
