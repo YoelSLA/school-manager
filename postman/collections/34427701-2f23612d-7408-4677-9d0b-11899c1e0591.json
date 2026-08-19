@@ -430,7 +430,23 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/cursos/select",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"cursos",
+								"select"
+							]
+						},
+						"description": "Obtiene los cursos de una escuela en un formato reducido para utilizar en campos de selección.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela."
 					},
 					"response": []
 				}
