@@ -2140,6 +2140,24 @@
 				}
 			],
 			"id": "34427701-9a9bbfc6-d72e-4212-8096-cf745b5214a5"
+		},
+		{
+			"name": "dashboard",
+			"item": [
+				{
+					"name": "Obtener resumen",
+					"id": "34427701-383fc715-5397-4300-baff-c4e806575765",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
+			"id": "34427701-f80302b3-1316-4e3d-ba4e-b76924df64d8"
 		}
 	]
 }
