@@ -423,7 +423,21 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1"
+							]
+						},
+						"description": "Obtiene el detalle de una escuela.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela."
 					},
 					"response": []
 				}
