@@ -410,7 +410,20 @@
 								"api",
 								"escuelas"
 							]
-						}
+						},
+						"description": "Obtiene todas las escuelas registradas en el sistema."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener escuela",
+					"id": "34427701-804e203d-9998-4809-a596-ba1eb77c6e7a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
