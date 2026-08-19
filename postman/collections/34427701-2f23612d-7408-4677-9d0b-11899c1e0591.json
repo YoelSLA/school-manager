@@ -88,6 +88,72 @@
 					},
 					"request": {
 						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/asistencias/empleados?fecha=2026-08-19&roles=DOCENTE&q=Juan&page=0&size=20&sort=apellido,asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"asistencias",
+								"empleados"
+							],
+							"query": [
+								{
+									"key": "fecha",
+									"value": "2026-08-19",
+									"description": "Fecha de consulta",
+									"type": "text"
+								},
+								{
+									"key": "roles",
+									"value": "DOCENTE",
+									"description": "Filtrar por rol",
+									"type": "text"
+								},
+								{
+									"key": "q",
+									"value": "Juan",
+									"description": "Buscar por texto",
+									"type": "text"
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Número de página",
+									"type": "text"
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"description": "Cantidad de resultados",
+									"type": "text"
+								},
+								{
+									"key": "sort",
+									"value": "apellido,asc",
+									"description": "Ordenamiento",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Busca empleados educativos y obtiene su resumen de asistencia para una fecha determinada.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nQuery Params:\n\n- fecha: obligatorio. Fecha de consulta. Formato YYYY-MM-DD.\n    \n- roles: opcional. Filtra por uno o más roles educativos.\n    \n- q: opcional. Texto de búsqueda.\n    \n- page: opcional. Número de página.\n    \n- size: opcional. Cantidad de resultados. Máximo 20.\n    \n- sort: opcional. Campo y dirección de ordenamiento."
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "34427701-95fe07d9-526b-4e1b-b4bb-43f35f9a7d40",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
 						"header": []
 					},
 					"response": []
