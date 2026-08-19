@@ -928,12 +928,26 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1"
+							]
+						},
+						"description": "Obtiene el detalle de una designación.\n\nPath Variables:\n\n- designacionId: identificador de la designación."
 					},
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Cubrir con titular",
 					"id": "34427701-e2afd503-5a6c-4e93-9f0c-71e34e6c7467",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
