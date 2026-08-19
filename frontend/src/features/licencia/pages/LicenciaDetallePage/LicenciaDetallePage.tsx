@@ -10,6 +10,10 @@ import LicenciaTimelineList from "./LicenciaTimelineList";
 export default function LicenciaDetallePage() {
 	const vm = useLicenciaDetallePage();
 
+	/* =========================================================
+     ESTADOS
+  ========================================================= */
+
 	if (vm.query.isLoading) {
 		return <div className="page-loading">Cargando licencia…</div>;
 	}
@@ -25,6 +29,10 @@ export default function LicenciaDetallePage() {
 	}
 
 	const licencia = vm.query.licencia;
+
+	/* =========================================================
+     RENDER
+  ========================================================= */
 
 	return (
 		<>
@@ -44,13 +52,30 @@ export default function LicenciaDetallePage() {
 								<LicenciaTimelineList
 									timeline={vm.timeline.data ?? []}
 									licenciaActualId={licencia.id}
-									onNavigate={vm.navigation.verDetalle}
+									onNavigate={vm.navigation.verDetallePorId}
 								/>
 							)}
 						</div>
 					</div>
 
 					<div className={styles.actionsBar}>
+						{/* =========================
+						    FICHA DEL EMPLEADO
+						========================= */}
+
+						<Button
+							variant="secondary"
+							onClick={() =>
+								vm.navigation.verFicha(licencia.empleado, licencia.id)
+							}
+						>
+							Ver ficha
+						</Button>
+
+						{/* =========================
+						    DESIGNACIONES
+						========================= */}
+
 						<Button
 							variant="secondary"
 							onClick={() =>
@@ -64,11 +89,19 @@ export default function LicenciaDetallePage() {
 							Designaciones
 						</Button>
 
+						{/* =========================
+						    RENOVAR
+						========================= */}
+
 						{vm.puedeRenovar && (
 							<Button variant="primary" onClick={vm.renovar.open}>
 								Renovar licencia
 							</Button>
 						)}
+
+						{/* =========================
+						    ELIMINAR
+						========================= */}
 
 						<Button variant="danger" onClick={vm.delete.open}>
 							Eliminar
@@ -77,6 +110,10 @@ export default function LicenciaDetallePage() {
 				</div>
 			</BreadcrumbPageLayout>
 
+			{/* =====================================================
+			    MODAL RENOVAR
+			===================================================== */}
+
 			{vm.renovar.visible && (
 				<LicenciaModalRenovarModal
 					licenciaId={licencia.id}
@@ -84,6 +121,10 @@ export default function LicenciaDetallePage() {
 					onSuccess={vm.renovar.close}
 				/>
 			)}
+
+			{/* =====================================================
+			    MODAL ELIMINAR
+			===================================================== */}
 
 			{vm.delete.visible && (
 				<ModalConfirm

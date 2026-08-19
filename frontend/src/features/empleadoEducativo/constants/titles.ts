@@ -1,27 +1,68 @@
-import type { BreadcrumbResolver } from "@/app/layouts";
+import type { BreadcrumbResolver } from "@/shared/components";
 
 export const empleadoEducativoTitles: Record<string, BreadcrumbResolver> = {
-	"/empleadosEducativos": [{ label: "Empleados educativos" }],
+	/* =========================================================
+	   LISTADO
+	========================================================= */
+
+	"/empleadosEducativos": [
+		{
+			label: "Empleados educativos",
+		},
+	],
+
+	/* =========================================================
+	   CREAR
+	========================================================= */
 
 	"/empleadosEducativos/crear": [
-		{ label: "Empleados educativos", to: "/empleadosEducativos" },
-		{ label: "Crear personal" },
-	],
-
-	"/empleadosEducativos/:empleadoId": (params) => [
-		{ label: "Empleados educativos", to: "/empleadosEducativos" },
 		{
-			label: `#${params.empleadoId}`,
-			to: `/empleadosEducativos/${params.empleadoId}`,
+			label: "Empleados educativos",
+			to: "/empleadosEducativos",
+		},
+		{
+			label: "Crear personal",
 		},
 	],
 
-	"/empleadosEducativos/:empleadoId/editar": (params) => [
-		{ label: "Empleados educativos", to: "/empleadosEducativos" },
-		{
-			label: `#${params.empleadoId}`,
-			to: `/empleadosEducativos/${params.empleadoId}`,
-		},
-		{ label: "Editar" },
-	],
+	/* =========================================================
+	   DETALLE
+	========================================================= */
+
+	"/empleadosEducativos/:empleadoId": (params) => {
+		const empleadoId = params.empleadoId ?? "";
+
+		return [
+			{
+				label: "Empleados educativos",
+				to: "/empleadosEducativos",
+			},
+			{
+				label: `#${empleadoId}`,
+				to: `/empleadosEducativos/${empleadoId}`,
+			},
+		];
+	},
+
+	/* =========================================================
+	   EDITAR
+	========================================================= */
+
+	"/empleadosEducativos/:empleadoId/editar": (params) => {
+		const empleadoId = params.empleadoId ?? "";
+
+		return [
+			{
+				label: "Empleados educativos",
+				to: "/empleadosEducativos",
+			},
+			{
+				label: `#${empleadoId}`,
+				to: `/empleadosEducativos/${empleadoId}`,
+			},
+			{
+				label: "Editar",
+			},
+		];
+	},
 };

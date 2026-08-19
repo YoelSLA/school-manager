@@ -25,7 +25,7 @@ export default function LicenciasPage() {
 			>
 				<LicenciaTable
 					query={vm.query}
-					onVerDetalle={(licenciaId) => vm.navigation.verDetalle(licenciaId)}
+					onVerDetalle={(licencia) => vm.navigation.verDetalle(licencia)}
 					onDelete={vm.delete.open}
 				/>
 			</ToolbarPageLayout>

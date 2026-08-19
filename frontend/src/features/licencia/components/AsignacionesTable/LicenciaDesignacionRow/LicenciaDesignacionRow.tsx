@@ -13,8 +13,8 @@ type Props = {
 
 	cupof: number;
 
-	headerContent: ReactNode;
-	footerContent?: ReactNode;
+	mainContent: ReactNode;
+	rolContent?: ReactNode;
 
 	situacion: SituacionDeRevista;
 	periodo: PeriodoDTO;
@@ -24,8 +24,8 @@ export default function LicenciaDesignacionRow({
 	checked,
 	onToggle,
 	cupof,
-	headerContent,
-	footerContent,
+	mainContent,
+	rolContent,
 	situacion,
 	periodo,
 }: Props) {
@@ -41,29 +41,21 @@ export default function LicenciaDesignacionRow({
 				onClick={(e) => e.stopPropagation()}
 			/>
 
-			<div className={styles.content}>
-				<div className={styles.header}>
-					<div className={styles.cupof}>
-						<Hash size={14} />
-						{cupof}
-					</div>
+			<div className={styles.cupof}>
+				<Hash size={14} />
+				<span>{cupof}</span>
+			</div>
 
-					<div className={styles.headerContent}>{headerContent}</div>
-				</div>
+			<div className={styles.mainContent}>{mainContent}</div>
 
-				<div className={styles.footer}>
-					<div className={styles.badge}>
-						<BadgeSituacionRevista value={situacion} />
-					</div>
+			<div className={styles.rol}>{rolContent}</div>
 
-					{footerContent && (
-						<div className={styles.footerContent}>{footerContent}</div>
-					)}
+			<div className={styles.situacion}>
+				<BadgeSituacionRevista value={situacion} />
+			</div>
 
-					<div className={styles.periodo}>
-						<PeriodoDisplay periodo={periodo} showDuration={false} />
-					</div>
-				</div>
+			<div className={styles.periodo}>
+				<PeriodoDisplay periodo={periodo} showDuration={false} />
 			</div>
 		</TableRow>
 	);

@@ -1,8 +1,8 @@
-import { Calendar, Flag, Hourglass, MoreVertical } from "lucide-react";
+import { MoreVertical } from "lucide-react";
 import { EmpleadoInfo } from "@/features/empleadoEducativo/components";
+import { PeriodoDisplay } from "@/shared/components";
 import { BadgeEstadoLicencia } from "@/shared/components/Badge";
 import { TableRow } from "@/shared/components/Table";
-import { formatDate } from "@/shared/utils/date";
 import type { LicenciaRowDTO } from "../../../types";
 import styles from "./LicenciaTableRow.module.scss";
 
@@ -33,18 +33,13 @@ export default function LicenciaRow({
 
 			{/* PERÍODO */}
 			<div className={styles.periodo}>
-				<Calendar size={16} />
-				{formatDate(licencia.periodo.fechaDesde)}
-
-				<Flag size={16} />
-
-				{formatDate(licencia.periodo.fechaHasta)}
+				<PeriodoDisplay periodo={licencia.periodo} showDuration={false} />
 			</div>
 
 			{/* DÍAS */}
 			<div className={styles.dias}>
-				<Hourglass size={16} />
-				{licencia.periodo.dias} días
+				<span>{licencia.periodo.dias}</span>
+				<span className={styles.diasLabel}>días</span>
 			</div>
 
 			{/* ESTADO */}

@@ -9,6 +9,10 @@
 	padding: 14px 20px;
 }
 
+/* =====================================================
+   ICONO
+===================================================== */
+
 .icon {
 	display: flex;
 	align-items: center;
@@ -22,18 +26,26 @@
 	border-radius: 10px;
 
 	background: #f1f5f9;
-
 	color: #475569;
 }
+
+/* =====================================================
+   CONTENIDO
+===================================================== */
 
 .content {
 	display: flex;
 	flex-direction: column;
+
 	gap: 4px;
 
 	min-width: 0;
 	flex: 1;
 }
+
+/* =====================================================
+   TÍTULO
+===================================================== */
 
 .title {
 	display: flex;
@@ -44,11 +56,15 @@
 	min-width: 0;
 
 	strong {
+		min-width: 0;
+
 		font-size: 14px;
 		font-weight: 700;
 		color: #0f172a;
 
 		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	span {
@@ -62,6 +78,10 @@
 	}
 }
 
+/* =====================================================
+   DETALLES
+===================================================== */
+
 .details {
 	display: flex;
 	align-items: center;
@@ -74,6 +94,8 @@
 	color: #64748b;
 
 	span {
+		min-width: 0;
+
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;

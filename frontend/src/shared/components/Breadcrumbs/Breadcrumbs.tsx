@@ -1,11 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-import {
-	type BreadcrumbItem,
-	type BreadcrumbState,
-	resolveBreadcrumbs,
-} from "../../../app/layouts";
 import styles from "./Breadcrumbs.module.scss";
+import { buildBreadcrumbItems, resolveBreadcrumbs } from "./breadcrumbHelpers";
 
 /* =========================================================
    BREADCRUMBS
@@ -16,15 +12,17 @@ import styles from "./Breadcrumbs.module.scss";
  *
  * Responsabilidades:
  *
+ * - Obtener la información de navegación actual
  * - Resolver breadcrumbs según la ruta actual
- * - Soportar rutas dinámicas
- * - Reemplazar labels dinámicos usando location.state
- * - Agregar breadcrumbs contextuales
- * - Renderizar navegación jerárquica
+ * - Aplicar transformaciones sobre los breadcrumbs
+ * - Renderizar la navegación jerárquica
+ *
+ * Toda la lógica de breadcrumbs se encuentra dentro
+ * del propio módulo Breadcrumbs.
  *
  * Ejemplo:
  *
- * Asistencias / Pérez, Juan / 5/2026
+ * Licencias / Rodriguez, Marcela / Crear licencia
  */
 export default function Breadcrumbs() {
 	const location = useLocation();
@@ -33,15 +31,11 @@ export default function Breadcrumbs() {
 	 * Información actual de navegación.
 	 *
 	 * `state` puede incluir:
-	 * - labels dinámicos
+	 *
 	 * - breadcrumbs contextuales
-	 * - flags de render
+	 * - información dinámica
 	 */
-	const { pathname, search, state } = location as {
-		pathname: string;
-		search: string;
-		state: BreadcrumbState | null;
-	};
+	const { pathname, search, state } = location;
 
 	/* =========================================================
      BASE BREADCRUMBS
@@ -52,86 +46,35 @@ export default function Breadcrumbs() {
 	 *
 	 * Ejemplo:
 	 *
-	 * "/asistencias/15/2026/5"
+	 * "/licencias/57"
 	 * =>
 	 * [
-	 *   { label: "Asistencias", to: "/asistencias" },
-	 *   { label: "Empleado #15" },
-	 *   { label: "5/2026" }
+	 *   { label: "Licencias", to: "/licencias" },
+	 *   { label: "Licencia #57" }
 	 * ]
 	 */
 	const baseItems = resolveBreadcrumbs(pathname, state);
 
-	// No hay breadcrumbs para esta ruta
-	if (!baseItems || baseItems.length === 0) return null;
-
-	let items: BreadcrumbItem[] = [...baseItems];
-
 	/* =========================================================
-     DYNAMIC LABELS
+     DEBUG RESOLUCIÓN
   ========================================================= */
 
-	/**
-	 * Reemplaza labels dinámicos usando IDs presentes en las rutas.
-	 *
-	 * Ejemplo:
-	 *
-	 * state.dynamicLabels = {
-	 *   "15": "Pérez, Juan"
-	 * }
-	 *
-	 * "/asistencias/15"
-	 * =>
-	 * "Pérez, Juan"
-	 */
-	if (state?.dynamicLabels) {
-		items = items.map((item) => {
-			// Solo se reemplazan breadcrumbs navegables
-			if (!item.to) return item;
-
-			const segments = item.to.split("/").filter(Boolean);
-
-			for (const segment of segments) {
-				const dynamicLabel = state.dynamicLabels?.[segment];
-
-				if (dynamicLabel) {
-					return {
-						...item,
-						label: dynamicLabel,
-					};
-				}
-			}
-
-			return item;
-		});
+	// No hay breadcrumbs para esta ruta.
+	if (!baseItems.length) {
+		return null;
 	}
 
 	/* =========================================================
-     CONTEXTUAL ITEMS
+     BREADCRUMB ITEMS
   ========================================================= */
 
 	/**
-	 * Breadcrumbs adicionales enviados desde navegación.
+	 * Construye los breadcrumbs finales.
 	 *
-	 * Ejemplo:
-	 *
-	 * {
-	 *   from: "/empleados",
-	 *   label: "Empleados"
-	 * }
+	 * Puede incorporar información contextual enviada
+	 * mediante el state de navegación.
 	 */
-	const contextualItems: BreadcrumbItem[] =
-		state?.from && state?.label ? [{ label: state.label, to: state.from }] : [];
-
-	/**
-	 * skipBase:
-	 *
-	 * Permite ocultar breadcrumbs base y renderizar
-	 * solamente el último item junto con el contexto.
-	 */
-	const finalItems: BreadcrumbItem[] = state?.skipBase
-		? [...contextualItems, items[items.length - 1]]
-		: [...contextualItems, ...items];
+	const items = buildBreadcrumbItems(baseItems, state);
 
 	/* =========================================================
      RENDER
@@ -139,17 +82,51 @@ export default function Breadcrumbs() {
 
 	return (
 		<nav className={styles.breadcrumbs} aria-label="Breadcrumb">
-			{finalItems.map((item, index) => {
-				const isLast = index === finalItems.length - 1;
+			{items.map((item, index) => {
+				/**
+				 * El último breadcrumb representa la página actual.
+				 *
+				 * No utilizamos el index como key.
+				 */
+				const isLast = index === items.length - 1;
+
+				/**
+				 * Cuando navegamos mediante un breadcrumb,
+				 * conservamos solamente el recorrido hasta
+				 * ese punto.
+				 *
+				 * Ejemplo:
+				 *
+				 * Empleados educativos
+				 * >
+				 * Aguirre, Cecilia
+				 * >
+				 * Crear licencia
+				 *
+				 * Al hacer click en "Aguirre, Cecilia":
+				 *
+				 * breadcrumbs:
+				 * [
+				 *   Empleados educativos,
+				 *   Aguirre, Cecilia
+				 * ]
+				 */
+				const navigationState = {
+					breadcrumbs: items.slice(0, index + 1),
+				};
 
 				return (
 					<span key={item.to ?? item.label} className={styles.item}>
 						{/* =========================
-						    LINK ITEM
+						   LINK ITEM
 						========================= */}
 
 						{item.to && !isLast ? (
-							<Link to={`${item.to}${search}`} className={styles.link}>
+							<Link
+								to={`${item.to}${search}`}
+								state={navigationState}
+								className={styles.link}
+							>
 								{item.label}
 							</Link>
 						) : (
@@ -161,7 +138,7 @@ export default function Breadcrumbs() {
 						)}
 
 						{/* =========================
-						    SEPARATOR
+						   SEPARATOR
 						========================= */}
 
 						{!isLast && (

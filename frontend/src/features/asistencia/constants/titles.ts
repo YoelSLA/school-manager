@@ -1,10 +1,22 @@
-import type { BreadcrumbResolver } from "@/app/layouts";
+import type { BreadcrumbResolver } from "@/shared/components";
 
 export const asistenciaTitles: Record<string, BreadcrumbResolver> = {
-	"/asistencias": [{ label: "Asistencias" }],
+	/* =========================================================
+	   LISTADO
+	========================================================= */
 
-	"/asistencias/:empleadoId/:anio/:mes": (params, state) => {
-		const empleadoId = params.empleadoId;
+	"/asistencias": [
+		{
+			label: "Asistencias",
+		},
+	],
+
+	/* =========================================================
+	   DETALLE
+	========================================================= */
+
+	"/asistencias/:empleadoId/:anio/:mes": (params) => {
+		const empleadoId = params.empleadoId ?? "";
 
 		return [
 			{
@@ -12,9 +24,7 @@ export const asistenciaTitles: Record<string, BreadcrumbResolver> = {
 				to: "/asistencias",
 			},
 			{
-				label:
-					(empleadoId && state?.dynamicLabels?.[empleadoId]) ??
-					`Empleado #${empleadoId}`,
+				label: `Empleado #${empleadoId}`,
 			},
 		];
 	},

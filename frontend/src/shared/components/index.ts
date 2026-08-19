@@ -1,5 +1,5 @@
 export { default as Badge } from "./Badge";
-export { default as Breadcrumbs } from "./Breadcrumbs";
+export * from "./Breadcrumbs";
 export { default as Button } from "./Button";
 export { default as Card } from "./Card";
 export * from "./Filter";

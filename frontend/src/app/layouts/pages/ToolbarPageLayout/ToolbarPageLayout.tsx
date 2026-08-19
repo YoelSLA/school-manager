@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Breadcrumbs from "@/shared/components/Breadcrumbs";
+import { Breadcrumbs } from "@/shared/components";
 import Pagination from "@/shared/components/Pagination";
 import PageLayout from "../PageLayout";
 import styles from "./ToolbarPageLayout.module.scss";
