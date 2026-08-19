@@ -917,6 +917,107 @@
 					"response": []
 				},
 				{
+					"name": "Actualizar designación administrativa",
+					"id": "34427701-b86cca30-0dac-41f8-9fe7-755191fd5d4d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cupof\": 12345,\n  \"rolEducativo\": \"DOCENTE\",\n  \"franjasHorarias\": [\n    {\n      \"dia\": \"LUNES\",\n      \"horaDesde\": \"08:00\",\n      \"horaHasta\": \"12:00\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/administrativa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"administrativa"
+							]
+						},
+						"description": "Actualiza una designación administrativa.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- cupof: obligatorio.\n    \n- rolEducativo: obligatorio.\n    \n- franjasHorarias: obligatorio. Debe contener al menos un horario."
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar asignación",
+					"id": "34427701-3f0eac4d-fd32-4b19-9d50-483055b7fe21",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"empleadoId\": 1,\n  \"fechaTomaPosesion\": \"2026-08-19\",\n  \"secuencia\": 1,\n  \"fechaCese\": \"2026-12-20\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/asignaciones/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"asignaciones",
+								"1"
+							]
+						},
+						"description": "Actualiza una asignación perteneciente a una designación.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n- asignacionId: identificador de la asignación.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado educativo.\n    \n- fechaTomaPosesion: obligatorio.\n    \n- secuencia: opcional. Debe ser mayor a 0.\n    \n- fechaCese: opcional."
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar asignación",
+					"id": "34427701-cd5c9f1a-38a6-4f4a-9a07-713ef0b2cf1d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/asignaciones/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"asignaciones",
+								"1"
+							]
+						},
+						"description": "Elimina una asignación perteneciente a una designación.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n- asignacionId: identificador de la asignación."
+					},
+					"response": []
+				},
+				{
 					"name": "Listar designaciones administrativas",
 					"id": "34427701-1b0019e7-bc1f-4f07-9b6b-a44fd5d7ce03",
 					"protocolProfileBehavior": {
@@ -1119,107 +1220,6 @@
 							]
 						},
 						"description": "Obtiene los cargos de una designación.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nQuery Params:\n\n- estado: opcional. Filtra los cargos por estado.\n    \n- fecha: opcional. Fecha de referencia para determinar el estado de los cargos. Formato YYYY-MM-DD."
-					},
-					"response": []
-				},
-				{
-					"name": "Actualizar designación administrativa",
-					"id": "34427701-b86cca30-0dac-41f8-9fe7-755191fd5d4d",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"cupof\": 12345,\n  \"rolEducativo\": \"DOCENTE\",\n  \"franjasHorarias\": [\n    {\n      \"dia\": \"LUNES\",\n      \"horaDesde\": \"08:00\",\n      \"horaHasta\": \"12:00\"\n    }\n  ]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/designaciones/1/administrativa",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"designaciones",
-								"1",
-								"administrativa"
-							]
-						},
-						"description": "Actualiza una designación administrativa.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- cupof: obligatorio.\n    \n- rolEducativo: obligatorio.\n    \n- franjasHorarias: obligatorio. Debe contener al menos un horario."
-					},
-					"response": []
-				},
-				{
-					"name": "Actualizar asignación",
-					"id": "34427701-3f0eac4d-fd32-4b19-9d50-483055b7fe21",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"empleadoId\": 1,\n  \"fechaTomaPosesion\": \"2026-08-19\",\n  \"secuencia\": 1,\n  \"fechaCese\": \"2026-12-20\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/designaciones/1/asignaciones/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"designaciones",
-								"1",
-								"asignaciones",
-								"1"
-							]
-						},
-						"description": "Actualiza una asignación perteneciente a una designación.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n- asignacionId: identificador de la asignación.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado educativo.\n    \n- fechaTomaPosesion: obligatorio.\n    \n- secuencia: opcional. Debe ser mayor a 0.\n    \n- fechaCese: opcional."
-					},
-					"response": []
-				},
-				{
-					"name": "Eliminar asignación",
-					"id": "34427701-cd5c9f1a-38a6-4f4a-9a07-713ef0b2cf1d",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/designaciones/1/asignaciones/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"designaciones",
-								"1",
-								"asignaciones",
-								"1"
-							]
-						},
-						"description": "Elimina una asignación perteneciente a una designación.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n- asignacionId: identificador de la asignación."
 					},
 					"response": []
 				}
