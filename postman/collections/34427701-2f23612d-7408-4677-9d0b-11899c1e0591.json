@@ -1085,6 +1085,42 @@
 						"description": "Obtiene los cargos de una designación.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nQuery Params:\n\n- estado: opcional. Filtra los cargos por estado.\n    \n- fecha: opcional. Fecha de referencia para determinar el estado de los cargos. Formato YYYY-MM-DD."
 					},
 					"response": []
+				},
+				{
+					"name": "Actualizar designación de curso",
+					"id": "34427701-5fa5b10b-ed4d-463e-a62c-d22c0dabbd16",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cupof\": 12345,\n  \"materiaId\": 1,\n  \"cursoId\": 1,\n  \"orientacion\": \"Informática\",\n  \"franjasHorarias\": [\n    {\n      \"dia\": \"LUNES\",\n      \"horaDesde\": \"08:00\",\n      \"horaHasta\": \"12:00\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/designaciones/1/curso",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"designaciones",
+								"1",
+								"curso"
+							]
+						},
+						"description": "Actualiza una designación de curso.\n\nPath Variables:\n\n- designacionId: identificador de la designación.\n    \n\nBody:\n\n- cupof: obligatorio.\n    \n- materiaId: obligatorio.\n    \n- cursoId: obligatorio.\n    \n- orientacion: obligatorio.\n    \n- franjasHorarias: obligatorio. Debe contener al menos un horario."
+					},
+					"response": []
 				}
 			],
 			"id": "34427701-b30a19ec-aa7c-4428-8a91-ed830fea02da"
