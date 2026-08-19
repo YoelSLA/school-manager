@@ -255,7 +255,8 @@
 								"1",
 								"asignaciones-activas"
 							]
-						}
+						},
+						"description": "Obtiene las asignaciones activas de un empleado educativo.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
 					},
 					"response": []
 				},
@@ -281,7 +282,8 @@
 								"1",
 								"asignaciones"
 							]
-						}
+						},
+						"description": "Obtiene las asignaciones de un empleado educativo junto con su estado.\n\nPath Variables:\n\n- empleadoId: identificador del empleado educativo."
 					},
 					"response": []
 				}
