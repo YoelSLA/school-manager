@@ -123,6 +123,18 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Crear empleados educativos en batch",
+					"id": "34427701-04f05cc7-3857-42ba-bec7-b8523368ff36",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			],
 			"id": "34427701-a0687162-099f-458f-9b6f-8b67f5aa90ba"
