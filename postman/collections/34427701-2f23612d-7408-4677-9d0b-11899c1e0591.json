@@ -238,8 +238,17 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"turno\": \"MANIANA\",\n  \"anio\": 2026,\n  \"grado\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8080/api/escuelas/1/cursos",
 							"protocol": "http",
@@ -259,7 +268,7 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Crear cursos batch",
 					"id": "34427701-a6e4f434-5245-40c6-b480-402804678e3f",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
