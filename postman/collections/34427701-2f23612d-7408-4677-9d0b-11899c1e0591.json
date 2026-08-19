@@ -40,6 +40,60 @@
 					"response": []
 				},
 				{
+					"name": "Crear empleados educativos en batch",
+					"id": "34427701-04f05cc7-3857-42ba-bec7-b8523368ff36",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos/batch",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"empleadosEducativos",
+								"batch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar empleado educativo",
+					"id": "34427701-1d07d9fe-e5f4-4128-8cae-c7f61cb4ca42",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"empleadosEducativos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Listar empleados educativos",
 					"id": "34427701-6313d0fe-cf70-447d-acc7-4ff56eb77cf3",
 					"protocolProfileBehavior": {
@@ -98,16 +152,16 @@
 					"response": []
 				},
 				{
-					"name": "Actualizar empleado educativo",
-					"id": "34427701-1d07d9fe-e5f4-4128-8cae-c7f61cb4ca42",
+					"name": "New Request",
+					"id": "34427701-ff30a4b2-9ed3-4af0-ae3b-07e1df7f1d65",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "PUT",
+						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos/1",
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos?estado=ACTIVOS",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -117,22 +171,15 @@
 								"api",
 								"escuelas",
 								"1",
-								"empleadosEducativos",
-								"1"
+								"empleadosEducativos"
+							],
+							"query": [
+								{
+									"key": "estado",
+									"value": "ACTIVOS"
+								}
 							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "Crear empleados educativos en batch",
-					"id": "34427701-04f05cc7-3857-42ba-bec7-b8523368ff36",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": []
 					},
 					"response": []
 				}
