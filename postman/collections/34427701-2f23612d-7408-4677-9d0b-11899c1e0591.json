@@ -178,7 +178,7 @@
 								"asistencias"
 							]
 						},
-						"description": "Elimina inasistencias manuales registradas para un empleado educativo.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- Datos del empleado y fechas de las inasistencias a eliminar."
+						"description": "Elimina inasistencias manuales registradas para un empleado educativo.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n\nBody:\n\n- empleadoId: obligatorio. Identificador del empleado educativo. Debe ser positivo.\n    \n- fechas: obligatorio. Lista de fechas de las inasistencias a eliminar. No puede estar vacía."
 					},
 					"response": []
 				},
