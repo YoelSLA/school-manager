@@ -96,6 +96,33 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Actualizar empleado educativo",
+					"id": "34427701-1d07d9fe-e5f4-4128-8cae-c7f61cb4ca42",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/escuelas/1/empleadosEducativos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"escuelas",
+								"1",
+								"empleadosEducativos",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"id": "34427701-a0687162-099f-458f-9b6f-8b67f5aa90ba"
