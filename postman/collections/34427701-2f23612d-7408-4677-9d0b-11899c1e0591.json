@@ -1457,7 +1457,7 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -1487,7 +1487,7 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Crear materias batch",
 					"id": "34427701-6dd0c4fa-1330-4375-887b-bc48666c8c43",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
