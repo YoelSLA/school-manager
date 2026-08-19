@@ -183,7 +183,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/escuelas/1/asistencias/empleados/1",
+							"raw": "http://localhost:8080/api/escuelas/1/asistencias/empleados/1?anio=2026&mes=8",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -196,6 +196,20 @@
 								"asistencias",
 								"empleados",
 								"1"
+							],
+							"query": [
+								{
+									"key": "anio",
+									"value": "2026",
+									"description": "Año a consultar",
+									"type": "text"
+								},
+								{
+									"key": "mes",
+									"value": "8",
+									"description": "Mes a consultar, de 1 a 12",
+									"type": "text"
+								}
 							]
 						},
 						"description": "Obtiene el estado de asistencia mensual de un empleado educativo.\n\nPath Variables:\n\n- escuelaId: identificador de la escuela.\n    \n- empleadoId: identificador del empleado educativo.\n    \n\nQuery Params:\n\n- anio: obligatorio. Año a consultar.\n    \n- mes: obligatorio. Mes a consultar, de 1 a 12."
